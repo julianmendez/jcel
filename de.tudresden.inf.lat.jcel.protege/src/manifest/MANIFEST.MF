@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: jcel
+Bundle-SymbolicName: de.tudresden.inf.lat.jcel;singleton:=true
+Bundle-Category: protege
+Bundle-Description: jcel plugin for Protege.
+Bundle-Vendor: Chair for Automata Theory - TU Dresden
+Bundle-DocURL: http://lat.inf.tu-dresden.de
+Bundle-ClassPath: .,
+ lib/de.tudresden.inf.lat.jcel.core/jars/de.tudresden.inf.lat.jcel.core-0.8.0.jar,
+ lib/de.tudresden.inf.lat.jcel.owlapi/jars/de.tudresden.inf.lat.jcel.owlapi-0.8.0.jar,
+ lib/de.tudresden.inf.lat.jcel.adapter/jars/de.tudresden.inf.lat.jcel.adapter-0.8.0.jar,
+ lib/org.semanticweb.owlapi/jars/owlapi-bin-3.0.0.jar
+Import-Package: org.apache.log4j,
+ org.osgi.framework
+Bundle-Version: 0.8.0
+Bundle-Activator: org.protege.editor.core.plugin.DefaultPluginActivator
+Require-Bundle: org.eclipse.equinox.registry,
+ org.eclipse.equinox.common,
+ org.protege.editor.core.application,
+ org.protege.editor.owl,
+ org.semanticweb.owl.owlapi
