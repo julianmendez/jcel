@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="jcel-jars" default="dist" basedir=".">
+<project name="jars" default="dist" basedir=".">
 
 	<!--
  *
@@ -28,20 +28,27 @@
 	For more information about this file, see http://ant.apache.org 
 	-->
 
+	<property name="groupId" value="jcel" />
+	<property name="artifactId" value="jars" />
+
+	<!-- Imports version properties. -->
+	<property file="version.properties" />
+
 	<property name="_root.path" value=".." />
 	<property name="_lib.path" value="lib" />
 	<property name="_distlib.path" value="dist/lib" />
+	<property name="groupId.path" value="jcel" />
 
-	<property name="module.0.name" value="de.tudresden.inf.lat.jcel.core" />
-	<property name="module.1.name" value="de.tudresden.inf.lat.jcel.owlapi" />
-	<property name="module.2.name" value="de.tudresden.inf.lat.jcel.adapter" />
-	<property name="module.3.name" value="de.tudresden.inf.lat.jcel.protege" />
+	<property name="module.0.name" value="core" />
+	<property name="module.1.name" value="owlapi" />
+	<property name="module.2.name" value="adapter" />
+	<property name="module.3.name" value="protege" />
 
 	<!-- Compiles a module and copies its generated jar. -->
 	<target name="getjar">
 		<subant antfile="${_root.path}/${module.name}/build.xml" buildpath="." />
-		<mkdir dir="${_lib.path}/${module.name}/jars" />
-		<copy todir="${_lib.path}/${module.name}/jars">
+		<mkdir dir="${_lib.path}/${groupId.path}/${module.name}/${version}" />
+		<copy todir="${_lib.path}/${groupId.path}/${module.name}/${version}">
 			<fileset dir="${_root.path}/${module.name}/${_distlib.path}" />
 		</copy>
 

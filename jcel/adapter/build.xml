@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="de.tudresden.inf.lat.jcel.adapter" default="dist" basedir=".">
+<project name="adapter" default="dist" basedir=".">
 
 	<!--
  *
@@ -27,6 +27,9 @@
 	<!-- 
 	For more information about this file, see http://ant.apache.org 
 	-->
+
+	<property name="groupId" value="jcel" />
+	<property name="artifactId" value="adapter" />
 
 	<!-- Imports version properties. -->
 	<property file="version.properties" />
@@ -56,8 +59,8 @@
 	<property name="src.path" value="src" />
 
 	<property name="_src.doc.path" value="${src.path}/doc" />
-	<property name="_src.main.path" value="${src.path}/main" />
-	<property name="_src.test.path" value="${src.path}/test" />
+	<property name="_src.main.path" value="${src.path}/main/java" />
+	<property name="_src.test.path" value="${src.path}/test/java" />
 	<property name="_src.appdata.path" value="${src.path}/data" />
 	<property name="_jars.path" value="${basedir}/.." />
 	<property name="_app.path" value="${dist.path}/app" />
@@ -67,7 +70,7 @@
 	<property name="_srclib.path" value="${dist.path}/src" />
 	<property name="_test.bin.path" value="${dist.path}/test" />
 	<property name="_test.report.path" value="${dist.path}/report" />
-	<property name="_zipfile.path" value="${basedir}/../${ant.project.name}-${version}.${build.number}.zip" />
+	<property name="_zipfile.path" value="${basedir}/../${groupId}-${artifactId}-${version}.${build.number}.zip" />
 	<property name="_debuglevel" value="lines,vars,source" />
 
 	<path id="libs.path">
@@ -90,9 +93,9 @@
 	<!-- Creates a jar with the source code. -->
 	<target name="src" depends="clean">
 		<mkdir dir="${_srclib.path}" />
-		<jar destfile="${_srclib.path}/${ant.project.name}-src-${version}.jar" basedir="${basedir}">
+		<jar destfile="${_srclib.path}/${artifactId}-src-${version}.jar" basedir="${basedir}">
 			<manifest>
-				<attribute name="Implementation-Title" value="${ant.project.name}" />
+				<attribute name="Implementation-Title" value="${groupId}-${artifactId}" />
 				<attribute name="Implementation-Version" value="${version}" />
 			</manifest>
 		</jar>
@@ -133,9 +136,9 @@
 	<!-- Creates a jar with the binaries. -->
 	<target name="jar" depends="build">
 		<mkdir dir="${_prjlib.path}" />
-		<jar destfile="${_prjlib.path}/${ant.project.name}-${version}.jar" basedir="${_main.bin.path}">
+		<jar destfile="${_prjlib.path}/${artifactId}-${version}.jar" basedir="${_main.bin.path}">
 			<manifest>
-				<attribute name="Implementation-Title" value="${ant.project.name}" />
+				<attribute name="Implementation-Title" value="${groupId}-${artifactId}" />
 				<attribute name="Implementation-Version" value="${version}" />
 			</manifest>
 		</jar>
