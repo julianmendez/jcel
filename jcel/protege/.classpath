@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/main"/>
-	<classpathentry kind="src" path="src/test"/>
-	<classpathentry kind="src" path="src/conf"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="src" path="src/main/config"/>
 	<classpathentry kind="src" path="src/manifest"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="../jars/lib/de.tudresden.inf.lat.jcel.core/jars/de.tudresden.inf.lat.jcel.core-0.13.0.jar" sourcepath="../core"/>
