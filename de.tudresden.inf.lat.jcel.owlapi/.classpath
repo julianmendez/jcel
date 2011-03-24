@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main"/>
+	<classpathentry kind="src" path="src/test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/jcel-jars/lib/de.tudresden.inf.lat.jcel.core/jars/de.tudresden.inf.lat.jcel.core-0.12.0.jar" sourcepath="/de.tudresden.inf.lat.jcel.core"/>
+	<classpathentry kind="lib" path="/jcel-jars/lib/org.semanticweb.owlapi/jars/owlapi-bin-3.2.2.jar" sourcepath="/jcel-jars/lib/org.semanticweb.owlapi/jars/owlapi-src-3.2.2.jar"/>
+	<classpathentry kind="lib" path="/jcel-jars/lib/junit/jars/junit-4.3.1.jar"/>
+	<classpathentry kind="output" path="dist/bin"/>
+</classpath>

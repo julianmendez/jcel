@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="jcel-jars" default="dist" basedir=".">
+
+	<!--
+ *
+ * Copyright 2009 Julian Mendez
+ *
+ *
+ * This file is part of jcel.
+ *
+ * jcel is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * jcel is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with jcel.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *
+-->
+
+	<!-- 
+	For more information about this file, see http://ant.apache.org 
+	-->
+
+	<property name="_root.path" value=".." />
+	<property name="_lib.path" value="lib" />
+	<property name="_distlib.path" value="dist/lib" />
+
+	<property name="module.0.name" value="de.tudresden.inf.lat.jcel.core" />
+	<property name="module.1.name" value="de.tudresden.inf.lat.jcel.owlapi" />
+	<property name="module.2.name" value="de.tudresden.inf.lat.jcel.adapter" />
+	<property name="module.3.name" value="de.tudresden.inf.lat.jcel.protege" />
+
+	<!-- Compiles a module and copies its generated jar. -->
+	<target name="getjar">
+		<subant antfile="${_root.path}/${module.name}/build.xml" buildpath="." />
+		<mkdir dir="${_lib.path}/${module.name}/jars" />
+		<copy todir="${_lib.path}/${module.name}/jars">
+			<fileset dir="${_root.path}/${module.name}/${_distlib.path}" />
+		</copy>
+
+	</target>
+
+	<!-- Compiles all modules and gets their jars. -->
+	<target name="dist">
+		<antcall target="getjar">
+			<param name="module.name" value="${module.0.name}" />
+		</antcall>
+		<antcall target="getjar">
+			<param name="module.name" value="${module.1.name}" />
+		</antcall>
+		<antcall target="getjar">
+			<param name="module.name" value="${module.2.name}" />
+		</antcall>
+		<antcall target="getjar">
+			<param name="module.name" value="${module.3.name}" />
+		</antcall>
+	</target>
+
+</project>
