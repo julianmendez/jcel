@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <!--
+ *
+ * Copyright 2009 Julian Mendez
+ *
+ *
+ * This file is part of jcel.
+ *
+ * jcel is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * jcel is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with jcel.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *
+-->
+  <head>
+    <meta http-equiv="content-type" content=
+    "application/xhtml+xml; charset=us-ascii" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta name="author" content="Julian Mendez" />
+    <meta name="robots" content="index,follow" />
+    <meta name="language" content="en" />
+    <meta name="description" content="jcel" />
+    <meta name="keywords" content="jcel" />
+    <title>
+      jcel
+    </title>
+  </head>
+  <body>
+    <div>
+      <h2>
+        Overview
+      </h2>
+      <p>
+        This program is a reasoner based on the CEL algorithm. The
+        CEL system is known for its scalability of reasoning in the
+        lightweight description logic EL<sup>++</sup>. This logic
+        has been proved suitable for several ontology applications,
+        most notably from the life science domain. The description
+        logic EL<sup>++</sup> has been adopted as the logical basis
+        of the OWL 2 EL profile of the new Web Ontology Language,
+        integrating the reasoner to the OWL user community.
+      </p>
+      <p>
+        Main steps of the classification algorithm.
+      </p>
+      <ul>
+        <li>translate OWL API symbols into integer numbers
+        </li>
+        <li>run the configuration, which:
+          <ul>
+            <li>normalizes the ontology creating auxiliary entities
+            </li>
+            <li>creates an extended ontonlogy based on the
+            normalized ontology
+            </li>
+            <li>creates the role hierarchy
+            </li>
+            <li>prepares the queue to run the algorithm
+            </li>
+          </ul>
+        </li>
+        <li>while there is any change, process the queue
+        </li>
+        <li>remove auxiliary entities
+        </li>
+        <li>build a graph containing direct subsumers (parents),
+        direct subsumees (children) and equivalents
+        </li>
+        <li>create OWL API data structures based on the integer
+        graph
+        </li>
+      </ul>
+      <h2>
+        Package dependencies
+      </h2>
+      <p>
+        If we think each package as a node, and each dependency
+        between two packages as a directed edge, the structure of
+        package dependency should be a directed acyclic graph
+        (DAG). The packages should only make public those classes
+        that are or could be used by another package preserving the
+        DAG structure.
+      </p>
+      <h2>
+        <a name="references" id="references"></a>References
+      </h2>More information about the referred projects:
+      <ul>
+        <li>
+          <a href="http://jcel.sourceforge.net">jcel</a>
+        </li>
+        <li>
+          <a href=
+          "http://lat.inf.tu-dresden.de/research/phd/Sun-PhD-09.pdf">
+          Theoretical foundation</a>
+        </li>
+        <li>
+          <a href=
+          "http://lat.inf.tu-dresden.de/systems/cel">CEL</a>
+        </li>
+        <li>
+          <a href="http://owlapi.sourceforge.net/">OWL API</a>
+        </li>
+        <li>
+          <a href=
+          "http://www.w3.org/2007/OWL/wiki/OWL_Working_Group">OWL
+          Working Group</a>
+        </li>
+        <li>
+          <a href=
+          "http://protege.stanford.edu/">Prot&eacute;g&eacute;</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
