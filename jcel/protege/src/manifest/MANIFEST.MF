@@ -7,13 +7,13 @@ Bundle-Description: jcel plugin for Protege.
 Bundle-Vendor: Chair of Automata Theory - TU Dresden
 Bundle-DocURL: http://lat.inf.tu-dresden.de
 Bundle-ClassPath: .,
- lib/de.tudresden.inf.lat.jcel.core/jars/de.tudresden.inf.lat.jcel.core-0.13.0.jar,
- lib/de.tudresden.inf.lat.jcel.owlapi/jars/de.tudresden.inf.lat.jcel.owlapi-0.13.0.jar,
- lib/de.tudresden.inf.lat.jcel.adapter/jars/de.tudresden.inf.lat.jcel.adapter-0.13.0.jar,
- lib/org.semanticweb.owlapi/jars/owlapi-bin-3.2.2.jar
+ lib/jcel/core/0.14.0/core-0.14.0.jar,
+ lib/jcel/owlapi/0.14.0/owlapi-0.14.0.jar,
+ lib/jcel/adapter/0.14.0/adapter-0.14.0.jar,
+ lib/owlapi/owlapi/3.2.2/owlapi-3.2.2.jar
 Import-Package: org.apache.log4j,
  org.osgi.framework
-Bundle-Version: 0.13.0
+Bundle-Version: 0.14.0
 Bundle-Activator: org.protege.editor.core.plugin.DefaultPluginActivator
 Require-Bundle: org.eclipse.equinox.registry,
  org.eclipse.equinox.common,
