@@ -3,8 +3,8 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="../jars/lib/org.semanticweb.owlapi/jars/owlapi-bin-3.2.2.jar" sourcepath="../jars/lib/org.semanticweb.owlapi/jars/owlapi-src-3.2.2.jar"/>
-	<classpathentry kind="lib" path="../jars/lib/org.semanticweb.owl/jars/owlapi-bin.jar" sourcepath="../jars/lib/org.semanticweb.owl/jars/owlapi-src.jar"/>
-	<classpathentry kind="lib" path="../jars/lib/junit/jars/junit-4.3.1.jar"/>
+	<classpathentry kind="lib" path="../jars/lib/owlapi/owlapi/3.2.2/owlapi-bin-3.2.2.jar" sourcepath="../jars/lib/owlapi/owlapi/3.2.2/owlapi-src-3.2.2.jar"/>
+	<classpathentry kind="lib" path="../jars/lib/owlapi/owl/2.2.0/owlapi-bin.jar" sourcepath="../jars/lib/owlapi/owl/2.2.0/owlapi-src.jar"/>
+	<classpathentry kind="lib" path="../jars/lib/junit/junit/4.3.1/junit-4.3.1.jar"/>
 	<classpathentry kind="output" path="dist/bin"/>
 </classpath>

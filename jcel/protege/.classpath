@@ -5,13 +5,13 @@
 	<classpathentry kind="src" path="src/main/config"/>
 	<classpathentry kind="src" path="src/manifest"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="../jars/lib/de.tudresden.inf.lat.jcel.core/jars/de.tudresden.inf.lat.jcel.core-0.13.0.jar" sourcepath="../core"/>
-	<classpathentry kind="lib" path="../jars/lib/de.tudresden.inf.lat.jcel.owlapi/jars/de.tudresden.inf.lat.jcel.owlapi-0.13.0.jar" sourcepath="../owlapi"/>
-	<classpathentry kind="lib" path="../jars/lib/de.tudresden.inf.lat.jcel.adapter/jars/de.tudresden.inf.lat.jcel.adapter-0.13.0.jar" sourcepath="../adapter"/>
-	<classpathentry kind="lib" path="../jars/lib/org.semanticweb.owlapi/jars/owlapi-bin-3.2.2.jar" sourcepath="../jars/lib/org.semanticweb.owlapi/jars/owlapi-src-3.2.2.jar"/>
-	<classpathentry kind="lib" path="../jars/lib/org.semanticweb.owl/jars/owlapi-bin.jar" sourcepath="../jars/lib/org.semanticweb.owl/jars/owlapi-src.jar"/>
-	<classpathentry kind="lib" path="../jars/lib/org.protege.editor/jars/org.protege.editor.owl-4.1.jar"/>
-	<classpathentry kind="lib" path="../jars/lib/org.protege.editor/jars/org.protege.editor.core.application-4.1.jar"/>
-	<classpathentry kind="lib" path="../jars/lib/junit/jars/junit-4.3.1.jar"/>
+	<classpathentry kind="lib" path="../jars/lib/jcel/core/0.14.0/de.tudresden.inf.lat.jcel.core-0.14.0.jar" sourcepath="../core"/>
+	<classpathentry kind="lib" path="../jars/lib/jcel/owlapi/0.14.0/de.tudresden.inf.lat.jcel.owlapi-0.14.0.jar" sourcepath="../owlapi"/>
+	<classpathentry kind="lib" path="../jars/lib/jcel/adapter/0.14.0/de.tudresden.inf.lat.jcel.adapter-0.14.0.jar" sourcepath="../adapter"/>
+	<classpathentry kind="lib" path="../jars/lib/owlapi/owlapi/3.2.2/owlapi-bin-3.2.2.jar" sourcepath="../jars/lib/owlapi/owlapi/3.2.2/owlapi-src-3.2.2.jar"/>
+	<classpathentry kind="lib" path="../jars/lib/owlapi/owl/2.2.0/owlapi-bin.jar" sourcepath="../jars/lib/owlapi/owl/2.2.0/owlapi-src.jar"/>
+	<classpathentry kind="lib" path="../jars/lib/org/protege/editor.owl/4.1/org.protege.editor.owl-4.1.jar"/>
+	<classpathentry kind="lib" path="../jars/lib/org/protege/editor.core.application/4.1/org.protege.editor.core.application-4.1.jar"/>
+	<classpathentry kind="lib" path="../jars/lib/junit/junit/4.3.1/junit-4.3.1.jar"/>
 	<classpathentry kind="output" path="dist/bin"/>
 </classpath>
