@@ -47,11 +47,11 @@
 	  * src/test/java : source code of the unit tests
 
 	Generated directories: (target)
-	  * target/bin : compiled classes
+	  * target/classes : compiled classes
 	  * target/javadoc : generated javadoc
 	  * target/lib : generated jar file
 	  * target/report : generated reports of unit tests
-	  * target/test : compiled unit test classes
+	  * target/test-classes : compiled unit test classes
 
 	-->
 
@@ -59,16 +59,16 @@
 	<property name="src.path" value="src" />
 
 	<property name="_src.javadoc.path" value="${src.path}/main/javadoc" />
-	<property name="_src.main.path" value="${src.path}/main/java" />
-	<property name="_src.test.path" value="${src.path}/test/java" />
+	<property name="project.build.sourceDirectory" value="${src.path}/main/java" />
+	<property name="project.build.testSourceDirectory" value="${src.path}/test/java" />
 	<property name="_src.appdata.path" value="${src.path}/data" />
 	<property name="_jars.path" value="${basedir}/.." />
 	<property name="_app.path" value="${project.build.directory}/app" />
 	<property name="_javadoc.path" value="${project.build.directory}/javadoc" />
-	<property name="_main.bin.path" value="${project.build.directory}/bin" />
+	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
 	<property name="_prjlib.path" value="${project.build.directory}/lib" />
 	<property name="_srclib.path" value="${project.build.directory}/src" />
-	<property name="_test.bin.path" value="${project.build.directory}/test" />
+	<property name="project.build.testOutputDirectory" value="${project.build.directory}/test-classes" />
 	<property name="_test.report.path" value="${project.build.directory}/report" />
 	<property name="_zipfile.path" value="${basedir}/../${groupId}-${artifactId}-${version}.${build.number}.zip" />
 	<property name="_debuglevel" value="lines,vars,source" />
@@ -103,10 +103,10 @@
 
 	<!-- Compiles the whole project. -->
 	<target name="build">
-		<mkdir dir="${_main.bin.path}" />
-		<javac srcdir="${_src.main.path}" destdir="${_main.bin.path}" classpathref="libs.path" debug="on" debuglevel="${_debuglevel}" />
-		<mkdir dir="${_test.bin.path}" />
-		<javac srcdir="${_src.test.path}" destdir="${_test.bin.path}" classpath="${_main.bin.path}" classpathref="libs.path" debug="on" debuglevel="${_debuglevel}" />
+		<mkdir dir="${project.build.outputDirectory}" />
+		<javac srcdir="${project.build.sourceDirectory}" destdir="${project.build.outputDirectory}" classpathref="libs.path" debug="on" debuglevel="${_debuglevel}" />
+		<mkdir dir="${project.build.testOutputDirectory}" />
+		<javac srcdir="${project.build.testSourceDirectory}" destdir="${project.build.testOutputDirectory}" classpath="${project.build.outputDirectory}" classpathref="libs.path" debug="on" debuglevel="${_debuglevel}" />
 	</target>
 
 	<!-- Performs the unit tests. -->
@@ -114,13 +114,13 @@
 		<mkdir dir="${_test.report.path}" />
 		<junit printsummary="on" haltonfailure="yes" fork="yes">
 			<classpath>
-				<pathelement path="${_main.bin.path}" />
-				<pathelement path="${_test.bin.path}" />
+				<pathelement path="${project.build.outputDirectory}" />
+				<pathelement path="${project.build.testOutputDirectory}" />
 				<fileset dir="${_jars.path}" includes="${requiredjars}" />
 			</classpath>
 			<formatter type="plain" usefile="on" />
 			<batchtest fork="yes" todir="${_test.report.path}">
-				<fileset dir="${_src.test.path}">
+				<fileset dir="${project.build.testSourceDirectory}">
 					<patternset refid="testclasses.patternset" />
 				</fileset>
 			</batchtest>
@@ -130,13 +130,13 @@
 	<!-- Creates the javadoc. -->
 	<target name="javadoc">
 		<mkdir dir="${_javadoc.path}" />
-		<javadoc packagenames="*" sourcepath="${_src.javadoc.path}:${_src.main.path}" destdir="${_javadoc.path}" version="true" use="true" windowtitle="${ant.project.name}" overview="${_src.javadoc.path}/overview.html" classpathref="libs.path" access="package" />
+		<javadoc packagenames="*" sourcepath="${_src.javadoc.path}:${project.build.sourceDirectory}" destdir="${_javadoc.path}" version="true" use="true" windowtitle="${ant.project.name}" overview="${_src.javadoc.path}/overview.html" classpathref="libs.path" access="package" />
 	</target>
 
 	<!-- Creates a jar with the binaries. -->
 	<target name="jar" depends="build">
 		<mkdir dir="${_prjlib.path}" />
-		<jar destfile="${_prjlib.path}/${artifactId}-${version}.jar" basedir="${_main.bin.path}">
+		<jar destfile="${_prjlib.path}/${artifactId}-${version}.jar" basedir="${project.build.outputDirectory}">
 			<manifest>
 				<attribute name="Implementation-Title" value="${groupId}-${artifactId}" />
 				<attribute name="Implementation-Version" value="${version}" />
