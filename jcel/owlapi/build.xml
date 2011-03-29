@@ -101,7 +101,7 @@
 	</target>
 
 	<!-- Compiles the whole project. -->
-	<target name="build">
+	<target name="compile">
 		<mkdir dir="${project.build.outputDirectory}" />
 		<javac srcdir="${project.build.sourceDirectory}" destdir="${project.build.outputDirectory}" classpathref="libs.directory" debug="on" debuglevel="${_debuglevel}" />
 		<mkdir dir="${project.build.testOutputDirectory}" />
@@ -109,7 +109,7 @@
 	</target>
 
 	<!-- Performs the unit tests. -->
-	<target name="test" depends="build">
+	<target name="test" depends="compile">
 		<mkdir dir="${_test.report.directory}" />
 		<junit printsummary="on" haltonfailure="yes" fork="yes">
 			<classpath>
@@ -133,7 +133,7 @@
 	</target>
 
 	<!-- Creates a jar with the binaries. -->
-	<target name="jar" depends="build">
+	<target name="jar" depends="compile">
 		<mkdir dir="${_prjlib.directory}" />
 		<jar destfile="${_prjlib.directory}/${artifactId}-${version}.jar" basedir="${project.build.outputDirectory}">
 			<manifest>
@@ -149,7 +149,7 @@
 		<zip destfile="${_zipfile.directory}" basedir="${basedir}" />
 	</target>
 
-	<target name="dist" depends="clean, source, build, javadoc, jar">
+	<target name="dist" depends="clean, source, compile, javadoc, jar">
 		<!--buildnumber file="version.properties"/-->
 	</target>
 

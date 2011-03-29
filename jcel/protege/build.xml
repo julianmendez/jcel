@@ -73,7 +73,7 @@
 	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
 	<property name="_prjlib.directory" value="${project.build.directory}" />
 	<property name="_srclib.directory" value="${project.build.directory}" />
-	<property name="_bundle.directory" value="${project.build.directory}/bundle" />
+	<property name="_bundle.directory" value="${project.build.directory}" />
 	<property name="project.build.testOutputDirectory" value="${project.build.directory}/test-classes" />
 	<property name="_test.report.directory" value="${project.build.directory}/report" />
 	<property name="_zipfile.directory" value="${basedir}/../${ant.project.name}-${version}.${build.number}.zip" />
@@ -105,7 +105,7 @@
 	</target>
 
 	<!-- Compiles the whole project. -->
-	<target name="build">
+	<target name="compile">
 		<mkdir dir="${project.build.outputDirectory}" />
 		<javac srcdir="${project.build.sourceDirectory}" destdir="${project.build.outputDirectory}" classpathref="libs.directory" debug="on" debuglevel="${_debuglevel}" />
 		<mkdir dir="${project.build.testOutputDirectory}" />
@@ -120,7 +120,7 @@
 	</target>
 
 	<!-- Performs the unit tests. -->
-	<target name="test" depends="build">
+	<target name="test" depends="compile">
 		<mkdir dir="${_test.report.directory}" />
 		<junit printsummary="on" haltonfailure="yes" fork="yes">
 			<classpath>
@@ -144,7 +144,7 @@
 	</target>
 
 	<!-- Creates a jar with the binaries. -->
-	<target name="jar" depends="build">
+	<target name="jar" depends="compile">
 		<mkdir dir="${_prjlib.directory}" />
 		<jar destfile="${_prjlib.directory}/${artifactId}-${version}.jar" basedir="${project.build.outputDirectory}">
 			<manifest>
@@ -155,7 +155,7 @@
 	</target>
 
 	<!-- Creates the bundle. -->
-	<target name="bundle" depends="build">
+	<target name="bundle" depends="compile">
 		<mkdir dir="${_bundle.directory}" />
 		<jar destfile="${_bundle.directory}/${_bundle.name}.jar" manifest="${_manifest.directory}">
 			<fileset dir="${project.build.outputDirectory}" />
@@ -169,7 +169,7 @@
 		<zip destfile="${_zipfile.directory}" basedir="${basedir}" />
 	</target>
 
-	<target name="dist" depends="clean, source, build, conf, javadoc, jar, bundle">
+	<target name="dist" depends="clean, source, compile, conf, javadoc, jar, bundle">
 		<!--buildnumber file="version.properties"/-->
 	</target>
 
