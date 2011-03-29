@@ -42,9 +42,9 @@
 	  * requiredjars : has a space-separated list of the jars required to compile the project and run the test cases
 
 	Source directories: (src)
-	  * src/doc : text for the javadoc
-	  * src/main : source code of the main part
-	  * src/test : source code of the unit tests
+	  * src/main/javadoc : text for the javadoc
+	  * src/main/java : source code of the main part
+	  * src/test/java : source code of the unit tests
 
 	Generated directories: (dist)
 	  * dist/bin : compiled classes
@@ -58,7 +58,7 @@
 	<property name="dist.path" value="${basedir}/dist" />
 	<property name="src.path" value="src" />
 
-	<property name="_src.doc.path" value="${src.path}/doc" />
+	<property name="_src.javadoc.path" value="${src.path}/main/javadoc" />
 	<property name="_src.main.path" value="${src.path}/main/java" />
 	<property name="_src.test.path" value="${src.path}/test/java" />
 	<property name="_src.appdata.path" value="${src.path}/data" />
@@ -130,7 +130,7 @@
 	<!-- Creates the javadoc. -->
 	<target name="javadoc">
 		<mkdir dir="${_javadoc.path}" />
-		<javadoc packagenames="*" sourcepath="${_src.doc.path}:${_src.main.path}" destdir="${_javadoc.path}" version="true" use="true" windowtitle="${ant.project.name}" overview="${_src.doc.path}/overview.html" classpathref="libs.path" access="package" />
+		<javadoc packagenames="*" sourcepath="${_src.javadoc.path}:${_src.main.path}" destdir="${_javadoc.path}" version="true" use="true" windowtitle="${ant.project.name}" overview="${_src.javadoc.path}/overview.html" classpathref="libs.path" access="package" />
 	</target>
 
 	<!-- Creates a jar with the binaries. -->
