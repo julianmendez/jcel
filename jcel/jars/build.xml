@@ -34,10 +34,10 @@
 	<!-- Imports version properties. -->
 	<property file="version.properties" />
 
-	<property name="_root.path" value=".." />
-	<property name="_lib.path" value="lib" />
-	<property name="_distlib.path" value="dist/lib" />
-	<property name="groupId.path" value="jcel" />
+	<property name="_root.directory" value=".." />
+	<property name="_lib.directory" value="lib" />
+	<property name="_targetlib.directory" value="target" />
+	<property name="groupId.directory" value="jcel" />
 
 	<property name="module.0.name" value="core" />
 	<property name="module.1.name" value="owlapi" />
@@ -46,10 +46,10 @@
 
 	<!-- Compiles a module and copies its generated jar. -->
 	<target name="getjar">
-		<subant antfile="${_root.path}/${module.name}/build.xml" buildpath="." />
-		<mkdir dir="${_lib.path}/${groupId.path}/${module.name}/${version}" />
-		<copy todir="${_lib.path}/${groupId.path}/${module.name}/${version}">
-			<fileset dir="${_root.path}/${module.name}/${_distlib.path}" />
+		<subant antfile="${_root.directory}/${module.name}/build.xml" buildpath="." />
+		<mkdir dir="${_lib.directory}/${groupId.directory}/${module.name}/${version}" />
+		<copy todir="${_lib.directory}/${groupId.directory}/${module.name}/${version}">
+			<fileset dir="${_root.directory}/${module.name}/${_targetlib.directory}" />
 		</copy>
 
 	</target>
