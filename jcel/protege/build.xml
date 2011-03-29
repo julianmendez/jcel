@@ -49,16 +49,16 @@
 	  * src/manifest : the manifest.mf file
 	  * src/test/java : source code of the unit tests
 
-	Generated directories: (dist)
-	  * dist/bin : compiled classes
-	  * dist/javadoc : generated javadoc
-	  * dist/lib : generated jar file
-	  * dist/report : generated reports of unit tests
-	  * dist/test : compiled unit test classes
+	Generated directories: (target)
+	  * target/bin : compiled classes
+	  * target/javadoc : generated javadoc
+	  * target/lib : generated jar file
+	  * target/report : generated reports of unit tests
+	  * target/test : compiled unit test classes
 
 	-->
 
-	<property name="dist.path" value="${basedir}/dist" />
+	<property name="project.build.directory" value="${basedir}/target" />
 	<property name="src.path" value="src" />
 
 	<property name="_src.javadoc.path" value="${src.path}/main/javadoc" />
@@ -69,14 +69,14 @@
 	<property name="_src.appdata.path" value="${src.path}/data" />
 	<property name="_jars.path" value="${basedir}/.." />
 	<property name="_bundlejars.path" value="${basedir}/../jars" />
-	<property name="_app.path" value="${dist.path}/app" />
-	<property name="_javadoc.path" value="${dist.path}/javadoc" />
-	<property name="_main.bin.path" value="${dist.path}/bin" />
-	<property name="_prjlib.path" value="${dist.path}/lib" />
-	<property name="_srclib.path" value="${dist.path}/src" />
-	<property name="_bundle.path" value="${dist.path}/bundle" />
-	<property name="_test.bin.path" value="${dist.path}/test" />
-	<property name="_test.report.path" value="${dist.path}/report" />
+	<property name="_app.path" value="${project.build.directory}/app" />
+	<property name="_javadoc.path" value="${project.build.directory}/javadoc" />
+	<property name="_main.bin.path" value="${project.build.directory}/bin" />
+	<property name="_prjlib.path" value="${project.build.directory}/lib" />
+	<property name="_srclib.path" value="${project.build.directory}/src" />
+	<property name="_bundle.path" value="${project.build.directory}/bundle" />
+	<property name="_test.bin.path" value="${project.build.directory}/test" />
+	<property name="_test.report.path" value="${project.build.directory}/report" />
 	<property name="_zipfile.path" value="${basedir}/../${ant.project.name}-${version}.${build.number}.zip" />
 	<property name="_debuglevel" value="lines,vars,source" />
 	<property name="_bundle.name" value="de.tudresden.inf.lat.jcel" />
@@ -91,7 +91,7 @@
 
 	<!-- Cleans everything. -->
 	<target name="clean">
-		<delete dir="${dist.path}" />
+		<delete dir="${project.build.directory}" />
 	</target>
 
 	<!-- Creates a jar with the source code. -->
