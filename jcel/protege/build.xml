@@ -46,7 +46,7 @@
 	Source directories: (src)
 	  * src/main/javadoc : text for the javadoc
 	  * src/main/java : source code of the main part
-	  * src/manifest : the manifest.mf file
+	  * src/main/manifest : directory of the MANIFEST.MF file for the plug-in
 	  * src/test/java : source code of the unit tests
 
 	Generated directories: (target)
@@ -64,7 +64,7 @@
 	<property name="project.build.sourceDirectory" value="${src.directory}/main/java" />
 	<property name="project.build.testSourceDirectory" value="${src.directory}/test/java" />
 	<property name="_src.conf.directory" value="${src.directory}/main/config" />
-	<property name="_manifest.directory" value="${src.directory}/manifest/MANIFEST.MF" />
+	<property name="_manifest.directory" value="${src.directory}/main/manifest/MANIFEST.MF" />
 	<property name="_src.appdata.directory" value="${src.directory}/data" />
 	<property name="_jars.directory" value="${basedir}/.." />
 	<property name="_bundlejars.directory" value="${basedir}/../jars" />
