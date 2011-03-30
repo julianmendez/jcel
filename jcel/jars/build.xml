@@ -57,6 +57,10 @@
 		<mkdir dir="${_lib.directory}/${groupId.directory}/${module.name}/${version}" />
 		<copy todir="${_lib.directory}/${groupId.directory}/${module.name}/${version}">
 			<fileset dir="${_root.directory}/${module.name}/${_targetlib.directory}" />
+			<fileset dir="${_root.directory}/${module.name}">
+				<include name="copying.txt" />
+				<include name="copying-lesser.txt" />
+			</fileset>
 		</copy>
 	</target>
 
@@ -85,3 +89,4 @@
 	</target>
 
 </project>
+
