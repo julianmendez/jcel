@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+		http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>jcel</groupId>
+	<artifactId>bundle</artifactId>
+	<version>0.14.0</version>
+	<packaging>bundle</packaging>
+
+	<name>jcel Protege plug-in</name>
+
+	<parent>
+		<groupId>jcel</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.14.0</version>
+		<relativePath>../jars</relativePath>
+	</parent>
+
+	<build>
+
+		<finalName>de.tudresden.inf.lat.jcel</finalName>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestFile>src/main/manifest/MANIFEST.MF</manifestFile>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Include-Resource>
+							{maven-resources}, {maven-dependencies},
+							src/main/config/plugin.xml,
+							@target/protege-0.14.0.jar,
+							lib/jcel/core/0.14.0/core-0.14.0.jar=../core/target/core-0.14.0.jar,
+							lib/jcel/owlapi/0.14.0/owlapi-0.14.0.jar=../owlapi/target/owlapi-0.14.0.jar,
+							lib/jcel/adapter/0.14.0/adapter-0.14.0.jar=../adapter/target/adapter-0.14.0.jar,
+							lib/owlapi/owlapi/3.2.2/owlapi-3.2.2.jar=../jars/lib/owlapi/owlapi/3.2.2/owlapi-3.2.2.jar
+						</Include-Resource>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+

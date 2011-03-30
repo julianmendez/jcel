@@ -1,4 +1,3 @@
-Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: jcel
 Bundle-SymbolicName: de.tudresden.inf.lat.jcel;singleton:=true
