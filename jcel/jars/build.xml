@@ -34,15 +34,22 @@
 	<!-- Imports version properties. -->
 	<property file="version.properties" />
 
+	<property name="project.build.directory" value="${basedir}/target" />
 	<property name="_root.directory" value=".." />
-	<property name="_lib.directory" value="lib" />
+	<property name="_lib.directory" value="${project.build.directory}/lib" />
 	<property name="_targetlib.directory" value="target" />
 	<property name="groupId.directory" value="jcel" />
+	<property name="repository.directory" value="lib" />
 
 	<property name="module.0.name" value="core" />
 	<property name="module.1.name" value="owlapi" />
 	<property name="module.2.name" value="adapter" />
 	<property name="module.3.name" value="protege" />
+
+	<!-- Cleans everything. -->
+	<target name="clean">
+		<delete dir="${project.build.directory}" />
+	</target>
 
 	<!-- Compiles a module and copies its generated jar. -->
 	<target name="getjar">
@@ -51,11 +58,18 @@
 		<copy todir="${_lib.directory}/${groupId.directory}/${module.name}/${version}">
 			<fileset dir="${_root.directory}/${module.name}/${_targetlib.directory}" />
 		</copy>
+	</target>
 
+	<!-- Prepares the local repository. -->
+	<target name="prepare">
+		<mkdir dir="${_lib.directory}" />
+		<copy todir="${_lib.directory}">
+			<fileset dir="${repository.directory}" />
+		</copy>
 	</target>
 
 	<!-- Compiles all modules and gets their jars. -->
-	<target name="dist">
+	<target name="dist" depends="clean, prepare">
 		<antcall target="getjar">
 			<param name="module.name" value="${module.0.name}" />
 		</antcall>

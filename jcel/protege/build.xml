@@ -67,7 +67,7 @@
 	<property name="_manifest.directory" value="${src.directory}/main/manifest/MANIFEST.MF" />
 	<property name="_src.appdata.directory" value="${src.directory}/data" />
 	<property name="_jars.directory" value="${basedir}/.." />
-	<property name="_bundlejars.directory" value="${basedir}/../jars" />
+	<property name="_bundlejars.directory" value="${basedir}/../jars/target" />
 	<property name="_app.directory" value="${project.build.directory}/app" />
 	<property name="_javadoc.directory" value="${project.build.directory}/site/apidocs" />
 	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
