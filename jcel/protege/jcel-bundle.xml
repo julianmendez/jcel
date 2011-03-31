@@ -44,7 +44,6 @@
 					<instructions>
 						<Include-Resource>
 							{maven-resources}, {maven-dependencies},
-							src/main/config/plugin.xml,
 							@target/protege-0.14.0.jar,
 							lib/jcel/core/0.14.0/core-0.14.0.jar=../core/target/core-0.14.0.jar,
 							lib/jcel/core/0.14.0/copying.txt=../core/copying.txt,
