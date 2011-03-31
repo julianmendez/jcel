@@ -34,19 +34,16 @@
 	<!-- Imports version properties. -->
 	<property file="version.properties" />
 
-	<!--
- 
+	<!-- 
+
 	The following version properties should be defined at this point : 
-	  * version : has the version number of the form major.minor.patch
+	  * version : has the version number of the form major.minor.patch 
 	  * build.number : has the build number
 	  * requiredjars : has a space-separated list of the jars required to compile the project and run the test cases
-	  * bundlejars : has a space-separated list of the jars included in the bundle
-	  * javadocsrc : javadoc sources of all the subprojects 
 
 	Source directories: (src)
 	  * src/main/javadoc : text for the javadoc
 	  * src/main/java : source code of the main part
-	  * src/main/manifest : directory of the MANIFEST.MF file for the plug-in
 	  * src/test/java : source code of the unit tests
 
 	Generated directories: (target)
@@ -63,26 +60,25 @@
 	<property name="_src.javadoc.directory" value="${src.directory}/main/javadoc" />
 	<property name="project.build.sourceDirectory" value="${src.directory}/main/java" />
 	<property name="project.build.testSourceDirectory" value="${src.directory}/test/java" />
-	<property name="_src.conf.directory" value="${src.directory}/main/config" />
-	<property name="_manifest.directory" value="${src.directory}/main/manifest/MANIFEST.MF" />
 	<property name="_src.appdata.directory" value="${src.directory}/data" />
 	<property name="_jars.directory" value="${basedir}/.." />
-	<property name="_bundlejars.directory" value="${basedir}/../jars/target" />
 	<property name="_app.directory" value="${project.build.directory}/app" />
 	<property name="_javadoc.directory" value="${project.build.directory}/site/apidocs" />
 	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
 	<property name="_prjlib.directory" value="${project.build.directory}" />
 	<property name="_srclib.directory" value="${project.build.directory}" />
-	<property name="_bundle.directory" value="${project.build.directory}" />
 	<property name="project.build.testOutputDirectory" value="${project.build.directory}/test-classes" />
 	<property name="_test.report.directory" value="${project.build.directory}/report" />
-	<property name="_zipfile.directory" value="${basedir}/../${ant.project.name}-${version}.${build.number}.zip" />
+	<property name="_zipfile.directory" value="${basedir}/../${groupId}-${artifactId}-${version}.${build.number}.zip" />
 	<property name="_debuglevel" value="lines,vars,source" />
-	<property name="_bundle.name" value="de.tudresden.inf.lat.jcel" />
 
 	<path id="libs.directory">
 		<fileset dir="${_jars.directory}" includes="${requiredjars}" />
 	</path>
+
+	<patternset id="javadoc.patternset">
+		<include name="${_javadoc.directory}/**" />
+	</patternset>
 
 	<patternset id="testclasses.patternset">
 		<include name="**/*Test.java" />
@@ -112,13 +108,6 @@
 		<javac srcdir="${project.build.testSourceDirectory}" destdir="${project.build.testOutputDirectory}" classpath="${project.build.outputDirectory}" classpathref="libs.directory" debug="on" debuglevel="${_debuglevel}" />
 	</target>
 
-	<!-- Copies the configuration files and the binaries. -->
-	<target name="conf">
-		<copy todir="${project.build.outputDirectory}">
-			<fileset dir="${_src.conf.directory}" />
-		</copy>
-	</target>
-
 	<!-- Performs the unit tests. -->
 	<target name="test" depends="compile">
 		<mkdir dir="${_test.report.directory}" />
@@ -140,7 +129,7 @@
 	<!-- Creates the javadoc. -->
 	<target name="javadoc">
 		<mkdir dir="${_javadoc.directory}" />
-		<javadoc packagenames="*" sourcepath="${javadocsrc}" destdir="${_javadoc.directory}" version="true" use="true" windowtitle="${ant.project.name}" overview="${_src.javadoc.directory}/overview.html" classpathref="libs.directory" access="package" />
+		<javadoc packagenames="*" sourcepath="${_src.javadoc.directory}:${project.build.sourceDirectory}" destdir="${_javadoc.directory}" version="true" use="true" windowtitle="${ant.project.name}" overview="${_src.javadoc.directory}/overview.html" classpathref="libs.directory" access="package" />
 	</target>
 
 	<!-- Creates a jar with the binaries. -->
@@ -154,22 +143,13 @@
 		</jar>
 	</target>
 
-	<!-- Creates the bundle. -->
-	<target name="bundle" depends="compile">
-		<mkdir dir="${_bundle.directory}" />
-		<jar destfile="${_bundle.directory}/${_bundle.name}.jar" manifest="${_manifest.directory}">
-			<fileset dir="${project.build.outputDirectory}" />
-			<fileset dir="${_bundlejars.directory}" includes="${bundlejars}" />
-		</jar>
-	</target>
-
 	<!-- Creates a compressed file containing the whole project. -->
 	<target name="zip">
 		<delete file="${_zipfile.directory}" />
 		<zip destfile="${_zipfile.directory}" basedir="${basedir}" />
 	</target>
 
-	<target name="dist" depends="clean, source, compile, conf, javadoc, jar, bundle">
+	<target name="dist" depends="clean, source, compile, javadoc, jar">
 		<!--buildnumber file="version.properties"/-->
 	</target>
 
