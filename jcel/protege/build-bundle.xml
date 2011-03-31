@@ -44,6 +44,7 @@
 	<property name="repository.directory" value="../jars/lib" />
 	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
 	<property name="_jars.directory" value="${basedir}/.." />
+	<property name="_resources.directory" value="${src.directory}/main/resources" />
 	<property name="_bundle.directory" value="${project.build.directory}" />
 	<property name="_bundlejars.directory" value="${project.build.directory}" />
 	<property name="_bundle.name" value="de.tudresden.inf.lat.jcel" />
@@ -57,7 +58,7 @@
 	<property name="module.3.name" value="protege" />
 
 	<path id="libs.directory">
-		<fileset dir="${_jars.directory}" includes="${requiredjars}" />
+		<fileset dir="${_jars.directory}" includes="${dependencies}" />
 	</path>
 
 	<!-- Cleans everything. -->
@@ -126,6 +127,7 @@
 	<target name="bundle">
 		<mkdir dir="${_bundle.directory}" />
 		<jar destfile="${_bundle.directory}/${_bundle.name}.jar" manifest="${_manifest.directory}">
+			<fileset dir="${_resources.directory}" />
 			<fileset dir="${project.build.outputDirectory}" />
 			<fileset dir="${_bundlejars.directory}" includes="${bundlejars}" />
 		</jar>

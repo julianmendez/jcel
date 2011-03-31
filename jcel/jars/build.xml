@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="core" default="dist" basedir=".">
+<project name="parent" default="dist" basedir=".">
 
 	<!--
  *
@@ -29,7 +29,7 @@
 	-->
 
 	<property name="groupId" value="jcel" />
-	<property name="artifactId" value="core" />
+	<property name="artifactId" value="parent" />
 
 	<!-- Imports version properties. -->
 	<property file="version.properties" />
@@ -39,7 +39,7 @@
 	The following version properties should be defined at this point : 
 	  * version : has the version number of the form major.minor.patch 
 	  * build.number : has the build number
-	  * requiredjars : has a space-separated list of the jars required to compile the project and run the test cases
+	  * dependencies : has a space-separated list of the jars required to compile the project and run the test cases
 
 	Source directories: (src)
 	  * src/main/javadoc : text for the javadoc
@@ -73,7 +73,7 @@
 	<property name="_debuglevel" value="lines,vars,source" />
 
 	<path id="libs.directory">
-		<fileset dir="${_jars.directory}" includes="${requiredjars}" />
+		<fileset dir="${_jars.directory}" includes="${dependencies}" />
 	</path>
 
 	<patternset id="javadoc.patternset">
@@ -115,7 +115,7 @@
 			<classpath>
 				<pathelement path="${project.build.outputDirectory}" />
 				<pathelement path="${project.build.testOutputDirectory}" />
-				<fileset dir="${_jars.directory}" includes="${requiredjars}" />
+				<fileset dir="${_jars.directory}" includes="${dependencies}" />
 			</classpath>
 			<formatter type="plain" usefile="on" />
 			<batchtest fork="yes" todir="${_test.report.directory}">
@@ -129,7 +129,7 @@
 	<!-- Creates the javadoc. -->
 	<target name="javadoc">
 		<mkdir dir="${_javadoc.directory}" />
-		<javadoc packagenames="*" sourcepath="${_src.javadoc.directory}:${project.build.sourceDirectory}" destdir="${_javadoc.directory}" version="true" use="true" windowtitle="${ant.project.name}" overview="${_src.javadoc.directory}/overview.html" classpathref="libs.directory" access="package" />
+		<javadoc packagenames="*" sourcepath="${_src.javadoc.directory}:${project.build.sourceDirectory}" destdir="${_javadoc.directory}" version="true" use="true" windowtitle="${groupId}-${artifactId}" overview="${_src.javadoc.directory}/overview.html" classpathref="libs.directory" access="package" />
 	</target>
 
 	<!-- Creates a jar with the binaries. -->

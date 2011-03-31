@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="owlapi" default="dist" basedir=".">
+<project name="core" default="dist" basedir=".">
 
 	<!--
  *
@@ -29,7 +29,7 @@
 	-->
 
 	<property name="groupId" value="jcel" />
-	<property name="artifactId" value="owlapi" />
+	<property name="artifactId" value="core" />
 
 	<!-- Imports version properties. -->
 	<property file="version.properties" />
