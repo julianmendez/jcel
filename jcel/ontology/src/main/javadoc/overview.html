@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <!--
+ *
+ * Copyright 2009 Julian Mendez
+ *
+ *
+ * This file is part of jcel.
+ *
+ * jcel is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * jcel is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with jcel.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *
+-->
+  <head>
+    <meta http-equiv="content-type" content=
+    "application/xhtml+xml; charset=us-ascii" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta name="author" content="Julian Mendez" />
+    <meta name="robots" content="index,follow" />
+    <meta name="language" content="en" />
+    <meta name="description" content="jcel" />
+    <meta name="keywords" content="jcel" />
+    <title>
+      jcel
+    </title>
+  </head>
+  <body>
+    <div>
+      <h2>
+        Overview
+      </h2>
+      <p>
+        This is a subproject of <b>jcel</b> and contains the ontology.
+        This means that this subproject contains all axioms and
+        normalized axioms, and normalization rules as well.
+      <h2>
+        Package dependencies
+      </h2>
+      <p>
+        If we consider each package as a node, and each dependency
+        between two packages as a directed edge, the structure of
+        package dependency should be a directed acyclic graph
+        (DAG). The packages should only make public those classes
+        that are or could be used by another package preserving the
+        DAG structure.
+      </p>
+      <h2>
+        Preconditions and postconditions
+      </h2>
+      <p>
+        As a general rule, all the public methods reject any
+        <tt>null</tt> argument. The only exception to this rule is
+        the method <tt>public boolean equals(Object o)</tt> which
+        can accept a <tt>null</tt> argument.<br />
+        When a <tt>null</tt> argument is passed to a public method,
+        it throws an <tt>IllegalArgumentException</tt> with the
+        content "Null argument.".<br />
+        The public methods never return a <tt>null</tt> value,
+        except when it is specifically said in the javadoc.
+      </p>
+    </div>
+  </body>
+</html>
