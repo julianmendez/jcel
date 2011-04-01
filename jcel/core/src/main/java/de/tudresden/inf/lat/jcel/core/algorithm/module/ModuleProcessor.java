@@ -31,10 +31,10 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
-import de.tudresden.inf.lat.jcel.core.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.core.datatype.IntegerDatatype;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
 
 /**
  * An object of this class classifies an ontology. It divides a set of axioms in

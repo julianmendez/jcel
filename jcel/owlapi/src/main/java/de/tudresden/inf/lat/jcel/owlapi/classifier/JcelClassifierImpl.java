@@ -48,8 +48,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
 import de.tudresden.inf.lat.jcel.core.algorithm.rulebased.RuleBasedProcessor;
-import de.tudresden.inf.lat.jcel.core.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.owlapi.translator.AxiomSetTranslator;
 import de.tudresden.inf.lat.jcel.owlapi.translator.TranslationRepository;
 

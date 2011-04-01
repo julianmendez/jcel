@@ -31,16 +31,16 @@ import java.util.TreeSet;
 import java.util.logging.Logger;
 
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
-import de.tudresden.inf.lat.jcel.core.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.core.axiom.complex.IntegerEquivalentClassesAxiom;
-import de.tudresden.inf.lat.jcel.core.axiom.complex.IntegerEquivalentObjectPropertiesAxiom;
-import de.tudresden.inf.lat.jcel.core.axiom.complex.IntegerSubClassOfAxiom;
-import de.tudresden.inf.lat.jcel.core.axiom.complex.IntegerSubObjectPropertyOfAxiom;
-import de.tudresden.inf.lat.jcel.core.datatype.IntegerClass;
-import de.tudresden.inf.lat.jcel.core.datatype.IntegerClassExpression;
-import de.tudresden.inf.lat.jcel.core.datatype.IntegerDatatype;
-import de.tudresden.inf.lat.jcel.core.datatype.IntegerObjectProperty;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerEquivalentClassesAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerEquivalentObjectPropertiesAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubObjectPropertyOfAxiom;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 
 /**
  * An object of this class classifies an ontology. It divides a set of axioms in

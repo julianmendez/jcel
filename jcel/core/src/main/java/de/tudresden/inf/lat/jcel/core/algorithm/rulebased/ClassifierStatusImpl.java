@@ -28,19 +28,19 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.core.axiom.normalized.ExtendedOntology;
-import de.tudresden.inf.lat.jcel.core.axiom.normalized.ExtendedOntologyImpl;
-import de.tudresden.inf.lat.jcel.core.axiom.normalized.RI2Axiom;
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.REntry;
 import de.tudresden.inf.lat.jcel.core.completion.common.SEntry;
-import de.tudresden.inf.lat.jcel.core.datatype.IdGenerator;
-import de.tudresden.inf.lat.jcel.core.datatype.IntegerDatatype;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerRelationMapImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerBidirectionalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.VNode;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntology;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntologyImpl;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IdGenerator;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
 
 /**
  * An object of this class keeps the status of the classifier.

@@ -26,10 +26,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.core.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.core.axiom.extension.ExpressivityDetector;
-import de.tudresden.inf.lat.jcel.core.axiom.normalized.ExtendedOntology;
-import de.tudresden.inf.lat.jcel.core.axiom.normalized.ExtendedOntologyImpl;
 import de.tudresden.inf.lat.jcel.core.completion.basic.CR1Rule;
 import de.tudresden.inf.lat.jcel.core.completion.basic.CR2Rule;
 import de.tudresden.inf.lat.jcel.core.completion.basic.CR3Rule;
@@ -50,10 +46,14 @@ import de.tudresden.inf.lat.jcel.core.completion.ext.CR7ExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR8RExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR8SExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR9ExtOptRule;
-import de.tudresden.inf.lat.jcel.core.datatype.IdGenerator;
-import de.tudresden.inf.lat.jcel.core.datatype.IntegerDatatype;
-import de.tudresden.inf.lat.jcel.core.normalization.OntologyNormalizer;
 import de.tudresden.inf.lat.jcel.core.saturation.SubPropertyNormalizer;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.ExpressivityDetector;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntology;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntologyImpl;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IdGenerator;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
+import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
 
 /**
  * An object of this class preprocesses an ontology. This preprocessing includes

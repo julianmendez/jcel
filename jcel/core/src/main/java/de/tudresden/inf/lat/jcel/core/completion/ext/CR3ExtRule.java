@@ -26,7 +26,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import de.tudresden.inf.lat.jcel.core.axiom.normalized.GCI2Axiom;
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.REntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.SEntry;
@@ -34,6 +33,7 @@ import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI2Axiom;
 
 /**
  * <p>

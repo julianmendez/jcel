@@ -25,8 +25,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.core.axiom.normalized.NormalizedIntegerAxiom;
-import de.tudresden.inf.lat.jcel.core.axiom.normalized.RI2Axiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
 
 /**
  * For each object property r, this rule adds r &#8849; r.

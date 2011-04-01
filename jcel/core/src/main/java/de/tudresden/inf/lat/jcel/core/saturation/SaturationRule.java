@@ -23,7 +23,7 @@ package de.tudresden.inf.lat.jcel.core.saturation;
 
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.core.axiom.normalized.NormalizedIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
 
 /**
  * This interface is implemented by saturation rules. A saturation rule

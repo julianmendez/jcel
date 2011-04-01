@@ -32,17 +32,17 @@ import java.util.TreeSet;
 import java.util.logging.Logger;
 
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
-import de.tudresden.inf.lat.jcel.core.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.core.completion.common.REntry;
 import de.tudresden.inf.lat.jcel.core.completion.common.SEntry;
 import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
-import de.tudresden.inf.lat.jcel.core.datatype.IdGenerator;
-import de.tudresden.inf.lat.jcel.core.datatype.IntegerDatatype;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerBinaryRelation;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraph;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IdGenerator;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
 
 /**
  * An object of this class is an implementation of a classification algorithm.

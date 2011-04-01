@@ -24,7 +24,7 @@ package de.tudresden.inf.lat.jcel.core.algorithm.module;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
-import de.tudresden.inf.lat.jcel.core.axiom.complex.ComplexIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 
 /**
  * This interface provides a method to create a processor.

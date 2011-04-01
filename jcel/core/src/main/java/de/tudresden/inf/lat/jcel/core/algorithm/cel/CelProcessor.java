@@ -33,20 +33,20 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
-import de.tudresden.inf.lat.jcel.core.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.core.axiom.normalized.NormalizedIntegerAxiom;
-import de.tudresden.inf.lat.jcel.core.axiom.normalized.RI2Axiom;
-import de.tudresden.inf.lat.jcel.core.axiom.normalized.RI3Axiom;
-import de.tudresden.inf.lat.jcel.core.datatype.IdGenerator;
-import de.tudresden.inf.lat.jcel.core.datatype.IntegerAxiom;
-import de.tudresden.inf.lat.jcel.core.datatype.IntegerDatatype;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerBinaryRelation;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerRelationMapImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
-import de.tudresden.inf.lat.jcel.core.normalization.OntologyNormalizer;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IdGenerator;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
+import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
 
 /**
  * Classifies an ontology using the CEL algorithm. The rules are:

@@ -24,8 +24,8 @@ package de.tudresden.inf.lat.jcel.core.saturation;
 import java.util.Collections;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.core.axiom.normalized.NormalizedIntegerAxiom;
-import de.tudresden.inf.lat.jcel.core.datatype.IdGenerator;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IdGenerator;
 
 /**
  * This class models a normalizer that saturates an ontology with object
