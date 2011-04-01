@@ -52,9 +52,10 @@
 	<property name="_javadoc.directory" value="${project.build.directory}/site/javadoc" />
 	<property name="_src.javadoc.directory" value="${src.directory}/main/javadoc" />
 
-	<property name="module.0.name" value="core" />
-	<property name="module.1.name" value="owlapi" />
-	<property name="module.2.name" value="protege" />
+	<property name="module.0.name" value="ontology" />
+	<property name="module.1.name" value="core" />
+	<property name="module.2.name" value="owlapi" />
+	<property name="module.3.name" value="protege" />
 
 	<path id="libs.directory">
 		<fileset dir="${_jars.directory}" includes="${dependencies}" />
@@ -101,6 +102,9 @@
 		<antcall target="compilemodule">
 			<param name="module.name" value="${module.2.name}" />
 		</antcall>
+		<antcall target="compilemodule">
+			<param name="module.name" value="${module.3.name}" />
+		</antcall>
 	</target>
 
 	<!-- Compiles all modules and gets their jars. -->
@@ -113,6 +117,9 @@
 		</antcall>
 		<antcall target="getjar">
 			<param name="module.name" value="${module.2.name}" />
+		</antcall>
+		<antcall target="getjar">
+			<param name="module.name" value="${module.3.name}" />
 		</antcall>
 	</target>
 

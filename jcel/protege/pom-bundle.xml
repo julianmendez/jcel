@@ -68,6 +68,9 @@
 						<Include-Resource>
 							{maven-resources}, {maven-dependencies},
 							@target/protege-0.15.0.jar,
+							lib/jcel/ontology/0.15.0/ontology-0.15.0.jar=../ontology/target/ontology-0.15.0.jar,
+							lib/jcel/ontology/0.15.0/copying.txt=../ontology/copying.txt,
+							lib/jcel/ontology/0.15.0/copying-lesser.txt=../ontology/copying-lesser.txt,
 							lib/jcel/core/0.15.0/core-0.15.0.jar=../core/target/core-0.15.0.jar,
 							lib/jcel/core/0.15.0/copying.txt=../core/copying.txt,
 							lib/jcel/core/0.15.0/copying-lesser.txt=../core/copying-lesser.txt,

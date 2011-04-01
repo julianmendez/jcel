@@ -37,6 +37,7 @@
 	<name>jcel</name>
 
 	<modules>
+		<module>../ontology</module>
 		<module>../core</module>
 		<module>../owlapi</module>
 		<module>../protege</module>
