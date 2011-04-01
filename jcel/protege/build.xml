@@ -40,6 +40,7 @@
 	  * version : has the version number of the form major.minor.patch 
 	  * build.number : has the build number
 	  * dependencies : has a space-separated list of the jars required to compile the project and run the test cases
+	  * javadocsrc : has a colon-separated list of source directories for the javadoc
 
 	-->
 

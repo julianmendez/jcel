@@ -43,4 +43,14 @@
 		<relativePath>../jars</relativePath>
 	</parent>
 
+	<dependencies>
+
+		<dependency>
+			<groupId>jcel</groupId>
+			<artifactId>ontology</artifactId>
+			<version>0.15.0</version>
+		</dependency>
+
+	</dependencies>
+
 </project>

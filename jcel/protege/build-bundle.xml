@@ -133,13 +133,7 @@
 		</jar>
 	</target>
 
-	<!-- Creates the javadoc. -->
-	<target name="javadoc">
-		<mkdir dir="${_javadoc.directory}" />
-		<javadoc packagenames="*" sourcepath="${javadocsrc}" destdir="${_javadoc.directory}" version="true" use="true" windowtitle="${ant.project.name}" overview="${_src.javadoc.directory}/overview.html" classpathref="libs.directory" access="package" />
-	</target>
-
-	<target name="dist" depends="clean, compilemodules, getjars, getrepository, bundle, javadoc">
+	<target name="dist" depends="clean, compilemodules, getjars, getrepository, bundle">
 		<!--buildnumber file="version.properties"/-->
 	</target>
 
