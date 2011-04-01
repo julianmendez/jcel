@@ -31,7 +31,7 @@
 
 	<groupId>jcel</groupId>
 	<artifactId>protege</artifactId>
-	<version>0.14.0</version>
+	<version>0.15.0</version>
 	<packaging>jar</packaging>
 
 	<name>jcel Protege plug-in</name>
@@ -39,7 +39,7 @@
 	<parent>
 		<groupId>jcel</groupId>
 		<artifactId>parent</artifactId>
-		<version>0.14.0</version>
+		<version>0.15.0</version>
 		<relativePath>../jars</relativePath>
 	</parent>
 
@@ -48,19 +48,13 @@
 		<dependency>
 			<groupId>jcel</groupId>
 			<artifactId>core</artifactId>
-			<version>0.14.0</version>
+			<version>0.15.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>jcel</groupId>
 			<artifactId>owlapi</artifactId>
-			<version>0.14.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>jcel</groupId>
-			<artifactId>adapter</artifactId>
-			<version>0.14.0</version>
+			<version>0.15.0</version>
 		</dependency>
 
 		<dependency>

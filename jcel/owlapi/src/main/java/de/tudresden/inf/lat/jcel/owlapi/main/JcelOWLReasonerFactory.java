@@ -19,7 +19,7 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.protege.main;
+package de.tudresden.inf.lat.jcel.owlapi.main;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.reasoner.IllegalConfigurationException;
@@ -27,7 +27,6 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
-import de.tudresden.inf.lat.jcel.owlapi.main.JcelReasoner;
 
 /**
  * This factory creates an instance of a jcel reasoner based on an ontology and

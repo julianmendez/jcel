@@ -25,6 +25,7 @@ import org.protege.editor.owl.model.inference.AbstractProtegeOWLReasonerInfo;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
+import de.tudresden.inf.lat.jcel.owlapi.main.JcelOWLReasonerFactory;
 import de.tudresden.inf.lat.jcel.owlapi.main.JcelReasoner;
 
 /**
@@ -35,9 +36,6 @@ import de.tudresden.inf.lat.jcel.owlapi.main.JcelReasoner;
  * @see JcelReasoner
  */
 public class JcelProtegeReasonerFactory extends AbstractProtegeOWLReasonerInfo {
-
-	// private static final Logger logger = Logger
-	// .getLogger("de.tudresden.inf.lat.jcel");
 
 	@Override
 	public void dispose() throws Exception {
@@ -56,4 +54,5 @@ public class JcelProtegeReasonerFactory extends AbstractProtegeOWLReasonerInfo {
 	public BufferingMode getRecommendedBuffering() {
 		return BufferingMode.NON_BUFFERING;
 	}
+
 }

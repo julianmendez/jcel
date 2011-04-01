@@ -32,13 +32,12 @@
 	<groupId>jcel</groupId>
 	<artifactId>modules</artifactId>
 	<packaging>pom</packaging>
-	<version>0.14.0</version>
+	<version>0.15.0</version>
 
 	<name>jcel</name>
 
 	<modules>
 		<module>../core</module>
-		<module>../adapter</module>
 		<module>../owlapi</module>
 		<module>../protege</module>
 	</modules>
