@@ -210,21 +210,6 @@ public class OntologyPreprocessor {
 		return this.idGenerator;
 	}
 
-	private Integer getMaximum(Set<Integer> set) {
-		if (set.isEmpty()) {
-			throw new IllegalArgumentException(
-					"Computing maximum of empty set.");
-		}
-
-		Integer ret = set.iterator().next();
-		for (Integer elem : set) {
-			if (elem > ret) {
-				ret = elem;
-			}
-		}
-		return ret;
-	}
-
 	/**
 	 * Returns the set of classes that were before the normalization.
 	 * 
@@ -264,9 +249,8 @@ public class OntologyPreprocessor {
 	private void preProcess(Set<ComplexIntegerAxiom> axiomSet) {
 		findEntities(axiomSet);
 
-		this.idGenerator = new IdGeneratorImpl(
-				getMaximum(this.originalClassSet) + 1,
-				getMaximum(this.originalObjectPropertySet) + 1);
+		this.idGenerator = new IdGeneratorImpl(this.originalClassSet,
+				this.originalObjectPropertySet);
 
 		this.expressivityDetector = new ExpressivityDetector(axiomSet);
 

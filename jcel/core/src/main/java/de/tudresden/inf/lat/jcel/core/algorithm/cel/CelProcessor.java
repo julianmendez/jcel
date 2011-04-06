@@ -299,21 +299,6 @@ public class CelProcessor implements Processor {
 		return this.idGenerator;
 	}
 
-	private Integer getMaximum(Set<Integer> set) {
-		if (set.isEmpty()) {
-			throw new IllegalArgumentException(
-					"Computing maximum of empty set.");
-		}
-
-		Integer ret = set.iterator().next();
-		for (Integer elem : set) {
-			if (elem > ret) {
-				ret = elem;
-			}
-		}
-		return ret;
-	}
-
 	private IntegerSubsumerGraph getObjectPropertyGraph() {
 		return this.objectPropertyGraph;
 	}
@@ -492,9 +477,8 @@ public class CelProcessor implements Processor {
 		originalObjectPropertySet.add(propertyBottomElement);
 		originalObjectPropertySet.add(propertyTopElement);
 
-		this.idGenerator = new IdGeneratorImpl(
-				getMaximum(originalClassSet) + 1,
-				getMaximum(originalObjectPropertySet) + 1);
+		this.idGenerator = new IdGeneratorImpl(originalClassSet,
+				originalObjectPropertySet);
 
 		logger.finer("normalizing ontology ...");
 		OntologyNormalizer normalizer = new OntologyNormalizer();

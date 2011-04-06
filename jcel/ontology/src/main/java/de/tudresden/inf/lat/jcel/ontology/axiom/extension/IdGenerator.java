@@ -24,8 +24,8 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.extension;
 import java.util.Set;
 
 /**
- * An object of this class generates new identification numbers for object
- * properties and classes.
+ * An object implementing this interface generates new identification numbers
+ * for object properties and classes.
  * 
  * @author Julian Mendez
  */
