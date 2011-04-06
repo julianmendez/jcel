@@ -48,7 +48,7 @@ import de.tudresden.inf.lat.jcel.core.completion.ext.CR8SExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR9ExtOptRule;
 import de.tudresden.inf.lat.jcel.core.saturation.SubPropertyNormalizer;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.ExpressivityDetector;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.ComplexAxiomExpressivityDetector;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGeneratorImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.OntologyExpressivity;
@@ -252,7 +252,7 @@ public class OntologyPreprocessor {
 		this.idGenerator = new IdGeneratorImpl(this.originalClassSet,
 				this.originalObjectPropertySet);
 
-		this.expressivityDetector = new ExpressivityDetector(axiomSet);
+		this.expressivityDetector = new ComplexAxiomExpressivityDetector(axiomSet);
 
 		if (this.expressivityDetector.hasInverseObjectProperty()
 				|| this.expressivityDetector.hasFunctionalObjectProperty()) {

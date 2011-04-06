@@ -21,49 +21,30 @@
 
 package de.tudresden.inf.lat.jcel.ontology.axiom.extension;
 
-import java.util.Set;
-
-import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
-
 /**
- * An object implementing this class can detect the expressivity of a given set
- * of complex axioms.
+ * An object of this class can name the expressivity used in an ontology.
  * 
  * @author Julian Mendez
  */
-public class ExpressivityDetector implements OntologyExpressivity {
-
-	private ComplexIntegerAxiomAnalyzer axiomAnalyzer = null;
+public class ExpressivityName {
 
 	/**
-	 * Constructs a new expressivity detector.
-	 * 
-	 * @param axiomSet
-	 *            set of axioms to detect the expressivity
+	 * Constructs a new object that can give the description logic name for a
+	 * given expressivity.
 	 */
-	public ExpressivityDetector(Set<ComplexIntegerAxiom> axiomSet) {
-		if (axiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		this.axiomAnalyzer = new ComplexIntegerAxiomAnalyzer();
-		for (ComplexIntegerAxiom axiom : axiomSet) {
-			axiom.accept(this.axiomAnalyzer);
-		}
-	}
-
-	private ComplexIntegerAxiomAnalyzer getAnalyzer() {
-		return this.axiomAnalyzer;
+	public ExpressivityName() {
 	}
 
 	/**
-	 * Returns the description logic name for the detected axioms.
+	 * Returns the description logic name for a specified expressivity.
 	 * 
-	 * @return the description logic name for the detected axioms
+	 * @param expr
+	 *            ontology expressivity to get the name
+	 * @return the description logic name for a specified expressivity
 	 */
-	public String getName() {
+	public String getName(OntologyExpressivity expr) {
 		StringBuffer sbuf = new StringBuffer();
-		if (isS()) {
+		if (isAL() && isC() && expr.hasTransitiveObjectProperty()) {
 			sbuf.append("S");
 		} else {
 			if (isAL()) {
@@ -82,13 +63,13 @@ public class ExpressivityDetector implements OntologyExpressivity {
 				}
 			}
 		}
-		if (hasSubObjectPropertyOf()) {
+		if (expr.hasSubObjectPropertyOf()) {
 			sbuf.append("H");
 		}
-		if (hasNominal()) {
+		if (expr.hasNominal()) {
 			sbuf.append("O");
 		}
-		if (hasInverseObjectProperty()) {
+		if (expr.hasInverseObjectProperty()) {
 			sbuf.append("I");
 		}
 		if (isQ()) {
@@ -96,78 +77,26 @@ public class ExpressivityDetector implements OntologyExpressivity {
 		} else if (isN()) {
 			sbuf.append("N");
 		}
-		if (hasFunctionalObjectProperty()) {
+		if (expr.hasFunctionalObjectProperty()) {
 			sbuf.append("F");
 		}
-		if (hasSubPropertyChainOf()) {
+		if (expr.hasSubPropertyChainOf()) {
 			sbuf.append("R");
 		}
-		if (hasDatatype()) {
+		if (expr.hasDatatype()) {
 			sbuf.append("(D)");
 		}
-
-		if (hasTransitiveObjectProperty()) {
+		if (expr.hasTransitiveObjectProperty()) {
 			sbuf.append(" [transitive]");
 		}
-		if (hasBottom()) {
+		if (expr.hasBottom()) {
 			sbuf.append(" [bottom]");
 		}
-		if (hasIndividual()) {
+		if (expr.hasIndividual()) {
 			sbuf.append(" [individual]");
 		}
 		return sbuf.toString();
 
-	}
-
-	@Override
-	public boolean hasBottom() {
-		return getAnalyzer().hasBottom();
-	}
-
-	@Override
-	public boolean hasDatatype() {
-		return getAnalyzer().hasDatatype();
-	}
-
-	@Override
-	public boolean hasFunctionalObjectProperty() {
-		return getAnalyzer().hasFunctionalObjectProperty();
-	}
-
-	@Override
-	public boolean hasIndividual() {
-		return getAnalyzer().hasIndividual();
-	}
-
-	@Override
-	public boolean hasInverseObjectProperty() {
-		return getAnalyzer().hasInverseObjectProperty();
-	}
-
-	@Override
-	public boolean hasNominal() {
-		return getAnalyzer().hasNominal();
-	}
-
-	@Override
-	public boolean hasReflexiveObjectProperty() {
-		return getAnalyzer().hasReflexiveObjectProperty();
-	}
-
-	@Override
-	public boolean hasSubObjectPropertyOf() {
-		return getAnalyzer().hasSubObjectPropertyOf();
-	}
-
-	@Override
-	public boolean hasSubPropertyChainOf() {
-		return getAnalyzer().hasSubPropertyChainOf();
-
-	}
-
-	@Override
-	public boolean hasTransitiveObjectProperty() {
-		return getAnalyzer().hasTransitiveObjectProperty();
 	}
 
 	/**
@@ -175,7 +104,7 @@ public class ExpressivityDetector implements OntologyExpressivity {
 	 * 
 	 * @return <code>true</code> if and only if the axioms require the AL logic
 	 */
-	public boolean isAL() {
+	private boolean isAL() {
 		return false;
 	}
 
@@ -184,7 +113,7 @@ public class ExpressivityDetector implements OntologyExpressivity {
 	 * 
 	 * @return <code>true</code> if and only if the axioms use complement
 	 */
-	public boolean isC() {
+	private boolean isC() {
 		return false;
 	}
 
@@ -194,7 +123,7 @@ public class ExpressivityDetector implements OntologyExpressivity {
 	 * @return <code>true</code> if and only if the axioms use full existential
 	 *         qualification
 	 */
-	public boolean isE() {
+	private boolean isE() {
 		return true;
 	}
 
@@ -203,7 +132,7 @@ public class ExpressivityDetector implements OntologyExpressivity {
 	 * 
 	 * @return <code>true</code> if and only if the axioms require the EL logic
 	 */
-	public boolean isEL() {
+	private boolean isEL() {
 		return true;
 	}
 
@@ -214,7 +143,7 @@ public class ExpressivityDetector implements OntologyExpressivity {
 	 * @return <code>true</code> if and only if the axioms use number
 	 *         restrictions
 	 */
-	public boolean isN() {
+	private boolean isN() {
 		return false;
 	}
 
@@ -224,17 +153,8 @@ public class ExpressivityDetector implements OntologyExpressivity {
 	 * @return <code>true</code> if and only if the axioms use qualified
 	 *         cardinality restrictions
 	 */
-	public boolean isQ() {
+	private boolean isQ() {
 		return false;
-	}
-
-	/**
-	 * Tells whether the axioms require the S logic.
-	 * 
-	 * @return <code>true</code> if and only if the axioms require the S logic
-	 */
-	public boolean isS() {
-		return isAL() && isC() && hasTransitiveObjectProperty();
 	}
 
 	/**
@@ -242,13 +162,8 @@ public class ExpressivityDetector implements OntologyExpressivity {
 	 * 
 	 * @return <code>true</code> if and only if the axioms use class union
 	 */
-	public boolean isU() {
+	private boolean isU() {
 		return false;
-	}
-
-	@Override
-	public String toString() {
-		return getName();
 	}
 
 }
