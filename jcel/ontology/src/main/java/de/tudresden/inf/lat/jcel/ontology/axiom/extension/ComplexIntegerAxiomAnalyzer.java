@@ -52,9 +52,9 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerTransitiveObjectP
  * @author Julian Mendez
  */
 class ComplexIntegerAxiomAnalyzer implements
-		ComplexIntegerAxiomVisitor<Boolean> {
+		ComplexIntegerAxiomVisitor<Boolean>, OntologyExpressivity {
 
-	private IntegerExpressionAnalyzer expressionAnalyzer = null;
+	private IntegerExpressionAnalyzer expressionAnalyzer = new IntegerExpressionAnalyzer();
 	private boolean hasBottom = false;
 	private boolean hasDatatype = false;
 	private boolean hasFunctionalObjectProperty = false;
@@ -66,108 +66,58 @@ class ComplexIntegerAxiomAnalyzer implements
 	private boolean hasTransitiveObjectProperty = false;
 
 	/**
-	 * Constructs a new axiom analyzer.
+	 * Constructs a new analyzer of complex axioms.
 	 */
 	public ComplexIntegerAxiomAnalyzer() {
-		this.expressionAnalyzer = new IntegerExpressionAnalyzer();
 	}
 
-	/**
-	 * Tells whether the analyzer has found class bottom.
-	 * 
-	 * @return <code>true</code> if and only if the analyzer has found class
-	 *         bottom
-	 */
+	@Override
 	public boolean hasBottom() {
 		return this.hasBottom;
 	}
 
-	/**
-	 * Tells whether the analyzer has found data types.
-	 * 
-	 * @return <code>true</code> if and only if the analyzer has found data
-	 *         types
-	 */
+	@Override
 	public boolean hasDatatype() {
 		return this.hasDatatype || this.expressionAnalyzer.hasDatatype();
 	}
 
-	/**
-	 * Tells whether the analyzer has found functional object properties.
-	 * 
-	 * @return <code>true</code> if and only if the analyzer has found
-	 *         functional object properties
-	 */
+	@Override
 	public boolean hasFunctionalObjectProperty() {
 		return this.hasFunctionalObjectProperty;
 	}
 
-	/**
-	 * Tells whether the analyzer has found individuals.
-	 * 
-	 * @return <code>true</code> if and only if the analyzer has found
-	 *         individuals
-	 */
+	@Override
 	public boolean hasIndividual() {
 		return this.hasIndividual;
 	}
 
-	/**
-	 * Tells whether the analyzer has found inverse object properties.
-	 * 
-	 * @return <code>true</code> if and only if the analyzer has found inverse
-	 *         object properties
-	 */
+	@Override
 	public boolean hasInverseObjectProperty() {
 		return this.hasInverseObjectProperty
 				|| this.expressionAnalyzer.hasInverseObjectProperty();
 	}
 
-	/**
-	 * Tells whether the analyzer has found nominals.
-	 * 
-	 * @return <code>true</code> if and only if the analyzer has found nominals
-	 */
+	@Override
 	public boolean hasNominal() {
 		return this.expressionAnalyzer.hasNominal();
 	}
 
-	/**
-	 * Tells whether the analyzer has found reflexive object properties.
-	 * 
-	 * @return <code>true</code> if and only if the analyzer has found reflexive
-	 *         object properties
-	 */
+	@Override
 	public boolean hasReflexiveObjectProperty() {
 		return this.hasReflexiveObjectProperty;
 	}
 
-	/**
-	 * Tells whether the analyzer has found sub object properties.
-	 * 
-	 * @return <code>true</code> if and only if the analyzer has found sub
-	 *         object properties
-	 */
+	@Override
 	public boolean hasSubObjectPropertyOf() {
 		return this.hasSubObjectPropertyOf;
 	}
 
-	/**
-	 * Tells whether the analyzer has found sub object property chains.
-	 * 
-	 * @return <code>true</code> if and only if the analyzer has found sub
-	 *         object property chains
-	 */
+	@Override
 	public boolean hasSubPropertyChainOf() {
 		return this.hasSubPropertyChainOf;
 	}
 
-	/**
-	 * Tells whether the analyzer has found transitive object properties.
-	 * 
-	 * @return <code>true</code> if and only if the analyzer has found
-	 *         transitive object properties
-	 */
+	@Override
 	public boolean hasTransitiveObjectProperty() {
 		return this.hasTransitiveObjectProperty;
 	}

@@ -343,7 +343,7 @@ public class RuleBasedProcessor implements Processor {
 				originalAxiomSet);
 
 		logger.fine("description logic family : "
-				+ preprocessor.getExpressivityDetector().getName() + " .");
+				+ preprocessor.getExpressivity().toString() + " .");
 
 		logger.fine("number of normalized axioms : "
 				+ preprocessor.getExtendedOntology().getAxiomSet().size());

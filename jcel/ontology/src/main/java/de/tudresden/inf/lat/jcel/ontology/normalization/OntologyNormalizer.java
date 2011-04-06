@@ -64,29 +64,10 @@ public class OntologyNormalizer {
 	// private static final Logger logger = Logger
 	// .getLogger(OntologyNormalizer.class.getName());
 
-	private IdGenerator nameGenerator = null;
-
 	/**
 	 * Constructs a new ontology normalizer.
-	 * 
-	 * @param generator
-	 *            an identifier generator
 	 */
-	public OntologyNormalizer(IdGenerator generator) {
-		if (generator == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		this.nameGenerator = generator;
-	}
-
-	/**
-	 * Returns the identifier generator.
-	 * 
-	 * @return the identifier generator
-	 */
-	public IdGenerator getNameGenerator() {
-		return this.nameGenerator;
+	public OntologyNormalizer() {
 	}
 
 	/**
@@ -97,13 +78,16 @@ public class OntologyNormalizer {
 	 * @return the normalized set of axioms according to the specified axioms
 	 */
 	public Set<NormalizedIntegerAxiom> normalize(
-			Set<ComplexIntegerAxiom> originalAxiomSet) {
+			Set<ComplexIntegerAxiom> originalAxiomSet, IdGenerator generator) {
 		if (originalAxiomSet == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (generator == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		Set<NormalizedIntegerAxiom> ret = new HashSet<NormalizedIntegerAxiom>();
-		SimpleNormalizer normalizer = new SimpleNormalizer(this.nameGenerator);
+		SimpleNormalizer normalizer = new SimpleNormalizer(generator);
 		Set<IntegerAxiom> currentAxiomSet = new HashSet<IntegerAxiom>();
 
 		for (ComplexIntegerAxiom axiom : originalAxiomSet) {

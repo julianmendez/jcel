@@ -49,6 +49,7 @@ import de.tudresden.inf.lat.jcel.core.completion.ext.CR9ExtOptRule;
 import de.tudresden.inf.lat.jcel.core.saturation.SubPropertyNormalizer;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.ExpressivityDetector;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.OntologyExpressivity;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntology;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntologyImpl;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IdGenerator;
@@ -82,7 +83,7 @@ public class OntologyPreprocessor {
 
 	private RChain chainR = new RChain(new ArrayList<RObserverRule>());
 	private SChain chainS = new SChain(new ArrayList<SObserverRule>());
-	private ExpressivityDetector expressivityDetector = null;
+	private OntologyExpressivity expressivityDetector = null;
 	private ExtendedOntologyImpl extendedOntology = null;
 	private IdGenerator idGenerator = null;
 	private Set<Integer> originalClassSet = null;
@@ -182,11 +183,11 @@ public class OntologyPreprocessor {
 	}
 
 	/**
-	 * Returns the expressivity detector.
+	 * Returns the ontology expressivity.
 	 * 
-	 * @return the expressivity detector
+	 * @return the ontology expressivity
 	 */
-	public ExpressivityDetector getExpressivityDetector() {
+	public OntologyExpressivity getExpressivity() {
 		return this.expressivityDetector;
 	}
 
@@ -268,7 +269,8 @@ public class OntologyPreprocessor {
 
 		this.expressivityDetector = new ExpressivityDetector(axiomSet);
 
-		if (this.expressivityDetector.isI() || this.expressivityDetector.isF()) {
+		if (this.expressivityDetector.hasInverseObjectProperty()
+				|| this.expressivityDetector.hasFunctionalObjectProperty()) {
 			activateExtendedRules();
 		} else {
 			activateSimpleRules();
@@ -277,13 +279,12 @@ public class OntologyPreprocessor {
 			activateBottomRules();
 		}
 
-		OntologyNormalizer axiomNormalizer = new OntologyNormalizer(
-				getIdGenerator());
+		OntologyNormalizer axiomNormalizer = new OntologyNormalizer();
 		SubPropertyNormalizer subPropNormalizer = new SubPropertyNormalizer(
 				getIdGenerator());
 		this.extendedOntology = new ExtendedOntologyImpl();
 		this.extendedOntology.load(subPropNormalizer.apply(axiomNormalizer
-				.normalize(axiomSet)));
+				.normalize(axiomSet, getIdGenerator())));
 
 		for (Integer elem : this.originalObjectPropertySet) {
 			this.extendedOntology.addObjectProperty(elem);

@@ -495,9 +495,10 @@ public class CelProcessor implements Processor {
 				getMaximum(originalObjectPropertySet) + 1);
 
 		logger.finer("normalizing ontology ...");
-		OntologyNormalizer normalizer = new OntologyNormalizer(getIdGenerator());
+		OntologyNormalizer normalizer = new OntologyNormalizer();
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
-		ontology.addAll(normalizer.normalize(originalAxiomSet));
+		ontology.addAll(normalizer
+				.normalize(originalAxiomSet, getIdGenerator()));
 
 		logger.finer("auxiliary classes created (including nominals) : "
 				+ (getIdGenerator().getNextClassId() - getIdGenerator()

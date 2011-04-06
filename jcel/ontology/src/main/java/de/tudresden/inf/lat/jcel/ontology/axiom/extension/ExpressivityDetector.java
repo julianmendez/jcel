@@ -31,7 +31,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
  * 
  * @author Julian Mendez
  */
-public class ExpressivityDetector {
+public class ExpressivityDetector implements OntologyExpressivity {
 
 	private ComplexIntegerAxiomAnalyzer axiomAnalyzer = null;
 
@@ -52,7 +52,7 @@ public class ExpressivityDetector {
 		}
 	}
 
-	private ComplexIntegerAxiomAnalyzer getAxiomDetector() {
+	private ComplexIntegerAxiomAnalyzer getAnalyzer() {
 		return this.axiomAnalyzer;
 	}
 
@@ -82,13 +82,13 @@ public class ExpressivityDetector {
 				}
 			}
 		}
-		if (isH()) {
+		if (hasSubObjectPropertyOf()) {
 			sbuf.append("H");
 		}
-		if (isO()) {
+		if (hasNominal()) {
 			sbuf.append("O");
 		}
-		if (isI()) {
+		if (hasInverseObjectProperty()) {
 			sbuf.append("I");
 		}
 		if (isQ()) {
@@ -96,17 +96,17 @@ public class ExpressivityDetector {
 		} else if (isN()) {
 			sbuf.append("N");
 		}
-		if (isF()) {
+		if (hasFunctionalObjectProperty()) {
 			sbuf.append("F");
 		}
-		if (isR()) {
+		if (hasSubPropertyChainOf()) {
 			sbuf.append("R");
 		}
-		if (isD()) {
+		if (hasDatatype()) {
 			sbuf.append("(D)");
 		}
 
-		if (isTransitive()) {
+		if (hasTransitiveObjectProperty()) {
 			sbuf.append(" [transitive]");
 		}
 		if (hasBottom()) {
@@ -119,22 +119,55 @@ public class ExpressivityDetector {
 
 	}
 
-	/**
-	 * Tells whether the detector found class bottom.
-	 * 
-	 * @return <code>true</code> if and only if the detector found class bottom
-	 */
+	@Override
 	public boolean hasBottom() {
-		return getAxiomDetector().hasBottom();
+		return getAnalyzer().hasBottom();
 	}
 
-	/**
-	 * Tells whether the detector found individuals
-	 * 
-	 * @return <code>true</code> if and only if the detector found individuals
-	 */
+	@Override
+	public boolean hasDatatype() {
+		return getAnalyzer().hasDatatype();
+	}
+
+	@Override
+	public boolean hasFunctionalObjectProperty() {
+		return getAnalyzer().hasFunctionalObjectProperty();
+	}
+
+	@Override
 	public boolean hasIndividual() {
-		return getAxiomDetector().hasIndividual();
+		return getAnalyzer().hasIndividual();
+	}
+
+	@Override
+	public boolean hasInverseObjectProperty() {
+		return getAnalyzer().hasInverseObjectProperty();
+	}
+
+	@Override
+	public boolean hasNominal() {
+		return getAnalyzer().hasNominal();
+	}
+
+	@Override
+	public boolean hasReflexiveObjectProperty() {
+		return getAnalyzer().hasReflexiveObjectProperty();
+	}
+
+	@Override
+	public boolean hasSubObjectPropertyOf() {
+		return getAnalyzer().hasSubObjectPropertyOf();
+	}
+
+	@Override
+	public boolean hasSubPropertyChainOf() {
+		return getAnalyzer().hasSubPropertyChainOf();
+
+	}
+
+	@Override
+	public boolean hasTransitiveObjectProperty() {
+		return getAnalyzer().hasTransitiveObjectProperty();
 	}
 
 	/**
@@ -153,15 +186,6 @@ public class ExpressivityDetector {
 	 */
 	public boolean isC() {
 		return false;
-	}
-
-	/**
-	 * Tells whether the axioms use data types.
-	 * 
-	 * @return <code>true</code> if and only if the axioms use data types
-	 */
-	public boolean isD() {
-		return getAxiomDetector().hasDatatype();
 	}
 
 	/**
@@ -184,36 +208,6 @@ public class ExpressivityDetector {
 	}
 
 	/**
-	 * Tells whether the axioms use functional object properties.
-	 * 
-	 * @return <code>true</code> if and only if the axioms use functional object
-	 *         properties
-	 */
-	public boolean isF() {
-		return getAxiomDetector().hasFunctionalObjectProperty();
-	}
-
-	/**
-	 * Tells whether the axioms use object property hierarchies.
-	 * 
-	 * @return <code>true</code> if and only if the axioms use object property
-	 *         hierarchies
-	 */
-	public boolean isH() {
-		return getAxiomDetector().hasSubObjectPropertyOf();
-	}
-
-	/**
-	 * Tells whether the axioms use inverse object properties.
-	 * 
-	 * @return <code>true</code> if and only if the axioms use inverse object
-	 *         properties
-	 */
-	public boolean isI() {
-		return getAxiomDetector().hasInverseObjectProperty();
-	}
-
-	/**
 	 * Tells whether the axioms use cardinality restrictions. In this method,
 	 * functional object properties are not considered cardinality restrictions.
 	 * 
@@ -222,15 +216,6 @@ public class ExpressivityDetector {
 	 */
 	public boolean isN() {
 		return false;
-	}
-
-	/**
-	 * Tells whether the axioms use nominals.
-	 * 
-	 * @return <code>true</code> if and only if the axioms use nominals
-	 */
-	public boolean isO() {
-		return getAxiomDetector().hasNominal();
 	}
 
 	/**
@@ -244,35 +229,12 @@ public class ExpressivityDetector {
 	}
 
 	/**
-	 * Tells whether the axioms use complex object properties or reflexive
-	 * object properties.
-	 * 
-	 * @return <code>true</code> if and only if the axioms use complex object
-	 *         properties or reflexive object properties.
-	 */
-	public boolean isR() {
-		return getAxiomDetector().hasSubPropertyChainOf()
-				|| getAxiomDetector().hasReflexiveObjectProperty();
-
-	}
-
-	/**
 	 * Tells whether the axioms require the S logic.
 	 * 
 	 * @return <code>true</code> if and only if the axioms require the S logic
 	 */
 	public boolean isS() {
-		return isAL() && isC() && isTransitive();
-	}
-
-	/**
-	 * Tells whether the axioms use transitive object properties.
-	 * 
-	 * @return <code>true</code> if and only if the axioms use transitive object
-	 *         properties
-	 */
-	public boolean isTransitive() {
-		return getAxiomDetector().hasTransitiveObjectProperty();
+		return isAL() && isC() && hasTransitiveObjectProperty();
 	}
 
 	/**
