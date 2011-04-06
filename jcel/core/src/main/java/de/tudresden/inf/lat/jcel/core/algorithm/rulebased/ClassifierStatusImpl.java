@@ -36,10 +36,10 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerBidirectionalGraphImp
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.VNode;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntology;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntologyImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
 
 /**

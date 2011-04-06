@@ -19,7 +19,7 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.ontology.datatype;
+package de.tudresden.inf.lat.jcel.ontology.axiom.extension;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,7 +32,7 @@ import java.util.Set;
  * 
  * @author Julian Mendez
  */
-public class IdGenerator {
+public class IdGeneratorImpl implements IdGenerator {
 
 	// private static final Logger logger = Logger.getLogger(NameGenerator.class
 	// .getName());
@@ -53,7 +53,7 @@ public class IdGenerator {
 	 * @param propertyOffset
 	 *            first object property identifier to start the generation
 	 */
-	public IdGenerator(Integer classOffset, Integer propertyOffset) {
+	public IdGeneratorImpl(Integer classOffset, Integer propertyOffset) {
 		if (classOffset == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -81,36 +81,21 @@ public class IdGenerator {
 		}
 	}
 
-	/**
-	 * Creates a new class identifier.
-	 * 
-	 * @return the new class identifier
-	 */
+	@Override
 	public Integer createNewClassId() {
 		Integer ret = getNextClassId();
 		this.nextClassId++;
 		return ret;
 	}
 
-	/**
-	 * Creates a new object property identifier.
-	 * 
-	 * @return the new object property identifier
-	 */
+	@Override
 	public Integer createNewObjectPropertyId() {
 		Integer ret = getNextObjectPropertyId();
 		this.nextObjectPropertyId++;
 		return ret;
 	}
 
-	/**
-	 * Returns the class identifier corresponding to the given individual. If
-	 * that class does not exist, it creates a new auxiliary class.
-	 * 
-	 * @param individual
-	 *            individual to get the class
-	 * @return the class identifier for the given individual
-	 */
+	@Override
 	public Integer createOrGetClassIdForIndividual(Integer individual) {
 		if (individual == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -125,17 +110,7 @@ public class IdGenerator {
 		return ret;
 	}
 
-	/**
-	 * Returns the inverse object property of the given object property. If this
-	 * property does not exist, it creates a new auxiliary object property.
-	 * 
-	 * @param propertyId
-	 *            property identifier to create an inverse object property
-	 * @return the inverse object property of the given object property
-	 * @throws IndexOutOfBoundsException
-	 *             if the property identifier is greater than the last auxiliary
-	 *             property created
-	 */
+	@Override
 	public Integer createOrGetInverseObjectPropertyOf(Integer propertyId)
 			throws IndexOutOfBoundsException {
 		if (propertyId == null) {
@@ -155,8 +130,8 @@ public class IdGenerator {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = false;
-		if (o instanceof IdGenerator) {
-			IdGenerator other = (IdGenerator) o;
+		if (o instanceof IdGeneratorImpl) {
+			IdGeneratorImpl other = (IdGeneratorImpl) o;
 			ret = getFirstClassId().equals(other.getFirstClassId())
 					&& getFirstObjectPropertyId().equals(
 							other.getFirstObjectPropertyId())
@@ -174,14 +149,7 @@ public class IdGenerator {
 		return ret;
 	}
 
-	/**
-	 * This method gives the auxiliary nominal related to a specific individual.
-	 * 
-	 * @param individual
-	 *            the individual
-	 * @return the requested class or <code>null</code> if the individual does
-	 *         not have any related auxiliary nominal.
-	 */
+	@Override
 	public Integer getAuxiliaryNominal(Integer individual) {
 		if (individual == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -190,42 +158,23 @@ public class IdGenerator {
 		return this.auxiliaryNominalMap.get(individual);
 	}
 
-	/**
-	 * Returns the set of auxiliary nominals.
-	 * 
-	 * @return the set of auxiliary nominals
-	 */
+	@Override
 	public Set<Integer> getAuxiliaryNominals() {
 		return Collections
 				.unmodifiableSet(this.invAuxiliaryNominalMap.keySet());
 	}
 
-	/**
-	 * Returns the first generated class identifier.
-	 * 
-	 * @return the first generated class identifier
-	 */
+	@Override
 	public Integer getFirstClassId() {
 		return this.firstClassId;
 	}
 
-	/**
-	 * Returns the first generated object property identifier.
-	 * 
-	 * @return the first generated object property identifier
-	 */
+	@Override
 	public Integer getFirstObjectPropertyId() {
 		return this.firstObjectPropertyId;
 	}
 
-	/**
-	 * This method gives the individual related to a specific auxiliary nominal.
-	 * 
-	 * @param auxNominal
-	 *            the auxiliary nominal
-	 * @return the requested individual or <code>null</code> if the auxiliary
-	 *         nominal does not have any related individual.
-	 */
+	@Override
 	public Integer getIndividual(Integer auxNominal) {
 		if (auxNominal == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -234,29 +183,17 @@ public class IdGenerator {
 		return this.invAuxiliaryNominalMap.get(auxNominal);
 	}
 
-	/**
-	 * Returns the set of individuals.
-	 * 
-	 * @return the set of individuals
-	 */
+	@Override
 	public Set<Integer> getIndividuals() {
 		return Collections.unmodifiableSet(this.auxiliaryNominalMap.keySet());
 	}
 
-	/**
-	 * Returns the next generated class identifier.
-	 * 
-	 * @return the next generated class identifier
-	 */
+	@Override
 	public Integer getNextClassId() {
 		return this.nextClassId;
 	}
 
-	/**
-	 * Returns the next generated object property identifier.
-	 * 
-	 * @return the next generated object property identifier
-	 */
+	@Override
 	public Integer getNextObjectPropertyId() {
 		return this.nextObjectPropertyId;
 	}
@@ -266,18 +203,7 @@ public class IdGenerator {
 		return this.firstClassId + 31 * this.nextClassId;
 	}
 
-	/**
-	 * Proposes the association of an object property to another object property
-	 * as one the inverse object property of the other one. This association is
-	 * accepted if and only if none of both object properties has already
-	 * another inverse object property.
-	 * 
-	 * @param firstProperty
-	 *            an object property
-	 * @param secondProperty
-	 *            an object property
-	 * @return <code>true</code> if and only if the proposal was accepted
-	 */
+	@Override
 	public boolean proposeInverseObjectPropertyOf(Integer firstProperty,
 			Integer secondProperty) throws IndexOutOfBoundsException {
 		if (firstProperty == null) {

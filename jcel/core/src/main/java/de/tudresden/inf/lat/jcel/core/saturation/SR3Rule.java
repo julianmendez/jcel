@@ -25,9 +25,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IdGenerator;
 
 /**
  * <ul>

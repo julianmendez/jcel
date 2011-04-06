@@ -26,9 +26,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI0Axiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NominalAxiom;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;

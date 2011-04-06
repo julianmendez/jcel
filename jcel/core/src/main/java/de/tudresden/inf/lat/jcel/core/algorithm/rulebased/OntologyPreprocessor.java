@@ -49,10 +49,11 @@ import de.tudresden.inf.lat.jcel.core.completion.ext.CR9ExtOptRule;
 import de.tudresden.inf.lat.jcel.core.saturation.SubPropertyNormalizer;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.ExpressivityDetector;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGeneratorImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.OntologyExpressivity;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntology;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntologyImpl;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
 import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
 
@@ -263,7 +264,7 @@ public class OntologyPreprocessor {
 	private void preProcess(Set<ComplexIntegerAxiom> axiomSet) {
 		findEntities(axiomSet);
 
-		this.idGenerator = new IdGenerator(
+		this.idGenerator = new IdGeneratorImpl(
 				getMaximum(this.originalClassSet) + 1,
 				getMaximum(this.originalObjectPropertySet) + 1);
 

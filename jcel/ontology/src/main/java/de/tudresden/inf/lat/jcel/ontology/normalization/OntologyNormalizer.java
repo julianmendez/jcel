@@ -27,8 +27,8 @@ import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerInverseObjectPropertiesAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 
 /**
@@ -75,6 +75,8 @@ public class OntologyNormalizer {
 	 * 
 	 * @param originalAxiomSet
 	 *            set of axioms to be normalized
+	 * @param generator
+	 *            identifier generator
 	 * @return the normalized set of axioms according to the specified axioms
 	 */
 	public Set<NormalizedIntegerAxiom> normalize(

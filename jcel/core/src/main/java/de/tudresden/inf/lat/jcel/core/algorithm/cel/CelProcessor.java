@@ -40,10 +40,11 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerRelationMapImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGeneratorImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
 import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
@@ -491,7 +492,8 @@ public class CelProcessor implements Processor {
 		originalObjectPropertySet.add(propertyBottomElement);
 		originalObjectPropertySet.add(propertyTopElement);
 
-		this.idGenerator = new IdGenerator(getMaximum(originalClassSet) + 1,
+		this.idGenerator = new IdGeneratorImpl(
+				getMaximum(originalClassSet) + 1,
 				getMaximum(originalObjectPropertySet) + 1);
 
 		logger.finer("normalizing ontology ...");
