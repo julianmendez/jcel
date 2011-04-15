@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 
 /**
  * An object implementing this interface can classify a set of axioms. After the
@@ -34,6 +35,13 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
  * @author Julian Mendez
  */
 public interface Processor {
+
+	/**
+	 * Returns the set of axioms used to create this processor.
+	 * 
+	 * @return the set of axioms used to create this processor
+	 */
+	public Set<ComplexIntegerAxiom> getAxiomSet();
 
 	/**
 	 * Returns the class hierarchy after the classification has finished.

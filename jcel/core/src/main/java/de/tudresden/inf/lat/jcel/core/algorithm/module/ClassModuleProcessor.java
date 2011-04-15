@@ -71,6 +71,7 @@ public class ClassModuleProcessor implements Processor {
 	private Integer moduleIndex = 0;
 	private List<Set<ComplexIntegerAxiom>> moduleList = null;
 	private IntegerHierarchicalGraph objectPropertyHierarchy = null;
+	private Set<ComplexIntegerAxiom> originalAxiomSet = null;
 	private Processor processor = null;
 	private ModuleProcessorFactory processorFactory = null;
 	private Map<Integer, Set<Integer>> sameIndividualMap = null;
@@ -196,6 +197,11 @@ public class ClassModuleProcessor implements Processor {
 		}
 
 		return ret;
+	}
+
+	@Override
+	public Set<ComplexIntegerAxiom> getAxiomSet() {
+		return this.originalAxiomSet;
 	}
 
 	@Override
