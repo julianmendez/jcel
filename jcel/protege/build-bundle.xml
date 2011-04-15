@@ -75,7 +75,10 @@
 	<target name="getjar">
 		<mkdir dir="${_lib.directory}/${groupId.directory}/${module.name}/${version}" />
 		<copy todir="${_lib.directory}/${groupId.directory}/${module.name}/${version}">
-			<fileset dir="${_root.directory}/${module.name}/${_targetlib.directory}" />
+			<fileset dir="${_root.directory}/${module.name}/${_targetlib.directory}">
+				<include name="${module.name}-${version}.jar" />
+				<include name="${module.name}-${version}-sources.jar" />
+			</fileset>
 			<fileset dir="${_root.directory}/${module.name}">
 				<include name="copying.txt" />
 				<include name="copying-lesser.txt" />

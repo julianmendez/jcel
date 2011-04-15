@@ -73,6 +73,12 @@ public class JcelReasonerProcessor {
 	private OWLOntology rootOntology = null;
 	private long timeOut = Long.MAX_VALUE;
 
+	/**
+	 * Constructs a new reasoner processor.
+	 * 
+	 * @param rootOnt
+	 *            root ontology
+	 */
 	public JcelReasonerProcessor(OWLOntology rootOnt) {
 		if (rootOnt == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -85,6 +91,14 @@ public class JcelReasonerProcessor {
 				getOWLTopDataProperty());
 	}
 
+	/**
+	 * Constructs a new reasoner processor.
+	 * 
+	 * @param rootOnt
+	 *            root ontology
+	 * @param configuration
+	 *            reasoner
+	 */
 	public JcelReasonerProcessor(OWLOntology rootOnt,
 			OWLReasonerConfiguration configuration) {
 		if (rootOnt == null) {
@@ -132,9 +146,8 @@ public class JcelReasonerProcessor {
 			Set<Set<OWLObjectProperty>> setOfSets) {
 		Set<Node<OWLObjectPropertyExpression>> nodeSet = new HashSet<Node<OWLObjectPropertyExpression>>();
 		for (Set<OWLObjectProperty> elem : setOfSets) {
-			nodeSet
-					.add(NodeFactory
-							.getOWLObjectPropertyNode(convertToOWLObjectPropertyExpression(elem)));
+			nodeSet.add(NodeFactory
+					.getOWLObjectPropertyNode(convertToOWLObjectPropertyExpression(elem)));
 		}
 		return new OWLObjectPropertyNodeSet(nodeSet);
 	}
@@ -497,6 +510,26 @@ public class JcelReasonerProcessor {
 								getOWLNothing())).isEmpty();
 	}
 
+	public boolean isEntailed(OWLAxiom axiom) {
+		if (axiom == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		assertClassification();
+		throw new UnsupportedReasonerOperationInJcelException(
+				"Unsupported operation : isEntailed(OWLAxiom)");
+	}
+
+	public boolean isEntailed(Set<? extends OWLAxiom> axiomSet) {
+		if (axiomSet == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		assertClassification();
+		throw new UnsupportedReasonerOperationInJcelException(
+				"Unsupported operation : isEntailed(Set<? extends OWLAxiom>)");
+	}
+
 	public boolean isEntailmentCheckingSupported(AxiomType<?> axiomType) {
 		if (axiomType == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -569,6 +602,6 @@ public class JcelReasonerProcessor {
 				getClassifier().getTypeGraph(), getClassifier()
 						.getReflexiveProperties(), getClassifier()
 						.getTransitiveProperties());
-
 	}
+
 }

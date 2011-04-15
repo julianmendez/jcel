@@ -32,15 +32,36 @@ public class JcelReasonerException extends RuntimeException {
 
 	private static final long serialVersionUID = -3973550154860330100L;
 
+	/**
+	 * Constructs a new reasoner exception.
+	 * 
+	 * @param message
+	 *            message to be displayed
+	 */
 	public JcelReasonerException(String message) {
 		super(message);
 	}
 
+	/**
+	 * Constructs a new reasoner exception.
+	 * 
+	 * @param message
+	 *            message to be displayed
+	 * @param cause
+	 *            cause of the exception
+	 */
 	public JcelReasonerException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * Constructs a new reasoner exception.
+	 * 
+	 * @param cause
+	 *            cause of the exception
+	 */
 	public JcelReasonerException(Throwable cause) {
 		super(cause);
 	}
+
 }

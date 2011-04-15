@@ -68,6 +68,12 @@ public class JcelReasoner implements OWLReasoner {
 	private JcelReasonerProcessor reasonerProcessor = null;
 	private Date start = new Date();
 
+	/**
+	 * Constructs a new jcel reasoner.
+	 * 
+	 * @param rootOntology
+	 *            root ontology
+	 */
 	public JcelReasoner(OWLOntology rootOntology) {
 		if (rootOntology == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -76,6 +82,14 @@ public class JcelReasoner implements OWLReasoner {
 		this.reasonerProcessor = new JcelReasonerProcessor(rootOntology);
 	}
 
+	/**
+	 * Constructs a new jcel reasoner.
+	 * 
+	 * @param rootOntology
+	 *            root ontology
+	 * @param configuration
+	 *            reasoner configuration
+	 */
 	public JcelReasoner(OWLOntology rootOntology,
 			OWLReasonerConfiguration configuration) {
 		if (rootOntology == null) {
@@ -513,9 +527,7 @@ public class JcelReasoner implements OWLReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		logger
-				.finer("getSuperClasses(" + classExpression + ", " + direct
-						+ ")");
+		logger.finer("getSuperClasses(" + classExpression + ", " + direct + ")");
 		NodeSet<OWLClass> ret = getProcessor().getSuperClasses(classExpression,
 				direct);
 		logger.finer("" + ret);
@@ -636,22 +648,24 @@ public class JcelReasoner implements OWLReasoner {
 		}
 
 		logger.finer("isEntailed((OWLAxiom) " + axiom + ")");
-		throw new UnsupportedReasonerOperationInJcelException(
-				"Unsupported operation : isEntailed(OWLAxiom)");
+		boolean ret = getProcessor().isEntailed(axiom);
+		logger.finer("" + ret);
+		return ret;
 	}
 
 	@Override
-	public boolean isEntailed(Set<? extends OWLAxiom> axiom)
+	public boolean isEntailed(Set<? extends OWLAxiom> axiomSet)
 			throws ReasonerInterruptedException,
 			UnsupportedEntailmentTypeException, TimeOutException,
 			AxiomNotInProfileException, FreshEntitiesException {
-		if (axiom == null) {
+		if (axiomSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		logger.finer("isEntailed((Set<? extends OWLAxiom>) " + axiom + ")");
-		throw new UnsupportedReasonerOperationInJcelException(
-				"Unsupported operation : isEntailed(Set<? extends OWLAxiom>)");
+		logger.finer("isEntailed((Set<? extends OWLAxiom>) " + axiomSet + ")");
+		boolean ret = getProcessor().isEntailed(axiomSet);
+		logger.finer("" + ret);
+		return ret;
 	}
 
 	@Override
@@ -700,4 +714,5 @@ public class JcelReasoner implements OWLReasoner {
 		logger.finer("precomputeInferences(" + inferenceTypes + ")");
 		getProcessor().precomputeInferences();
 	}
+
 }
