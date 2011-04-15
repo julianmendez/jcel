@@ -328,7 +328,7 @@ public class RuleBasedProcessor implements Processor {
 	 * <li>prepares all the queues to run the algorithm</li>
 	 * </ul>
 	 * 
-	 * @param originalAxiomSet
+	 * @param origAxiomSet
 	 *            set of axioms, i.e. the ontology
 	 */
 	protected void preProcess(Set<ComplexIntegerAxiom> origAxiomSet) {
