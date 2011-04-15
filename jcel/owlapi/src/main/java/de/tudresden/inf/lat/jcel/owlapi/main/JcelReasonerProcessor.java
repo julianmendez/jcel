@@ -52,7 +52,6 @@ import org.semanticweb.owlapi.util.Version;
 
 import de.tudresden.inf.lat.jcel.owlapi.classifier.JcelClassifier;
 import de.tudresden.inf.lat.jcel.owlapi.classifier.JcelClassifierImpl;
-import de.tudresden.inf.lat.jcel.owlapi.classifier.JcelModel;
 
 /**
  * This class implements the available functionality of a
@@ -68,8 +67,8 @@ public class JcelReasonerProcessor {
 	private static final Logger logger = Logger
 			.getLogger(JcelReasonerProcessor.class.getName());
 
-	private JcelClassifier classifier = null;
-	private JcelModel model = null;
+	private JcelClassifierImpl classifier = null;
+	private boolean isClassified = false;
 	private OWLOntology rootOntology = null;
 	private long timeOut = Long.MAX_VALUE;
 
@@ -227,8 +226,8 @@ public class JcelReasonerProcessor {
 
 		Node<OWLClass> ret = null;
 		if (isClassified()) {
-			ret = NodeFactory.getOWLClassNode(pickOWLClasses(getModel()
-					.getOWLEntityGraph().getEquivalents(
+			ret = NodeFactory.getOWLClassNode(pickOWLClasses(getClassifier()
+					.getEquivalentClassesAndIndividuals(
 							classExpression.asOWLClass())));
 		}
 		return ret;
@@ -244,9 +243,8 @@ public class JcelReasonerProcessor {
 		Node<OWLObjectPropertyExpression> ret = null;
 		if (isClassified()) {
 			ret = NodeFactory
-					.getOWLObjectPropertyNode(convertToOWLObjectPropertyExpression(getModel()
-							.getOWLObjectPropertyGraph().getEquivalents(
-									property)));
+					.getOWLObjectPropertyNode(convertToOWLObjectPropertyExpression(getClassifier()
+							.getEquivalentObjectProperties(property)));
 		}
 		return ret;
 	}
@@ -255,8 +253,8 @@ public class JcelReasonerProcessor {
 			throws JcelReasonerException {
 		Set<OWLClass> ret = new HashSet<OWLClass>();
 		if (isClassified()) {
-			ret = pickOWLClasses(getModel().getOWLEntityGraph().getEquivalents(
-					cls));
+			ret = pickOWLClasses(getClassifier()
+					.getEquivalentClassesAndIndividuals(cls));
 		}
 		return ret;
 	}
@@ -269,13 +267,9 @@ public class JcelReasonerProcessor {
 		}
 
 		OWLClass type = classExpression.asOWLClass();
-		Set<OWLEntity> entitySet = flatten(getModel().getOWLEntityGraph()
-				.getSubElements(type, direct));
+		Set<OWLEntity> entitySet = flatten(getClassifier()
+				.getSubClassesAndIndividuals(type, direct));
 		return convertToNodeSetOfOWLNamedIndividual(pickOWLNamedIndividuals(entitySet));
-	}
-
-	private JcelModel getModel() {
-		return this.model;
 	}
 
 	public NodeSet<OWLNamedIndividual> getObjectPropertyValues(
@@ -388,8 +382,8 @@ public class JcelReasonerProcessor {
 		Node<OWLNamedIndividual> ret = null;
 		if (isClassified()) {
 			ret = NodeFactory
-					.getOWLNamedIndividualNode(pickOWLNamedIndividuals(getModel()
-							.getOWLEntityGraph().getEquivalents(individual)));
+					.getOWLNamedIndividualNode(pickOWLNamedIndividuals(getClassifier()
+							.getEquivalentClassesAndIndividuals(individual)));
 		}
 		return ret;
 	}
@@ -400,8 +394,8 @@ public class JcelReasonerProcessor {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return convertToNodeSetOfOWLClass(getModel().getOWLEntityGraph()
-				.getSubElements(description.asOWLClass(), direct));
+		return convertToNodeSetOfOWLClass(getClassifier()
+				.getSubClassesAndIndividuals(description.asOWLClass(), direct));
 	}
 
 	public NodeSet<OWLObjectPropertyExpression> getSubProperties(
@@ -411,8 +405,8 @@ public class JcelReasonerProcessor {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return convertToNodeSetOfOWLObjectPropertyExpression(getModel()
-				.getOWLObjectPropertyGraph().getSubElements(
+		return convertToNodeSetOfOWLObjectPropertyExpression(getClassifier()
+				.getSubObjectProperties(
 						propertyExpression.asOWLObjectProperty(), direct));
 	}
 
@@ -422,8 +416,9 @@ public class JcelReasonerProcessor {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return convertToNodeSetOfOWLClass(getModel().getOWLEntityGraph()
-				.getSuperElements(classExpression.asOWLClass(), direct));
+		return convertToNodeSetOfOWLClass(getClassifier()
+				.getSuperClassesAndIndividuals(classExpression.asOWLClass(),
+						direct));
 	}
 
 	public NodeSet<OWLObjectPropertyExpression> getSuperProperties(
@@ -432,8 +427,8 @@ public class JcelReasonerProcessor {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return convertToNodeSetOfOWLObjectPropertyExpression(getModel()
-				.getOWLObjectPropertyGraph().getSuperElements(
+		return convertToNodeSetOfOWLObjectPropertyExpression(getClassifier()
+				.getSuperObjectProperties(
 						propertyExpression.asOWLObjectProperty(), direct));
 	}
 
@@ -457,8 +452,8 @@ public class JcelReasonerProcessor {
 
 		NodeSet<OWLClass> ret = null;
 		if (isClassified()) {
-			Set<Set<OWLEntity>> types = getModel().getOWLEntityGraph()
-					.getSuperElements(individual, direct);
+			Set<Set<OWLEntity>> types = getClassifier()
+					.getSuperClassesAndIndividuals(individual, direct);
 			ret = convertToNodeSetOfOWLClass(types);
 		}
 		return ret;
@@ -485,7 +480,7 @@ public class JcelReasonerProcessor {
 		boolean ret = false;
 		if (type instanceof OWLClass) {
 			ret = flatten(
-					getModel().getOWLEntityGraph().getSuperElements(individual,
+					getClassifier().getSuperClassesAndIndividuals(individual,
 							direct)).contains(type.asOWLClass());
 		} else {
 			throw new JcelReasonerException(
@@ -500,13 +495,13 @@ public class JcelReasonerProcessor {
 	}
 
 	public boolean isClassified() throws JcelReasonerException {
-		return this.model != null;
+		return this.isClassified;
 	}
 
 	public boolean isConsistent() throws JcelReasonerException {
 		return !isEquivalentClass(getOWLNothing(), getOWLThing())
 				&& pickOWLNamedIndividuals(
-						getModel().getOWLEntityGraph().getEquivalents(
+						getClassifier().getEquivalentClassesAndIndividuals(
 								getOWLNothing())).isEmpty();
 	}
 
@@ -541,8 +536,8 @@ public class JcelReasonerProcessor {
 	private boolean isEquivalentClass(OWLClassExpression clsC,
 			OWLClassExpression clsD) throws JcelReasonerException {
 		assertClassification();
-		return getModel().getOWLEntityGraph().getEquivalents(clsC.asOWLClass())
-				.contains(clsD.asOWLClass());
+		return getClassifier().getEquivalentClassesAndIndividuals(
+				clsC.asOWLClass()).contains(clsD.asOWLClass());
 	}
 
 	public boolean isSatisfiable(OWLClassExpression classExpression)
@@ -598,10 +593,7 @@ public class JcelReasonerProcessor {
 			axiomSet.addAll(ontology.getAxioms());
 		}
 		getClassifier().resetAndLoad(axiomSet);
-		this.model = new JcelModel(getClassifier().getRelationGraph(),
-				getClassifier().getTypeGraph(), getClassifier()
-						.getReflexiveProperties(), getClassifier()
-						.getTransitiveProperties());
+		this.isClassified = true;
 	}
 
 }

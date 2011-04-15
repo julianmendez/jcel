@@ -57,7 +57,6 @@ import de.tudresden.inf.lat.jcel.owlapi.translator.TranslationRepository;
  * Classifies an ontology.
  * 
  * @author Julian Mendez
- * 
  */
 public class JcelClassifierImpl implements JcelClassifier {
 
@@ -247,6 +246,18 @@ public class JcelClassifierImpl implements JcelClassifier {
 		}
 	}
 
+	@Override
+	public Set<OWLEntity> getEquivalentClassesAndIndividuals(OWLEntity classExpr) {
+		return this.owlClassAndIndividualGraph.getEquivalents(classExpr);
+	}
+
+	@Override
+	public Set<OWLObjectProperty> getEquivalentObjectProperties(
+			OWLObjectPropertyExpression propExpr) {
+		return this.owlObjectPropertyGraph.getEquivalents(propExpr
+				.asOWLObjectProperty());
+	}
+
 	public long getMemoryUsage() {
 		return Runtime.getRuntime().totalMemory()
 				- Runtime.getRuntime().freeMemory();
@@ -262,12 +273,10 @@ public class JcelClassifierImpl implements JcelClassifier {
 
 	public OWLClass getOWLNothing() {
 		return this.bottomClass;
-
 	}
 
 	public OWLClass getOWLThing() {
 		return this.topClass;
-
 	}
 
 	public OWLDataProperty getOWLTopDataProperty() {
@@ -289,18 +298,34 @@ public class JcelClassifierImpl implements JcelClassifier {
 	}
 
 	@Override
-	public HierarchicalGraph<OWLObjectProperty> getRelationGraph() {
-		return this.owlObjectPropertyGraph;
+	public Set<Set<OWLEntity>> getSubClassesAndIndividuals(OWLEntity entity,
+			boolean direct) {
+		return this.owlClassAndIndividualGraph.getSubElements(entity, direct);
+	}
+
+	@Override
+	public Set<Set<OWLObjectProperty>> getSubObjectProperties(
+			OWLObjectPropertyExpression propExpr, boolean direct) {
+		return this.owlObjectPropertyGraph.getSubElements(
+				propExpr.asOWLObjectProperty(), direct);
+	}
+
+	@Override
+	public Set<Set<OWLEntity>> getSuperClassesAndIndividuals(OWLEntity entity,
+			boolean direct) {
+		return this.owlClassAndIndividualGraph.getSuperElements(entity, direct);
+	}
+
+	@Override
+	public Set<Set<OWLObjectProperty>> getSuperObjectProperties(
+			OWLObjectPropertyExpression propExpr, boolean direct) {
+		return this.owlObjectPropertyGraph.getSuperElements(
+				propExpr.asOWLObjectProperty(), direct);
 	}
 
 	@Override
 	public Set<OWLObjectProperty> getTransitiveProperties() {
 		return this.transitivePropertySet;
-	}
-
-	@Override
-	public HierarchicalGraph<OWLEntity> getTypeGraph() {
-		return this.owlClassAndIndividualGraph;
 	}
 
 	private void incrementMonitor(Integer limit) {

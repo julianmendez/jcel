@@ -26,6 +26,7 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 
 /**
@@ -34,6 +35,27 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
  * @author Julian Mendez
  */
 public interface JcelClassifier {
+
+	/**
+	 * Returns the set of equivalent classes or individuals of a given entity.
+	 * 
+	 * @param entity
+	 *            entity
+	 * @return the set of equivalent classes or individuals of a given entity
+	 */
+	public Set<OWLEntity> getEquivalentClassesAndIndividuals(OWLEntity entity);
+
+	/**
+	 * Returns the set of equivalent object properties of a given object
+	 * property expression.
+	 * 
+	 * @param propExpr
+	 *            object property expression
+	 * @return the set of equivalent object properties of a given object
+	 *         property expression
+	 */
+	public Set<OWLObjectProperty> getEquivalentObjectProperties(
+			OWLObjectPropertyExpression propExpr);
 
 	/**
 	 * Returns the reasoner configuration.
@@ -50,11 +72,60 @@ public interface JcelClassifier {
 	public Set<OWLObjectProperty> getReflexiveProperties();
 
 	/**
-	 * Returns a graph containing the OWL properties.
+	 * Returns a set of sets of equivalent sub classes of a given class
+	 * expression.
 	 * 
-	 * @return a graph containing the OWL properties.
+	 * @param entity
+	 *            class expression
+	 * @param direct
+	 *            <code>true</code> to get only direct sub classes
+	 * @return a set of sets of equivalent sub classes of a given class
+	 *         expression
 	 */
-	public HierarchicalGraph<OWLObjectProperty> getRelationGraph();
+	public Set<Set<OWLEntity>> getSubClassesAndIndividuals(OWLEntity entity,
+			boolean direct);
+
+	/**
+	 * Returns a set of sets of equivalent object properties of a given object
+	 * property expression.
+	 * 
+	 * @param propExpr
+	 *            object property expression
+	 * @param direct
+	 *            <code>true</code> to get only direct sub object properties
+	 * @return a set of sets of equivalent object properties of a given object
+	 *         property expression.
+	 */
+	public Set<Set<OWLObjectProperty>> getSubObjectProperties(
+			OWLObjectPropertyExpression propExpr, boolean direct);
+
+	/**
+	 * Returns a set of sets of equivalent super classes of a given class
+	 * expression.
+	 * 
+	 * @param entity
+	 *            class expression
+	 * @param direct
+	 *            <code>true</code> to get only direct super classes
+	 * @return a set of sets of equivalent super classes of a given class
+	 *         expression
+	 */
+	public Set<Set<OWLEntity>> getSuperClassesAndIndividuals(OWLEntity entity,
+			boolean direct);
+
+	/**
+	 * Returns a set of sets of equivalent super object properties of a given
+	 * object property expression.
+	 * 
+	 * @param propExpr
+	 *            object property expression
+	 * @param direct
+	 *            <code>true</code> to get only direct super object properties
+	 * @return a set of sets of equivalent super object properties of a given
+	 *         object property expression
+	 */
+	public Set<Set<OWLObjectProperty>> getSuperObjectProperties(
+			OWLObjectPropertyExpression propExpr, boolean direct);
 
 	/**
 	 * Returns the set of transitive properties.
@@ -62,13 +133,6 @@ public interface JcelClassifier {
 	 * @return the set of transitive properties.
 	 */
 	public Set<OWLObjectProperty> getTransitiveProperties();
-
-	/**
-	 * Returns a graph containing the OWL classes and individuals.
-	 * 
-	 * @return a graph containing the OWL classes and individuals.
-	 */
-	public HierarchicalGraph<OWLEntity> getTypeGraph();
 
 	/**
 	 * Interrupts the execution when running a classification.

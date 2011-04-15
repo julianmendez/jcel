@@ -34,7 +34,7 @@ import java.util.Set;
  * 
  * @author Julian Mendez
  */
-public interface HierarchicalGraph<T> {
+interface HierarchicalGraph<T> {
 
 	/**
 	 * Returns the set of vertices in the graph.
@@ -78,4 +78,5 @@ public interface HierarchicalGraph<T> {
 	 *         equivalent vertices.
 	 */
 	public Set<Set<T>> getSuperElements(T vertex, boolean direct);
+
 }

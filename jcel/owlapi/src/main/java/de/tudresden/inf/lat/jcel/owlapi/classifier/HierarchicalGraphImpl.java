@@ -37,7 +37,7 @@ import java.util.Set;
  * @param <T>
  *            type of vertices.
  */
-public class HierarchicalGraphImpl<T> implements HierarchicalGraph<T> {
+class HierarchicalGraphImpl<T> implements HierarchicalGraph<T> {
 
 	// private static final Logger logger = Logger
 	// .getLogger(HierarchicalGraphImpl.class.getName());
@@ -223,4 +223,5 @@ public class HierarchicalGraphImpl<T> implements HierarchicalGraph<T> {
 		sbuf.append("\n");
 		return sbuf.toString();
 	}
+
 }
