@@ -31,6 +31,7 @@ import java.util.TreeSet;
 import java.util.logging.Logger;
 
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
+import de.tudresden.inf.lat.jcel.core.algorithm.common.UnclassifiedOntologyException;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerEquivalentClassesAxiom;
@@ -206,11 +207,10 @@ public class ClassModuleProcessor implements Processor {
 
 	@Override
 	public IntegerHierarchicalGraph getClassHierarchy() {
-		IntegerHierarchicalGraph ret = null;
-		if (isReady()) {
-			ret = this.classHierarchy;
+		if (!isReady()) {
+			throw new UnclassifiedOntologyException();
 		}
-		return ret;
+		return this.classHierarchy;
 	}
 
 	private List<Set<Integer>> getClustersOfClasses(
@@ -239,20 +239,18 @@ public class ClassModuleProcessor implements Processor {
 
 	@Override
 	public Map<Integer, Set<Integer>> getDirectTypes() {
-		Map<Integer, Set<Integer>> ret = null;
-		if (isReady()) {
-			ret = this.directTypes;
+		if (!isReady()) {
+			throw new UnclassifiedOntologyException();
 		}
-		return ret;
+		return this.directTypes;
 	}
 
 	@Override
 	public IntegerHierarchicalGraph getObjectPropertyHierarchy() {
-		IntegerHierarchicalGraph ret = null;
-		if (isReady()) {
-			ret = this.objectPropertyHierarchy;
+		if (!isReady()) {
+			throw new UnclassifiedOntologyException();
 		}
-		return ret;
+		return this.objectPropertyHierarchy;
 	}
 
 	private Set<Integer> getReachableClasses(Integer firstClassId,
@@ -274,11 +272,10 @@ public class ClassModuleProcessor implements Processor {
 
 	@Override
 	public Map<Integer, Set<Integer>> getSameIndividualMap() {
-		Map<Integer, Set<Integer>> ret = null;
-		if (isReady()) {
-			ret = this.sameIndividualMap;
+		if (!isReady()) {
+			throw new UnclassifiedOntologyException();
 		}
-		return ret;
+		return this.sameIndividualMap;
 	}
 
 	@Override

@@ -33,6 +33,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
+import de.tudresden.inf.lat.jcel.core.algorithm.common.UnclassifiedOntologyException;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerBinaryRelation;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
@@ -251,13 +252,11 @@ public class CelProcessor implements Processor {
 		return this.classGraph;
 	}
 
-	/**
-	 * Returns the class hierarchy after the classification is finished.
-	 * 
-	 * @return the class hierarchy after the classification is finished, or
-	 *         <code>null</code> otherwise.
-	 */
+	@Override
 	public IntegerHierarchicalGraph getClassHierarchy() {
+		if (!isReady()) {
+			throw new UnclassifiedOntologyException();
+		}
 		return this.classHierarchy;
 	}
 
@@ -289,6 +288,9 @@ public class CelProcessor implements Processor {
 
 	@Override
 	public Map<Integer, Set<Integer>> getDirectTypes() {
+		if (!isReady()) {
+			throw new UnclassifiedOntologyException();
+		}
 		return Collections.unmodifiableMap(this.directTypes);
 	}
 
@@ -311,6 +313,9 @@ public class CelProcessor implements Processor {
 
 	@Override
 	public IntegerHierarchicalGraph getObjectPropertyHierarchy() {
+		if (!isReady()) {
+			throw new UnclassifiedOntologyException();
+		}
 		return this.objectPropertyHierarchy;
 	}
 
@@ -346,6 +351,9 @@ public class CelProcessor implements Processor {
 
 	@Override
 	public Map<Integer, Set<Integer>> getSameIndividualMap() {
+		if (!isReady()) {
+			throw new UnclassifiedOntologyException();
+		}
 		return Collections.unmodifiableMap(this.sameIndividualMap);
 	}
 

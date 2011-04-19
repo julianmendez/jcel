@@ -46,35 +46,44 @@ public interface Processor {
 	/**
 	 * Returns the class hierarchy after the classification has finished.
 	 * 
-	 * @return the class hierarchy if the classification has finished, or
-	 *         <code>null</code> otherwise.
+	 * @return the class hierarchy if the classification has finished
+	 * @throws UnclassifiedOntologyException
+	 *             if the classification has not finished yet
 	 */
-	public IntegerHierarchicalGraph getClassHierarchy();
+	public IntegerHierarchicalGraph getClassHierarchy()
+			throws UnclassifiedOntologyException;
 
 	/**
 	 * Returns the map of direct types for every individual.
 	 * 
-	 * @return the the map of direct types if the classification has finished,
-	 *         or <code>null</code> otherwise.
+	 * @return the the map of direct types if the classification has finished
+	 * @throws UnclassifiedOntologyException
+	 *             if the classification has not finished yet
 	 */
-	public Map<Integer, Set<Integer>> getDirectTypes();
+	public Map<Integer, Set<Integer>> getDirectTypes()
+			throws UnclassifiedOntologyException;
 
 	/**
 	 * Returns the object property hierarchy after the classification has
 	 * finished.
 	 * 
-	 * @return the object property hierarchy if the classification has finished,
-	 *         or <code>null</code> otherwise.
+	 * @return the object property hierarchy if the classification has finished
+	 * @throws UnclassifiedOntologyException
+	 *             if the classification has not finished yet
 	 */
-	public IntegerHierarchicalGraph getObjectPropertyHierarchy();
+	public IntegerHierarchicalGraph getObjectPropertyHierarchy()
+			throws UnclassifiedOntologyException;
 
 	/**
 	 * Returns the map of same individuals.
 	 * 
 	 * @return the the map of same individuals if the classification has
-	 *         finished, or <code>null</code> otherwise.
+	 *         finished
+	 * @throws UnclassifiedOntologyException
+	 *             if the classification has not finished yet
 	 */
-	public Map<Integer, Set<Integer>> getSameIndividualMap();
+	public Map<Integer, Set<Integer>> getSameIndividualMap()
+			throws UnclassifiedOntologyException;
 
 	/**
 	 * Tells whether the processor has classified the class hierarchy and object
