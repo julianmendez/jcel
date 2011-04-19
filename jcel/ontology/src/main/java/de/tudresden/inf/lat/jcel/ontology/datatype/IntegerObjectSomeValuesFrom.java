@@ -104,6 +104,11 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 		return Collections.emptySet();
 	}
 
+	/**
+	 * Returns the filler.
+	 * 
+	 * @return the filler
+	 */
 	public IntegerClassExpression getFiller() {
 		return this.filler;
 	}
@@ -136,6 +141,11 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 	}
 
 	@Override
+	public boolean isIntersectionOfLiterals() {
+		return false;
+	}
+
+	@Override
 	public boolean isLiteral() {
 		return false;
 	}
@@ -151,4 +161,5 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 		sbuf.append(IntegerClassExpressionWord.closePar);
 		return sbuf.toString();
 	}
+
 }

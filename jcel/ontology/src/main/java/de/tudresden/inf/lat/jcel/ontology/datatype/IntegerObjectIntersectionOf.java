@@ -35,6 +35,7 @@ import java.util.Set;
  */
 public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 
+	private boolean isIntersectionOfLiterals = false;
 	private boolean normalized = false;
 	private Set<IntegerClassExpression> operands = null;
 	private boolean withBottom = false;
@@ -52,12 +53,15 @@ public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 
 		this.operands = operands;
 		this.normalized = true;
+		this.isIntersectionOfLiterals = true;
 		for (IntegerClassExpression elem : this.operands) {
 			if (elem.containsBottom()) {
 				this.withBottom = true;
 			}
 			if (!elem.isLiteral()) {
 				this.normalized = false;
+				this.isIntersectionOfLiterals = this.isIntersectionOfLiterals
+						&& elem.isIntersectionOfLiterals();
 			}
 		}
 	}
@@ -137,6 +141,11 @@ public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 	@Override
 	public boolean hasOnlyLiterals() {
 		return this.normalized;
+	}
+
+	@Override
+	public boolean isIntersectionOfLiterals() {
+		return this.isIntersectionOfLiterals;
 	}
 
 	@Override

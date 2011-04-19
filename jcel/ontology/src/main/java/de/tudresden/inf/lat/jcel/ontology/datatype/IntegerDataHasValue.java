@@ -135,6 +135,11 @@ public class IntegerDataHasValue implements IntegerClassExpression {
 	}
 
 	@Override
+	public boolean isIntersectionOfLiterals() {
+		return false;
+	}
+
+	@Override
 	public boolean isLiteral() {
 		return false;
 	}

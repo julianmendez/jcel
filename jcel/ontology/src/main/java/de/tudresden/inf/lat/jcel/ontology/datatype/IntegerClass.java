@@ -126,6 +126,11 @@ public class IntegerClass implements IntegerClassExpression,
 	}
 
 	@Override
+	public boolean isIntersectionOfLiterals() {
+		return true;
+	}
+
+	@Override
 	public boolean isLiteral() {
 		return true;
 	}

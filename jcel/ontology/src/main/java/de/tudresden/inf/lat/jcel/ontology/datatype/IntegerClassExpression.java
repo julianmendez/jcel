@@ -48,6 +48,15 @@ public interface IntegerClassExpression extends IntegerDatatype {
 	public boolean hasOnlyLiterals();
 
 	/**
+	 * Tells whether or not this class expression contains only intersections
+	 * and literals.
+	 * 
+	 * @return <code>true</code> if and only if this class expression contains
+	 *         only intersections and literals.
+	 */
+	public boolean isIntersectionOfLiterals();
+
+	/**
 	 * Tells whether or not this class expression is a literal.
 	 * 
 	 * @return <code>true</code> if and only if this class expression is a
