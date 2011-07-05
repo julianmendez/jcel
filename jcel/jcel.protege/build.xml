@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="protege" default="dist" basedir=".">
+<project name="jcel.protege" default="dist" basedir=".">
 
 	<!--
  *
@@ -29,7 +29,7 @@
 	-->
 
 	<property name="groupId" value="jcel" />
-	<property name="artifactId" value="protege" />
+	<property name="artifactId" value="jcel.protege" />
 
 	<!-- Imports version properties. -->
 	<property file="version.properties" />
@@ -44,7 +44,7 @@
 
 	-->
 
-	<property name="parent.directory" value="../jars" />
+	<property name="parent.directory" value="../jcel.jars" />
 
 	<!-- Compiles this module. -->
 	<target name="dist">

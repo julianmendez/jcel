@@ -40,7 +40,7 @@
 		<groupId>jcel</groupId>
 		<artifactId>parent</artifactId>
 		<version>0.15.0</version>
-		<relativePath>../jars</relativePath>
+		<relativePath>../jcel.jars</relativePath>
 	</parent>
 
 	<build>
@@ -67,16 +67,16 @@
 					<instructions>
 						<Include-Resource>
 							{maven-resources}, {maven-dependencies},
-							@target/protege-0.15.0.jar,
-							lib/jcel/ontology/0.15.0/ontology-0.15.0.jar=../ontology/target/ontology-0.15.0.jar,
-							lib/jcel/ontology/0.15.0/copying.txt=../ontology/copying.txt,
-							lib/jcel/ontology/0.15.0/copying-lesser.txt=../ontology/copying-lesser.txt,
-							lib/jcel/core/0.15.0/core-0.15.0.jar=../core/target/core-0.15.0.jar,
-							lib/jcel/core/0.15.0/copying.txt=../core/copying.txt,
-							lib/jcel/core/0.15.0/copying-lesser.txt=../core/copying-lesser.txt,
-							lib/jcel/owlapi/0.15.0/owlapi-0.15.0.jar=../owlapi/target/owlapi-0.15.0.jar,
-							lib/jcel/owlapi/0.15.0/copying.txt=../owlapi/copying.txt,
-							lib/jcel/owlapi/0.15.0/copying-lesser.txt=../owlapi/copying-lesser.txt
+							@target/jcel.protege-0.15.0.jar,
+							lib/jcel/jcel.ontology/0.15.0/jcel.ontology-0.15.0.jar=../jcel.ontology/target/jcel.ontology-0.15.0.jar,
+							lib/jcel/jcel.ontology/0.15.0/copying.txt=../jcel.ontology/copying.txt,
+							lib/jcel/jcel.ontology/0.15.0/copying-lesser.txt=../jcel.ontology/copying-lesser.txt,
+							lib/jcel/jcel.core/0.15.0/jcel.core-0.15.0.jar=../jcel.core/target/jcel.core-0.15.0.jar,
+							lib/jcel/jcel.core/0.15.0/copying.txt=../jcel.core/copying.txt,
+							lib/jcel/jcel.core/0.15.0/copying-lesser.txt=../jcel.core/copying-lesser.txt,
+							lib/jcel/jcel.owlapi/0.15.0/jcel.owlapi-0.15.0.jar=../jcel.owlapi/target/jcel.owlapi-0.15.0.jar,
+							lib/jcel/jcel.owlapi/0.15.0/copying.txt=../jcel.owlapi/copying.txt,
+							lib/jcel/jcel.owlapi/0.15.0/copying-lesser.txt=../jcel.owlapi/copying-lesser.txt
 						</Include-Resource>
 					</instructions>
 				</configuration>

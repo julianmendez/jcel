@@ -37,10 +37,10 @@
 	<name>jcel</name>
 
 	<modules>
-		<module>../ontology</module>
-		<module>../core</module>
-		<module>../owlapi</module>
-		<module>../protege</module>
+		<module>../jcel.ontology</module>
+		<module>../jcel.core</module>
+		<module>../jcel.owlapi</module>
+		<module>../jcel.protege</module>
 	</modules>
 
 </project>

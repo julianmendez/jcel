@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="jars" default="dist" basedir=".">
+<project name="jcel.jars" default="dist" basedir=".">
 
 	<!--
  *
@@ -41,7 +41,7 @@
 	<property name="_lib.directory" value="${project.build.directory}/lib" />
 	<property name="_targetlib.directory" value="target" />
 	<property name="groupId.directory" value="jcel" />
-	<property name="repository.directory" value="../jars/lib" />
+	<property name="repository.directory" value="../jcel.jars/lib" />
 	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
 	<property name="_jars.directory" value="${basedir}/.." />
 	<property name="_resources.directory" value="${src.directory}/main/resources" />
@@ -52,10 +52,10 @@
 	<property name="_javadoc.directory" value="${project.build.directory}/site/javadoc" />
 	<property name="_src.javadoc.directory" value="${src.directory}/main/javadoc" />
 
-	<property name="module.0.name" value="ontology" />
-	<property name="module.1.name" value="core" />
-	<property name="module.2.name" value="owlapi" />
-	<property name="module.3.name" value="protege" />
+	<property name="module.0.name" value="jcel.ontology" />
+	<property name="module.1.name" value="jcel.core" />
+	<property name="module.2.name" value="jcel.owlapi" />
+	<property name="module.3.name" value="jcel.protege" />
 
 	<path id="libs.directory">
 		<fileset dir="${_jars.directory}" includes="${dependencies}" />

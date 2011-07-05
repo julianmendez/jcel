@@ -30,7 +30,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>jcel</groupId>
-	<artifactId>owlapi</artifactId>
+	<artifactId>jcel.owlapi</artifactId>
 	<version>0.15.0</version>
 	<packaging>jar</packaging>
 
@@ -40,20 +40,20 @@
 		<groupId>jcel</groupId>
 		<artifactId>parent</artifactId>
 		<version>0.15.0</version>
-		<relativePath>../jars</relativePath>
+		<relativePath>../jcel.jars</relativePath>
 	</parent>
 
 	<dependencies>
 
 		<dependency>
 			<groupId>jcel</groupId>
-			<artifactId>ontology</artifactId>
+			<artifactId>jcel.ontology</artifactId>
 			<version>0.15.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>jcel</groupId>
-			<artifactId>core</artifactId>
+			<artifactId>jcel.core</artifactId>
 			<version>0.15.0</version>
 		</dependency>
 
