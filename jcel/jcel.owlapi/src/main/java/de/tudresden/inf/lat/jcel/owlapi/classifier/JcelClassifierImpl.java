@@ -30,15 +30,9 @@ import java.util.logging.Logger;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataHasValue;
-import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
@@ -147,93 +141,8 @@ public class JcelClassifierImpl implements JcelClassifier {
 		this.configuration = config;
 	}
 
-	private Set<OWLClass> collectClasses(Set<OWLAxiom> axiomSet) {
-		Set<OWLClass> ret = new HashSet<OWLClass>();
-		for (OWLAxiom axiom : axiomSet) {
-			ret.addAll(axiom.getClassesInSignature());
-		}
-		ret.add(getOWLNothing());
-		ret.add(getOWLThing());
-		return ret;
-	}
-
-	private Set<OWLDataProperty> collectDataProperties(Set<OWLAxiom> axiomSet) {
-		Set<OWLDataProperty> ret = new HashSet<OWLDataProperty>();
-		for (OWLAxiom axiom : axiomSet) {
-			Set<OWLDataProperty> entities = axiom
-					.getDataPropertiesInSignature();
-			ret.addAll(entities);
-		}
-		return ret;
-	}
-
-	private Set<OWLNamedIndividual> collectIndividuals(Set<OWLAxiom> axiomSet) {
-		Set<OWLNamedIndividual> ret = new HashSet<OWLNamedIndividual>();
-		for (OWLAxiom axiom : axiomSet) {
-			Set<OWLNamedIndividual> entities = axiom
-					.getIndividualsInSignature();
-			ret.addAll(entities);
-		}
-		return ret;
-	}
-
-	private Set<OWLLiteral> collectLiterals(Set<OWLAxiom> axiomSet) {
-		Set<OWLLiteral> ret = new HashSet<OWLLiteral>();
-		for (OWLAxiom axiom : axiomSet) {
-			if ((axiom instanceof OWLDataPropertyAssertionAxiom)) {
-				ret.add(((OWLDataPropertyAssertionAxiom) axiom).getObject());
-			}
-			if (axiom instanceof OWLNegativeDataPropertyAssertionAxiom) {
-				ret.add(((OWLNegativeDataPropertyAssertionAxiom) axiom)
-						.getObject());
-			}
-			Set<OWLClassExpression> classExpressions = axiom
-					.getNestedClassExpressions();
-			for (OWLClassExpression classExpr : classExpressions) {
-				if (classExpr instanceof OWLDataHasValue) {
-					ret.add(((OWLDataHasValue) classExpr).getValue());
-				}
-				if (classExpr instanceof OWLDataOneOf) {
-					ret.addAll(((OWLDataOneOf) classExpr).getValues());
-				}
-			}
-
-		}
-		return ret;
-	}
-
-	private Set<OWLObjectProperty> collectObjectProperties(
-			Set<OWLAxiom> axiomSet) {
-		Set<OWLObjectProperty> ret = new HashSet<OWLObjectProperty>();
-		for (OWLAxiom axiom : axiomSet) {
-			Set<OWLObjectProperty> entities = axiom
-					.getObjectPropertiesInSignature();
-			ret.addAll(entities);
-		}
-		return ret;
-	}
-
 	private Processor createProcessor(Set<ComplexIntegerAxiom> axiomSet) {
 		return new RuleBasedProcessor(axiomSet);
-	}
-
-	private TranslationRepository createTranslationRepository(
-			Set<OWLAxiom> axiomSet) {
-		TranslationRepository ret = null;
-		if (axiomSet != null) {
-			Set<OWLClass> conceptNameSet = collectClasses(axiomSet);
-			Set<OWLObjectProperty> objectPropertySet = collectObjectProperties(axiomSet);
-			Set<OWLNamedIndividual> individualSet = collectIndividuals(axiomSet);
-			Set<OWLDataProperty> dataPropertySet = collectDataProperties(axiomSet);
-			Set<OWLLiteral> literalSet = collectLiterals(axiomSet);
-			ret = new TranslationRepository();
-			ret.load(getOWLNothing(), getOWLThing(),
-					getOWLBottomObjectProperty(), getOWLTopObjectProperty(),
-					getOWLBottomDataProperty(), getOWLTopDataProperty(),
-					conceptNameSet, objectPropertySet, individualSet,
-					dataPropertySet, literalSet);
-		}
-		return ret;
 	}
 
 	public void finishMonitor() {
@@ -403,8 +312,10 @@ public class JcelClassifierImpl implements JcelClassifier {
 		this.transitivePropertySet = pickTransitiveOWLObjectProperties(owlAxiomSet);
 
 		log("creating translation repository ...");
-		TranslationRepository translationRep = null;
-		translationRep = createTranslationRepository(owlAxiomSet);
+		TranslationRepository translationRep = new TranslationRepository(
+				this.bottomClass, this.topClass, this.bottomObjectProperty,
+				this.topObjectProperty, this.bottomDataProperty,
+				this.topDataProperty, owlAxiomSet);
 		setProgress(checkpoint01translationRepository);
 
 		log("translating axioms ...");
