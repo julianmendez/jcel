@@ -35,8 +35,8 @@ import java.util.Set;
  */
 public class GCI0Axiom implements NormalizedIntegerAxiom {
 
-	private Integer subClass = null;
-	private Integer superClass = null;
+	private final Integer subClass;
+	private final Integer superClass;
 
 	/**
 	 * Constructs a new GCI-0 axiom.

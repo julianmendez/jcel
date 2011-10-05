@@ -34,9 +34,9 @@ import java.util.Set;
  */
 public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom {
 
-	private Integer firstProperty = null;
-	private Set<Integer> objectPropertiesInSignature = null;
-	private Integer secondProperty = null;
+	private final Integer firstProperty;
+	private final Set<Integer> objectPropertiesInSignature;
+	private final Integer secondProperty;
 
 	/**
 	 * Constructs a new inverse object property axiom, declaring that one object
@@ -58,9 +58,11 @@ public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom 
 		this.firstProperty = first;
 		this.secondProperty = second;
 
-		this.objectPropertiesInSignature = new HashSet<Integer>();
-		this.objectPropertiesInSignature.add(this.firstProperty);
-		this.objectPropertiesInSignature.add(this.secondProperty);
+		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
+		objectPropertiesInSignature.add(this.firstProperty);
+		objectPropertiesInSignature.add(this.secondProperty);
+		this.objectPropertiesInSignature = Collections
+				.unmodifiableSet(objectPropertiesInSignature);
 	}
 
 	@Override

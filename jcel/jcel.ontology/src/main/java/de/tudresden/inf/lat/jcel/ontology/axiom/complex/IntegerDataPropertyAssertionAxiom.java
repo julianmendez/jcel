@@ -34,10 +34,10 @@ import java.util.Set;
  */
 public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 
-	private Set<Integer> individualsInSignature = null;
-	private Integer object = null;
-	private Integer property = null;
-	private Integer subject = null;
+	private final Set<Integer> individualsInSignature;
+	private final Integer object;
+	private final Integer property;
+	private final Integer subject;
 
 	/**
 	 * Constructs a new data property assertion axiom.
@@ -65,9 +65,11 @@ public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 		this.subject = subjectInd;
 		this.object = objectInd;
 
-		this.individualsInSignature = new HashSet<Integer>();
-		this.individualsInSignature.add(this.subject);
-		this.individualsInSignature.add(this.object);
+		Set<Integer> individualsInSignature = new HashSet<Integer>();
+		individualsInSignature.add(this.subject);
+		individualsInSignature.add(this.object);
+		this.individualsInSignature = Collections
+				.unmodifiableSet(individualsInSignature);
 	}
 
 	@Override

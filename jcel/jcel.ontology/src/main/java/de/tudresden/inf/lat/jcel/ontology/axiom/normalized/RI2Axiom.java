@@ -35,8 +35,8 @@ import java.util.Set;
  */
 public class RI2Axiom implements NormalizedIntegerAxiom {
 
-	private Integer subProperty = null;
-	private Integer superProperty = null;
+	private final Integer subProperty;
+	private final Integer superProperty;
 
 	/**
 	 * Constructs a new axiom RI-2.

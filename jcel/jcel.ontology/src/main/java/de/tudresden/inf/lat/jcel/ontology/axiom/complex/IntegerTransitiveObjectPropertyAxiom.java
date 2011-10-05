@@ -35,8 +35,8 @@ import java.util.Set;
 public class IntegerTransitiveObjectPropertyAxiom implements
 		ComplexIntegerAxiom {
 
-	private Set<Integer> objectPropertiesInSignature = null;
-	private Integer property = null;
+	private final Set<Integer> objectPropertiesInSignature;
+	private final Integer property;
 
 	/**
 	 * Constructs a new transitive object property axiom.
@@ -51,8 +51,9 @@ public class IntegerTransitiveObjectPropertyAxiom implements
 
 		this.property = prop;
 
-		this.objectPropertiesInSignature = new HashSet<Integer>();
-		this.objectPropertiesInSignature.add(this.property);
+		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
+		objectPropertiesInSignature.add(this.property);
+		this.objectPropertiesInSignature = objectPropertiesInSignature;
 	}
 
 	@Override

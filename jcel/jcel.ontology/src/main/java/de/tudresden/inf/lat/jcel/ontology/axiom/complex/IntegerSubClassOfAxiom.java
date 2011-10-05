@@ -36,10 +36,10 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
  */
 public class IntegerSubClassOfAxiom implements ComplexIntegerAxiom {
 
-	private Set<Integer> classesInSignature = null;
-	private Set<Integer> objectPropertiesInSignature = null;
-	private IntegerClassExpression subClass = null;
-	private IntegerClassExpression superClass = null;
+	private final Set<Integer> classesInSignature;
+	private final Set<Integer> objectPropertiesInSignature;
+	private final IntegerClassExpression subClass;
+	private final IntegerClassExpression superClass;
 
 	/**
 	 * Constructs a new subclass axiom.
@@ -61,15 +61,19 @@ public class IntegerSubClassOfAxiom implements ComplexIntegerAxiom {
 		this.subClass = subClExpr;
 		this.superClass = superClExpr;
 
-		this.classesInSignature = new HashSet<Integer>();
-		this.classesInSignature.addAll(this.subClass.getClassesInSignature());
-		this.classesInSignature.addAll(this.superClass.getClassesInSignature());
+		Set<Integer> classesInSignature = new HashSet<Integer>();
+		classesInSignature.addAll(this.subClass.getClassesInSignature());
+		classesInSignature.addAll(this.superClass.getClassesInSignature());
+		this.classesInSignature = Collections
+				.unmodifiableSet(classesInSignature);
 
-		this.objectPropertiesInSignature = new HashSet<Integer>();
-		this.objectPropertiesInSignature.addAll(this.subClass
+		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
+		objectPropertiesInSignature.addAll(this.subClass
 				.getObjectPropertiesInSignature());
-		this.objectPropertiesInSignature.addAll(this.superClass
+		objectPropertiesInSignature.addAll(this.superClass
 				.getObjectPropertiesInSignature());
+		this.objectPropertiesInSignature = Collections
+				.unmodifiableSet(objectPropertiesInSignature);
 	}
 
 	@Override

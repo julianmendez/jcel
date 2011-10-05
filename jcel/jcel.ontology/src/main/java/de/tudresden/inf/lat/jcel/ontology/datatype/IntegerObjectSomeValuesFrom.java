@@ -34,9 +34,9 @@ import java.util.Set;
  */
 public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 
-	private IntegerClassExpression filler = null;
-	private boolean normalized = false;
-	private IntegerObjectPropertyExpression property = null;
+	private final IntegerClassExpression filler;
+	private final boolean normalized;
+	private final IntegerObjectPropertyExpression property;
 
 	/**
 	 * Constructs an existential restriction.

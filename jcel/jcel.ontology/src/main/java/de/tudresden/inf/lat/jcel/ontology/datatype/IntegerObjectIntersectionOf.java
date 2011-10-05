@@ -35,10 +35,10 @@ import java.util.Set;
  */
 public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 
-	private boolean isIntersectionOfLiterals = false;
-	private boolean normalized = false;
-	private Set<IntegerClassExpression> operands = null;
-	private boolean withBottom = false;
+	private final boolean isIntersectionOfLiterals;
+	private final boolean normalized;
+	private final Set<IntegerClassExpression> operands;
+	private final boolean withBottom;
 
 	/**
 	 * Constructs an intersection of class expressions.
@@ -52,18 +52,22 @@ public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 		}
 
 		this.operands = operands;
-		this.normalized = true;
-		this.isIntersectionOfLiterals = true;
+		boolean normalized = true;
+		boolean isIntersectionOfLiterals = true;
+		boolean withBottom = false;
 		for (IntegerClassExpression elem : this.operands) {
 			if (elem.containsBottom()) {
-				this.withBottom = true;
+				withBottom = true;
 			}
 			if (!elem.isLiteral()) {
-				this.normalized = false;
-				this.isIntersectionOfLiterals = this.isIntersectionOfLiterals
+				normalized = false;
+				isIntersectionOfLiterals = isIntersectionOfLiterals
 						&& elem.isIntersectionOfLiterals();
 			}
 		}
+		this.normalized = normalized;
+		this.isIntersectionOfLiterals = isIntersectionOfLiterals;
+		this.withBottom = withBottom;
 	}
 
 	@Override

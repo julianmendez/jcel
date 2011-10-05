@@ -32,7 +32,7 @@ import java.util.Set;
 public class IntegerClass implements IntegerClassExpression,
 		Comparable<IntegerClass> {
 
-	private Integer id = null;
+	private final Integer id;
 
 	/**
 	 * Constructs a new class.

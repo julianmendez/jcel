@@ -31,7 +31,7 @@ import java.util.Set;
  */
 public class IntegerClassDeclarationAxiom implements IntegerDeclarationAxiom {
 
-	private Integer entity = null;
+	private final Integer entity;
 
 	/**
 	 * Constructs a new class declaration axiom.

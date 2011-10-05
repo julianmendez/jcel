@@ -35,7 +35,7 @@ import java.util.Set;
 public class IntegerEquivalentObjectPropertiesAxiom implements
 		ComplexIntegerAxiom {
 
-	private Set<Integer> properties = null;
+	private final Set<Integer> properties;
 
 	/**
 	 * Constructs an equivalent object properties axiom.
@@ -48,7 +48,7 @@ public class IntegerEquivalentObjectPropertiesAxiom implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.properties = propSet;
+		this.properties = Collections.unmodifiableSet(propSet);
 	}
 
 	@Override

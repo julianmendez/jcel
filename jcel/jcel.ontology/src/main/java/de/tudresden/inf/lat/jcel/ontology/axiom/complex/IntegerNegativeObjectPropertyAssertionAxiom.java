@@ -37,10 +37,10 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 public class IntegerNegativeObjectPropertyAssertionAxiom implements
 		ComplexIntegerAxiom {
 
-	private Set<Integer> individuals = null;
-	private Integer object = null;
-	private IntegerObjectPropertyExpression property = null;
-	private Integer subject = null;
+	private final Set<Integer> individuals;
+	private final Integer object;
+	private final IntegerObjectPropertyExpression property;
+	private final Integer subject;
 
 	/**
 	 * Constructs a new negative object property axiom.
@@ -69,9 +69,10 @@ public class IntegerNegativeObjectPropertyAssertionAxiom implements
 		this.subject = subjectInd;
 		this.object = objectInd;
 
-		this.individuals = new HashSet<Integer>();
-		this.individuals.add(this.subject);
-		this.individuals.add(this.object);
+		Set<Integer> individuals = new HashSet<Integer>();
+		individuals.add(this.subject);
+		individuals.add(this.object);
+		this.individuals = Collections.unmodifiableSet(individuals);
 	}
 
 	@Override

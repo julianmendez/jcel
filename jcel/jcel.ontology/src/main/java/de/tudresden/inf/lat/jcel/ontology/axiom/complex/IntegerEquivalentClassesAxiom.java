@@ -36,9 +36,9 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
  */
 public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 
-	private Set<Integer> classesInSignature = null;
-	private Set<IntegerClassExpression> classExpressions = null;
-	private Set<Integer> objectPropertiesInSignature = null;
+	private final Set<Integer> classesInSignature;
+	private final Set<IntegerClassExpression> classExpressions;
+	private final Set<Integer> objectPropertiesInSignature;
 
 	/**
 	 * Constructs a new equivalent classes axiom.
@@ -51,18 +51,22 @@ public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.classExpressions = descSet;
+		this.classExpressions = Collections.unmodifiableSet(descSet);
 
-		this.classesInSignature = new HashSet<Integer>();
+		Set<Integer> classesInSignature = new HashSet<Integer>();
 		for (IntegerClassExpression expression : this.classExpressions) {
-			this.classesInSignature.addAll(expression.getClassesInSignature());
+			classesInSignature.addAll(expression.getClassesInSignature());
 		}
+		this.classesInSignature = Collections
+				.unmodifiableSet(classesInSignature);
 
-		this.objectPropertiesInSignature = new HashSet<Integer>();
+		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
 		for (IntegerClassExpression expression : this.classExpressions) {
-			this.objectPropertiesInSignature.addAll(expression
+			objectPropertiesInSignature.addAll(expression
 					.getObjectPropertiesInSignature());
 		}
+		this.objectPropertiesInSignature = Collections
+				.unmodifiableSet(objectPropertiesInSignature);
 	}
 
 	@Override
@@ -95,7 +99,7 @@ public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 	 * @return the set of equivalent classes in this axiom
 	 */
 	public Set<IntegerClassExpression> getClassExpressions() {
-		return this.classExpressions;
+		return Collections.unmodifiableSet(this.classExpressions);
 	}
 
 	@Override

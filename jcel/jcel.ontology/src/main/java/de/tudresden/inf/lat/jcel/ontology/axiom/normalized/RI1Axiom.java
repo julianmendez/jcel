@@ -34,7 +34,7 @@ import java.util.Set;
  */
 public class RI1Axiom implements NormalizedIntegerAxiom {
 
-	private Integer superProperty = null;
+	private final Integer superProperty;
 
 	/**
 	 * Constructs a new axiom RI-1.

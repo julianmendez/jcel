@@ -35,9 +35,9 @@ import java.util.Set;
  */
 public class RI3Axiom implements NormalizedIntegerAxiom {
 
-	private Integer leftSubProperty = null;
-	private Integer rightSubProperty = null;
-	private Integer superProperty = null;
+	private final Integer leftSubProperty;
+	private final Integer rightSubProperty;
+	private final Integer superProperty;
 
 	/**
 	 * Constructs a new RI-3 axiom

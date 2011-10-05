@@ -34,8 +34,8 @@ import java.util.Set;
  */
 public class RangeAxiom implements NormalizedIntegerAxiom {
 
-	private Integer property = null;
-	private Integer range = null;
+	private final Integer property;
+	private final Integer range;
 
 	/**
 	 * Constructs a new range axiom.

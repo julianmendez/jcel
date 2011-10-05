@@ -39,8 +39,8 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpressionWord;
  */
 public class GCI1Axiom implements NormalizedIntegerAxiom {
 
-	private List<Integer> operands = null;
-	private Integer superClass = null;
+	private final List<Integer> operands;
+	private final Integer superClass;
 
 	/**
 	 * Constructs a new GCI-1 axiom.

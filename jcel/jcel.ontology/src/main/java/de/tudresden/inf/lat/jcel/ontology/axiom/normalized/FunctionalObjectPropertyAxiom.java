@@ -31,7 +31,7 @@ import java.util.Set;
  */
 public class FunctionalObjectPropertyAxiom implements NormalizedIntegerAxiom {
 
-	private Integer property = null;
+	private final Integer property;
 
 	/**
 	 * Constructs a new functional object property axiom.

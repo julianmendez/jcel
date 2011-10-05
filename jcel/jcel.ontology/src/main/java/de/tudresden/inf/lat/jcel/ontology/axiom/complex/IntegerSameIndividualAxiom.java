@@ -32,7 +32,7 @@ import java.util.Set;
  */
 public class IntegerSameIndividualAxiom implements ComplexIntegerAxiom {
 
-	private Set<Integer> individuals = null;
+	private final Set<Integer> individuals;
 
 	/**
 	 * Constructs a new same individual axiom.
@@ -45,7 +45,7 @@ public class IntegerSameIndividualAxiom implements ComplexIntegerAxiom {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.individuals = individualSet;
+		this.individuals = Collections.unmodifiableSet(individualSet);
 	}
 
 	@Override

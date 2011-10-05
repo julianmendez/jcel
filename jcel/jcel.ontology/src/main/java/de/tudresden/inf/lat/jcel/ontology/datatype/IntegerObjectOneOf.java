@@ -32,7 +32,7 @@ import java.util.Set;
  */
 public class IntegerObjectOneOf implements IntegerClassExpression {
 
-	private Integer individual = null;
+	private final Integer individual;
 
 	/**
 	 * Constructs a nominal expression.

@@ -34,8 +34,8 @@ import java.util.Set;
  */
 public class NominalAxiom implements NormalizedIntegerAxiom {
 
-	private Integer classExpression = null;
-	private Integer individual = null;
+	private final Integer classExpression;
+	private final Integer individual;
 
 	/**
 	 * Constructs a new nominal axiom.

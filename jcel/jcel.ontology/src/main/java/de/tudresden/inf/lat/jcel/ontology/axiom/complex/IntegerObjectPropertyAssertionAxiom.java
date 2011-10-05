@@ -36,10 +36,10 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  */
 public class IntegerObjectPropertyAssertionAxiom implements ComplexIntegerAxiom {
 
-	private Set<Integer> individualsInSignature = null;
-	private Integer object = null;
-	private IntegerObjectPropertyExpression property = null;
-	private Integer subject = null;
+	private final Set<Integer> individualsInSignature;
+	private final Integer object;
+	private final IntegerObjectPropertyExpression property;
+	private final Integer subject;
 
 	/**
 	 * Constructs a new object property assertion axiom.
@@ -68,9 +68,11 @@ public class IntegerObjectPropertyAssertionAxiom implements ComplexIntegerAxiom 
 		this.subject = subjectInd;
 		this.object = objectInd;
 
-		this.individualsInSignature = new HashSet<Integer>();
-		this.individualsInSignature.add(this.subject);
-		this.individualsInSignature.add(this.object);
+		Set<Integer> individualsInSignature = new HashSet<Integer>();
+		individualsInSignature.add(this.subject);
+		individualsInSignature.add(this.object);
+		this.individualsInSignature = Collections
+				.unmodifiableSet(individualsInSignature);
 	}
 
 	@Override

@@ -36,10 +36,10 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
  */
 public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 
-	private Set<Integer> classesInSignature = null;
-	private Set<Integer> objectPropertiesInSignature = null;
-	private Integer property = null;
-	private IntegerClassExpression range = null;
+	private final Set<Integer> classesInSignature;
+	private final Set<Integer> objectPropertiesInSignature;
+	private final Integer property;
+	private final IntegerClassExpression range;
 
 	/**
 	 * Constructs a new object property range axiom.
@@ -60,13 +60,17 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 		this.property = prop;
 		this.range = clExpr;
 
-		this.classesInSignature = new HashSet<Integer>();
-		this.classesInSignature.addAll(this.range.getClassesInSignature());
+		Set<Integer> classesInSignature = new HashSet<Integer>();
+		classesInSignature.addAll(this.range.getClassesInSignature());
+		this.classesInSignature = Collections
+				.unmodifiableSet(classesInSignature);
 
-		this.objectPropertiesInSignature = new HashSet<Integer>();
-		this.objectPropertiesInSignature.addAll(this.range
+		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
+		objectPropertiesInSignature.addAll(this.range
 				.getObjectPropertiesInSignature());
-		this.objectPropertiesInSignature.add(this.property);
+		objectPropertiesInSignature.add(this.property);
+		this.objectPropertiesInSignature = Collections
+				.unmodifiableSet(objectPropertiesInSignature);
 	}
 
 	@Override

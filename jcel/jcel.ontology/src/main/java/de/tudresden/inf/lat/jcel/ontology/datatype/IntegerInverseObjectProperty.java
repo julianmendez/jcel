@@ -34,7 +34,7 @@ public class IntegerInverseObjectProperty implements
 		IntegerObjectPropertyExpression,
 		Comparable<IntegerInverseObjectProperty> {
 
-	private Integer id = null;
+	private final Integer id;
 
 	/**
 	 * Constructs an inverse object property.

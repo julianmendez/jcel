@@ -32,7 +32,7 @@ import java.util.Set;
 public class IntegerFunctionalObjectPropertyAxiom implements
 		ComplexIntegerAxiom {
 
-	private Integer objectProperty = null;
+	private final Integer objectProperty;
 
 	/**
 	 * Constructs a new functional object property axiom.

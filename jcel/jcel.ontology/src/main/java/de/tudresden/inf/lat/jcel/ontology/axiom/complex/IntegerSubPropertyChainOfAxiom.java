@@ -37,9 +37,9 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  */
 public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 
-	private Set<Integer> objectPropertiesInSignature = null;
-	private List<IntegerObjectPropertyExpression> propertyChain = null;
-	private IntegerObjectPropertyExpression superProperty = null;
+	private final Set<Integer> objectPropertiesInSignature;
+	private final List<IntegerObjectPropertyExpression> propertyChain;
+	private final IntegerObjectPropertyExpression superProperty;
 
 	/**
 	 * Constructs a new sub object property chain axiom.
@@ -62,13 +62,15 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 		this.propertyChain = chain;
 		this.superProperty = superProp;
 
-		this.objectPropertiesInSignature = new HashSet<Integer>();
+		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
 		for (IntegerObjectPropertyExpression propertyExpr : getPropertyChain()) {
-			this.objectPropertiesInSignature.addAll(propertyExpr
+			objectPropertiesInSignature.addAll(propertyExpr
 					.getObjectPropertiesInSignature());
 		}
-		this.objectPropertiesInSignature.addAll(getSuperProperty()
+		objectPropertiesInSignature.addAll(getSuperProperty()
 				.getObjectPropertiesInSignature());
+		this.objectPropertiesInSignature = Collections
+				.unmodifiableSet(objectPropertiesInSignature);
 	}
 
 	@Override
