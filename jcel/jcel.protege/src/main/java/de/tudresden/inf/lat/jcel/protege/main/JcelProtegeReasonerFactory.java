@@ -25,15 +25,12 @@ import org.protege.editor.owl.model.inference.AbstractProtegeOWLReasonerInfo;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
-import de.tudresden.inf.lat.jcel.owlapi.main.JcelOWLReasonerFactory;
-import de.tudresden.inf.lat.jcel.owlapi.main.JcelReasoner;
+import de.tudresden.inf.lat.jcel.owlapi.main.JcelReasonerFactory;
 
 /**
  * This factory is used by Protege 4.1 .
  * 
  * @author Julian Mendez
- * 
- * @see JcelReasoner
  */
 public class JcelProtegeReasonerFactory extends AbstractProtegeOWLReasonerInfo {
 
@@ -42,17 +39,17 @@ public class JcelProtegeReasonerFactory extends AbstractProtegeOWLReasonerInfo {
 	}
 
 	@Override
-	public void initialise() throws Exception {
-	}
-
-	@Override
 	public OWLReasonerFactory getReasonerFactory() {
-		return new JcelOWLReasonerFactory();
+		return new JcelReasonerFactory();
 	}
 
 	@Override
 	public BufferingMode getRecommendedBuffering() {
-		return BufferingMode.NON_BUFFERING;
+		return BufferingMode.BUFFERING;
+	}
+
+	@Override
+	public void initialise() throws Exception {
 	}
 
 }
