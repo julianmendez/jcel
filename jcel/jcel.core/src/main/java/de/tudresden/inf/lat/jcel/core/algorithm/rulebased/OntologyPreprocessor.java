@@ -79,8 +79,8 @@ public class OntologyPreprocessor {
 
 	private static final Integer classBottomElement = IntegerDatatype.classBottomElement;
 	private static final Integer classTopElement = IntegerDatatype.classTopElement;
-	private static final Integer propertyBottomElement = IntegerDatatype.propertyBottomElement;
-	private static final Integer propertyTopElement = IntegerDatatype.propertyTopElement;
+	private static final Integer propertyBottomElement = IntegerDatatype.objectPropertyBottomElement;
+	private static final Integer propertyTopElement = IntegerDatatype.objectPropertyTopElement;
 
 	private RChain chainR = new RChain(new ArrayList<RObserverRule>());
 	private SChain chainS = new SChain(new ArrayList<SObserverRule>());
@@ -252,7 +252,8 @@ public class OntologyPreprocessor {
 		this.idGenerator = new IdGeneratorImpl(this.originalClassSet,
 				this.originalObjectPropertySet);
 
-		this.expressivityDetector = new ComplexAxiomExpressivityDetector(axiomSet);
+		this.expressivityDetector = new ComplexAxiomExpressivityDetector(
+				axiomSet);
 
 		if (this.expressivityDetector.hasInverseObjectProperty()
 				|| this.expressivityDetector.hasFunctionalObjectProperty()) {

@@ -79,10 +79,12 @@ public class CelProcessor implements Processor {
 	private static final Integer classTopElement = IntegerDatatype.classTopElement;
 	private static final Logger logger = Logger.getLogger(CelProcessor.class
 			.getName());
-	private static final Integer propertyBottomElement = IntegerDatatype.propertyBottomElement;
-	private static final Integer propertyTopElement = IntegerDatatype.propertyTopElement;
+	private static final Integer objectPropertyBottomElement = IntegerDatatype.objectPropertyBottomElement;
+	private static final Integer objectPropertyTopElement = IntegerDatatype.objectPropertyTopElement;
+
 	private IntegerSubsumerGraphImpl classGraph = null;
 	private IntegerHierarchicalGraph classHierarchy = null;
+	private IntegerHierarchicalGraph dataPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> directTypes = null;
 	private CelExtendedOntology extendedOntology = null;
 	private IdGenerator idGenerator = null;
@@ -181,14 +183,14 @@ public class CelProcessor implements Processor {
 			Set<Integer> originalPropertySet,
 			Set<NormalizedIntegerAxiom> axiomSet) {
 		IntegerSubsumerGraphImpl ret = new IntegerSubsumerGraphImpl(
-				propertyBottomElement, propertyTopElement);
+				objectPropertyBottomElement, objectPropertyTopElement);
 		Set<Integer> propertyIdSet = new HashSet<Integer>();
 		propertyIdSet.addAll(originalPropertySet);
 		for (NormalizedIntegerAxiom axiom : axiomSet) {
 			propertyIdSet.addAll(axiom.getObjectPropertiesInSignature());
 		}
 		for (Integer index : propertyIdSet) {
-			ret.addAncestor(index, propertyTopElement);
+			ret.addAncestor(index, objectPropertyTopElement);
 		}
 		for (NormalizedIntegerAxiom axiom : axiomSet) {
 			if (axiom instanceof RI2Axiom) {
@@ -258,6 +260,15 @@ public class CelProcessor implements Processor {
 			throw new UnclassifiedOntologyException();
 		}
 		return this.classHierarchy;
+	}
+
+	@Override
+	public IntegerHierarchicalGraph getDataPropertyHierarchy()
+			throws UnclassifiedOntologyException {
+		if (!isReady()) {
+			throw new UnclassifiedOntologyException();
+		}
+		return this.dataPropertyHierarchy;
 	}
 
 	/**
@@ -478,6 +489,11 @@ public class CelProcessor implements Processor {
 
 		logger.fine("configuring processor ...");
 
+		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
+				new IntegerSubsumerGraphImpl(
+						IntegerDatatype.dataPropertyBottomElement,
+						IntegerDatatype.dataPropertyTopElement));
+
 		// These sets include the declared entities that are not present in the
 		// normalized axioms.
 		Set<Integer> originalClassSet = new HashSet<Integer>();
@@ -489,8 +505,8 @@ public class CelProcessor implements Processor {
 		}
 		originalClassSet.add(classBottomElement);
 		originalClassSet.add(classTopElement);
-		originalObjectPropertySet.add(propertyBottomElement);
-		originalObjectPropertySet.add(propertyTopElement);
+		originalObjectPropertySet.add(objectPropertyBottomElement);
+		originalObjectPropertySet.add(objectPropertyTopElement);
 
 		this.idGenerator = new IdGeneratorImpl(originalClassSet,
 				originalObjectPropertySet);

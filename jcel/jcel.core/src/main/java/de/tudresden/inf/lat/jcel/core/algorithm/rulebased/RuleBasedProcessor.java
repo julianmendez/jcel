@@ -41,6 +41,7 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerBinaryRelation;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraph;
+import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
@@ -60,6 +61,7 @@ public class RuleBasedProcessor implements Processor {
 	private RChain chainR = null;
 	private SChain chainS = null;
 	private IntegerHierarchicalGraph classHierarchy = null;
+	private IntegerHierarchicalGraph dataPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> directTypes = null;
 	private boolean isReady = false;
 	private long iteration = 0;
@@ -164,6 +166,15 @@ public class RuleBasedProcessor implements Processor {
 			throw new UnclassifiedOntologyException();
 		}
 		return this.classHierarchy;
+	}
+
+	@Override
+	public IntegerHierarchicalGraph getDataPropertyHierarchy()
+			throws UnclassifiedOntologyException {
+		if (!isReady()) {
+			throw new UnclassifiedOntologyException();
+		}
+		return this.dataPropertyHierarchy;
 	}
 
 	/**
@@ -346,6 +357,11 @@ public class RuleBasedProcessor implements Processor {
 
 		this.originalAxiomSet = origAxiomSet;
 		this.isReady = false;
+
+		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
+				new IntegerSubsumerGraphImpl(
+						IntegerDatatype.dataPropertyBottomElement,
+						IntegerDatatype.dataPropertyTopElement));
 
 		logger.fine("using " + getClass().getSimpleName() + " ...");
 

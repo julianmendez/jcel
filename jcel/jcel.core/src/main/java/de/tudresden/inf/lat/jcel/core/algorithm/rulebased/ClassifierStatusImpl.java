@@ -54,8 +54,8 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	private static final Integer classBottomElement = IntegerDatatype.classBottomElement;
 	private static final Integer classTopElement = IntegerDatatype.classTopElement;
-	private static final Integer propertyBottomElement = IntegerDatatype.propertyBottomElement;
-	private static final Integer propertyTopElement = IntegerDatatype.propertyTopElement;
+	private static final Integer propertyBottomElement = IntegerDatatype.objectPropertyBottomElement;
+	private static final Integer propertyTopElement = IntegerDatatype.objectPropertyTopElement;
 
 	private IntegerSubsumerGraphImpl classGraph = null;
 	private Map<Integer, Set<Integer>> cognateFunctPropMap = new HashMap<Integer, Set<Integer>>();

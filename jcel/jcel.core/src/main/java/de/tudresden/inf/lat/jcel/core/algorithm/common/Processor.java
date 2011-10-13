@@ -54,6 +54,17 @@ public interface Processor {
 			throws UnclassifiedOntologyException;
 
 	/**
+	 * Returns the data property hierarchy after the classification has
+	 * finished.
+	 * 
+	 * @return the data property hierarchy if the classification has finished
+	 * @throws UnclassifiedOntologyException
+	 *             if the classification has not finished yet
+	 */
+	public IntegerHierarchicalGraph getDataPropertyHierarchy()
+			throws UnclassifiedOntologyException;
+
+	/**
 	 * Returns the map of direct types for every individual.
 	 * 
 	 * @return the the map of direct types if the classification has finished

@@ -31,8 +31,10 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
+import de.tudresden.inf.lat.jcel.core.algorithm.common.UnclassifiedOntologyException;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
+import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
 
@@ -50,6 +52,7 @@ public class ModuleProcessor implements Processor {
 			.getName());
 
 	private IntegerHierarchicalGraphImpl classHierarchy = null;
+	private IntegerHierarchicalGraphImpl dataPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> directTypes = null;
 	private boolean isReady = false;
 	private Integer moduleIndex = 0;
@@ -98,8 +101,8 @@ public class ModuleProcessor implements Processor {
 		boolean ret = false;
 		for (Iterator<Integer> it = b.iterator(); !ret && it.hasNext();) {
 			Integer elem = it.next();
-			if (!elem.equals(IntegerDatatype.propertyBottomElement)
-					&& !elem.equals(IntegerDatatype.propertyTopElement)) {
+			if (!elem.equals(IntegerDatatype.objectPropertyBottomElement)
+					&& !elem.equals(IntegerDatatype.objectPropertyTopElement)) {
 				ret = ret || a.contains(elem);
 			}
 		}
@@ -171,6 +174,16 @@ public class ModuleProcessor implements Processor {
 	}
 
 	@Override
+	public IntegerHierarchicalGraph getDataPropertyHierarchy()
+			throws UnclassifiedOntologyException {
+		IntegerHierarchicalGraph ret = null;
+		if (isReady()) {
+			ret = this.dataPropertyHierarchy;
+		}
+		return ret;
+	}
+
+	@Override
 	public Map<Integer, Set<Integer>> getDirectTypes() {
 		Map<Integer, Set<Integer>> ret = null;
 		if (isReady()) {
@@ -209,6 +222,11 @@ public class ModuleProcessor implements Processor {
 
 		logger.fine("using " + getClass().getSimpleName() + " ...");
 
+		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
+				new IntegerSubsumerGraphImpl(
+						IntegerDatatype.dataPropertyBottomElement,
+						IntegerDatatype.dataPropertyTopElement));
+
 		this.moduleList = findModules(this.originalAxiomSet);
 		logger.fine("modules found : " + this.moduleList.size());
 		for (int index = 0; index < this.moduleList.size(); index++) {
@@ -221,8 +239,8 @@ public class ModuleProcessor implements Processor {
 				IntegerDatatype.classBottomElement,
 				IntegerDatatype.classTopElement);
 		this.objectPropertyHierarchy = new IntegerHierarchicalGraphImpl(
-				IntegerDatatype.propertyBottomElement,
-				IntegerDatatype.propertyTopElement);
+				IntegerDatatype.objectPropertyBottomElement,
+				IntegerDatatype.objectPropertyTopElement);
 		this.directTypes = new HashMap<Integer, Set<Integer>>();
 		this.sameIndividualMap = new HashMap<Integer, Set<Integer>>();
 

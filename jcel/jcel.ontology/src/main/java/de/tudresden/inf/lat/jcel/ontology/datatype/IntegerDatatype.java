@@ -33,8 +33,10 @@ public interface IntegerDatatype {
 
 	public static final Integer classBottomElement = 0;
 	public static final Integer classTopElement = 1;
-	public static final Integer propertyBottomElement = 0;
-	public static final Integer propertyTopElement = 1;
+	public static final Integer dataPropertyBottomElement = 0;
+	public static final Integer dataPropertyTopElement = 1;
+	public static final Integer objectPropertyBottomElement = 0;
+	public static final Integer objectPropertyTopElement = 1;
 
 	/**
 	 * Returns the classes in the signature.

@@ -33,6 +33,8 @@ import java.util.logging.Logger;
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
 import de.tudresden.inf.lat.jcel.core.algorithm.common.UnclassifiedOntologyException;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
+import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
+import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerEquivalentClassesAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerEquivalentObjectPropertiesAxiom;
@@ -66,6 +68,7 @@ public class ClassModuleProcessor implements Processor {
 	private IntegerHierarchicalGraph classHierarchy = null;
 	private Map<Integer, Set<ComplexIntegerAxiom>> classToAxiom = new HashMap<Integer, Set<ComplexIntegerAxiom>>();
 	private Map<Integer, Set<Integer>> classToClass = new HashMap<Integer, Set<Integer>>();
+	private IntegerHierarchicalGraphImpl dataPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> directTypes = null;
 	private boolean finalClassification = false;
 	private boolean isReady = false;
@@ -238,6 +241,15 @@ public class ClassModuleProcessor implements Processor {
 	}
 
 	@Override
+	public IntegerHierarchicalGraph getDataPropertyHierarchy()
+			throws UnclassifiedOntologyException {
+		if (!isReady()) {
+			throw new UnclassifiedOntologyException();
+		}
+		return this.dataPropertyHierarchy;
+	}
+
+	@Override
 	public Map<Integer, Set<Integer>> getDirectTypes() {
 		if (!isReady()) {
 			throw new UnclassifiedOntologyException();
@@ -289,6 +301,11 @@ public class ClassModuleProcessor implements Processor {
 		this.finalClassification = false;
 
 		logger.fine("using " + getClass().getSimpleName() + " ...");
+
+		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
+				new IntegerSubsumerGraphImpl(
+						IntegerDatatype.dataPropertyBottomElement,
+						IntegerDatatype.dataPropertyTopElement));
 
 		this.moduleList = findModules(axioms);
 		logger.fine("modules found : " + this.moduleList.size());
