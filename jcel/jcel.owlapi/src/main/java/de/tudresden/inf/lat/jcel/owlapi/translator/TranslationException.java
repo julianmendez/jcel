@@ -55,6 +55,16 @@ public class TranslationException extends UnsupportedOperationException {
 				+ axiom + "'.");
 	}
 
+	public static TranslationException newUnsupportedTranslationException(
+			Object o) {
+		if (o == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		return new TranslationException("Object cannot be translated: '"
+				+ o.toString() + "'.");
+	}
+
 	public TranslationException(String message) {
 		super(message);
 	}
@@ -66,4 +76,5 @@ public class TranslationException extends UnsupportedOperationException {
 	public TranslationException(Throwable cause) {
 		super(cause);
 	}
+
 }

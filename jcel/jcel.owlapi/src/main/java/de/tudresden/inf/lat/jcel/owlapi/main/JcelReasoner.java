@@ -21,9 +21,13 @@
 
 package de.tudresden.inf.lat.jcel.owlapi.main;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
 import org.semanticweb.owlapi.model.AxiomType;
@@ -32,11 +36,14 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
+import org.semanticweb.owlapi.model.OWLOntologyChangeVisitorEx;
 import org.semanticweb.owlapi.reasoner.AxiomNotInProfileException;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.ClassExpressionNotInProfileException;
@@ -54,32 +61,51 @@ import org.semanticweb.owlapi.reasoner.TimeOutException;
 import org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException;
 import org.semanticweb.owlapi.util.Version;
 
+import de.tudresden.inf.lat.jcel.core.reasoner.IntegerReasoner;
+import de.tudresden.inf.lat.jcel.core.reasoner.RuleBasedReasoner;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
+import de.tudresden.inf.lat.jcel.owlapi.translator.Translator;
+
 /**
  * This class is the connection with the OWL API. It implements some functions,
  * and throws an exception for the unimplemented ones.
  * 
  * @author Julian Mendez
  */
-public class JcelReasoner implements OWLReasoner {
+public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 
 	private static final Logger logger = Logger.getLogger(JcelReasoner.class
 			.getName());
 
-	private JcelReasonerProcessor reasonerProcessor = null;
+	private RuleBasedReasoner jcelCore = null;
+	private OWLOntologyChangeVisitorEx<Boolean> ontologyChangeVisitor = new JcelOntologyChangeVisitorEx(
+			this);
+	private Set<OWLAxiom> pendingAxiomAdditions = new HashSet<OWLAxiom>();
+	private Set<OWLAxiom> pendingAxiomRemovals = new HashSet<OWLAxiom>();
+	private OWLReasonerConfiguration reasonerConfiguration = null;
+	private OWLOntology rootOntology;
 	private Date start = new Date();
+	private Translator translator = null;
 
 	/**
 	 * Constructs a new jcel reasoner.
 	 * 
 	 * @param rootOntology
 	 *            root ontology
+	 * @param buffering
+	 *            <code>true</code> if and only if the reasoner is buffering
 	 */
-	public JcelReasoner(OWLOntology rootOntology) {
+	public JcelReasoner(OWLOntology rootOntology, boolean buffering) {
 		if (rootOntology == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.reasonerProcessor = new JcelReasonerProcessor(rootOntology);
+		this.rootOntology = rootOntology;
+		this.translator = new Translator(rootOntology);
+		this.jcelCore = new RuleBasedReasoner(this.translator.getOntology(),
+				buffering);
+		this.rootOntology.getOWLOntologyManager().addOntologyChangeListener(
+				this);
 	}
 
 	/**
@@ -87,10 +113,12 @@ public class JcelReasoner implements OWLReasoner {
 	 * 
 	 * @param rootOntology
 	 *            root ontology
+	 * @param buffering
+	 *            <code>true</code> if and only if the reasoner is buffering
 	 * @param configuration
 	 *            reasoner configuration
 	 */
-	public JcelReasoner(OWLOntology rootOntology,
+	public JcelReasoner(OWLOntology rootOntology, boolean buffering,
 			OWLReasonerConfiguration configuration) {
 		if (rootOntology == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -99,26 +127,45 @@ public class JcelReasoner implements OWLReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.reasonerProcessor = new JcelReasonerProcessor(rootOntology,
-				configuration);
+		this.rootOntology = rootOntology;
+		this.translator = new Translator(rootOntology);
+		this.jcelCore = new RuleBasedReasoner(this.translator.getOntology(),
+				buffering);
+		this.reasonerConfiguration = configuration;
+		this.rootOntology.getOWLOntologyManager().addOntologyChangeListener(
+				this);
+	}
+
+	public boolean addAxiom(OWLAxiom axiom) {
+		boolean ret = this.pendingAxiomAdditions.add(axiom);
+		Set<ComplexIntegerAxiom> axioms = getTranslator().translateSA(
+				Collections.singleton(axiom));
+		for (ComplexIntegerAxiom ax : axioms) {
+			boolean changed = this.jcelCore.addAxiom(ax);
+			ret = ret || changed;
+		}
+		return ret;
 	}
 
 	@Override
 	public void dispose() {
 		logger.finer("dispose()");
-		getProcessor().dispose();
+		getReasoner().dispose();
 	}
 
 	@Override
 	public void flush() {
 		logger.finer("flush()");
-		// does nothing
+		getReasoner().flush();
+		this.pendingAxiomAdditions.clear();
+		this.pendingAxiomRemovals.clear();
 	}
 
 	@Override
 	public Node<OWLClass> getBottomClassNode() {
 		logger.finer("getBottomClassNode()");
-		Node<OWLClass> ret = getProcessor().getBottomClassNode();
+		Node<OWLClass> ret = getTranslator().translateSC(
+				getReasoner().getBottomClassNode());
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -133,8 +180,8 @@ public class JcelReasoner implements OWLReasoner {
 	@Override
 	public Node<OWLObjectPropertyExpression> getBottomObjectPropertyNode() {
 		logger.finer("getBottomObjectPropertyNode()");
-		Node<OWLObjectPropertyExpression> ret = getProcessor()
-				.getBottomObjectPropertyNode();
+		Node<OWLObjectPropertyExpression> ret = getTranslator().translateSOPE(
+				getReasoner().getBottomObjectPropertyNode());
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -142,7 +189,9 @@ public class JcelReasoner implements OWLReasoner {
 	@Override
 	public BufferingMode getBufferingMode() {
 		logger.finer("getBufferingMode()");
-		BufferingMode ret = BufferingMode.NON_BUFFERING;
+
+		BufferingMode ret = getReasoner().getBufferingMode() ? BufferingMode.BUFFERING
+				: BufferingMode.NON_BUFFERING;
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -190,8 +239,9 @@ public class JcelReasoner implements OWLReasoner {
 		}
 
 		logger.finer("getDifferentIndividuals(" + individual + ")");
-		NodeSet<OWLNamedIndividual> ret = getProcessor()
-				.getDifferentIndividuals(individual);
+		NodeSet<OWLNamedIndividual> ret = getTranslator().translateSSI(
+				getReasoner().getDifferentIndividuals(
+						getTranslator().translateI(individual)));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -206,8 +256,9 @@ public class JcelReasoner implements OWLReasoner {
 		}
 
 		logger.finer("getDisjointClasses(" + classExpression + ")");
-		NodeSet<OWLClass> ret = getProcessor().getDisjointClasses(
-				classExpression);
+		NodeSet<OWLClass> ret = getTranslator().translateSSC(
+				getReasoner().getDisjointClasses(
+						getTranslator().translateCE(classExpression)));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -238,8 +289,11 @@ public class JcelReasoner implements OWLReasoner {
 
 		logger.finer("getDisjointDataProperties(" + objectPropertyExpression
 				+ ")");
-		NodeSet<OWLObjectPropertyExpression> ret = getProcessor()
-				.getDisjointObjectProperties(objectPropertyExpression);
+		NodeSet<OWLObjectPropertyExpression> ret = getTranslator()
+				.translateSSOPE(
+						getReasoner().getDisjointObjectProperties(
+								getTranslator().translateOPE(
+										objectPropertyExpression)));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -252,8 +306,9 @@ public class JcelReasoner implements OWLReasoner {
 		}
 
 		logger.finer("getEquivalentClasses(" + classExpression + ")");
-		Node<OWLClass> ret = getProcessor().getEquivalentClasses(
-				classExpression);
+		Node<OWLClass> ret = getTranslator().translateSC(
+				getReasoner().getEquivalentClasses(
+						getTranslator().translateCE(classExpression)));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -283,8 +338,11 @@ public class JcelReasoner implements OWLReasoner {
 
 		logger.finer("getEquivalentObjectProperties("
 				+ objectPropertyExpression + ")");
-		Node<OWLObjectPropertyExpression> ret = getProcessor()
-				.getEquivalentObjectProperties(objectPropertyExpression);
+		Node<OWLObjectPropertyExpression> ret = getTranslator()
+				.translateSOPE(
+						getReasoner().getEquivalentObjectProperties(
+								getTranslator().translateOPE(
+										objectPropertyExpression)));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -314,8 +372,9 @@ public class JcelReasoner implements OWLReasoner {
 		}
 
 		logger.finer("getInstances(" + classExpression + ", " + direct + ")");
-		NodeSet<OWLNamedIndividual> ret = getProcessor().getInstances(
-				classExpression, direct);
+		NodeSet<OWLNamedIndividual> ret = getTranslator().translateSSI(
+				getReasoner().getInstances(
+						getTranslator().translateCE(classExpression), direct));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -380,8 +439,12 @@ public class JcelReasoner implements OWLReasoner {
 
 		logger.finer("getObjectPropertyValues(" + individual + ", "
 				+ objectPropertyExpression + ")");
-		NodeSet<OWLNamedIndividual> ret = getProcessor()
-				.getObjectPropertyValues(individual, objectPropertyExpression);
+		NodeSet<OWLNamedIndividual> ret = getTranslator()
+				.translateSSI(
+						getReasoner().getObjectPropertyValues(
+								getTranslator().translateI(individual),
+								getTranslator().translateOPE(
+										objectPropertyExpression)));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -389,15 +452,15 @@ public class JcelReasoner implements OWLReasoner {
 	@Override
 	public Set<OWLAxiom> getPendingAxiomAdditions() {
 		logger.finer("getPendingAxiomAdditions()");
-		Set<OWLAxiom> ret = getProcessor().getPendingAxiomAdditions();
+		Set<OWLAxiom> ret = this.pendingAxiomAdditions;
 		logger.finer("" + ret);
-		return ret;
+		return Collections.unmodifiableSet(ret);
 	}
 
 	@Override
 	public Set<OWLAxiom> getPendingAxiomRemovals() {
 		logger.finer("getPendingAxiomRemovals()");
-		Set<OWLAxiom> ret = getProcessor().getPendingAxiomRemovals();
+		Set<OWLAxiom> ret = this.pendingAxiomRemovals;
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -405,7 +468,7 @@ public class JcelReasoner implements OWLReasoner {
 	@Override
 	public List<OWLOntologyChange> getPendingChanges() {
 		logger.finer("getPendingChanges()");
-		List<OWLOntologyChange> ret = getProcessor().getPendingChanges();
+		List<OWLOntologyChange> ret = new ArrayList<OWLOntologyChange>();
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -413,24 +476,23 @@ public class JcelReasoner implements OWLReasoner {
 	@Override
 	public Set<InferenceType> getPrecomputableInferenceTypes() {
 		logger.finer("getPrecomputableInferenceTypes()");
-		Set<InferenceType> ret = getProcessor()
-				.getPrecomputableInferenceTypes();
+		Set<InferenceType> ret = Collections.emptySet();
 		logger.finer("" + ret);
 		return ret;
 	}
 
-	public JcelReasonerProcessor getProcessor() {
-		return this.reasonerProcessor;
+	public IntegerReasoner getReasoner() {
+		return this.jcelCore;
 	}
 
 	public OWLReasonerConfiguration getReasonerConfiguration() {
-		return getProcessor().getReasonerConfiguration();
+		return this.reasonerConfiguration;
 	}
 
 	@Override
 	public String getReasonerName() {
 		logger.finer("getReasonerName()");
-		String ret = getProcessor().getReasonerName();
+		String ret = getReasoner().getReasonerName();
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -438,7 +500,20 @@ public class JcelReasoner implements OWLReasoner {
 	@Override
 	public Version getReasonerVersion() {
 		logger.finer("getReasonerVersion()");
-		Version ret = getProcessor().getReasonerVersion();
+		Version ret = new Version(0, 0, 0, 0);
+		String versionId = getReasoner().getReasonerVersion();
+		if (versionId != null) {
+			StringTokenizer stok = new StringTokenizer(versionId, ".");
+			int major = stok.hasMoreTokens() ? Integer.parseInt(stok
+					.nextToken()) : 0;
+			int minor = stok.hasMoreTokens() ? Integer.parseInt(stok
+					.nextToken()) : 0;
+			int patch = stok.hasMoreTokens() ? Integer.parseInt(stok
+					.nextToken()) : 0;
+			int build = stok.hasMoreTokens() ? Integer.parseInt(stok
+					.nextToken()) : 0;
+			ret = new Version(major, minor, patch, build);
+		}
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -446,7 +521,7 @@ public class JcelReasoner implements OWLReasoner {
 	@Override
 	public OWLOntology getRootOntology() {
 		logger.finer("getRootOntology()");
-		OWLOntology ret = getProcessor().getRootOntology();
+		OWLOntology ret = this.rootOntology;
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -461,8 +536,9 @@ public class JcelReasoner implements OWLReasoner {
 		}
 
 		logger.finer("getSameIndividuals(" + individual + ")");
-		Node<OWLNamedIndividual> ret = getProcessor().getSameIndividuals(
-				individual);
+		Node<OWLNamedIndividual> ret = getTranslator().translateSI(
+				getReasoner().getSameIndividuals(
+						getTranslator().translateI(individual)));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -479,8 +555,9 @@ public class JcelReasoner implements OWLReasoner {
 		}
 
 		logger.finer("getSubClasses(" + classExpression + ", " + direct + ")");
-		NodeSet<OWLClass> ret = getProcessor().getSubClasses(classExpression,
-				direct);
+		NodeSet<OWLClass> ret = getTranslator().translateSSC(
+				getReasoner().getSubClasses(
+						getTranslator().translateCE(classExpression), direct));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -511,8 +588,11 @@ public class JcelReasoner implements OWLReasoner {
 
 		logger.finer("getSubObjectProperties(" + objectPropertyExpression
 				+ ", " + direct + ")");
-		NodeSet<OWLObjectPropertyExpression> ret = getProcessor()
-				.getSubProperties(objectPropertyExpression, direct);
+		NodeSet<OWLObjectPropertyExpression> ret = getTranslator()
+				.translateSSOPE(
+						getReasoner().getSubObjectProperties(
+								getTranslator().translateOPE(
+										objectPropertyExpression), direct));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -528,8 +608,9 @@ public class JcelReasoner implements OWLReasoner {
 		}
 
 		logger.finer("getSuperClasses(" + classExpression + ", " + direct + ")");
-		NodeSet<OWLClass> ret = getProcessor().getSuperClasses(classExpression,
-				direct);
+		NodeSet<OWLClass> ret = getTranslator().translateSSC(
+				getReasoner().getSuperClasses(
+						getTranslator().translateCE(classExpression), direct));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -560,8 +641,11 @@ public class JcelReasoner implements OWLReasoner {
 
 		logger.finer("getSuperObjectProperties(" + objectPropertyExpression
 				+ ", " + direct + ")");
-		NodeSet<OWLObjectPropertyExpression> ret = getProcessor()
-				.getSuperProperties(objectPropertyExpression, direct);
+		NodeSet<OWLObjectPropertyExpression> ret = getTranslator()
+				.translateSSOPE(
+						getReasoner().getSuperObjectProperties(
+								getTranslator().translateOPE(
+										objectPropertyExpression), direct));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -569,7 +653,7 @@ public class JcelReasoner implements OWLReasoner {
 	@Override
 	public long getTimeOut() {
 		logger.finer("getTimeOut()");
-		long ret = getProcessor().getTimeOut();
+		long ret = getReasoner().getTimeOut();
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -577,7 +661,8 @@ public class JcelReasoner implements OWLReasoner {
 	@Override
 	public Node<OWLClass> getTopClassNode() {
 		logger.finer("getTopClassNode()");
-		Node<OWLClass> ret = getProcessor().getTopClassNode();
+		Node<OWLClass> ret = getTranslator().translateSC(
+				getReasoner().getTopClassNode());
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -592,10 +677,14 @@ public class JcelReasoner implements OWLReasoner {
 	@Override
 	public Node<OWLObjectPropertyExpression> getTopObjectPropertyNode() {
 		logger.finer("getTopObjectPropertyNode()");
-		Node<OWLObjectPropertyExpression> ret = getProcessor()
-				.getTopObjectPropertyNode();
+		Node<OWLObjectPropertyExpression> ret = getTranslator().translateSOPE(
+				getReasoner().getTopObjectPropertyNode());
 		logger.finer("" + ret);
 		return ret;
+	}
+
+	public Translator getTranslator() {
+		return this.translator;
 	}
 
 	@Override
@@ -608,7 +697,9 @@ public class JcelReasoner implements OWLReasoner {
 		}
 
 		logger.finer("getTypes(" + individual + ", " + direct + ")");
-		NodeSet<OWLClass> ret = getProcessor().getTypes(individual, direct);
+		NodeSet<OWLClass> ret = getTranslator().translateSSC(
+				getReasoner().getTypes(getTranslator().translateI(individual),
+						direct));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -617,7 +708,8 @@ public class JcelReasoner implements OWLReasoner {
 	public Node<OWLClass> getUnsatisfiableClasses()
 			throws ReasonerInterruptedException, TimeOutException {
 		logger.finer("getUnsatisfiableClasses()");
-		Node<OWLClass> ret = getProcessor().getUnsatisfiableClasses();
+		Node<OWLClass> ret = getTranslator().translateSC(
+				getReasoner().getUnsatisfiableClasses());
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -633,7 +725,7 @@ public class JcelReasoner implements OWLReasoner {
 	public boolean isConsistent() throws ReasonerInterruptedException,
 			TimeOutException {
 		logger.finer("isConsistent()");
-		boolean ret = getProcessor().isConsistent();
+		boolean ret = getReasoner().isConsistent();
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -648,7 +740,8 @@ public class JcelReasoner implements OWLReasoner {
 		}
 
 		logger.finer("isEntailed((OWLAxiom) " + axiom + ")");
-		boolean ret = getProcessor().isEntailed(axiom);
+		boolean ret = getReasoner().isEntailed(
+				getTranslator().translateSA(Collections.singleton(axiom)));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -663,7 +756,12 @@ public class JcelReasoner implements OWLReasoner {
 		}
 
 		logger.finer("isEntailed((Set<? extends OWLAxiom>) " + axiomSet + ")");
-		boolean ret = getProcessor().isEntailed(axiomSet);
+		Set<OWLAxiom> set = new HashSet<OWLAxiom>();
+		for (OWLAxiom axiom : axiomSet) {
+			set.add(axiom);
+		}
+		boolean ret = getReasoner()
+				.isEntailed(getTranslator().translateSA(set));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -675,7 +773,11 @@ public class JcelReasoner implements OWLReasoner {
 		}
 
 		logger.finer("isEntailmentCheckingSupported(" + axiomType + ")");
-		boolean ret = getProcessor().isEntailmentCheckingSupported(axiomType);
+
+		boolean ret = false;
+
+		// TODO return true for the supported axiom types
+
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -698,9 +800,18 @@ public class JcelReasoner implements OWLReasoner {
 		}
 
 		logger.finer("isSatisfiable(" + classExpression + ")");
-		boolean ret = getProcessor().isSatisfiable(classExpression);
+		boolean ret = getReasoner().isSatisfiable(
+				getTranslator().translateCE(classExpression));
 		logger.finer("" + ret);
 		return ret;
+	}
+
+	@Override
+	public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
+			throws OWLException {
+		for (OWLOntologyChange change : changes) {
+			change.accept(ontologyChangeVisitor);
+		}
 	}
 
 	@Override
@@ -712,7 +823,18 @@ public class JcelReasoner implements OWLReasoner {
 		}
 
 		logger.finer("precomputeInferences(" + inferenceTypes + ")");
-		getProcessor().precomputeInferences();
+		getReasoner().classify();
+	}
+
+	public boolean removeAxiom(OWLAxiom axiom) {
+		boolean ret = this.pendingAxiomRemovals.add(axiom);
+		Set<ComplexIntegerAxiom> axioms = getTranslator().translateSA(
+				Collections.singleton(axiom));
+		for (ComplexIntegerAxiom ax : axioms) {
+			boolean changed = this.jcelCore.removeAxiom(ax);
+			ret = ret || changed;
+		}
+		return ret;
 	}
 
 }

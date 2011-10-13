@@ -124,7 +124,7 @@ public class ConsoleStarter {
 		OWLOntology ontology = manager
 				.loadOntologyFromOntologyDocument(ontologyFile);
 
-		JcelReasoner reasoner = new JcelReasoner(ontology);
+		JcelReasoner reasoner = new JcelReasoner(ontology, false);
 		logger.setLevel(logLevel);
 		logger.addHandler(new OutputStreamHandler(logOutput));
 		reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);

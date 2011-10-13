@@ -27,16 +27,13 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
-
 /**
  * This factory creates an instance of a jcel reasoner based on an ontology and
  * a optional configuration.
  * 
  * @author Julian Mendez
- * 
- * @see JcelReasoner
  */
-public class JcelOWLReasonerFactory implements OWLReasonerFactory {
+public class JcelReasonerFactory implements OWLReasonerFactory {
 
 	// private static final Logger logger = Logger
 	// .getLogger("de.tudresden.inf.lat.jcel");
@@ -47,7 +44,7 @@ public class JcelOWLReasonerFactory implements OWLReasonerFactory {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return new JcelReasoner(ontology);
+		return new JcelReasoner(ontology, false);
 	}
 
 	@Override
@@ -61,7 +58,7 @@ public class JcelOWLReasonerFactory implements OWLReasonerFactory {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return new JcelReasoner(ontology, configuration);
+		return new JcelReasoner(ontology, false, configuration);
 	}
 
 	@Override
@@ -70,7 +67,7 @@ public class JcelOWLReasonerFactory implements OWLReasonerFactory {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return new JcelReasoner(ontology);
+		return new JcelReasoner(ontology, true);
 	}
 
 	@Override
@@ -84,7 +81,7 @@ public class JcelOWLReasonerFactory implements OWLReasonerFactory {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return new JcelReasoner(ontology, configuration);
+		return new JcelReasoner(ontology, true, configuration);
 	}
 
 	@Override

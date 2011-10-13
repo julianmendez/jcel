@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -33,10 +32,8 @@ import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataHasValue;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
@@ -60,18 +57,13 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
@@ -108,62 +100,26 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubPropertyChainO
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerTransitiveObjectPropertyAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataHasValue;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerInverseObjectProperty;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectOneOf;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
 
 /**
- * An object of this class is a visitor use to translate an
- * <code>OWLAxiom</code> into an <code>ComplexIntegerAxiom</code>. This is an
- * auxiliary class used by <code>AxiomSetTranslator</code>.
+ * An object of this class is a visitor use to translate an owl axiom into an
+ * integer axiom.
  * 
  * @author Julian Mendez
- * 
- * @see AxiomSetTranslator
  */
-class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
+public class AxiomTranslator implements
+		OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 
-	// private static final Logger logger =
-	// Logger.getLogger(AxiomTranslator.class
-	// .getName());
+	private ClassExpressionTranslator classExpressionTranslator;
 
-	private Map<OWLClass, Integer> classMap = null;
-	private Map<OWLDataProperty, Integer> dataPropertyMap = null;
-	private Map<OWLNamedIndividual, Integer> individualMap = null;
-	private Map<OWLLiteral, Integer> literalMap = null;
-	private Map<OWLObjectProperty, Integer> objectPropertyMap = null;
-
-	public AxiomTranslator(Map<OWLObjectProperty, Integer> objPropMap,
-			Map<OWLClass, Integer> clMap,
-			Map<OWLNamedIndividual, Integer> indivMap,
-			Map<OWLDataProperty, Integer> dataPropMap,
-			Map<OWLLiteral, Integer> litMap) {
-		if (objPropMap == null) {
+	public AxiomTranslator(ClassExpressionTranslator translator) {
+		if (translator == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		if (clMap == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (indivMap == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (dataPropMap == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (litMap == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		this.objectPropertyMap = objPropMap;
-		this.classMap = clMap;
-		this.individualMap = indivMap;
-		this.dataPropertyMap = dataPropMap;
-		this.literalMap = litMap;
+		this.classExpressionTranslator = translator;
 	}
 
 	private OWLDataProperty asOWLDataProperty(
@@ -186,152 +142,20 @@ class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 		return expression.asOWLObjectProperty();
 	}
 
-	private Integer getId(OWLClass owlClass) throws TranslationException {
-		Integer ret = this.classMap.get(owlClass);
-		if (ret == null) {
-			throw TranslationException.newIncompleteMapException(owlClass
-					.toString());
-		}
-		return ret;
+	public ClassExpressionTranslator getClassExpressionTranslator() {
+		return this.classExpressionTranslator;
 	}
 
-	private Integer getId(OWLDataProperty owlDataProperty) {
-		Integer ret = this.dataPropertyMap.get(owlDataProperty);
-		if (ret == null) {
-			throw TranslationException
-					.newIncompleteMapException(owlDataProperty.toString());
-		}
-		return ret;
-	}
-
-	private Integer getId(OWLIndividual individual) throws TranslationException {
-		Integer ret = this.individualMap.get(individual);
-		if (ret == null) {
-			throw TranslationException.newIncompleteMapException(individual
-					.toString());
-		}
-		return ret;
-	}
-
-	private Integer getId(OWLLiteral owlLiteral) {
-		Integer ret = this.literalMap.get(owlLiteral);
-		if (ret == null) {
-			throw TranslationException.newIncompleteMapException(owlLiteral
-					.toString());
-		}
-		return ret;
-	}
-
-	private Integer getId(OWLObjectProperty owlObjectProperty)
-			throws TranslationException {
-		Integer ret = this.objectPropertyMap.get(owlObjectProperty);
-		if (ret == null) {
-			throw TranslationException
-					.newIncompleteMapException(owlObjectProperty.toString());
-		}
-		return ret;
-	}
-
-	private IntegerClassExpression translate(
+	public IntegerClassExpression translate(
 			OWLClassExpression owlClassExpression) throws TranslationException {
-		IntegerClassExpression ret = null;
-		if (owlClassExpression instanceof OWLClass) {
-			ret = translateClass((OWLClass) owlClassExpression);
-		} else if (owlClassExpression instanceof OWLObjectSomeValuesFrom) {
-			ret = translateObjectSomeValuesFrom((OWLObjectSomeValuesFrom) owlClassExpression);
-		} else if (owlClassExpression instanceof OWLObjectIntersectionOf) {
-			ret = translateObjectIntersectionOf((OWLObjectIntersectionOf) owlClassExpression);
-		} else if (owlClassExpression instanceof OWLObjectOneOf) {
-			ret = translateObjectOneOf((OWLObjectOneOf) owlClassExpression);
-		} else if (owlClassExpression instanceof OWLDataHasValue) {
-			ret = translateDataHasValue((OWLDataHasValue) owlClassExpression);
-		} else {
-			throw new TranslationException(
-					"This class expression is not supported: '"
-							+ owlClassExpression + "'.");
-		}
-		return ret;
+		return owlClassExpression.accept(getClassExpressionTranslator());
 	}
 
-	private IntegerClassExpression translateClass(OWLClass owlClass)
-			throws TranslationException {
-		return new IntegerClass(getId(owlClass));
-	}
-
-	private IntegerClassExpression translateDataHasValue(
-			OWLDataHasValue owlDataHasValue) {
-		Integer dataPropertyId = getId(owlDataHasValue.getProperty()
-				.asOWLDataProperty());
-		Integer literalId = getId(owlDataHasValue.getValue());
-		return new IntegerDataHasValue(dataPropertyId, literalId);
-	}
-
-	private Integer translateDataProperty(OWLDataProperty owlDataProperty) {
-		return getId(owlDataProperty);
-	}
-
-	private Integer translateIndividual(OWLIndividual owlIndividual)
-			throws TranslationException {
-		return getId(owlIndividual);
-	}
-
-	private Integer translateLiteral(OWLLiteral owlLiteral)
-			throws TranslationException {
-		return getId(owlLiteral);
-	}
-
-	private IntegerClassExpression translateObjectIntersectionOf(
-			OWLObjectIntersectionOf intersection) throws TranslationException {
-		Set<OWLClassExpression> operands = intersection.getOperands();
-		Set<IntegerClassExpression> classExpressionList = new HashSet<IntegerClassExpression>();
-		for (OWLClassExpression elem : operands) {
-			classExpressionList.add(translate(elem));
-		}
-		return new IntegerObjectIntersectionOf(classExpressionList);
-	}
-
-	private IntegerClassExpression translateObjectOneOf(
-			OWLObjectOneOf owlClassExpression) {
-		Set<OWLIndividual> indivSet = owlClassExpression.getIndividuals();
-		if (indivSet.isEmpty()) {
-			throw new TranslationException(
-					"It is not possible to translate ObjectOneOf with empty set.");
-		}
-		if (indivSet.size() > 1) {
-			throw new TranslationException(
-					"It is not possible to translate ObjectOneOf with multiple individuals: '"
-							+ indivSet + "'.");
-		}
-		return new IntegerObjectOneOf(translateIndividual(indivSet.iterator()
-				.next()));
-	}
-
-	private Integer translateObjectProperty(OWLObjectProperty objectProperty)
-			throws TranslationException {
-		return getId(objectProperty);
-	}
-
-	private IntegerObjectPropertyExpression translateObjectPropertyExpression(
+	public IntegerObjectPropertyExpression translateObjectPropertyExpression(
 			OWLObjectPropertyExpression objectPropertyExpr)
 			throws TranslationException {
-		IntegerObjectPropertyExpression ret = null;
-		Integer propertyId = translateObjectProperty(objectPropertyExpr
-				.getNamedProperty());
-		if (objectPropertyExpr instanceof OWLObjectProperty) {
-			ret = new IntegerObjectProperty(propertyId);
-		} else {
-			ret = new IntegerInverseObjectProperty(propertyId);
-		}
-		return ret;
-	}
-
-	private IntegerClassExpression translateObjectSomeValuesFrom(
-			OWLObjectSomeValuesFrom restriction) throws TranslationException {
-		IntegerObjectPropertyExpression propertyExpr = translateObjectPropertyExpression(restriction
-				.getProperty());
-		OWLClassExpression desc = restriction.getFiller();
-		IntegerClassExpression classExpression = translate(desc);
-		return new IntegerObjectSomeValuesFrom(propertyExpr, classExpression);
+		return objectPropertyExpr.accept(getClassExpressionTranslator()
+				.getObjectPropertyExpressionTranslator());
 	}
 
 	@Override
@@ -376,7 +200,8 @@ class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Integer individualId = getId(axiom.getIndividual());
+		Integer individualId = getClassExpressionTranslator().getId(
+				axiom.getIndividual());
 		ComplexIntegerAxiom ret = new IntegerClassAssertionAxiom(
 				translate(axiom.getClassExpression()), individualId);
 		return Collections.singleton(ret);
@@ -389,9 +214,12 @@ class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 		}
 
 		OWLDataProperty property = asOWLDataProperty(axiom.getProperty());
-		Integer propertyId = translateDataProperty(property);
-		Integer subjectId = translateIndividual(axiom.getSubject());
-		Integer objectId = translateLiteral(axiom.getObject());
+		Integer propertyId = getClassExpressionTranslator()
+				.getObjectPropertyExpressionTranslator().getId(property);
+		Integer subjectId = getClassExpressionTranslator().getId(
+				axiom.getSubject());
+		Integer objectId = getClassExpressionTranslator().getId(
+				axiom.getObject());
 		ComplexIntegerAxiom ret = new IntegerDataPropertyAssertionAxiom(
 				propertyId, subjectId, objectId);
 		return Collections.singleton(ret);
@@ -434,19 +262,24 @@ class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 		Set<ComplexIntegerAxiom> ret = null;
 		if (entity.isOWLClass()) {
 			ComplexIntegerAxiom elem = new IntegerClassDeclarationAxiom(
-					getId(entity.asOWLClass()));
+					getClassExpressionTranslator().getId(entity.asOWLClass()));
 			ret = Collections.singleton(elem);
 		} else if (entity.isOWLObjectProperty()) {
 			ComplexIntegerAxiom elem = new IntegerObjectPropertyDeclarationAxiom(
-					getId(entity.asOWLObjectProperty()));
+					getClassExpressionTranslator()
+							.getObjectPropertyExpressionTranslator().getId(
+									entity.asOWLObjectProperty()));
 			ret = Collections.singleton(elem);
 		} else if (entity.isOWLNamedIndividual()) {
 			ComplexIntegerAxiom elem = new IntegerNamedIndividualDeclarationAxiom(
-					getId(entity.asOWLNamedIndividual()));
+					getClassExpressionTranslator().getId(
+							entity.asOWLNamedIndividual()));
 			ret = Collections.singleton(elem);
 		} else if (entity.isOWLDataProperty()) {
 			ComplexIntegerAxiom elem = new IntegerDataPropertyDeclarationAxiom(
-					getId(entity.asOWLDataProperty()));
+					getClassExpressionTranslator()
+							.getObjectPropertyExpressionTranslator().getId(
+									entity.asOWLDataProperty()));
 			ret = Collections.singleton(elem);
 		} else if (entity.isOWLAnnotationProperty()) {
 			// it is ignored
@@ -466,7 +299,8 @@ class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 		Set<OWLIndividual> individualSet = axiom.getIndividuals();
 		Set<Integer> individualIdSet = new HashSet<Integer>();
 		for (OWLIndividual individual : individualSet) {
-			individualIdSet.add(translateIndividual(individual));
+			individualIdSet.add(getClassExpressionTranslator()
+					.getId(individual));
 		}
 		ComplexIntegerAxiom ret = new IntegerDifferentIndividualsAxiom(
 				individualIdSet);
@@ -555,7 +389,9 @@ class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 		Set<Integer> propertyIdSet = new HashSet<Integer>();
 		for (OWLObjectPropertyExpression propertyExpr : propertySet) {
 			if (propertyExpr instanceof OWLObjectProperty) {
-				propertyIdSet.add(getId(propertyExpr.asOWLObjectProperty()));
+				propertyIdSet.add(getClassExpressionTranslator()
+						.getObjectPropertyExpressionTranslator().getId(
+								propertyExpr.asOWLObjectProperty()));
 			} else {
 				throw new IllegalStateException();
 			}
@@ -582,7 +418,8 @@ class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 		}
 
 		OWLObjectProperty property = asOWLObjectProperty(axiom.getProperty());
-		Integer propertyId = translateObjectProperty(property);
+		Integer propertyId = getClassExpressionTranslator()
+				.getObjectPropertyExpressionTranslator().getId(property);
 		ComplexIntegerAxiom ret = new IntegerFunctionalObjectPropertyAxiom(
 				propertyId);
 		return Collections.singleton(ret);
@@ -605,7 +442,8 @@ class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 		}
 
 		OWLObjectProperty property = asOWLObjectProperty(axiom.getProperty());
-		Integer propertyId = translateObjectProperty(property);
+		Integer propertyId = getClassExpressionTranslator()
+				.getObjectPropertyExpressionTranslator().getId(property);
 		ComplexIntegerAxiom ret = new IntegerInverseFunctionalObjectPropertyAxiom(
 				propertyId);
 		return Collections.singleton(ret);
@@ -621,8 +459,10 @@ class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 				.getFirstProperty());
 		OWLObjectProperty secondProperty = asOWLObjectProperty(axiom
 				.getSecondProperty());
-		Integer firstPropertyId = translateObjectProperty(firstProperty);
-		Integer secondPropertyId = translateObjectProperty(secondProperty);
+		Integer firstPropertyId = getClassExpressionTranslator()
+				.getObjectPropertyExpressionTranslator().getId(firstProperty);
+		Integer secondPropertyId = getClassExpressionTranslator()
+				.getObjectPropertyExpressionTranslator().getId(secondProperty);
 		ComplexIntegerAxiom ret = new IntegerInverseObjectPropertiesAxiom(
 				firstPropertyId, secondPropertyId);
 		return Collections.singleton(ret);
@@ -657,8 +497,10 @@ class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 
 		IntegerObjectPropertyExpression propertyExpr = translateObjectPropertyExpression(axiom
 				.getProperty());
-		Integer subjectId = translateIndividual(axiom.getSubject());
-		Integer objectId = translateIndividual(axiom.getObject());
+		Integer subjectId = getClassExpressionTranslator().getId(
+				axiom.getSubject());
+		Integer objectId = getClassExpressionTranslator().getId(
+				axiom.getObject());
 		ComplexIntegerAxiom ret = new IntegerNegativeObjectPropertyAssertionAxiom(
 				propertyExpr, subjectId, objectId);
 		return Collections.singleton(ret);
@@ -672,8 +514,10 @@ class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 
 		IntegerObjectPropertyExpression propertyExpr = translateObjectPropertyExpression(axiom
 				.getProperty());
-		Integer subjectId = translateIndividual(axiom.getSubject());
-		Integer objectId = translateIndividual(axiom.getObject());
+		Integer subjectId = getClassExpressionTranslator().getId(
+				axiom.getSubject());
+		Integer objectId = getClassExpressionTranslator().getId(
+				axiom.getObject());
 		ComplexIntegerAxiom ret = new IntegerObjectPropertyAssertionAxiom(
 				propertyExpr, subjectId, objectId);
 		return Collections.singleton(ret);
@@ -709,7 +553,9 @@ class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 				.getProperty());
 		OWLClassExpression classExpression = rangeAxiom.getRange();
 		ComplexIntegerAxiom ret = new IntegerPropertyRangeAxiom(
-				getId(property), translate(classExpression));
+				getClassExpressionTranslator()
+						.getObjectPropertyExpressionTranslator()
+						.getId(property), translate(classExpression));
 		return Collections.singleton(ret);
 	}
 
@@ -720,7 +566,8 @@ class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 		}
 
 		OWLObjectProperty property = asOWLObjectProperty(axiom.getProperty());
-		Integer propertyId = getId(property);
+		Integer propertyId = getClassExpressionTranslator()
+				.getObjectPropertyExpressionTranslator().getId(property);
 		ComplexIntegerAxiom ret = new IntegerReflexiveObjectPropertyAxiom(
 				propertyId);
 		return Collections.singleton(ret);
@@ -735,7 +582,8 @@ class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 		Set<OWLIndividual> individualSet = axiom.getIndividuals();
 		Set<Integer> individualIdSet = new HashSet<Integer>();
 		for (OWLIndividual individual : individualSet) {
-			individualIdSet.add(translateIndividual(individual));
+			individualIdSet.add(getClassExpressionTranslator()
+					.getId(individual));
 		}
 		ComplexIntegerAxiom ret = new IntegerSameIndividualAxiom(
 				individualIdSet);
@@ -827,7 +675,9 @@ class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 
 		OWLObjectProperty property = axiom.getProperty().asOWLObjectProperty();
 		ComplexIntegerAxiom ret = new IntegerTransitiveObjectPropertyAxiom(
-				getId(property));
+				getClassExpressionTranslator()
+						.getObjectPropertyExpressionTranslator()
+						.getId(property));
 		return Collections.singleton(ret);
 	}
 
@@ -839,4 +689,5 @@ class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 
 		throw TranslationException.newUnsupportedAxiomException(axiom);
 	}
+
 }

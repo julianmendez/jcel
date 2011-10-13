@@ -31,6 +31,7 @@ import java.util.TreeSet;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataHasValue;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -39,6 +40,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * An object of this class is a repository used for the translation between OWL
@@ -63,60 +65,23 @@ public class TranslationRepository {
 	private OWLDataProperty topDataProperty;
 	private OWLObjectProperty topObjectProperty = null;
 
-	/**
-	 * @param bottomClass
-	 *            OWL class for 'nothing'
-	 * @param topClass
-	 *            OWL class for 'thing'
-	 * @param bottomObjectProperty
-	 *            OWL bottom object property
-	 * @param topObjectProperty
-	 *            OWL top object property
-	 * @param bottomDataProperty
-	 *            OWL bottom data property
-	 * @param topDataProperty
-	 *            OWL top data property
-	 */
-	public TranslationRepository(OWLClass bottomClass, OWLClass topClass,
-			OWLObjectProperty bottomObjectProperty,
-			OWLObjectProperty topObjectProperty,
-			OWLDataProperty bottomDataProperty,
-			OWLDataProperty topDataProperty, Set<OWLAxiom> axiomSet) {
-		if (bottomClass == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (topClass == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (bottomObjectProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (topObjectProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (bottomDataProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (topDataProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (axiomSet == null) {
+	public TranslationRepository(OWLOntology rootOntology) {
+		if (rootOntology == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.bottomClass = bottomClass;
-		this.topClass = topClass;
-		this.bottomObjectProperty = bottomObjectProperty;
-		this.topObjectProperty = topObjectProperty;
-		this.bottomDataProperty = bottomDataProperty;
-		this.topDataProperty = topDataProperty;
-		Set<OWLClass> conceptNameSet = collectClasses(axiomSet);
-		Set<OWLObjectProperty> objectPropertySet = collectObjectProperties(axiomSet);
-		Set<OWLNamedIndividual> individualSet = collectIndividuals(axiomSet);
-		Set<OWLDataProperty> dataPropertySet = collectDataProperties(axiomSet);
-		Set<OWLLiteral> literalSet = collectLiterals(axiomSet);
-		load(conceptNameSet, objectPropertySet, individualSet, dataPropertySet,
-				literalSet);
+		OWLDataFactory dataFactory = rootOntology.getOWLOntologyManager()
+				.getOWLDataFactory();
+
+		this.bottomClass = dataFactory.getOWLNothing();
+		this.topClass = dataFactory.getOWLThing();
+		this.bottomObjectProperty = dataFactory.getOWLBottomObjectProperty();
+		this.topObjectProperty = dataFactory.getOWLTopObjectProperty();
+		this.bottomDataProperty = dataFactory.getOWLBottomDataProperty();
+		this.topDataProperty = dataFactory.getOWLTopDataProperty();
+
+		load(rootOntology.getAxioms());
+
 	}
 
 	/**
@@ -130,68 +95,23 @@ public class TranslationRepository {
 		this.literalList = new ArrayList<OWLLiteral>();
 	}
 
-	private Set<OWLClass> collectClasses(Set<OWLAxiom> axiomSet) {
-		Set<OWLClass> ret = new HashSet<OWLClass>();
-		for (OWLAxiom axiom : axiomSet) {
-			ret.addAll(axiom.getClassesInSignature());
-		}
-		ret.add(bottomClass);
-		ret.add(topClass);
-		return ret;
-	}
-
-	private Set<OWLDataProperty> collectDataProperties(Set<OWLAxiom> axiomSet) {
-		Set<OWLDataProperty> ret = new HashSet<OWLDataProperty>();
-		for (OWLAxiom axiom : axiomSet) {
-			Set<OWLDataProperty> entities = axiom
-					.getDataPropertiesInSignature();
-			ret.addAll(entities);
-		}
-		return ret;
-	}
-
-	private Set<OWLNamedIndividual> collectIndividuals(Set<OWLAxiom> axiomSet) {
-		Set<OWLNamedIndividual> ret = new HashSet<OWLNamedIndividual>();
-		for (OWLAxiom axiom : axiomSet) {
-			Set<OWLNamedIndividual> entities = axiom
-					.getIndividualsInSignature();
-			ret.addAll(entities);
-		}
-		return ret;
-	}
-
-	private Set<OWLLiteral> collectLiterals(Set<OWLAxiom> axiomSet) {
+	private Set<OWLLiteral> collectLiterals(OWLAxiom axiom) {
 		Set<OWLLiteral> ret = new HashSet<OWLLiteral>();
-		for (OWLAxiom axiom : axiomSet) {
-			if ((axiom instanceof OWLDataPropertyAssertionAxiom)) {
-				ret.add(((OWLDataPropertyAssertionAxiom) axiom).getObject());
-			}
-			if (axiom instanceof OWLNegativeDataPropertyAssertionAxiom) {
-				ret.add(((OWLNegativeDataPropertyAssertionAxiom) axiom)
-						.getObject());
-			}
-			Set<OWLClassExpression> classExpressions = axiom
-					.getNestedClassExpressions();
-			for (OWLClassExpression classExpr : classExpressions) {
-				if (classExpr instanceof OWLDataHasValue) {
-					ret.add(((OWLDataHasValue) classExpr).getValue());
-				}
-				if (classExpr instanceof OWLDataOneOf) {
-					ret.addAll(((OWLDataOneOf) classExpr).getValues());
-				}
-			}
-
+		if ((axiom instanceof OWLDataPropertyAssertionAxiom)) {
+			ret.add(((OWLDataPropertyAssertionAxiom) axiom).getObject());
 		}
-		return ret;
-	}
-
-	private Set<OWLObjectProperty> collectObjectProperties(
-			Set<OWLAxiom> axiomSet) {
-		Set<OWLObjectProperty> ret = new HashSet<OWLObjectProperty>();
-		for (OWLAxiom axiom : axiomSet) {
-			Set<OWLObjectProperty> entities = axiom
-					.getObjectPropertiesInSignature();
-			ret.addAll(entities);
+		if (axiom instanceof OWLNegativeDataPropertyAssertionAxiom) {
+			ret.add(((OWLNegativeDataPropertyAssertionAxiom) axiom).getObject());
+		}
+		Set<OWLClassExpression> classExpressions = axiom
+				.getNestedClassExpressions();
+		for (OWLClassExpression classExpr : classExpressions) {
+			if (classExpr instanceof OWLDataHasValue) {
+				ret.add(((OWLDataHasValue) classExpr).getValue());
+			}
+			if (classExpr instanceof OWLDataOneOf) {
+				ret.addAll(((OWLDataOneOf) classExpr).getValues());
+			}
 		}
 		return ret;
 	}
@@ -213,6 +133,10 @@ public class TranslationRepository {
 
 	public List<OWLClass> getOWLClassList() {
 		return Collections.unmodifiableList(this.classList);
+	}
+
+	public OWLDataProperty getOWLDataProperty(int index) {
+		return this.dataPropertyList.get(index);
 	}
 
 	public List<OWLDataProperty> getOWLDataPropertyList() {
@@ -261,70 +185,44 @@ public class TranslationRepository {
 	 * @param literalSet
 	 *            set of literals
 	 */
-	private void load(Set<OWLClass> classSet,
-			Set<OWLObjectProperty> objectPropertySet,
-			Set<OWLNamedIndividual> individualSet,
-			Set<OWLDataProperty> dataPropertySet, Set<OWLLiteral> literalSet) {
+	private void load(Set<OWLAxiom> axiomSet) {
 
-		if (classSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (objectPropertySet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (individualSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (dataPropertySet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (literalSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		Set<OWLClass> classSet = new TreeSet<OWLClass>();
+		Set<OWLObjectProperty> objectPropertySet = new TreeSet<OWLObjectProperty>();
+		Set<OWLNamedIndividual> individualSet = new TreeSet<OWLNamedIndividual>();
+		Set<OWLDataProperty> dataPropertySet = new TreeSet<OWLDataProperty>();
+		Set<OWLLiteral> literalSet = new TreeSet<OWLLiteral>();
 
-		if (classSet != null) {
-			Set<OWLClass> sorted = new TreeSet<OWLClass>();
-			sorted.addAll(classSet);
-			sorted.remove(this.bottomClass);
-			sorted.remove(this.topClass);
-			this.classList = new ArrayList<OWLClass>();
-			this.classList.add(this.bottomClass); // 0
-			this.classList.add(this.topClass); // 1
-			this.classList.addAll(sorted);
-		}
+		this.classList = new ArrayList<OWLClass>();
+		this.objectPropertyList = new ArrayList<OWLObjectProperty>();
+		this.individualList = new ArrayList<OWLNamedIndividual>();
+		this.dataPropertyList = new ArrayList<OWLDataProperty>();
+		this.literalList = new ArrayList<OWLLiteral>();
 
-		if (objectPropertySet != null) {
-			Set<OWLObjectProperty> sorted = new TreeSet<OWLObjectProperty>();
-			sorted.addAll(objectPropertySet);
-			this.objectPropertyList = new ArrayList<OWLObjectProperty>();
-			this.objectPropertyList.add(this.bottomObjectProperty); // 0
-			this.objectPropertyList.add(this.topObjectProperty); // 1
-			this.objectPropertyList.addAll(sorted);
+		this.classList.add(this.bottomClass); // 0
+		this.classList.add(this.topClass); // 1
+
+		this.objectPropertyList.add(this.bottomObjectProperty); // 0
+		this.objectPropertyList.add(this.topObjectProperty); // 1
+
+		this.dataPropertyList.add(this.bottomDataProperty); // 0
+		this.dataPropertyList.add(this.topDataProperty); // 1
+
+		for (OWLAxiom axiom : axiomSet) {
+			classSet.addAll(axiom.getClassesInSignature());
+			objectPropertySet.addAll(axiom.getObjectPropertiesInSignature());
+			individualSet.addAll(axiom.getIndividualsInSignature());
+			dataPropertySet.addAll(axiom.getDataPropertiesInSignature());
+			literalSet.addAll(collectLiterals(axiom));
 		}
 
-		if (individualSet != null) {
-			Set<OWLNamedIndividual> sorted = new TreeSet<OWLNamedIndividual>();
-			sorted.addAll(individualSet);
-			this.individualList = new ArrayList<OWLNamedIndividual>();
-			this.individualList.addAll(sorted);
-		}
-
-		if (dataPropertySet != null) {
-			Set<OWLDataProperty> sorted = new TreeSet<OWLDataProperty>();
-			sorted.addAll(dataPropertySet);
-			this.dataPropertyList = new ArrayList<OWLDataProperty>();
-			this.dataPropertyList.add(this.bottomDataProperty); // 0
-			this.dataPropertyList.add(this.topDataProperty); // 1
-			this.dataPropertyList.addAll(sorted);
-		}
-
-		if (literalSet != null) {
-			Set<OWLLiteral> sorted = new TreeSet<OWLLiteral>();
-			sorted.addAll(literalSet);
-			this.literalList = new ArrayList<OWLLiteral>();
-			this.literalList.addAll(sorted);
-		}
-
+		classSet.remove(this.bottomClass);
+		classSet.remove(this.topClass);
+		this.classList.addAll(classSet);
+		this.objectPropertyList.addAll(objectPropertySet);
+		this.individualList.addAll(individualSet);
+		this.dataPropertyList.addAll(dataPropertySet);
+		this.literalList.addAll(literalSet);
 	}
 
 	@Override
@@ -343,4 +241,5 @@ public class TranslationRepository {
 		sbuf.append("\n");
 		return sbuf.toString();
 	}
+
 }
