@@ -22,11 +22,11 @@
 package de.tudresden.inf.lat.jcel.owlapi.main;
 
 /**
- * This exception is thrown by a <code>JcelReasonerProcessor</code>.
+ * This exception is thrown by the reasoner.
  * 
  * @author Julian Mendez
  * 
- * @see JcelReasonerProcessor
+ * @see JcelReasoner
  */
 public class JcelReasonerException extends RuntimeException {
 
