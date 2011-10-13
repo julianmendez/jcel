@@ -61,6 +61,15 @@ public interface IntegerClassExpressionVisitor<T> {
 	public T visit(IntegerDataSomeValuesFrom classExpression);
 
 	/**
+	 * Visits a named individual.
+	 * 
+	 * @param namedIndividual
+	 *            named individual
+	 * @return the visit result
+	 */
+	public T visit(IntegerNamedIndividual namedIndividual);
+
+	/**
 	 * Visits an intersection of several class expressions.
 	 * 
 	 * @param classExpression

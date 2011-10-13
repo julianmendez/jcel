@@ -29,6 +29,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpressionVisitor
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataHasValue;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataSomeValuesFrom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerInverseObjectProperty;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerNamedIndividual;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectOneOf;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
@@ -122,6 +123,15 @@ class IntegerExpressionAnalyzer implements
 		}
 
 		this.hasInverseObjectProperty = true;
+		return true;
+	}
+
+	@Override
+	public Boolean visit(IntegerNamedIndividual namedIndividual) {
+		if (namedIndividual == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
 		return true;
 	}
 
