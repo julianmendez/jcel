@@ -86,6 +86,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 			computeInconsistentDag(origGraph);
 		} else {
 			computeDag(origGraph);
+			computeEquivalents(origGraph);
 		}
 	}
 
@@ -108,6 +109,28 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 			if (chSet.size() == 0) {
 				chSet.add(getBottomElement());
 			}
+		}
+	}
+
+	private void computeEquivalents(IntegerSubsumerGraph graph) {
+		Set<Integer> toVisit = new HashSet<Integer>();
+		toVisit.addAll(graph.getElements());
+		while (!toVisit.isEmpty()) {
+			Integer elem = toVisit.iterator().next();
+			Set<Integer> elemEquivalents = new HashSet<Integer>();
+			elemEquivalents.addAll(this.equivalents.get(elem));
+			elemEquivalents.add(elem);
+			Set<Integer> elemChildren = new HashSet<Integer>();
+			Set<Integer> elemParents = new HashSet<Integer>();
+			for (Integer index : elemEquivalents) {
+				elemChildren.addAll(this.children.get(index));
+				elemParents.addAll(this.parents.get(index));
+			}
+			for (Integer index : elemEquivalents) {
+				this.children.put(index, elemChildren);
+				this.parents.put(index, elemParents);
+			}
+			toVisit.removeAll(elemEquivalents);
 		}
 	}
 
