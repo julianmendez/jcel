@@ -31,7 +31,7 @@
 
 	<groupId>jcel</groupId>
 	<artifactId>jcel.ontology</artifactId>
-	<version>0.15.0</version>
+	<version>0.16.0</version>
 	<packaging>jar</packaging>
 
 	<name>jcel ontology</name>
@@ -39,7 +39,7 @@
 	<parent>
 		<groupId>jcel</groupId>
 		<artifactId>parent</artifactId>
-		<version>0.15.0</version>
+		<version>0.16.0</version>
 		<relativePath>../jcel.jars</relativePath>
 	</parent>
 
