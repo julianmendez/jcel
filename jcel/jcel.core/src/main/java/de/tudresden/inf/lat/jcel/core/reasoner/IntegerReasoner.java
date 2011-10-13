@@ -2,7 +2,7 @@
  * Copyright 2009 Julian Mendez
  *
  *
- * Integerhis file is part of jcel.
+ * This file is part of jcel.
  *
  * jcel is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -10,8 +10,8 @@
  * (at your option) any later version.
  *
  * jcel is distributed in the hope that it will be useful,
- * but WIIntegerHOUInteger ANY WARRANIntegerY; without even the implied warranty of
- * MERCHANIntegerABILIIntegerY or FIIntegerNESS FOR A PARIntegerICULAR PURPOSE.  See the
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
@@ -24,7 +24,6 @@ package de.tudresden.inf.lat.jcel.core.reasoner;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataProperty;
@@ -140,9 +139,9 @@ public interface IntegerReasoner {
 
 	public boolean isConsistent();
 
-	public boolean isEntailed(IntegerAxiom axiom);
+	public boolean isEntailed(ComplexIntegerAxiom axiom);
 
-	public boolean isEntailed(Set<? extends IntegerAxiom> axioms);
+	public boolean isEntailed(Set<ComplexIntegerAxiom> axioms);
 
 	public boolean isSatisfiable(IntegerClassExpression classExpression);
 

@@ -2,7 +2,7 @@
  * Copyright 2009 Julian Mendez
  *
  *
- * Integerhis file is part of jcel.
+ * This file is part of jcel.
  *
  * jcel is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -10,8 +10,8 @@
  * (at your option) any later version.
  *
  * jcel is distributed in the hope that it will be useful,
- * but WIIntegerHOUInteger ANY WARRANIntegerY; without even the implied warranty of
- * MERCHANIntegerABILIIntegerY or FIIntegerNESS FOR A PARIntegerICULAR PURPOSE.  See the
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
@@ -32,7 +32,6 @@ import de.tudresden.inf.lat.jcel.core.algorithm.rulebased.RuleBasedProcessor;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerEquivalentClassesAxiom;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataProperty;
@@ -152,7 +151,6 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			toVisit.addAll(related);
 		}
 		visited.removeAll(graph.getEquivalents(orig));
-		visited.remove(graph.getTopElement());
 		return visited;
 	}
 
@@ -226,7 +224,6 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			toVisit.addAll(related);
 		}
 		visited.removeAll(graph.getEquivalents(orig));
-		visited.remove(graph.getBottomElement());
 		return visited;
 	}
 
@@ -624,7 +621,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	}
 
 	@Override
-	public boolean isEntailed(IntegerAxiom axiom) {
+	public boolean isEntailed(ComplexIntegerAxiom axiom) {
 		if (axiom == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -634,7 +631,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	}
 
 	@Override
-	public boolean isEntailed(Set<? extends IntegerAxiom> axioms) {
+	public boolean isEntailed(Set<ComplexIntegerAxiom> axioms) {
 		if (axioms == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
