@@ -38,6 +38,15 @@ import java.util.Set;
 public interface IntegerHierarchicalGraph {
 
 	/**
+	 * Returns all predecessors of a particular given vertex.
+	 * 
+	 * @param vertex
+	 *            starting vertex
+	 * @return all predecessors of the given vertex
+	 */
+	public Set<Integer> getAncestors(Integer vertex);
+
+	/**
 	 * Returns the bottom element.
 	 * 
 	 * @return the bottom element
@@ -52,6 +61,15 @@ public interface IntegerHierarchicalGraph {
 	 * @return all direct successors of the given vertex
 	 */
 	public Set<Integer> getChildren(Integer vertex);
+
+	/**
+	 * Returns all successors of a particular given vertex.
+	 * 
+	 * @param vertex
+	 *            starting vertex
+	 * @return all successors of the given vertex
+	 */
+	public Set<Integer> getDescendants(Integer vertex);
 
 	/**
 	 * Returns all the vertices in the graph.
@@ -76,7 +94,7 @@ public interface IntegerHierarchicalGraph {
 	 * 
 	 * @param vertex
 	 *            starting vertex
-	 * @return all direct successors of the given vertex
+	 * @return all direct predecessors of the given vertex
 	 */
 	public Set<Integer> getParents(Integer vertex);
 

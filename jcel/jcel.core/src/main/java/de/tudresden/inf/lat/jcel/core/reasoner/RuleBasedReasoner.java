@@ -136,24 +136,6 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		this.pendingAxiomAdditions.clear();
 	}
 
-	private Set<Integer> getAncestors(IntegerHierarchicalGraph graph,
-			Integer orig) {
-		Set<Integer> toVisit = new HashSet<Integer>();
-		Set<Integer> visited = new HashSet<Integer>();
-		toVisit.add(orig);
-		while (!toVisit.isEmpty()) {
-			Integer elem = toVisit.iterator().next();
-			toVisit.remove(elem);
-			visited.add(elem);
-			Set<Integer> related = new HashSet<Integer>();
-			related.addAll(graph.getParents(elem));
-			related.removeAll(visited);
-			toVisit.addAll(related);
-		}
-		visited.removeAll(graph.getEquivalents(orig));
-		return visited;
-	}
-
 	@Override
 	public Set<IntegerClass> getBottomClassNode() {
 		classify();
@@ -207,24 +189,6 @@ public class RuleBasedReasoner implements IntegerReasoner {
 
 		throw new UnsupportedQueryException(
 				"Unsupported query: DataPropertyValues of " + ind + "," + pe);
-	}
-
-	private Set<Integer> getDescendants(IntegerHierarchicalGraph graph,
-			Integer orig) {
-		Set<Integer> toVisit = new HashSet<Integer>();
-		Set<Integer> visited = new HashSet<Integer>();
-		toVisit.add(orig);
-		while (!toVisit.isEmpty()) {
-			Integer elem = toVisit.iterator().next();
-			toVisit.remove(elem);
-			visited.add(elem);
-			Set<Integer> related = new HashSet<Integer>();
-			related.addAll(graph.getChildren(elem));
-			related.removeAll(visited);
-			toVisit.addAll(related);
-		}
-		visited.removeAll(graph.getEquivalents(orig));
-		return visited;
 	}
 
 	@Override
@@ -427,7 +391,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		if (direct) {
 			set = graph.getChildren(cls.getId());
 		} else {
-			set = getDescendants(graph, cls.getId());
+			set = graph.getDescendants(cls.getId());
 		}
 		Set<Set<IntegerClass>> ret = new HashSet<Set<IntegerClass>>();
 		for (Integer currentElem : set) {
@@ -466,7 +430,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		if (direct) {
 			set = graph.getChildren(prop.getId());
 		} else {
-			set = getDescendants(graph, prop.getId());
+			set = graph.getDescendants(prop.getId());
 		}
 		Set<Set<IntegerObjectPropertyExpression>> ret = new HashSet<Set<IntegerObjectPropertyExpression>>();
 		for (Integer currentElem : set) {
@@ -490,7 +454,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		if (direct) {
 			set = graph.getParents(cls.getId());
 		} else {
-			set = getAncestors(graph, cls.getId());
+			set = graph.getAncestors(cls.getId());
 		}
 		Set<Set<IntegerClass>> ret = new HashSet<Set<IntegerClass>>();
 		for (Integer currentElem : set) {
@@ -529,7 +493,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		if (direct) {
 			set = graph.getParents(prop.getId());
 		} else {
-			set = getAncestors(graph, prop.getId());
+			set = graph.getAncestors(prop.getId());
 		}
 		Set<Set<IntegerObjectPropertyExpression>> ret = new HashSet<Set<IntegerObjectPropertyExpression>>();
 		for (Integer currentElem : set) {
@@ -589,7 +553,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		} else {
 			set = new HashSet<Integer>();
 			for (Integer current : directElemSet) {
-				set.addAll(getAncestors(graph, current));
+				set.addAll(graph.getAncestors(current));
 			}
 		}
 		Set<Set<IntegerClass>> ret = new HashSet<Set<IntegerClass>>();

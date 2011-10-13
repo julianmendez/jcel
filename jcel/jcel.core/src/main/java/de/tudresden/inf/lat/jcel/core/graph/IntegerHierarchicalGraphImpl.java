@@ -236,6 +236,27 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 	}
 
 	@Override
+	public Set<Integer> getAncestors(Integer orig) {
+		if (orig == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		Set<Integer> ret = new HashSet<Integer>();
+		Set<Integer> toVisit = new HashSet<Integer>();
+		toVisit.add(orig);
+		while (!toVisit.isEmpty()) {
+			Integer elem = toVisit.iterator().next();
+			toVisit.remove(elem);
+			ret.add(elem);
+			Set<Integer> related = new HashSet<Integer>();
+			related.addAll(this.parents.get(elem));
+			related.removeAll(ret);
+			toVisit.addAll(related);
+		}
+		return ret;
+	}
+
+	@Override
 	public Integer getBottomElement() {
 		return this.bottomElement;
 	}
@@ -247,6 +268,27 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 		}
 
 		return Collections.unmodifiableSet(this.children.get(elem));
+	}
+
+	@Override
+	public Set<Integer> getDescendants(Integer orig) {
+		if (orig == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		Set<Integer> ret = new HashSet<Integer>();
+		Set<Integer> toVisit = new HashSet<Integer>();
+		toVisit.add(orig);
+		while (!toVisit.isEmpty()) {
+			Integer elem = toVisit.iterator().next();
+			toVisit.remove(elem);
+			ret.add(elem);
+			Set<Integer> related = new HashSet<Integer>();
+			related.addAll(this.children.get(elem));
+			related.removeAll(ret);
+			toVisit.addAll(related);
+		}
+		return ret;
 	}
 
 	@Override
