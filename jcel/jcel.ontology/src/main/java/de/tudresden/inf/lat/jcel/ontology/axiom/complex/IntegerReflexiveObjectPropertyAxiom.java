@@ -39,7 +39,7 @@ public class IntegerReflexiveObjectPropertyAxiom implements ComplexIntegerAxiom 
 	 * @param property
 	 *            object property
 	 */
-	public IntegerReflexiveObjectPropertyAxiom(Integer property) {
+	protected IntegerReflexiveObjectPropertyAxiom(Integer property) {
 		if (property == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

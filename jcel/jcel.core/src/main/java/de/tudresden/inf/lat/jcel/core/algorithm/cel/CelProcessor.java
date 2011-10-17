@@ -41,6 +41,7 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerRelationMapImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGeneratorImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
@@ -82,6 +83,7 @@ public class CelProcessor implements Processor {
 	private static final Integer objectPropertyBottomElement = IntegerDatatype.objectPropertyBottomElement;
 	private static final Integer objectPropertyTopElement = IntegerDatatype.objectPropertyTopElement;
 
+	private ComplexIntegerAxiomFactory axiomFactory = null;
 	private IntegerSubsumerGraphImpl classGraph = null;
 	private IntegerHierarchicalGraph classHierarchy = null;
 	private IntegerHierarchicalGraph dataPropertyHierarchy = null;
@@ -105,11 +107,16 @@ public class CelProcessor implements Processor {
 	 * @param axioms
 	 *            set of axioms
 	 */
-	public CelProcessor(Set<ComplexIntegerAxiom> axioms) {
+	public CelProcessor(Set<ComplexIntegerAxiom> axioms,
+			ComplexIntegerAxiomFactory factory) {
 		if (axioms == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
+		if (factory == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
 
+		this.axiomFactory = factory;
 		preProcess(axioms);
 	}
 
@@ -238,6 +245,15 @@ public class CelProcessor implements Processor {
 			ret.put(r, related);
 		}
 		return ret;
+	}
+
+	/**
+	 * Returns the axiom factory.
+	 * 
+	 * @return the axiom factory
+	 */
+	protected ComplexIntegerAxiomFactory getAxiomFactory() {
+		return this.axiomFactory;
 	}
 
 	@Override
@@ -515,7 +531,7 @@ public class CelProcessor implements Processor {
 		OntologyNormalizer normalizer = new OntologyNormalizer();
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
 		ontology.addAll(normalizer.normalize(this.originalAxiomSet,
-				getIdGenerator()));
+				getIdGenerator(), getAxiomFactory()));
 
 		logger.finer("auxiliary classes created (including nominals) : "
 				+ (getIdGenerator().getNextClassId() - getIdGenerator()

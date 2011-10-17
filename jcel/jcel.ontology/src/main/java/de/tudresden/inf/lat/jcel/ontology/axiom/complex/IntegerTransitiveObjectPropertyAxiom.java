@@ -44,7 +44,7 @@ public class IntegerTransitiveObjectPropertyAxiom implements
 	 * @param prop
 	 *            object property
 	 */
-	public IntegerTransitiveObjectPropertyAxiom(Integer prop) {
+	protected IntegerTransitiveObjectPropertyAxiom(Integer prop) {
 		if (prop == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

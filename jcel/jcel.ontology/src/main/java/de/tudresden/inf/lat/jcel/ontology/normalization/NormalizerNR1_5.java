@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerEquivalentClassesAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
@@ -42,10 +43,20 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
  */
 class NormalizerNR1_5 implements NormalizationRule {
 
+	private ComplexIntegerAxiomFactory axiomFactory = null;
+
 	/**
 	 * Constructs a new normalizer of rule NR-1.5.
+	 * 
+	 * @param factory
+	 *            axiom factory
 	 */
-	public NormalizerNR1_5() {
+	public NormalizerNR1_5(ComplexIntegerAxiomFactory factory) {
+		if (factory == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		this.axiomFactory = factory;
 	}
 
 	@Override
@@ -73,8 +84,9 @@ class NormalizerNR1_5 implements NormalizationRule {
 					.iterator(); secondIt.hasNext();) {
 				IntegerClassExpression secondClassExpression = secondIt.next();
 				if (!firstClassExpression.equals(secondClassExpression)) {
-					IntegerSubClassOfAxiom subClassAxiom = new IntegerSubClassOfAxiom(
-							firstClassExpression, secondClassExpression);
+					IntegerSubClassOfAxiom subClassAxiom = this.axiomFactory
+							.createSubClassOfAxiom(firstClassExpression,
+									secondClassExpression);
 					ret.add(subClassAxiom);
 				}
 			}

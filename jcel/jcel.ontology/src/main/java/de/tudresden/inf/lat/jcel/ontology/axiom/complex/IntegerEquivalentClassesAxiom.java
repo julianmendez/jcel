@@ -46,7 +46,7 @@ public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 	 * @param descSet
 	 *            set of classes declared to be equivalent
 	 */
-	public IntegerEquivalentClassesAxiom(Set<IntegerClassExpression> descSet) {
+	protected IntegerEquivalentClassesAxiom(Set<IntegerClassExpression> descSet) {
 		if (descSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

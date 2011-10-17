@@ -49,7 +49,7 @@ public class IntegerSubClassOfAxiom implements ComplexIntegerAxiom {
 	 * @param superClExpr
 	 *            superclass
 	 */
-	public IntegerSubClassOfAxiom(IntegerClassExpression subClExpr,
+	protected IntegerSubClassOfAxiom(IntegerClassExpression subClExpr,
 			IntegerClassExpression superClExpr) {
 		if (subClExpr == null) {
 			throw new IllegalArgumentException("Null argument.");

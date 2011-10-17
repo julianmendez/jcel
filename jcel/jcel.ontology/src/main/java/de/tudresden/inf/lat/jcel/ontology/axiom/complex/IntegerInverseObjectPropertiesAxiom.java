@@ -47,7 +47,7 @@ public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom 
 	 * @param second
 	 *            object property
 	 */
-	public IntegerInverseObjectPropertiesAxiom(Integer first, Integer second) {
+	protected IntegerInverseObjectPropertiesAxiom(Integer first, Integer second) {
 		if (first == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

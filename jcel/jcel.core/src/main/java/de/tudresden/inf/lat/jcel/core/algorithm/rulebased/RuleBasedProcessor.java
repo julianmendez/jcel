@@ -43,6 +43,7 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
 
@@ -58,6 +59,7 @@ public class RuleBasedProcessor implements Processor {
 			.getLogger(RuleBasedProcessor.class.getName());
 	private static final long loggingFrequency = 0x100000;
 
+	private ComplexIntegerAxiomFactory axiomFactory = null;
 	private RChain chainR = null;
 	private SChain chainS = null;
 	private IntegerHierarchicalGraph classHierarchy = null;
@@ -79,11 +81,16 @@ public class RuleBasedProcessor implements Processor {
 	 * @param axioms
 	 *            set of complex axioms to be normalized and classified
 	 */
-	public RuleBasedProcessor(Set<ComplexIntegerAxiom> axioms) {
+	public RuleBasedProcessor(Set<ComplexIntegerAxiom> axioms,
+			ComplexIntegerAxiomFactory factory) {
 		if (axioms == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
+		if (factory == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
 
+		this.axiomFactory = factory;
 		preProcess(axioms);
 	}
 
@@ -371,7 +378,7 @@ public class RuleBasedProcessor implements Processor {
 
 		logger.fine("preprocessing ontology ...");
 		OntologyPreprocessor preprocessor = new OntologyPreprocessor(
-				this.originalAxiomSet);
+				this.originalAxiomSet, this.axiomFactory);
 
 		logger.fine("description logic family : "
 				+ preprocessor.getExpressivity().toString() + " .");

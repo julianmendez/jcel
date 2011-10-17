@@ -43,7 +43,7 @@ public class IntegerEquivalentObjectPropertiesAxiom implements
 	 * @param propSet
 	 *            set of object properties declared to be equivalent
 	 */
-	public IntegerEquivalentObjectPropertiesAxiom(Set<Integer> propSet) {
+	protected IntegerEquivalentObjectPropertiesAxiom(Set<Integer> propSet) {
 		if (propSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

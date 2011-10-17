@@ -40,7 +40,7 @@ public class IntegerNamedIndividualDeclarationAxiom implements
 	 * @param declaredEntity
 	 *            named individual
 	 */
-	public IntegerNamedIndividualDeclarationAxiom(Integer declaredEntity) {
+	protected IntegerNamedIndividualDeclarationAxiom(Integer declaredEntity) {
 		if (declaredEntity == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

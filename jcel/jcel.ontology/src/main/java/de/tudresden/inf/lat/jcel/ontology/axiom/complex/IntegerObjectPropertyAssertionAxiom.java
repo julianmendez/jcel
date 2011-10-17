@@ -51,7 +51,7 @@ public class IntegerObjectPropertyAssertionAxiom implements ComplexIntegerAxiom 
 	 * @param objectInd
 	 *            target individual
 	 */
-	public IntegerObjectPropertyAssertionAxiom(
+	protected IntegerObjectPropertyAssertionAxiom(
 			IntegerObjectPropertyExpression objectProp, Integer subjectInd,
 			Integer objectInd) {
 		if (objectProp == null) {

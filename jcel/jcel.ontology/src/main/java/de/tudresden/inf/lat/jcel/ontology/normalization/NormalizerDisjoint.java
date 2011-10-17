@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerDisjointClassesAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
@@ -42,10 +43,21 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
  */
 class NormalizerDisjoint implements NormalizationRule {
 
+
+	private ComplexIntegerAxiomFactory axiomFactory = null;
+
 	/**
 	 * Constructs a new normalizer of disjoint classes.
+	 * 
+	 * @param factory
+	 *            axiom factory
 	 */
-	public NormalizerDisjoint() {
+	public NormalizerDisjoint(ComplexIntegerAxiomFactory factory) {
+		if (factory == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		this.axiomFactory = factory;
 	}
 
 	@Override
@@ -78,9 +90,10 @@ class NormalizerDisjoint implements NormalizationRule {
 					pair.add(secondClassExpression);
 					IntegerObjectIntersectionOf intersection = new IntegerObjectIntersectionOf(
 							pair);
-					IntegerSubClassOfAxiom subClassAxiom = new IntegerSubClassOfAxiom(
-							intersection, new IntegerClass(
-									IntegerDatatype.classBottomElement));
+					IntegerSubClassOfAxiom subClassAxiom = this.axiomFactory
+							.createSubClassOfAxiom(intersection,
+									new IntegerClass(
+											IntegerDatatype.classBottomElement));
 					ret.add(subClassAxiom);
 				}
 			}

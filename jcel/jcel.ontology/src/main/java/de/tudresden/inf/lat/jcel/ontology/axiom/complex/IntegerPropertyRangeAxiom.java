@@ -49,7 +49,8 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 	 * @param clExpr
 	 *            class expression
 	 */
-	public IntegerPropertyRangeAxiom(Integer prop, IntegerClassExpression clExpr) {
+	protected IntegerPropertyRangeAxiom(Integer prop,
+			IntegerClassExpression clExpr) {
 		if (prop == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

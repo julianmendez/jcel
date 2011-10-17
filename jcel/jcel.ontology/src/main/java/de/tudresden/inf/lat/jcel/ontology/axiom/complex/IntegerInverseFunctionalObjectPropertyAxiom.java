@@ -41,7 +41,7 @@ public class IntegerInverseFunctionalObjectPropertyAxiom implements
 	 * @param property
 	 *            object property which inverse is declared functional
 	 */
-	public IntegerInverseFunctionalObjectPropertyAxiom(Integer property) {
+	protected IntegerInverseFunctionalObjectPropertyAxiom(Integer property) {
 		if (property == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

@@ -49,7 +49,7 @@ public class IntegerDisjointClassesAxiom implements ComplexIntegerAxiom {
 	 * @param descSet
 	 *            set of classes declared to be disjoint
 	 */
-	public IntegerDisjointClassesAxiom(Set<IntegerClassExpression> descSet) {
+	protected IntegerDisjointClassesAxiom(Set<IntegerClassExpression> descSet) {
 		if (descSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
@@ -50,6 +51,8 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
  */
 class NormalizerNR3_1 implements NormalizationRule {
 
+	private ComplexIntegerAxiomFactory axiomFactory = null;
+
 	private IdGenerator nameGenerator = null;
 
 	/**
@@ -57,13 +60,20 @@ class NormalizerNR3_1 implements NormalizationRule {
 	 * 
 	 * @param generator
 	 *            an identifier generator
+	 * @param factory
+	 *            axiom factory
 	 */
-	public NormalizerNR3_1(IdGenerator generator) {
+	public NormalizerNR3_1(IdGenerator generator,
+			ComplexIntegerAxiomFactory factory) {
 		if (generator == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		this.nameGenerator = generator;
+		this.axiomFactory = factory;
 	}
 
 	@Override
@@ -88,8 +98,10 @@ class NormalizerNR3_1 implements NormalizationRule {
 			ret = new HashSet<IntegerAxiom>();
 			IntegerClass newClass = new IntegerClass(
 					this.nameGenerator.createNewClassId());
-			ret.add(new IntegerSubClassOfAxiom(subClass, newClass));
-			ret.add(new IntegerSubClassOfAxiom(newClass, superClass));
+			ret.add(this.axiomFactory.createSubClassOfAxiom(subClass,
+					newClass));
+			ret.add(this.axiomFactory.createSubClassOfAxiom(newClass,
+					superClass));
 		}
 		return ret;
 	}

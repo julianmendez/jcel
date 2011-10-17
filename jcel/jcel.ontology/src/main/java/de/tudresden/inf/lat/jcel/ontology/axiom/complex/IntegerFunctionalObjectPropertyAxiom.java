@@ -40,7 +40,7 @@ public class IntegerFunctionalObjectPropertyAxiom implements
 	 * @param property
 	 *            object property declared functional
 	 */
-	public IntegerFunctionalObjectPropertyAxiom(Integer property) {
+	protected IntegerFunctionalObjectPropertyAxiom(Integer property) {
 		if (property == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

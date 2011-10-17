@@ -52,7 +52,7 @@ public class IntegerNegativeObjectPropertyAssertionAxiom implements
 	 * @param objectInd
 	 *            target individual
 	 */
-	public IntegerNegativeObjectPropertyAssertionAxiom(
+	protected IntegerNegativeObjectPropertyAssertionAxiom(
 			IntegerObjectPropertyExpression objectProp, Integer subjectInd,
 			Integer objectInd) {
 		if (objectProp == null) {

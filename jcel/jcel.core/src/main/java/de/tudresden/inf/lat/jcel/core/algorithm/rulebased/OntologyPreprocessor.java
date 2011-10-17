@@ -48,6 +48,7 @@ import de.tudresden.inf.lat.jcel.core.completion.ext.CR8SExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR9ExtOptRule;
 import de.tudresden.inf.lat.jcel.core.saturation.SubPropertyNormalizer;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.ComplexAxiomExpressivityDetector;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGeneratorImpl;
@@ -82,6 +83,7 @@ public class OntologyPreprocessor {
 	private static final Integer propertyBottomElement = IntegerDatatype.objectPropertyBottomElement;
 	private static final Integer propertyTopElement = IntegerDatatype.objectPropertyTopElement;
 
+	private ComplexIntegerAxiomFactory axiomFactory = null;
 	private RChain chainR = new RChain(new ArrayList<RObserverRule>());
 	private SChain chainS = new SChain(new ArrayList<SObserverRule>());
 	private OntologyExpressivity expressivityDetector = null;
@@ -96,11 +98,16 @@ public class OntologyPreprocessor {
 	 * @param axiomSet
 	 *            set of axioms
 	 */
-	public OntologyPreprocessor(Set<ComplexIntegerAxiom> axiomSet) {
+	public OntologyPreprocessor(Set<ComplexIntegerAxiom> axiomSet,
+			ComplexIntegerAxiomFactory factory) {
 		if (axiomSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
+		if (factory == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
 
+		this.axiomFactory = factory;
 		preProcess(axiomSet);
 	}
 
@@ -181,6 +188,15 @@ public class OntologyPreprocessor {
 		this.originalClassSet.add(classTopElement);
 		this.originalObjectPropertySet.add(propertyBottomElement);
 		this.originalObjectPropertySet.add(propertyTopElement);
+	}
+
+	/**
+	 * Returns the axiom factory.
+	 * 
+	 * @return the axiom factory
+	 */
+	public ComplexIntegerAxiomFactory getAxiomFactory() {
+		return this.axiomFactory;
 	}
 
 	/**
@@ -270,7 +286,7 @@ public class OntologyPreprocessor {
 				getIdGenerator());
 		this.extendedOntology = new ExtendedOntologyImpl();
 		this.extendedOntology.load(subPropNormalizer.apply(axiomNormalizer
-				.normalize(axiomSet, getIdGenerator())));
+				.normalize(axiomSet, getIdGenerator(), getAxiomFactory())));
 
 		for (Integer elem : this.originalObjectPropertySet) {
 			this.extendedOntology.addObjectProperty(elem);

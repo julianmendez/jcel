@@ -40,7 +40,7 @@ public class IntegerDataPropertyDeclarationAxiom implements
 	 * @param declaredEntity
 	 *            data property
 	 */
-	public IntegerDataPropertyDeclarationAxiom(Integer declaredEntity) {
+	protected IntegerDataPropertyDeclarationAxiom(Integer declaredEntity) {
 		if (declaredEntity == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

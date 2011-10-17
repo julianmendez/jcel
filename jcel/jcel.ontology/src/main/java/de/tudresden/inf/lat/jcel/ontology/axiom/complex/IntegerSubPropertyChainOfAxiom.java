@@ -49,7 +49,7 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 	 * @param superProp
 	 *            super object property expression
 	 */
-	public IntegerSubPropertyChainOfAxiom(
+	protected IntegerSubPropertyChainOfAxiom(
 			List<IntegerObjectPropertyExpression> chain,
 			IntegerObjectPropertyExpression superProp) {
 		if (chain == null) {

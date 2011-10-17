@@ -39,7 +39,7 @@ public class IntegerClassDeclarationAxiom implements IntegerDeclarationAxiom {
 	 * @param declaredEntity
 	 *            class identifier
 	 */
-	public IntegerClassDeclarationAxiom(Integer declaredEntity) {
+	protected IntegerClassDeclarationAxiom(Integer declaredEntity) {
 		if (declaredEntity == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

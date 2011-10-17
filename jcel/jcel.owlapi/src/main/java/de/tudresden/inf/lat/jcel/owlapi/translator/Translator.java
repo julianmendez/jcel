@@ -45,6 +45,7 @@ import org.semanticweb.owlapi.reasoner.impl.OWLNamedIndividualNodeSet;
 import org.semanticweb.owlapi.reasoner.impl.OWLObjectPropertyNodeSet;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerNamedIndividual;
@@ -59,16 +60,22 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  */
 public class Translator {
 
+	private ComplexIntegerAxiomFactory axiomFactory;
 	private AxiomTranslator axiomTranslator;
 	private Set<ComplexIntegerAxiom> ontology;
 	private TranslationRepository repository;
 
-	public Translator(OWLOntology rootOntology) {
+	public Translator(OWLOntology rootOntology,
+			ComplexIntegerAxiomFactory factory) {
 		if (rootOntology == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		this.repository = new TranslationRepository(rootOntology);
+		this.axiomFactory = factory;
 		Map<OWLObjectProperty, Integer> objectPropertyMap = createPropertyMap(repository);
 		Map<OWLClass, Integer> classMap = createClassMap(repository);
 		Map<OWLNamedIndividual, Integer> individualMap = createIndividualMap(
@@ -80,7 +87,7 @@ public class Translator {
 		ClassExpressionTranslator cet = new ClassExpressionTranslator(classMap,
 				individualMap, literalMap, obet);
 
-		this.axiomTranslator = new AxiomTranslator(cet);
+		this.axiomTranslator = new AxiomTranslator(cet, this.axiomFactory);
 
 		Set<OWLAxiom> owlAxiomSet = rootOntology.getAxioms();
 		for (OWLOntology ont : rootOntology.getImportsClosure()) {
@@ -146,6 +153,15 @@ public class Translator {
 			ret.put(current, index);
 		}
 		return ret;
+	}
+
+	/**
+	 * Returns the axiom factory.
+	 * 
+	 * @return the axiom factory
+	 */
+	public ComplexIntegerAxiomFactory getAxiomFactory() {
+		return this.axiomFactory;
 	}
 
 	public AxiomTranslator getAxiomTranslator() {

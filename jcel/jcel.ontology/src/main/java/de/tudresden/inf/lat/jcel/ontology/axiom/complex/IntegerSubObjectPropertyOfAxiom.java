@@ -48,7 +48,7 @@ public class IntegerSubObjectPropertyOfAxiom implements ComplexIntegerAxiom {
 	 * @param superPropExpr
 	 *            super object property
 	 */
-	public IntegerSubObjectPropertyOfAxiom(
+	protected IntegerSubObjectPropertyOfAxiom(
 			IntegerObjectPropertyExpression subPropExpr,
 			IntegerObjectPropertyExpression superPropExpr) {
 		if (subPropExpr == null) {

@@ -40,7 +40,7 @@ public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 	 * @param individualSet
 	 *            set of individuals declared to be different
 	 */
-	public IntegerDifferentIndividualsAxiom(Set<Integer> individualSet) {
+	protected IntegerDifferentIndividualsAxiom(Set<Integer> individualSet) {
 		if (individualSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

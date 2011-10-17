@@ -49,7 +49,7 @@ public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 	 * @param objectInd
 	 *            target individual
 	 */
-	public IntegerDataPropertyAssertionAxiom(Integer objectProp,
+	protected IntegerDataPropertyAssertionAxiom(Integer objectProp,
 			Integer subjectInd, Integer objectInd) {
 		if (objectProp == null) {
 			throw new IllegalArgumentException("Null argument.");

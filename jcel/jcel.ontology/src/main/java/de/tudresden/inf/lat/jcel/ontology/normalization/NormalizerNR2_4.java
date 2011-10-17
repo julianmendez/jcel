@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
@@ -46,20 +47,28 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
  */
 class NormalizerNR2_4 implements NormalizationRule {
 
-	private IdGenerator nameGenerator = null;
+	private ComplexIntegerAxiomFactory axiomFactory = null;
 
+	private IdGenerator nameGenerator = null;
 	/**
 	 * Constructs a new normalizer rule NR-2.4.
 	 * 
 	 * @param generator
 	 *            an identifier generator
+	 * @param factory
+	 *            axiom factory
 	 */
-	public NormalizerNR2_4(IdGenerator generator) {
+	public NormalizerNR2_4(IdGenerator generator,
+			ComplexIntegerAxiomFactory factory) {
 		if (generator == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		this.nameGenerator = generator;
+		this.axiomFactory = factory;
 	}
 
 	@Override
@@ -115,14 +124,14 @@ class NormalizerNR2_4 implements NormalizationRule {
 			newOperands.remove(aLiteral);
 			IntegerObjectIntersectionOf newIntersection = new IntegerObjectIntersectionOf(
 					newOperands);
-			ret.add(new IntegerSubClassOfAxiom(newIntersection, newClass));
+			ret.add(this.axiomFactory.createSubClassOfAxiom(newIntersection, newClass));
 
 			Set<IntegerClassExpression> pairOfLiterals = new HashSet<IntegerClassExpression>();
 			pairOfLiterals.add(aLiteral);
 			pairOfLiterals.add(newClass);
 			IntegerObjectIntersectionOf intersectionOfLiterals = new IntegerObjectIntersectionOf(
 					pairOfLiterals);
-			ret.add(new IntegerSubClassOfAxiom(intersectionOfLiterals, newClass));
+			ret.add(this.axiomFactory.createSubClassOfAxiom(intersectionOfLiterals, newClass));
 		}
 		return ret;
 	}

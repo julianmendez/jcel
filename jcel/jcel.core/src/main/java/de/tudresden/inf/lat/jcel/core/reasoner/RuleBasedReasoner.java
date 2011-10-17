@@ -32,7 +32,7 @@ import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
 import de.tudresden.inf.lat.jcel.core.algorithm.rulebased.RuleBasedProcessor;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerEquivalentClassesAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataProperty;
@@ -52,6 +52,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	private int auxClassCounter = -1;
 	private Map<IntegerClassExpression, Integer> auxClassInvMap = new HashMap<IntegerClassExpression, Integer>();
 	private Map<Integer, IntegerClassExpression> auxClassMap = new HashMap<Integer, IntegerClassExpression>();
+	private ComplexIntegerAxiomFactory axiomFactory;
 	private boolean bufferingMode;
 	private boolean classified = false;
 	private OntologyEntailmentChecker entailmentChecker = new OntologyEntailmentChecker(
@@ -64,12 +65,17 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	private Processor processor = null;
 	private long timeOut = 0;
 
-	public RuleBasedReasoner(Set<ComplexIntegerAxiom> ont, boolean buffering) {
+	public RuleBasedReasoner(Set<ComplexIntegerAxiom> ont,
+			ComplexIntegerAxiomFactory factory, boolean buffering) {
 		if (ont == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		this.ontology = ont;
+		this.axiomFactory = factory;
 		this.bufferingMode = buffering;
 	}
 
@@ -86,7 +92,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			Set<ComplexIntegerAxiom> axiomSet = new HashSet<ComplexIntegerAxiom>();
 			axiomSet.addAll(this.ontology);
 			axiomSet.addAll(this.extendedOntology);
-			this.processor = new RuleBasedProcessor(axiomSet);
+			this.processor = new RuleBasedProcessor(axiomSet, this.axiomFactory);
 			axiomSet.clear();
 			long iteration = 0;
 			for (; this.processor.process(); iteration++) {
@@ -119,8 +125,8 @@ public class RuleBasedReasoner implements IntegerReasoner {
 				Set<IntegerClassExpression> argument = new HashSet<IntegerClassExpression>();
 				argument.add(ret);
 				argument.add(ce);
-				this.extendedOntology.add(new IntegerEquivalentClassesAxiom(
-						argument));
+				this.extendedOntology.add(axiomFactory
+						.createEquivalentClassesAxiom(argument));
 				this.classified = false;
 			} else {
 				ret = new IntegerClass(classIndex);
