@@ -24,6 +24,7 @@ package de.tudresden.inf.lat.jcel.core.reasoner;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -53,6 +54,8 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	private Map<Integer, IntegerClassExpression> auxClassMap = new HashMap<Integer, IntegerClassExpression>();
 	private boolean bufferingMode;
 	private boolean classified = false;
+	private OntologyEntailmentChecker entailmentChecker = new OntologyEntailmentChecker(
+			this);
 	private Set<ComplexIntegerAxiom> extendedOntology = new HashSet<ComplexIntegerAxiom>();
 	private boolean interruptRequested = false;
 	private final Set<ComplexIntegerAxiom> ontology;
@@ -102,7 +105,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		// it does nothing
 	}
 
-	private IntegerClass flattenClassExpression(IntegerClassExpression ce) {
+	protected IntegerClass flattenClassExpression(IntegerClassExpression ce) {
 		IntegerClass ret = null;
 		if (ce instanceof IntegerClass) {
 			ret = (IntegerClass) ce;
@@ -590,8 +593,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		// TODO Auto-generated method stub
-		return false;
+		return axiom.accept(this.entailmentChecker);
 	}
 
 	@Override
@@ -600,8 +602,13 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		// TODO Auto-generated method stub
-		return false;
+		boolean ret = true;
+		for (Iterator<ComplexIntegerAxiom> it = axioms.iterator(); ret
+				&& it.hasNext();) {
+			ComplexIntegerAxiom axiom = it.next();
+			ret = ret && axiom.accept(this.entailmentChecker);
+		}
+		return ret;
 	}
 
 	@Override
