@@ -50,13 +50,9 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataHasValue;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectOneOf;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
 
 /**
  * 
@@ -91,6 +87,10 @@ public class ClassExpressionTranslator implements
 		this.classMap = clMap;
 		this.individualMap = indivMap;
 		this.literalMap = litMap;
+	}
+
+	public IntegerDataTypeFactory getDataTypeFactory() {
+		return this.objectPropertyExpressionTranslator.getDataTypeFactory();
 	}
 
 	public Integer getId(OWLClass owlClass) throws TranslationException {
@@ -168,7 +168,7 @@ public class ClassExpressionTranslator implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return new IntegerClass(getId(ce));
+		return getDataTypeFactory().createClass(getId(ce));
 	}
 
 	@Override
@@ -198,7 +198,8 @@ public class ClassExpressionTranslator implements
 		Integer dataPropertyId = getObjectPropertyExpressionTranslator().getId(
 				ce.getProperty().asOWLDataProperty());
 		Integer literalId = getId(ce.getValue());
-		return new IntegerDataHasValue(dataPropertyId, literalId);
+		return getDataTypeFactory().createDataHasValue(dataPropertyId,
+				literalId);
 	}
 
 	@Override
@@ -284,7 +285,8 @@ public class ClassExpressionTranslator implements
 		for (OWLClassExpression elem : operands) {
 			classExpressionList.add(elem.accept(this));
 		}
-		return new IntegerObjectIntersectionOf(classExpressionList);
+		return getDataTypeFactory().createObjectIntersectionOf(
+				classExpressionList);
 	}
 
 	@Override
@@ -321,8 +323,8 @@ public class ClassExpressionTranslator implements
 					"It is not possible to translate ObjectOneOf with multiple individuals: '"
 							+ indivSet + "'.");
 		}
-		return new IntegerObjectOneOf(translateIndividual(indivSet.iterator()
-				.next()));
+		return getDataTypeFactory().createObjectOneOf(
+				translateIndividual(indivSet.iterator().next()));
 	}
 
 	@Override
@@ -335,7 +337,8 @@ public class ClassExpressionTranslator implements
 				getObjectPropertyExpressionTranslator());
 		OWLClassExpression desc = ce.getFiller();
 		IntegerClassExpression classExpression = desc.accept(this);
-		return new IntegerObjectSomeValuesFrom(propertyExpr, classExpression);
+		return getDataTypeFactory().createObjectSomeValuesFrom(propertyExpr,
+				classExpression);
 	}
 
 	@Override

@@ -106,22 +106,26 @@ class NormalizerNR2_4 implements NormalizationRule {
 			}
 		}
 		if (aLiteral != null) {
-			IntegerClass newClass = new IntegerClass(getOntologyObjectFactory()
-					.getIdGenerator().createNewClassId());
+			IntegerClass newClass = getOntologyObjectFactory()
+					.getDataTypeFactory().createClass(
+							getOntologyObjectFactory().getIdGenerator()
+									.createNewClassId());
 
 			Set<IntegerClassExpression> newOperands = new HashSet<IntegerClassExpression>();
 			newOperands.addAll(operands);
 			newOperands.remove(aLiteral);
-			IntegerObjectIntersectionOf newIntersection = new IntegerObjectIntersectionOf(
-					newOperands);
+			IntegerObjectIntersectionOf newIntersection = getOntologyObjectFactory()
+					.getDataTypeFactory().createObjectIntersectionOf(
+							newOperands);
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
 					.createSubClassOfAxiom(newIntersection, newClass));
 
 			Set<IntegerClassExpression> pairOfLiterals = new HashSet<IntegerClassExpression>();
 			pairOfLiterals.add(aLiteral);
 			pairOfLiterals.add(newClass);
-			IntegerObjectIntersectionOf intersectionOfLiterals = new IntegerObjectIntersectionOf(
-					pairOfLiterals);
+			IntegerObjectIntersectionOf intersectionOfLiterals = getOntologyObjectFactory()
+					.getDataTypeFactory().createObjectIntersectionOf(
+							pairOfLiterals);
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
 					.createSubClassOfAxiom(intersectionOfLiterals, newClass));
 		}

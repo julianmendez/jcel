@@ -41,7 +41,7 @@ public class IntegerDataProperty implements IntegerDataPropertyExpression,
 	 * @param n
 	 *            data property identifier
 	 */
-	public IntegerDataProperty(Integer n) {
+	protected IntegerDataProperty(Integer n) {
 		if (n == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

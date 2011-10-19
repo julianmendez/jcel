@@ -43,7 +43,7 @@ public class IntegerDataSomeValuesFrom implements IntegerClassExpression {
 	 * @param propertyId
 	 * @param classExpression
 	 */
-	public IntegerDataSomeValuesFrom(Integer propertyId,
+	protected IntegerDataSomeValuesFrom(Integer propertyId,
 			IntegerClassExpression classExpression) {
 		if (propertyId == null) {
 			throw new IllegalArgumentException("Null argument.");

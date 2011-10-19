@@ -85,8 +85,10 @@ class NormalizerNR3_1 implements NormalizationRule {
 		if (!subClass.isLiteral()
 				&& superClass instanceof IntegerObjectSomeValuesFrom) {
 			ret = new HashSet<IntegerAxiom>();
-			IntegerClass newClass = new IntegerClass(getOntologyObjectFactory()
-					.getIdGenerator().createNewClassId());
+			IntegerClass newClass = getOntologyObjectFactory()
+					.getDataTypeFactory().createClass(
+							getOntologyObjectFactory().getIdGenerator()
+									.createNewClassId());
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
 					.createSubClassOfAxiom(subClass, newClass));
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()

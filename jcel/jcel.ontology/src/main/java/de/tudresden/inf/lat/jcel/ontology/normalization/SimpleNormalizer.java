@@ -297,7 +297,8 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		ret.add(getNormalizedAxiomFactory().createNominalAxiom(classId,
 				individual));
 		ret.add(getComplexAxiomFactory().createSubClassOfAxiom(
-				new IntegerClass(classId), classExpression));
+				getOntologyObjectFactory().getDataTypeFactory().createClass(
+						classId), classExpression));
 		return Collections.unmodifiableSet(ret);
 	}
 
@@ -345,7 +346,8 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 					.createOrGetClassIdForIndividual(individual);
 			ret.add(getNormalizedAxiomFactory().createNominalAxiom(
 					classForIndiv, individual));
-			classExprSet.add(new IntegerClass(classForIndiv));
+			classExprSet.add(getOntologyObjectFactory().getDataTypeFactory()
+					.createClass(classForIndiv));
 		}
 		ret.add(getComplexAxiomFactory().createDisjointClassesAxiom(
 				classExprSet));
@@ -461,15 +463,22 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 				.createOrGetClassIdForIndividual(subject);
 		ret.add(getNormalizedAxiomFactory().createNominalAxiom(
 				classIdForObject, subject));
-		IntegerObjectSomeValuesFrom restriction = new IntegerObjectSomeValuesFrom(
-				property, new IntegerClass(classIdForObject));
+		IntegerObjectSomeValuesFrom restriction = getOntologyObjectFactory()
+				.getDataTypeFactory().createObjectSomeValuesFrom(
+						property,
+						getOntologyObjectFactory().getDataTypeFactory()
+								.createClass(classIdForObject));
 		Set<IntegerClassExpression> classExpressionSet = new HashSet<IntegerClassExpression>();
-		classExpressionSet.add(new IntegerClass(classIdForSubject));
+		classExpressionSet.add(getOntologyObjectFactory().getDataTypeFactory()
+				.createClass(classIdForSubject));
 		classExpressionSet.add(restriction);
-		IntegerObjectIntersectionOf intersection = new IntegerObjectIntersectionOf(
-				classExpressionSet);
-		ret.add(getComplexAxiomFactory().createSubClassOfAxiom(intersection,
-				new IntegerClass(IntegerClass.classBottomElement)));
+		IntegerObjectIntersectionOf intersection = getOntologyObjectFactory()
+				.getDataTypeFactory().createObjectIntersectionOf(
+						classExpressionSet);
+		ret.add(getComplexAxiomFactory().createSubClassOfAxiom(
+				intersection,
+				getOntologyObjectFactory().getDataTypeFactory().createClass(
+						IntegerClass.classBottomElement)));
 		return Collections.unmodifiableSet(ret);
 	}
 
@@ -491,10 +500,14 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 				.createOrGetClassIdForIndividual(subject);
 		ret.add(getNormalizedAxiomFactory().createNominalAxiom(
 				classIdForObject, subject));
-		IntegerObjectSomeValuesFrom restriction = new IntegerObjectSomeValuesFrom(
-				property, new IntegerClass(classIdForObject));
+		IntegerObjectSomeValuesFrom restriction = getOntologyObjectFactory()
+				.getDataTypeFactory().createObjectSomeValuesFrom(
+						property,
+						getOntologyObjectFactory().getDataTypeFactory()
+								.createClass(classIdForObject));
 		ret.add(getComplexAxiomFactory().createSubClassOfAxiom(
-				new IntegerClass(classIdForSubject), restriction));
+				getOntologyObjectFactory().getDataTypeFactory().createClass(
+						classIdForSubject), restriction));
 		return Collections.unmodifiableSet(ret);
 	}
 
@@ -554,7 +567,8 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 					.createOrGetClassIdForIndividual(individual);
 			ret.add(getNormalizedAxiomFactory().createNominalAxiom(
 					classForIndiv, individual));
-			classExprSet.add(new IntegerClass(classForIndiv));
+			classExprSet.add(getOntologyObjectFactory().getDataTypeFactory()
+					.createClass(classForIndiv));
 		}
 		ret.add(getComplexAxiomFactory().createEquivalentClassesAxiom(
 				classExprSet));

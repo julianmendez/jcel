@@ -46,7 +46,7 @@ public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 	 * @param operands
 	 *            set of class expressions
 	 */
-	public IntegerObjectIntersectionOf(Set<IntegerClassExpression> operands) {
+	protected IntegerObjectIntersectionOf(Set<IntegerClassExpression> operands) {
 		if (operands == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

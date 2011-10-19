@@ -40,7 +40,7 @@ public class IntegerNamedIndividual implements IntegerClassExpression,
 	 * @param n
 	 *            named individual identifier
 	 */
-	public IntegerNamedIndividual(Integer n) {
+	protected IntegerNamedIndividual(Integer n) {
 		if (n == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

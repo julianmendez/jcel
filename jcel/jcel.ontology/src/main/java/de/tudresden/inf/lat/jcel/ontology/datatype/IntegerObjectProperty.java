@@ -41,7 +41,7 @@ public class IntegerObjectProperty implements IntegerObjectPropertyExpression,
 	 * @param n
 	 *            object property identifier
 	 */
-	public IntegerObjectProperty(Integer n) {
+	protected IntegerObjectProperty(Integer n) {
 		if (n == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

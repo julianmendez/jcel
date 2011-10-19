@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
 
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
@@ -40,10 +40,12 @@ public class ObjectPropertyExpressionTranslator implements
 
 	private Map<OWLDataProperty, Integer> dataPropertyMap = null;
 	private Map<OWLObjectProperty, Integer> objectPropertyMap = null;
+	private IntegerDataTypeFactory factory;
 
 	public ObjectPropertyExpressionTranslator(
 			Map<OWLObjectProperty, Integer> objPropMap,
-			Map<OWLDataProperty, Integer> dataPropMap) {
+			Map<OWLDataProperty, Integer> dataPropMap,
+			IntegerDataTypeFactory factory) {
 		if (objPropMap == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -53,6 +55,7 @@ public class ObjectPropertyExpressionTranslator implements
 
 		this.dataPropertyMap = dataPropMap;
 		this.objectPropertyMap = objPropMap;
+		this.factory = factory;
 	}
 
 	public Integer getId(OWLDataProperty owlDataProperty) {
@@ -106,7 +109,11 @@ public class ObjectPropertyExpressionTranslator implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return new IntegerObjectProperty(getId(property));
+		return getDataTypeFactory().createObjectProperty(getId(property));
+	}
+
+	public IntegerDataTypeFactory getDataTypeFactory() {
+		return this.factory;
 	}
 
 }

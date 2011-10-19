@@ -84,11 +84,13 @@ class NormalizerNR2_3 implements NormalizationRule {
 			IntegerClassExpression filler = restriction.getFiller();
 			if (!filler.isLiteral()) {
 				ret = new HashSet<IntegerAxiom>();
-				IntegerClass newClass = new IntegerClass(
-						getOntologyObjectFactory().getIdGenerator()
-								.createNewClassId());
-				IntegerObjectSomeValuesFrom newExistential = new IntegerObjectSomeValuesFrom(
-						propertyExpression, newClass);
+				IntegerClass newClass = getOntologyObjectFactory()
+						.getDataTypeFactory().createClass(
+								getOntologyObjectFactory().getIdGenerator()
+										.createNewClassId());
+				IntegerObjectSomeValuesFrom newExistential = getOntologyObjectFactory()
+						.getDataTypeFactory().createObjectSomeValuesFrom(
+								propertyExpression, newClass);
 				ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
 						.createSubClassOfAxiom(filler, newClass));
 				ret.add(getOntologyObjectFactory().getComplexAxiomFactory()

@@ -40,7 +40,7 @@ public class IntegerClass implements IntegerClassExpression,
 	 * @param n
 	 *            class identifier
 	 */
-	public IntegerClass(Integer n) {
+	protected IntegerClass(Integer n) {
 		if (n == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

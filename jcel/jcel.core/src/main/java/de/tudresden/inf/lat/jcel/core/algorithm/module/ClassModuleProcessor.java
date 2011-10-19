@@ -37,10 +37,10 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 
 /**
  * An object of this class classifies an ontology. It divides a set of axioms in
@@ -62,7 +62,7 @@ public class ClassModuleProcessor implements Processor {
 			.getLogger(ClassModuleProcessor.class.getName());
 
 	private Set<ComplexIntegerAxiom> accumulatedAxiomSet = null;
-	private ComplexIntegerAxiomFactory axiomFactory = null;
+	private IntegerOntologyObjectFactory axiomFactory = null;
 	private IntegerHierarchicalGraph classHierarchy = null;
 	private Map<Integer, Set<ComplexIntegerAxiom>> classToAxiom = new HashMap<Integer, Set<ComplexIntegerAxiom>>();
 	private Map<Integer, Set<Integer>> classToClass = new HashMap<Integer, Set<Integer>>();
@@ -89,7 +89,7 @@ public class ClassModuleProcessor implements Processor {
 	 *            factory to create the auxiliary processor
 	 */
 	public ClassModuleProcessor(Set<ComplexIntegerAxiom> axiomSet,
-			ComplexIntegerAxiomFactory axFactory,
+			IntegerOntologyObjectFactory axFactory,
 			ModuleProcessorFactory procFactory) {
 		if (axiomSet == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -114,14 +114,15 @@ public class ClassModuleProcessor implements Processor {
 			Set<Integer> superSet = classGraph.getParents(subClass);
 			for (Integer superClass : superSet) {
 				ret.add(getAxiomFactory().createSubClassOfAxiom(
-						new IntegerClass(subClass),
-						new IntegerClass(superClass)));
+						getDataTypeFactory().createClass(subClass),
+						getDataTypeFactory().createClass(superClass)));
 			}
 
 			Set<Integer> equivSet = classGraph.getEquivalents(subClass);
 			Set<IntegerClassExpression> equivalentClassSet = new HashSet<IntegerClassExpression>();
 			for (Integer equivalentClass : equivSet) {
-				equivalentClassSet.add(new IntegerClass(equivalentClass));
+				equivalentClassSet.add(getDataTypeFactory().createClass(
+						equivalentClass));
 			}
 			ret.add(getAxiomFactory().createEquivalentClassesAxiom(
 					equivalentClassSet));
@@ -140,8 +141,10 @@ public class ClassModuleProcessor implements Processor {
 					.getParents(subObjectProperty);
 			for (Integer superObjectProperty : set) {
 				ret.add(getAxiomFactory().createSubObjectPropertyOfAxiom(
-						new IntegerObjectProperty(subObjectProperty),
-						new IntegerObjectProperty(superObjectProperty)));
+						getDataTypeFactory().createObjectProperty(
+								subObjectProperty),
+						getDataTypeFactory().createObjectProperty(
+								superObjectProperty)));
 			}
 
 			ret.add(getAxiomFactory().createEquivalentObjectPropertiesAxiom(
@@ -209,7 +212,7 @@ public class ClassModuleProcessor implements Processor {
 	}
 
 	private ComplexIntegerAxiomFactory getAxiomFactory() {
-		return this.axiomFactory;
+		return this.axiomFactory.getComplexAxiomFactory();
 	}
 
 	@Override
@@ -256,6 +259,10 @@ public class ClassModuleProcessor implements Processor {
 			throw new UnclassifiedOntologyException();
 		}
 		return this.dataPropertyHierarchy;
+	}
+
+	private IntegerDataTypeFactory getDataTypeFactory() {
+		return this.axiomFactory.getDataTypeFactory();
 	}
 
 	@Override

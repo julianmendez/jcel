@@ -37,6 +37,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataProperty;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataPropertyExpression;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerNamedIndividual;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
@@ -118,7 +119,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		} else {
 			Integer classIndex = this.auxClassInvMap.get(ce);
 			if (classIndex == null) {
-				ret = new IntegerClass(this.auxClassCounter);
+				ret = getDataTypeFactory().createClass(this.auxClassCounter);
 				this.auxClassMap.put(this.auxClassCounter, ce);
 				this.auxClassInvMap.put(ce, this.auxClassCounter);
 				this.auxClassCounter--;
@@ -129,7 +130,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 						.createEquivalentClassesAxiom(argument));
 				this.classified = false;
 			} else {
-				ret = new IntegerClass(classIndex);
+				ret = getDataTypeFactory().createClass(classIndex);
 			}
 		}
 
@@ -198,6 +199,10 @@ public class RuleBasedReasoner implements IntegerReasoner {
 
 		throw new UnsupportedQueryException(
 				"Unsupported query: DataPropertyValues of " + ind + "," + pe);
+	}
+
+	private IntegerDataTypeFactory getDataTypeFactory() {
+		return this.factory.getDataTypeFactory();
 	}
 
 	@Override
@@ -644,7 +649,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		Set<IntegerClass> ret = new HashSet<IntegerClass>();
 		for (Integer elem : set) {
 			if (!this.auxClassMap.containsKey(elem)) {
-				ret.add(new IntegerClass(elem));
+				ret.add(getDataTypeFactory().createClass(elem));
 			}
 		}
 		return ret;
@@ -653,7 +658,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	private Set<IntegerDataProperty> toIntegerDataProperty(Set<Integer> set) {
 		Set<IntegerDataProperty> ret = new HashSet<IntegerDataProperty>();
 		for (Integer elem : set) {
-			ret.add(new IntegerDataProperty(elem));
+			ret.add(getDataTypeFactory().createDataProperty(elem));
 		}
 		return ret;
 	}
@@ -662,7 +667,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			Set<Integer> set) {
 		Set<IntegerNamedIndividual> ret = new HashSet<IntegerNamedIndividual>();
 		for (Integer elem : set) {
-			ret.add(new IntegerNamedIndividual(elem));
+			ret.add(getDataTypeFactory().createNamedIndividual(elem));
 		}
 		return ret;
 	}
@@ -671,7 +676,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			Set<Integer> set) {
 		Set<IntegerObjectPropertyExpression> ret = new HashSet<IntegerObjectPropertyExpression>();
 		for (Integer elem : set) {
-			ret.add(new IntegerObjectProperty(elem));
+			ret.add(getDataTypeFactory().createObjectProperty(elem));
 		}
 		return ret;
 	}

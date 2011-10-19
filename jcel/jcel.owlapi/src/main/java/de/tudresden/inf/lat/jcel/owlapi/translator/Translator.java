@@ -83,12 +83,12 @@ public class Translator {
 		Map<OWLDataProperty, Integer> dataPropertyMap = createDataPropertyMap(this.repository);
 		Map<OWLLiteral, Integer> literalMap = createLiteralMap(this.repository);
 		ObjectPropertyExpressionTranslator obet = new ObjectPropertyExpressionTranslator(
-				objectPropertyMap, dataPropertyMap);
+				objectPropertyMap, dataPropertyMap,
+				this.factory.getDataTypeFactory());
 		ClassExpressionTranslator cet = new ClassExpressionTranslator(classMap,
 				individualMap, literalMap, obet);
 
-		this.axiomTranslator = new AxiomTranslator(cet,
-				this.factory.getComplexAxiomFactory());
+		this.axiomTranslator = new AxiomTranslator(cet, this.factory);
 
 		Set<OWLAxiom> owlAxiomSet = rootOntology.getAxioms();
 		for (OWLOntology ont : rootOntology.getImportsClosure()) {
@@ -206,8 +206,9 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return new IntegerClass(getAxiomTranslator()
-				.getClassExpressionTranslator().getId(owlObject));
+		return getOntologyObjectFactory().getDataTypeFactory().createClass(
+				getAxiomTranslator().getClassExpressionTranslator().getId(
+						owlObject));
 	}
 
 	public IntegerClassExpression translateCE(OWLClassExpression owlObject) {
@@ -233,8 +234,10 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return new IntegerNamedIndividual(getAxiomTranslator()
-				.getClassExpressionTranslator().getId(owlObject));
+		return getOntologyObjectFactory().getDataTypeFactory()
+				.createNamedIndividual(
+						getAxiomTranslator().getClassExpressionTranslator()
+								.getId(owlObject));
 	}
 
 	public OWLObjectPropertyExpression translateOPE(

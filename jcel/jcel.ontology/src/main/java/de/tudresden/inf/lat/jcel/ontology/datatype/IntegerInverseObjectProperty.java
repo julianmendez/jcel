@@ -42,7 +42,7 @@ public class IntegerInverseObjectProperty implements
 	 * @param n
 	 *            inverse object property identifier
 	 */
-	public IntegerInverseObjectProperty(Integer n) {
+	protected IntegerInverseObjectProperty(Integer n) {
 		if (n == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

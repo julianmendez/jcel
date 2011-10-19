@@ -46,7 +46,7 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 	 * @param classExpression
 	 *            class expression
 	 */
-	public IntegerObjectSomeValuesFrom(
+	protected IntegerObjectSomeValuesFrom(
 			IntegerObjectPropertyExpression propertyExpression,
 			IntegerClassExpression classExpression) {
 		if (propertyExpression == null) {

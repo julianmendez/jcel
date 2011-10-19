@@ -105,17 +105,19 @@ class NormalizerNR2_2 implements NormalizationRule {
 				newOperands.add(classExpression);
 			} else {
 				applied = true;
-				IntegerClass newClass = new IntegerClass(
-						getOntologyObjectFactory().getIdGenerator()
-								.createNewClassId());
+				IntegerClass newClass = getOntologyObjectFactory()
+						.getDataTypeFactory().createClass(
+								getOntologyObjectFactory().getIdGenerator()
+										.createNewClassId());
 				ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
 						.createSubClassOfAxiom(classExpression, newClass));
 				newOperands.add(newClass);
 			}
 		}
 		if (applied) {
-			IntegerObjectIntersectionOf newIntersection = new IntegerObjectIntersectionOf(
-					newOperands);
+			IntegerObjectIntersectionOf newIntersection = getOntologyObjectFactory()
+					.getDataTypeFactory().createObjectIntersectionOf(
+							newOperands);
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
 					.createSubClassOfAxiom(newIntersection, superClass));
 		}

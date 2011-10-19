@@ -40,7 +40,7 @@ public class IntegerObjectOneOf implements IntegerClassExpression {
 	 * @param individualId
 	 *            individual identifier
 	 */
-	public IntegerObjectOneOf(Integer individualId) {
+	protected IntegerObjectOneOf(Integer individualId) {
 		if (individualId == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

@@ -44,7 +44,7 @@ public class IntegerDataHasValue implements IntegerClassExpression {
 	 * @param val
 	 *            value
 	 */
-	public IntegerDataHasValue(Integer propertyId, Integer val) {
+	protected IntegerDataHasValue(Integer propertyId, Integer val) {
 		if (propertyId == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

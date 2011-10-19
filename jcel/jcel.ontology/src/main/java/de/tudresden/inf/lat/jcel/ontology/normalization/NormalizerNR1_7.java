@@ -28,7 +28,6 @@ import java.util.Set;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
 
@@ -80,7 +79,9 @@ class NormalizerNR1_7 implements NormalizationRule {
 					.getComplexAxiomFactory()
 					.createSubClassOfAxiom(
 							classAxiom.getSubClass(),
-							new IntegerClass(IntegerDatatype.classBottomElement));
+							getOntologyObjectFactory().getDataTypeFactory()
+									.createClass(
+											IntegerDatatype.classBottomElement));
 			ret.add(axiom);
 		}
 		return ret;

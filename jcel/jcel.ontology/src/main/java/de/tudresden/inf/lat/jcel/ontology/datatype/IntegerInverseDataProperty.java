@@ -41,7 +41,7 @@ public class IntegerInverseDataProperty implements
 	 * @param n
 	 *            inverse data property identifier
 	 */
-	public IntegerInverseDataProperty(Integer n) {
+	protected IntegerInverseDataProperty(Integer n) {
 		if (n == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
