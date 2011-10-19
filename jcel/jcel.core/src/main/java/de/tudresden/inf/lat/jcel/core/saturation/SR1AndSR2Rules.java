@@ -27,8 +27,8 @@ import java.util.Map;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
 
 /**
@@ -41,8 +41,9 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
  */
 public class SR1AndSR2Rules implements SaturationRule {
 
-	private IntegerOntologyObjectFactory factory;
-	private SaturationRuleHelper helper = new SaturationRuleHelper();
+	private final NormalizedIntegerAxiomFactory factory;
+	private final SaturationRuleHelper helper = new SaturationRuleHelper();
+	private final IdGenerator idGenerator;
 
 	/**
 	 * Constructs a new composite rule of SR-1 and SR-2.
@@ -50,11 +51,16 @@ public class SR1AndSR2Rules implements SaturationRule {
 	 * @param factory
 	 *            factory
 	 */
-	public SR1AndSR2Rules(IntegerOntologyObjectFactory factory) {
+	public SR1AndSR2Rules(NormalizedIntegerAxiomFactory factory,
+			IdGenerator generator) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
+		if (generator == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
 		this.factory = factory;
+		this.idGenerator = generator;
 	}
 
 	@Override
@@ -85,13 +91,13 @@ public class SR1AndSR2Rules implements SaturationRule {
 	private Set<RI2Axiom> applyRule1(Set<RI2Axiom> axiomSet) {
 		Set<RI2Axiom> ret = new HashSet<RI2Axiom>();
 		for (RI2Axiom axiom : axiomSet) {
-			Integer invSubProperty = getIdGenerator()
+			Integer invSubProperty = this.idGenerator
 					.createOrGetInverseObjectPropertyOf(axiom.getSubProperty());
-			Integer invSuperProperty = getIdGenerator()
-					.createOrGetInverseObjectPropertyOf(
-							axiom.getSuperProperty());
-			ret.add(this.factory.getNormalizedAxiomFactory().createRI2Axiom(
-					invSubProperty, invSuperProperty));
+			Integer invSuperProperty = this.idGenerator
+					.createOrGetInverseObjectPropertyOf(axiom
+							.getSuperProperty());
+			ret.add(this.factory.createRI2Axiom(invSubProperty,
+					invSuperProperty));
 		}
 		return ret;
 	}
@@ -108,9 +114,8 @@ public class SR1AndSR2Rules implements SaturationRule {
 					if (thirdPropSet != null) {
 						for (Integer thirdProp : thirdPropSet) {
 							if (!secondPropSet.contains(thirdProp)) {
-								ret.add(this.factory
-										.getNormalizedAxiomFactory()
-										.createRI2Axiom(firstProp, thirdProp));
+								ret.add(this.factory.createRI2Axiom(firstProp,
+										thirdProp));
 							}
 						}
 					}
@@ -118,10 +123,6 @@ public class SR1AndSR2Rules implements SaturationRule {
 			}
 		}
 		return ret;
-	}
-
-	private IdGenerator getIdGenerator() {
-		return this.factory.getIdGenerator();
 	}
 
 }

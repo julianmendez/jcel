@@ -26,8 +26,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
 
 /**
@@ -40,16 +40,21 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
  */
 public class SR3Rule implements SaturationRule {
 
-	private final IntegerOntologyObjectFactory factory;
+	private final NormalizedIntegerAxiomFactory factory;
+	private final IdGenerator idGenerator;
 
 	/**
 	 * Constructs a new SR-3 rule.
 	 */
-	public SR3Rule(IntegerOntologyObjectFactory factory) {
+	public SR3Rule(NormalizedIntegerAxiomFactory factory, IdGenerator generator) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
+		if (generator == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
 		this.factory = factory;
+		this.idGenerator = generator;
 	}
 
 	@Override
@@ -64,26 +69,21 @@ public class SR3Rule implements SaturationRule {
 		for (NormalizedIntegerAxiom normalizedAxiom : originalSet) {
 			if (normalizedAxiom instanceof RI3Axiom) {
 				RI3Axiom axiom = (RI3Axiom) normalizedAxiom;
-				Integer invLeftSubProp = getIdGenerator()
-						.createOrGetInverseObjectPropertyOf(
-								axiom.getLeftSubProperty());
-				Integer invRightSubProp = getIdGenerator()
-						.createOrGetInverseObjectPropertyOf(
-								axiom.getRightSubProperty());
-				Integer invSuperProp = getIdGenerator()
-						.createOrGetInverseObjectPropertyOf(
-								axiom.getSuperProperty());
-				RI3Axiom newAxiom = this.factory.getNormalizedAxiomFactory()
-						.createRI3Axiom(invRightSubProp, invLeftSubProp,
-								invSuperProp);
+				Integer invLeftSubProp = this.idGenerator
+						.createOrGetInverseObjectPropertyOf(axiom
+								.getLeftSubProperty());
+				Integer invRightSubProp = this.idGenerator
+						.createOrGetInverseObjectPropertyOf(axiom
+								.getRightSubProperty());
+				Integer invSuperProp = this.idGenerator
+						.createOrGetInverseObjectPropertyOf(axiom
+								.getSuperProperty());
+				RI3Axiom newAxiom = this.factory.createRI3Axiom(
+						invRightSubProp, invLeftSubProp, invSuperProp);
 				ret.add(newAxiom);
 			}
 		}
 		return Collections.unmodifiableSet(ret);
-	}
-
-	private IdGenerator getIdGenerator() {
-		return this.factory.getIdGenerator();
 	}
 
 }

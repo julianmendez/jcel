@@ -61,10 +61,12 @@ public class SubPropertyNormalizer implements SaturationRule {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.sr0 = new SR0Rule(factory);
-		this.sr1sr2 = new SR1AndSR2Rules(factory);
-		this.sr3 = new SR3Rule(factory);
-		this.sr4 = new SR4Rule(factory);
+		this.sr0 = new SR0Rule(factory.getNormalizedAxiomFactory());
+		this.sr1sr2 = new SR1AndSR2Rules(factory.getNormalizedAxiomFactory(),
+				factory.getIdGenerator());
+		this.sr3 = new SR3Rule(factory.getNormalizedAxiomFactory(),
+				factory.getIdGenerator());
+		this.sr4 = new SR4Rule(factory.getNormalizedAxiomFactory());
 	}
 
 	/**

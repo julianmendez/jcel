@@ -26,9 +26,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.FunctObjectPropAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
 
 /**
  * <ul>
@@ -39,17 +39,17 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxio
  */
 public class SR4Rule implements SaturationRule {
 
-	private final IntegerOntologyObjectFactory factory;
+	private final NormalizedIntegerAxiomFactory factory;
 	private SaturationRuleHelper helper = new SaturationRuleHelper();
 
 	/**
 	 * Constructs a new SR-4 rule.
 	 */
-	public SR4Rule(IntegerOntologyObjectFactory f) {
-		if (f == null) {
+	public SR4Rule(NormalizedIntegerAxiomFactory factory) {
+		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		this.factory = f;
+		this.factory = factory;
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class SR4Rule implements SaturationRule {
 				Set<Integer> newFunctionalPropertySet = this.helper
 						.getReachable(functionalProperty, mapBySuperProp);
 				for (Integer newFunctionalProperty : newFunctionalPropertySet) {
-					ret.add(this.factory.getNormalizedAxiomFactory()
+					ret.add(this.factory
 							.createFunctObjectPropAxiom(newFunctionalProperty));
 				}
 			}
