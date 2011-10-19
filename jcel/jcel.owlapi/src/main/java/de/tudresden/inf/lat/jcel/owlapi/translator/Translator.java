@@ -97,7 +97,7 @@ public class Translator {
 
 		this.ontology = translateA(owlAxiomSet);
 		this.factory.getIdGenerator().resetTo(
-				this.repository.getOWLClassList().size() + 1,
+				this.repository.getOWLClassList().size(),
 				this.repository.getOWLObjectPropertyList().size());
 	}
 
