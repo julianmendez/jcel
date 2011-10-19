@@ -42,7 +42,7 @@ public class RI1Axiom implements NormalizedIntegerAxiom {
 	 * @param prop
 	 *            object property identifier
 	 */
-	public RI1Axiom(Integer prop) {
+	protected RI1Axiom(Integer prop) {
 		if (prop == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

@@ -29,7 +29,7 @@ import java.util.Set;
  * 
  * @author Julian Mendez
  */
-public class FunctionalObjectPropertyAxiom implements NormalizedIntegerAxiom {
+public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
 
 	private final Integer property;
 
@@ -39,7 +39,11 @@ public class FunctionalObjectPropertyAxiom implements NormalizedIntegerAxiom {
 	 * @param prop
 	 *            object property
 	 */
-	public FunctionalObjectPropertyAxiom(Integer prop) {
+	protected FunctObjectPropAxiom(Integer prop) {
+		if (prop == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
 		this.property = prop;
 	}
 
@@ -55,8 +59,8 @@ public class FunctionalObjectPropertyAxiom implements NormalizedIntegerAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = false;
-		if (o instanceof FunctionalObjectPropertyAxiom) {
-			FunctionalObjectPropertyAxiom other = (FunctionalObjectPropertyAxiom) o;
+		if (o instanceof FunctObjectPropAxiom) {
+			FunctObjectPropAxiom other = (FunctObjectPropAxiom) o;
 			ret = getProperty().equals(other.getProperty());
 		}
 		return ret;

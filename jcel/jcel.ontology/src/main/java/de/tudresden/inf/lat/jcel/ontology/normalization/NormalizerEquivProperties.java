@@ -27,6 +27,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerEquivalentObjectPropertiesAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 
@@ -38,10 +39,16 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
  */
 class NormalizerEquivProperties implements NormalizationRule {
 
+	private IntegerOntologyObjectFactory ontologyObjectFactory;
+
 	/**
 	 * Constructs a new normalizer of equivalent object properties.
 	 */
-	public NormalizerEquivProperties() {
+	public NormalizerEquivProperties(IntegerOntologyObjectFactory factory) {
+		if (factory == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		this.ontologyObjectFactory = factory;
 	}
 
 	@Override
@@ -67,12 +74,17 @@ class NormalizerEquivProperties implements NormalizationRule {
 			for (Iterator<Integer> secondIt = expressionSet.iterator(); secondIt
 					.hasNext();) {
 				Integer secondExpression = secondIt.next();
-				RI2Axiom subPropertyAxiom = new RI2Axiom(firstExpression,
-						secondExpression);
+				RI2Axiom subPropertyAxiom = getOntologyObjectFactory()
+						.getNormalizedAxiomFactory().createRI2Axiom(
+								firstExpression, secondExpression);
 				ret.add(subPropertyAxiom);
 			}
 		}
 		return ret;
+	}
+
+	private IntegerOntologyObjectFactory getOntologyObjectFactory() {
+		return this.ontologyObjectFactory;
 	}
 
 }

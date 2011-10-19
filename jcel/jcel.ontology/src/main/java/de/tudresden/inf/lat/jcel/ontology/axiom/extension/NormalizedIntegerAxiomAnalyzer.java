@@ -21,7 +21,7 @@
 
 package de.tudresden.inf.lat.jcel.ontology.axiom.extension;
 
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.FunctionalObjectPropertyAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.FunctObjectPropAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI0Axiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI1Axiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI2Axiom;
@@ -110,7 +110,7 @@ class NormalizedIntegerAxiomAnalyzer implements
 	}
 
 	@Override
-	public Boolean visit(FunctionalObjectPropertyAxiom axiom) {
+	public Boolean visit(FunctObjectPropAxiom axiom) {
 		if (axiom == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

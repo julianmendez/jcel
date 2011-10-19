@@ -25,9 +25,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
@@ -47,28 +46,19 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
  */
 class NormalizerNR2_4 implements NormalizationRule {
 
-	private ComplexIntegerAxiomFactory axiomFactory = null;
+	private final IntegerOntologyObjectFactory ontologyObjectFactory;
 
-	private IdGenerator nameGenerator = null;
 	/**
 	 * Constructs a new normalizer rule NR-2.4.
 	 * 
-	 * @param generator
-	 *            an identifier generator
 	 * @param factory
-	 *            axiom factory
+	 *            factory
 	 */
-	public NormalizerNR2_4(IdGenerator generator,
-			ComplexIntegerAxiomFactory factory) {
-		if (generator == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+	public NormalizerNR2_4(IntegerOntologyObjectFactory factory) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-
-		this.nameGenerator = generator;
-		this.axiomFactory = factory;
+		this.ontologyObjectFactory = factory;
 	}
 
 	@Override
@@ -116,24 +106,30 @@ class NormalizerNR2_4 implements NormalizationRule {
 			}
 		}
 		if (aLiteral != null) {
-			IntegerClass newClass = new IntegerClass(
-					this.nameGenerator.createNewClassId());
+			IntegerClass newClass = new IntegerClass(getOntologyObjectFactory()
+					.getIdGenerator().createNewClassId());
 
 			Set<IntegerClassExpression> newOperands = new HashSet<IntegerClassExpression>();
 			newOperands.addAll(operands);
 			newOperands.remove(aLiteral);
 			IntegerObjectIntersectionOf newIntersection = new IntegerObjectIntersectionOf(
 					newOperands);
-			ret.add(this.axiomFactory.createSubClassOfAxiom(newIntersection, newClass));
+			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
+					.createSubClassOfAxiom(newIntersection, newClass));
 
 			Set<IntegerClassExpression> pairOfLiterals = new HashSet<IntegerClassExpression>();
 			pairOfLiterals.add(aLiteral);
 			pairOfLiterals.add(newClass);
 			IntegerObjectIntersectionOf intersectionOfLiterals = new IntegerObjectIntersectionOf(
 					pairOfLiterals);
-			ret.add(this.axiomFactory.createSubClassOfAxiom(intersectionOfLiterals, newClass));
+			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
+					.createSubClassOfAxiom(intersectionOfLiterals, newClass));
 		}
 		return ret;
+	}
+
+	private IntegerOntologyObjectFactory getOntologyObjectFactory() {
+		return this.ontologyObjectFactory;
 	}
 
 }

@@ -25,10 +25,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerPropertyRangeAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RangeAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 
@@ -43,27 +41,19 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
  */
 class NormalizerNR1_2 implements NormalizationRule {
 
-	private ComplexIntegerAxiomFactory axiomFactory = null;
-	private IdGenerator nameGenerator = null;
+	private IntegerOntologyObjectFactory ontologyObjectFactory;
 
 	/**
 	 * Constructs a new normalizer of rule NR-1.2.
 	 * 
-	 * @param generator
-	 *            an identifier generator
 	 * @param factory
-	 *            axiom factory
+	 *            factory
 	 */
-	public NormalizerNR1_2(IdGenerator generator,
-			ComplexIntegerAxiomFactory factory) {
-		if (generator == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+	public NormalizerNR1_2(IntegerOntologyObjectFactory factory) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-
-		this.nameGenerator = generator;
+		this.ontologyObjectFactory = factory;
 	}
 
 	@Override
@@ -83,12 +73,19 @@ class NormalizerNR1_2 implements NormalizationRule {
 		Set<IntegerAxiom> ret = Collections.emptySet();
 		if (!rangeAxiom.getRange().isLiteral()) {
 			ret = new HashSet<IntegerAxiom>();
-			Integer newClassId = this.nameGenerator.createNewClassId();
-			ret.add(new RangeAxiom(rangeAxiom.getProperty(), newClassId));
-			ret.add(this.axiomFactory.createSubClassOfAxiom(
-					new IntegerClass(newClassId), rangeAxiom.getRange()));
+			Integer newClassId = getOntologyObjectFactory().getIdGenerator()
+					.createNewClassId();
+			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
+					.createRangeAxiom(rangeAxiom.getProperty(), newClassId));
+			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
+					.createSubClassOfAxiom(new IntegerClass(newClassId),
+							rangeAxiom.getRange()));
 		}
 		return ret;
+	}
+
+	private IntegerOntologyObjectFactory getOntologyObjectFactory() {
+		return this.ontologyObjectFactory;
 	}
 
 }

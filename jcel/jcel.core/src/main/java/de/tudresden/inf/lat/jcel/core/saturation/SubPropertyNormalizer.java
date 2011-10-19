@@ -24,7 +24,7 @@ package de.tudresden.inf.lat.jcel.core.saturation;
 import java.util.Collections;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
 
 /**
@@ -53,18 +53,18 @@ public class SubPropertyNormalizer implements SaturationRule {
 	/**
 	 * Constructs a new normalizer of sub object properties.
 	 * 
-	 * @param generator
-	 *            an identifier generator
+	 * @param factory
+	 *            factory
 	 */
-	public SubPropertyNormalizer(IdGenerator generator) {
-		if (generator == null) {
+	public SubPropertyNormalizer(IntegerOntologyObjectFactory factory) {
+		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.sr0 = new SR0Rule();
-		this.sr1sr2 = new SR1AndSR2Rules(generator);
-		this.sr3 = new SR3Rule(generator);
-		this.sr4 = new SR4Rule();
+		this.sr0 = new SR0Rule(factory);
+		this.sr1sr2 = new SR1AndSR2Rules(factory);
+		this.sr3 = new SR3Rule(factory);
+		this.sr4 = new SR4Rule(factory);
 	}
 
 	/**

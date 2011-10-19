@@ -51,7 +51,7 @@ public class RI3Axiom implements NormalizedIntegerAxiom {
 	 * @param rightProp
 	 *            object property identifier for super object property
 	 */
-	public RI3Axiom(Integer leftLeftProp, Integer leftRightProp,
+	protected RI3Axiom(Integer leftLeftProp, Integer leftRightProp,
 			Integer rightProp) {
 		if (leftLeftProp == null) {
 			throw new IllegalArgumentException("Null argument.");

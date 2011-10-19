@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
 
@@ -40,21 +41,20 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
  */
 public class SR1AndSR2Rules implements SaturationRule {
 
+	private IntegerOntologyObjectFactory factory;
 	private SaturationRuleHelper helper = new SaturationRuleHelper();
-	private IdGenerator idGenerator = null;
 
 	/**
 	 * Constructs a new composite rule of SR-1 and SR-2.
 	 * 
-	 * @param generator
-	 *            identifier generator
+	 * @param factory
+	 *            factory
 	 */
-	public SR1AndSR2Rules(IdGenerator generator) {
-		if (generator == null) {
+	public SR1AndSR2Rules(IntegerOntologyObjectFactory factory) {
+		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-
-		this.idGenerator = generator;
+		this.factory = factory;
 	}
 
 	@Override
@@ -90,7 +90,8 @@ public class SR1AndSR2Rules implements SaturationRule {
 			Integer invSuperProperty = getIdGenerator()
 					.createOrGetInverseObjectPropertyOf(
 							axiom.getSuperProperty());
-			ret.add(new RI2Axiom(invSubProperty, invSuperProperty));
+			ret.add(this.factory.getNormalizedAxiomFactory().createRI2Axiom(
+					invSubProperty, invSuperProperty));
 		}
 		return ret;
 	}
@@ -107,7 +108,9 @@ public class SR1AndSR2Rules implements SaturationRule {
 					if (thirdPropSet != null) {
 						for (Integer thirdProp : thirdPropSet) {
 							if (!secondPropSet.contains(thirdProp)) {
-								ret.add(new RI2Axiom(firstProp, thirdProp));
+								ret.add(this.factory
+										.getNormalizedAxiomFactory()
+										.createRI2Axiom(firstProp, thirdProp));
 							}
 						}
 					}
@@ -118,7 +121,7 @@ public class SR1AndSR2Rules implements SaturationRule {
 	}
 
 	private IdGenerator getIdGenerator() {
-		return this.idGenerator;
+		return this.factory.getIdGenerator();
 	}
 
 }

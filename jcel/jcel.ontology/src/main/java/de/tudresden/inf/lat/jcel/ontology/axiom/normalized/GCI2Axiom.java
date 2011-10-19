@@ -51,7 +51,7 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 	 * @param rightCl
 	 *            class identifier for the right-hand part
 	 */
-	public GCI2Axiom(Integer leftCl, Integer rightProp, Integer rightCl) {
+	protected GCI2Axiom(Integer leftCl, Integer rightProp, Integer rightCl) {
 		if (leftCl == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

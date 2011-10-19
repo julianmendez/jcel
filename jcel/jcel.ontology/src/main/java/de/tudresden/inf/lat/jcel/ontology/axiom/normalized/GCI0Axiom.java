@@ -46,7 +46,7 @@ public class GCI0Axiom implements NormalizedIntegerAxiom {
 	 * @param superCl
 	 *            superclass identifier
 	 */
-	public GCI0Axiom(Integer subCl, Integer superCl) {
+	protected GCI0Axiom(Integer subCl, Integer superCl) {
 		if (subCl == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

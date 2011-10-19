@@ -45,7 +45,7 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 	 * @param individualId
 	 *            individual identifier in the axiom
 	 */
-	public NominalAxiom(Integer classId, Integer individualId) {
+	protected NominalAxiom(Integer classId, Integer individualId) {
 		if (classId == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

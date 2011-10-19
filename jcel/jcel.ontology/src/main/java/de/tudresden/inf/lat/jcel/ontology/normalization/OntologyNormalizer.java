@@ -26,9 +26,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerInverseObjectPropertiesAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 
@@ -76,23 +75,22 @@ public class OntologyNormalizer {
 	 * 
 	 * @param originalAxiomSet
 	 *            set of axioms to be normalized
-	 * @param generator
-	 *            identifier generator
+	 * @param factory
+	 *            factory
 	 * @return the normalized set of axioms according to the specified axioms
 	 */
 	public Set<NormalizedIntegerAxiom> normalize(
-			Set<ComplexIntegerAxiom> originalAxiomSet, IdGenerator generator,
-			ComplexIntegerAxiomFactory axiomFactory) {
+			Set<ComplexIntegerAxiom> originalAxiomSet,
+			IntegerOntologyObjectFactory factory) {
 		if (originalAxiomSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		if (generator == null) {
+		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		Set<NormalizedIntegerAxiom> ret = new HashSet<NormalizedIntegerAxiom>();
-		SimpleNormalizer normalizer = new SimpleNormalizer(generator,
-				axiomFactory);
+		SimpleNormalizer normalizer = new SimpleNormalizer(factory);
 		Set<IntegerAxiom> currentAxiomSet = new HashSet<IntegerAxiom>();
 		for (ComplexIntegerAxiom axiom : originalAxiomSet) {
 			if (axiom instanceof IntegerInverseObjectPropertiesAxiom) {

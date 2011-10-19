@@ -45,7 +45,7 @@ import org.semanticweb.owlapi.reasoner.impl.OWLNamedIndividualNodeSet;
 import org.semanticweb.owlapi.reasoner.impl.OWLObjectPropertyNodeSet;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerNamedIndividual;
@@ -60,13 +60,13 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  */
 public class Translator {
 
-	private ComplexIntegerAxiomFactory axiomFactory;
 	private AxiomTranslator axiomTranslator;
+	private final IntegerOntologyObjectFactory factory;
 	private Set<ComplexIntegerAxiom> ontology;
 	private TranslationRepository repository;
 
 	public Translator(OWLOntology rootOntology,
-			ComplexIntegerAxiomFactory factory) {
+			IntegerOntologyObjectFactory factory) {
 		if (rootOntology == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -75,19 +75,20 @@ public class Translator {
 		}
 
 		this.repository = new TranslationRepository(rootOntology);
-		this.axiomFactory = factory;
-		Map<OWLObjectProperty, Integer> objectPropertyMap = createPropertyMap(repository);
-		Map<OWLClass, Integer> classMap = createClassMap(repository);
+		this.factory = factory;
+		Map<OWLObjectProperty, Integer> objectPropertyMap = createPropertyMap(this.repository);
+		Map<OWLClass, Integer> classMap = createClassMap(this.repository);
 		Map<OWLNamedIndividual, Integer> individualMap = createIndividualMap(
-				classMap.size(), repository);
-		Map<OWLDataProperty, Integer> dataPropertyMap = createDataPropertyMap(repository);
-		Map<OWLLiteral, Integer> literalMap = createLiteralMap(repository);
+				classMap.size(), this.repository);
+		Map<OWLDataProperty, Integer> dataPropertyMap = createDataPropertyMap(this.repository);
+		Map<OWLLiteral, Integer> literalMap = createLiteralMap(this.repository);
 		ObjectPropertyExpressionTranslator obet = new ObjectPropertyExpressionTranslator(
 				objectPropertyMap, dataPropertyMap);
 		ClassExpressionTranslator cet = new ClassExpressionTranslator(classMap,
 				individualMap, literalMap, obet);
 
-		this.axiomTranslator = new AxiomTranslator(cet, this.axiomFactory);
+		this.axiomTranslator = new AxiomTranslator(cet,
+				this.factory.getComplexAxiomFactory());
 
 		Set<OWLAxiom> owlAxiomSet = rootOntology.getAxioms();
 		for (OWLOntology ont : rootOntology.getImportsClosure()) {
@@ -95,6 +96,9 @@ public class Translator {
 		}
 
 		this.ontology = translateA(owlAxiomSet);
+		this.factory.getIdGenerator().resetTo(
+				this.repository.getOWLClassList().size() + 1,
+				this.repository.getOWLObjectPropertyList().size());
 	}
 
 	private Map<OWLClass, Integer> createClassMap(
@@ -155,21 +159,21 @@ public class Translator {
 		return ret;
 	}
 
-	/**
-	 * Returns the axiom factory.
-	 * 
-	 * @return the axiom factory
-	 */
-	public ComplexIntegerAxiomFactory getAxiomFactory() {
-		return this.axiomFactory;
-	}
-
 	public AxiomTranslator getAxiomTranslator() {
 		return this.axiomTranslator;
 	}
 
 	public Set<ComplexIntegerAxiom> getOntology() {
 		return this.ontology;
+	}
+
+	/**
+	 * Returns the ontology object factory.
+	 * 
+	 * @return the ontology object factory
+	 */
+	public IntegerOntologyObjectFactory getOntologyObjectFactory() {
+		return this.factory;
 	}
 
 	public TranslationRepository getTranslationRepository() {

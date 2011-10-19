@@ -55,17 +55,9 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubObjectProperty
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubPropertyChainOfAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerTransitiveObjectPropertyAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.FunctionalObjectPropertyAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI0Axiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI1Axiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI2Axiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI3Axiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NominalAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI1Axiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RangeAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
@@ -84,8 +76,6 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
  */
 class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> {
 
-	private ComplexIntegerAxiomFactory axiomFactory = null;
-	private IdGenerator idGenerator = null;
 	private List<NormalizationRule> norChainOfSubClass = null;
 	private NormalizationRule norDisjoint = null;
 	private NormalizationRule norEquivProperties = null;
@@ -93,24 +83,20 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 	private NormalizationRule norNR1_5 = null;
 	private NormalizerNR1_6 norNR1_6 = null;
 	private NormalizationRule norNR2_1 = null;
+	private final IntegerOntologyObjectFactory ontologyObjectFactory;
 
 	/**
 	 * Constructs a new normalizer.
 	 * 
-	 * @param idGen
-	 *            an identifier generator
+	 * @param factory
+	 *            factory
 	 */
-	public SimpleNormalizer(IdGenerator idGen,
-			ComplexIntegerAxiomFactory factory) {
-		if (idGen == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+	public SimpleNormalizer(IntegerOntologyObjectFactory factory) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.idGenerator = idGen;
-		this.axiomFactory = factory;
+		this.ontologyObjectFactory = factory;
 		reset();
 	}
 
@@ -138,12 +124,16 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		return ret;
 	}
 
-	private ComplexIntegerAxiomFactory getAxiomFactory() {
-		return this.axiomFactory;
+	private ComplexIntegerAxiomFactory getComplexAxiomFactory() {
+		return getOntologyObjectFactory().getComplexAxiomFactory();
 	}
 
 	private IdGenerator getIdGenerator() {
-		return this.idGenerator;
+		return getOntologyObjectFactory().getIdGenerator();
+	}
+
+	private NormalizedIntegerAxiomFactory getNormalizedAxiomFactory() {
+		return getOntologyObjectFactory().getNormalizedAxiomFactory();
 	}
 
 	private Integer getNormalizedObjectProperty(
@@ -152,10 +142,14 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		if (propExpr instanceof IntegerObjectProperty) {
 			ret = propExpr.getId();
 		} else {
-			ret = this.idGenerator.createOrGetInverseObjectPropertyOf(propExpr
-					.getId());
+			ret = getOntologyObjectFactory().getIdGenerator()
+					.createOrGetInverseObjectPropertyOf(propExpr.getId());
 		}
 		return ret;
+	}
+
+	public IntegerOntologyObjectFactory getOntologyObjectFactory() {
+		return this.ontologyObjectFactory;
 	}
 
 	/**
@@ -181,24 +175,29 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 	private void reset() {
 
 		this.norChainOfSubClass = new ArrayList<NormalizationRule>();
-		this.norChainOfSubClass.add(new NormalizerNR1_7(getAxiomFactory()));
-		this.norChainOfSubClass.add(new NormalizerNR2_2(getIdGenerator(),
-				getAxiomFactory()));
-		this.norChainOfSubClass.add(new NormalizerNR2_3(getIdGenerator(),
-				getAxiomFactory()));
-		this.norChainOfSubClass.add(new NormalizerNR3_1(getIdGenerator(),
-				getAxiomFactory()));
-		this.norChainOfSubClass.add(new NormalizerNR3_2(getIdGenerator(),
-				getAxiomFactory()));
-		this.norChainOfSubClass.add(new NormalizerNR3_3(getAxiomFactory()));
-		this.norChainOfSubClass.add(new NormalizerNR4_1(getIdGenerator()));
-		this.norChainOfSubClass.add(new NormalizerNR4_2(getIdGenerator()));
+		this.norChainOfSubClass.add(new NormalizerNR1_7(
+				getOntologyObjectFactory()));
+		this.norChainOfSubClass.add(new NormalizerNR2_2(
+				getOntologyObjectFactory()));
+		this.norChainOfSubClass.add(new NormalizerNR2_3(
+				getOntologyObjectFactory()));
+		this.norChainOfSubClass.add(new NormalizerNR3_1(
+				getOntologyObjectFactory()));
+		this.norChainOfSubClass.add(new NormalizerNR3_2(
+				getOntologyObjectFactory()));
+		this.norChainOfSubClass.add(new NormalizerNR3_3(
+				getOntologyObjectFactory()));
+		this.norChainOfSubClass.add(new NormalizerNR4_1(
+				getOntologyObjectFactory()));
+		this.norChainOfSubClass.add(new NormalizerNR4_2(
+				getOntologyObjectFactory()));
 
-		this.norDisjoint = new NormalizerDisjoint(getAxiomFactory());
-		this.norEquivProperties = new NormalizerEquivProperties();
-		this.norNR1_5 = new NormalizerNR1_5(getAxiomFactory());
-		this.norNR1_2 = new NormalizerNR1_2(getIdGenerator(), getAxiomFactory());
-		this.norNR2_1 = new NormalizerNR2_1(getIdGenerator());
+		this.norDisjoint = new NormalizerDisjoint(getOntologyObjectFactory());
+		this.norEquivProperties = new NormalizerEquivProperties(
+				getOntologyObjectFactory());
+		this.norNR1_5 = new NormalizerNR1_5(getOntologyObjectFactory());
+		this.norNR1_2 = new NormalizerNR1_2(getOntologyObjectFactory());
+		this.norNR2_1 = new NormalizerNR2_1(getOntologyObjectFactory());
 		this.norNR1_6 = new NormalizerNR1_6();
 	}
 
@@ -209,7 +208,8 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		IntegerClassExpression superClass = axiom.getSuperClass();
 
 		if (subClass.isLiteral() && superClass.isLiteral()) {
-			ret.add(new GCI0Axiom(((IntegerClass) subClass).getId(),
+			ret.add(getNormalizedAxiomFactory().createGCI0Axiom(
+					((IntegerClass) subClass).getId(),
 					((IntegerClass) superClass).getId()));
 
 		} else if (!subClass.isLiteral() && superClass.isLiteral()
@@ -218,7 +218,8 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 			IntegerObjectIntersectionOf intersection = (IntegerObjectIntersectionOf) subClass;
 			Set<IntegerClassExpression> operands = intersection.getOperands();
-			ret.add(new GCI1Axiom(convertToClassList(operands),
+			ret.add(getNormalizedAxiomFactory().createGCI1Axiom(
+					convertToClassList(operands),
 					((IntegerClass) superClass).getId()));
 
 		} else if (subClass.isLiteral() && !superClass.isLiteral()
@@ -229,8 +230,9 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 			IntegerClass filler = (IntegerClass) restriction.getFiller();
 			Integer property = getNormalizedObjectProperty(restriction
 					.getProperty());
-			ret.add(new GCI2Axiom(((IntegerClass) subClass).getId(), property,
-					filler.getId()));
+			ret.add(getNormalizedAxiomFactory()
+					.createGCI2Axiom(((IntegerClass) subClass).getId(),
+							property, filler.getId()));
 
 		} else if (!subClass.isLiteral() && superClass.isLiteral()
 				&& (subClass instanceof IntegerObjectSomeValuesFrom)
@@ -240,8 +242,8 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 			IntegerClass filler = (IntegerClass) restriction.getFiller();
 			Integer property = getNormalizedObjectProperty(restriction
 					.getProperty());
-			ret.add(new GCI3Axiom(property, filler.getId(),
-					((IntegerClass) superClass).getId()));
+			ret.add(getNormalizedAxiomFactory().createGCI3Axiom(property,
+					filler.getId(), ((IntegerClass) superClass).getId()));
 
 		}
 		return ret;
@@ -256,13 +258,15 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 		if (propChain.size() == 0) {
 
-			ret.add(new RI1Axiom(getNormalizedObjectProperty(rightPart)));
+			ret.add(getNormalizedAxiomFactory().createRI1Axiom(
+					getNormalizedObjectProperty(rightPart)));
 
 		} else if (propChain.size() == 1) {
 
 			Iterator<IntegerObjectPropertyExpression> it = propChain.iterator();
 			IntegerObjectPropertyExpression leftPropExpr = it.next();
-			ret.add(new RI2Axiom(getNormalizedObjectProperty(leftPropExpr),
+			ret.add(getNormalizedAxiomFactory().createRI2Axiom(
+					getNormalizedObjectProperty(leftPropExpr),
 					getNormalizedObjectProperty(rightPart)));
 
 		} else if (propChain.size() == 2) {
@@ -270,7 +274,8 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 			Iterator<IntegerObjectPropertyExpression> it = propChain.iterator();
 			IntegerObjectPropertyExpression leftLeftProp = it.next();
 			IntegerObjectPropertyExpression leftRightProp = it.next();
-			ret.add(new RI3Axiom(getNormalizedObjectProperty(leftLeftProp),
+			ret.add(getNormalizedAxiomFactory().createRI3Axiom(
+					getNormalizedObjectProperty(leftLeftProp),
 					getNormalizedObjectProperty(leftRightProp),
 					getNormalizedObjectProperty(rightPart)));
 
@@ -289,8 +294,9 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
 		Integer classId = getIdGenerator().createOrGetClassIdForIndividual(
 				individual);
-		ret.add(new NominalAxiom(classId, individual));
-		ret.add(getAxiomFactory().createSubClassOfAxiom(
+		ret.add(getNormalizedAxiomFactory().createNominalAxiom(classId,
+				individual));
+		ret.add(getComplexAxiomFactory().createSubClassOfAxiom(
 				new IntegerClass(classId), classExpression));
 		return Collections.unmodifiableSet(ret);
 	}
@@ -337,10 +343,12 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		for (Integer individual : individualSet) {
 			Integer classForIndiv = getIdGenerator()
 					.createOrGetClassIdForIndividual(individual);
-			ret.add(new NominalAxiom(classForIndiv, individual));
+			ret.add(getNormalizedAxiomFactory().createNominalAxiom(
+					classForIndiv, individual));
 			classExprSet.add(new IntegerClass(classForIndiv));
 		}
-		ret.add(getAxiomFactory().createDisjointClassesAxiom(classExprSet));
+		ret.add(getComplexAxiomFactory().createDisjointClassesAxiom(
+				classExprSet));
 		return Collections.unmodifiableSet(ret);
 	}
 
@@ -378,8 +386,8 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		}
 
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
-		IntegerAxiom newAxiom = new FunctionalObjectPropertyAxiom(
-				axiom.getProperty());
+		IntegerAxiom newAxiom = getNormalizedAxiomFactory()
+				.createFunctObjectPropAxiom(axiom.getProperty());
 		ret.add(newAxiom);
 		return Collections.unmodifiableSet(ret);
 	}
@@ -391,9 +399,10 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		IntegerAxiom newAxiom = new FunctionalObjectPropertyAxiom(
-				getIdGenerator().createOrGetInverseObjectPropertyOf(
-						axiom.getProperty()));
+		IntegerAxiom newAxiom = getNormalizedAxiomFactory()
+				.createFunctObjectPropAxiom(
+						getIdGenerator().createOrGetInverseObjectPropertyOf(
+								axiom.getProperty()));
 		return Collections.singleton(newAxiom);
 	}
 
@@ -412,10 +421,14 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 				.createOrGetInverseObjectPropertyOf(firstProperty);
 		Integer inverseSecondProperty = getIdGenerator()
 				.createOrGetInverseObjectPropertyOf(secondProperty);
-		ret.add(new RI2Axiom(firstProperty, inverseSecondProperty));
-		ret.add(new RI2Axiom(inverseSecondProperty, firstProperty));
-		ret.add(new RI2Axiom(secondProperty, inverseFirstProperty));
-		ret.add(new RI2Axiom(inverseFirstProperty, secondProperty));
+		ret.add(getNormalizedAxiomFactory().createRI2Axiom(firstProperty,
+				inverseSecondProperty));
+		ret.add(getNormalizedAxiomFactory().createRI2Axiom(
+				inverseSecondProperty, firstProperty));
+		ret.add(getNormalizedAxiomFactory().createRI2Axiom(secondProperty,
+				inverseFirstProperty));
+		ret.add(getNormalizedAxiomFactory().createRI2Axiom(
+				inverseFirstProperty, secondProperty));
 		return Collections.unmodifiableSet(ret);
 	}
 
@@ -442,10 +455,12 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
 		Integer classIdForObject = getIdGenerator()
 				.createOrGetClassIdForIndividual(object);
-		ret.add(new NominalAxiom(classIdForObject, object));
+		ret.add(getNormalizedAxiomFactory().createNominalAxiom(
+				classIdForObject, object));
 		Integer classIdForSubject = getIdGenerator()
 				.createOrGetClassIdForIndividual(subject);
-		ret.add(new NominalAxiom(classIdForObject, subject));
+		ret.add(getNormalizedAxiomFactory().createNominalAxiom(
+				classIdForObject, subject));
 		IntegerObjectSomeValuesFrom restriction = new IntegerObjectSomeValuesFrom(
 				property, new IntegerClass(classIdForObject));
 		Set<IntegerClassExpression> classExpressionSet = new HashSet<IntegerClassExpression>();
@@ -453,7 +468,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		classExpressionSet.add(restriction);
 		IntegerObjectIntersectionOf intersection = new IntegerObjectIntersectionOf(
 				classExpressionSet);
-		ret.add(getAxiomFactory().createSubClassOfAxiom(intersection,
+		ret.add(getComplexAxiomFactory().createSubClassOfAxiom(intersection,
 				new IntegerClass(IntegerClass.classBottomElement)));
 		return Collections.unmodifiableSet(ret);
 	}
@@ -470,13 +485,15 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
 		Integer classIdForObject = getIdGenerator()
 				.createOrGetClassIdForIndividual(object);
-		ret.add(new NominalAxiom(classIdForObject, object));
+		ret.add(getNormalizedAxiomFactory().createNominalAxiom(
+				classIdForObject, object));
 		Integer classIdForSubject = getIdGenerator()
 				.createOrGetClassIdForIndividual(subject);
-		ret.add(new NominalAxiom(classIdForObject, subject));
+		ret.add(getNormalizedAxiomFactory().createNominalAxiom(
+				classIdForObject, subject));
 		IntegerObjectSomeValuesFrom restriction = new IntegerObjectSomeValuesFrom(
 				property, new IntegerClass(classIdForObject));
-		ret.add(getAxiomFactory().createSubClassOfAxiom(
+		ret.add(getComplexAxiomFactory().createSubClassOfAxiom(
 				new IntegerClass(classIdForSubject), restriction));
 		return Collections.unmodifiableSet(ret);
 	}
@@ -500,8 +517,8 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		IntegerClassExpression range = axiom.getRange();
 		if (range.isLiteral()) {
 			Integer property = axiom.getProperty();
-			NormalizedIntegerAxiom normAxiom = new RangeAxiom(property,
-					((IntegerClass) range).getId());
+			NormalizedIntegerAxiom normAxiom = getNormalizedAxiomFactory()
+					.createRangeAxiom(property, ((IntegerClass) range).getId());
 			ret = new HashSet<IntegerAxiom>();
 			ret.add(normAxiom);
 		} else {
@@ -517,7 +534,8 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		}
 
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
-		IntegerAxiom newAxiom = new RI1Axiom(axiom.getProperty());
+		IntegerAxiom newAxiom = getNormalizedAxiomFactory().createRI1Axiom(
+				axiom.getProperty());
 		ret.add(newAxiom);
 		return Collections.unmodifiableSet(ret);
 	}
@@ -534,10 +552,12 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		for (Integer individual : individualSet) {
 			Integer classForIndiv = getIdGenerator()
 					.createOrGetClassIdForIndividual(individual);
-			ret.add(new NominalAxiom(classForIndiv, individual));
+			ret.add(getNormalizedAxiomFactory().createNominalAxiom(
+					classForIndiv, individual));
 			classExprSet.add(new IntegerClass(classForIndiv));
 		}
-		ret.add(getAxiomFactory().createEquivalentClassesAxiom(classExprSet));
+		ret.add(getComplexAxiomFactory().createEquivalentClassesAxiom(
+				classExprSet));
 		return Collections.unmodifiableSet(ret);
 	}
 
@@ -573,8 +593,10 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 				.createOrGetInverseObjectPropertyOf(subProperty);
 		Integer inverseSuperProperty = getIdGenerator()
 				.createOrGetInverseObjectPropertyOf(superProperty);
-		ret.add(new RI2Axiom(subProperty, superProperty));
-		ret.add(new RI2Axiom(inverseSubProperty, inverseSuperProperty));
+		ret.add(getNormalizedAxiomFactory().createRI2Axiom(subProperty,
+				superProperty));
+		ret.add(getNormalizedAxiomFactory().createRI2Axiom(inverseSubProperty,
+				inverseSuperProperty));
 		return Collections.unmodifiableSet(ret);
 	}
 
@@ -600,8 +622,8 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
 		Integer property = axiom.getProperty();
-		NormalizedIntegerAxiom normAxiom = new RI3Axiom(property, property,
-				property);
+		NormalizedIntegerAxiom normAxiom = getNormalizedAxiomFactory()
+				.createRI3Axiom(property, property, property);
 		ret.add(normAxiom);
 		return Collections.unmodifiableSet(ret);
 	}

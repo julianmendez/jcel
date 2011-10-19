@@ -51,7 +51,7 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 	 * @param rightCl
 	 *            superclass identifier
 	 */
-	public GCI3Axiom(Integer leftProp, Integer leftCl, Integer rightCl) {
+	protected GCI3Axiom(Integer leftProp, Integer leftCl, Integer rightCl) {
 		if (leftProp == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

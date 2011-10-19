@@ -28,11 +28,18 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
- * An object this interface is a factory to create complex axioms.
+ * An object of this class is a factory to create any complex axiom.
  * 
  * @author Julian Mendez
  */
-public interface ComplexIntegerAxiomFactory {
+public class ComplexIntegerAxiomFactoryImpl implements
+		ComplexIntegerAxiomFactory {
+
+	/**
+	 * Constructs a new complex axiom factory.
+	 */
+	public ComplexIntegerAxiomFactoryImpl() {
+	}
 
 	/**
 	 * Constructs a new class assertion axiom.
@@ -43,7 +50,9 @@ public interface ComplexIntegerAxiomFactory {
 	 *            individual of the assertion
 	 */
 	public IntegerClassAssertionAxiom createClassAssertionAxiom(
-			IntegerClassExpression classExpr, Integer individualId);
+			IntegerClassExpression classExpr, Integer individualId) {
+		return new IntegerClassAssertionAxiom(classExpr, individualId);
+	}
 
 	/**
 	 * Constructs a new class declaration axiom.
@@ -52,7 +61,9 @@ public interface ComplexIntegerAxiomFactory {
 	 *            class identifier
 	 */
 	public IntegerClassDeclarationAxiom createClassDeclarationAxiom(
-			Integer declaredEntity);
+			Integer declaredEntity) {
+		return new IntegerClassDeclarationAxiom(declaredEntity);
+	}
 
 	/**
 	 * Constructs a new data property assertion axiom.
@@ -65,7 +76,10 @@ public interface ComplexIntegerAxiomFactory {
 	 *            target individual
 	 */
 	public IntegerDataPropertyAssertionAxiom createDataPropertyAssertionAxiom(
-			Integer objectProp, Integer subjectInd, Integer objectInd);
+			Integer objectProp, Integer subjectInd, Integer objectInd) {
+		return new IntegerDataPropertyAssertionAxiom(objectProp, subjectInd,
+				objectInd);
+	}
 
 	/**
 	 * Constructs a new data property declaration axiom.
@@ -74,7 +88,9 @@ public interface ComplexIntegerAxiomFactory {
 	 *            data property
 	 */
 	public IntegerDataPropertyDeclarationAxiom createDataPropertyDeclarationAxiom(
-			Integer declaredEntity);
+			Integer declaredEntity) {
+		return new IntegerDataPropertyDeclarationAxiom(declaredEntity);
+	}
 
 	/**
 	 * Constructs a new different individuals axiom
@@ -83,7 +99,9 @@ public interface ComplexIntegerAxiomFactory {
 	 *            set of individuals declared to be different
 	 */
 	public IntegerDifferentIndividualsAxiom createDifferentIndividualsAxiom(
-			Set<Integer> individualSet);
+			Set<Integer> individualSet) {
+		return new IntegerDifferentIndividualsAxiom(individualSet);
+	}
 
 	/**
 	 * Constructs a new disjoint classes axiom.
@@ -92,7 +110,9 @@ public interface ComplexIntegerAxiomFactory {
 	 *            set of classes declared to be disjoint
 	 */
 	public IntegerDisjointClassesAxiom createDisjointClassesAxiom(
-			Set<IntegerClassExpression> descSet);
+			Set<IntegerClassExpression> descSet) {
+		return new IntegerDisjointClassesAxiom(descSet);
+	}
 
 	/**
 	 * Constructs a new equivalent classes axiom.
@@ -101,7 +121,9 @@ public interface ComplexIntegerAxiomFactory {
 	 *            set of classes declared to be equivalent
 	 */
 	public IntegerEquivalentClassesAxiom createEquivalentClassesAxiom(
-			Set<IntegerClassExpression> descSet);
+			Set<IntegerClassExpression> descSet) {
+		return new IntegerEquivalentClassesAxiom(descSet);
+	}
 
 	/**
 	 * Constructs an equivalent object properties axiom.
@@ -110,7 +132,9 @@ public interface ComplexIntegerAxiomFactory {
 	 *            set of object properties declared to be equivalent
 	 */
 	public IntegerEquivalentObjectPropertiesAxiom createEquivalentObjectPropertiesAxiom(
-			Set<Integer> propSet);
+			Set<Integer> propSet) {
+		return new IntegerEquivalentObjectPropertiesAxiom(propSet);
+	}
 
 	/**
 	 * Constructs a new functional object property axiom.
@@ -119,7 +143,9 @@ public interface ComplexIntegerAxiomFactory {
 	 *            object property declared functional
 	 */
 	public IntegerFunctionalObjectPropertyAxiom createFunctionalObjectPropertyAxiom(
-			Integer property);
+			Integer property) {
+		return new IntegerFunctionalObjectPropertyAxiom(property);
+	}
 
 	/**
 	 * Constructs a new inverse functional object property axiom.
@@ -128,7 +154,9 @@ public interface ComplexIntegerAxiomFactory {
 	 *            object property which inverse is declared functional
 	 */
 	public IntegerInverseFunctionalObjectPropertyAxiom createInverseFunctionalObjectPropertyAxiom(
-			Integer property);
+			Integer property) {
+		return new IntegerInverseFunctionalObjectPropertyAxiom(property);
+	}
 
 	/**
 	 * Constructs a new inverse object property axiom, declaring that one object
@@ -140,7 +168,9 @@ public interface ComplexIntegerAxiomFactory {
 	 *            object property
 	 */
 	public IntegerInverseObjectPropertiesAxiom createInverseObjectPropertiesAxiom(
-			Integer first, Integer second);
+			Integer first, Integer second) {
+		return new IntegerInverseObjectPropertiesAxiom(first, second);
+	}
 
 	/**
 	 * Constructs a new named individual declaration axiom.
@@ -149,7 +179,9 @@ public interface ComplexIntegerAxiomFactory {
 	 *            named individual
 	 */
 	public IntegerNamedIndividualDeclarationAxiom createNamedIndividualDeclarationAxiom(
-			Integer declaredEntity);
+			Integer declaredEntity) {
+		return new IntegerNamedIndividualDeclarationAxiom(declaredEntity);
+	}
 
 	/**
 	 * Constructs a new negative object property axiom.
@@ -163,7 +195,10 @@ public interface ComplexIntegerAxiomFactory {
 	 */
 	public IntegerNegativeObjectPropertyAssertionAxiom createNegativeObjectPropertyAssertionAxiom(
 			IntegerObjectPropertyExpression objectProp, Integer subjectInd,
-			Integer objectInd);
+			Integer objectInd) {
+		return new IntegerNegativeObjectPropertyAssertionAxiom(objectProp,
+				subjectInd, objectInd);
+	}
 
 	/**
 	 * Constructs a new object property assertion axiom.
@@ -177,7 +212,10 @@ public interface ComplexIntegerAxiomFactory {
 	 */
 	public IntegerObjectPropertyAssertionAxiom createObjectPropertyAssertionAxiom(
 			IntegerObjectPropertyExpression objectProp, Integer subjectInd,
-			Integer objectInd);
+			Integer objectInd) {
+		return new IntegerObjectPropertyAssertionAxiom(objectProp, subjectInd,
+				objectInd);
+	}
 
 	/**
 	 * Constructs a new object property declaration axiom.
@@ -186,7 +224,9 @@ public interface ComplexIntegerAxiomFactory {
 	 *            object property
 	 */
 	public IntegerObjectPropertyDeclarationAxiom createObjectPropertyDeclarationAxiom(
-			Integer declaredEntity);
+			Integer declaredEntity) {
+		return new IntegerObjectPropertyDeclarationAxiom(declaredEntity);
+	}
 
 	/**
 	 * Constructs a new object property range axiom.
@@ -197,7 +237,9 @@ public interface ComplexIntegerAxiomFactory {
 	 *            class expression
 	 */
 	public IntegerPropertyRangeAxiom createPropertyRangeAxiom(Integer prop,
-			IntegerClassExpression clExpr);
+			IntegerClassExpression clExpr) {
+		return new IntegerPropertyRangeAxiom(prop, clExpr);
+	}
 
 	/**
 	 * Constructs a new reflexive object property axiom.
@@ -206,7 +248,9 @@ public interface ComplexIntegerAxiomFactory {
 	 *            object property
 	 */
 	public IntegerReflexiveObjectPropertyAxiom createReflexiveObjectPropertyAxiom(
-			Integer property);
+			Integer property) {
+		return new IntegerReflexiveObjectPropertyAxiom(property);
+	}
 
 	/**
 	 * Constructs a new same individual axiom.
@@ -215,7 +259,9 @@ public interface ComplexIntegerAxiomFactory {
 	 *            set of individuals declared to be the same
 	 */
 	public IntegerSameIndividualAxiom createSameIndividualAxiom(
-			Set<Integer> individualSet);
+			Set<Integer> individualSet) {
+		return new IntegerSameIndividualAxiom(individualSet);
+	}
 
 	/**
 	 * Constructs a new subclass axiom.
@@ -226,7 +272,9 @@ public interface ComplexIntegerAxiomFactory {
 	 *            superclass
 	 */
 	public IntegerSubClassOfAxiom createSubClassOfAxiom(
-			IntegerClassExpression subClExpr, IntegerClassExpression superClExpr);
+			IntegerClassExpression subClExpr, IntegerClassExpression superClExpr) {
+		return new IntegerSubClassOfAxiom(subClExpr, superClExpr);
+	}
 
 	/**
 	 * Constructs a new sub object property axiom.
@@ -238,7 +286,9 @@ public interface ComplexIntegerAxiomFactory {
 	 */
 	public IntegerSubObjectPropertyOfAxiom createSubObjectPropertyOfAxiom(
 			IntegerObjectPropertyExpression subPropExpr,
-			IntegerObjectPropertyExpression superPropExpr);
+			IntegerObjectPropertyExpression superPropExpr) {
+		return new IntegerSubObjectPropertyOfAxiom(subPropExpr, superPropExpr);
+	}
 
 	/**
 	 * Constructs a new sub object property chain axiom.
@@ -250,7 +300,9 @@ public interface ComplexIntegerAxiomFactory {
 	 */
 	public IntegerSubPropertyChainOfAxiom createSubPropertyChainOfAxiom(
 			List<IntegerObjectPropertyExpression> chain,
-			IntegerObjectPropertyExpression superProp);
+			IntegerObjectPropertyExpression superProp) {
+		return new IntegerSubPropertyChainOfAxiom(chain, superProp);
+	}
 
 	/**
 	 * Constructs a new transitive object property axiom.
@@ -259,6 +311,8 @@ public interface ComplexIntegerAxiomFactory {
 	 *            object property
 	 */
 	public IntegerTransitiveObjectPropertyAxiom createTransitiveObjectPropertyAxiom(
-			Integer prop);
+			Integer prop) {
+		return new IntegerTransitiveObjectPropertyAxiom(prop);
+	}
 
 }

@@ -26,9 +26,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerDisjointClassesAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
@@ -43,21 +43,19 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
  */
 class NormalizerDisjoint implements NormalizationRule {
 
-
-	private ComplexIntegerAxiomFactory axiomFactory = null;
+	private IntegerOntologyObjectFactory ontologyObjectFactory;
 
 	/**
 	 * Constructs a new normalizer of disjoint classes.
 	 * 
 	 * @param factory
-	 *            axiom factory
+	 *            factory
 	 */
-	public NormalizerDisjoint(ComplexIntegerAxiomFactory factory) {
+	public NormalizerDisjoint(IntegerOntologyObjectFactory factory) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-
-		this.axiomFactory = factory;
+		this.ontologyObjectFactory = factory;
 	}
 
 	@Override
@@ -90,8 +88,10 @@ class NormalizerDisjoint implements NormalizationRule {
 					pair.add(secondClassExpression);
 					IntegerObjectIntersectionOf intersection = new IntegerObjectIntersectionOf(
 							pair);
-					IntegerSubClassOfAxiom subClassAxiom = this.axiomFactory
-							.createSubClassOfAxiom(intersection,
+					IntegerSubClassOfAxiom subClassAxiom = getOntologyObjectFactory()
+							.getComplexAxiomFactory()
+							.createSubClassOfAxiom(
+									intersection,
 									new IntegerClass(
 											IntegerDatatype.classBottomElement));
 					ret.add(subClassAxiom);
@@ -99,6 +99,10 @@ class NormalizerDisjoint implements NormalizationRule {
 			}
 		}
 		return ret;
+	}
+
+	private IntegerOntologyObjectFactory getOntologyObjectFactory() {
+		return this.ontologyObjectFactory;
 	}
 
 }

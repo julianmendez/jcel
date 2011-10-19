@@ -24,7 +24,9 @@ package de.tudresden.inf.lat.jcel.core.completion.alt;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.REntry;
@@ -79,8 +81,12 @@ public class CR8RAltRule implements RObserverRule {
 						.getGCI2Axioms(a)) {
 					Integer sMinus = axiom.getPropertyInSuperClass();
 					Integer s = status.getInverseObjectPropertyOf(sMinus);
-					if (status.getExtendedOntology().getRI2rAxioms(s)
-							.contains(new RI2Axiom(s, r))) {
+					Set<RI2Axiom> axiomSet = new HashSet<RI2Axiom>();
+					axiomSet.addAll(status.getExtendedOntology().getRI2rAxioms(
+							s));
+					axiomSet.retainAll(status.getExtendedOntology()
+							.getRI2sAxioms(r));
+					if (!axiomSet.isEmpty()) {
 						Integer b = axiom.getClassInSuperClass();
 						ret.add(new SEntryImpl(x, b));
 					}

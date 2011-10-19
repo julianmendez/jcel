@@ -36,7 +36,7 @@ public class IntegerDataProperty implements IntegerDataPropertyExpression,
 	private final Integer id;
 
 	/**
-	 * Constructs an data property.
+	 * Constructs a data property.
 	 * 
 	 * @param n
 	 *            data property identifier

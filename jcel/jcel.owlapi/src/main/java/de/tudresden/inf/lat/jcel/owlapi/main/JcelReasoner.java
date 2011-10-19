@@ -64,7 +64,7 @@ import org.semanticweb.owlapi.util.Version;
 import de.tudresden.inf.lat.jcel.core.reasoner.IntegerReasoner;
 import de.tudresden.inf.lat.jcel.core.reasoner.RuleBasedReasoner;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactoryImpl;
 import de.tudresden.inf.lat.jcel.owlapi.translator.Translator;
 
 /**
@@ -103,9 +103,9 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 
 		this.rootOntology = rootOntology;
 		this.translator = new Translator(rootOntology,
-				new ComplexIntegerAxiomFactory());
+				new IntegerOntologyObjectFactoryImpl());
 		this.jcelCore = new RuleBasedReasoner(this.translator.getOntology(),
-				this.translator.getAxiomFactory(), buffering);
+				this.translator.getOntologyObjectFactory(), buffering);
 		this.rootOntology.getOWLOntologyManager().addOntologyChangeListener(
 				this);
 	}
@@ -131,9 +131,9 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 
 		this.rootOntology = rootOntology;
 		this.translator = new Translator(rootOntology,
-				new ComplexIntegerAxiomFactory());
+				new IntegerOntologyObjectFactoryImpl());
 		this.jcelCore = new RuleBasedReasoner(this.translator.getOntology(),
-				this.translator.getAxiomFactory(), buffering);
+				this.translator.getOntologyObjectFactory(), buffering);
 		this.reasonerConfiguration = configuration;
 		this.rootOntology.getOWLOntologyManager().addOntologyChangeListener(
 				this);

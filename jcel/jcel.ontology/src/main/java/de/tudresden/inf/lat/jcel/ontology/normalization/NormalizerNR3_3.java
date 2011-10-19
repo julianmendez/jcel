@@ -25,8 +25,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
@@ -49,17 +49,19 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
  */
 class NormalizerNR3_3 implements NormalizationRule {
 
-	private ComplexIntegerAxiomFactory axiomFactory = null;
+	private final IntegerOntologyObjectFactory ontologyObjectFactory;
 
 	/**
 	 * Constructs a new normalizer rule NR-3.3.
+	 * 
+	 * @param factory
+	 *            factory
 	 */
-	public NormalizerNR3_3(ComplexIntegerAxiomFactory factory) {
+	public NormalizerNR3_3(IntegerOntologyObjectFactory factory) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-
-		this.axiomFactory = factory;
+		this.ontologyObjectFactory = factory;
 	}
 
 	@Override
@@ -84,11 +86,15 @@ class NormalizerNR3_3 implements NormalizationRule {
 			ret = new HashSet<IntegerAxiom>();
 			Set<IntegerClassExpression> operands = intersection.getOperands();
 			for (IntegerClassExpression operand : operands) {
-				ret.add(this.axiomFactory.createSubClassOfAxiom(
-						subClass, operand));
+				ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
+						.createSubClassOfAxiom(subClass, operand));
 			}
 		}
 		return ret;
+	}
+
+	private IntegerOntologyObjectFactory getOntologyObjectFactory() {
+		return this.ontologyObjectFactory;
 	}
 
 }

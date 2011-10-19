@@ -25,9 +25,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
@@ -51,29 +50,19 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
  */
 class NormalizerNR3_1 implements NormalizationRule {
 
-	private ComplexIntegerAxiomFactory axiomFactory = null;
-
-	private IdGenerator nameGenerator = null;
+	private final IntegerOntologyObjectFactory ontologyObjectFactory;
 
 	/**
 	 * Constructs a new normalizer rule NR-3.1.
 	 * 
-	 * @param generator
-	 *            an identifier generator
 	 * @param factory
-	 *            axiom factory
+	 *            factory
 	 */
-	public NormalizerNR3_1(IdGenerator generator,
-			ComplexIntegerAxiomFactory factory) {
-		if (generator == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+	public NormalizerNR3_1(IntegerOntologyObjectFactory factory) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-
-		this.nameGenerator = generator;
-		this.axiomFactory = factory;
+		this.ontologyObjectFactory = factory;
 	}
 
 	@Override
@@ -96,14 +85,18 @@ class NormalizerNR3_1 implements NormalizationRule {
 		if (!subClass.isLiteral()
 				&& superClass instanceof IntegerObjectSomeValuesFrom) {
 			ret = new HashSet<IntegerAxiom>();
-			IntegerClass newClass = new IntegerClass(
-					this.nameGenerator.createNewClassId());
-			ret.add(this.axiomFactory.createSubClassOfAxiom(subClass,
-					newClass));
-			ret.add(this.axiomFactory.createSubClassOfAxiom(newClass,
-					superClass));
+			IntegerClass newClass = new IntegerClass(getOntologyObjectFactory()
+					.getIdGenerator().createNewClassId());
+			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
+					.createSubClassOfAxiom(subClass, newClass));
+			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
+					.createSubClassOfAxiom(newClass, superClass));
 		}
 		return ret;
+	}
+
+	private IntegerOntologyObjectFactory getOntologyObjectFactory() {
+		return this.ontologyObjectFactory;
 	}
 
 }

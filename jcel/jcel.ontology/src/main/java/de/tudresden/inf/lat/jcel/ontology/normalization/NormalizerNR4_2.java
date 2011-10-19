@@ -26,9 +26,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI0Axiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NominalAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
@@ -47,20 +45,19 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectOneOf;
  */
 class NormalizerNR4_2 implements NormalizationRule {
 
-	private IdGenerator nameGenerator = null;
+	private final IntegerOntologyObjectFactory ontologyObjectFactory;
 
 	/**
 	 * Constructs a new normalizer rule NR-4.2.
 	 * 
-	 * @param generator
-	 *            an identifier generator
+	 * @param factory
+	 *            factory
 	 */
-	public NormalizerNR4_2(IdGenerator generator) {
-		if (generator == null) {
+	public NormalizerNR4_2(IntegerOntologyObjectFactory factory) {
+		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-
-		this.nameGenerator = generator;
+		this.ontologyObjectFactory = factory;
 	}
 
 	@Override
@@ -84,13 +81,20 @@ class NormalizerNR4_2 implements NormalizationRule {
 			IntegerObjectOneOf oneOf = (IntegerObjectOneOf) subClass;
 			ret = new HashSet<IntegerAxiom>();
 			Integer individual = oneOf.getIndividual();
-			Integer auxiliaryClass = nameGenerator
-					.createOrGetClassIdForIndividual(individual);
-			ret.add(new NominalAxiom(auxiliaryClass, individual));
-			ret.add(new GCI0Axiom(auxiliaryClass, ((IntegerClass) superClass)
-					.getId()));
+			Integer auxiliaryClass = getOntologyObjectFactory()
+					.getIdGenerator().createOrGetClassIdForIndividual(
+							individual);
+			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
+					.createNominalAxiom(auxiliaryClass, individual));
+			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
+					.createGCI0Axiom(auxiliaryClass,
+							((IntegerClass) superClass).getId()));
 		}
 		return ret;
+	}
+
+	private IntegerOntologyObjectFactory getOntologyObjectFactory() {
+		return this.ontologyObjectFactory;
 	}
 
 }

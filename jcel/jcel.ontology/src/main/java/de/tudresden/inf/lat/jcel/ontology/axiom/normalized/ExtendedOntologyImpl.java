@@ -425,7 +425,7 @@ public class ExtendedOntologyImpl implements ExtendedOntology,
 	}
 
 	@Override
-	public Boolean visit(FunctionalObjectPropertyAxiom axiom) {
+	public Boolean visit(FunctObjectPropAxiom axiom) {
 		if (axiom == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

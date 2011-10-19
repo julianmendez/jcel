@@ -41,9 +41,8 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerRelationMapImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGeneratorImpl;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
@@ -83,7 +82,6 @@ public class CelProcessor implements Processor {
 	private static final Integer objectPropertyBottomElement = IntegerDatatype.objectPropertyBottomElement;
 	private static final Integer objectPropertyTopElement = IntegerDatatype.objectPropertyTopElement;
 
-	private ComplexIntegerAxiomFactory axiomFactory = null;
 	private IntegerSubsumerGraphImpl classGraph = null;
 	private IntegerHierarchicalGraph classHierarchy = null;
 	private IntegerHierarchicalGraph dataPropertyHierarchy = null;
@@ -93,12 +91,14 @@ public class CelProcessor implements Processor {
 	private boolean isReady = false;
 	private IntegerSubsumerGraphImpl objectPropertyGraph = null;
 	private IntegerHierarchicalGraph objectPropertyHierarchy = null;
+	private IntegerOntologyObjectFactory ontologyObjectFactory;
 	private Set<ComplexIntegerAxiom> originalAxiomSet = null;
 	private Map<Integer, Set<Integer>> propertyUsedByClass = null;
 	private Deque<ExtensionEntry> queueEntries = new ArrayDeque<ExtensionEntry>();
 	private Deque<Integer> queueKeys = new ArrayDeque<Integer>();
 	private IntegerRelationMapImpl relationSet = null;
 	private Map<Integer, Set<Integer>> sameIndividualMap = null;
+
 	private Map<Integer, Set<Integer>> transitiveSubsumed = null;
 
 	/**
@@ -108,7 +108,7 @@ public class CelProcessor implements Processor {
 	 *            set of axioms
 	 */
 	public CelProcessor(Set<ComplexIntegerAxiom> axioms,
-			ComplexIntegerAxiomFactory factory) {
+			IntegerOntologyObjectFactory factory) {
 		if (axioms == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -116,7 +116,6 @@ public class CelProcessor implements Processor {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.axiomFactory = factory;
 		preProcess(axioms);
 	}
 
@@ -247,15 +246,6 @@ public class CelProcessor implements Processor {
 		return ret;
 	}
 
-	/**
-	 * Returns the axiom factory.
-	 * 
-	 * @return the axiom factory
-	 */
-	protected ComplexIntegerAxiomFactory getAxiomFactory() {
-		return this.axiomFactory;
-	}
-
 	@Override
 	public Set<ComplexIntegerAxiom> getAxiomSet() {
 		return this.originalAxiomSet;
@@ -344,6 +334,10 @@ public class CelProcessor implements Processor {
 			throw new UnclassifiedOntologyException();
 		}
 		return this.objectPropertyHierarchy;
+	}
+
+	public IntegerOntologyObjectFactory getOntologyObjectFactory() {
+		return this.ontologyObjectFactory;
 	}
 
 	private Set<Integer> getPropertyUsedByClass(Integer cA) {
@@ -524,14 +518,11 @@ public class CelProcessor implements Processor {
 		originalObjectPropertySet.add(objectPropertyBottomElement);
 		originalObjectPropertySet.add(objectPropertyTopElement);
 
-		this.idGenerator = new IdGeneratorImpl(originalClassSet,
-				originalObjectPropertySet);
-
 		logger.finer("normalizing ontology ...");
 		OntologyNormalizer normalizer = new OntologyNormalizer();
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
 		ontology.addAll(normalizer.normalize(this.originalAxiomSet,
-				getIdGenerator(), getAxiomFactory()));
+				getOntologyObjectFactory()));
 
 		logger.finer("auxiliary classes created (including nominals) : "
 				+ (getIdGenerator().getNextClassId() - getIdGenerator()

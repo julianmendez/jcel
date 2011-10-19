@@ -28,8 +28,7 @@ import java.util.List;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubPropertyChainOfAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI1Axiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
@@ -58,20 +57,19 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  */
 class NormalizerNR2_1 implements NormalizationRule {
 
-	private IdGenerator idGenerator = null;
+	private final IntegerOntologyObjectFactory ontologyObjectFactory;
 
 	/**
 	 * Constructs a new normalizer of rule NR-2.1.
 	 * 
-	 * @param generator
-	 *            an identifier generator
+	 * @param factory
+	 *            factory
 	 */
-	public NormalizerNR2_1(IdGenerator generator) {
-		if (generator == null) {
+	public NormalizerNR2_1(IntegerOntologyObjectFactory factory) {
+		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-
-		this.idGenerator = generator;
+		this.ontologyObjectFactory = factory;
 	}
 
 	@Override
@@ -98,10 +96,11 @@ class NormalizerNR2_1 implements NormalizationRule {
 			int lastPos = propertyList.size() - 1;
 			Integer lastPropertyName = getNormalizedObjectProperty(propertyList
 					.get(lastPos));
-			Integer newPropertyName = this.idGenerator
-					.createNewObjectPropertyId();
-			ret.add(new RI3Axiom(newPropertyName, lastPropertyName,
-					superProperty));
+			Integer newPropertyName = getOntologyObjectFactory()
+					.getIdGenerator().createNewObjectPropertyId();
+			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
+					.createRI3Axiom(newPropertyName, lastPropertyName,
+							superProperty));
 			ret.add(createRI3AxiomWithInverse(newPropertyName,
 					lastPropertyName, superProperty));
 			propertyList = propertyList.subList(0, lastPos);
@@ -112,38 +111,48 @@ class NormalizerNR2_1 implements NormalizationRule {
 					.iterator();
 			Integer first = getNormalizedObjectProperty(it.next());
 			Integer second = getNormalizedObjectProperty(it.next());
-			ret.add(new RI3Axiom(first, second, superProperty));
+			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
+					.createRI3Axiom(first, second, superProperty));
 			ret.add(createRI3AxiomWithInverse(first, second, superProperty));
 		} else if (propertyList.size() == 1) {
 			Integer subProperty = getNormalizedObjectProperty(propertyList
 					.iterator().next());
-			ret.add(new RI2Axiom(subProperty, superProperty));
+			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
+					.createRI2Axiom(subProperty, superProperty));
 			ret.add(createRI2AxiomWithInverse(subProperty, superProperty));
 		} else if (propertyList.size() == 0) {
-			ret.add(new RI1Axiom(superProperty));
+			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
+					.createRI1Axiom(superProperty));
 		}
 		return ret;
 	}
 
 	private RI2Axiom createRI2AxiomWithInverse(Integer subProperty,
 			Integer superProperty) {
-		Integer inverseSubProperty = this.idGenerator
-				.createOrGetInverseObjectPropertyOf(subProperty);
-		Integer inverseSuperProperty = this.idGenerator
-				.createOrGetInverseObjectPropertyOf(superProperty);
-		return new RI2Axiom(inverseSubProperty, inverseSuperProperty);
+		Integer inverseSubProperty = getOntologyObjectFactory()
+				.getIdGenerator().createOrGetInverseObjectPropertyOf(
+						subProperty);
+		Integer inverseSuperProperty = getOntologyObjectFactory()
+				.getIdGenerator().createOrGetInverseObjectPropertyOf(
+						superProperty);
+		return getOntologyObjectFactory().getNormalizedAxiomFactory()
+				.createRI2Axiom(inverseSubProperty, inverseSuperProperty);
 	}
 
 	private RI3Axiom createRI3AxiomWithInverse(Integer firstProperty,
 			Integer secondProperty, Integer superProperty) {
-		Integer inverseFirstProperty = this.idGenerator
-				.createOrGetInverseObjectPropertyOf(firstProperty);
-		Integer inverseLastProperty = this.idGenerator
-				.createOrGetInverseObjectPropertyOf(secondProperty);
-		Integer inverseSuperProperty = this.idGenerator
-				.createOrGetInverseObjectPropertyOf(superProperty);
-		return new RI3Axiom(inverseLastProperty, inverseFirstProperty,
-				inverseSuperProperty);
+		Integer inverseFirstProperty = getOntologyObjectFactory()
+				.getIdGenerator().createOrGetInverseObjectPropertyOf(
+						firstProperty);
+		Integer inverseLastProperty = getOntologyObjectFactory()
+				.getIdGenerator().createOrGetInverseObjectPropertyOf(
+						secondProperty);
+		Integer inverseSuperProperty = getOntologyObjectFactory()
+				.getIdGenerator().createOrGetInverseObjectPropertyOf(
+						superProperty);
+		return getOntologyObjectFactory().getNormalizedAxiomFactory()
+				.createRI3Axiom(inverseLastProperty, inverseFirstProperty,
+						inverseSuperProperty);
 	}
 
 	private Integer getNormalizedObjectProperty(
@@ -152,10 +161,14 @@ class NormalizerNR2_1 implements NormalizationRule {
 		if (propExpr instanceof IntegerObjectProperty) {
 			ret = propExpr.getId();
 		} else {
-			ret = this.idGenerator.createOrGetInverseObjectPropertyOf(propExpr
-					.getId());
+			ret = getOntologyObjectFactory().getIdGenerator()
+					.createOrGetInverseObjectPropertyOf(propExpr.getId());
 		}
 		return ret;
+	}
+
+	private IntegerOntologyObjectFactory getOntologyObjectFactory() {
+		return this.ontologyObjectFactory;
 	}
 
 }

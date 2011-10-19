@@ -47,7 +47,7 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 	 *            object property identifier for the right-hand part of the
 	 *            axiom
 	 */
-	public RI2Axiom(Integer leftProp, Integer rightProp) {
+	protected RI2Axiom(Integer leftProp, Integer rightProp) {
 		if (leftProp == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

@@ -34,9 +34,6 @@ import java.util.Set;
  */
 public class IdGeneratorImpl implements IdGenerator {
 
-	// private static final Logger logger = Logger.getLogger(NameGenerator.class
-	// .getName());
-
 	private Map<Integer, Integer> auxiliaryNominalMap = new HashMap<Integer, Integer>();
 	private Integer firstClassId = null;
 	private Integer firstObjectPropertyId = null;
@@ -47,52 +44,8 @@ public class IdGeneratorImpl implements IdGenerator {
 
 	/**
 	 * Constructs a new identifier generator.
-	 * 
-	 * @param classOffset
-	 *            first class identifier to start the generation
-	 * @param propertyOffset
-	 *            first object property identifier to start the generation
 	 */
-	public IdGeneratorImpl(Integer classOffset, Integer propertyOffset) {
-		if (classOffset == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (propertyOffset == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		this.firstClassId = classOffset;
-		this.firstObjectPropertyId = propertyOffset;
-		this.nextClassId = this.firstClassId;
-		this.nextObjectPropertyId = this.firstObjectPropertyId;
-	}
-
-	/**
-	 * Constructs a new identifier generator.
-	 * 
-	 * @param usedClasses
-	 *            set of classes already used; if the set is non-empty, the
-	 *            counter starts with max(set) + 1, if the set is empty, the
-	 *            counter starts with 0
-	 * @param usedProperties
-	 *            set of object properties already used; if the set is
-	 *            non-empty, the counter starts with max(set) + 1, if the set is
-	 *            empty, the counter starts with 0
-	 */
-	public IdGeneratorImpl(Set<Integer> usedClasses, Set<Integer> usedProperties) {
-		if (usedClasses == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (usedProperties == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		this.firstClassId = usedClasses.isEmpty() ? 0
-				: getMaximum(usedClasses) + 1;
-		this.firstObjectPropertyId = usedProperties.isEmpty() ? 0
-				: getMaximum(usedProperties) + 1;
-		this.nextClassId = this.firstClassId;
-		this.nextObjectPropertyId = this.firstObjectPropertyId;
+	public IdGeneratorImpl() {
 	}
 
 	private void assertBounds(Integer propertyId)
@@ -213,21 +166,6 @@ public class IdGeneratorImpl implements IdGenerator {
 		return Collections.unmodifiableSet(this.auxiliaryNominalMap.keySet());
 	}
 
-	private Integer getMaximum(Set<Integer> set) {
-		if (set.isEmpty()) {
-			throw new IllegalArgumentException(
-					"Computing maximum of empty set.");
-		}
-
-		Integer ret = set.iterator().next();
-		for (Integer elem : set) {
-			if (elem > ret) {
-				ret = elem;
-			}
-		}
-		return ret;
-	}
-
 	@Override
 	public Integer getNextClassId() {
 		return this.nextClassId;
@@ -266,6 +204,21 @@ public class IdGeneratorImpl implements IdGenerator {
 			ret = true;
 		}
 		return ret;
+	}
+
+	@Override
+	public void resetTo(Integer classOffset, Integer propertyOffset) {
+		if (classOffset == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (propertyOffset == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		this.firstClassId = classOffset;
+		this.firstObjectPropertyId = propertyOffset;
+		this.nextClassId = this.firstClassId;
+		this.nextObjectPropertyId = this.firstObjectPropertyId;
 	}
 
 	@Override

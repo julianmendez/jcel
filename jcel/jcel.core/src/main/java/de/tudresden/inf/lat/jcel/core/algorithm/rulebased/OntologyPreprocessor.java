@@ -48,10 +48,8 @@ import de.tudresden.inf.lat.jcel.core.completion.ext.CR8SExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR9ExtOptRule;
 import de.tudresden.inf.lat.jcel.core.saturation.SubPropertyNormalizer;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.ComplexAxiomExpressivityDetector;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGeneratorImpl;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.OntologyExpressivity;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntology;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntologyImpl;
@@ -83,12 +81,11 @@ public class OntologyPreprocessor {
 	private static final Integer propertyBottomElement = IntegerDatatype.objectPropertyBottomElement;
 	private static final Integer propertyTopElement = IntegerDatatype.objectPropertyTopElement;
 
-	private ComplexIntegerAxiomFactory axiomFactory = null;
 	private RChain chainR = new RChain(new ArrayList<RObserverRule>());
 	private SChain chainS = new SChain(new ArrayList<SObserverRule>());
 	private OntologyExpressivity expressivityDetector = null;
 	private ExtendedOntologyImpl extendedOntology = null;
-	private IdGenerator idGenerator = null;
+	private IntegerOntologyObjectFactory ontologyObjectFactory = null;
 	private Set<Integer> originalClassSet = null;
 	private Set<Integer> originalObjectPropertySet = null;
 
@@ -99,7 +96,7 @@ public class OntologyPreprocessor {
 	 *            set of axioms
 	 */
 	public OntologyPreprocessor(Set<ComplexIntegerAxiom> axiomSet,
-			ComplexIntegerAxiomFactory factory) {
+			IntegerOntologyObjectFactory factory) {
 		if (axiomSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -107,7 +104,7 @@ public class OntologyPreprocessor {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.axiomFactory = factory;
+		this.ontologyObjectFactory = factory;
 		preProcess(axiomSet);
 	}
 
@@ -191,15 +188,6 @@ public class OntologyPreprocessor {
 	}
 
 	/**
-	 * Returns the axiom factory.
-	 * 
-	 * @return the axiom factory
-	 */
-	public ComplexIntegerAxiomFactory getAxiomFactory() {
-		return this.axiomFactory;
-	}
-
-	/**
 	 * Returns the ontology expressivity.
 	 * 
 	 * @return the ontology expressivity
@@ -218,12 +206,12 @@ public class OntologyPreprocessor {
 	}
 
 	/**
-	 * Returns the identifier generator.
+	 * Returns the ontology object factory.
 	 * 
-	 * @return the identifier generator
+	 * @return the ontology object factory
 	 */
-	public IdGenerator getIdGenerator() {
-		return this.idGenerator;
+	public IntegerOntologyObjectFactory getOntologyObjectFactory() {
+		return this.ontologyObjectFactory;
 	}
 
 	/**
@@ -265,9 +253,6 @@ public class OntologyPreprocessor {
 	private void preProcess(Set<ComplexIntegerAxiom> axiomSet) {
 		findEntities(axiomSet);
 
-		this.idGenerator = new IdGeneratorImpl(this.originalClassSet,
-				this.originalObjectPropertySet);
-
 		this.expressivityDetector = new ComplexAxiomExpressivityDetector(
 				axiomSet);
 
@@ -283,10 +268,10 @@ public class OntologyPreprocessor {
 
 		OntologyNormalizer axiomNormalizer = new OntologyNormalizer();
 		SubPropertyNormalizer subPropNormalizer = new SubPropertyNormalizer(
-				getIdGenerator());
+				getOntologyObjectFactory());
 		this.extendedOntology = new ExtendedOntologyImpl();
 		this.extendedOntology.load(subPropNormalizer.apply(axiomNormalizer
-				.normalize(axiomSet, getIdGenerator(), getAxiomFactory())));
+				.normalize(axiomSet, getOntologyObjectFactory())));
 
 		for (Integer elem : this.originalObjectPropertySet) {
 			this.extendedOntology.addObjectProperty(elem);

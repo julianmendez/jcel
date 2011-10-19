@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.FunctionalObjectPropertyAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.FunctObjectPropAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI0Axiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI1Axiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI2Axiom;
@@ -230,7 +230,7 @@ public class CelExtendedOntology implements
 	}
 
 	@Override
-	public Boolean visit(FunctionalObjectPropertyAxiom axiom) {
+	public Boolean visit(FunctObjectPropAxiom axiom) {
 		if (axiom == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

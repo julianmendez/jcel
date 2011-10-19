@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
 
@@ -39,17 +40,16 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
  */
 public class SR3Rule implements SaturationRule {
 
-	private IdGenerator idGenerator = null;
+	private final IntegerOntologyObjectFactory factory;
 
 	/**
 	 * Constructs a new SR-3 rule.
 	 */
-	public SR3Rule(IdGenerator generator) {
-		if (generator == null) {
+	public SR3Rule(IntegerOntologyObjectFactory factory) {
+		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-
-		this.idGenerator = generator;
+		this.factory = factory;
 	}
 
 	@Override
@@ -73,8 +73,9 @@ public class SR3Rule implements SaturationRule {
 				Integer invSuperProp = getIdGenerator()
 						.createOrGetInverseObjectPropertyOf(
 								axiom.getSuperProperty());
-				RI3Axiom newAxiom = new RI3Axiom(invRightSubProp,
-						invLeftSubProp, invSuperProp);
+				RI3Axiom newAxiom = this.factory.getNormalizedAxiomFactory()
+						.createRI3Axiom(invRightSubProp, invLeftSubProp,
+								invSuperProp);
 				ret.add(newAxiom);
 			}
 		}
@@ -82,7 +83,7 @@ public class SR3Rule implements SaturationRule {
 	}
 
 	private IdGenerator getIdGenerator() {
-		return this.idGenerator;
+		return this.factory.getIdGenerator();
 	}
 
 }

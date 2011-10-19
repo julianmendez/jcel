@@ -25,8 +25,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
 
 /**
  * For each object property r, this rule adds r &#8849; r.
@@ -35,10 +35,16 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
  */
 public class SR0Rule implements SaturationRule {
 
+	private IntegerOntologyObjectFactory factory;
+
 	/**
 	 * Constructs a new SR-0 rule.
 	 */
-	public SR0Rule() {
+	public SR0Rule(IntegerOntologyObjectFactory factory) {
+		if (factory == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		this.factory = factory;
 	}
 
 	@Override
@@ -57,7 +63,8 @@ public class SR0Rule implements SaturationRule {
 		}
 
 		for (Integer objectProperty : objectPropertySet) {
-			ret.add(new RI2Axiom(objectProperty, objectProperty));
+			ret.add(this.factory.getNormalizedAxiomFactory().createRI2Axiom(
+					objectProperty, objectProperty));
 		}
 
 		return Collections.unmodifiableSet(ret);

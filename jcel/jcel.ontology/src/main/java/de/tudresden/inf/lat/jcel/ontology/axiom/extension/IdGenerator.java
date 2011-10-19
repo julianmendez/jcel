@@ -54,7 +54,7 @@ public interface IdGenerator {
 	 * @return the class identifier for the given individual
 	 */
 	public Integer createOrGetClassIdForIndividual(Integer individual);
-
+	
 	/**
 	 * Returns the inverse object property of the given object property. If this
 	 * property does not exist, it creates a new auxiliary object property.
@@ -145,5 +145,15 @@ public interface IdGenerator {
 	 */
 	public boolean proposeInverseObjectPropertyOf(Integer firstProperty,
 			Integer secondProperty) throws IndexOutOfBoundsException;
+
+	/**
+	 * Resets the counter to the given new values.
+	 * 
+	 * @param classOffset
+	 *            first class identifier to start the generation
+	 * @param propertyOffset
+	 *            first object property identifier to start the generation
+	 */
+	public void resetTo(Integer classOffset, Integer propertyOffset);
 
 }

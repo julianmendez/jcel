@@ -50,7 +50,7 @@ public class GCI1Axiom implements NormalizedIntegerAxiom {
 	 * @param rightCl
 	 *            superclass in the axiom
 	 */
-	public GCI1Axiom(List<Integer> leftClList, Integer rightCl) {
+	protected GCI1Axiom(List<Integer> leftClList, Integer rightCl) {
 		if (leftClList == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

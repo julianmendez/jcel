@@ -45,7 +45,7 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 	 * @param cl
 	 *            class identifier
 	 */
-	public RangeAxiom(Integer prop, Integer cl) {
+	protected RangeAxiom(Integer prop, Integer cl) {
 		if (prop == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

@@ -43,8 +43,8 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
 
 /**
@@ -59,12 +59,12 @@ public class RuleBasedProcessor implements Processor {
 			.getLogger(RuleBasedProcessor.class.getName());
 	private static final long loggingFrequency = 0x100000;
 
-	private ComplexIntegerAxiomFactory axiomFactory = null;
 	private RChain chainR = null;
 	private SChain chainS = null;
 	private IntegerHierarchicalGraph classHierarchy = null;
 	private IntegerHierarchicalGraph dataPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> directTypes = null;
+	private final IntegerOntologyObjectFactory factory;
 	private boolean isReady = false;
 	private long iteration = 0;
 	private long loggingCount = loggingFrequency;
@@ -82,7 +82,7 @@ public class RuleBasedProcessor implements Processor {
 	 *            set of complex axioms to be normalized and classified
 	 */
 	public RuleBasedProcessor(Set<ComplexIntegerAxiom> axioms,
-			ComplexIntegerAxiomFactory factory) {
+			IntegerOntologyObjectFactory factory) {
 		if (axioms == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -90,7 +90,7 @@ public class RuleBasedProcessor implements Processor {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.axiomFactory = factory;
+		this.factory = factory;
 		preProcess(axioms);
 	}
 
@@ -218,13 +218,8 @@ public class RuleBasedProcessor implements Processor {
 		return Collections.unmodifiableMap(this.directTypes);
 	}
 
-	/**
-	 * Returns the id generator.
-	 * 
-	 * @return the id generator.
-	 */
-	protected IdGenerator getIdGenerator() {
-		return this.status.getIdGenerator();
+	private IdGenerator getIdGenerator() {
+		return getOntologyObjectFactory().getIdGenerator();
 	}
 
 	private IntegerSubsumerGraph getObjectPropertyGraph() {
@@ -237,6 +232,15 @@ public class RuleBasedProcessor implements Processor {
 			throw new UnclassifiedOntologyException();
 		}
 		return this.objectPropertyHierarchy;
+	}
+
+	/**
+	 * Returns the ontology object factory.
+	 * 
+	 * @return the ontology object factory.
+	 */
+	public IntegerOntologyObjectFactory getOntologyObjectFactory() {
+		return this.factory;
 	}
 
 	/**
@@ -378,7 +382,7 @@ public class RuleBasedProcessor implements Processor {
 
 		logger.fine("preprocessing ontology ...");
 		OntologyPreprocessor preprocessor = new OntologyPreprocessor(
-				this.originalAxiomSet, this.axiomFactory);
+				this.originalAxiomSet, factory);
 
 		logger.fine("description logic family : "
 				+ preprocessor.getExpressivity().toString() + " .");
@@ -394,21 +398,21 @@ public class RuleBasedProcessor implements Processor {
 				+ this.chainR + "\n");
 
 		logger.fine("classes read (including TOP and BOTTOM classes) : "
-				+ (preprocessor.getIdGenerator().getFirstClassId()));
+				+ (factory.getIdGenerator().getFirstClassId()));
 		logger.fine("object properties read (including TOP and BOTTOM object properties) : "
-				+ (preprocessor.getIdGenerator().getFirstObjectPropertyId()));
+				+ (factory.getIdGenerator().getFirstObjectPropertyId()));
 		logger.fine("auxiliary classes created (including nominals) : "
-				+ (preprocessor.getIdGenerator().getNextClassId() - preprocessor
+				+ (factory.getIdGenerator().getNextClassId() - factory
 						.getIdGenerator().getFirstClassId()));
 		logger.fine("auxiliary classes created for nominals : "
-				+ (preprocessor.getIdGenerator().getIndividuals().size()));
+				+ (factory.getIdGenerator().getIndividuals().size()));
 		logger.fine("auxiliary object properties created : "
-				+ (preprocessor.getIdGenerator().getNextObjectPropertyId() - preprocessor
+				+ (factory.getIdGenerator().getNextObjectPropertyId() - factory
 						.getIdGenerator().getFirstObjectPropertyId()));
 
 		logger.fine("creating class graph and object property graph ...");
 
-		this.status = new ClassifierStatusImpl(preprocessor.getIdGenerator(),
+		this.status = new ClassifierStatusImpl(factory.getIdGenerator(),
 				preprocessor.getExtendedOntology());
 
 		logger.finer("preparing queue ...");
