@@ -30,6 +30,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
 
 /**
@@ -86,9 +87,11 @@ class NormalizerNR3_1 implements NormalizationRule {
 				&& superClass instanceof IntegerObjectSomeValuesFrom) {
 			ret = new HashSet<IntegerAxiom>();
 			IntegerClass newClass = getOntologyObjectFactory()
-					.getDataTypeFactory().createClass(
-							getOntologyObjectFactory().getIdGenerator()
-									.createNewClassId());
+					.getDataTypeFactory()
+					.createClass(
+							getOntologyObjectFactory()
+									.getIdGenerator()
+									.createEntity(IntegerEntityType.CLASS, true));
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
 					.createSubClassOfAxiom(subClass, newClass));
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()

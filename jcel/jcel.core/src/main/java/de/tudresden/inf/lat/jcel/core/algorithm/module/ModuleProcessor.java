@@ -36,7 +36,7 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 
 /**
  * An object of this class classifies an ontology. It divides a set of axioms in
@@ -89,8 +89,8 @@ public class ModuleProcessor implements Processor {
 		boolean ret = false;
 		for (Iterator<Integer> it = b.iterator(); !ret && it.hasNext();) {
 			Integer elem = it.next();
-			if (!elem.equals(IntegerDatatype.classBottomElement)
-					&& !elem.equals(IntegerDatatype.classTopElement)) {
+			if (!elem.equals(IntegerEntityManager.classBottomElement)
+					&& !elem.equals(IntegerEntityManager.classTopElement)) {
 				ret = ret || a.contains(elem);
 			}
 		}
@@ -101,8 +101,8 @@ public class ModuleProcessor implements Processor {
 		boolean ret = false;
 		for (Iterator<Integer> it = b.iterator(); !ret && it.hasNext();) {
 			Integer elem = it.next();
-			if (!elem.equals(IntegerDatatype.objectPropertyBottomElement)
-					&& !elem.equals(IntegerDatatype.objectPropertyTopElement)) {
+			if (!elem.equals(IntegerEntityManager.objectPropertyBottomElement)
+					&& !elem.equals(IntegerEntityManager.objectPropertyTopElement)) {
 				ret = ret || a.contains(elem);
 			}
 		}
@@ -224,8 +224,8 @@ public class ModuleProcessor implements Processor {
 
 		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
 				new IntegerSubsumerGraphImpl(
-						IntegerDatatype.dataPropertyBottomElement,
-						IntegerDatatype.dataPropertyTopElement));
+						IntegerEntityManager.dataPropertyBottomElement,
+						IntegerEntityManager.dataPropertyTopElement));
 
 		this.moduleList = findModules(this.originalAxiomSet);
 		logger.fine("modules found : " + this.moduleList.size());
@@ -236,11 +236,10 @@ public class ModuleProcessor implements Processor {
 
 		this.moduleIndex = 0;
 		this.classHierarchy = new IntegerHierarchicalGraphImpl(
-				IntegerDatatype.classBottomElement,
-				IntegerDatatype.classTopElement);
+				IntegerEntityManager.classBottomElement, IntegerEntityManager.classTopElement);
 		this.objectPropertyHierarchy = new IntegerHierarchicalGraphImpl(
-				IntegerDatatype.objectPropertyBottomElement,
-				IntegerDatatype.objectPropertyTopElement);
+				IntegerEntityManager.objectPropertyBottomElement,
+				IntegerEntityManager.objectPropertyTopElement);
 		this.directTypes = new HashMap<Integer, Set<Integer>>();
 		this.sameIndividualMap = new HashMap<Integer, Set<Integer>>();
 

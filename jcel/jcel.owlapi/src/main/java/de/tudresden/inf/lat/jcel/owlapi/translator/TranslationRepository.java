@@ -21,10 +21,9 @@
 
 package de.tudresden.inf.lat.jcel.owlapi.translator;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -36,11 +35,15 @@ import org.semanticweb.owlapi.model.OWLDataHasValue;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
 
 /**
  * An object of this class is a repository used for the translation between OWL
@@ -51,24 +54,32 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class TranslationRepository {
 
-	public static final Integer versionNumber = 1;
+	private final OWLClass bottomClass;
+	private final OWLDataProperty bottomDataProperty;
+	private final OWLObjectProperty bottomObjectProperty;
+	private final Map<OWLClass, Integer> classInvMap = new HashMap<OWLClass, Integer>();
+	private final Map<Integer, OWLClass> classMap = new HashMap<Integer, OWLClass>();
+	private final Map<OWLDataProperty, Integer> dataPropertyInvMap = new HashMap<OWLDataProperty, Integer>();
+	private final Map<Integer, OWLDataProperty> dataPropertyMap = new HashMap<Integer, OWLDataProperty>();
+	private final IntegerEntityManager entityManager;
+	private final Map<OWLNamedIndividual, Integer> individualInvMap = new HashMap<OWLNamedIndividual, Integer>();
+	private final Map<Integer, OWLNamedIndividual> individualMap = new HashMap<Integer, OWLNamedIndividual>();
+	private final Map<OWLLiteral, Integer> literalInvMap = new HashMap<OWLLiteral, Integer>();
+	private final Map<Integer, OWLLiteral> literalMap = new HashMap<Integer, OWLLiteral>();
+	private final Map<OWLObjectProperty, Integer> objectPropertyInvMap = new HashMap<OWLObjectProperty, Integer>();
+	private final Map<Integer, OWLObjectProperty> objectPropertyMap = new HashMap<Integer, OWLObjectProperty>();
+	private final OWLClass topClass;
+	private final OWLDataProperty topDataProperty;
+	private final OWLObjectProperty topObjectProperty;
 
-	private OWLClass bottomClass = null;
-	private OWLDataProperty bottomDataProperty;
-	private OWLObjectProperty bottomObjectProperty = null;
-	private List<OWLClass> classList = null;
-	private List<OWLDataProperty> dataPropertyList = null;
-	private List<OWLNamedIndividual> individualList = null;
-	private List<OWLLiteral> literalList = null;
-	private List<OWLObjectProperty> objectPropertyList = null;
-	private OWLClass topClass = null;
-	private OWLDataProperty topDataProperty;
-	private OWLObjectProperty topObjectProperty = null;
-
-	public TranslationRepository(OWLOntology rootOntology) {
+	public TranslationRepository(OWLOntology rootOntology, IntegerEntityManager manager) {
 		if (rootOntology == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
+		if (manager == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		this.entityManager = manager;
 
 		OWLDataFactory dataFactory = rootOntology.getOWLOntologyManager()
 				.getOWLDataFactory();
@@ -82,17 +93,6 @@ public class TranslationRepository {
 
 		load(rootOntology.getAxioms());
 
-	}
-
-	/**
-	 * Clears the repository.
-	 */
-	public void clear() {
-		this.classList = new ArrayList<OWLClass>();
-		this.objectPropertyList = new ArrayList<OWLObjectProperty>();
-		this.individualList = new ArrayList<OWLNamedIndividual>();
-		this.dataPropertyList = new ArrayList<OWLDataProperty>();
-		this.literalList = new ArrayList<OWLLiteral>();
 	}
 
 	private Set<OWLLiteral> collectLiterals(OWLAxiom axiom) {
@@ -116,59 +116,121 @@ public class TranslationRepository {
 		return ret;
 	}
 
-	public OWLClass getOWLClass(int index) {
-		return this.classList.get(index);
+	public Integer getId(OWLClass owlClass) {
+		if (owlClass == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		Integer ret = this.classInvMap.get(owlClass);
+		if (ret == null) {
+			throw TranslationException.newIncompleteMapException(owlClass
+					.toStringID());
+		}
+		return ret;
+	}
+
+	public Integer getId(OWLDataProperty owlDataProperty) {
+		if (owlDataProperty == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		Integer ret = this.dataPropertyInvMap.get(owlDataProperty);
+		if (ret == null) {
+			throw TranslationException
+					.newIncompleteMapException(owlDataProperty.toStringID());
+		}
+		return ret;
+	}
+
+	public Integer getId(OWLIndividual individual) {
+		if (individual == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		Integer ret = this.individualInvMap.get(individual);
+		if (ret == null) {
+			throw TranslationException.newIncompleteMapException(individual
+					.toStringID());
+		}
+		return ret;
+	}
+
+	public Integer getId(OWLLiteral owlLiteral) {
+		if (owlLiteral == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		Integer ret = this.literalInvMap.get(owlLiteral);
+		if (ret == null) {
+			throw TranslationException.newIncompleteMapException(owlLiteral
+					.getLiteral());
+		}
+		return ret;
+	}
+
+	public Integer getId(OWLObjectProperty owlObjectProperty) {
+		if (owlObjectProperty == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		Integer ret = this.objectPropertyInvMap.get(owlObjectProperty);
+		if (ret == null) {
+			throw TranslationException
+					.newIncompleteMapException(owlObjectProperty.toStringID());
+		}
+		return ret;
 	}
 
 	public OWLClass getOWLClass(Integer index) {
 		if (index == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		if (index >= this.classList.size()) {
-			throw new IllegalArgumentException("Wrong index for OWLClass : '"
-					+ index + "'.");
+
+		OWLClass ret = this.classMap.get(index);
+		if (ret == null) {
+			throw TranslationException.newIncompleteMapException(index
+					.toString());
 		}
-		return this.classList.get(index);
+		return ret;
 	}
 
-	public List<OWLClass> getOWLClassList() {
-		return Collections.unmodifiableList(this.classList);
-	}
+	public OWLDataProperty getOWLDataProperty(Integer index) {
+		if (index == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
 
-	public OWLDataProperty getOWLDataProperty(int index) {
-		return this.dataPropertyList.get(index);
-	}
-
-	public List<OWLDataProperty> getOWLDataPropertyList() {
-		return Collections.unmodifiableList(this.dataPropertyList);
-	}
-
-	public List<OWLLiteral> getOWLLiteralList() {
-		return Collections.unmodifiableList(this.literalList);
+		OWLDataProperty ret = this.dataPropertyMap.get(index);
+		if (ret == null) {
+			throw TranslationException.newIncompleteMapException(index
+					.toString());
+		}
+		return ret;
 	}
 
 	public OWLNamedIndividual getOWLNamedIndividual(Integer index) {
 		if (index == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		if (index < this.classList.size()) {
-			throw new IllegalArgumentException(
-					"Wrong index for OWLNamedIndividual : '" + index + "'.");
+
+		OWLNamedIndividual ret = this.individualMap.get(index);
+		if (ret == null) {
+			throw TranslationException.newIncompleteMapException(index
+					.toString());
+		}
+		return ret;
+	}
+
+	public OWLObjectProperty getOWLObjectProperty(Integer index) {
+		if (index == null) {
+			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return this.individualList.get(index - this.classList.size());
-	}
-
-	public List<OWLNamedIndividual> getOWLNamedIndividualList() {
-		return Collections.unmodifiableList(this.individualList);
-	}
-
-	public OWLObjectProperty getOWLObjectProperty(int index) {
-		return this.objectPropertyList.get(index);
-	}
-
-	public List<OWLObjectProperty> getOWLObjectPropertyList() {
-		return Collections.unmodifiableList(this.objectPropertyList);
+		OWLObjectProperty ret = this.objectPropertyMap.get(index);
+		if (ret == null) {
+			throw TranslationException.newIncompleteMapException(index
+					.toString());
+		}
+		return ret;
 	}
 
 	/**
@@ -193,20 +255,18 @@ public class TranslationRepository {
 		Set<OWLDataProperty> dataPropertySet = new TreeSet<OWLDataProperty>();
 		Set<OWLLiteral> literalSet = new TreeSet<OWLLiteral>();
 
-		this.classList = new ArrayList<OWLClass>();
-		this.objectPropertyList = new ArrayList<OWLObjectProperty>();
-		this.individualList = new ArrayList<OWLNamedIndividual>();
-		this.dataPropertyList = new ArrayList<OWLDataProperty>();
-		this.literalList = new ArrayList<OWLLiteral>();
+		this.classMap.put(IntegerEntityManager.classBottomElement, this.bottomClass);
+		this.classMap.put(IntegerEntityManager.classTopElement, this.topClass);
 
-		this.classList.add(this.bottomClass); // 0
-		this.classList.add(this.topClass); // 1
+		this.objectPropertyMap.put(IntegerEntityManager.objectPropertyBottomElement,
+				this.bottomObjectProperty);
+		this.objectPropertyMap.put(IntegerEntityManager.objectPropertyTopElement,
+				this.topObjectProperty);
 
-		this.objectPropertyList.add(this.bottomObjectProperty); // 0
-		this.objectPropertyList.add(this.topObjectProperty); // 1
-
-		this.dataPropertyList.add(this.bottomDataProperty); // 0
-		this.dataPropertyList.add(this.topDataProperty); // 1
+		this.dataPropertyMap.put(IntegerEntityManager.dataPropertyBottomElement,
+				this.bottomDataProperty);
+		this.dataPropertyMap.put(IntegerEntityManager.dataPropertyTopElement,
+				this.topDataProperty);
 
 		for (OWLAxiom axiom : axiomSet) {
 			classSet.addAll(axiom.getClassesInSignature());
@@ -218,26 +278,52 @@ public class TranslationRepository {
 
 		classSet.remove(this.bottomClass);
 		classSet.remove(this.topClass);
-		this.classList.addAll(classSet);
-		this.objectPropertyList.addAll(objectPropertySet);
-		this.individualList.addAll(individualSet);
-		this.dataPropertyList.addAll(dataPropertySet);
-		this.literalList.addAll(literalSet);
+
+		for (OWLClass cls : classSet) {
+			Integer id = this.entityManager.createEntity(
+					IntegerEntityType.CLASS, false);
+			this.classMap.put(id, cls);
+			this.classInvMap.put(cls, id);
+		}
+		for (OWLObjectProperty objProp : objectPropertySet) {
+			Integer id = this.entityManager.createEntity(
+					IntegerEntityType.OBJECT_PROPERTY, false);
+			this.objectPropertyMap.put(id, objProp);
+			this.objectPropertyInvMap.put(objProp, id);
+		}
+		for (OWLNamedIndividual indiv : individualSet) {
+			Integer id = this.entityManager.createEntity(
+					IntegerEntityType.INDIVIDUAL, false);
+			this.individualMap.put(id, indiv);
+			this.individualInvMap.put(indiv, id);
+		}
+		for (OWLDataProperty dataProp : dataPropertySet) {
+			Integer id = this.entityManager.createEntity(
+					IntegerEntityType.DATA_PROPERTY, false);
+			this.dataPropertyMap.put(id, dataProp);
+			this.dataPropertyInvMap.put(dataProp, id);
+		}
+		for (OWLLiteral lit : literalSet) {
+			Integer id = this.entityManager.createEntity(
+					IntegerEntityType.LITERAL, false);
+			this.literalMap.put(id, lit);
+			this.literalInvMap.put(lit, id);
+		}
 	}
 
 	@Override
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append("\n");
-		sbuf.append(this.classList.toString());
+		sbuf.append(this.classMap.toString());
 		sbuf.append("\n");
-		sbuf.append(this.objectPropertyList.toString());
+		sbuf.append(this.objectPropertyMap.toString());
 		sbuf.append("\n");
-		sbuf.append(this.individualList.toString());
+		sbuf.append(this.individualMap.toString());
 		sbuf.append("\n");
-		sbuf.append(this.dataPropertyList.toString());
+		sbuf.append(this.dataPropertyMap.toString());
 		sbuf.append("\n");
-		sbuf.append(this.literalList.toString());
+		sbuf.append(this.literalMap.toString());
 		sbuf.append("\n");
 		return sbuf.toString();
 	}

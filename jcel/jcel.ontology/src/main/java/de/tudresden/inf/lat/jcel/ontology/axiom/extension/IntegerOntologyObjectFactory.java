@@ -23,6 +23,7 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.extension;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
 
 /**
@@ -52,7 +53,7 @@ public interface IntegerOntologyObjectFactory {
 	 * 
 	 * @return the identifier generator
 	 */
-	public IdGenerator getIdGenerator();
+	public IntegerEntityManager getIdGenerator();
 
 	/**
 	 * Returns the normalized axiom factory.

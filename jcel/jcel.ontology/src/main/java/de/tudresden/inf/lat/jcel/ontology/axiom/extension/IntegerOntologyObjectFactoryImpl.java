@@ -25,6 +25,8 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFacto
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactoryImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactoryImpl;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManagerImpl;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactoryImpl;
 
@@ -38,7 +40,7 @@ public class IntegerOntologyObjectFactoryImpl implements
 
 	private final ComplexIntegerAxiomFactory complexAxiomFactory = new ComplexIntegerAxiomFactoryImpl();
 	private final IntegerDataTypeFactory dataTypeFactory = new IntegerDataTypeFactoryImpl();
-	private final IdGenerator idGenerator = new IdGeneratorImpl();
+	private final IntegerEntityManager idGenerator = new IntegerEntityManagerImpl();
 	private final NormalizedIntegerAxiomFactory normalizedAxiomFactory = new NormalizedIntegerAxiomFactoryImpl();
 
 	/**
@@ -58,7 +60,7 @@ public class IntegerOntologyObjectFactoryImpl implements
 	}
 
 	@Override
-	public IdGenerator getIdGenerator() {
+	public IntegerEntityManager getIdGenerator() {
 		return this.idGenerator;
 	}
 

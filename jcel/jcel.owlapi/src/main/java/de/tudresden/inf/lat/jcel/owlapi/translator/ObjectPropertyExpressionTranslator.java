@@ -21,8 +21,6 @@
 
 package de.tudresden.inf.lat.jcel.owlapi.translator;
 
-import java.util.Map;
-
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -32,57 +30,44 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
+ * An object of this class can translate an object property expression of the
+ * OWL API into the integer-based representation.
  * 
  * @author Julian Mendez
  */
 public class ObjectPropertyExpressionTranslator implements
 		OWLPropertyExpressionVisitorEx<IntegerObjectPropertyExpression> {
 
-	private Map<OWLDataProperty, Integer> dataPropertyMap = null;
-	private Map<OWLObjectProperty, Integer> objectPropertyMap = null;
-	private IntegerDataTypeFactory factory;
+	private final IntegerDataTypeFactory factory;
+	private final TranslationRepository repository;
 
-	public ObjectPropertyExpressionTranslator(
-			Map<OWLObjectProperty, Integer> objPropMap,
-			Map<OWLDataProperty, Integer> dataPropMap,
-			IntegerDataTypeFactory factory) {
-		if (objPropMap == null) {
+	/**
+	 * Constructs a new object property expression translator.
+	 * 
+	 * @param factory
+	 *            data type factory
+	 * @param repository
+	 *            translation repository
+	 */
+	public ObjectPropertyExpressionTranslator(IntegerDataTypeFactory factory,
+			TranslationRepository repository) {
+		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		if (dataPropMap == null) {
+		if (repository == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.dataPropertyMap = dataPropMap;
-		this.objectPropertyMap = objPropMap;
 		this.factory = factory;
+		this.repository = repository;
 	}
 
-	public Integer getId(OWLDataProperty owlDataProperty) {
-		if (owlDataProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		Integer ret = this.dataPropertyMap.get(owlDataProperty);
-		if (ret == null) {
-			throw TranslationException
-					.newIncompleteMapException(owlDataProperty.toString());
-		}
-		return ret;
+	public IntegerDataTypeFactory getDataTypeFactory() {
+		return this.factory;
 	}
 
-	public Integer getId(OWLObjectProperty owlObjectProperty)
-			throws TranslationException {
-		if (owlObjectProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		Integer ret = this.objectPropertyMap.get(owlObjectProperty);
-		if (ret == null) {
-			throw TranslationException
-					.newIncompleteMapException(owlObjectProperty.toString());
-		}
-		return ret;
+	public TranslationRepository getTranslationRepository() {
+		return this.repository;
 	}
 
 	@Override
@@ -109,11 +94,8 @@ public class ObjectPropertyExpressionTranslator implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return getDataTypeFactory().createObjectProperty(getId(property));
-	}
-
-	public IntegerDataTypeFactory getDataTypeFactory() {
-		return this.factory;
+		return getDataTypeFactory().createObjectProperty(
+				getTranslationRepository().getId(property));
 	}
 
 }

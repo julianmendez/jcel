@@ -41,13 +41,13 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerRelationMapImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
 
 /**
@@ -75,19 +75,19 @@ import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
  */
 public class CelProcessor implements Processor {
 
-	private static final Integer classBottomElement = IntegerDatatype.classBottomElement;
-	private static final Integer classTopElement = IntegerDatatype.classTopElement;
+	private static final Integer classBottomElement = IntegerEntityManager.classBottomElement;
+	private static final Integer classTopElement = IntegerEntityManager.classTopElement;
 	private static final Logger logger = Logger.getLogger(CelProcessor.class
 			.getName());
-	private static final Integer objectPropertyBottomElement = IntegerDatatype.objectPropertyBottomElement;
-	private static final Integer objectPropertyTopElement = IntegerDatatype.objectPropertyTopElement;
+	private static final Integer objectPropertyBottomElement = IntegerEntityManager.objectPropertyBottomElement;
+	private static final Integer objectPropertyTopElement = IntegerEntityManager.objectPropertyTopElement;
 
 	private IntegerSubsumerGraphImpl classGraph = null;
 	private IntegerHierarchicalGraph classHierarchy = null;
 	private IntegerHierarchicalGraph dataPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> directTypes = null;
 	private CelExtendedOntology extendedOntology = null;
-	private IdGenerator idGenerator = null;
+	private IntegerEntityManager idGenerator = null;
 	private boolean isReady = false;
 	private IntegerSubsumerGraphImpl objectPropertyGraph = null;
 	private IntegerHierarchicalGraph objectPropertyHierarchy = null;
@@ -135,7 +135,8 @@ public class CelProcessor implements Processor {
 	private Map<Integer, Set<Integer>> computeDirectTypes(
 			IntegerHierarchicalGraph hierarchicalGraph) {
 		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
-		Set<Integer> individuals = getIdGenerator().getIndividuals();
+		Set<Integer> individuals = getIdGenerator().getEntities(
+				IntegerEntityType.INDIVIDUAL, false);
 		for (Integer indiv : individuals) {
 			Set<Integer> subsumers = hierarchicalGraph
 					.getParents(getIdGenerator().getAuxiliaryNominal(indiv));
@@ -153,7 +154,8 @@ public class CelProcessor implements Processor {
 	private Map<Integer, Set<Integer>> computeSameIndividualMap(
 			IntegerHierarchicalGraph hierarchicalGraph) {
 		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
-		Set<Integer> individuals = getIdGenerator().getIndividuals();
+		Set<Integer> individuals = getIdGenerator().getEntities(
+				IntegerEntityType.INDIVIDUAL, false);
 		for (Integer indiv : individuals) {
 			Set<Integer> equivalentClasses = hierarchicalGraph
 					.getEquivalents(getIdGenerator().getAuxiliaryNominal(indiv));
@@ -320,7 +322,7 @@ public class CelProcessor implements Processor {
 	 * 
 	 * @return the id generator.
 	 */
-	protected IdGenerator getIdGenerator() {
+	protected IntegerEntityManager getIdGenerator() {
 		return this.idGenerator;
 	}
 
@@ -501,8 +503,8 @@ public class CelProcessor implements Processor {
 
 		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
 				new IntegerSubsumerGraphImpl(
-						IntegerDatatype.dataPropertyBottomElement,
-						IntegerDatatype.dataPropertyTopElement));
+						IntegerEntityManager.dataPropertyBottomElement,
+						IntegerEntityManager.dataPropertyTopElement));
 
 		// These sets include the declared entities that are not present in the
 		// normalized axioms.
@@ -525,13 +527,13 @@ public class CelProcessor implements Processor {
 				getOntologyObjectFactory()));
 
 		logger.finer("auxiliary classes created (including nominals) : "
-				+ (getIdGenerator().getNextClassId() - getIdGenerator()
-						.getFirstClassId()));
+				+ getIdGenerator().getEntities(IntegerEntityType.CLASS, true)
+						.size());
 		logger.finer("auxiliary classes created for nominals : "
 				+ (getIdGenerator().getIndividuals().size()));
-		logger.finer("auxiliary properties created : "
-				+ (getIdGenerator().getNextObjectPropertyId() - getIdGenerator()
-						.getFirstObjectPropertyId()));
+		logger.finer("auxiliary object properties created : "
+				+ getIdGenerator().getEntities(
+						IntegerEntityType.OBJECT_PROPERTY, true).size());
 
 		logger.finer("creating extended ontology ...");
 		this.extendedOntology = new CelExtendedOntology();
@@ -739,7 +741,7 @@ public class CelProcessor implements Processor {
 	private void removeAuxiliaryClassesExceptNominals() {
 		Set<Integer> reqClasses = new HashSet<Integer>();
 		for (Integer elem : getClassGraph().getElements()) {
-			if (elem < getIdGenerator().getFirstClassId()) {
+			if (!getIdGenerator().isAuxiliary(elem)) {
 				reqClasses.add(elem);
 			}
 		}
@@ -757,7 +759,7 @@ public class CelProcessor implements Processor {
 	private void removeAuxiliaryObjectProperties() {
 		Set<Integer> reqObjectProperties = new HashSet<Integer>();
 		for (Integer elem : getObjectPropertyGraph().getElements()) {
-			if (elem < getIdGenerator().getFirstObjectPropertyId()) {
+			if (!getIdGenerator().isAuxiliary(elem)) {
 				reqObjectProperties.add(elem);
 			}
 		}

@@ -22,19 +22,13 @@
 package de.tudresden.inf.lat.jcel.owlapi.translator;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.reasoner.Node;
@@ -74,19 +68,13 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.repository = new TranslationRepository(rootOntology);
+		this.repository = new TranslationRepository(rootOntology,
+				factory.getIdGenerator());
 		this.factory = factory;
-		Map<OWLObjectProperty, Integer> objectPropertyMap = createPropertyMap(this.repository);
-		Map<OWLClass, Integer> classMap = createClassMap(this.repository);
-		Map<OWLNamedIndividual, Integer> individualMap = createIndividualMap(
-				classMap.size(), this.repository);
-		Map<OWLDataProperty, Integer> dataPropertyMap = createDataPropertyMap(this.repository);
-		Map<OWLLiteral, Integer> literalMap = createLiteralMap(this.repository);
-		ObjectPropertyExpressionTranslator obet = new ObjectPropertyExpressionTranslator(
-				objectPropertyMap, dataPropertyMap,
-				this.factory.getDataTypeFactory());
-		ClassExpressionTranslator cet = new ClassExpressionTranslator(classMap,
-				individualMap, literalMap, obet);
+		ObjectPropertyExpressionTranslator objPropExprTranslator = new ObjectPropertyExpressionTranslator(
+				this.factory.getDataTypeFactory(), this.repository);
+		ClassExpressionTranslator cet = new ClassExpressionTranslator(
+				objPropExprTranslator);
 
 		this.axiomTranslator = new AxiomTranslator(cet, this.factory);
 
@@ -96,67 +84,6 @@ public class Translator {
 		}
 
 		this.ontology = translateA(owlAxiomSet);
-		this.factory.getIdGenerator().resetTo(
-				this.repository.getOWLClassList().size(),
-				this.repository.getOWLObjectPropertyList().size());
-	}
-
-	private Map<OWLClass, Integer> createClassMap(
-			TranslationRepository repository) {
-		Map<OWLClass, Integer> ret = new HashMap<OWLClass, Integer>();
-		Iterator<OWLClass> it = repository.getOWLClassList().iterator();
-		for (int index = 0; it.hasNext(); index++) {
-			OWLClass current = it.next();
-			ret.put(current, index);
-		}
-		return ret;
-	}
-
-	private Map<OWLDataProperty, Integer> createDataPropertyMap(
-			TranslationRepository repository) {
-		Map<OWLDataProperty, Integer> ret = new HashMap<OWLDataProperty, Integer>();
-		Iterator<OWLDataProperty> it = repository.getOWLDataPropertyList()
-				.iterator();
-		for (int index = 0; it.hasNext(); index++) {
-			OWLDataProperty current = it.next();
-			ret.put(current, index);
-		}
-		return ret;
-	}
-
-	private Map<OWLNamedIndividual, Integer> createIndividualMap(
-			Integer offset, TranslationRepository repository) {
-		Map<OWLNamedIndividual, Integer> ret = new HashMap<OWLNamedIndividual, Integer>();
-		Iterator<OWLNamedIndividual> it = repository
-				.getOWLNamedIndividualList().iterator();
-		for (int index = offset; it.hasNext(); index++) {
-			OWLNamedIndividual current = it.next();
-			ret.put(current, index);
-		}
-		return ret;
-	}
-
-	private Map<OWLLiteral, Integer> createLiteralMap(
-			TranslationRepository repository) {
-		Map<OWLLiteral, Integer> ret = new HashMap<OWLLiteral, Integer>();
-		Iterator<OWLLiteral> it = repository.getOWLLiteralList().iterator();
-		for (int index = 0; it.hasNext(); index++) {
-			OWLLiteral current = it.next();
-			ret.put(current, index);
-		}
-		return ret;
-	}
-
-	private Map<OWLObjectProperty, Integer> createPropertyMap(
-			TranslationRepository repository) {
-		Map<OWLObjectProperty, Integer> ret = new HashMap<OWLObjectProperty, Integer>();
-		Iterator<OWLObjectProperty> it = repository.getOWLObjectPropertyList()
-				.iterator();
-		for (int index = 0; it.hasNext(); index++) {
-			OWLObjectProperty current = it.next();
-			ret.put(current, index);
-		}
-		return ret;
 	}
 
 	public AxiomTranslator getAxiomTranslator() {
@@ -207,8 +134,8 @@ public class Translator {
 		}
 
 		return getOntologyObjectFactory().getDataTypeFactory().createClass(
-				getAxiomTranslator().getClassExpressionTranslator().getId(
-						owlObject));
+				getAxiomTranslator().getTranslationRepository()
+						.getId(owlObject));
 	}
 
 	public IntegerClassExpression translateCE(OWLClassExpression owlObject) {
@@ -236,8 +163,8 @@ public class Translator {
 
 		return getOntologyObjectFactory().getDataTypeFactory()
 				.createNamedIndividual(
-						getAxiomTranslator().getClassExpressionTranslator()
-								.getId(owlObject));
+						getAxiomTranslator().getTranslationRepository().getId(
+								owlObject));
 	}
 
 	public OWLObjectPropertyExpression translateOPE(

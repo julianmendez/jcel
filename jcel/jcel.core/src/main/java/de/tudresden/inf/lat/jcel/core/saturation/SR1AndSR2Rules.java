@@ -26,10 +26,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 
 /**
  * <ul>
@@ -43,7 +43,7 @@ public class SR1AndSR2Rules implements SaturationRule {
 
 	private final NormalizedIntegerAxiomFactory factory;
 	private final SaturationRuleHelper helper = new SaturationRuleHelper();
-	private final IdGenerator idGenerator;
+	private final IntegerEntityManager idGenerator;
 
 	/**
 	 * Constructs a new composite rule of SR-1 and SR-2.
@@ -52,7 +52,7 @@ public class SR1AndSR2Rules implements SaturationRule {
 	 *            factory
 	 */
 	public SR1AndSR2Rules(NormalizedIntegerAxiomFactory factory,
-			IdGenerator generator) {
+			IntegerEntityManager generator) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

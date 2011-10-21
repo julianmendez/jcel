@@ -25,10 +25,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 
 /**
  * <ul>
@@ -41,12 +41,12 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
 public class SR3Rule implements SaturationRule {
 
 	private final NormalizedIntegerAxiomFactory factory;
-	private final IdGenerator idGenerator;
+	private final IntegerEntityManager idGenerator;
 
 	/**
 	 * Constructs a new SR-3 rule.
 	 */
-	public SR3Rule(NormalizedIntegerAxiomFactory factory, IdGenerator generator) {
+	public SR3Rule(NormalizedIntegerAxiomFactory factory, IntegerEntityManager generator) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

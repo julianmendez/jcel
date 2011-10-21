@@ -54,10 +54,10 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubObjectPropertyOfAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubPropertyChainOfAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerTransitiveObjectPropertyAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
@@ -128,7 +128,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		return getOntologyObjectFactory().getComplexAxiomFactory();
 	}
 
-	private IdGenerator getIdGenerator() {
+	private IntegerEntityManager getIdGenerator() {
 		return getOntologyObjectFactory().getIdGenerator();
 	}
 
@@ -478,7 +478,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		ret.add(getComplexAxiomFactory().createSubClassOfAxiom(
 				intersection,
 				getOntologyObjectFactory().getDataTypeFactory().createClass(
-						IntegerClass.classBottomElement)));
+						IntegerEntityManager.classBottomElement)));
 		return Collections.unmodifiableSet(ret);
 	}
 

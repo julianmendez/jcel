@@ -43,9 +43,9 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
 
 /**
  * An object of this class is an implementation of a classification algorithm.
@@ -54,7 +54,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
  */
 public class RuleBasedProcessor implements Processor {
 
-	private static final Integer classTopElement = IntegerDatatype.classTopElement;
+	private static final Integer classTopElement = IntegerEntityManager.classTopElement;
 	private static final Logger logger = Logger
 			.getLogger(RuleBasedProcessor.class.getName());
 	private static final long loggingFrequency = 0x100000;
@@ -218,7 +218,7 @@ public class RuleBasedProcessor implements Processor {
 		return Collections.unmodifiableMap(this.directTypes);
 	}
 
-	private IdGenerator getIdGenerator() {
+	private IntegerEntityManager getIdGenerator() {
 		return getOntologyObjectFactory().getIdGenerator();
 	}
 
@@ -371,8 +371,8 @@ public class RuleBasedProcessor implements Processor {
 
 		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
 				new IntegerSubsumerGraphImpl(
-						IntegerDatatype.dataPropertyBottomElement,
-						IntegerDatatype.dataPropertyTopElement));
+						IntegerEntityManager.dataPropertyBottomElement,
+						IntegerEntityManager.dataPropertyTopElement));
 
 		logger.fine("using " + getClass().getSimpleName() + " ...");
 
@@ -398,17 +398,19 @@ public class RuleBasedProcessor implements Processor {
 				+ this.chainR + "\n");
 
 		logger.fine("classes read (including TOP and BOTTOM classes) : "
-				+ (factory.getIdGenerator().getFirstClassId()));
+				+ (factory.getIdGenerator().getEntities(
+						IntegerEntityType.CLASS, false).size()));
 		logger.fine("object properties read (including TOP and BOTTOM object properties) : "
-				+ (factory.getIdGenerator().getFirstObjectPropertyId()));
+				+ (factory.getIdGenerator().getEntities(
+						IntegerEntityType.OBJECT_PROPERTY, false).size()));
 		logger.fine("auxiliary classes created (including nominals) : "
-				+ (factory.getIdGenerator().getNextClassId() - factory
-						.getIdGenerator().getFirstClassId()));
+				+ (factory.getIdGenerator().getEntities(
+						IntegerEntityType.CLASS, true).size()));
 		logger.fine("auxiliary classes created for nominals : "
 				+ (factory.getIdGenerator().getIndividuals().size()));
 		logger.fine("auxiliary object properties created : "
-				+ (factory.getIdGenerator().getNextObjectPropertyId() - factory
-						.getIdGenerator().getFirstObjectPropertyId()));
+				+ (factory.getIdGenerator().getEntities(
+						IntegerEntityType.OBJECT_PROPERTY, false).size()));
 
 		logger.fine("creating class graph and object property graph ...");
 
@@ -495,7 +497,7 @@ public class RuleBasedProcessor implements Processor {
 	private void removeAuxiliaryClassesExceptNominals() {
 		Set<Integer> reqClasses = new HashSet<Integer>();
 		for (Integer elem : getClassGraph().getElements()) {
-			if (elem < getIdGenerator().getFirstClassId()) {
+			if (!getIdGenerator().isAuxiliary(elem)) {
 				reqClasses.add(elem);
 			}
 		}
@@ -513,7 +515,7 @@ public class RuleBasedProcessor implements Processor {
 	private void removeAuxiliaryObjectProperties() {
 		Set<Integer> reqObjectProperties = new HashSet<Integer>();
 		for (Integer elem : getObjectPropertyGraph().getElements()) {
-			if (elem < getIdGenerator().getFirstObjectPropertyId()) {
+			if (!getIdGenerator().isAuxiliary(elem)) {
 				reqObjectProperties.add(elem);
 			}
 		}

@@ -32,6 +32,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
@@ -97,7 +98,8 @@ class NormalizerNR2_1 implements NormalizationRule {
 			Integer lastPropertyName = getNormalizedObjectProperty(propertyList
 					.get(lastPos));
 			Integer newPropertyName = getOntologyObjectFactory()
-					.getIdGenerator().createNewObjectPropertyId();
+					.getIdGenerator().createEntity(
+							IntegerEntityType.OBJECT_PROPERTY, true);
 			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
 					.createRI3Axiom(newPropertyName, lastPropertyName,
 							superProperty));

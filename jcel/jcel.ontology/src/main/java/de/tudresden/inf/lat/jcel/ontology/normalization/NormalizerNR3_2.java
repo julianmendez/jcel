@@ -30,6 +30,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
 
@@ -88,7 +89,8 @@ class NormalizerNR3_2 implements NormalizationRule {
 				IntegerClass newClass = getOntologyObjectFactory()
 						.getDataTypeFactory().createClass(
 								getOntologyObjectFactory().getIdGenerator()
-										.createNewClassId());
+										.createEntity(IntegerEntityType.CLASS,
+												true));
 				IntegerObjectSomeValuesFrom newExistential = getOntologyObjectFactory()
 						.getDataTypeFactory().createObjectSomeValuesFrom(
 								propertyExpression, newClass);

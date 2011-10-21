@@ -53,7 +53,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.OntologyExpressivity;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntology;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntologyImpl;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
 
 /**
@@ -76,10 +76,10 @@ public class OntologyPreprocessor {
 	// private static final Logger logger = Logger
 	// .getLogger(OntologyPreprocessor.class.getName());
 
-	private static final Integer classBottomElement = IntegerDatatype.classBottomElement;
-	private static final Integer classTopElement = IntegerDatatype.classTopElement;
-	private static final Integer propertyBottomElement = IntegerDatatype.objectPropertyBottomElement;
-	private static final Integer propertyTopElement = IntegerDatatype.objectPropertyTopElement;
+	private static final Integer classBottomElement = IntegerEntityManager.classBottomElement;
+	private static final Integer classTopElement = IntegerEntityManager.classTopElement;
+	private static final Integer propertyBottomElement = IntegerEntityManager.objectPropertyBottomElement;
+	private static final Integer propertyTopElement = IntegerEntityManager.objectPropertyTopElement;
 
 	private RChain chainR = new RChain(new ArrayList<RObserverRule>());
 	private SChain chainS = new SChain(new ArrayList<SObserverRule>());

@@ -38,9 +38,9 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
 
 /**
  * An object of this class classifies an ontology. It divides a set of axioms in
@@ -56,8 +56,8 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
  */
 public class ClassModuleProcessor implements Processor {
 
-	private static final Integer classBottomElement = IntegerDatatype.classBottomElement;
-	private static final Integer classTopElement = IntegerDatatype.classTopElement;
+	private static final Integer classBottomElement = IntegerEntityManager.classBottomElement;
+	private static final Integer classTopElement = IntegerEntityManager.classTopElement;
 	private static final Logger logger = Logger
 			.getLogger(ClassModuleProcessor.class.getName());
 
@@ -320,8 +320,8 @@ public class ClassModuleProcessor implements Processor {
 
 		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
 				new IntegerSubsumerGraphImpl(
-						IntegerDatatype.dataPropertyBottomElement,
-						IntegerDatatype.dataPropertyTopElement));
+						IntegerEntityManager.dataPropertyBottomElement,
+						IntegerEntityManager.dataPropertyTopElement));
 
 		this.moduleList = findModules(axioms);
 		logger.fine("modules found : " + this.moduleList.size());

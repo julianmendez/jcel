@@ -36,11 +36,10 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerBidirectionalGraphImp
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.VNode;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IdGenerator;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntology;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntologyImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 
 /**
  * An object of this class keeps the status of the classifier.
@@ -52,15 +51,15 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	// private static final Logger logger = Logger
 	// .getLogger(ClassifierStatusImpl.class.getName());
 
-	private static final Integer classBottomElement = IntegerDatatype.classBottomElement;
-	private static final Integer classTopElement = IntegerDatatype.classTopElement;
-	private static final Integer propertyBottomElement = IntegerDatatype.objectPropertyBottomElement;
-	private static final Integer propertyTopElement = IntegerDatatype.objectPropertyTopElement;
+	private static final Integer classBottomElement = IntegerEntityManager.classBottomElement;
+	private static final Integer classTopElement = IntegerEntityManager.classTopElement;
+	private static final Integer propertyBottomElement = IntegerEntityManager.objectPropertyBottomElement;
+	private static final Integer propertyTopElement = IntegerEntityManager.objectPropertyTopElement;
 
 	private IntegerSubsumerGraphImpl classGraph = null;
 	private Map<Integer, Set<Integer>> cognateFunctPropMap = new HashMap<Integer, Set<Integer>>();
 	private ExtendedOntology extendedOntology = new ExtendedOntologyImpl();
-	private IdGenerator idGenerator = null;
+	private IntegerEntityManager idGenerator = null;
 	private Map<VNodeImpl, Integer> invNodeSet = new HashMap<VNodeImpl, Integer>();
 	private Map<Integer, VNodeImpl> nodeSet = new HashMap<Integer, VNodeImpl>();
 	private Integer nodeSetLastId = null;
@@ -75,7 +74,8 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 * @param ontology
 	 *            extended ontology
 	 */
-	public ClassifierStatusImpl(IdGenerator generator, ExtendedOntology ontology) {
+	public ClassifierStatusImpl(IntegerEntityManager generator,
+			ExtendedOntology ontology) {
 		if (generator == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -337,7 +337,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 * 
 	 * @return the identifier generator
 	 */
-	protected IdGenerator getIdGenerator() {
+	protected IntegerEntityManager getIdGenerator() {
 		return this.idGenerator;
 	}
 

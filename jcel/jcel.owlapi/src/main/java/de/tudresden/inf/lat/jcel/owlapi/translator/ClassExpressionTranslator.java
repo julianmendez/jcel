@@ -22,7 +22,6 @@
 package de.tudresden.inf.lat.jcel.owlapi.translator;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLClass;
@@ -37,7 +36,6 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
@@ -55,85 +53,42 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
+ * An object of this class can translate a class expression of the OWL API into
+ * the integer-based representation.
  * 
  * @author Julian Mendez
  */
 public class ClassExpressionTranslator implements
 		OWLClassExpressionVisitorEx<IntegerClassExpression> {
 
-	private Map<OWLClass, Integer> classMap = null;
-	private Map<OWLNamedIndividual, Integer> individualMap = null;
-	private Map<OWLLiteral, Integer> literalMap = null;
-	private ObjectPropertyExpressionTranslator objectPropertyExpressionTranslator;
+	private final ObjectPropertyExpressionTranslator objectPropertyExpressionTranslator;
 
-	public ClassExpressionTranslator(Map<OWLClass, Integer> clMap,
-			Map<OWLNamedIndividual, Integer> indivMap,
-			Map<OWLLiteral, Integer> litMap,
+	/**
+	 * Constructs a new class expression translator.
+	 * 
+	 * @param translator
+	 *            object property expression translator
+	 */
+	public ClassExpressionTranslator(
 			ObjectPropertyExpressionTranslator translator) {
 		if (translator == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		if (clMap == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (indivMap == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (litMap == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
 
 		this.objectPropertyExpressionTranslator = translator;
-		this.classMap = clMap;
-		this.individualMap = indivMap;
-		this.literalMap = litMap;
 	}
 
 	public IntegerDataTypeFactory getDataTypeFactory() {
 		return this.objectPropertyExpressionTranslator.getDataTypeFactory();
 	}
 
-	public Integer getId(OWLClass owlClass) throws TranslationException {
-		if (owlClass == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		Integer ret = this.classMap.get(owlClass);
-		if (ret == null) {
-			throw TranslationException.newIncompleteMapException(owlClass
-					.toString());
-		}
-		return ret;
-	}
-
-	public Integer getId(OWLIndividual individual) throws TranslationException {
-		if (individual == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		Integer ret = this.individualMap.get(individual);
-		if (ret == null) {
-			throw TranslationException.newIncompleteMapException(individual
-					.toString());
-		}
-		return ret;
-	}
-
-	public Integer getId(OWLLiteral owlLiteral) {
-		if (owlLiteral == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		Integer ret = this.literalMap.get(owlLiteral);
-		if (ret == null) {
-			throw TranslationException.newIncompleteMapException(owlLiteral
-					.toString());
-		}
-		return ret;
-	}
-
 	public ObjectPropertyExpressionTranslator getObjectPropertyExpressionTranslator() {
 		return this.objectPropertyExpressionTranslator;
+	}
+
+	public TranslationRepository getTranslationRepository() {
+		return this.objectPropertyExpressionTranslator
+				.getTranslationRepository();
 	}
 
 	public Integer translateDataProperty(OWLDataProperty owlDataProperty) {
@@ -141,7 +96,8 @@ public class ClassExpressionTranslator implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return getObjectPropertyExpressionTranslator().getId(owlDataProperty);
+		return getObjectPropertyExpressionTranslator()
+				.getTranslationRepository().getId(owlDataProperty);
 	}
 
 	public Integer translateIndividual(OWLIndividual owlIndividual)
@@ -150,7 +106,7 @@ public class ClassExpressionTranslator implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return getId(owlIndividual);
+		return getTranslationRepository().getId(owlIndividual);
 	}
 
 	public Integer translateLiteral(OWLLiteral owlLiteral)
@@ -159,7 +115,7 @@ public class ClassExpressionTranslator implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return getId(owlLiteral);
+		return getTranslationRepository().getId(owlLiteral);
 	}
 
 	@Override
@@ -168,7 +124,8 @@ public class ClassExpressionTranslator implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return getDataTypeFactory().createClass(getId(ce));
+		return getDataTypeFactory().createClass(
+				getTranslationRepository().getId(ce));
 	}
 
 	@Override
@@ -195,9 +152,10 @@ public class ClassExpressionTranslator implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Integer dataPropertyId = getObjectPropertyExpressionTranslator().getId(
-				ce.getProperty().asOWLDataProperty());
-		Integer literalId = getId(ce.getValue());
+		Integer dataPropertyId = getObjectPropertyExpressionTranslator()
+				.getTranslationRepository().getId(
+						ce.getProperty().asOWLDataProperty());
+		Integer literalId = getTranslationRepository().getId(ce.getValue());
 		return getDataTypeFactory().createDataHasValue(dataPropertyId,
 				literalId);
 	}

@@ -19,31 +19,37 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.ontology.axiom.extension;
+package de.tudresden.inf.lat.jcel.ontology.datatype;
 
 import java.util.Set;
 
 /**
- * An object implementing this interface generates new identification numbers
- * for object properties and classes.
+ * An object implementing this interface manages entities and creates new
+ * identification numbers for auxiliary entities.
  * 
  * @author Julian Mendez
  */
-public interface IdGenerator {
+public interface IntegerEntityManager {
+
+	public static final Integer classBottomElement = 0;
+	public static final Integer classTopElement = 1;
+	public static final Integer dataPropertyBottomElement = 4;
+	public static final Integer dataPropertyTopElement = 5;
+	public static final Integer firstUsableIdentifier = 6;
+	public static final Integer objectPropertyBottomElement = 2;
+	public static final Integer objectPropertyTopElement = 3;
 
 	/**
-	 * Creates a new class identifier.
+	 * Creates a new entity of a certain type.
 	 * 
-	 * @return the new class identifier
+	 * @param type
+	 *            type of the entity
+	 * @param auxiliary
+	 *            <code>true</code> if and only if the created entity is an
+	 *            auxiliary entity
+	 * @return a new auxiliary entity of a certain type
 	 */
-	public Integer createNewClassId();
-
-	/**
-	 * Creates a new object property identifier.
-	 * 
-	 * @return the new object property identifier
-	 */
-	public Integer createNewObjectPropertyId();
+	public Integer createEntity(IntegerEntityType type, boolean auxiliary);
 
 	/**
 	 * Returns the class identifier corresponding to the given individual. If
@@ -54,7 +60,7 @@ public interface IdGenerator {
 	 * @return the class identifier for the given individual
 	 */
 	public Integer createOrGetClassIdForIndividual(Integer individual);
-	
+
 	/**
 	 * Returns the inverse object property of the given object property. If this
 	 * property does not exist, it creates a new auxiliary object property.
@@ -87,18 +93,16 @@ public interface IdGenerator {
 	public Set<Integer> getAuxiliaryNominals();
 
 	/**
-	 * Returns the first generated class identifier.
+	 * Returns the set of identifiers of auxiliary entities of a certain type.
 	 * 
-	 * @return the first generated class identifier
+	 * @param type
+	 *            type of the entity
+	 * @param auxiliary
+	 *            <code>true</code> for auxiliary entities, <code>false</code>
+	 *            for non-auxiliary entities
+	 * @return the set of identifiers of auxiliary entities of a certain type
 	 */
-	public Integer getFirstClassId();
-
-	/**
-	 * Returns the first generated object property identifier.
-	 * 
-	 * @return the first generated object property identifier
-	 */
-	public Integer getFirstObjectPropertyId();
+	public Set<Integer> getEntities(IntegerEntityType type, boolean auxiliary);
 
 	/**
 	 * This method gives the individual related to a specific auxiliary nominal.
@@ -118,18 +122,21 @@ public interface IdGenerator {
 	public Set<Integer> getIndividuals();
 
 	/**
-	 * Returns the next generated class identifier.
+	 * Returns the entity type for the given identifier
 	 * 
-	 * @return the next generated class identifier
+	 * @param identifier
+	 *            entity identifier
+	 * @return the entity type for the given identifier
 	 */
-	public Integer getNextClassId();
+	public IntegerEntityType getType(Integer identifier);
 
 	/**
-	 * Returns the next generated object property identifier.
+	 * Tells whether the given identifier corresponds to an auxiliary entity.
 	 * 
-	 * @return the next generated object property identifier
+	 * @return <code>true</code> if and only if the given identifier corresponds
+	 *         to an auxiliary entity
 	 */
-	public Integer getNextObjectPropertyId();
+	public boolean isAuxiliary(Integer identifier);
 
 	/**
 	 * Proposes the association of an object property to another object property
@@ -147,13 +154,12 @@ public interface IdGenerator {
 			Integer secondProperty) throws IndexOutOfBoundsException;
 
 	/**
-	 * Resets the counter to the given new values.
+	 * Returns the number of created entities, either auxiliary or
+	 * non-auxiliary.
 	 * 
-	 * @param classOffset
-	 *            first class identifier to start the generation
-	 * @param propertyOffset
-	 *            first object property identifier to start the generation
+	 * @return the number of created entities, either auxiliary or
+	 *         non-auxiliary.
 	 */
-	public void resetTo(Integer classOffset, Integer propertyOffset);
+	public int size();
 
 }

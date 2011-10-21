@@ -29,9 +29,9 @@ import java.util.Set;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerDisjointClassesAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDatatype;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
 
 /**
@@ -95,7 +95,7 @@ class NormalizerDisjoint implements NormalizationRule {
 									getOntologyObjectFactory()
 											.getDataTypeFactory()
 											.createClass(
-													IntegerDatatype.classBottomElement));
+													IntegerEntityManager.classBottomElement));
 					ret.add(subClassAxiom);
 				}
 			}
