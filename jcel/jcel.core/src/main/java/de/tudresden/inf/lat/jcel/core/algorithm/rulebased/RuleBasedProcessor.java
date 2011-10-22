@@ -398,18 +398,19 @@ public class RuleBasedProcessor implements Processor {
 				+ this.chainR + "\n");
 
 		logger.fine("classes read (including TOP and BOTTOM classes) : "
-				+ (factory.getIdGenerator().getEntities(
+				+ (getOntologyObjectFactory().getIdGenerator().getEntities(
 						IntegerEntityType.CLASS, false).size()));
 		logger.fine("object properties read (including TOP and BOTTOM object properties) : "
-				+ (factory.getIdGenerator().getEntities(
+				+ (getOntologyObjectFactory().getIdGenerator().getEntities(
 						IntegerEntityType.OBJECT_PROPERTY, false).size()));
 		logger.fine("auxiliary classes created (including nominals) : "
-				+ (factory.getIdGenerator().getEntities(
+				+ (getOntologyObjectFactory().getIdGenerator().getEntities(
 						IntegerEntityType.CLASS, true).size()));
 		logger.fine("auxiliary classes created for nominals : "
-				+ (factory.getIdGenerator().getIndividuals().size()));
+				+ (getOntologyObjectFactory().getIdGenerator().getIndividuals()
+						.size()));
 		logger.fine("auxiliary object properties created : "
-				+ (factory.getIdGenerator().getEntities(
+				+ (getOntologyObjectFactory().getIdGenerator().getEntities(
 						IntegerEntityType.OBJECT_PROPERTY, false).size()));
 
 		logger.fine("creating class graph and object property graph ...");

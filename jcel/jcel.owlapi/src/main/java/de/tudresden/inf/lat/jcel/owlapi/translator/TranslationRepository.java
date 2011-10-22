@@ -72,7 +72,8 @@ public class TranslationRepository {
 	private final OWLDataProperty topDataProperty;
 	private final OWLObjectProperty topObjectProperty;
 
-	public TranslationRepository(OWLOntology rootOntology, IntegerEntityManager manager) {
+	public TranslationRepository(OWLOntology rootOntology,
+			IntegerEntityManager manager) {
 		if (rootOntology == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -256,17 +257,28 @@ public class TranslationRepository {
 		Set<OWLLiteral> literalSet = new TreeSet<OWLLiteral>();
 
 		this.classMap.put(IntegerEntityManager.bottomClassId, this.bottomClass);
+		this.classInvMap.put(this.bottomClass,
+				IntegerEntityManager.bottomClassId);
 		this.classMap.put(IntegerEntityManager.topClassId, this.topClass);
+		this.classInvMap.put(this.topClass, IntegerEntityManager.topClassId);
 
 		this.objectPropertyMap.put(IntegerEntityManager.bottomObjectPropertyId,
 				this.bottomObjectProperty);
+		this.objectPropertyInvMap.put(this.bottomObjectProperty,
+				IntegerEntityManager.bottomObjectPropertyId);
 		this.objectPropertyMap.put(IntegerEntityManager.topObjectPropertyId,
 				this.topObjectProperty);
+		this.objectPropertyInvMap.put(this.topObjectProperty,
+				IntegerEntityManager.topObjectPropertyId);
 
 		this.dataPropertyMap.put(IntegerEntityManager.bottomDataPropertyId,
 				this.bottomDataProperty);
+		this.dataPropertyInvMap.put(this.bottomDataProperty,
+				IntegerEntityManager.bottomDataPropertyId);
 		this.dataPropertyMap.put(IntegerEntityManager.topDataPropertyId,
 				this.topDataProperty);
+		this.dataPropertyInvMap.put(this.topDataProperty,
+				IntegerEntityManager.topDataPropertyId);
 
 		for (OWLAxiom axiom : axiomSet) {
 			classSet.addAll(axiom.getClassesInSignature());
