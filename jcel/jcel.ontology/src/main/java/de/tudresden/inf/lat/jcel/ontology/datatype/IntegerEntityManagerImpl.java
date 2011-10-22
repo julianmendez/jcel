@@ -54,10 +54,10 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 				IntegerEntityType.OBJECT_PROPERTY, false);
 		registerProperty(topObjectPropertyId,
 				IntegerEntityType.OBJECT_PROPERTY, false);
-		registerProperty(bottomDataPropertyId,
-				IntegerEntityType.DATA_PROPERTY, false);
-		registerProperty(topDataPropertyId,
-				IntegerEntityType.DATA_PROPERTY, false);
+		registerProperty(bottomDataPropertyId, IntegerEntityType.DATA_PROPERTY,
+				false);
+		registerProperty(topDataPropertyId, IntegerEntityType.DATA_PROPERTY,
+				false);
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 
 		Integer ret = this.inverseObjectPropertyMap.get(propertyId);
 		if (ret == null) {
-			ret = createEntity(IntegerEntityType.OBJECT_PROPERTY, false);
+			ret = createEntity(IntegerEntityType.OBJECT_PROPERTY, true);
 			this.inverseObjectPropertyMap.put(propertyId, ret);
 			this.inverseObjectPropertyMap.put(ret, propertyId);
 		}
