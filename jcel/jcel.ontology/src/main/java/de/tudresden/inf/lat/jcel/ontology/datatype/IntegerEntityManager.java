@@ -31,13 +31,13 @@ import java.util.Set;
  */
 public interface IntegerEntityManager {
 
-	public static final Integer classBottomElement = 0;
-	public static final Integer classTopElement = 1;
-	public static final Integer dataPropertyBottomElement = 4;
-	public static final Integer dataPropertyTopElement = 5;
+	public static final Integer bottomClassId = 0;
+	public static final Integer bottomDataPropertyId = 4;
+	public static final Integer bottomObjectPropertyId = 2;
 	public static final Integer firstUsableIdentifier = 6;
-	public static final Integer objectPropertyBottomElement = 2;
-	public static final Integer objectPropertyTopElement = 3;
+	public static final Integer topClassId = 1;
+	public static final Integer topDataPropertyId = 5;
+	public static final Integer topObjectPropertyId = 3;
 
 	/**
 	 * Creates a new entity of a certain type.

@@ -255,17 +255,17 @@ public class TranslationRepository {
 		Set<OWLDataProperty> dataPropertySet = new TreeSet<OWLDataProperty>();
 		Set<OWLLiteral> literalSet = new TreeSet<OWLLiteral>();
 
-		this.classMap.put(IntegerEntityManager.classBottomElement, this.bottomClass);
-		this.classMap.put(IntegerEntityManager.classTopElement, this.topClass);
+		this.classMap.put(IntegerEntityManager.bottomClassId, this.bottomClass);
+		this.classMap.put(IntegerEntityManager.topClassId, this.topClass);
 
-		this.objectPropertyMap.put(IntegerEntityManager.objectPropertyBottomElement,
+		this.objectPropertyMap.put(IntegerEntityManager.bottomObjectPropertyId,
 				this.bottomObjectProperty);
-		this.objectPropertyMap.put(IntegerEntityManager.objectPropertyTopElement,
+		this.objectPropertyMap.put(IntegerEntityManager.topObjectPropertyId,
 				this.topObjectProperty);
 
-		this.dataPropertyMap.put(IntegerEntityManager.dataPropertyBottomElement,
+		this.dataPropertyMap.put(IntegerEntityManager.bottomDataPropertyId,
 				this.bottomDataProperty);
-		this.dataPropertyMap.put(IntegerEntityManager.dataPropertyTopElement,
+		this.dataPropertyMap.put(IntegerEntityManager.topDataPropertyId,
 				this.topDataProperty);
 
 		for (OWLAxiom axiom : axiomSet) {

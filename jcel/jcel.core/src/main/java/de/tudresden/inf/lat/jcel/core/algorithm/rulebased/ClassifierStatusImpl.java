@@ -48,13 +48,10 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
  */
 public class ClassifierStatusImpl implements ClassifierStatus {
 
-	// private static final Logger logger = Logger
-	// .getLogger(ClassifierStatusImpl.class.getName());
-
-	private static final Integer classBottomElement = IntegerEntityManager.classBottomElement;
-	private static final Integer classTopElement = IntegerEntityManager.classTopElement;
-	private static final Integer propertyBottomElement = IntegerEntityManager.objectPropertyBottomElement;
-	private static final Integer propertyTopElement = IntegerEntityManager.objectPropertyTopElement;
+	private static final Integer bottomClassId = IntegerEntityManager.bottomClassId;
+	private static final Integer bottomObjectPropertyId = IntegerEntityManager.bottomObjectPropertyId;
+	private static final Integer topClassId = IntegerEntityManager.topClassId;
+	private static final Integer topObjectPropertyId = IntegerEntityManager.topObjectPropertyId;
 
 	private IntegerSubsumerGraphImpl classGraph = null;
 	private Map<Integer, Set<Integer>> cognateFunctPropMap = new HashMap<Integer, Set<Integer>>();
@@ -152,12 +149,12 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	}
 
 	private void createClassGraph() {
-		this.classGraph = new IntegerSubsumerGraphImpl(classBottomElement,
-				classTopElement);
+		this.classGraph = new IntegerSubsumerGraphImpl(bottomClassId,
+				topClassId);
 		for (Integer index : getExtendedOntology().getClassSet()) {
-			this.classGraph.addAncestor(index, classTopElement);
+			this.classGraph.addAncestor(index, topClassId);
 		}
-		this.classGraph.addAncestor(classTopElement, classTopElement);
+		this.classGraph.addAncestor(topClassId, topClassId);
 
 		this.nodeSet.clear();
 		this.invNodeSet.clear();
@@ -190,13 +187,13 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	private void createObjectPropertyGraph() {
 		this.objectPropertyGraph = new IntegerSubsumerBidirectionalGraphImpl(
-				propertyBottomElement, propertyTopElement);
+				bottomObjectPropertyId, topObjectPropertyId);
 		for (Integer index : this.extendedOntology.getObjectPropertySet()) {
-			this.objectPropertyGraph.addAncestor(index, propertyTopElement);
+			this.objectPropertyGraph.addAncestor(index, topObjectPropertyId);
 			Integer inverseProp = this.idGenerator
 					.createOrGetInverseObjectPropertyOf(index);
 			this.objectPropertyGraph.addAncestor(inverseProp,
-					propertyTopElement);
+					topObjectPropertyId);
 		}
 		for (Integer property : this.extendedOntology.getObjectPropertySet()) {
 			Set<RI2Axiom> axiomSet = this.extendedOntology

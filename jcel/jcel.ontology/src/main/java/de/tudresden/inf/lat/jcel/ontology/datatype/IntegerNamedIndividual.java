@@ -68,7 +68,7 @@ public class IntegerNamedIndividual implements IntegerClassExpression,
 
 	@Override
 	public boolean containsBottom() {
-		return this.id.equals(IntegerEntityManager.classBottomElement);
+		return this.id.equals(IntegerEntityManager.bottomClassId);
 	}
 
 	@Override

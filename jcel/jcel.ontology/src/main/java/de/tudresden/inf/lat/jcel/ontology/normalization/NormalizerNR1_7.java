@@ -81,7 +81,7 @@ class NormalizerNR1_7 implements NormalizationRule {
 							classAxiom.getSubClass(),
 							getOntologyObjectFactory().getDataTypeFactory()
 									.createClass(
-											IntegerEntityManager.classBottomElement));
+											IntegerEntityManager.bottomClassId));
 			ret.add(axiom);
 		}
 		return ret;

@@ -48,15 +48,15 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	 * Constructs a new identifier generator.
 	 */
 	public IntegerEntityManagerImpl() {
-		registerProperty(classBottomElement, IntegerEntityType.CLASS, false);
-		registerProperty(classTopElement, IntegerEntityType.CLASS, false);
-		registerProperty(objectPropertyBottomElement,
+		registerProperty(bottomClassId, IntegerEntityType.CLASS, false);
+		registerProperty(topClassId, IntegerEntityType.CLASS, false);
+		registerProperty(bottomObjectPropertyId,
 				IntegerEntityType.OBJECT_PROPERTY, false);
-		registerProperty(objectPropertyTopElement,
+		registerProperty(topObjectPropertyId,
 				IntegerEntityType.OBJECT_PROPERTY, false);
-		registerProperty(dataPropertyBottomElement,
+		registerProperty(bottomDataPropertyId,
 				IntegerEntityType.DATA_PROPERTY, false);
-		registerProperty(dataPropertyTopElement,
+		registerProperty(topDataPropertyId,
 				IntegerEntityType.DATA_PROPERTY, false);
 	}
 

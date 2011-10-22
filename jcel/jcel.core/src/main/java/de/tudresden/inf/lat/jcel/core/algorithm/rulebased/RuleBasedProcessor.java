@@ -54,10 +54,10 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
  */
 public class RuleBasedProcessor implements Processor {
 
-	private static final Integer classTopElement = IntegerEntityManager.classTopElement;
 	private static final Logger logger = Logger
 			.getLogger(RuleBasedProcessor.class.getName());
 	private static final long loggingFrequency = 0x100000;
+	private static final Integer topClassId = IntegerEntityManager.topClassId;
 
 	private RChain chainR = null;
 	private SChain chainS = null;
@@ -344,7 +344,7 @@ public class RuleBasedProcessor implements Processor {
 		classNameSet.addAll(this.status.getExtendedOntology().getClassSet());
 		for (Integer className : classNameSet) {
 			this.setQsubS.add(new SEntryImpl(className, className));
-			this.setQsubS.add(new SEntryImpl(className, classTopElement));
+			this.setQsubS.add(new SEntryImpl(className, topClassId));
 		}
 	}
 
@@ -371,8 +371,8 @@ public class RuleBasedProcessor implements Processor {
 
 		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
 				new IntegerSubsumerGraphImpl(
-						IntegerEntityManager.dataPropertyBottomElement,
-						IntegerEntityManager.dataPropertyTopElement));
+						IntegerEntityManager.bottomDataPropertyId,
+						IntegerEntityManager.topDataPropertyId));
 
 		logger.fine("using " + getClass().getSimpleName() + " ...");
 

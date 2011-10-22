@@ -73,13 +73,10 @@ import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
  */
 public class OntologyPreprocessor {
 
-	// private static final Logger logger = Logger
-	// .getLogger(OntologyPreprocessor.class.getName());
-
-	private static final Integer classBottomElement = IntegerEntityManager.classBottomElement;
-	private static final Integer classTopElement = IntegerEntityManager.classTopElement;
-	private static final Integer propertyBottomElement = IntegerEntityManager.objectPropertyBottomElement;
-	private static final Integer propertyTopElement = IntegerEntityManager.objectPropertyTopElement;
+	private static final Integer bottomClassId = IntegerEntityManager.bottomClassId;
+	private static final Integer bottomObjectPropertyId = IntegerEntityManager.bottomObjectPropertyId;
+	private static final Integer topClassId = IntegerEntityManager.topClassId;
+	private static final Integer topObjectPropertyId = IntegerEntityManager.topObjectPropertyId;
 
 	private RChain chainR = new RChain(new ArrayList<RObserverRule>());
 	private SChain chainS = new SChain(new ArrayList<SObserverRule>());
@@ -181,10 +178,10 @@ public class OntologyPreprocessor {
 			this.originalObjectPropertySet.addAll(axiom
 					.getObjectPropertiesInSignature());
 		}
-		this.originalClassSet.add(classBottomElement);
-		this.originalClassSet.add(classTopElement);
-		this.originalObjectPropertySet.add(propertyBottomElement);
-		this.originalObjectPropertySet.add(propertyTopElement);
+		this.originalClassSet.add(bottomClassId);
+		this.originalClassSet.add(topClassId);
+		this.originalObjectPropertySet.add(bottomObjectPropertyId);
+		this.originalObjectPropertySet.add(topObjectPropertyId);
 	}
 
 	/**

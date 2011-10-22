@@ -38,9 +38,9 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 
 /**
  * An object of this class classifies an ontology. It divides a set of axioms in
@@ -56,10 +56,10 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
  */
 public class ClassModuleProcessor implements Processor {
 
-	private static final Integer classBottomElement = IntegerEntityManager.classBottomElement;
-	private static final Integer classTopElement = IntegerEntityManager.classTopElement;
+	private static final Integer bottomClassId = IntegerEntityManager.bottomClassId;
 	private static final Logger logger = Logger
 			.getLogger(ClassModuleProcessor.class.getName());
+	private static final Integer topClassId = IntegerEntityManager.topClassId;
 
 	private Set<ComplexIntegerAxiom> accumulatedAxiomSet = null;
 	private IntegerOntologyObjectFactory axiomFactory = null;
@@ -237,8 +237,8 @@ public class ClassModuleProcessor implements Processor {
 		for (ComplexIntegerAxiom axiom : axiomSet) {
 			allClasses.addAll(axiom.getClassesInSignature());
 		}
-		allClasses.remove(classBottomElement);
-		allClasses.remove(classTopElement);
+		allClasses.remove(bottomClassId);
+		allClasses.remove(topClassId);
 
 		while (!allClasses.isEmpty()) {
 			Integer representativeId = allClasses.iterator().next();
@@ -320,8 +320,8 @@ public class ClassModuleProcessor implements Processor {
 
 		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
 				new IntegerSubsumerGraphImpl(
-						IntegerEntityManager.dataPropertyBottomElement,
-						IntegerEntityManager.dataPropertyTopElement));
+						IntegerEntityManager.bottomDataPropertyId,
+						IntegerEntityManager.topDataPropertyId));
 
 		this.moduleList = findModules(axioms);
 		logger.fine("modules found : " + this.moduleList.size());

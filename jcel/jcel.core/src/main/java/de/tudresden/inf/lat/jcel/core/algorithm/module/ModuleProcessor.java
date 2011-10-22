@@ -89,8 +89,8 @@ public class ModuleProcessor implements Processor {
 		boolean ret = false;
 		for (Iterator<Integer> it = b.iterator(); !ret && it.hasNext();) {
 			Integer elem = it.next();
-			if (!elem.equals(IntegerEntityManager.classBottomElement)
-					&& !elem.equals(IntegerEntityManager.classTopElement)) {
+			if (!elem.equals(IntegerEntityManager.bottomClassId)
+					&& !elem.equals(IntegerEntityManager.topClassId)) {
 				ret = ret || a.contains(elem);
 			}
 		}
@@ -101,8 +101,8 @@ public class ModuleProcessor implements Processor {
 		boolean ret = false;
 		for (Iterator<Integer> it = b.iterator(); !ret && it.hasNext();) {
 			Integer elem = it.next();
-			if (!elem.equals(IntegerEntityManager.objectPropertyBottomElement)
-					&& !elem.equals(IntegerEntityManager.objectPropertyTopElement)) {
+			if (!elem.equals(IntegerEntityManager.bottomObjectPropertyId)
+					&& !elem.equals(IntegerEntityManager.topObjectPropertyId)) {
 				ret = ret || a.contains(elem);
 			}
 		}
@@ -224,8 +224,8 @@ public class ModuleProcessor implements Processor {
 
 		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
 				new IntegerSubsumerGraphImpl(
-						IntegerEntityManager.dataPropertyBottomElement,
-						IntegerEntityManager.dataPropertyTopElement));
+						IntegerEntityManager.bottomDataPropertyId,
+						IntegerEntityManager.topDataPropertyId));
 
 		this.moduleList = findModules(this.originalAxiomSet);
 		logger.fine("modules found : " + this.moduleList.size());
@@ -236,10 +236,10 @@ public class ModuleProcessor implements Processor {
 
 		this.moduleIndex = 0;
 		this.classHierarchy = new IntegerHierarchicalGraphImpl(
-				IntegerEntityManager.classBottomElement, IntegerEntityManager.classTopElement);
+				IntegerEntityManager.bottomClassId, IntegerEntityManager.topClassId);
 		this.objectPropertyHierarchy = new IntegerHierarchicalGraphImpl(
-				IntegerEntityManager.objectPropertyBottomElement,
-				IntegerEntityManager.objectPropertyTopElement);
+				IntegerEntityManager.bottomObjectPropertyId,
+				IntegerEntityManager.topObjectPropertyId);
 		this.directTypes = new HashMap<Integer, Set<Integer>>();
 		this.sameIndividualMap = new HashMap<Integer, Set<Integer>>();
 

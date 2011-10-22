@@ -95,7 +95,7 @@ class NormalizerDisjoint implements NormalizationRule {
 									getOntologyObjectFactory()
 											.getDataTypeFactory()
 											.createClass(
-													IntegerEntityManager.classBottomElement));
+													IntegerEntityManager.bottomClassId));
 					ret.add(subClassAxiom);
 				}
 			}

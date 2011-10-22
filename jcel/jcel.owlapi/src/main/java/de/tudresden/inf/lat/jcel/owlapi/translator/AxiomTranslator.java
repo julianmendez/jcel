@@ -557,7 +557,7 @@ public class AxiomTranslator implements
 				.createObjectSomeValuesFrom(
 						propertyExpr,
 						getDataTypeFactory().createClass(
-								IntegerEntityManager.classTopElement));
+								IntegerEntityManager.topClassId));
 		ret = getAxiomFactory().createSubClassOfAxiom(subClassExpression,
 				superClassExpression);
 		return Collections.singleton(ret);

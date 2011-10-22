@@ -478,7 +478,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		ret.add(getComplexAxiomFactory().createSubClassOfAxiom(
 				intersection,
 				getOntologyObjectFactory().getDataTypeFactory().createClass(
-						IntegerEntityManager.classBottomElement)));
+						IntegerEntityManager.bottomClassId)));
 		return Collections.unmodifiableSet(ret);
 	}
 

@@ -45,8 +45,8 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
 
@@ -75,12 +75,12 @@ import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
  */
 public class CelProcessor implements Processor {
 
-	private static final Integer classBottomElement = IntegerEntityManager.classBottomElement;
-	private static final Integer classTopElement = IntegerEntityManager.classTopElement;
+	private static final Integer bottomClassId = IntegerEntityManager.bottomClassId;
+	private static final Integer bottomObjectPropertyId = IntegerEntityManager.bottomObjectPropertyId;
 	private static final Logger logger = Logger.getLogger(CelProcessor.class
 			.getName());
-	private static final Integer objectPropertyBottomElement = IntegerEntityManager.objectPropertyBottomElement;
-	private static final Integer objectPropertyTopElement = IntegerEntityManager.objectPropertyTopElement;
+	private static final Integer topClassId = IntegerEntityManager.topClassId;
+	private static final Integer topObjectPropertyId = IntegerEntityManager.topObjectPropertyId;
 
 	private IntegerSubsumerGraphImpl classGraph = null;
 	private IntegerHierarchicalGraph classHierarchy = null;
@@ -179,11 +179,11 @@ public class CelProcessor implements Processor {
 			classIdSet.addAll(axiom.getClassesInSignature());
 		}
 		IntegerSubsumerGraphImpl ret = new IntegerSubsumerGraphImpl(
-				classBottomElement, classTopElement);
+				bottomClassId, topClassId);
 		for (Integer index : classIdSet) {
-			ret.addAncestor(index, classTopElement);
+			ret.addAncestor(index, topClassId);
 		}
-		ret.addAncestor(classTopElement, classTopElement);
+		ret.addAncestor(topClassId, topClassId);
 		return ret;
 	}
 
@@ -191,14 +191,14 @@ public class CelProcessor implements Processor {
 			Set<Integer> originalPropertySet,
 			Set<NormalizedIntegerAxiom> axiomSet) {
 		IntegerSubsumerGraphImpl ret = new IntegerSubsumerGraphImpl(
-				objectPropertyBottomElement, objectPropertyTopElement);
+				bottomObjectPropertyId, topObjectPropertyId);
 		Set<Integer> propertyIdSet = new HashSet<Integer>();
 		propertyIdSet.addAll(originalPropertySet);
 		for (NormalizedIntegerAxiom axiom : axiomSet) {
 			propertyIdSet.addAll(axiom.getObjectPropertiesInSignature());
 		}
 		for (Integer index : propertyIdSet) {
-			ret.addAncestor(index, objectPropertyTopElement);
+			ret.addAncestor(index, topObjectPropertyId);
 		}
 		for (NormalizedIntegerAxiom axiom : axiomSet) {
 			if (axiom instanceof RI2Axiom) {
@@ -472,7 +472,7 @@ public class CelProcessor implements Processor {
 		classNameSet.addAll(ontology.getClassSet());
 		for (Integer className : classNameSet) {
 			addToQueue(className, ontology.getClassEntries(className));
-			addToQueue(className, ontology.getClassEntries(classTopElement));
+			addToQueue(className, ontology.getClassEntries(topClassId));
 		}
 	}
 
@@ -503,8 +503,8 @@ public class CelProcessor implements Processor {
 
 		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
 				new IntegerSubsumerGraphImpl(
-						IntegerEntityManager.dataPropertyBottomElement,
-						IntegerEntityManager.dataPropertyTopElement));
+						IntegerEntityManager.bottomDataPropertyId,
+						IntegerEntityManager.topDataPropertyId));
 
 		// These sets include the declared entities that are not present in the
 		// normalized axioms.
@@ -515,10 +515,10 @@ public class CelProcessor implements Processor {
 			originalObjectPropertySet.addAll(axiom
 					.getObjectPropertiesInSignature());
 		}
-		originalClassSet.add(classBottomElement);
-		originalClassSet.add(classTopElement);
-		originalObjectPropertySet.add(objectPropertyBottomElement);
-		originalObjectPropertySet.add(objectPropertyTopElement);
+		originalClassSet.add(bottomClassId);
+		originalClassSet.add(topClassId);
+		originalObjectPropertySet.add(bottomObjectPropertyId);
+		originalObjectPropertySet.add(topObjectPropertyId);
 
 		logger.finer("normalizing ontology ...");
 		OntologyNormalizer normalizer = new OntologyNormalizer();
@@ -586,7 +586,7 @@ public class CelProcessor implements Processor {
 	}
 
 	private void processBottom(Integer className) {
-		this.classGraph.addAncestor(className, classBottomElement);
+		this.classGraph.addAncestor(className, bottomClassId);
 
 		for (Iterator<Integer> it = this.relationSet.getElements().iterator(); it
 				.hasNext();) {
@@ -595,7 +595,7 @@ public class CelProcessor implements Processor {
 					relation, className)) {
 				Collection<Integer> subsumers = this.classGraph
 						.getSubsumers(firstComponent);
-				if (!subsumers.contains(classBottomElement)) {
+				if (!subsumers.contains(bottomClassId)) {
 					processBottom(firstComponent);
 				}
 			}
@@ -605,7 +605,7 @@ public class CelProcessor implements Processor {
 	private void processExistential(Integer cA, ExistentialEntry eX) {
 		Integer r = eX.getPropertyId();
 		Integer cB = eX.getClassId();
-		Integer bottom = classBottomElement;
+		Integer bottom = bottomClassId;
 
 		if (!this.relationSet.contains(r, cA, cB)) {
 
@@ -624,7 +624,7 @@ public class CelProcessor implements Processor {
 		Set<Integer> vecB = eX.getOperands();
 		Integer cB = eX.getSuperClass();
 		Collection<Integer> sSofA = this.classGraph.getSubsumers(cA);
-		Integer bottom = classBottomElement;
+		Integer bottom = bottomClassId;
 
 		if (sSofA.containsAll(vecB) && !sSofA.contains(cB)) {
 
