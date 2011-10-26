@@ -74,7 +74,7 @@ class NormalizerNR1_2 implements NormalizationRule {
 		if (!rangeAxiom.getRange().isLiteral()) {
 			ret = new HashSet<IntegerAxiom>();
 			Integer newClassId = getOntologyObjectFactory().getIdGenerator()
-					.createEntity(IntegerEntityType.CLASS, true);
+					.createAnonymousEntity(IntegerEntityType.CLASS, true);
 			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
 					.createRangeAxiom(rangeAxiom.getProperty(), newClassId));
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()

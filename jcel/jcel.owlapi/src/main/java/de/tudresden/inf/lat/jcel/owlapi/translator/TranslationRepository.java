@@ -292,32 +292,34 @@ public class TranslationRepository {
 		classSet.remove(this.topClass);
 
 		for (OWLClass cls : classSet) {
-			Integer id = this.entityManager.createEntity(
-					IntegerEntityType.CLASS, false);
+			Integer id = this.entityManager.createNamedEntity(
+					IntegerEntityType.CLASS, cls.toStringID(), false);
 			this.classMap.put(id, cls);
 			this.classInvMap.put(cls, id);
 		}
 		for (OWLObjectProperty objProp : objectPropertySet) {
-			Integer id = this.entityManager.createEntity(
-					IntegerEntityType.OBJECT_PROPERTY, false);
+			Integer id = this.entityManager.createNamedEntity(
+					IntegerEntityType.OBJECT_PROPERTY, objProp.toStringID(),
+					false);
 			this.objectPropertyMap.put(id, objProp);
 			this.objectPropertyInvMap.put(objProp, id);
 		}
 		for (OWLNamedIndividual indiv : individualSet) {
-			Integer id = this.entityManager.createEntity(
-					IntegerEntityType.INDIVIDUAL, false);
+			Integer id = this.entityManager.createNamedEntity(
+					IntegerEntityType.INDIVIDUAL, indiv.toStringID(), false);
 			this.individualMap.put(id, indiv);
 			this.individualInvMap.put(indiv, id);
 		}
 		for (OWLDataProperty dataProp : dataPropertySet) {
-			Integer id = this.entityManager.createEntity(
-					IntegerEntityType.DATA_PROPERTY, false);
+			Integer id = this.entityManager.createNamedEntity(
+					IntegerEntityType.DATA_PROPERTY, dataProp.toStringID(),
+					false);
 			this.dataPropertyMap.put(id, dataProp);
 			this.dataPropertyInvMap.put(dataProp, id);
 		}
 		for (OWLLiteral lit : literalSet) {
-			Integer id = this.entityManager.createEntity(
-					IntegerEntityType.LITERAL, false);
+			Integer id = this.entityManager.createNamedEntity(
+					IntegerEntityType.LITERAL, lit.getLiteral(), false);
 			this.literalMap.put(id, lit);
 			this.literalInvMap.put(lit, id);
 		}

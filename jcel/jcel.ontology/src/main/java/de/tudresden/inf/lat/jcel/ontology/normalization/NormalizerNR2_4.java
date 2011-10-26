@@ -108,11 +108,10 @@ class NormalizerNR2_4 implements NormalizationRule {
 		}
 		if (aLiteral != null) {
 			IntegerClass newClass = getOntologyObjectFactory()
-					.getDataTypeFactory()
-					.createClass(
-							getOntologyObjectFactory()
-									.getIdGenerator()
-									.createEntity(IntegerEntityType.CLASS, true));
+					.getDataTypeFactory().createClass(
+							getOntologyObjectFactory().getIdGenerator()
+									.createAnonymousEntity(
+											IntegerEntityType.CLASS, true));
 
 			Set<IntegerClassExpression> newOperands = new HashSet<IntegerClassExpression>();
 			newOperands.addAll(operands);

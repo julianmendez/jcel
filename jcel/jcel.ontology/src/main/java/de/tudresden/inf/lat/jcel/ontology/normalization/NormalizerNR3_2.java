@@ -89,8 +89,8 @@ class NormalizerNR3_2 implements NormalizationRule {
 				IntegerClass newClass = getOntologyObjectFactory()
 						.getDataTypeFactory().createClass(
 								getOntologyObjectFactory().getIdGenerator()
-										.createEntity(IntegerEntityType.CLASS,
-												true));
+										.createAnonymousEntity(
+												IntegerEntityType.CLASS, true));
 				IntegerObjectSomeValuesFrom newExistential = getOntologyObjectFactory()
 						.getDataTypeFactory().createObjectSomeValuesFrom(
 								propertyExpression, newClass);

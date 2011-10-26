@@ -49,7 +49,23 @@ public interface IntegerEntityManager {
 	 *            auxiliary entity
 	 * @return a new auxiliary entity of a certain type
 	 */
-	public Integer createEntity(IntegerEntityType type, boolean auxiliary);
+	public Integer createAnonymousEntity(IntegerEntityType type,
+			boolean auxiliary);
+
+	/**
+	 * Creates a new entity of a certain type.
+	 * 
+	 * @param type
+	 *            type of the entity
+	 * @param auxiliary
+	 *            <code>true</code> if and only if the created entity is an
+	 *            auxiliary entity
+	 * @param name
+	 *            name for this entity
+	 * @return a new auxiliary entity of a certain type
+	 */
+	public Integer createNamedEntity(IntegerEntityType type, String name,
+			boolean auxiliary);
 
 	/**
 	 * Returns the class identifier corresponding to the given individual. If
@@ -120,6 +136,15 @@ public interface IntegerEntityManager {
 	 * @return the set of individuals
 	 */
 	public Set<Integer> getIndividuals();
+
+	/**
+	 * Returns the name defined for a certain entity.
+	 * 
+	 * @param identifier
+	 *            entity to get the name
+	 * @return the name defined for a certain entity
+	 */
+	public String getName(Integer identifier);
 
 	/**
 	 * Returns the entity type for the given identifier

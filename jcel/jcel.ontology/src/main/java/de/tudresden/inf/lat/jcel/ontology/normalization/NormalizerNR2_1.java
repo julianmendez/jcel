@@ -98,7 +98,7 @@ class NormalizerNR2_1 implements NormalizationRule {
 			Integer lastPropertyName = getNormalizedObjectProperty(propertyList
 					.get(lastPos));
 			Integer newPropertyName = getOntologyObjectFactory()
-					.getIdGenerator().createEntity(
+					.getIdGenerator().createAnonymousEntity(
 							IntegerEntityType.OBJECT_PROPERTY, true);
 			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
 					.createRI3Axiom(newPropertyName, lastPropertyName,
