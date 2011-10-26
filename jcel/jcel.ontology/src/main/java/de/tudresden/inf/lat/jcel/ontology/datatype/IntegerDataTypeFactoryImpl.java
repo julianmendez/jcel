@@ -30,12 +30,24 @@ import java.util.Set;
  */
 public class IntegerDataTypeFactoryImpl implements IntegerDataTypeFactory {
 
-	public static final Integer classBottomElement = 0;
-	public static final Integer classTopElement = 1;
-	public static final Integer dataPropertyBottomElement = 0;
-	public static final Integer dataPropertyTopElement = 1;
-	public static final Integer objectPropertyBottomElement = 0;
-	public static final Integer objectPropertyTopElement = 1;
+	private final IntegerClass bottomClass = new IntegerClass(
+			IntegerEntityManager.bottomClassId);
+	private final IntegerDataProperty bottomDataProperty = new IntegerDataProperty(
+			IntegerEntityManager.bottomDataPropertyId);
+	private final IntegerObjectProperty bottomObjectProperty = new IntegerObjectProperty(
+			IntegerEntityManager.bottomObjectPropertyId);
+	private final IntegerClass topClass = new IntegerClass(
+			IntegerEntityManager.topClassId);
+	private final IntegerDataProperty topDataProperty = new IntegerDataProperty(
+			IntegerEntityManager.topDataPropertyId);
+	private final IntegerObjectProperty topObjectProperty = new IntegerObjectProperty(
+			IntegerEntityManager.topObjectPropertyId);
+
+	/**
+	 * Constructs a new data type factory.
+	 */
+	public IntegerDataTypeFactoryImpl() {
+	}
 
 	@Override
 	public IntegerClass createClass(Integer n) {
@@ -138,6 +150,36 @@ public class IntegerDataTypeFactoryImpl implements IntegerDataTypeFactory {
 		}
 		return new IntegerObjectSomeValuesFrom(propertyExpression,
 				classExpression);
+	}
+
+	@Override
+	public IntegerClass getBottomClass() {
+		return this.bottomClass;
+	}
+
+	@Override
+	public IntegerDataProperty getBottomDataProperty() {
+		return this.bottomDataProperty;
+	}
+
+	@Override
+	public IntegerObjectProperty getBottomObjectProperty() {
+		return this.bottomObjectProperty;
+	}
+
+	@Override
+	public IntegerClass getTopClass() {
+		return this.topClass;
+	}
+
+	@Override
+	public IntegerDataProperty getTopDataProperty() {
+		return this.topDataProperty;
+	}
+
+	@Override
+	public IntegerObjectProperty getTopObjectProperty() {
+		return this.topObjectProperty;
 	}
 
 }

@@ -127,4 +127,46 @@ public interface IntegerDataTypeFactory {
 			IntegerObjectPropertyExpression propertyExpression,
 			IntegerClassExpression classExpression);
 
+	/**
+	 * Returns the bottom class.
+	 * 
+	 * @return the bottom class
+	 */
+	public IntegerClass getBottomClass();
+
+	/**
+	 * Returns the bottom data property.
+	 * 
+	 * @return the bottom data property
+	 */
+	public IntegerDataProperty getBottomDataProperty();
+
+	/**
+	 * Returns the bottom object property.
+	 * 
+	 * @return the bottom object property
+	 */
+	public IntegerObjectProperty getBottomObjectProperty();
+
+	/**
+	 * Returns the top class.
+	 * 
+	 * @return the top class
+	 */
+	public IntegerClass getTopClass();
+
+	/**
+	 * Returns the top data property.
+	 * 
+	 * @return the top data property
+	 */
+	public IntegerDataProperty getTopDataProperty();
+
+	/**
+	 * Returns the top object property.
+	 * 
+	 * @return the top object property
+	 */
+	public IntegerObjectProperty getTopObjectProperty();
+
 }
