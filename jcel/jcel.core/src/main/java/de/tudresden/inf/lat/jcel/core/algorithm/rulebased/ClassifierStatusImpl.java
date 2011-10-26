@@ -40,6 +40,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntology;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntologyImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
 
 /**
  * An object of this class keeps the status of the classifier.
@@ -59,7 +60,6 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	private IntegerEntityManager idGenerator = null;
 	private Map<VNodeImpl, Integer> invNodeSet = new HashMap<VNodeImpl, Integer>();
 	private Map<Integer, VNodeImpl> nodeSet = new HashMap<Integer, VNodeImpl>();
-	private Integer nodeSetLastId = null;
 	private IntegerSubsumerBidirectionalGraphImpl objectPropertyGraph = null;
 	private IntegerRelationMapImpl relationSet = null;
 
@@ -158,16 +158,11 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 		this.nodeSet.clear();
 		this.invNodeSet.clear();
-		this.nodeSetLastId = this.classGraph.getElements().iterator().next();
 		for (Integer elem : this.classGraph.getElements()) {
 			VNodeImpl node = new VNodeImpl(elem);
 			this.nodeSet.put(elem, node);
 			this.invNodeSet.put(node, elem);
-			if (elem > this.nodeSetLastId) {
-				this.nodeSetLastId = elem;
-			}
 		}
-		this.nodeSetLastId++;
 	}
 
 	private void createMapOfObjectPropertiesWithFunctionalAncestor() {
@@ -216,12 +211,12 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 		if (ret == null) {
 			ret = node.getClassId();
 			if (!node.isEmpty()) {
-				ret = this.nodeSetLastId;
+				ret = getIdGenerator().createAnonymousEntity(
+						IntegerEntityType.CLASS, true);
 				VNodeImpl newNode = new VNodeImpl(node.getClassId());
 				newNode.addExistentialsOf(node);
 				this.nodeSet.put(ret, newNode);
 				this.invNodeSet.put(newNode, ret);
-				this.nodeSetLastId++;
 			}
 		}
 		return ret;
