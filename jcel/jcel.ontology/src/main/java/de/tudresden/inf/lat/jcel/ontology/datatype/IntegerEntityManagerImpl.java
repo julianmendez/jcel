@@ -134,6 +134,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 					&& this.nonAuxEntityMap.equals(other.nonAuxEntityMap)
 					&& this.auxNominalMap.equals(other.auxNominalMap)
 					&& this.auxNominalInvMap.equals(other.auxNominalInvMap)
+					&& this.nameMap.equals(other.nameMap)
 					&& this.inverseObjectPropertyMap
 							.equals(other.inverseObjectPropertyMap);
 		}
@@ -294,11 +295,13 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	@Override
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
-		sbuf.append("[");
+		sbuf.append("[\n  entities: ");
 		sbuf.append(this.entityCounter);
-		sbuf.append("\n");
+		sbuf.append("\n  names: ");
+		sbuf.append(this.nameMap);
+		sbuf.append("\n  non-auxiliary entities: ");
 		sbuf.append(this.nonAuxEntityMap);
-		sbuf.append("\n");
+		sbuf.append("\n  auxiliary entities: ");
 		sbuf.append(this.auxEntityMap);
 		sbuf.append("\n]\n");
 		return sbuf.toString();
