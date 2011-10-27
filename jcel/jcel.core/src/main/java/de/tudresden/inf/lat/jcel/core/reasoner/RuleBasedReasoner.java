@@ -95,8 +95,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			axiomSet.addAll(this.extendedOntology);
 			this.processor = new RuleBasedProcessor(axiomSet, this.factory);
 			axiomSet.clear();
-			long iteration = 0;
-			for (; this.processor.process(); iteration++) {
+			while (this.processor.process()) {
 				if (this.interruptRequested) {
 					this.interruptRequested = false;
 					throw new RuntimeException("Classification interrupted.");
