@@ -85,7 +85,8 @@ public class ObjectPropertyExpressionTranslator implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		throw TranslationException.newUnsupportedTranslationException(property);
+		return getDataTypeFactory().createInverseObjectProperty(
+				property.getInverse().accept(this).getId());
 	}
 
 	@Override
