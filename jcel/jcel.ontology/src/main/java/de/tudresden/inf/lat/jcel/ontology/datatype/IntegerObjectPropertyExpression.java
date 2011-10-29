@@ -29,8 +29,6 @@ package de.tudresden.inf.lat.jcel.ontology.datatype;
  */
 public interface IntegerObjectPropertyExpression extends IntegerDatatype {
 
-	public <T> T accept(IntegerObjectPropertyExpressionVisitor<T> visitor);
-
 	/**
 	 * Returns the identifier of the used object property.
 	 * 

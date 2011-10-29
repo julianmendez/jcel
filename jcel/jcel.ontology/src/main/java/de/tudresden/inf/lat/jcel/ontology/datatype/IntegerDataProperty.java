@@ -50,15 +50,6 @@ public class IntegerDataProperty implements IntegerDataPropertyExpression,
 	}
 
 	@Override
-	public <T> T accept(IntegerDataPropertyExpressionVisitor<T> visitor) {
-		if (visitor == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		return visitor.visit(this);
-	}
-
-	@Override
 	public int compareTo(IntegerDataProperty o) {
 		if (o == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -110,16 +101,6 @@ public class IntegerDataProperty implements IntegerDataPropertyExpression,
 	@Override
 	public int hashCode() {
 		return getId().hashCode();
-	}
-
-	@Override
-	public boolean hasOnlyLiterals() {
-		return true;
-	}
-
-	@Override
-	public boolean isLiteral() {
-		return true;
 	}
 
 	@Override

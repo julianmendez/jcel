@@ -25,23 +25,23 @@ import java.util.Collections;
 import java.util.Set;
 
 /**
- * This class models an inverse data property.
+ * This class models an inverse object property.
  * 
  * @author Julian Mendez
  * 
  */
-public class IntegerInverseDataProperty implements
-		IntegerDataPropertyExpression, Comparable<IntegerInverseDataProperty> {
+public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression,
+		Comparable<IntegerObjectInverseOf> {
 
 	private final Integer id;
 
 	/**
-	 * Constructs an inverse data property.
+	 * Constructs an inverse object property.
 	 * 
 	 * @param n
-	 *            inverse data property identifier
+	 *            inverse object property identifier
 	 */
-	protected IntegerInverseDataProperty(Integer n) {
+	protected IntegerObjectInverseOf(Integer n) {
 		if (n == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -50,16 +50,7 @@ public class IntegerInverseDataProperty implements
 	}
 
 	@Override
-	public <T> T accept(IntegerDataPropertyExpressionVisitor<T> visitor) {
-		if (visitor == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		return visitor.visit(this);
-	}
-
-	@Override
-	public int compareTo(IntegerInverseDataProperty o) {
+	public int compareTo(IntegerObjectInverseOf o) {
 		if (o == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -70,8 +61,8 @@ public class IntegerInverseDataProperty implements
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = false;
-		if (o instanceof IntegerInverseDataProperty) {
-			IntegerInverseDataProperty other = (IntegerInverseDataProperty) o;
+		if (o instanceof IntegerObjectInverseOf) {
+			IntegerObjectInverseOf other = (IntegerObjectInverseOf) o;
 			ret = getId().equals(other.getId());
 		}
 		return ret;
@@ -84,7 +75,7 @@ public class IntegerInverseDataProperty implements
 
 	@Override
 	public Set<Integer> getDataPropertiesInSignature() {
-		return Collections.singleton(getId());
+		return Collections.emptySet();
 	}
 
 	@Override
@@ -104,7 +95,7 @@ public class IntegerInverseDataProperty implements
 
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		return Collections.emptySet();
+		return Collections.singleton(getId());
 	}
 
 	@Override

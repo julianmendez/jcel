@@ -90,19 +90,11 @@ public class IntegerDataTypeFactoryImpl implements IntegerDataTypeFactory {
 	}
 
 	@Override
-	public IntegerInverseDataProperty createInverseDataProperty(Integer n) {
+	public IntegerObjectInverseOf createInverseObjectProperty(Integer n) {
 		if (n == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		return new IntegerInverseDataProperty(n);
-	}
-
-	@Override
-	public IntegerInverseObjectProperty createInverseObjectProperty(Integer n) {
-		if (n == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		return new IntegerInverseObjectProperty(n);
+		return new IntegerObjectInverseOf(n);
 	}
 
 	@Override

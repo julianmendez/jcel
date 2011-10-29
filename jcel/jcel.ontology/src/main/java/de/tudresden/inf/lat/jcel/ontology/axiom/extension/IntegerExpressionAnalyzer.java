@@ -28,12 +28,11 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpressionVisitor;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataHasValue;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataSomeValuesFrom;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerInverseObjectProperty;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerNamedIndividual;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectInverseOf;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectOneOf;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressionVisitor;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
 
 /**
@@ -43,8 +42,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
  * @author Julian Mendez
  */
 class IntegerExpressionAnalyzer implements
-		IntegerClassExpressionVisitor<Boolean>,
-		IntegerObjectPropertyExpressionVisitor<Boolean> {
+		IntegerClassExpressionVisitor<Boolean> {
 
 	private boolean hasDatatype = false;
 	private boolean hasInverseObjectProperty = false;
@@ -117,16 +115,6 @@ class IntegerExpressionAnalyzer implements
 	}
 
 	@Override
-	public Boolean visit(IntegerInverseObjectProperty objectPropertyExpression) {
-		if (objectPropertyExpression == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		this.hasInverseObjectProperty = true;
-		return true;
-	}
-
-	@Override
 	public Boolean visit(IntegerNamedIndividual namedIndividual) {
 		if (namedIndividual == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -155,23 +143,17 @@ class IntegerExpressionAnalyzer implements
 	}
 
 	@Override
-	public Boolean visit(IntegerObjectProperty objectPropertyExpression) {
-		if (objectPropertyExpression == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		return true;
-	}
-
-	@Override
 	public Boolean visit(IntegerObjectSomeValuesFrom classExpression) {
 		if (classExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		boolean fillerAcc = classExpression.getFiller().accept(this);
-		boolean propAcc = classExpression.getProperty().accept(this);
-		return fillerAcc && propAcc;
+		IntegerObjectPropertyExpression prop = classExpression.getProperty();
+		if (prop instanceof IntegerObjectInverseOf) {
+			this.hasInverseObjectProperty = true;
+		}
+		return fillerAcc;
 	}
 
 	/**

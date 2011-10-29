@@ -29,30 +29,11 @@ package de.tudresden.inf.lat.jcel.ontology.datatype;
  */
 public interface IntegerDataPropertyExpression extends IntegerDatatype {
 
-	public <T> T accept(IntegerDataPropertyExpressionVisitor<T> visitor);
-
 	/**
 	 * Returns the identifier of the used data property.
 	 * 
 	 * @return the identifier of the used data property
 	 */
 	public Integer getId();
-
-	/**
-	 * Tells whether or not this data property expression contains only
-	 * literals.
-	 * 
-	 * @return <code>true</code> if and only if this class expression contains
-	 *         only literals
-	 */
-	public boolean hasOnlyLiterals();
-
-	/**
-	 * Tells whether or not this data property expression is a literal.
-	 * 
-	 * @return <code>true</code> if and only if this class expression is a
-	 *         literal
-	 */
-	public boolean isLiteral();
 
 }

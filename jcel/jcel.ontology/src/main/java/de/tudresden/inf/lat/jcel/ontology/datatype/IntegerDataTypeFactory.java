@@ -67,20 +67,12 @@ public interface IntegerDataTypeFactory {
 			Integer propertyId, IntegerClassExpression classExpression);
 
 	/**
-	 * Constructs an inverse data property.
-	 * 
-	 * @param n
-	 *            inverse data property identifier
-	 */
-	public IntegerInverseDataProperty createInverseDataProperty(Integer n);
-
-	/**
 	 * Constructs an inverse object property.
 	 * 
 	 * @param n
 	 *            inverse object property identifier
 	 */
-	public IntegerInverseObjectProperty createInverseObjectProperty(Integer n);
+	public IntegerObjectInverseOf createInverseObjectProperty(Integer n);
 
 	/**
 	 * Constructs a new named individual.
