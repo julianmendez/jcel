@@ -513,8 +513,14 @@ public class RuleBasedProcessor implements Processor {
 		this.status.getClassGraph().retainAll(reqClasses);
 	}
 
+	/**
+	 * This method removes the auxiliary object properties that were not
+	 * generated as inverse of another one.
+	 */
 	private void removeAuxiliaryObjectProperties() {
 		Set<Integer> reqObjectProperties = new HashSet<Integer>();
+		reqObjectProperties.addAll(getIdGenerator()
+				.getAuxiliaryInverseObjectProperties());
 		for (Integer elem : getObjectPropertyGraph().getElements()) {
 			if (!getIdGenerator().isAuxiliary(elem)) {
 				reqObjectProperties.add(elem);

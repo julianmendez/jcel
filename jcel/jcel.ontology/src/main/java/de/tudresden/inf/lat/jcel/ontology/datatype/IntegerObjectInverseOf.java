@@ -28,25 +28,24 @@ import java.util.Set;
  * This class models an inverse object property.
  * 
  * @author Julian Mendez
- * 
  */
 public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression,
 		Comparable<IntegerObjectInverseOf> {
 
-	private final Integer id;
+	private final IntegerObjectProperty invProperty;
 
 	/**
 	 * Constructs an inverse object property.
 	 * 
-	 * @param n
-	 *            inverse object property identifier
+	 * @param property
+	 *            property to create the inverse
 	 */
-	protected IntegerObjectInverseOf(Integer n) {
-		if (n == null) {
+	protected IntegerObjectInverseOf(IntegerObjectProperty property) {
+		if (property == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.id = n;
+		this.invProperty = property;
 	}
 
 	@Override
@@ -55,7 +54,7 @@ public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression,
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return getId().compareTo(o.getId());
+		return getInverse().compareTo(o.getInverse());
 	}
 
 	@Override
@@ -63,7 +62,7 @@ public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression,
 		boolean ret = false;
 		if (o instanceof IntegerObjectInverseOf) {
 			IntegerObjectInverseOf other = (IntegerObjectInverseOf) o;
-			ret = getId().equals(other.getId());
+			ret = getInverse().equals(other.getInverse());
 		}
 		return ret;
 	}
@@ -84,28 +83,27 @@ public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression,
 	}
 
 	@Override
-	public Integer getId() {
-		return this.id;
-	}
-
-	@Override
 	public Set<Integer> getIndividualsInSignature() {
 		return Collections.emptySet();
 	}
 
+	/**
+	 * Returns the inverse used for this object property expression
+	 * 
+	 * @return the inverse used for this object property expression
+	 */
+	public IntegerObjectProperty getInverse() {
+		return this.invProperty;
+	}
+
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		return Collections.singleton(getId());
+		return getInverse().getObjectPropertiesInSignature();
 	}
 
 	@Override
 	public int hashCode() {
-		return getId().hashCode();
-	}
-
-	@Override
-	public boolean hasOnlyLiterals() {
-		return false;
+		return getInverse().hashCode();
 	}
 
 	@Override
@@ -115,7 +113,7 @@ public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression,
 
 	@Override
 	public String toString() {
-		return getId().toString();
+		return getInverse().toString();
 	}
 
 }

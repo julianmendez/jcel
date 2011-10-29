@@ -27,6 +27,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
 
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectInverseOf;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
@@ -84,9 +86,21 @@ public class ObjectPropertyExpressionTranslator implements
 		if (property == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
+		IntegerObjectPropertyExpression propExpr = property.getInverse()
+				.accept(this);
+		IntegerObjectPropertyExpression ret = null;
+		if (propExpr instanceof IntegerObjectProperty) {
+			ret = getDataTypeFactory().createObjectInverseOf(
+					(IntegerObjectProperty) propExpr);
+		} else if (propExpr instanceof IntegerObjectInverseOf) {
+			ret = ((IntegerObjectInverseOf) propExpr).getInverse();
+		} else {
+			throw new IllegalArgumentException(
+					"Object property expression cannot be translated: "
+							+ property);
+		}
 
-		return getDataTypeFactory().createInverseObjectProperty(
-				property.getInverse().accept(this).getId());
+		return ret;
 	}
 
 	@Override

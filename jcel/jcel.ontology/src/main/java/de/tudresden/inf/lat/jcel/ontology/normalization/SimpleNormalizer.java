@@ -57,11 +57,12 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerTransitiveObjectP
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectInverseOf;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
@@ -140,10 +141,16 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 			IntegerObjectPropertyExpression propExpr) {
 		Integer ret = null;
 		if (propExpr instanceof IntegerObjectProperty) {
-			ret = propExpr.getId();
-		} else {
+			ret = ((IntegerObjectProperty) propExpr).getId();
+		} else if (propExpr instanceof IntegerObjectInverseOf) {
 			ret = getOntologyObjectFactory().getIdGenerator()
-					.createOrGetInverseObjectPropertyOf(propExpr.getId());
+					.createOrGetInverseObjectPropertyOf(
+							((IntegerObjectInverseOf) propExpr).getInverse()
+									.getId());
+		} else {
+			throw new IllegalArgumentException(
+					"Object property expression cannot be normalized: "
+							+ propExpr);
 		}
 		return ret;
 	}

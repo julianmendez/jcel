@@ -33,6 +33,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectInverseOf;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
@@ -161,10 +162,16 @@ class NormalizerNR2_1 implements NormalizationRule {
 			IntegerObjectPropertyExpression propExpr) {
 		Integer ret = null;
 		if (propExpr instanceof IntegerObjectProperty) {
-			ret = propExpr.getId();
-		} else {
+			ret = ((IntegerObjectProperty) propExpr).getId();
+		} else if (propExpr instanceof IntegerObjectInverseOf) {
 			ret = getOntologyObjectFactory().getIdGenerator()
-					.createOrGetInverseObjectPropertyOf(propExpr.getId());
+					.createOrGetInverseObjectPropertyOf(
+							((IntegerObjectInverseOf) propExpr).getInverse()
+									.getId());
+		} else {
+			throw new IllegalArgumentException(
+					"Object property expression cannot be normalized: "
+							+ propExpr);
 		}
 		return ret;
 	}

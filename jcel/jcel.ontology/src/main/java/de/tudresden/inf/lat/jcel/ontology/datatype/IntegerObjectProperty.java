@@ -83,7 +83,11 @@ public class IntegerObjectProperty implements IntegerObjectPropertyExpression,
 		return Collections.emptySet();
 	}
 
-	@Override
+	/**
+	 * Returns the identifier for this object property.
+	 * 
+	 * @return the identifier for this object property
+	 */
 	public Integer getId() {
 		return this.id;
 	}
@@ -101,11 +105,6 @@ public class IntegerObjectProperty implements IntegerObjectPropertyExpression,
 	@Override
 	public int hashCode() {
 		return getId().hashCode();
-	}
-
-	@Override
-	public boolean hasOnlyLiterals() {
-		return true;
 	}
 
 	@Override

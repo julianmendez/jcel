@@ -175,8 +175,9 @@ public class Translator {
 
 		OWLObjectPropertyExpression ret = null;
 		if (integerObject instanceof IntegerObjectProperty) {
+			IntegerObjectProperty property = (IntegerObjectProperty) integerObject;
 			ret = getTranslationRepository().getOWLObjectProperty(
-					integerObject.getId());
+					property.getId());
 		} else {
 			TranslationException
 					.newUnsupportedTranslationException(integerObject);

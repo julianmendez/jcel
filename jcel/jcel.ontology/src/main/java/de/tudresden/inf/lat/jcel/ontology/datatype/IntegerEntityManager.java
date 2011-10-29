@@ -92,6 +92,13 @@ public interface IntegerEntityManager {
 			throws IndexOutOfBoundsException;
 
 	/**
+	 * Returns the auxiliary inverse object properties.
+	 * 
+	 * @return the auxiliary inverse object properties
+	 */
+	public Set<Integer> getAuxiliaryInverseObjectProperties();
+
+	/**
 	 * This method gives the auxiliary nominal related to a specific individual.
 	 * 
 	 * @param individual

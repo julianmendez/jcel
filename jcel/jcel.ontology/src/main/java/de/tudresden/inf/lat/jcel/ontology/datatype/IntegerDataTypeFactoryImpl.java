@@ -90,14 +90,6 @@ public class IntegerDataTypeFactoryImpl implements IntegerDataTypeFactory {
 	}
 
 	@Override
-	public IntegerObjectInverseOf createInverseObjectProperty(Integer n) {
-		if (n == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		return new IntegerObjectInverseOf(n);
-	}
-
-	@Override
 	public IntegerNamedIndividual createNamedIndividual(Integer n) {
 		if (n == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -112,6 +104,15 @@ public class IntegerDataTypeFactoryImpl implements IntegerDataTypeFactory {
 			throw new IllegalArgumentException("Null argument.");
 		}
 		return new IntegerObjectIntersectionOf(operands);
+	}
+
+	@Override
+	public IntegerObjectInverseOf createObjectInverseOf(
+			IntegerObjectProperty property) {
+		if (property == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		return new IntegerObjectInverseOf(property);
 	}
 
 	@Override

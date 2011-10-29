@@ -31,89 +31,100 @@ import java.util.Set;
 public interface IntegerDataTypeFactory {
 
 	/**
-	 * Constructs a new class.
+	 * Creates a class.
 	 * 
 	 * @param n
 	 *            class identifier
+	 * @return a class
 	 */
 	public IntegerClass createClass(Integer n);
 
 	/**
-	 * Constructs a has-value class expression.
+	 * Creates a has-value class expression.
 	 * 
 	 * @param propertyId
 	 *            data property expression
 	 * @param val
 	 *            value
+	 * @return a has-value class expression
 	 */
 	public IntegerDataHasValue createDataHasValue(Integer propertyId,
 			Integer val);
 
 	/**
-	 * Constructs a data property.
+	 * Creates a data property.
 	 * 
 	 * @param n
 	 *            data property identifier
+	 * @return a data property
 	 */
 	public IntegerDataProperty createDataProperty(Integer n);
 
 	/**
-	 * Constructs an existential restriction.
+	 * Creates an existential restriction.
 	 * 
 	 * @param propertyId
 	 * @param classExpression
+	 * @return an existential restriction
 	 */
 	public IntegerDataSomeValuesFrom createDataSomeValuesFrom(
 			Integer propertyId, IntegerClassExpression classExpression);
 
 	/**
-	 * Constructs an inverse object property.
-	 * 
-	 * @param n
-	 *            inverse object property identifier
-	 */
-	public IntegerObjectInverseOf createInverseObjectProperty(Integer n);
-
-	/**
-	 * Constructs a new named individual.
+	 * Creates a named individual.
 	 * 
 	 * @param n
 	 *            named individual identifier
+	 * @return a named individual
 	 */
 	public IntegerNamedIndividual createNamedIndividual(Integer n);
 
 	/**
-	 * Constructs an intersection of class expressions.
+	 * Creates an intersection of class expressions.
 	 * 
 	 * @param operands
 	 *            set of class expressions
+	 * @return an intersection of class expressions
 	 */
 	public IntegerObjectIntersectionOf createObjectIntersectionOf(
 			Set<IntegerClassExpression> operands);
 
 	/**
-	 * Constructs a nominal expression.
+	 * Creates an inverse object property.
+	 * 
+	 * @param property
+	 *            object property to create the inverse
+	 * @return an inverse object property
+	 */
+	public IntegerObjectInverseOf createObjectInverseOf(
+			IntegerObjectProperty property);
+
+	/**
+	 * Creates a nominal expression.
 	 * 
 	 * @param individualId
 	 *            individual identifier
+	 * @return a nominal expression
 	 */
 	public IntegerObjectOneOf createObjectOneOf(Integer individualId);
 
 	/**
-	 * Constructs an object property.
+	 * Creates an object property.
 	 * 
 	 * @param n
 	 *            object property identifier
+	 * @return an object property
 	 */
 	public IntegerObjectProperty createObjectProperty(Integer n);
 
 	/**
-	 * Constructs an existential restriction.
+	 * Creates an existential restriction.
 	 * 
 	 * @param propertyExpression
 	 *            property expression
 	 * @param classExpression
 	 *            class expression
+	 * @return an existential restriction
 	 */
 	public IntegerObjectSomeValuesFrom createObjectSomeValuesFrom(
 			IntegerObjectPropertyExpression propertyExpression,

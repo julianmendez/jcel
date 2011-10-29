@@ -40,6 +40,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 
 	private Map<IntegerEntityType, Set<Integer>> auxEntityMap = new HashMap<IntegerEntityType, Set<Integer>>();
 	private Set<Integer> auxEntitySet = new HashSet<Integer>();
+	private Set<Integer> auxInverseObjectPropertySet = new HashSet<Integer>();
 	private Map<Integer, Integer> auxNominalInvMap = new HashMap<Integer, Integer>();
 	private Map<Integer, Integer> auxNominalMap = new HashMap<Integer, Integer>();
 	private int entityCounter = firstUsableIdentifier;
@@ -118,6 +119,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 		Integer ret = this.inverseObjectPropertyMap.get(propertyId);
 		if (ret == null) {
 			ret = createAnonymousEntity(IntegerEntityType.OBJECT_PROPERTY, true);
+			this.auxInverseObjectPropertySet.add(ret);
 			this.inverseObjectPropertyMap.put(propertyId, ret);
 			this.inverseObjectPropertyMap.put(ret, propertyId);
 		}
@@ -134,12 +136,19 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 					&& this.nonAuxEntityMap.equals(other.nonAuxEntityMap)
 					&& this.auxNominalMap.equals(other.auxNominalMap)
 					&& this.auxNominalInvMap.equals(other.auxNominalInvMap)
+					&& this.auxInverseObjectPropertySet
+							.equals(other.inverseObjectPropertyMap)
 					&& this.nameMap.equals(other.nameMap)
 					&& this.inverseObjectPropertyMap
 							.equals(other.inverseObjectPropertyMap);
 		}
 
 		return ret;
+	}
+
+	@Override
+	public Set<Integer> getAuxiliaryInverseObjectProperties() {
+		return Collections.unmodifiableSet(this.auxInverseObjectPropertySet);
 	}
 
 	@Override
@@ -303,6 +312,8 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 		sbuf.append(this.nonAuxEntityMap);
 		sbuf.append("\n  auxiliary entities: ");
 		sbuf.append(this.auxEntityMap);
+		sbuf.append("\n  auxiliary inverse object properties: ");
+		sbuf.append(this.auxInverseObjectPropertySet);
 		sbuf.append("\n]\n");
 		return sbuf.toString();
 	}

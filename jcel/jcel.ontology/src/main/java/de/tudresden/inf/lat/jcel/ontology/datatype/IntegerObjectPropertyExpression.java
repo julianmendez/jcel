@@ -30,21 +30,6 @@ package de.tudresden.inf.lat.jcel.ontology.datatype;
 public interface IntegerObjectPropertyExpression extends IntegerDatatype {
 
 	/**
-	 * Returns the identifier of the used object property.
-	 * 
-	 * @return the identifier of the used object property
-	 */
-	public Integer getId();
-
-	/**
-	 * Tells whether or not this property expression contains only literals.
-	 * 
-	 * @return <code>true</code> if and only if this class expression contains
-	 *         only literals
-	 */
-	public boolean hasOnlyLiterals();
-
-	/**
 	 * Tells whether or not this property expression is a literal.
 	 * 
 	 * @return <code>true</code> if and only if this class expression is a
