@@ -22,8 +22,9 @@
 package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
+
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
  * This class models an axiom stating that the contained object property is
@@ -35,8 +36,7 @@ import java.util.Set;
 public class IntegerTransitiveObjectPropertyAxiom implements
 		ComplexIntegerAxiom {
 
-	private final Set<Integer> objectPropertiesInSignature;
-	private final Integer property;
+	private final IntegerObjectPropertyExpression property;
 
 	/**
 	 * Constructs a new transitive object property axiom.
@@ -44,16 +44,13 @@ public class IntegerTransitiveObjectPropertyAxiom implements
 	 * @param prop
 	 *            object property
 	 */
-	protected IntegerTransitiveObjectPropertyAxiom(Integer prop) {
+	protected IntegerTransitiveObjectPropertyAxiom(
+			IntegerObjectPropertyExpression prop) {
 		if (prop == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		this.property = prop;
-
-		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
-		objectPropertiesInSignature.add(this.property);
-		this.objectPropertiesInSignature = objectPropertiesInSignature;
 	}
 
 	@Override
@@ -97,7 +94,7 @@ public class IntegerTransitiveObjectPropertyAxiom implements
 
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		return Collections.unmodifiableSet(this.objectPropertiesInSignature);
+		return getProperty().getObjectPropertiesInSignature();
 	}
 
 	/**
@@ -105,7 +102,7 @@ public class IntegerTransitiveObjectPropertyAxiom implements
 	 * 
 	 * @return the object property in this axiom
 	 */
-	public Integer getProperty() {
+	public IntegerObjectPropertyExpression getProperty() {
 		return this.property;
 	}
 

@@ -50,6 +50,15 @@ public class IntegerObjectProperty implements IntegerObjectPropertyExpression,
 	}
 
 	@Override
+	public <T> T accept(IntegerObjectPropertyExpressionVisitor<T> visitor) {
+		if (visitor == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		return visitor.visit(this);
+	}
+
+	@Override
 	public int compareTo(IntegerObjectProperty o) {
 		if (o == null) {
 			throw new IllegalArgumentException("Null argument.");

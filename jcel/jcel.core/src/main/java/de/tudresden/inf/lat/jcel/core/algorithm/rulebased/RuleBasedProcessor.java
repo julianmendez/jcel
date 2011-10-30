@@ -519,8 +519,6 @@ public class RuleBasedProcessor implements Processor {
 	 */
 	private void removeAuxiliaryObjectProperties() {
 		Set<Integer> reqObjectProperties = new HashSet<Integer>();
-		reqObjectProperties.addAll(getIdGenerator()
-				.getAuxiliaryInverseObjectProperties());
 		for (Integer elem : getObjectPropertyGraph().getElements()) {
 			if (!getIdGenerator().isAuxiliary(elem)) {
 				reqObjectProperties.add(elem);

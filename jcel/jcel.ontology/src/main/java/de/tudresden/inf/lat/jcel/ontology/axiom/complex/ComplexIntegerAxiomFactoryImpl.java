@@ -5,16 +5,16 @@
  * This file is part of jcel.
  *
  * jcel is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
+ * it under the terms of the GNU Lesser General @Override public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * jcel is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * GNU Lesser General @Override public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public License
+ * You should have received a copy of the GNU Lesser General @Override public License
  * along with jcel.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
@@ -41,158 +41,81 @@ public class ComplexIntegerAxiomFactoryImpl implements
 	public ComplexIntegerAxiomFactoryImpl() {
 	}
 
-	/**
-	 * Constructs a new class assertion axiom.
-	 * 
-	 * @param classExpr
-	 *            class expression of the assertion
-	 * @param individualId
-	 *            individual of the assertion
-	 */
+	@Override
 	public IntegerClassAssertionAxiom createClassAssertionAxiom(
 			IntegerClassExpression classExpr, Integer individualId) {
 		return new IntegerClassAssertionAxiom(classExpr, individualId);
 	}
 
-	/**
-	 * Constructs a new class declaration axiom.
-	 * 
-	 * @param declaredEntity
-	 *            class identifier
-	 */
+	@Override
 	public IntegerClassDeclarationAxiom createClassDeclarationAxiom(
 			Integer declaredEntity) {
 		return new IntegerClassDeclarationAxiom(declaredEntity);
 	}
 
-	/**
-	 * Constructs a new data property assertion axiom.
-	 * 
-	 * @param objectProp
-	 *            data property
-	 * @param subjectInd
-	 *            source individual
-	 * @param objectInd
-	 *            target individual
-	 */
+	@Override
 	public IntegerDataPropertyAssertionAxiom createDataPropertyAssertionAxiom(
 			Integer objectProp, Integer subjectInd, Integer objectInd) {
 		return new IntegerDataPropertyAssertionAxiom(objectProp, subjectInd,
 				objectInd);
 	}
 
-	/**
-	 * Constructs a new data property declaration axiom.
-	 * 
-	 * @param declaredEntity
-	 *            data property
-	 */
+	@Override
 	public IntegerDataPropertyDeclarationAxiom createDataPropertyDeclarationAxiom(
 			Integer declaredEntity) {
 		return new IntegerDataPropertyDeclarationAxiom(declaredEntity);
 	}
 
-	/**
-	 * Constructs a new different individuals axiom
-	 * 
-	 * @param individualSet
-	 *            set of individuals declared to be different
-	 */
+	@Override
 	public IntegerDifferentIndividualsAxiom createDifferentIndividualsAxiom(
 			Set<Integer> individualSet) {
 		return new IntegerDifferentIndividualsAxiom(individualSet);
 	}
 
-	/**
-	 * Constructs a new disjoint classes axiom.
-	 * 
-	 * @param descSet
-	 *            set of classes declared to be disjoint
-	 */
+	@Override
 	public IntegerDisjointClassesAxiom createDisjointClassesAxiom(
 			Set<IntegerClassExpression> descSet) {
 		return new IntegerDisjointClassesAxiom(descSet);
 	}
 
-	/**
-	 * Constructs a new equivalent classes axiom.
-	 * 
-	 * @param descSet
-	 *            set of classes declared to be equivalent
-	 */
+	@Override
 	public IntegerEquivalentClassesAxiom createEquivalentClassesAxiom(
 			Set<IntegerClassExpression> descSet) {
 		return new IntegerEquivalentClassesAxiom(descSet);
 	}
 
-	/**
-	 * Constructs an equivalent object properties axiom.
-	 * 
-	 * @param propSet
-	 *            set of object properties declared to be equivalent
-	 */
+	@Override
 	public IntegerEquivalentObjectPropertiesAxiom createEquivalentObjectPropertiesAxiom(
-			Set<Integer> propSet) {
+			Set<IntegerObjectPropertyExpression> propSet) {
 		return new IntegerEquivalentObjectPropertiesAxiom(propSet);
 	}
 
-	/**
-	 * Constructs a new functional object property axiom.
-	 * 
-	 * @param property
-	 *            object property declared functional
-	 */
+	@Override
 	public IntegerFunctionalObjectPropertyAxiom createFunctionalObjectPropertyAxiom(
-			Integer property) {
+			IntegerObjectPropertyExpression property) {
 		return new IntegerFunctionalObjectPropertyAxiom(property);
 	}
 
-	/**
-	 * Constructs a new inverse functional object property axiom.
-	 * 
-	 * @param property
-	 *            object property which inverse is declared functional
-	 */
+	@Override
 	public IntegerInverseFunctionalObjectPropertyAxiom createInverseFunctionalObjectPropertyAxiom(
-			Integer property) {
+			IntegerObjectPropertyExpression property) {
 		return new IntegerInverseFunctionalObjectPropertyAxiom(property);
 	}
 
-	/**
-	 * Constructs a new inverse object property axiom, declaring that one object
-	 * property is the inverse of another one.
-	 * 
-	 * @param first
-	 *            object property
-	 * @param second
-	 *            object property
-	 */
+	@Override
 	public IntegerInverseObjectPropertiesAxiom createInverseObjectPropertiesAxiom(
-			Integer first, Integer second) {
+			IntegerObjectPropertyExpression first,
+			IntegerObjectPropertyExpression second) {
 		return new IntegerInverseObjectPropertiesAxiom(first, second);
 	}
 
-	/**
-	 * Constructs a new named individual declaration axiom.
-	 * 
-	 * @param declaredEntity
-	 *            named individual
-	 */
+	@Override
 	public IntegerNamedIndividualDeclarationAxiom createNamedIndividualDeclarationAxiom(
 			Integer declaredEntity) {
 		return new IntegerNamedIndividualDeclarationAxiom(declaredEntity);
 	}
 
-	/**
-	 * Constructs a new negative object property axiom.
-	 * 
-	 * @param objectProp
-	 *            object property expression
-	 * @param subjectInd
-	 *            source individual
-	 * @param objectInd
-	 *            target individual
-	 */
+	@Override
 	public IntegerNegativeObjectPropertyAssertionAxiom createNegativeObjectPropertyAssertionAxiom(
 			IntegerObjectPropertyExpression objectProp, Integer subjectInd,
 			Integer objectInd) {
@@ -200,16 +123,7 @@ public class ComplexIntegerAxiomFactoryImpl implements
 				subjectInd, objectInd);
 	}
 
-	/**
-	 * Constructs a new object property assertion axiom.
-	 * 
-	 * @param objectProp
-	 *            object property
-	 * @param subjectInd
-	 *            source individual
-	 * @param objectInd
-	 *            target individual
-	 */
+	@Override
 	public IntegerObjectPropertyAssertionAxiom createObjectPropertyAssertionAxiom(
 			IntegerObjectPropertyExpression objectProp, Integer subjectInd,
 			Integer objectInd) {
@@ -217,101 +131,53 @@ public class ComplexIntegerAxiomFactoryImpl implements
 				objectInd);
 	}
 
-	/**
-	 * Constructs a new object property declaration axiom.
-	 * 
-	 * @param declaredEntity
-	 *            object property
-	 */
+	@Override
 	public IntegerObjectPropertyDeclarationAxiom createObjectPropertyDeclarationAxiom(
 			Integer declaredEntity) {
 		return new IntegerObjectPropertyDeclarationAxiom(declaredEntity);
 	}
 
-	/**
-	 * Constructs a new object property range axiom.
-	 * 
-	 * @param prop
-	 *            object property
-	 * @param clExpr
-	 *            class expression
-	 */
-	public IntegerPropertyRangeAxiom createPropertyRangeAxiom(Integer prop,
-			IntegerClassExpression clExpr) {
+	@Override
+	public IntegerPropertyRangeAxiom createPropertyRangeAxiom(
+			IntegerObjectPropertyExpression prop, IntegerClassExpression clExpr) {
 		return new IntegerPropertyRangeAxiom(prop, clExpr);
 	}
 
-	/**
-	 * Constructs a new reflexive object property axiom.
-	 * 
-	 * @param property
-	 *            object property
-	 */
+	@Override
 	public IntegerReflexiveObjectPropertyAxiom createReflexiveObjectPropertyAxiom(
-			Integer property) {
+			IntegerObjectPropertyExpression property) {
 		return new IntegerReflexiveObjectPropertyAxiom(property);
 	}
 
-	/**
-	 * Constructs a new same individual axiom.
-	 * 
-	 * @param individualSet
-	 *            set of individuals declared to be the same
-	 */
+	@Override
 	public IntegerSameIndividualAxiom createSameIndividualAxiom(
 			Set<Integer> individualSet) {
 		return new IntegerSameIndividualAxiom(individualSet);
 	}
 
-	/**
-	 * Constructs a new subclass axiom.
-	 * 
-	 * @param subClExpr
-	 *            subclass
-	 * @param superClExpr
-	 *            superclass
-	 */
+	@Override
 	public IntegerSubClassOfAxiom createSubClassOfAxiom(
 			IntegerClassExpression subClExpr, IntegerClassExpression superClExpr) {
 		return new IntegerSubClassOfAxiom(subClExpr, superClExpr);
 	}
 
-	/**
-	 * Constructs a new sub object property axiom.
-	 * 
-	 * @param subPropExpr
-	 *            sub object property
-	 * @param superPropExpr
-	 *            super object property
-	 */
+	@Override
 	public IntegerSubObjectPropertyOfAxiom createSubObjectPropertyOfAxiom(
 			IntegerObjectPropertyExpression subPropExpr,
 			IntegerObjectPropertyExpression superPropExpr) {
 		return new IntegerSubObjectPropertyOfAxiom(subPropExpr, superPropExpr);
 	}
 
-	/**
-	 * Constructs a new sub object property chain axiom.
-	 * 
-	 * @param chain
-	 *            list of object property expressions in the chain
-	 * @param superProp
-	 *            super object property expression
-	 */
+	@Override
 	public IntegerSubPropertyChainOfAxiom createSubPropertyChainOfAxiom(
 			List<IntegerObjectPropertyExpression> chain,
 			IntegerObjectPropertyExpression superProp) {
 		return new IntegerSubPropertyChainOfAxiom(chain, superProp);
 	}
 
-	/**
-	 * Constructs a new transitive object property axiom.
-	 * 
-	 * @param prop
-	 *            object property
-	 */
+	@Override
 	public IntegerTransitiveObjectPropertyAxiom createTransitiveObjectPropertyAxiom(
-			Integer prop) {
+			IntegerObjectPropertyExpression prop) {
 		return new IntegerTransitiveObjectPropertyAxiom(prop);
 	}
 

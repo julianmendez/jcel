@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
  * This class models an axiom stating that the range of a particular object
@@ -38,7 +39,7 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 
 	private final Set<Integer> classesInSignature;
 	private final Set<Integer> objectPropertiesInSignature;
-	private final Integer property;
+	private final IntegerObjectPropertyExpression property;
 	private final IntegerClassExpression range;
 
 	/**
@@ -49,7 +50,7 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 	 * @param clExpr
 	 *            class expression
 	 */
-	protected IntegerPropertyRangeAxiom(Integer prop,
+	protected IntegerPropertyRangeAxiom(IntegerObjectPropertyExpression prop,
 			IntegerClassExpression clExpr) {
 		if (prop == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -69,7 +70,8 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
 		objectPropertiesInSignature.addAll(this.range
 				.getObjectPropertiesInSignature());
-		objectPropertiesInSignature.add(this.property);
+		objectPropertiesInSignature.addAll(this.property
+				.getObjectPropertiesInSignature());
 		this.objectPropertiesInSignature = Collections
 				.unmodifiableSet(objectPropertiesInSignature);
 	}
@@ -123,7 +125,7 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 	 * 
 	 * @return the object property in this axiom
 	 */
-	public Integer getProperty() {
+	public IntegerObjectPropertyExpression getProperty() {
 		return this.property;
 	}
 

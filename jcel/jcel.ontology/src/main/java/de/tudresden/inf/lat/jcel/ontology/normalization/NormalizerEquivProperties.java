@@ -30,6 +30,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerEquivalentObjectP
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
  * This class models a normalization rule that normalizes an axiom of equivalent
@@ -39,16 +40,24 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
  */
 class NormalizerEquivProperties implements NormalizationRule {
 
+	private NormalizerObjectInverseOf inversePropertyNormalizer;
 	private IntegerOntologyObjectFactory ontologyObjectFactory;
 
 	/**
 	 * Constructs a new normalizer of equivalent object properties.
+	 * 
+	 * @param inversePropNormalizer
 	 */
-	public NormalizerEquivProperties(IntegerOntologyObjectFactory factory) {
+	public NormalizerEquivProperties(IntegerOntologyObjectFactory factory,
+			NormalizerObjectInverseOf inversePropNormalizer) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
+		if (inversePropNormalizer == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
 		this.ontologyObjectFactory = factory;
+		this.inversePropertyNormalizer = inversePropNormalizer;
 	}
 
 	@Override
@@ -66,14 +75,15 @@ class NormalizerEquivProperties implements NormalizationRule {
 
 	private Set<IntegerAxiom> applyRule(
 			IntegerEquivalentObjectPropertiesAxiom equivPropAxiom) {
-		Set<Integer> expressionSet = equivPropAxiom.getProperties();
+		Set<IntegerObjectPropertyExpression> expressionSet = equivPropAxiom
+				.getProperties();
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
-		for (Iterator<Integer> firstIt = expressionSet.iterator(); firstIt
-				.hasNext();) {
-			Integer firstExpression = firstIt.next();
-			for (Iterator<Integer> secondIt = expressionSet.iterator(); secondIt
-					.hasNext();) {
-				Integer secondExpression = secondIt.next();
+		for (Iterator<IntegerObjectPropertyExpression> firstIt = expressionSet
+				.iterator(); firstIt.hasNext();) {
+			Integer firstExpression = getObjectPropertyId(firstIt.next());
+			for (Iterator<IntegerObjectPropertyExpression> secondIt = expressionSet
+					.iterator(); secondIt.hasNext();) {
+				Integer secondExpression = getObjectPropertyId(secondIt.next());
 				RI2Axiom subPropertyAxiom = getOntologyObjectFactory()
 						.getNormalizedAxiomFactory().createRI2Axiom(
 								firstExpression, secondExpression);
@@ -81,6 +91,10 @@ class NormalizerEquivProperties implements NormalizationRule {
 			}
 		}
 		return ret;
+	}
+
+	private Integer getObjectPropertyId(IntegerObjectPropertyExpression propExpr) {
+		return propExpr.accept(this.inversePropertyNormalizer);
 	}
 
 	private IntegerOntologyObjectFactory getOntologyObjectFactory() {

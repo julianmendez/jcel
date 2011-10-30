@@ -110,7 +110,7 @@ public interface ComplexIntegerAxiomFactory {
 	 *            set of object properties declared to be equivalent
 	 */
 	public IntegerEquivalentObjectPropertiesAxiom createEquivalentObjectPropertiesAxiom(
-			Set<Integer> propSet);
+			Set<IntegerObjectPropertyExpression> propSet);
 
 	/**
 	 * Constructs a new functional object property axiom.
@@ -119,7 +119,7 @@ public interface ComplexIntegerAxiomFactory {
 	 *            object property declared functional
 	 */
 	public IntegerFunctionalObjectPropertyAxiom createFunctionalObjectPropertyAxiom(
-			Integer property);
+			IntegerObjectPropertyExpression property);
 
 	/**
 	 * Constructs a new inverse functional object property axiom.
@@ -128,7 +128,7 @@ public interface ComplexIntegerAxiomFactory {
 	 *            object property which inverse is declared functional
 	 */
 	public IntegerInverseFunctionalObjectPropertyAxiom createInverseFunctionalObjectPropertyAxiom(
-			Integer property);
+			IntegerObjectPropertyExpression property);
 
 	/**
 	 * Constructs a new inverse object property axiom, declaring that one object
@@ -140,7 +140,8 @@ public interface ComplexIntegerAxiomFactory {
 	 *            object property
 	 */
 	public IntegerInverseObjectPropertiesAxiom createInverseObjectPropertiesAxiom(
-			Integer first, Integer second);
+			IntegerObjectPropertyExpression first,
+			IntegerObjectPropertyExpression second);
 
 	/**
 	 * Constructs a new named individual declaration axiom.
@@ -196,8 +197,8 @@ public interface ComplexIntegerAxiomFactory {
 	 * @param clExpr
 	 *            class expression
 	 */
-	public IntegerPropertyRangeAxiom createPropertyRangeAxiom(Integer prop,
-			IntegerClassExpression clExpr);
+	public IntegerPropertyRangeAxiom createPropertyRangeAxiom(
+			IntegerObjectPropertyExpression prop, IntegerClassExpression clExpr);
 
 	/**
 	 * Constructs a new reflexive object property axiom.
@@ -206,7 +207,7 @@ public interface ComplexIntegerAxiomFactory {
 	 *            object property
 	 */
 	public IntegerReflexiveObjectPropertyAxiom createReflexiveObjectPropertyAxiom(
-			Integer property);
+			IntegerObjectPropertyExpression property);
 
 	/**
 	 * Constructs a new same individual axiom.
@@ -259,6 +260,6 @@ public interface ComplexIntegerAxiomFactory {
 	 *            object property
 	 */
 	public IntegerTransitiveObjectPropertyAxiom createTransitiveObjectPropertyAxiom(
-			Integer prop);
+			IntegerObjectPropertyExpression prop);
 
 }

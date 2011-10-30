@@ -47,6 +47,15 @@ public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression,
 
 		this.invProperty = property;
 	}
+	
+	@Override
+	public <T> T accept(IntegerObjectPropertyExpressionVisitor<T> visitor) {
+		if (visitor == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		return visitor.visit(this);
+	}
 
 	@Override
 	public int compareTo(IntegerObjectInverseOf o) {

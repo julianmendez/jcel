@@ -61,9 +61,6 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
  */
 public class OntologyNormalizer {
 
-	// private static final Logger logger = Logger
-	// .getLogger(OntologyNormalizer.class.getName());
-
 	/**
 	 * Constructs a new ontology normalizer.
 	 */
@@ -113,6 +110,8 @@ public class OntologyNormalizer {
 			}
 			currentAxiomSet = nextAxiomSet;
 		}
+
+		ret.addAll(normalizer.getNormalizerObjectInverseOf().getRequiredAxioms());
 		return Collections.unmodifiableSet(ret);
 	}
 

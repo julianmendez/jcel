@@ -29,6 +29,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerPropertyRangeAxio
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
  * <p>
@@ -41,6 +42,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
  */
 class NormalizerNR1_2 implements NormalizationRule {
 
+	private NormalizerObjectInverseOf inversePropertyNormalizer;
 	private IntegerOntologyObjectFactory ontologyObjectFactory;
 
 	/**
@@ -48,12 +50,18 @@ class NormalizerNR1_2 implements NormalizationRule {
 	 * 
 	 * @param factory
 	 *            factory
+	 * @param inversePropNormalizer
 	 */
-	public NormalizerNR1_2(IntegerOntologyObjectFactory factory) {
+	public NormalizerNR1_2(IntegerOntologyObjectFactory factory,
+			NormalizerObjectInverseOf inversePropNormalizer) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
+		if (inversePropNormalizer == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
 		this.ontologyObjectFactory = factory;
+		this.inversePropertyNormalizer = inversePropNormalizer;
 	}
 
 	@Override
@@ -76,7 +84,9 @@ class NormalizerNR1_2 implements NormalizationRule {
 			Integer newClassId = getOntologyObjectFactory().getIdGenerator()
 					.createAnonymousEntity(IntegerEntityType.CLASS, true);
 			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
-					.createRangeAxiom(rangeAxiom.getProperty(), newClassId));
+					.createRangeAxiom(
+							getObjectPropertyId(rangeAxiom.getProperty()),
+							newClassId));
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
 					.createSubClassOfAxiom(
 							getOntologyObjectFactory().getDataTypeFactory()
@@ -84,6 +94,10 @@ class NormalizerNR1_2 implements NormalizationRule {
 							rangeAxiom.getRange()));
 		}
 		return ret;
+	}
+
+	private Integer getObjectPropertyId(IntegerObjectPropertyExpression propExpr) {
+		return propExpr.accept(this.inversePropertyNormalizer);
 	}
 
 	private IntegerOntologyObjectFactory getOntologyObjectFactory() {

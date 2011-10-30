@@ -24,6 +24,8 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 import java.util.Collections;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
+
 /**
  * This class models an axiom stating that an object property is reflexive.
  * 
@@ -31,7 +33,7 @@ import java.util.Set;
  */
 public class IntegerReflexiveObjectPropertyAxiom implements ComplexIntegerAxiom {
 
-	private final Integer objectProperty;
+	private final IntegerObjectPropertyExpression objectProperty;
 
 	/**
 	 * Constructs a new reflexive object property axiom.
@@ -39,7 +41,8 @@ public class IntegerReflexiveObjectPropertyAxiom implements ComplexIntegerAxiom 
 	 * @param property
 	 *            object property
 	 */
-	protected IntegerReflexiveObjectPropertyAxiom(Integer property) {
+	protected IntegerReflexiveObjectPropertyAxiom(
+			IntegerObjectPropertyExpression property) {
 		if (property == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -87,7 +90,7 @@ public class IntegerReflexiveObjectPropertyAxiom implements ComplexIntegerAxiom 
 
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		return Collections.singleton(getProperty());
+		return getProperty().getObjectPropertiesInSignature();
 	}
 
 	/**
@@ -95,7 +98,7 @@ public class IntegerReflexiveObjectPropertyAxiom implements ComplexIntegerAxiom 
 	 * 
 	 * @return the object property in this axiom
 	 */
-	public Integer getProperty() {
+	public IntegerObjectPropertyExpression getProperty() {
 		return this.objectProperty;
 	}
 

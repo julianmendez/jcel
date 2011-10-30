@@ -22,21 +22,19 @@
 package de.tudresden.inf.lat.jcel.ontology.datatype;
 
 /**
- * This interface is implemented by classes that model object property
- * expressions with integer numbers.
+ * This class models a visitor of <code>IntegerObjectPropertyExpression</code>.
+ * 
+ * @param <T>
+ *            Type of the returning value of visit functions.
  * 
  * @author Julian Mendez
+ * 
+ * @see IntegerObjectPropertyExpression
  */
-public interface IntegerObjectPropertyExpression extends IntegerDatatype {
+public interface IntegerObjectPropertyExpressionVisitor<T> {
 
-	public <T> T accept(IntegerObjectPropertyExpressionVisitor<T> visitor);
+	public T visit(IntegerObjectInverseOf objectPropertyExpression);
 
-	/**
-	 * Tells whether or not this property expression is a literal.
-	 * 
-	 * @return <code>true</code> if and only if this class expression is a
-	 *         literal
-	 */
-	public boolean isLiteral();
+	public T visit(IntegerObjectProperty objectPropertyExpression);
 
 }

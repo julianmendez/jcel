@@ -41,6 +41,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
  * An object of this class classifies an ontology. It divides a set of axioms in
@@ -147,8 +148,15 @@ public class ClassModuleProcessor implements Processor {
 								superObjectProperty)));
 			}
 
+			Set<Integer> equivSet = objectPropertyGraph
+					.getEquivalents(subObjectProperty);
+			Set<IntegerObjectPropertyExpression> propExprSet = new HashSet<IntegerObjectPropertyExpression>();
+			for (Integer elem : equivSet) {
+				propExprSet
+						.add(getDataTypeFactory().createObjectProperty(elem));
+			}
 			ret.add(getAxiomFactory().createEquivalentObjectPropertiesAxiom(
-					objectPropertyGraph.getEquivalents(subObjectProperty)));
+					propExprSet));
 		}
 
 		return ret;

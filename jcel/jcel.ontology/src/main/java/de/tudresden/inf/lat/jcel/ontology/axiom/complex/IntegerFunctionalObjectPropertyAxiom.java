@@ -24,6 +24,8 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 import java.util.Collections;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
+
 /**
  * This class models an axiom stating that an object property is functional.
  * 
@@ -32,7 +34,7 @@ import java.util.Set;
 public class IntegerFunctionalObjectPropertyAxiom implements
 		ComplexIntegerAxiom {
 
-	private final Integer objectProperty;
+	private final IntegerObjectPropertyExpression objectProperty;
 
 	/**
 	 * Constructs a new functional object property axiom.
@@ -40,7 +42,8 @@ public class IntegerFunctionalObjectPropertyAxiom implements
 	 * @param property
 	 *            object property declared functional
 	 */
-	protected IntegerFunctionalObjectPropertyAxiom(Integer property) {
+	protected IntegerFunctionalObjectPropertyAxiom(
+			IntegerObjectPropertyExpression property) {
 		if (property == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -88,7 +91,7 @@ public class IntegerFunctionalObjectPropertyAxiom implements
 
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		return Collections.singleton(getProperty());
+		return getProperty().getObjectPropertiesInSignature();
 	}
 
 	/**
@@ -96,7 +99,7 @@ public class IntegerFunctionalObjectPropertyAxiom implements
 	 * 
 	 * @return the object property in this axiom
 	 */
-	public Integer getProperty() {
+	public IntegerObjectPropertyExpression getProperty() {
 		return this.objectProperty;
 	}
 

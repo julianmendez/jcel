@@ -25,6 +25,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
+
 /**
  * This class models an axiom stating that one object property is the inverse of
  * another object property. <br />
@@ -34,9 +36,9 @@ import java.util.Set;
  */
 public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom {
 
-	private final Integer firstProperty;
+	private final IntegerObjectPropertyExpression firstProperty;
 	private final Set<Integer> objectPropertiesInSignature;
-	private final Integer secondProperty;
+	private final IntegerObjectPropertyExpression secondProperty;
 
 	/**
 	 * Constructs a new inverse object property axiom, declaring that one object
@@ -47,7 +49,9 @@ public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom 
 	 * @param second
 	 *            object property
 	 */
-	protected IntegerInverseObjectPropertiesAxiom(Integer first, Integer second) {
+	protected IntegerInverseObjectPropertiesAxiom(
+			IntegerObjectPropertyExpression first,
+			IntegerObjectPropertyExpression second) {
 		if (first == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -59,8 +63,10 @@ public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom 
 		this.secondProperty = second;
 
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
-		objectPropertiesInSignature.add(this.firstProperty);
-		objectPropertiesInSignature.add(this.secondProperty);
+		objectPropertiesInSignature.addAll(this.firstProperty
+				.getObjectPropertiesInSignature());
+		objectPropertiesInSignature.addAll(this.secondProperty
+				.getObjectPropertiesInSignature());
 		this.objectPropertiesInSignature = Collections
 				.unmodifiableSet(objectPropertiesInSignature);
 	}
@@ -104,7 +110,7 @@ public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom 
 	 * 
 	 * @return one of object properties in this axiom.
 	 */
-	public Integer getFirstProperty() {
+	public IntegerObjectPropertyExpression getFirstProperty() {
 		return this.firstProperty;
 	}
 
@@ -123,7 +129,7 @@ public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom 
 	 * 
 	 * @return one of object properties in this axiom.
 	 */
-	public Integer getSecondProperty() {
+	public IntegerObjectPropertyExpression getSecondProperty() {
 		return this.secondProperty;
 	}
 
