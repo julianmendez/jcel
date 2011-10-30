@@ -113,7 +113,12 @@ public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression,
 
 	@Override
 	public String toString() {
-		return getInverse().toString();
+		StringBuffer sbuf = new StringBuffer();
+		sbuf.append(IntegerClassExpressionWord.ObjectInverseOf);
+		sbuf.append(IntegerClassExpressionWord.openPar);
+		sbuf.append(getInverse().toString());
+		sbuf.append(IntegerClassExpressionWord.closePar);
+		return sbuf.toString();
 	}
 
 }
