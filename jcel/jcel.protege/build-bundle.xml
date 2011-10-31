@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="jcel.jars" default="dist" basedir=".">
+
+	<!--
+ *
+ * Copyright 2009 Julian Mendez
+ *
+ *
+ * This file is part of jcel.
+ *
+ * jcel is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * jcel is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with jcel.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *
+-->
+
+	<!-- 
+	For more information about this file, see http://ant.apache.org 
+	-->
+
+	<property name="groupId" value="jcel" />
+	<property name="artifactId" value="bundle" />
+
+	<!-- Imports version properties. -->
+	<property file="version.properties" />
+
+	<property name="project.build.directory" value="${basedir}/target" />
+	<property name="src.directory" value="src" />
+
+	<property name="_root.directory" value=".." />
+	<property name="_lib.directory" value="${project.build.directory}/lib" />
+	<property name="_targetlib.directory" value="target" />
+	<property name="groupId.directory" value="jcel" />
+	<property name="repository.directory" value="../jcel.jars/lib" />
+	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
+	<property name="_jars.directory" value="${basedir}/.." />
+	<property name="_resources.directory" value="${src.directory}/main/resources" />
+	<property name="_bundle.directory" value="${project.build.directory}" />
+	<property name="_bundlejars.directory" value="${project.build.directory}" />
+	<property name="_bundle.name" value="de.tudresden.inf.lat.jcel" />
+	<property name="_manifest.directory" value="${src.directory}/main/manifest/MANIFEST.MF" />
+	<property name="_javadoc.directory" value="${project.build.directory}/site/javadoc" />
+	<property name="_src.javadoc.directory" value="${src.directory}/main/javadoc" />
+
+	<property name="module.0.name" value="jcel.ontology" />
+	<property name="module.1.name" value="jcel.core" />
+	<property name="module.2.name" value="jcel.owlapi" />
+	<property name="module.3.name" value="jcel.protege" />
+
+	<path id="libs.directory">
+		<fileset dir="${_jars.directory}" includes="${dependencies}" />
+	</path>
+
+	<!-- Cleans everything. -->
+	<target name="clean">
+		<delete dir="${project.build.directory}" />
+	</target>
+
+	<!-- Compiles a module. -->
+	<target name="compilemodule">
+		<subant antfile="${_root.directory}/${module.name}/build.xml" buildpath="." />
+	</target>
+
+	<!-- Copies the created jars. -->
+	<target name="getjar">
+		<mkdir dir="${_lib.directory}/${groupId.directory}/${module.name}/${version}" />
+		<copy todir="${_lib.directory}/${groupId.directory}/${module.name}/${version}">
+			<fileset dir="${_root.directory}/${module.name}/${_targetlib.directory}">
+				<include name="${module.name}-${version}.jar" />
+				<include name="${module.name}-${version}-sources.jar" />
+			</fileset>
+			<fileset dir="${_root.directory}/${module.name}">
+				<include name="copying.txt" />
+				<include name="copying-lesser.txt" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- Prepares the local repository. -->
+	<target name="getrepository">
+		<mkdir dir="${_lib.directory}" />
+		<copy todir="${_lib.directory}">
+			<fileset dir="${repository.directory}" />
+		</copy>
+	</target>
+
+	<!-- Compiles all modules and gets their jars. -->
+	<target name="compilemodules">
+		<antcall target="compilemodule">
+			<param name="module.name" value="${module.0.name}" />
+		</antcall>
+		<antcall target="compilemodule">
+			<param name="module.name" value="${module.1.name}" />
+		</antcall>
+		<antcall target="compilemodule">
+			<param name="module.name" value="${module.2.name}" />
+		</antcall>
+		<antcall target="compilemodule">
+			<param name="module.name" value="${module.3.name}" />
+		</antcall>
+	</target>
+
+	<!-- Compiles all modules and gets their jars. -->
+	<target name="getjars">
+		<antcall target="getjar">
+			<param name="module.name" value="${module.0.name}" />
+		</antcall>
+		<antcall target="getjar">
+			<param name="module.name" value="${module.1.name}" />
+		</antcall>
+		<antcall target="getjar">
+			<param name="module.name" value="${module.2.name}" />
+		</antcall>
+		<antcall target="getjar">
+			<param name="module.name" value="${module.3.name}" />
+		</antcall>
+	</target>
+
+	<!-- Creates the bundle. -->
+	<target name="bundle">
+		<mkdir dir="${_bundle.directory}" />
+		<jar destfile="${_bundle.directory}/${_bundle.name}.jar" manifest="${_manifest.directory}">
+			<fileset dir="${_resources.directory}" />
+			<fileset dir="${project.build.outputDirectory}" />
+			<fileset dir="${_bundlejars.directory}" includes="${bundlejars}" />
+		</jar>
+	</target>
+
+	<target name="dist" depends="clean, compilemodules, getjars, getrepository, bundle">
+		<!--buildnumber file="version.properties"/-->
+	</target>
+
+</project>
+
