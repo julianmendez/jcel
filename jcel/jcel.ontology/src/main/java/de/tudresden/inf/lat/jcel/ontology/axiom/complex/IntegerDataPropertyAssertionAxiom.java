@@ -84,8 +84,8 @@ public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = false;
-		if (o instanceof IntegerObjectPropertyAssertionAxiom) {
-			IntegerObjectPropertyAssertionAxiom other = (IntegerObjectPropertyAssertionAxiom) o;
+		if (o instanceof IntegerDataPropertyAssertionAxiom) {
+			IntegerDataPropertyAssertionAxiom other = (IntegerDataPropertyAssertionAxiom) o;
 			ret = getProperty().equals(other.getProperty())
 					&& getSubject().equals(other.getSubject())
 					&& getObject().equals(other.getObject());
