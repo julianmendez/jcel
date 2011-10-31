@@ -49,7 +49,6 @@ class NormalizerNR1_2 implements NormalizationRule {
 	 * 
 	 * @param factory
 	 *            factory
-	 * @param inversePropNormalizer
 	 */
 	public NormalizerNR1_2(IntegerOntologyObjectFactory factory) {
 		if (factory == null) {

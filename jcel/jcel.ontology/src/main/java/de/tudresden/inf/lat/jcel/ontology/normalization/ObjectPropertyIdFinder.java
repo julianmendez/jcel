@@ -45,13 +45,10 @@ public class ObjectPropertyIdFinder implements
 	/**
 	 * Constructs a new normalizer for inverse object properties. During the
 	 * process of normalization, some auxiliary inverse object properties may be
-	 * created. A set of required axioms has a set of axioms to relate
-	 * previously existent and created object properties.
+	 * created.
 	 * 
 	 * @param manager
 	 *            entity manager
-	 * @param factory
-	 *            factory of normalized axioms
 	 */
 	public ObjectPropertyIdFinder(IntegerEntityManager manager) {
 		if (manager == null) {
