@@ -86,6 +86,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	private OWLReasonerConfiguration reasonerConfiguration = null;
 	private OWLOntology rootOntology;
 	private Date start = new Date();
+	private Set<AxiomType<?>> supportedAxiomTypes = new HashSet<AxiomType<?>>();
 	private Translator translator = null;
 
 	/**
@@ -108,6 +109,11 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 				this.translator.getOntologyObjectFactory(), buffering);
 		this.rootOntology.getOWLOntologyManager().addOntologyChangeListener(
 				this);
+
+		// axiom types that are supported for entailment
+		this.supportedAxiomTypes.add(AxiomType.EQUIVALENT_CLASSES);
+		this.supportedAxiomTypes.add(AxiomType.SUBCLASS_OF);
+		this.supportedAxiomTypes.add(AxiomType.SUB_OBJECT_PROPERTY);
 	}
 
 	/**
@@ -776,11 +782,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		}
 
 		logger.finer("isEntailmentCheckingSupported(" + axiomType + ")");
-
-		boolean ret = false;
-
-		// TODO return true for the supported axiom types
-
+		boolean ret = this.supportedAxiomTypes.contains(axiomType);
 		logger.finer("" + ret);
 		return ret;
 	}
