@@ -38,6 +38,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataProperty;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataPropertyExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerNamedIndividual;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
@@ -50,7 +51,6 @@ public class RuleBasedReasoner implements IntegerReasoner {
 
 	private static final String reasonerName = "jcel";
 
-	private int auxClassCounter = -1;
 	private Map<IntegerClassExpression, Integer> auxClassInvMap = new HashMap<IntegerClassExpression, Integer>();
 	private Map<Integer, IntegerClassExpression> auxClassMap = new HashMap<Integer, IntegerClassExpression>();
 	private boolean bufferingMode;
@@ -118,10 +118,11 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		} else {
 			Integer classIndex = this.auxClassInvMap.get(ce);
 			if (classIndex == null) {
-				ret = getDataTypeFactory().createClass(this.auxClassCounter);
-				this.auxClassMap.put(this.auxClassCounter, ce);
-				this.auxClassInvMap.put(ce, this.auxClassCounter);
-				this.auxClassCounter--;
+				Integer auxClassId = this.factory.getIdGenerator()
+						.createAnonymousEntity(IntegerEntityType.CLASS, false);
+				ret = getDataTypeFactory().createClass(auxClassId);
+				this.auxClassMap.put(auxClassId, ce);
+				this.auxClassInvMap.put(ce, auxClassId);
 				Set<IntegerClassExpression> argument = new HashSet<IntegerClassExpression>();
 				argument.add(ret);
 				argument.add(ce);
