@@ -88,14 +88,25 @@ public class OntologyNormalizer {
 
 		Set<NormalizedIntegerAxiom> ret = new HashSet<NormalizedIntegerAxiom>();
 		SimpleNormalizer normalizer = new SimpleNormalizer(factory);
+		Set<Integer> objectPropIdSet = new HashSet<Integer>();
 		Set<IntegerAxiom> currentAxiomSet = new HashSet<IntegerAxiom>();
+
 		for (ComplexIntegerAxiom axiom : originalAxiomSet) {
+			objectPropIdSet.addAll(axiom.getObjectPropertiesInSignature());
 			if (axiom instanceof IntegerInverseObjectPropertiesAxiom) {
 				Set<IntegerAxiom> newSet = normalizer.normalize(axiom);
 				currentAxiomSet.addAll(newSet);
 			} else {
 				currentAxiomSet.add(axiom);
 			}
+		}
+
+		for (Integer propId : objectPropIdSet) {
+			Integer inversePropId = factory.getIdGenerator()
+					.createOrGetInverseObjectPropertyOf(propId);
+			currentAxiomSet
+					.addAll(normalizer.getAxiomsForInverseObjectProperties(
+							propId, inversePropId));
 		}
 
 		while (currentAxiomSet.size() > 0) {
@@ -111,7 +122,6 @@ public class OntologyNormalizer {
 			currentAxiomSet = nextAxiomSet;
 		}
 
-		ret.addAll(normalizer.getNormalizerObjectInverseOf().getRequiredAxioms());
 		return Collections.unmodifiableSet(ret);
 	}
 

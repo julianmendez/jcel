@@ -42,7 +42,6 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  */
 class NormalizerNR1_2 implements NormalizationRule {
 
-	private NormalizerObjectInverseOf inversePropertyNormalizer;
 	private IntegerOntologyObjectFactory ontologyObjectFactory;
 
 	/**
@@ -52,16 +51,12 @@ class NormalizerNR1_2 implements NormalizationRule {
 	 *            factory
 	 * @param inversePropNormalizer
 	 */
-	public NormalizerNR1_2(IntegerOntologyObjectFactory factory,
-			NormalizerObjectInverseOf inversePropNormalizer) {
+	public NormalizerNR1_2(IntegerOntologyObjectFactory factory) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		if (inversePropNormalizer == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+
 		this.ontologyObjectFactory = factory;
-		this.inversePropertyNormalizer = inversePropNormalizer;
 	}
 
 	@Override
@@ -97,7 +92,8 @@ class NormalizerNR1_2 implements NormalizationRule {
 	}
 
 	private Integer getObjectPropertyId(IntegerObjectPropertyExpression propExpr) {
-		return propExpr.accept(this.inversePropertyNormalizer);
+		return propExpr.accept(new ObjectPropertyIdFinder(
+				getOntologyObjectFactory().getIdGenerator()));
 	}
 
 	private IntegerOntologyObjectFactory getOntologyObjectFactory() {

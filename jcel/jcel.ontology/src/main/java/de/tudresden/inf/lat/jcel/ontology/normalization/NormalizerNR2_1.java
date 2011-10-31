@@ -33,8 +33,6 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectInverseOf;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
@@ -92,11 +90,11 @@ class NormalizerNR2_1 implements NormalizationRule {
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
 		List<IntegerObjectPropertyExpression> propertyList = propertyAxiom
 				.getPropertyChain();
-		Integer superProperty = getNormalizedObjectProperty(propertyAxiom
+		Integer superProperty = getObjectPropertyId(propertyAxiom
 				.getSuperProperty());
 		while (propertyList.size() > 2) {
 			int lastPos = propertyList.size() - 1;
-			Integer lastPropertyName = getNormalizedObjectProperty(propertyList
+			Integer lastPropertyName = getObjectPropertyId(propertyList
 					.get(lastPos));
 			Integer newPropertyName = getOntologyObjectFactory()
 					.getIdGenerator().createAnonymousEntity(
@@ -112,14 +110,14 @@ class NormalizerNR2_1 implements NormalizationRule {
 		if (propertyList.size() == 2) {
 			Iterator<IntegerObjectPropertyExpression> it = propertyList
 					.iterator();
-			Integer first = getNormalizedObjectProperty(it.next());
-			Integer second = getNormalizedObjectProperty(it.next());
+			Integer first = getObjectPropertyId(it.next());
+			Integer second = getObjectPropertyId(it.next());
 			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
 					.createRI3Axiom(first, second, superProperty));
 			ret.add(createRI3AxiomWithInverse(first, second, superProperty));
 		} else if (propertyList.size() == 1) {
-			Integer subProperty = getNormalizedObjectProperty(propertyList
-					.iterator().next());
+			Integer subProperty = getObjectPropertyId(propertyList.iterator()
+					.next());
 			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
 					.createRI2Axiom(subProperty, superProperty));
 			ret.add(createRI2AxiomWithInverse(subProperty, superProperty));
@@ -158,22 +156,9 @@ class NormalizerNR2_1 implements NormalizationRule {
 						inverseSuperProperty);
 	}
 
-	private Integer getNormalizedObjectProperty(
-			IntegerObjectPropertyExpression propExpr) {
-		Integer ret = null;
-		if (propExpr instanceof IntegerObjectProperty) {
-			ret = ((IntegerObjectProperty) propExpr).getId();
-		} else if (propExpr instanceof IntegerObjectInverseOf) {
-			ret = getOntologyObjectFactory().getIdGenerator()
-					.createOrGetInverseObjectPropertyOf(
-							((IntegerObjectInverseOf) propExpr).getInverse()
-									.getId());
-		} else {
-			throw new IllegalArgumentException(
-					"Object property expression cannot be normalized: "
-							+ propExpr);
-		}
-		return ret;
+	private Integer getObjectPropertyId(IntegerObjectPropertyExpression propExpr) {
+		return propExpr.accept(new ObjectPropertyIdFinder(
+				getOntologyObjectFactory().getIdGenerator()));
 	}
 
 	private IntegerOntologyObjectFactory getOntologyObjectFactory() {

@@ -40,10 +40,11 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataPropertyExpression
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerNamedIndividual;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
+import de.tudresden.inf.lat.jcel.ontology.normalization.ObjectPropertyIdFinder;
 
 /**
+ * This class models a rule-based reasoner.
  * 
  * @author Julian Mendez
  */
@@ -88,6 +89,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		return this.pendingAxiomAdditions.add(axiom);
 	}
 
+	@Override
 	public void classify() {
 		if (!this.classified) {
 			Set<ComplexIntegerAxiom> axiomSet = new HashSet<ComplexIntegerAxiom>();
@@ -278,17 +280,11 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		if (!(pe instanceof IntegerObjectProperty)) {
-			throw new UnsupportedQueryException(
-					"Unsupported query: EquivalentObjectProperties of " + pe);
-		}
-		IntegerObjectProperty elem = (IntegerObjectProperty) pe;
-
 		classify();
+		Integer propId = getObjectPropertyExpressionId(pe);
 		IntegerHierarchicalGraph graph = getProcessor()
 				.getObjectPropertyHierarchy();
-		return toIntegerObjectPropertyExpression(graph.getEquivalents(elem
-				.getId()));
+		return toIntegerObjectPropertyExpression(graph.getEquivalents(propId));
 	}
 
 	@Override
@@ -323,6 +319,12 @@ public class RuleBasedReasoner implements IntegerReasoner {
 
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	private Integer getObjectPropertyExpressionId(
+			IntegerObjectPropertyExpression propExpr) {
+		return propExpr.accept(new ObjectPropertyIdFinder(this.factory
+				.getIdGenerator()));
 	}
 
 	@Override
@@ -432,19 +434,15 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		if (!(pe instanceof IntegerObjectProperty)) {
-			throw new UnsupportedQueryException(
-					"Unsupported query: SubObjectProperties of " + pe);
-		}
-		IntegerObjectProperty prop = (IntegerObjectProperty) pe;
 		classify();
+		Integer propId = getObjectPropertyExpressionId(pe);
 		IntegerHierarchicalGraph graph = getProcessor()
 				.getObjectPropertyHierarchy();
 		Set<Integer> set = null;
 		if (direct) {
-			set = graph.getChildren(prop.getId());
+			set = graph.getChildren(propId);
 		} else {
-			set = graph.getDescendants(prop.getId());
+			set = graph.getDescendants(propId);
 		}
 		Set<Set<IntegerObjectPropertyExpression>> ret = new HashSet<Set<IntegerObjectPropertyExpression>>();
 		for (Integer currentElem : set) {
@@ -495,19 +493,15 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		if (!(pe instanceof IntegerObjectProperty)) {
-			throw new UnsupportedQueryException(
-					"Unsupported query: SuperObjectProperties of " + pe);
-		}
-		IntegerObjectProperty prop = (IntegerObjectProperty) pe;
 		classify();
+		Integer propId = getObjectPropertyExpressionId(pe);
 		IntegerHierarchicalGraph graph = getProcessor()
 				.getObjectPropertyHierarchy();
 		Set<Integer> set = null;
 		if (direct) {
-			set = graph.getParents(prop.getId());
+			set = graph.getParents(propId);
 		} else {
-			set = graph.getAncestors(prop.getId());
+			set = graph.getAncestors(propId);
 		}
 		Set<Set<IntegerObjectPropertyExpression>> ret = new HashSet<Set<IntegerObjectPropertyExpression>>();
 		for (Integer currentElem : set) {

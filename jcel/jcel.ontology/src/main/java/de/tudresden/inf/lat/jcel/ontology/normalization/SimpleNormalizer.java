@@ -62,8 +62,6 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectInverseOf;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
 
@@ -77,7 +75,6 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
  */
 class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> {
 
-	private NormalizerObjectInverseOf inversePropNormalizer;
 	private List<NormalizationRule> norChainOfSubClass = null;
 	private NormalizationRule norDisjoint = null;
 	private NormalizationRule norEquivProperties = null;
@@ -126,6 +123,43 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		return ret;
 	}
 
+	/**
+	 * Returns a set of normalized axioms that relates two object properties
+	 * such that one is the inverse of the other one.
+	 * 
+	 * @param firstProperty
+	 *            first object property
+	 * @param secondProperty
+	 *            second object property, which is the inverse of the first one
+	 * @return a set of normalized axioms that relates two object properties
+	 *         such that one is the inverse of the other one
+	 */
+	public Set<NormalizedIntegerAxiom> getAxiomsForInverseObjectProperties(
+			Integer firstProperty, Integer secondProperty) {
+		if (firstProperty == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (secondProperty == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		Set<NormalizedIntegerAxiom> ret = new HashSet<NormalizedIntegerAxiom>();
+		Integer inverseFirstProperty = getIdGenerator()
+				.createOrGetInverseObjectPropertyOf(firstProperty);
+		Integer inverseSecondProperty = getIdGenerator()
+				.createOrGetInverseObjectPropertyOf(secondProperty);
+		ret.add(getNormalizedAxiomFactory().createRI2Axiom(firstProperty,
+				inverseSecondProperty));
+		ret.add(getNormalizedAxiomFactory().createRI2Axiom(
+				inverseSecondProperty, firstProperty));
+		ret.add(getNormalizedAxiomFactory().createRI2Axiom(secondProperty,
+				inverseFirstProperty));
+		ret.add(getNormalizedAxiomFactory().createRI2Axiom(
+				inverseFirstProperty, secondProperty));
+		return Collections.unmodifiableSet(ret);
+
+	}
+
 	private ComplexIntegerAxiomFactory getComplexAxiomFactory() {
 		return getOntologyObjectFactory().getComplexAxiomFactory();
 	}
@@ -138,30 +172,8 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		return getOntologyObjectFactory().getNormalizedAxiomFactory();
 	}
 
-	private Integer getNormalizedObjectProperty(
-			IntegerObjectPropertyExpression propExpr) {
-		Integer ret = null;
-		if (propExpr instanceof IntegerObjectProperty) {
-			ret = ((IntegerObjectProperty) propExpr).getId();
-		} else if (propExpr instanceof IntegerObjectInverseOf) {
-			ret = getOntologyObjectFactory().getIdGenerator()
-					.createOrGetInverseObjectPropertyOf(
-							((IntegerObjectInverseOf) propExpr).getInverse()
-									.getId());
-		} else {
-			throw new IllegalArgumentException(
-					"Object property expression cannot be normalized: "
-							+ propExpr);
-		}
-		return ret;
-	}
-
-	public NormalizerObjectInverseOf getNormalizerObjectInverseOf() {
-		return this.inversePropNormalizer;
-	}
-
 	private Integer getObjectPropertyId(IntegerObjectPropertyExpression propExpr) {
-		return propExpr.accept(this.inversePropNormalizer);
+		return propExpr.accept(new ObjectPropertyIdFinder(getIdGenerator()));
 	}
 
 	public IntegerOntologyObjectFactory getOntologyObjectFactory() {
@@ -190,9 +202,6 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 	private void reset() {
 
-		this.inversePropNormalizer = new NormalizerObjectInverseOf(
-				getIdGenerator(), getNormalizedAxiomFactory());
-
 		this.norChainOfSubClass = new ArrayList<NormalizationRule>();
 		this.norChainOfSubClass.add(new NormalizerNR1_7(
 				getOntologyObjectFactory()));
@@ -213,10 +222,9 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 		this.norDisjoint = new NormalizerDisjoint(getOntologyObjectFactory());
 		this.norEquivProperties = new NormalizerEquivProperties(
-				getOntologyObjectFactory(), this.inversePropNormalizer);
+				getOntologyObjectFactory());
 		this.norNR1_5 = new NormalizerNR1_5(getOntologyObjectFactory());
-		this.norNR1_2 = new NormalizerNR1_2(getOntologyObjectFactory(),
-				this.inversePropNormalizer);
+		this.norNR1_2 = new NormalizerNR1_2(getOntologyObjectFactory());
 		this.norNR2_1 = new NormalizerNR2_1(getOntologyObjectFactory());
 		this.norNR1_6 = new NormalizerNR1_6();
 	}
@@ -248,8 +256,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 			IntegerObjectSomeValuesFrom restriction = (IntegerObjectSomeValuesFrom) superClass;
 			IntegerClass filler = (IntegerClass) restriction.getFiller();
-			Integer property = getNormalizedObjectProperty(restriction
-					.getProperty());
+			Integer property = getObjectPropertyId(restriction.getProperty());
 			ret.add(getNormalizedAxiomFactory()
 					.createGCI2Axiom(((IntegerClass) subClass).getId(),
 							property, filler.getId()));
@@ -260,8 +267,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 			IntegerObjectSomeValuesFrom restriction = (IntegerObjectSomeValuesFrom) subClass;
 			IntegerClass filler = (IntegerClass) restriction.getFiller();
-			Integer property = getNormalizedObjectProperty(restriction
-					.getProperty());
+			Integer property = getObjectPropertyId(restriction.getProperty());
 			ret.add(getNormalizedAxiomFactory().createGCI3Axiom(property,
 					filler.getId(), ((IntegerClass) superClass).getId()));
 
@@ -279,15 +285,15 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		if (propChain.size() == 0) {
 
 			ret.add(getNormalizedAxiomFactory().createRI1Axiom(
-					getNormalizedObjectProperty(rightPart)));
+					getObjectPropertyId(rightPart)));
 
 		} else if (propChain.size() == 1) {
 
 			Iterator<IntegerObjectPropertyExpression> it = propChain.iterator();
 			IntegerObjectPropertyExpression leftPropExpr = it.next();
 			ret.add(getNormalizedAxiomFactory().createRI2Axiom(
-					getNormalizedObjectProperty(leftPropExpr),
-					getNormalizedObjectProperty(rightPart)));
+					getObjectPropertyId(leftPropExpr),
+					getObjectPropertyId(rightPart)));
 
 		} else if (propChain.size() == 2) {
 
@@ -295,9 +301,9 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 			IntegerObjectPropertyExpression leftLeftProp = it.next();
 			IntegerObjectPropertyExpression leftRightProp = it.next();
 			ret.add(getNormalizedAxiomFactory().createRI3Axiom(
-					getNormalizedObjectProperty(leftLeftProp),
-					getNormalizedObjectProperty(leftRightProp),
-					getNormalizedObjectProperty(rightPart)));
+					getObjectPropertyId(leftLeftProp),
+					getObjectPropertyId(leftRightProp),
+					getObjectPropertyId(rightPart)));
 
 		}
 		return ret;
@@ -440,9 +446,8 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		getIdGenerator().proposeInverseObjectPropertyOf(firstProperty,
 				secondProperty);
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
-		ret.addAll(getNormalizerObjectInverseOf()
-				.getAxiomsForInverseObjectProperties(firstProperty,
-						secondProperty));
+		ret.addAll(getAxiomsForInverseObjectProperties(firstProperty,
+				secondProperty));
 		return Collections.unmodifiableSet(ret);
 	}
 
@@ -611,10 +616,8 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		}
 
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
-		Integer subProperty = getNormalizedObjectProperty(axiom
-				.getSubProperty());
-		Integer superProperty = getNormalizedObjectProperty(axiom
-				.getSuperProperty());
+		Integer subProperty = getObjectPropertyId(axiom.getSubProperty());
+		Integer superProperty = getObjectPropertyId(axiom.getSuperProperty());
 		Integer inverseSubProperty = getIdGenerator()
 				.createOrGetInverseObjectPropertyOf(subProperty);
 		Integer inverseSuperProperty = getIdGenerator()

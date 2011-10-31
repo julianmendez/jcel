@@ -26,7 +26,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectInverseOf;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
@@ -37,10 +36,9 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  * 
  * @author Julian Mendez
  */
-class NormalizerObjectInverseOf implements
+public class ObjectPropertyIdFinder implements
 		IntegerObjectPropertyExpressionVisitor<Integer> {
 
-	private final NormalizedIntegerAxiomFactory factory;
 	private final IntegerEntityManager idGenerator;
 	private Set<NormalizedIntegerAxiom> requiredAxioms = new HashSet<NormalizedIntegerAxiom>();
 
@@ -55,61 +53,15 @@ class NormalizerObjectInverseOf implements
 	 * @param factory
 	 *            factory of normalized axioms
 	 */
-	public NormalizerObjectInverseOf(IntegerEntityManager manager,
-			NormalizedIntegerAxiomFactory factory) {
+	public ObjectPropertyIdFinder(IntegerEntityManager manager) {
 		if (manager == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		if (factory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
 		this.idGenerator = manager;
-		this.factory = factory;
-	}
-
-	/**
-	 * Returns a set of normalized axioms that relates two object properties
-	 * such that one is the inverse of the other one.
-	 * 
-	 * @param firstProperty
-	 *            first object property
-	 * @param secondProperty
-	 *            second object property, which is the inverse of the first one
-	 * @return a set of normalized axioms that relates two object properties
-	 *         such that one is the inverse of the other one
-	 */
-	public Set<NormalizedIntegerAxiom> getAxiomsForInverseObjectProperties(
-			Integer firstProperty, Integer secondProperty) {
-		if (firstProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (secondProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		Set<NormalizedIntegerAxiom> ret = new HashSet<NormalizedIntegerAxiom>();
-		Integer inverseFirstProperty = getIdGenerator()
-				.createOrGetInverseObjectPropertyOf(firstProperty);
-		Integer inverseSecondProperty = getIdGenerator()
-				.createOrGetInverseObjectPropertyOf(secondProperty);
-		ret.add(getNormalizedAxiomFactory().createRI2Axiom(firstProperty,
-				inverseSecondProperty));
-		ret.add(getNormalizedAxiomFactory().createRI2Axiom(
-				inverseSecondProperty, firstProperty));
-		ret.add(getNormalizedAxiomFactory().createRI2Axiom(secondProperty,
-				inverseFirstProperty));
-		ret.add(getNormalizedAxiomFactory().createRI2Axiom(
-				inverseFirstProperty, secondProperty));
-		return Collections.unmodifiableSet(ret);
-
 	}
 
 	public IntegerEntityManager getIdGenerator() {
 		return this.idGenerator;
-	}
-
-	public NormalizedIntegerAxiomFactory getNormalizedAxiomFactory() {
-		return this.factory;
 	}
 
 	public Set<NormalizedIntegerAxiom> getRequiredAxioms() {
@@ -124,8 +76,6 @@ class NormalizerObjectInverseOf implements
 		Integer firstProperty = objectPropertyExpression.getInverse().getId();
 		Integer secondProperty = getIdGenerator()
 				.createOrGetInverseObjectPropertyOf(firstProperty);
-		this.requiredAxioms.addAll(this.getAxiomsForInverseObjectProperties(
-				firstProperty, secondProperty));
 		return secondProperty;
 	}
 

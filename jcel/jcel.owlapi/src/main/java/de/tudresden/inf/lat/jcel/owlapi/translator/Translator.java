@@ -48,7 +48,9 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 
 /**
  * An object of this class can translate a set of <code>OWLAxiom</code>s into a
- * set of <code>IntegerAxiom</code>s.
+ * set of integer axioms.
+ * 
+ * @see OWLAxiom
  * 
  * @author Julian Mendez
  */
