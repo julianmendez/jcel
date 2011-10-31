@@ -72,6 +72,11 @@ public class IntegerNamedIndividual implements IntegerClassExpression,
 	}
 
 	@Override
+	public boolean containsOnlyOneClass() {
+		return true;
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		boolean ret = false;
 		if (o instanceof IntegerNamedIndividual) {
@@ -118,16 +123,6 @@ public class IntegerNamedIndividual implements IntegerClassExpression,
 	@Override
 	public int hashCode() {
 		return getId().hashCode();
-	}
-
-	@Override
-	public boolean hasOnlyLiterals() {
-		return true;
-	}
-
-	@Override
-	public boolean isIntersectionOfLiterals() {
-		return true;
 	}
 
 	@Override

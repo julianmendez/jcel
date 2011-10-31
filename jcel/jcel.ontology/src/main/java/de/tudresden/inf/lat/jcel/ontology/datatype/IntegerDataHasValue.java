@@ -71,6 +71,11 @@ public class IntegerDataHasValue implements IntegerClassExpression {
 	}
 
 	@Override
+	public boolean containsOnlyOneClass() {
+		return this.normalized;
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		boolean ret = false;
 		if (o instanceof IntegerDataHasValue) {
@@ -127,16 +132,6 @@ public class IntegerDataHasValue implements IntegerClassExpression {
 	@Override
 	public int hashCode() {
 		return getProperty().hashCode() + 31 * getValue().hashCode();
-	}
-
-	@Override
-	public boolean hasOnlyLiterals() {
-		return this.normalized;
-	}
-
-	@Override
-	public boolean isIntersectionOfLiterals() {
-		return false;
 	}
 
 	@Override

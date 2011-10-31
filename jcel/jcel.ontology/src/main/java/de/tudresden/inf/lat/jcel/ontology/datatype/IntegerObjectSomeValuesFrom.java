@@ -58,8 +58,7 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 
 		this.property = propertyExpression;
 		this.filler = classExpression;
-		this.normalized = propertyExpression.isLiteral()
-				&& classExpression.isLiteral();
+		this.normalized = classExpression.isLiteral();
 	}
 
 	@Override
@@ -74,6 +73,11 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 	@Override
 	public boolean containsBottom() {
 		return this.filler.containsBottom();
+	}
+
+	@Override
+	public boolean containsOnlyOneClass() {
+		return this.normalized;
 	}
 
 	@Override
@@ -133,16 +137,6 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 	@Override
 	public int hashCode() {
 		return getProperty().hashCode() + 31 * getFiller().hashCode();
-	}
-
-	@Override
-	public boolean hasOnlyLiterals() {
-		return this.normalized;
-	}
-
-	@Override
-	public boolean isIntersectionOfLiterals() {
-		return false;
 	}
 
 	@Override

@@ -63,6 +63,11 @@ public class IntegerObjectOneOf implements IntegerClassExpression {
 	}
 
 	@Override
+	public boolean containsOnlyOneClass() {
+		return false;
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		boolean ret = false;
 		if (o instanceof IntegerObjectOneOf) {
@@ -109,16 +114,6 @@ public class IntegerObjectOneOf implements IntegerClassExpression {
 	@Override
 	public int hashCode() {
 		return getIndividual().hashCode();
-	}
-
-	@Override
-	public boolean hasOnlyLiterals() {
-		return false;
-	}
-
-	@Override
-	public boolean isIntersectionOfLiterals() {
-		return false;
 	}
 
 	@Override

@@ -144,18 +144,27 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		}
 
 		Set<NormalizedIntegerAxiom> ret = new HashSet<NormalizedIntegerAxiom>();
-		Integer inverseFirstProperty = getIdGenerator()
-				.createOrGetInverseObjectPropertyOf(firstProperty);
-		Integer inverseSecondProperty = getIdGenerator()
-				.createOrGetInverseObjectPropertyOf(secondProperty);
-		ret.add(getNormalizedAxiomFactory().createRI2Axiom(firstProperty,
-				inverseSecondProperty));
-		ret.add(getNormalizedAxiomFactory().createRI2Axiom(
-				inverseSecondProperty, firstProperty));
-		ret.add(getNormalizedAxiomFactory().createRI2Axiom(secondProperty,
-				inverseFirstProperty));
-		ret.add(getNormalizedAxiomFactory().createRI2Axiom(
-				inverseFirstProperty, secondProperty));
+		{
+			Integer inverseSecondProperty = getIdGenerator()
+					.createOrGetInverseObjectPropertyOf(secondProperty);
+			if (!inverseSecondProperty.equals(firstProperty)) {
+				ret.add(getNormalizedAxiomFactory().createRI2Axiom(
+						firstProperty, inverseSecondProperty));
+				ret.add(getNormalizedAxiomFactory().createRI2Axiom(
+						inverseSecondProperty, firstProperty));
+			}
+		}
+		{
+			Integer inverseFirstProperty = getIdGenerator()
+					.createOrGetInverseObjectPropertyOf(firstProperty);
+			if (!inverseFirstProperty.equals(secondProperty)) {
+				ret.add(getNormalizedAxiomFactory().createRI2Axiom(
+						secondProperty, inverseFirstProperty));
+				ret.add(getNormalizedAxiomFactory().createRI2Axiom(
+						inverseFirstProperty, secondProperty));
+			}
+		}
+
 		return Collections.unmodifiableSet(ret);
 
 	}
@@ -242,7 +251,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 		} else if (!subClass.isLiteral() && superClass.isLiteral()
 				&& (subClass instanceof IntegerObjectIntersectionOf)
-				&& subClass.hasOnlyLiterals()) {
+				&& subClass.containsOnlyOneClass()) {
 
 			IntegerObjectIntersectionOf intersection = (IntegerObjectIntersectionOf) subClass;
 			Set<IntegerClassExpression> operands = intersection.getOperands();
@@ -252,7 +261,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 		} else if (subClass.isLiteral() && !superClass.isLiteral()
 				&& (superClass instanceof IntegerObjectSomeValuesFrom)
-				&& superClass.hasOnlyLiterals()) {
+				&& superClass.containsOnlyOneClass()) {
 
 			IntegerObjectSomeValuesFrom restriction = (IntegerObjectSomeValuesFrom) superClass;
 			IntegerClass filler = (IntegerClass) restriction.getFiller();
@@ -263,7 +272,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 		} else if (!subClass.isLiteral() && superClass.isLiteral()
 				&& (subClass instanceof IntegerObjectSomeValuesFrom)
-				&& subClass.hasOnlyLiterals()) {
+				&& subClass.containsOnlyOneClass()) {
 
 			IntegerObjectSomeValuesFrom restriction = (IntegerObjectSomeValuesFrom) subClass;
 			IntegerClass filler = (IntegerClass) restriction.getFiller();
