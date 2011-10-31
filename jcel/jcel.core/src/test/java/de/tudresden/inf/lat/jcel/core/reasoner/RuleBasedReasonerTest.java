@@ -122,7 +122,7 @@ public class RuleBasedReasonerTest extends TestCase {
 		IntegerObjectProperty sMinus = createNewObjectProperty(factory, "s-");
 		IntegerObjectProperty t = createNewObjectProperty(factory, "t");
 		ontology.add(factory.getComplexAxiomFactory()
-				.createInverseObjectPropertiesAxiom(sMinus.getId(), s.getId()));
+				.createInverseObjectPropertiesAxiom(sMinus, s));
 
 		// 1
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
@@ -181,11 +181,11 @@ public class RuleBasedReasonerTest extends TestCase {
 
 		// 11
 		ontology.add(factory.getComplexAxiomFactory()
-				.createFunctionalObjectPropertyAxiom(r.getId()));
+				.createFunctionalObjectPropertyAxiom(r));
 
 		// 12
 		ontology.add(factory.getComplexAxiomFactory()
-				.createTransitiveObjectPropertyAxiom(t.getId()));
+				.createTransitiveObjectPropertyAxiom(t));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory,
 				false);
@@ -218,7 +218,7 @@ public class RuleBasedReasonerTest extends TestCase {
 		IntegerObjectProperty r = createNewObjectProperty(factory, "r");
 		IntegerObjectProperty rMinus = createNewObjectProperty(factory, "r-");
 		ontology.add(factory.getComplexAxiomFactory()
-				.createInverseObjectPropertiesAxiom(rMinus.getId(), r.getId()));
+				.createInverseObjectPropertiesAxiom(rMinus, r));
 
 		// 1
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
@@ -281,7 +281,7 @@ public class RuleBasedReasonerTest extends TestCase {
 		IntegerObjectProperty s = createNewObjectProperty(factory, "s");
 		IntegerObjectProperty t = createNewObjectProperty(factory, "t");
 		ontology.add(factory.getComplexAxiomFactory()
-				.createInverseObjectPropertiesAxiom(rMinus.getId(), r.getId()));
+				.createInverseObjectPropertiesAxiom(rMinus, r));
 
 		// 1
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
@@ -305,15 +305,15 @@ public class RuleBasedReasonerTest extends TestCase {
 
 		// 5
 		ontology.add(factory.getComplexAxiomFactory()
-				.createFunctionalObjectPropertyAxiom(rMinus.getId()));
+				.createFunctionalObjectPropertyAxiom(rMinus));
 
 		// 6
 		ontology.add(factory.getComplexAxiomFactory()
-				.createFunctionalObjectPropertyAxiom(s.getId()));
+				.createFunctionalObjectPropertyAxiom(s));
 
 		// 7
 		ontology.add(factory.getComplexAxiomFactory()
-				.createTransitiveObjectPropertyAxiom(t.getId()));
+				.createTransitiveObjectPropertyAxiom(t));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory,
 				false);
@@ -354,9 +354,9 @@ public class RuleBasedReasonerTest extends TestCase {
 		IntegerObjectProperty s = createNewObjectProperty(factory, "s");
 		IntegerObjectProperty sMinus = createNewObjectProperty(factory, "s-");
 		ontology.add(factory.getComplexAxiomFactory()
-				.createInverseObjectPropertiesAxiom(rMinus.getId(), r.getId()));
+				.createInverseObjectPropertiesAxiom(rMinus, r));
 		ontology.add(factory.getComplexAxiomFactory()
-				.createInverseObjectPropertiesAxiom(sMinus.getId(), s.getId()));
+				.createInverseObjectPropertiesAxiom(sMinus, s));
 
 		// 1
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
@@ -390,7 +390,7 @@ public class RuleBasedReasonerTest extends TestCase {
 
 		// 8
 		ontology.add(factory.getComplexAxiomFactory()
-				.createTransitiveObjectPropertyAxiom(r.getId()));
+				.createTransitiveObjectPropertyAxiom(r));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory,
 				false);
@@ -444,10 +444,9 @@ public class RuleBasedReasonerTest extends TestCase {
 		IntegerObjectProperty sMinus = createNewObjectProperty(factory, "s-");
 		IntegerObjectProperty s2Minus = createNewObjectProperty(factory, "s2-");
 		ontology.add(factory.getComplexAxiomFactory()
-				.createInverseObjectPropertiesAxiom(sMinus.getId(), s.getId()));
-		ontology.add(factory
-				.getComplexAxiomFactory()
-				.createInverseObjectPropertiesAxiom(s2Minus.getId(), s2.getId()));
+				.createInverseObjectPropertiesAxiom(sMinus, s));
+		ontology.add(factory.getComplexAxiomFactory()
+				.createInverseObjectPropertiesAxiom(s2Minus, s2));
 
 		// 1
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
@@ -512,15 +511,15 @@ public class RuleBasedReasonerTest extends TestCase {
 
 		// 13
 		ontology.add(factory.getComplexAxiomFactory()
-				.createFunctionalObjectPropertyAxiom(r.getId()));
+				.createFunctionalObjectPropertyAxiom(r));
 
 		// 14
 		ontology.add(factory.getComplexAxiomFactory()
-				.createFunctionalObjectPropertyAxiom(sMinus.getId()));
+				.createFunctionalObjectPropertyAxiom(sMinus));
 
 		// 15
 		ontology.add(factory.getComplexAxiomFactory()
-				.createTransitiveObjectPropertyAxiom(t.getId()));
+				.createTransitiveObjectPropertyAxiom(t));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory,
 				false);
