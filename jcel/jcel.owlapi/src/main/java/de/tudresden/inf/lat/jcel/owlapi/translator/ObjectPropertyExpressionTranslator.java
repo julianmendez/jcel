@@ -88,7 +88,7 @@ public class ObjectPropertyExpressionTranslator implements
 		}
 		IntegerObjectPropertyExpression propExpr = property.getInverse()
 				.accept(this);
-		IntegerObjectPropertyExpression ret = null;
+		IntegerObjectPropertyExpression ret;
 		if (propExpr instanceof IntegerObjectProperty) {
 			ret = getDataTypeFactory().createObjectInverseOf(
 					(IntegerObjectProperty) propExpr);

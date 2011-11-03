@@ -33,9 +33,9 @@ import java.util.NoSuchElementException;
  */
 public class EfficientArrayIterator implements Iterator<Integer> {
 
-	private int[] array = null;
+	private final int[] array;
 	private int pointer = 0;
-	private int size = 0;
+	private final int size;
 
 	/**
 	 * Constructs an iterator for an efficient array.

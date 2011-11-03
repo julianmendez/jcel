@@ -98,7 +98,6 @@ public class CelProcessor implements Processor {
 	private Deque<Integer> queueKeys = new ArrayDeque<Integer>();
 	private IntegerRelationMapImpl relationSet = null;
 	private Map<Integer, Set<Integer>> sameIndividualMap = null;
-
 	private Map<Integer, Set<Integer>> transitiveSubsumed = null;
 
 	/**

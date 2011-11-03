@@ -34,15 +34,13 @@ import java.util.Set;
  */
 public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 
-	private Map<Integer, Collection<Integer>> byFirstComp = null;
-	private Map<Integer, Collection<Integer>> bySecondComp = null;
+	private Map<Integer, Collection<Integer>> byFirstComp = new HashMap<Integer, Collection<Integer>>();
+	private Map<Integer, Collection<Integer>> bySecondComp = new HashMap<Integer, Collection<Integer>>();
 
 	/**
 	 * Constructs an empty binary relation.
 	 */
 	public IntegerBinaryRelationImpl() {
-		this.byFirstComp = new HashMap<Integer, Collection<Integer>>();
-		this.bySecondComp = new HashMap<Integer, Collection<Integer>>();
 	}
 
 	/**

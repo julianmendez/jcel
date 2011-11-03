@@ -146,7 +146,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Collection<Integer> ret = null;
+		Collection<Integer> ret;
 		if (this.equivToBottom.contains(vertex)) {
 			ret = getElements();
 		} else {

@@ -60,7 +60,7 @@ public class ModuleProcessor implements Processor {
 	private IntegerHierarchicalGraphImpl objectPropertyHierarchy = null;
 	private Set<ComplexIntegerAxiom> originalAxiomSet = null;
 	private Processor processor = null;
-	private ModuleProcessorFactory processorFactory = null;
+	private final ModuleProcessorFactory processorFactory;
 	private Map<Integer, Set<Integer>> sameIndividualMap = null;
 
 	/**
@@ -236,7 +236,8 @@ public class ModuleProcessor implements Processor {
 
 		this.moduleIndex = 0;
 		this.classHierarchy = new IntegerHierarchicalGraphImpl(
-				IntegerEntityManager.bottomClassId, IntegerEntityManager.topClassId);
+				IntegerEntityManager.bottomClassId,
+				IntegerEntityManager.topClassId);
 		this.objectPropertyHierarchy = new IntegerHierarchicalGraphImpl(
 				IntegerEntityManager.bottomObjectPropertyId,
 				IntegerEntityManager.topObjectPropertyId);

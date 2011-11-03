@@ -83,8 +83,8 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 			this);
 	private Set<OWLAxiom> pendingAxiomAdditions = new HashSet<OWLAxiom>();
 	private Set<OWLAxiom> pendingAxiomRemovals = new HashSet<OWLAxiom>();
-	private OWLReasonerConfiguration reasonerConfiguration = null;
-	private OWLOntology rootOntology;
+	private final OWLReasonerConfiguration reasonerConfiguration;
+	private final OWLOntology rootOntology;
 	private final Date start = new Date();
 	private final Set<AxiomType<?>> supportedAxiomTypes;
 	private final Translator translator;
@@ -110,6 +110,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		this.rootOntology.getOWLOntologyManager().addOntologyChangeListener(
 				this);
 		this.supportedAxiomTypes = getSupportedTypes();
+		this.reasonerConfiguration = null;
 	}
 
 	/**

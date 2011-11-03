@@ -171,7 +171,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<Integer> ret = null;
+		Set<Integer> ret;
 		if (auxiliary) {
 			ret = this.auxEntityMap.get(type);
 		} else {

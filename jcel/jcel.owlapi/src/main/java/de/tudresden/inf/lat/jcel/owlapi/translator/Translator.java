@@ -175,16 +175,14 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		OWLObjectPropertyExpression ret = null;
-		if (integerObject instanceof IntegerObjectProperty) {
-			IntegerObjectProperty property = (IntegerObjectProperty) integerObject;
-			ret = getTranslationRepository().getOWLObjectProperty(
-					property.getId());
-		} else {
+		if (!(integerObject instanceof IntegerObjectProperty)) {
 			TranslationException
 					.newUnsupportedTranslationException(integerObject);
 		}
-		return ret;
+
+		IntegerObjectProperty property = (IntegerObjectProperty) integerObject;
+		return getTranslationRepository()
+				.getOWLObjectProperty(property.getId());
 	}
 
 	public IntegerObjectPropertyExpression translateOPE(

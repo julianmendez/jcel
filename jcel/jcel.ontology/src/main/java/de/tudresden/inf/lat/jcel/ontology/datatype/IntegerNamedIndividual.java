@@ -32,7 +32,7 @@ import java.util.Set;
 public class IntegerNamedIndividual implements IntegerClassExpression,
 		Comparable<IntegerNamedIndividual> {
 
-	private Integer id = null;
+	private final Integer id;
 
 	/**
 	 * Constructs a new named individual.

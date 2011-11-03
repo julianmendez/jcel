@@ -63,7 +63,7 @@ public class ClassModuleProcessor implements Processor {
 	private static final Integer topClassId = IntegerEntityManager.topClassId;
 
 	private Set<ComplexIntegerAxiom> accumulatedAxiomSet = null;
-	private IntegerOntologyObjectFactory axiomFactory = null;
+	private final IntegerOntologyObjectFactory axiomFactory;
 	private IntegerHierarchicalGraph classHierarchy = null;
 	private Map<Integer, Set<ComplexIntegerAxiom>> classToAxiom = new HashMap<Integer, Set<ComplexIntegerAxiom>>();
 	private Map<Integer, Set<Integer>> classToClass = new HashMap<Integer, Set<Integer>>();
@@ -76,7 +76,7 @@ public class ClassModuleProcessor implements Processor {
 	private IntegerHierarchicalGraph objectPropertyHierarchy = null;
 	private Set<ComplexIntegerAxiom> originalAxiomSet = null;
 	private Processor processor = null;
-	private ModuleProcessorFactory processorFactory = null;
+	private final ModuleProcessorFactory processorFactory;
 	private Map<Integer, Set<Integer>> sameIndividualMap = null;
 	private Set<ComplexIntegerAxiom> sharedAxioms = new HashSet<ComplexIntegerAxiom>();
 
