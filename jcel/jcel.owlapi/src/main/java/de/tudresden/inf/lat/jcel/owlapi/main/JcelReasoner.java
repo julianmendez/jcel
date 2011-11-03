@@ -78,16 +78,16 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	private static final Logger logger = Logger.getLogger(JcelReasoner.class
 			.getName());
 
-	private RuleBasedReasoner jcelCore = null;
-	private OWLOntologyChangeVisitorEx<Boolean> ontologyChangeVisitor = new JcelOntologyChangeVisitorEx(
+	private final RuleBasedReasoner jcelCore;
+	private final OWLOntologyChangeVisitorEx<Boolean> ontologyChangeVisitor = new JcelOntologyChangeVisitorEx(
 			this);
 	private Set<OWLAxiom> pendingAxiomAdditions = new HashSet<OWLAxiom>();
 	private Set<OWLAxiom> pendingAxiomRemovals = new HashSet<OWLAxiom>();
 	private OWLReasonerConfiguration reasonerConfiguration = null;
 	private OWLOntology rootOntology;
-	private Date start = new Date();
-	private Set<AxiomType<?>> supportedAxiomTypes = new HashSet<AxiomType<?>>();
-	private Translator translator = null;
+	private final Date start = new Date();
+	private final Set<AxiomType<?>> supportedAxiomTypes;
+	private final Translator translator;
 
 	/**
 	 * Constructs a new jcel reasoner.
@@ -109,11 +109,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 				this.translator.getOntologyObjectFactory(), buffering);
 		this.rootOntology.getOWLOntologyManager().addOntologyChangeListener(
 				this);
-
-		// axiom types that are supported for entailment
-		this.supportedAxiomTypes.add(AxiomType.EQUIVALENT_CLASSES);
-		this.supportedAxiomTypes.add(AxiomType.SUBCLASS_OF);
-		this.supportedAxiomTypes.add(AxiomType.SUB_OBJECT_PROPERTY);
+		this.supportedAxiomTypes = getSupportedTypes();
 	}
 
 	/**
@@ -143,6 +139,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		this.reasonerConfiguration = configuration;
 		this.rootOntology.getOWLOntologyManager().addOntologyChangeListener(
 				this);
+		this.supportedAxiomTypes = getSupportedTypes();
 	}
 
 	public boolean addAxiom(OWLAxiom axiom) {
@@ -657,6 +654,14 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 										objectPropertyExpression), direct));
 		logger.finer("" + ret);
 		return ret;
+	}
+
+	private Set<AxiomType<?>> getSupportedTypes() {
+		Set<AxiomType<?>> ret = new HashSet<AxiomType<?>>();
+		ret.add(AxiomType.EQUIVALENT_CLASSES);
+		ret.add(AxiomType.SUBCLASS_OF);
+		ret.add(AxiomType.SUB_OBJECT_PROPERTY);
+		return Collections.unmodifiableSet(ret);
 	}
 
 	@Override

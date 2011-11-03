@@ -39,8 +39,8 @@ import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
  */
 public class RuleProfiler implements RObserverRule, SObserverRule {
 
-	private RObserverRule rListener = null;
-	private SObserverRule sListener = null;
+	private final RObserverRule rListener;
+	private final SObserverRule sListener;
 	private long successful = 0;
 	private long times = 0;
 	private long totalTime = 0;
@@ -57,6 +57,7 @@ public class RuleProfiler implements RObserverRule, SObserverRule {
 		}
 
 		this.rListener = rule;
+		this.sListener = null;
 	}
 
 	/**
@@ -71,6 +72,7 @@ public class RuleProfiler implements RObserverRule, SObserverRule {
 		}
 
 		this.sListener = rule;
+		this.rListener = null;
 	}
 
 	@Override

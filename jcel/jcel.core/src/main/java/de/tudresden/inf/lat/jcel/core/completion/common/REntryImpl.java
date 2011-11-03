@@ -31,9 +31,9 @@ package de.tudresden.inf.lat.jcel.core.completion.common;
  */
 public class REntryImpl implements REntry, Comparable<REntryImpl> {
 
-	private Integer leftClass = null;
-	private Integer property = null;
-	private Integer rightClass = null;
+	private final Integer leftClass;
+	private final Integer property;
+	private final Integer rightClass;
 
 	/**
 	 * Constructs a new relation entry (R-entry).

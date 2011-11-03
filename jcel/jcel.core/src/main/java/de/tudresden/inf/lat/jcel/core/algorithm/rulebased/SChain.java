@@ -38,7 +38,7 @@ import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
  */
 public class SChain implements SObserverRule {
 
-	private List<SObserverRule> chain = null;
+	private final List<SObserverRule> chain;
 
 	/**
 	 * Constructs a new chain for the set of subsumers.

@@ -32,9 +32,9 @@ import java.util.Set;
  */
 class ImplicationEntry implements ExtensionEntry {
 
-	private int hashcode = 0;
-	private Set<Integer> leftPart = null;
-	private Integer superClass = null;
+	private final int hashcode;
+	private final Set<Integer> leftPart;
+	private final Integer superClass;
 
 	/**
 	 * Creates an implication entry.

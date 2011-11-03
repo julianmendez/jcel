@@ -36,7 +36,7 @@ import java.util.Set;
  */
 public class VNodeImpl implements VNode {
 
-	private Integer classIdentifier = null;
+	private final Integer classIdentifier;
 	private Set<VNodeObjectSomeValuesFrom> existentialSet = new HashSet<VNodeObjectSomeValuesFrom>();
 
 	/**
@@ -142,20 +142,6 @@ public class VNodeImpl implements VNode {
 	@Override
 	public boolean isEmpty() {
 		return this.existentialSet.isEmpty();
-	}
-
-	/**
-	 * Sets the class identifier.
-	 * 
-	 * @param classId
-	 *            class identifier
-	 */
-	public void setClassId(Integer classId) {
-		if (classId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		this.classIdentifier = classId;
 	}
 
 	@Override

@@ -33,8 +33,8 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
  */
 public class ComplexAxiomExpressivityDetector implements OntologyExpressivity {
 
-	private ComplexIntegerAxiomAnalyzer axiomAnalyzer = null;
-	private String name = null;
+	private final ComplexIntegerAxiomAnalyzer axiomAnalyzer = new ComplexIntegerAxiomAnalyzer();
+	private final String name;
 
 	/**
 	 * Constructs a new expressivity detector.
@@ -47,7 +47,6 @@ public class ComplexAxiomExpressivityDetector implements OntologyExpressivity {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.axiomAnalyzer = new ComplexIntegerAxiomAnalyzer();
 		for (ComplexIntegerAxiom axiom : axiomSet) {
 			axiom.accept(this.axiomAnalyzer);
 		}

@@ -33,8 +33,8 @@ import java.util.Collection;
 public class IntegerSubsumerBidirectionalGraphImpl implements
 		IntegerSubsumerBidirectionalGraph {
 
-	private IntegerSubsumerGraphImpl graph = null;
-	private IntegerSubsumerGraphImpl invGraph = null;
+	private IntegerSubsumerGraphImpl graph;
+	private IntegerSubsumerGraphImpl invGraph;
 
 	/**
 	 * Constructs an empty subsumer bidirectional graph.

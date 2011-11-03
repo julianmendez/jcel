@@ -39,11 +39,11 @@ import java.util.TreeSet;
  */
 public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
-	private Integer bottomElement = null;
-	private Map<Integer, Set<Integer>> children = null;
-	private Map<Integer, Set<Integer>> equivalents = null;
-	private Map<Integer, Set<Integer>> parents = null;
-	private Integer topElement = null;
+	private final Integer bottomElement;
+	private Map<Integer, Set<Integer>> children = new TreeMap<Integer, Set<Integer>>();
+	private Map<Integer, Set<Integer>> equivalents = new TreeMap<Integer, Set<Integer>>();
+	private Map<Integer, Set<Integer>> parents = new TreeMap<Integer, Set<Integer>>();
+	private final Integer topElement;
 
 	/**
 	 * Constructs an empty hierarchical graph.
@@ -63,16 +63,13 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 		this.bottomElement = bottom;
 		this.topElement = top;
-		this.children = new TreeMap<Integer, Set<Integer>>();
-		this.parents = new TreeMap<Integer, Set<Integer>>();
-		this.equivalents = new TreeMap<Integer, Set<Integer>>();
 	}
 
 	/**
-	 * Constructs an empty hierarchical graph using another hierarchical graph.
+	 * Constructs a hierarchical graph using another graph.
 	 * 
 	 * @param origGraph
-	 *            a hierarchical graph
+	 *            a subsumer graph
 	 */
 	public IntegerHierarchicalGraphImpl(IntegerSubsumerGraph origGraph) {
 		if (origGraph == null) {
@@ -320,9 +317,9 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 	}
 
 	private void reset(Collection<Integer> elements) {
-		this.children = new TreeMap<Integer, Set<Integer>>();
-		this.parents = new TreeMap<Integer, Set<Integer>>();
-		this.equivalents = new TreeMap<Integer, Set<Integer>>();
+		this.children.clear();
+		this.parents.clear();
+		this.equivalents.clear();
 
 		for (Integer elem : elements) {
 			this.children.put(elem, new TreeSet<Integer>());

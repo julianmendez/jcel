@@ -75,13 +75,13 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
  */
 class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> {
 
-	private List<NormalizationRule> norChainOfSubClass = null;
-	private NormalizationRule norDisjoint = null;
-	private NormalizationRule norEquivProperties = null;
-	private NormalizationRule norNR1_2 = null;
-	private NormalizationRule norNR1_5 = null;
-	private NormalizerNR1_6 norNR1_6 = null;
-	private NormalizationRule norNR2_1 = null;
+	private final List<NormalizationRule> norChainOfSubClass;
+	private final NormalizationRule norDisjoint;
+	private final NormalizationRule norEquivProperties;
+	private final NormalizationRule norNR1_2;
+	private final NormalizationRule norNR1_5;
+	private final NormalizerNR1_6 norNR1_6;
+	private final NormalizationRule norNR2_1;
 	private final IntegerOntologyObjectFactory ontologyObjectFactory;
 
 	/**
@@ -96,7 +96,32 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		}
 
 		this.ontologyObjectFactory = factory;
-		reset();
+
+		this.norChainOfSubClass = new ArrayList<NormalizationRule>();
+		this.norChainOfSubClass.add(new NormalizerNR1_7(
+				getOntologyObjectFactory()));
+		this.norChainOfSubClass.add(new NormalizerNR2_2(
+				getOntologyObjectFactory()));
+		this.norChainOfSubClass.add(new NormalizerNR2_3(
+				getOntologyObjectFactory()));
+		this.norChainOfSubClass.add(new NormalizerNR3_1(
+				getOntologyObjectFactory()));
+		this.norChainOfSubClass.add(new NormalizerNR3_2(
+				getOntologyObjectFactory()));
+		this.norChainOfSubClass.add(new NormalizerNR3_3(
+				getOntologyObjectFactory()));
+		this.norChainOfSubClass.add(new NormalizerNR4_1(
+				getOntologyObjectFactory()));
+		this.norChainOfSubClass.add(new NormalizerNR4_2(
+				getOntologyObjectFactory()));
+
+		this.norDisjoint = new NormalizerDisjoint(getOntologyObjectFactory());
+		this.norEquivProperties = new NormalizerEquivProperties(
+				getOntologyObjectFactory());
+		this.norNR1_5 = new NormalizerNR1_5(getOntologyObjectFactory());
+		this.norNR1_2 = new NormalizerNR1_2(getOntologyObjectFactory());
+		this.norNR2_1 = new NormalizerNR2_1(getOntologyObjectFactory());
+		this.norNR1_6 = new NormalizerNR1_6();
 	}
 
 	/**
@@ -207,35 +232,6 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 			ret = complexAxiom.accept(this);
 		}
 		return ret;
-	}
-
-	private void reset() {
-
-		this.norChainOfSubClass = new ArrayList<NormalizationRule>();
-		this.norChainOfSubClass.add(new NormalizerNR1_7(
-				getOntologyObjectFactory()));
-		this.norChainOfSubClass.add(new NormalizerNR2_2(
-				getOntologyObjectFactory()));
-		this.norChainOfSubClass.add(new NormalizerNR2_3(
-				getOntologyObjectFactory()));
-		this.norChainOfSubClass.add(new NormalizerNR3_1(
-				getOntologyObjectFactory()));
-		this.norChainOfSubClass.add(new NormalizerNR3_2(
-				getOntologyObjectFactory()));
-		this.norChainOfSubClass.add(new NormalizerNR3_3(
-				getOntologyObjectFactory()));
-		this.norChainOfSubClass.add(new NormalizerNR4_1(
-				getOntologyObjectFactory()));
-		this.norChainOfSubClass.add(new NormalizerNR4_2(
-				getOntologyObjectFactory()));
-
-		this.norDisjoint = new NormalizerDisjoint(getOntologyObjectFactory());
-		this.norEquivProperties = new NormalizerEquivProperties(
-				getOntologyObjectFactory());
-		this.norNR1_5 = new NormalizerNR1_5(getOntologyObjectFactory());
-		this.norNR1_2 = new NormalizerNR1_2(getOntologyObjectFactory());
-		this.norNR2_1 = new NormalizerNR2_1(getOntologyObjectFactory());
-		this.norNR1_6 = new NormalizerNR1_6();
 	}
 
 	private Collection<NormalizedIntegerAxiom> simplify(

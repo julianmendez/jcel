@@ -38,7 +38,7 @@ import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
  */
 public class RChain implements RObserverRule {
 
-	private List<RObserverRule> chain = null;
+	private final List<RObserverRule> chain;
 
 	/**
 	 * Constructs a new chain for the set of relations.

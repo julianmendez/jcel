@@ -73,18 +73,13 @@ import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
  */
 public class OntologyPreprocessor {
 
-	private static final Integer bottomClassId = IntegerEntityManager.bottomClassId;
-	private static final Integer bottomObjectPropertyId = IntegerEntityManager.bottomObjectPropertyId;
-	private static final Integer topClassId = IntegerEntityManager.topClassId;
-	private static final Integer topObjectPropertyId = IntegerEntityManager.topObjectPropertyId;
-
 	private RChain chainR = new RChain(new ArrayList<RObserverRule>());
 	private SChain chainS = new SChain(new ArrayList<SObserverRule>());
-	private OntologyExpressivity expressivityDetector = null;
-	private ExtendedOntologyImpl extendedOntology = null;
-	private IntegerOntologyObjectFactory ontologyObjectFactory = null;
-	private Set<Integer> originalClassSet = null;
-	private Set<Integer> originalObjectPropertySet = null;
+	private final OntologyExpressivity expressivityDetector;
+	private ExtendedOntology extendedOntology = new ExtendedOntologyImpl();
+	private final IntegerOntologyObjectFactory ontologyObjectFactory;
+	private Set<Integer> originalClassSet = new HashSet<Integer>();
+	private Set<Integer> originalObjectPropertySet = new HashSet<Integer>();
 
 	/**
 	 * Constructs a new ontology preprocessor.
@@ -102,6 +97,17 @@ public class OntologyPreprocessor {
 		}
 
 		this.ontologyObjectFactory = factory;
+
+		this.originalClassSet.add(IntegerEntityManager.bottomClassId);
+		this.originalClassSet.add(IntegerEntityManager.topClassId);
+		this.originalObjectPropertySet
+				.add(IntegerEntityManager.bottomObjectPropertyId);
+		this.originalObjectPropertySet
+				.add(IntegerEntityManager.topObjectPropertyId);
+
+		this.expressivityDetector = new ComplexAxiomExpressivityDetector(
+				axiomSet);
+
 		preProcess(axiomSet);
 	}
 
@@ -170,20 +176,6 @@ public class OntologyPreprocessor {
 		this.chainR = new RChain(listR);
 	}
 
-	private void findEntities(Set<ComplexIntegerAxiom> axiomSet) {
-		this.originalClassSet = new HashSet<Integer>();
-		this.originalObjectPropertySet = new HashSet<Integer>();
-		for (ComplexIntegerAxiom axiom : axiomSet) {
-			this.originalClassSet.addAll(axiom.getClassesInSignature());
-			this.originalObjectPropertySet.addAll(axiom
-					.getObjectPropertiesInSignature());
-		}
-		this.originalClassSet.add(bottomClassId);
-		this.originalClassSet.add(topClassId);
-		this.originalObjectPropertySet.add(bottomObjectPropertyId);
-		this.originalObjectPropertySet.add(topObjectPropertyId);
-	}
-
 	/**
 	 * Returns the ontology expressivity.
 	 * 
@@ -200,6 +192,10 @@ public class OntologyPreprocessor {
 	 */
 	public ExtendedOntology getExtendedOntology() {
 		return this.extendedOntology;
+	}
+
+	private OntologyExpressivity getOntologyExpressivity() {
+		return this.expressivityDetector;
 	}
 
 	/**
@@ -248,25 +244,26 @@ public class OntologyPreprocessor {
 	}
 
 	private void preProcess(Set<ComplexIntegerAxiom> axiomSet) {
-		findEntities(axiomSet);
+		for (ComplexIntegerAxiom axiom : axiomSet) {
+			this.originalClassSet.addAll(axiom.getClassesInSignature());
+			this.originalObjectPropertySet.addAll(axiom
+					.getObjectPropertiesInSignature());
+		}
 
-		this.expressivityDetector = new ComplexAxiomExpressivityDetector(
-				axiomSet);
-
-		if (this.expressivityDetector.hasInverseObjectProperty()
-				|| this.expressivityDetector.hasFunctionalObjectProperty()) {
+		if (getOntologyExpressivity().hasInverseObjectProperty()
+				|| getOntologyExpressivity().hasFunctionalObjectProperty()) {
 			activateExtendedRules();
 		} else {
 			activateSimpleRules();
 		}
-		if (this.expressivityDetector.hasBottom()) {
+		if (getOntologyExpressivity().hasBottom()) {
 			activateBottomRules();
 		}
 
 		OntologyNormalizer axiomNormalizer = new OntologyNormalizer();
 		SubPropertyNormalizer subPropNormalizer = new SubPropertyNormalizer(
 				getOntologyObjectFactory());
-		this.extendedOntology = new ExtendedOntologyImpl();
+
 		this.extendedOntology.load(subPropNormalizer.apply(axiomNormalizer
 				.normalize(axiomSet, getOntologyObjectFactory())));
 

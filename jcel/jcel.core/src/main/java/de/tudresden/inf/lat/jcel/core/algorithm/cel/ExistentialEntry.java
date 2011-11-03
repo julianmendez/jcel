@@ -29,9 +29,9 @@ package de.tudresden.inf.lat.jcel.core.algorithm.cel;
  */
 class ExistentialEntry implements ExtensionEntry {
 
-	private Integer classId = null;
-	private int hashcode = 0;
-	private Integer propertyId = null;
+	private final Integer classId;
+	private final int hashcode;
+	private final Integer propertyId;
 
 	/**
 	 * Constructs a new existential entry.

@@ -56,10 +56,10 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  */
 public class Translator {
 
-	private AxiomTranslator axiomTranslator;
+	private final AxiomTranslator axiomTranslator;
 	private final IntegerOntologyObjectFactory factory;
-	private Set<ComplexIntegerAxiom> ontology;
-	private TranslationRepository repository;
+	private final Set<ComplexIntegerAxiom> ontology;
+	private final TranslationRepository repository;
 
 	public Translator(OWLOntology rootOntology,
 			IntegerOntologyObjectFactory factory) {

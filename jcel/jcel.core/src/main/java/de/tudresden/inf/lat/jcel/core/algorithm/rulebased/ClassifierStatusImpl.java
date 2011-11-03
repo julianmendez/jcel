@@ -37,7 +37,6 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.VNode;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntology;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntologyImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
@@ -56,7 +55,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	private IntegerSubsumerGraphImpl classGraph = null;
 	private Map<Integer, Set<Integer>> cognateFunctPropMap = new HashMap<Integer, Set<Integer>>();
-	private ExtendedOntology extendedOntology = new ExtendedOntologyImpl();
+	private final ExtendedOntology extendedOntology;
 	private IntegerEntityManager idGenerator = null;
 	private Map<VNodeImpl, Integer> invNodeSet = new HashMap<VNodeImpl, Integer>();
 	private Map<Integer, VNodeImpl> nodeSet = new HashMap<Integer, VNodeImpl>();

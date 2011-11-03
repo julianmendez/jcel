@@ -93,8 +93,8 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 public class AxiomTranslator implements
 		OWLAxiomVisitorEx<Set<ComplexIntegerAxiom>> {
 
-	private ClassExpressionTranslator classExpressionTranslator;
-	private IntegerOntologyObjectFactory factory;
+	private final ClassExpressionTranslator classExpressionTranslator;
+	private final IntegerOntologyObjectFactory factory;
 
 	public AxiomTranslator(ClassExpressionTranslator translator,
 			IntegerOntologyObjectFactory factory) {

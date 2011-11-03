@@ -34,8 +34,8 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxio
 public class NormalizedAxiomExpressivityDetector implements
 		OntologyExpressivity {
 
-	private NormalizedIntegerAxiomAnalyzer axiomAnalyzer = null;
-	private String name = null;
+	private NormalizedIntegerAxiomAnalyzer axiomAnalyzer = new NormalizedIntegerAxiomAnalyzer();
+	private final String name;
 
 	/**
 	 * Constructs a new expressivity detector.
@@ -49,7 +49,6 @@ public class NormalizedAxiomExpressivityDetector implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.axiomAnalyzer = new NormalizedIntegerAxiomAnalyzer();
 		for (NormalizedIntegerAxiom axiom : axiomSet) {
 			axiom.accept(this.axiomAnalyzer);
 		}

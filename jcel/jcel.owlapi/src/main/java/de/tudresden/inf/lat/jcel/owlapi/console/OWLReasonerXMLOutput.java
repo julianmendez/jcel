@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  */
 public class OWLReasonerXMLOutput {
 
-	private OWLReasoner reasoner = null;
+	private final OWLReasoner reasoner;
 	private OWLXMLWriter writer = null;
 
 	public OWLReasonerXMLOutput(OWLReasoner reasoner) {

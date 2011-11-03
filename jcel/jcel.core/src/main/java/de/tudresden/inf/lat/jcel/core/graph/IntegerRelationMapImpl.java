@@ -35,17 +35,14 @@ import java.util.Set;
  */
 public class IntegerRelationMapImpl implements IntegerRelationMap {
 
-	private Map<Integer, IntegerBinaryRelationImpl> relationMap = null;
-	private Map<Integer, Collection<Integer>> relationSetByFirst = null;
-	private Map<Integer, Collection<Integer>> relationSetBySecond = null;
+	private Map<Integer, IntegerBinaryRelationImpl> relationMap = new HashMap<Integer, IntegerBinaryRelationImpl>();
+	private Map<Integer, Collection<Integer>> relationSetByFirst = new HashMap<Integer, Collection<Integer>>();
+	private Map<Integer, Collection<Integer>> relationSetBySecond = new HashMap<Integer, Collection<Integer>>();
 
 	/**
 	 * Constructs an empty map of binary relations.
 	 */
 	public IntegerRelationMapImpl() {
-		this.relationMap = new HashMap<Integer, IntegerBinaryRelationImpl>();
-		this.relationSetByFirst = new HashMap<Integer, Collection<Integer>>();
-		this.relationSetBySecond = new HashMap<Integer, Collection<Integer>>();
 	}
 
 	/**

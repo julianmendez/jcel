@@ -45,10 +45,10 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxio
  */
 public class SubPropertyNormalizer implements SaturationRule {
 
-	private SaturationRule sr0 = null;
-	private SaturationRule sr1sr2 = null;
-	private SaturationRule sr3 = null;
-	private SaturationRule sr4 = null;
+	private final SaturationRule sr0;
+	private final SaturationRule sr1sr2;
+	private final SaturationRule sr3;
+	private final SaturationRule sr4;
 
 	/**
 	 * Constructs a new normalizer of sub object properties.

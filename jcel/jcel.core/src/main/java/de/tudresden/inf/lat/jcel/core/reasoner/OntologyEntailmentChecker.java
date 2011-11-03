@@ -61,7 +61,7 @@ public class OntologyEntailmentChecker implements
 		ComplexIntegerAxiomVisitor<Boolean> {
 
 	private static final String errorMsg = "Unsupported entailment with axiom:";
-	private RuleBasedReasoner reasoner = null;
+	private final RuleBasedReasoner reasoner;
 
 	/**
 	 * Constructs a new ontology entailment checker.

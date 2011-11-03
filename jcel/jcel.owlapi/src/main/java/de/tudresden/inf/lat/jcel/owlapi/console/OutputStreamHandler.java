@@ -37,8 +37,8 @@ import java.util.logging.LogRecord;
  */
 public class OutputStreamHandler extends Handler {
 
-	private BufferedWriter output = null;
-	private Date start = null;
+	private final BufferedWriter output;
+	private final Date start;
 
 	public OutputStreamHandler(OutputStream output) throws IOException {
 		if (output == null) {
