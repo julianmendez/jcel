@@ -85,7 +85,7 @@ public class Translator {
 			owlAxiomSet.addAll(ont.getAxioms());
 		}
 
-		this.ontology = translateA(owlAxiomSet);
+		this.ontology = translateSA(owlAxiomSet);
 	}
 
 	public AxiomTranslator getAxiomTranslator() {
@@ -107,19 +107,6 @@ public class Translator {
 
 	public TranslationRepository getTranslationRepository() {
 		return this.repository;
-	}
-
-	private Set<ComplexIntegerAxiom> translateA(Set<OWLAxiom> axiomSet)
-			throws TranslationException {
-		if (axiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		Set<ComplexIntegerAxiom> ret = new HashSet<ComplexIntegerAxiom>();
-		for (OWLAxiom axiom : axiomSet) {
-			ret.addAll(axiom.accept(axiomTranslator));
-		}
-		return ret;
 	}
 
 	public OWLClass translateC(IntegerClass integerObject) {
