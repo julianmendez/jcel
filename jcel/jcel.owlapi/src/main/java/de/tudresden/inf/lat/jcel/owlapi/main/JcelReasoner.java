@@ -145,6 +145,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 
 	public boolean addAxiom(OWLAxiom axiom) {
 		boolean ret = this.pendingAxiomAdditions.add(axiom);
+		getTranslator().getTranslationRepository().addAxiom(axiom);
 		Set<ComplexIntegerAxiom> axioms = getTranslator().translateSA(
 				Collections.singleton(axiom));
 		for (ComplexIntegerAxiom ax : axioms) {

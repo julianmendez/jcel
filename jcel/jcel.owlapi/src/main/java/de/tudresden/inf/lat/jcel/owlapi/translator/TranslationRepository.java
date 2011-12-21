@@ -72,6 +72,14 @@ public class TranslationRepository {
 	private final OWLDataProperty topDataProperty;
 	private final OWLObjectProperty topObjectProperty;
 
+	/**
+	 * Constructs a new translation repository.
+	 * 
+	 * @param rootOntology
+	 *            OWL ontology
+	 * @param manager
+	 *            entity manager
+	 */
 	public TranslationRepository(OWLOntology rootOntology,
 			IntegerEntityManager manager) {
 		if (rootOntology == null) {
@@ -92,8 +100,112 @@ public class TranslationRepository {
 		this.bottomDataProperty = dataFactory.getOWLBottomDataProperty();
 		this.topDataProperty = dataFactory.getOWLTopDataProperty();
 
-		load(rootOntology.getAxioms());
+		initializeMaps();
+		for (OWLAxiom axiom : rootOntology.getAxioms()) {
+			addAxiom(axiom);
+		}
 
+	}
+
+	/**
+	 * Adds an axiom to the repository.
+	 * 
+	 * @param axiom
+	 *            OWL axiom
+	 */
+	public void addAxiom(OWLAxiom axiom) {
+		Set<OWLClass> classSet = new TreeSet<OWLClass>();
+		Set<OWLObjectProperty> objectPropertySet = new TreeSet<OWLObjectProperty>();
+		Set<OWLNamedIndividual> individualSet = new TreeSet<OWLNamedIndividual>();
+		Set<OWLDataProperty> dataPropertySet = new TreeSet<OWLDataProperty>();
+		Set<OWLLiteral> literalSet = new TreeSet<OWLLiteral>();
+
+		classSet.addAll(axiom.getClassesInSignature());
+		objectPropertySet.addAll(axiom.getObjectPropertiesInSignature());
+		individualSet.addAll(axiom.getIndividualsInSignature());
+		dataPropertySet.addAll(axiom.getDataPropertiesInSignature());
+		literalSet.addAll(collectLiterals(axiom));
+
+		for (OWLClass cls : classSet) {
+			addClass(cls);
+		}
+		for (OWLObjectProperty objProp : objectPropertySet) {
+			addObjectProperty(objProp);
+		}
+		for (OWLNamedIndividual indiv : individualSet) {
+			addNamedIndividual(indiv);
+		}
+		for (OWLDataProperty dataProp : dataPropertySet) {
+			addDataProperty(dataProp);
+		}
+		for (OWLLiteral lit : literalSet) {
+			addLiteral(lit);
+		}
+	}
+
+	/**
+	 * Adds a class to the repository.
+	 * 
+	 * @param cls
+	 *            OWL class
+	 */
+	public void addClass(OWLClass cls) {
+		Integer id = this.entityManager.createNamedEntity(
+				IntegerEntityType.CLASS, cls.toStringID(), false);
+		this.classMap.put(id, cls);
+		this.classInvMap.put(cls, id);
+	}
+
+	/**
+	 * Adds a data property to the repository.
+	 * 
+	 * @param dataProp
+	 *            OWL data property
+	 */
+	public void addDataProperty(OWLDataProperty dataProp) {
+		Integer id = this.entityManager.createNamedEntity(
+				IntegerEntityType.DATA_PROPERTY, dataProp.toStringID(), false);
+		this.dataPropertyMap.put(id, dataProp);
+		this.dataPropertyInvMap.put(dataProp, id);
+	}
+
+	/**
+	 * Adds a literal to the repository.
+	 * 
+	 * @param lit
+	 *            OWL literal
+	 */
+	public void addLiteral(OWLLiteral lit) {
+		Integer id = this.entityManager.createNamedEntity(
+				IntegerEntityType.LITERAL, lit.getLiteral(), false);
+		this.literalMap.put(id, lit);
+		this.literalInvMap.put(lit, id);
+	}
+
+	/**
+	 * Adds an named individual to the repository.
+	 * 
+	 * @param indiv
+	 *            OWL named individual
+	 */
+	public void addNamedIndividual(OWLNamedIndividual indiv) {
+		Integer id = this.entityManager.createNamedEntity(
+				IntegerEntityType.INDIVIDUAL, indiv.toStringID(), false);
+		this.individualMap.put(id, indiv);
+		this.individualInvMap.put(indiv, id);
+	}
+
+	/**
+	 * Adds an object property to the repository.
+	 * 
+	 * @param objProp
+	 *            OWL object property
+	 */
+	public void addObjectProperty(OWLObjectProperty objProp) {
+		Integer id = this.entityManager.createNamedEntity(
+				IntegerEntityType.OBJECT_PROPERTY, objProp.toStringID(), false);
+		this.objectPropertyMap.put(id, objProp);
+		this.objectPropertyInvMap.put(objProp, id);
 	}
 
 	private Set<OWLLiteral> collectLiterals(OWLAxiom axiom) {
@@ -234,27 +346,7 @@ public class TranslationRepository {
 		return ret;
 	}
 
-	/**
-	 * Loads the repository.
-	 * 
-	 * @param classSet
-	 *            set of OWL classes
-	 * @param objectPropertySet
-	 *            set of object properties
-	 * @param individualSet
-	 *            set of individuals
-	 * @param dataPropertySet
-	 *            set of data properties
-	 * @param literalSet
-	 *            set of literals
-	 */
-	private void load(Set<OWLAxiom> axiomSet) {
-
-		Set<OWLClass> classSet = new TreeSet<OWLClass>();
-		Set<OWLObjectProperty> objectPropertySet = new TreeSet<OWLObjectProperty>();
-		Set<OWLNamedIndividual> individualSet = new TreeSet<OWLNamedIndividual>();
-		Set<OWLDataProperty> dataPropertySet = new TreeSet<OWLDataProperty>();
-		Set<OWLLiteral> literalSet = new TreeSet<OWLLiteral>();
+	private void initializeMaps() {
 
 		this.classMap.put(IntegerEntityManager.bottomClassId, this.bottomClass);
 		this.classInvMap.put(this.bottomClass,
@@ -279,50 +371,6 @@ public class TranslationRepository {
 				this.topDataProperty);
 		this.dataPropertyInvMap.put(this.topDataProperty,
 				IntegerEntityManager.topDataPropertyId);
-
-		for (OWLAxiom axiom : axiomSet) {
-			classSet.addAll(axiom.getClassesInSignature());
-			objectPropertySet.addAll(axiom.getObjectPropertiesInSignature());
-			individualSet.addAll(axiom.getIndividualsInSignature());
-			dataPropertySet.addAll(axiom.getDataPropertiesInSignature());
-			literalSet.addAll(collectLiterals(axiom));
-		}
-
-		classSet.remove(this.bottomClass);
-		classSet.remove(this.topClass);
-
-		for (OWLClass cls : classSet) {
-			Integer id = this.entityManager.createNamedEntity(
-					IntegerEntityType.CLASS, cls.toStringID(), false);
-			this.classMap.put(id, cls);
-			this.classInvMap.put(cls, id);
-		}
-		for (OWLObjectProperty objProp : objectPropertySet) {
-			Integer id = this.entityManager.createNamedEntity(
-					IntegerEntityType.OBJECT_PROPERTY, objProp.toStringID(),
-					false);
-			this.objectPropertyMap.put(id, objProp);
-			this.objectPropertyInvMap.put(objProp, id);
-		}
-		for (OWLNamedIndividual indiv : individualSet) {
-			Integer id = this.entityManager.createNamedEntity(
-					IntegerEntityType.INDIVIDUAL, indiv.toStringID(), false);
-			this.individualMap.put(id, indiv);
-			this.individualInvMap.put(indiv, id);
-		}
-		for (OWLDataProperty dataProp : dataPropertySet) {
-			Integer id = this.entityManager.createNamedEntity(
-					IntegerEntityType.DATA_PROPERTY, dataProp.toStringID(),
-					false);
-			this.dataPropertyMap.put(id, dataProp);
-			this.dataPropertyInvMap.put(dataProp, id);
-		}
-		for (OWLLiteral lit : literalSet) {
-			Integer id = this.entityManager.createNamedEntity(
-					IntegerEntityType.LITERAL, lit.getLiteral(), false);
-			this.literalMap.put(id, lit);
-			this.literalInvMap.put(lit, id);
-		}
 	}
 
 	@Override
