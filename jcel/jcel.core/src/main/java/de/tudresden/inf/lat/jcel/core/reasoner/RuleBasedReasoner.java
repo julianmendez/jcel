@@ -86,6 +86,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		this.classified = false;
 		return this.pendingAxiomAdditions.add(axiom);
 	}
 
