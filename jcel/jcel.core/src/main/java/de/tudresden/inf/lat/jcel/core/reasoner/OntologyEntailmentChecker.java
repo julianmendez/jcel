@@ -96,8 +96,9 @@ public class OntologyEntailmentChecker implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return getReasoner().getProcessor().getClassHierarchy().getElements()
-				.contains(axiom.getEntity());
+		boolean ret = getReasoner().getProcessor().getClassHierarchy()
+				.getElements().contains(axiom.getEntity());
+		return ret;
 	}
 
 	@Override
@@ -271,7 +272,6 @@ public class OntologyEntailmentChecker implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		boolean ret = true;
 		IntegerClassExpression subClassExpr = axiom.getSubClass();
 		IntegerClassExpression superClassExpr = axiom.getSuperClass();
 		IntegerClass subClass = getReasoner().flattenClassExpression(
@@ -279,7 +279,7 @@ public class OntologyEntailmentChecker implements
 		IntegerClass superClass = getReasoner().flattenClassExpression(
 				superClassExpr);
 		getReasoner().classify();
-		getReasoner().getProcessor().getClassHierarchy()
+		boolean ret = getReasoner().getProcessor().getClassHierarchy()
 				.getAncestors(subClass.getId()).contains(superClass.getId());
 		return ret;
 	}
@@ -294,6 +294,7 @@ public class OntologyEntailmentChecker implements
 				.getSubProperty();
 		IntegerObjectPropertyExpression superObjectPropExpr = axiom
 				.getSuperProperty();
+		getReasoner().classify();
 		boolean ret = getReasoner().getSuperObjectProperties(subObjectPropExpr,
 				false).contains(superObjectPropExpr)
 				&& getReasoner().getSubObjectProperties(superObjectPropExpr,
