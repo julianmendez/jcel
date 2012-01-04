@@ -93,6 +93,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	@Override
 	public void classify() {
 		if (!this.classified) {
+			flush();
 			Set<ComplexIntegerAxiom> axiomSet = new HashSet<ComplexIntegerAxiom>();
 			axiomSet.addAll(this.ontology);
 			axiomSet.addAll(this.extendedOntology);
