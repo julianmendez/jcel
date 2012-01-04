@@ -83,6 +83,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 			this);
 	private Set<OWLAxiom> pendingAxiomAdditions = new HashSet<OWLAxiom>();
 	private Set<OWLAxiom> pendingAxiomRemovals = new HashSet<OWLAxiom>();
+	private List<OWLOntologyChange> pendingChanges = new ArrayList<OWLOntologyChange>();
 	private final OWLReasonerConfiguration reasonerConfiguration;
 	private final OWLOntology rootOntology;
 	private final Date start = new Date();
@@ -167,6 +168,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		getReasoner().flush();
 		this.pendingAxiomAdditions.clear();
 		this.pendingAxiomRemovals.clear();
+		this.pendingChanges.clear();
 	}
 
 	@Override
@@ -470,15 +472,15 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		logger.finer("getPendingAxiomRemovals()");
 		Set<OWLAxiom> ret = this.pendingAxiomRemovals;
 		logger.finer("" + ret);
-		return ret;
+		return Collections.unmodifiableSet(ret);
 	}
 
 	@Override
 	public List<OWLOntologyChange> getPendingChanges() {
 		logger.finer("getPendingChanges()");
-		List<OWLOntologyChange> ret = new ArrayList<OWLOntologyChange>();
+		List<OWLOntologyChange> ret = this.pendingChanges;
 		logger.finer("" + ret);
-		return ret;
+		return Collections.unmodifiableList(ret);
 	}
 
 	@Override
@@ -821,8 +823,9 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
 			throws OWLException {
+		this.pendingChanges.addAll(changes);
 		for (OWLOntologyChange change : changes) {
-			change.accept(ontologyChangeVisitor);
+			change.accept(this.ontologyChangeVisitor);
 		}
 	}
 
