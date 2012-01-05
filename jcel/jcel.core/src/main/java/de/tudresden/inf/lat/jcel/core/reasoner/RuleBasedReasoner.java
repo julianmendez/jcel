@@ -600,7 +600,9 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return axiom.accept(this.entailmentChecker);
+		classify();
+		boolean ret = axiom.accept(this.entailmentChecker);
+		return ret;
 	}
 
 	@Override
@@ -609,6 +611,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		classify();
 		boolean ret = true;
 		for (Iterator<ComplexIntegerAxiom> it = axioms.iterator(); ret
 				&& it.hasNext();) {
