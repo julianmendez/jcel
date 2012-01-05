@@ -143,6 +143,8 @@ public class RuleBasedReasoner implements IntegerReasoner {
 
 	@Override
 	public void flush() {
+		this.classified = false;
+
 		this.ontology.removeAll(this.pendingAxiomRemovals);
 		this.pendingAxiomRemovals.clear();
 
@@ -216,6 +218,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		classify();
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -226,6 +229,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		classify();
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -237,6 +241,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		classify();
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -248,6 +253,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		classify();
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -296,6 +302,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		classify();
 		// TODO Auto-generated method stub
 		// FIXME not implemented
 		return new HashSet<Set<IntegerNamedIndividual>>();
@@ -308,6 +315,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		classify();
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -319,6 +327,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		classify();
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -336,6 +345,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		classify();
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -350,6 +360,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		classify();
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -580,6 +591,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 
 	@Override
 	public void interrupt() {
+		this.classified = false;
 		this.interruptRequested = true;
 	}
 
@@ -637,11 +649,8 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return this.pendingAxiomRemovals.add(axiom);
-	}
-
-	public void reset() {
 		this.classified = false;
+		return this.pendingAxiomRemovals.add(axiom);
 	}
 
 	private Set<IntegerClass> toIntegerClass(Set<Integer> set) {
