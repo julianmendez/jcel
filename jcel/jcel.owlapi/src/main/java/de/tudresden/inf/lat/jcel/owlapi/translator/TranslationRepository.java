@@ -108,12 +108,17 @@ public class TranslationRepository {
 	}
 
 	/**
-	 * Adds an axiom to the repository.
+	 * Adds the entities of an axiom to the repository.
 	 * 
 	 * @param axiom
 	 *            OWL axiom
+	 * @return <code>true</code> if and only if the repository has changed
 	 */
-	public void addAxiom(OWLAxiom axiom) {
+	public boolean addAxiom(OWLAxiom axiom) {
+		if (axiom == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
 		Set<OWLClass> classSet = new TreeSet<OWLClass>();
 		Set<OWLObjectProperty> objectPropertySet = new TreeSet<OWLObjectProperty>();
 		Set<OWLNamedIndividual> individualSet = new TreeSet<OWLNamedIndividual>();
@@ -126,21 +131,29 @@ public class TranslationRepository {
 		dataPropertySet.addAll(axiom.getDataPropertiesInSignature());
 		literalSet.addAll(collectLiterals(axiom));
 
+		boolean ret = false;
+
 		for (OWLClass cls : classSet) {
-			addClass(cls);
+			boolean changed = addClass(cls);
+			ret = ret || changed;
 		}
 		for (OWLObjectProperty objProp : objectPropertySet) {
-			addObjectProperty(objProp);
+			boolean changed = addObjectProperty(objProp);
+			ret = ret || changed;
 		}
 		for (OWLNamedIndividual indiv : individualSet) {
-			addNamedIndividual(indiv);
+			boolean changed = addNamedIndividual(indiv);
+			ret = ret || changed;
 		}
 		for (OWLDataProperty dataProp : dataPropertySet) {
-			addDataProperty(dataProp);
+			boolean changed = addDataProperty(dataProp);
+			ret = ret || changed;
 		}
 		for (OWLLiteral lit : literalSet) {
-			addLiteral(lit);
+			boolean changed = addLiteral(lit);
+			ret = ret || changed;
 		}
+		return ret;
 	}
 
 	/**
@@ -148,12 +161,22 @@ public class TranslationRepository {
 	 * 
 	 * @param cls
 	 *            OWL class
+	 * @return <code>true</code> if and only if the repository has changed
 	 */
-	public void addClass(OWLClass cls) {
-		Integer id = this.entityManager.createNamedEntity(
-				IntegerEntityType.CLASS, cls.toStringID(), false);
-		this.classMap.put(id, cls);
-		this.classInvMap.put(cls, id);
+	public boolean addClass(OWLClass cls) {
+		if (cls == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		boolean ret = false;
+		if (!this.classInvMap.containsKey(cls)) {
+			Integer id = this.entityManager.createNamedEntity(
+					IntegerEntityType.CLASS, cls.toStringID(), false);
+			this.classMap.put(id, cls);
+			this.classInvMap.put(cls, id);
+			ret = true;
+		}
+		return ret;
 	}
 
 	/**
@@ -161,12 +184,23 @@ public class TranslationRepository {
 	 * 
 	 * @param dataProp
 	 *            OWL data property
+	 * @return <code>true</code> if and only if the repository has changed
 	 */
-	public void addDataProperty(OWLDataProperty dataProp) {
-		Integer id = this.entityManager.createNamedEntity(
-				IntegerEntityType.DATA_PROPERTY, dataProp.toStringID(), false);
-		this.dataPropertyMap.put(id, dataProp);
-		this.dataPropertyInvMap.put(dataProp, id);
+	public boolean addDataProperty(OWLDataProperty dataProp) {
+		if (dataProp == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		boolean ret = false;
+		if (!this.dataPropertyInvMap.containsKey(dataProp)) {
+			Integer id = this.entityManager.createNamedEntity(
+					IntegerEntityType.DATA_PROPERTY, dataProp.toStringID(),
+					false);
+			this.dataPropertyMap.put(id, dataProp);
+			this.dataPropertyInvMap.put(dataProp, id);
+			ret = true;
+		}
+		return ret;
 	}
 
 	/**
@@ -174,12 +208,22 @@ public class TranslationRepository {
 	 * 
 	 * @param lit
 	 *            OWL literal
+	 * @return <code>true</code> if and only if the repository has changed
 	 */
-	public void addLiteral(OWLLiteral lit) {
-		Integer id = this.entityManager.createNamedEntity(
-				IntegerEntityType.LITERAL, lit.getLiteral(), false);
-		this.literalMap.put(id, lit);
-		this.literalInvMap.put(lit, id);
+	public boolean addLiteral(OWLLiteral lit) {
+		if (lit == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		boolean ret = false;
+		if (!this.literalInvMap.containsKey(lit)) {
+			Integer id = this.entityManager.createNamedEntity(
+					IntegerEntityType.LITERAL, lit.getLiteral(), false);
+			this.literalMap.put(id, lit);
+			this.literalInvMap.put(lit, id);
+			ret = true;
+		}
+		return ret;
 	}
 
 	/**
@@ -187,12 +231,22 @@ public class TranslationRepository {
 	 * 
 	 * @param indiv
 	 *            OWL named individual
+	 * @return <code>true</code> if and only if the repository has changed
 	 */
-	public void addNamedIndividual(OWLNamedIndividual indiv) {
-		Integer id = this.entityManager.createNamedEntity(
-				IntegerEntityType.INDIVIDUAL, indiv.toStringID(), false);
-		this.individualMap.put(id, indiv);
-		this.individualInvMap.put(indiv, id);
+	public boolean addNamedIndividual(OWLNamedIndividual indiv) {
+		if (indiv == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		boolean ret = false;
+		if (!this.individualInvMap.containsKey(indiv)) {
+			Integer id = this.entityManager.createNamedEntity(
+					IntegerEntityType.INDIVIDUAL, indiv.toStringID(), false);
+			this.individualMap.put(id, indiv);
+			this.individualInvMap.put(indiv, id);
+			ret = true;
+		}
+		return ret;
 	}
 
 	/**
@@ -200,12 +254,23 @@ public class TranslationRepository {
 	 * 
 	 * @param objProp
 	 *            OWL object property
+	 * @return <code>true</code> if and only if the repository has changed
 	 */
-	public void addObjectProperty(OWLObjectProperty objProp) {
-		Integer id = this.entityManager.createNamedEntity(
-				IntegerEntityType.OBJECT_PROPERTY, objProp.toStringID(), false);
-		this.objectPropertyMap.put(id, objProp);
-		this.objectPropertyInvMap.put(objProp, id);
+	public boolean addObjectProperty(OWLObjectProperty objProp) {
+		if (objProp == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		boolean ret = false;
+		if (!this.individualInvMap.containsKey(objProp)) {
+			Integer id = this.entityManager.createNamedEntity(
+					IntegerEntityType.OBJECT_PROPERTY, objProp.toStringID(),
+					false);
+			this.objectPropertyMap.put(id, objProp);
+			this.objectPropertyInvMap.put(objProp, id);
+			ret = true;
+		}
+		return ret;
 	}
 
 	private Set<OWLLiteral> collectLiterals(OWLAxiom axiom) {
