@@ -302,10 +302,45 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		Set<Set<IntegerNamedIndividual>> ret = new HashSet<Set<IntegerNamedIndividual>>();
+		IntegerClass cls = flattenClassExpression(ce);
 		classify();
-		// TODO Auto-generated method stub
-		// FIXME not implemented
-		return new HashSet<Set<IntegerNamedIndividual>>();
+
+		Integer classId = cls.getId();
+		Set<Integer> classIdSet = new HashSet<Integer>();
+		classIdSet.add(classId);
+		if (!direct) {
+			classIdSet.addAll(getProcessor().getClassHierarchy()
+					.getDescendants(classId));
+		}
+
+		Set<Integer> indivIdSet = new HashSet<Integer>();
+		indivIdSet.addAll(getProcessor().getDirectTypes().keySet());
+
+		while (!indivIdSet.isEmpty()) {
+			Integer indivId = indivIdSet.iterator().next();
+			indivIdSet.remove(indivId);
+
+			Set<Integer> types = getProcessor().getDirectTypes().get(indivId);
+			boolean found = types.contains(classId);
+
+			if (!found && !direct) {
+				Set<Integer> classIdSetCopy = new HashSet<Integer>();
+				classIdSetCopy.addAll(classIdSet);
+				classIdSetCopy.retainAll(types);
+				found = !classIdSetCopy.isEmpty();
+			}
+
+			if (found) {
+				Set<Integer> equivIndivId = getProcessor()
+						.getSameIndividualMap().get(indivId);
+				Set<IntegerNamedIndividual> elem = toIntegerNamedIndividual(equivIndivId);
+				indivIdSet.removeAll(equivIndivId);
+				ret.add(elem);
+			}
+		}
+
+		return ret;
 	}
 
 	@Override
