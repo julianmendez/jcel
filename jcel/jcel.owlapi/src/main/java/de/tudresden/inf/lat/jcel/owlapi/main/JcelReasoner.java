@@ -145,6 +145,11 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	}
 
 	public boolean addAxiom(OWLAxiom axiom) {
+		if (axiom == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		logger.finer("addAxiom(" + axiom + ")");
 		boolean ret = this.pendingAxiomAdditions.add(axiom);
 		getTranslator().getTranslationRepository().addAxiom(axiom);
 		Set<ComplexIntegerAxiom> axioms = getTranslator().translateSA(
@@ -842,6 +847,11 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	}
 
 	public boolean removeAxiom(OWLAxiom axiom) {
+		if (axiom == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		logger.finer("removeAxiom(" + axiom + ")");
 		boolean ret = this.pendingAxiomRemovals.add(axiom);
 		Set<ComplexIntegerAxiom> axioms = getTranslator().translateSA(
 				Collections.singleton(axiom));
