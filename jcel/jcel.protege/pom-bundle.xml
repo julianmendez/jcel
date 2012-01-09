@@ -1,0 +1,88 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+		http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+
+	<!--
+ *
+ * Copyright 2009 Julian Mendez
+ *
+ *
+ * This file is part of jcel.
+ *
+ * jcel is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * jcel is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with jcel.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *
+-->
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>jcel</groupId>
+	<artifactId>bundle</artifactId>
+	<version>0.16.1</version>
+	<packaging>bundle</packaging>
+
+	<name>jcel Protege plug-in</name>
+
+	<parent>
+		<groupId>jcel</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.16.1</version>
+		<relativePath>../jcel.jars</relativePath>
+	</parent>
+
+	<build>
+
+		<finalName>de.tudresden.inf.lat.jcel</finalName>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.1</version>
+				<configuration>
+					<archive>
+						<manifestFile>src/main/manifest/MANIFEST.MF</manifestFile>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.3.4</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Include-Resource>
+							{maven-resources}, {maven-dependencies},
+							@target/jcel.protege-0.16.1.jar,
+							lib/jcel/jcel.ontology/0.16.1/jcel.ontology-0.16.1.jar=../jcel.ontology/target/jcel.ontology-0.16.1.jar,
+							lib/jcel/jcel.ontology/0.16.1/copying.txt=../jcel.ontology/copying.txt,
+							lib/jcel/jcel.ontology/0.16.1/copying-lesser.txt=../jcel.ontology/copying-lesser.txt,
+							lib/jcel/jcel.core/0.16.1/jcel.core-0.16.1.jar=../jcel.core/target/jcel.core-0.16.1.jar,
+							lib/jcel/jcel.core/0.16.1/copying.txt=../jcel.core/copying.txt,
+							lib/jcel/jcel.core/0.16.1/copying-lesser.txt=../jcel.core/copying-lesser.txt,
+							lib/jcel/jcel.owlapi/0.16.1/jcel.owlapi-0.16.1.jar=../jcel.owlapi/target/jcel.owlapi-0.16.1.jar,
+							lib/jcel/jcel.owlapi/0.16.1/copying.txt=../jcel.owlapi/copying.txt,
+							lib/jcel/jcel.owlapi/0.16.1/copying-lesser.txt=../jcel.owlapi/copying-lesser.txt
+						</Include-Resource>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+
