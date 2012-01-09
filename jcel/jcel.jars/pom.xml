@@ -32,7 +32,7 @@
 	<groupId>jcel</groupId>
 	<artifactId>parent</artifactId>
 	<packaging>pom</packaging>
-	<version>0.16.0</version>
+	<version>0.16.1</version>
 
 	<name>jcel</name>
 
