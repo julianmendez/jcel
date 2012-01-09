@@ -11,7 +11,7 @@ Bundle-ClassPath: .,
  lib/jcel/jcel.owlapi/0.16.1/jcel.owlapi-0.16.1.jar
 Import-Package: org.apache.log4j,
  org.osgi.framework
-Bundle-Version: 0.16.1
+Bundle-Version: 0.16.1.r455
 Bundle-Activator: org.protege.editor.core.plugin.DefaultPluginActivator
 Require-Bundle: org.eclipse.equinox.registry,
  org.eclipse.equinox.common,
