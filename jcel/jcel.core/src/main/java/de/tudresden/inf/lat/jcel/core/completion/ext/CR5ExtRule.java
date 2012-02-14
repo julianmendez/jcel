@@ -76,7 +76,7 @@ public class CR5ExtRule implements RObserverRule {
 		for (Integer s : status.getSuperObjectProperties(r1)) {
 			if (status.getExtendedOntology().getTransitiveObjectProperties()
 					.contains(s)) {
-				for (Integer r2 : status.getSubObjectProperties(r1)) {
+				for (Integer r2 : status.getSubObjectProperties(s)) {
 					for (Integer z : status.getSecondByFirst(r2, y)) {
 						ret.add(new REntryImpl(s, x, z));
 					}
