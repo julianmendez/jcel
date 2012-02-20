@@ -87,7 +87,6 @@ public class CelProcessor implements Processor {
 	private IntegerHierarchicalGraph dataPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> directTypes = null;
 	private CelExtendedOntology extendedOntology = null;
-	private IntegerEntityManager idGenerator = null;
 	private boolean isReady = false;
 	private IntegerSubsumerGraphImpl objectPropertyGraph = null;
 	private IntegerHierarchicalGraph objectPropertyHierarchy = null;
@@ -115,6 +114,7 @@ public class CelProcessor implements Processor {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		this.ontologyObjectFactory = factory;
 		preProcess(axioms);
 	}
 
@@ -322,7 +322,7 @@ public class CelProcessor implements Processor {
 	 * @return the id generator.
 	 */
 	protected IntegerEntityManager getIdGenerator() {
-		return this.idGenerator;
+		return getOntologyObjectFactory().getIdGenerator();
 	}
 
 	private IntegerSubsumerGraph getObjectPropertyGraph() {
