@@ -129,7 +129,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 		if (!this.classGraph.getElements().contains(entry.getSubClass())) {
 			this.classGraph.add(entry.getSubClass());
 		}
-		if (!this.classGraph.getSubsumers(entry.getSubClass()).contains(
+		if (!this.classGraph.containsPair(entry.getSubClass(),
 				entry.getSuperClass())) {
 			this.classGraph.addAncestor(entry.getSubClass(),
 					entry.getSuperClass());

@@ -94,6 +94,12 @@ public class IntegerSubsumerBidirectionalGraphImpl implements
 	}
 
 	@Override
+	public boolean containsPair(Integer subsumee, Integer subsumer) {
+		return getSubsumers(subsumee) != null
+				&& getSubsumers(subsumee).contains(subsumer);
+	}
+
+	@Override
 	public Integer getBottomElement() {
 		return this.graph.getBottomElement();
 	}

@@ -418,9 +418,8 @@ public class CelProcessor implements Processor {
 	private boolean isReflexiveTransitiveSubsumed(Integer leftPropertyName,
 			Integer rightPropertyName) {
 		return this.objectPropertyGraph != null
-				&& this.objectPropertyGraph.getSubsumers(leftPropertyName) != null
-				&& this.objectPropertyGraph.getSubsumers(leftPropertyName)
-						.contains(rightPropertyName);
+				&& this.objectPropertyGraph.containsPair(leftPropertyName,
+						rightPropertyName);
 	}
 
 	private void makeTransitiveClosure(IntegerSubsumerGraphImpl graph) {
@@ -592,9 +591,8 @@ public class CelProcessor implements Processor {
 			Integer relation = it.next();
 			for (Integer firstComponent : this.relationSet.getBySecond(
 					relation, className)) {
-				Collection<Integer> subsumers = this.classGraph
-						.getSubsumers(firstComponent);
-				if (!subsumers.contains(bottomClassId)) {
+				if (!this.classGraph
+						.containsPair(firstComponent, bottomClassId)) {
 					processBottom(firstComponent);
 				}
 			}
@@ -608,8 +606,8 @@ public class CelProcessor implements Processor {
 
 		if (!this.relationSet.contains(r, cA, cB)) {
 
-			if (this.classGraph.getSubsumers(cB).contains(bottom)
-					&& !this.classGraph.getSubsumers(cA).contains(bottom)) {
+			if (this.classGraph.containsPair(cB, bottom)
+					&& !this.classGraph.containsPair(cA, bottom)) {
 
 				processBottom(cA);
 

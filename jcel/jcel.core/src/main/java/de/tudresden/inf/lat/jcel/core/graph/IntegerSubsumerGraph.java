@@ -34,6 +34,18 @@ import java.util.Collection;
 public interface IntegerSubsumerGraph {
 
 	/**
+	 * Tells whether this subsumer graph contains the given pair.
+	 * 
+	 * @param subsumee
+	 *            subsumee
+	 * @param subsumer
+	 *            subsumer
+	 * @return <code>true</code> if and only if this subsumer graph contains the
+	 *         given pair
+	 */
+	public boolean containsPair(Integer subsumee, Integer subsumer);
+
+	/**
 	 * Returns the bottom element.
 	 * 
 	 * @return the bottom element
@@ -62,4 +74,5 @@ public interface IntegerSubsumerGraph {
 	 * @return the top element
 	 */
 	public Integer getTopElement();
+
 }

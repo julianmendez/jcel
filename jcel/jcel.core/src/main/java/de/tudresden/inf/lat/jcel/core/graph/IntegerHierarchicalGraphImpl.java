@@ -78,8 +78,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 		this.bottomElement = origGraph.getBottomElement();
 		this.topElement = origGraph.getTopElement();
-		if (origGraph.getSubsumers(getTopElement())
-				.contains(getBottomElement())) {
+		if (origGraph.containsPair(getTopElement(), getBottomElement())) {
 			computeInconsistentDag(origGraph);
 		} else {
 			computeDag(origGraph);
