@@ -32,7 +32,7 @@ import java.util.Set;
 public class IntegerClass implements IntegerClassExpression,
 		Comparable<IntegerClass> {
 
-	private final Integer id;
+	private final int id;
 
 	/**
 	 * Constructs a new class.
@@ -68,7 +68,7 @@ public class IntegerClass implements IntegerClassExpression,
 
 	@Override
 	public boolean containsBottom() {
-		return this.id.equals(IntegerEntityManager.bottomClassId);
+		return IntegerEntityManager.bottomClassId.equals(this.id);
 	}
 
 	@Override

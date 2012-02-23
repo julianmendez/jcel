@@ -32,7 +32,7 @@ import java.util.Set;
 public class IntegerNamedIndividual implements IntegerClassExpression,
 		Comparable<IntegerNamedIndividual> {
 
-	private final Integer id;
+	private final int id;
 
 	/**
 	 * Constructs a new named individual.
@@ -68,7 +68,7 @@ public class IntegerNamedIndividual implements IntegerClassExpression,
 
 	@Override
 	public boolean containsBottom() {
-		return this.id.equals(IntegerEntityManager.bottomClassId);
+		return IntegerEntityManager.bottomClassId.equals(this.id);
 	}
 
 	@Override

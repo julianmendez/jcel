@@ -38,9 +38,9 @@ public class IntegerNegativeObjectPropertyAssertionAxiom implements
 		ComplexIntegerAxiom {
 
 	private final Set<Integer> individuals;
-	private final Integer object;
+	private final int object;
 	private final IntegerObjectPropertyExpression property;
-	private final Integer subject;
+	private final int subject;
 
 	/**
 	 * Constructs a new negative object property axiom.

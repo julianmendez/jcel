@@ -32,7 +32,7 @@ import java.util.Set;
 public class IntegerNamedIndividualDeclarationAxiom implements
 		IntegerDeclarationAxiom {
 
-	private final Integer entity;
+	private final int entity;
 
 	/**
 	 * Constructs a new named individual declaration axiom.

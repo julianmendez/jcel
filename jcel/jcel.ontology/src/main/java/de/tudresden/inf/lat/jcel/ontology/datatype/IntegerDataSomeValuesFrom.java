@@ -35,7 +35,7 @@ public class IntegerDataSomeValuesFrom implements IntegerClassExpression {
 
 	private final IntegerClassExpression filler;
 	private final boolean normalized;
-	private final Integer property;
+	private final int property;
 
 	/**
 	 * Constructs an existential restriction.

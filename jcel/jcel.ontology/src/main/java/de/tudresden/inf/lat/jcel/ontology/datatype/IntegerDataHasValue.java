@@ -33,8 +33,8 @@ import java.util.Set;
 public class IntegerDataHasValue implements IntegerClassExpression {
 
 	private final boolean normalized = false;
-	private final Integer property;
-	private final Integer value;
+	private final int property;
+	private final int value;
 
 	/**
 	 * Constructs a has-value class expression.

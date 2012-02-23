@@ -33,7 +33,7 @@ import java.util.Set;
 public class IntegerObjectProperty implements IntegerObjectPropertyExpression,
 		Comparable<IntegerObjectProperty> {
 
-	private final Integer id;
+	private final int id;
 
 	/**
 	 * Constructs an object property.

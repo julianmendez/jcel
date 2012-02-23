@@ -37,9 +37,9 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 public class IntegerObjectPropertyAssertionAxiom implements ComplexIntegerAxiom {
 
 	private final Set<Integer> individualsInSignature;
-	private final Integer object;
+	private final int object;
 	private final IntegerObjectPropertyExpression property;
-	private final Integer subject;
+	private final int subject;
 
 	/**
 	 * Constructs a new object property assertion axiom.

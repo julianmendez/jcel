@@ -35,7 +35,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 
 	private final IntegerClassExpression classExpression;
-	private final Integer individual;
+	private final int individual;
 
 	/**
 	 * Constructs a new class assertion axiom.

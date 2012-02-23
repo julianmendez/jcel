@@ -32,7 +32,7 @@ import java.util.Set;
 public class IntegerObjectPropertyDeclarationAxiom implements
 		IntegerDeclarationAxiom {
 
-	private final Integer entity;
+	private final int entity;
 
 	/**
 	 * Constructs a new object property declaration axiom.

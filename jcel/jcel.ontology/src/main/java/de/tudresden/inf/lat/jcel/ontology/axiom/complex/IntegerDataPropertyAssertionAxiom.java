@@ -35,9 +35,9 @@ import java.util.Set;
 public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 
 	private final Set<Integer> individualsInSignature;
-	private final Integer object;
-	private final Integer property;
-	private final Integer subject;
+	private final int object;
+	private final int property;
+	private final int subject;
 
 	/**
 	 * Constructs a new data property assertion axiom.
