@@ -36,7 +36,7 @@ import java.util.Set;
  */
 public class VNodeImpl implements VNode {
 
-	private final Integer classIdentifier;
+	private final int classIdentifier;
 	private Set<VNodeObjectSomeValuesFrom> existentialSet = new HashSet<VNodeObjectSomeValuesFrom>();
 
 	/**
@@ -109,7 +109,7 @@ public class VNodeImpl implements VNode {
 		boolean ret = false;
 		if (o instanceof VNodeImpl) {
 			VNodeImpl other = (VNodeImpl) o;
-			ret = this.classIdentifier.equals(other.classIdentifier)
+			ret = this.classIdentifier == other.classIdentifier
 					&& this.existentialSet.equals(other.existentialSet);
 		}
 		return ret;

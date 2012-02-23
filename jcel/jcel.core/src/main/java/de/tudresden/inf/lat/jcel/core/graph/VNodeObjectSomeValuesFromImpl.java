@@ -30,8 +30,8 @@ package de.tudresden.inf.lat.jcel.core.graph;
  */
 public class VNodeObjectSomeValuesFromImpl implements VNodeObjectSomeValuesFrom {
 
-	private final Integer classId;
-	private final Integer objectPropertyId;
+	private final int classId;
+	private final int objectPropertyId;
 
 	/**
 	 * Constructs a new existential expression.

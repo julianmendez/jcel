@@ -31,8 +31,8 @@ package de.tudresden.inf.lat.jcel.core.completion.common;
  */
 public class SEntryImpl implements SEntry, Comparable<SEntryImpl> {
 
-	private final Integer subClass;
-	private final Integer superClass;
+	private final int subClass;
+	private final int superClass;
 
 	/**
 	 * Constructs a new subsumer entry (S-entry).
