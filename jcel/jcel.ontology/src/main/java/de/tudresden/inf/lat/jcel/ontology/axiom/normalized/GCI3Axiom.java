@@ -37,9 +37,9 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpressionWord;
  */
 public class GCI3Axiom implements NormalizedIntegerAxiom {
 
-	private final Integer classInSubClass;
-	private final Integer propertyInSubClass;
-	private final Integer superClass;
+	private final int classInSubClass;
+	private final int propertyInSubClass;
+	private final int superClass;
 
 	/**
 	 * Constructs a new GCI-3 axiom.

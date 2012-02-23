@@ -37,9 +37,9 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpressionWord;
  */
 public class GCI2Axiom implements NormalizedIntegerAxiom {
 
-	private final Integer classInSuperClass;
-	private final Integer propertyInSuperClass;
-	private final Integer subClass;
+	private final int classInSuperClass;
+	private final int propertyInSuperClass;
+	private final int subClass;
 
 	/**
 	 * Constructs a new GCI-2 axiom.

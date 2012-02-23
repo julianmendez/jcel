@@ -35,8 +35,8 @@ import java.util.Set;
  */
 public class GCI0Axiom implements NormalizedIntegerAxiom {
 
-	private final Integer subClass;
-	private final Integer superClass;
+	private final int subClass;
+	private final int superClass;
 
 	/**
 	 * Constructs a new GCI-0 axiom.
@@ -126,7 +126,7 @@ public class GCI0Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public int hashCode() {
-		return this.subClass.hashCode() + 31 * this.superClass.hashCode();
+		return getSubClass().hashCode() + 31 * getSuperClass().hashCode();
 	}
 
 	@Override
