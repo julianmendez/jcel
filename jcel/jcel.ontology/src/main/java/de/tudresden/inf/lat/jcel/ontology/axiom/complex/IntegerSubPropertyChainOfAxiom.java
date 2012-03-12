@@ -84,8 +84,8 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerSubPropertyChainOfAxiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerSubPropertyChainOfAxiom) {
 			IntegerSubPropertyChainOfAxiom other = (IntegerSubPropertyChainOfAxiom) o;
 			ret = getPropertyChain().equals(other.getPropertyChain())
 					&& getSuperProperty().equals(other.getSuperProperty());

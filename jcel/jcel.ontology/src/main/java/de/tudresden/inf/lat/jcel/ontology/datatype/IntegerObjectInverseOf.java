@@ -47,7 +47,7 @@ public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression,
 
 		this.invProperty = property;
 	}
-	
+
 	@Override
 	public <T> T accept(IntegerObjectPropertyExpressionVisitor<T> visitor) {
 		if (visitor == null) {
@@ -68,8 +68,8 @@ public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression,
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerObjectInverseOf) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerObjectInverseOf) {
 			IntegerObjectInverseOf other = (IntegerObjectInverseOf) o;
 			ret = getInverse().equals(other.getInverse());
 		}

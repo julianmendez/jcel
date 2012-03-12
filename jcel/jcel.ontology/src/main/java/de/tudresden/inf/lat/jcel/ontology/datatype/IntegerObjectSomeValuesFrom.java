@@ -82,8 +82,8 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerObjectSomeValuesFrom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerObjectSomeValuesFrom) {
 			IntegerObjectSomeValuesFrom other = (IntegerObjectSomeValuesFrom) o;
 			ret = getProperty().equals(other.getProperty())
 					&& getFiller().equals(other.getFiller());

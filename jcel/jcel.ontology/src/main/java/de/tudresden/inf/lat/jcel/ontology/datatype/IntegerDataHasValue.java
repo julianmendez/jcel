@@ -77,8 +77,8 @@ public class IntegerDataHasValue implements IntegerClassExpression {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerDataHasValue) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerDataHasValue) {
 			IntegerDataHasValue other = (IntegerDataHasValue) o;
 			ret = getProperty().equals(other.getProperty())
 					&& getValue().equals(other.getValue());

@@ -25,9 +25,9 @@ package de.tudresden.inf.lat.jcel.core.completion.common;
  * An object of this class is a subsumer entry and can be used by a subsumer
  * observer.
  * 
- * @see SObserverRule
- * 
  * @author Julian Mendez
+ * 
+ * @see SObserverRule
  */
 public class SEntryImpl implements SEntry, Comparable<SEntryImpl> {
 
@@ -69,8 +69,8 @@ public class SEntryImpl implements SEntry, Comparable<SEntryImpl> {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof SEntry) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof SEntry) {
 			SEntry other = (SEntry) o;
 			ret = getSubClass().equals(other.getSubClass())
 					&& getSuperClass().equals(other.getSuperClass());

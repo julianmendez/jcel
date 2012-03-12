@@ -109,8 +109,8 @@ public class EfficientArray implements Collection<Integer> {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof EfficientArray) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof EfficientArray) {
 			EfficientArray other = (EfficientArray) o;
 			ret = (this.size == other.size);
 			for (int index = 0; ret && index < this.size; index++) {

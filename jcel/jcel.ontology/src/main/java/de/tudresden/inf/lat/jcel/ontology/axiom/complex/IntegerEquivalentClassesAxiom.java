@@ -80,8 +80,8 @@ public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerEquivalentClassesAxiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerEquivalentClassesAxiom) {
 			IntegerEquivalentClassesAxiom other = (IntegerEquivalentClassesAxiom) o;
 			ret = getClassExpressions().equals(other.getClassExpressions());
 		}

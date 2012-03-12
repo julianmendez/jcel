@@ -64,8 +64,8 @@ public class IntegerTransitiveObjectPropertyAxiom implements
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerTransitiveObjectPropertyAxiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerTransitiveObjectPropertyAxiom) {
 			IntegerTransitiveObjectPropertyAxiom other = (IntegerTransitiveObjectPropertyAxiom) o;
 			ret = getProperty().equals(other.getProperty());
 		}

@@ -56,8 +56,8 @@ public class EfficientArrayIterator implements Iterator<Integer> {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof EfficientArrayIterator) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof EfficientArrayIterator) {
 			EfficientArrayIterator other = (EfficientArrayIterator) o;
 			ret = (this.size == other.size) && (this.pointer == other.pointer);
 			for (int index = 0; ret && index < size; index++) {

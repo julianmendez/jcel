@@ -69,8 +69,8 @@ public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerClassAssertionAxiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerClassAssertionAxiom) {
 			IntegerClassAssertionAxiom other = (IntegerClassAssertionAxiom) o;
 			ret = getClassExpression().equals(other.getClassExpression())
 					&& getIndividual().equals(other.getIndividual());

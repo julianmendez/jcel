@@ -59,8 +59,8 @@ public class IntegerObjectPropertyDeclarationAxiom implements
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerObjectPropertyDeclarationAxiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerObjectPropertyDeclarationAxiom) {
 			IntegerObjectPropertyDeclarationAxiom other = (IntegerObjectPropertyDeclarationAxiom) o;
 			ret = getEntity().equals(other.getEntity());
 		}

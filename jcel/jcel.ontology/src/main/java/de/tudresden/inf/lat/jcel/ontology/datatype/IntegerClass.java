@@ -78,8 +78,8 @@ public class IntegerClass implements IntegerClassExpression,
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerClass) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerClass) {
 			IntegerClass other = (IntegerClass) o;
 			ret = getId().equals(other.getId());
 		}

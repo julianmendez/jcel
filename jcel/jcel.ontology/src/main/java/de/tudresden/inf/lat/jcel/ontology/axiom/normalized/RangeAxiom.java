@@ -68,8 +68,8 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof RangeAxiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof RangeAxiom) {
 			RangeAxiom other = (RangeAxiom) o;
 			ret = getProperty().equals(other.getProperty())
 					&& getRange().equals(other.getRange());

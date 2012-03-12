@@ -60,8 +60,8 @@ public class IntegerReflexiveObjectPropertyAxiom implements ComplexIntegerAxiom 
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerReflexiveObjectPropertyAxiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerReflexiveObjectPropertyAxiom) {
 			IntegerReflexiveObjectPropertyAxiom other = (IntegerReflexiveObjectPropertyAxiom) o;
 			ret = getProperty().equals(other.getProperty());
 		}

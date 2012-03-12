@@ -81,8 +81,8 @@ public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom 
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerInverseObjectPropertiesAxiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerInverseObjectPropertiesAxiom) {
 			IntegerInverseObjectPropertiesAxiom other = (IntegerInverseObjectPropertiesAxiom) o;
 			ret = getFirstProperty().equals(other.getFirstProperty())
 					&& getSecondProperty().equals(other.getSecondProperty());

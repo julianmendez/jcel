@@ -59,8 +59,8 @@ public class IntegerNamedIndividualDeclarationAxiom implements
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerNamedIndividualDeclarationAxiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerNamedIndividualDeclarationAxiom) {
 			IntegerNamedIndividualDeclarationAxiom other = (IntegerNamedIndividualDeclarationAxiom) o;
 			ret = getEntity().equals(other.getEntity());
 		}

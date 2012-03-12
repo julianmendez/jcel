@@ -61,8 +61,8 @@ public class RI1Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof RI1Axiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof RI1Axiom) {
 			RI1Axiom other = (RI1Axiom) o;
 			ret = getSuperProperty().equals(other.getSuperProperty());
 		}

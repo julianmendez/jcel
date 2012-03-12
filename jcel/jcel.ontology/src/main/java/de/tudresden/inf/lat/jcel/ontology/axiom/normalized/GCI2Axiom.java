@@ -78,8 +78,8 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof GCI2Axiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof GCI2Axiom) {
 			GCI2Axiom other = (GCI2Axiom) o;
 			ret = getSubClass().equals(other.getSubClass())
 					&& getClassInSuperClass().equals(

@@ -68,8 +68,8 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof NominalAxiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof NominalAxiom) {
 			NominalAxiom other = (NominalAxiom) o;
 			ret = getClassExpression().equals(other.getClassExpression())
 					&& getIndividual().equals(other.getIndividual());

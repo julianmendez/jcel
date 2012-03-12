@@ -81,8 +81,8 @@ public class IntegerSubObjectPropertyOfAxiom implements ComplexIntegerAxiom {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerSubObjectPropertyOfAxiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerSubObjectPropertyOfAxiom) {
 			IntegerSubObjectPropertyOfAxiom other = (IntegerSubObjectPropertyOfAxiom) o;
 			ret = getSubProperty().equals(other.getSubProperty())
 					&& getSuperProperty().equals(other.getSuperProperty());

@@ -86,8 +86,8 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerPropertyRangeAxiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerPropertyRangeAxiom) {
 			IntegerPropertyRangeAxiom other = (IntegerPropertyRangeAxiom) o;
 			ret = getProperty().equals(other.getProperty())
 					&& getRange().equals(other.getRange());

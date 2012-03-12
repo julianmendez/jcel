@@ -69,8 +69,8 @@ public class IntegerObjectOneOf implements IntegerClassExpression {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerObjectOneOf) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerObjectOneOf) {
 			IntegerObjectOneOf other = (IntegerObjectOneOf) o;
 			ret = getIndividual().equals(other.getIndividual());
 		}

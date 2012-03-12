@@ -128,8 +128,8 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerEntityManagerImpl) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerEntityManagerImpl) {
 			IntegerEntityManagerImpl other = (IntegerEntityManagerImpl) o;
 			ret = this.entityCounter == other.entityCounter
 					&& this.auxEntityMap.equals(other.auxEntityMap)

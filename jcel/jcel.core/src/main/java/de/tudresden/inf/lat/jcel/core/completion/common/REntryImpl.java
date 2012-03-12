@@ -25,9 +25,9 @@ package de.tudresden.inf.lat.jcel.core.completion.common;
  * An object of this class is a relation entry and can be used by a relation
  * observer.
  * 
- * @see RObserverRule
- * 
  * @author Julian Mendez
+ * 
+ * @see RObserverRule
  */
 public class REntryImpl implements REntry, Comparable<REntryImpl> {
 
@@ -79,8 +79,8 @@ public class REntryImpl implements REntry, Comparable<REntryImpl> {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof REntry) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof REntry) {
 			REntry other = (REntry) o;
 			ret = getProperty().equals(other.getProperty())
 					&& getLeftClass().equals(other.getLeftClass())

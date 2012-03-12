@@ -78,8 +78,8 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof GCI3Axiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof GCI3Axiom) {
 			GCI3Axiom other = (GCI3Axiom) o;
 			ret = getClassInSubClass().equals(other.getClassInSubClass())
 					&& getPropertyInSubClass().equals(

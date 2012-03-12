@@ -24,9 +24,9 @@ package de.tudresden.inf.lat.jcel.core.graph;
 /**
  * This class implements an existential expression.
  * 
- * @see VNodeObjectSomeValuesFrom
- * 
  * @author Julian Mendez
+ * 
+ * @see VNodeObjectSomeValuesFrom
  */
 public class VNodeObjectSomeValuesFromImpl implements VNodeObjectSomeValuesFrom {
 
@@ -55,8 +55,8 @@ public class VNodeObjectSomeValuesFromImpl implements VNodeObjectSomeValuesFrom 
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof VNodeObjectSomeValuesFrom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof VNodeObjectSomeValuesFrom) {
 			VNodeObjectSomeValuesFrom other = (VNodeObjectSomeValuesFrom) o;
 			ret = getObjectPropertyId().equals(other.getObjectPropertyId())
 					&& getClassId().equals(other.getClassId());

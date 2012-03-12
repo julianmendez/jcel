@@ -70,8 +70,8 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof RI2Axiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof RI2Axiom) {
 			RI2Axiom other = (RI2Axiom) o;
 			ret = getSubProperty().equals(other.getSubProperty())
 					&& getSuperProperty().equals(other.getSuperProperty());

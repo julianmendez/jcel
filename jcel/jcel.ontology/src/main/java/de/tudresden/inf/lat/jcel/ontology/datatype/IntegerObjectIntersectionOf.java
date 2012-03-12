@@ -86,8 +86,8 @@ public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerObjectIntersectionOf) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerObjectIntersectionOf) {
 			IntegerObjectIntersectionOf other = (IntegerObjectIntersectionOf) o;
 			ret = getOperands().equals(other.getOperands())
 					&& (containsBottom() == other.containsBottom());

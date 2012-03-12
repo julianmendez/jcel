@@ -86,8 +86,8 @@ public class IntegerNegativeObjectPropertyAssertionAxiom implements
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerNegativeObjectPropertyAssertionAxiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerNegativeObjectPropertyAssertionAxiom) {
 			IntegerNegativeObjectPropertyAssertionAxiom other = (IntegerNegativeObjectPropertyAssertionAxiom) o;
 			ret = getProperty().equals(other.getProperty())
 					&& getSubject().equals(other.getSubject())

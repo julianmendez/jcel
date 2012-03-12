@@ -30,9 +30,9 @@ import java.util.Set;
  * This class implements a node which is a pair of a class and a set of
  * existential expressions.
  * 
- * @see VNode
- * 
  * @author Julian Mendez
+ * 
+ * @see VNode
  */
 public class VNodeImpl implements VNode {
 
@@ -106,11 +106,12 @@ public class VNodeImpl implements VNode {
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof VNodeImpl) {
-			VNodeImpl other = (VNodeImpl) o;
-			ret = this.classIdentifier == other.classIdentifier
-					&& this.existentialSet.equals(other.existentialSet);
+		boolean ret = (this == o);
+		if (!ret && o instanceof VNode) {
+			VNode other = (VNode) o;
+			ret = getClassId().equals(other.getClassId())
+					&& getExistentialEntries().equals(
+							other.getExistentialEntries());
 		}
 		return ret;
 	}

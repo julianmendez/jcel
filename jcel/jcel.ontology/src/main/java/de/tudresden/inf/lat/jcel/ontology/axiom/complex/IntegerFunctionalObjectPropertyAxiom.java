@@ -61,8 +61,8 @@ public class IntegerFunctionalObjectPropertyAxiom implements
 
 	@Override
 	public boolean equals(Object o) {
-		boolean ret = false;
-		if (o instanceof IntegerFunctionalObjectPropertyAxiom) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerFunctionalObjectPropertyAxiom) {
 			IntegerFunctionalObjectPropertyAxiom other = (IntegerFunctionalObjectPropertyAxiom) o;
 			ret = getProperty().equals(other.getProperty());
 		}
