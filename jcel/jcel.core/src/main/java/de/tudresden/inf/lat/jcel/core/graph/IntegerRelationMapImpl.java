@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -134,6 +135,21 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerRelationMap) {
+			IntegerRelationMap other = (IntegerRelationMap) o;
+			ret = getElements().equals(other.getElements());
+			for (Iterator<Integer> it = getElements().iterator(); ret
+					&& it.hasNext();) {
+				Integer elem = it.next();
+				ret = ret && get(elem).equals(other.get(elem));
+			}
+		}
+		return ret;
+	}
+
+	@Override
 	public IntegerBinaryRelation get(Integer relationId) {
 		if (relationId == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -228,6 +244,11 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 			ret = Collections.emptySet();
 		}
 		return Collections.unmodifiableCollection(ret);
+	}
+
+	@Override
+	public int hashCode() {
+		return this.relationMap.hashCode();
 	}
 
 	@Override

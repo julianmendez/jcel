@@ -24,6 +24,7 @@ package de.tudresden.inf.lat.jcel.core.graph;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -232,6 +233,27 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerHierarchicalGraph) {
+			IntegerHierarchicalGraph other = (IntegerHierarchicalGraph) o;
+			ret = getBottomElement().equals(other.getBottomElement())
+					&& getTopElement().equals(other.getTopElement())
+					&& getElements().equals(other.getElements());
+			for (Iterator<Integer> it = getElements().iterator(); ret
+					&& it.hasNext();) {
+				Integer elem = it.next();
+				ret = ret
+						&& getChildren(elem).equals(other.getChildren(elem))
+						&& getParents(elem).equals(other.getParents(elem))
+						&& getEquivalents(elem).equals(
+								other.getEquivalents(elem));
+			}
+		}
+		return ret;
+	}
+
+	@Override
 	public Set<Integer> getAncestors(Integer orig) {
 		if (orig == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -313,6 +335,11 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 	@Override
 	public Integer getTopElement() {
 		return this.topElement;
+	}
+
+	@Override
+	public int hashCode() {
+		return this.parents.hashCode();
 	}
 
 	private void reset(Collection<Integer> elements) {

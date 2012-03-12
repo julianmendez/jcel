@@ -24,6 +24,7 @@ package de.tudresden.inf.lat.jcel.core.graph;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -101,6 +102,21 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerBinaryRelation) {
+			IntegerBinaryRelation other = (IntegerBinaryRelation) o;
+			ret = getElements().equals(other.getElements());
+			for (Iterator<Integer> it = getElements().iterator(); ret
+					&& it.hasNext();) {
+				Integer elem = it.next();
+				ret = ret && getByFirst(elem).equals(other.getByFirst(elem));
+			}
+		}
+		return ret;
+	}
+
+	@Override
 	public Collection<Integer> getByFirst(Integer first) {
 		if (first == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -150,6 +166,11 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	@Override
 	public Set<Integer> getElements() {
 		return this.byFirstComp.keySet();
+	}
+
+	@Override
+	public int hashCode() {
+		return this.byFirstComp.hashCode();
 	}
 
 	@Override

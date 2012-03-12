@@ -22,6 +22,7 @@
 package de.tudresden.inf.lat.jcel.core.graph;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * This class implements a subsumer invGraph. This implementation keeps a set of
@@ -100,6 +101,24 @@ public class IntegerSubsumerBidirectionalGraphImpl implements
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerSubsumerBidirectionalGraph) {
+			IntegerSubsumerBidirectionalGraph other = (IntegerSubsumerBidirectionalGraph) o;
+			ret = getBottomElement().equals(other.getBottomElement())
+					&& getTopElement().equals(other.getTopElement())
+					&& getElements().equals(other.getElements());
+			for (Iterator<Integer> it = getElements().iterator(); ret
+					&& it.hasNext();) {
+				Integer elem = it.next();
+				ret = ret
+						&& getSubsumers(elem).equals(other.getSubsumers(elem));
+			}
+		}
+		return ret;
+	}
+
+	@Override
 	public Integer getBottomElement() {
 		return this.graph.getBottomElement();
 	}
@@ -130,6 +149,11 @@ public class IntegerSubsumerBidirectionalGraphImpl implements
 	@Override
 	public Integer getTopElement() {
 		return this.graph.getTopElement();
+	}
+
+	@Override
+	public int hashCode() {
+		return this.graph.hashCode();
 	}
 
 	/**

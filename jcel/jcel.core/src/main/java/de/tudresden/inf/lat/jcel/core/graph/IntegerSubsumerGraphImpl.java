@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -121,6 +122,24 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		boolean ret = (this == o);
+		if (!ret && o instanceof IntegerSubsumerGraph) {
+			IntegerSubsumerGraph other = (IntegerSubsumerGraph) o;
+			ret = getBottomElement().equals(other.getBottomElement())
+					&& getTopElement().equals(other.getTopElement())
+					&& getElements().equals(other.getElements());
+			for (Iterator<Integer> it = getElements().iterator(); ret
+					&& it.hasNext();) {
+				Integer elem = it.next();
+				ret = ret
+						&& getSubsumers(elem).equals(other.getSubsumers(elem));
+			}
+		}
+		return ret;
+	}
+
+	@Override
 	public Integer getBottomElement() {
 		return this.bottomElement;
 	}
@@ -169,6 +188,11 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	@Override
 	public Integer getTopElement() {
 		return this.topElement;
+	}
+
+	@Override
+	public int hashCode() {
+		return this.setS.hashCode();
 	}
 
 	/**
