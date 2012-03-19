@@ -48,6 +48,7 @@
 		<module>../jcel.core</module>
 		<module>../jcel.owlapi</module>
 		<module>../jcel.protege</module>
+		<module>../jcel.bundle</module>
 	</modules>
 
 	<build>
@@ -61,7 +62,6 @@
 						<phase>package</phase>
 						<configuration>
 							<target>
-								<ant antfile="build.xml" target="bundle" />
 								<ant antfile="build.xml" target="release" />
 							</target>
 						</configuration>
