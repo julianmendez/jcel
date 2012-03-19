@@ -60,10 +60,6 @@
 
 	<property name="_bundleclasses.directory" value="${_root.directory}/${module.3.name}/target/classes" />
 
-	<path id="libs.directory">
-		<fileset dir="${_jars.directory}" includes="${dependencies}" />
-	</path>
-
 	<!-- Cleans everything. -->
 	<target name="clean">
 		<delete dir="${project.build.directory}" />
