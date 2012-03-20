@@ -36,13 +36,6 @@
 
 	<name>jcel distribution</name>
 
-	<parent>
-		<groupId>jcel</groupId>
-		<artifactId>parent</artifactId>
-		<version>0.16.1</version>
-		<relativePath>../jcel.jars</relativePath>
-	</parent>
-
 	<modules>
 		<module>../jcel.ontology</module>
 		<module>../jcel.core</module>

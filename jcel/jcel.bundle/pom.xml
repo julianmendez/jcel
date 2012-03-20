@@ -72,7 +72,7 @@
  	lib/jcel/jcel.owlapi/0.16.1/jcel.owlapi-0.16.1.jar=../jcel.owlapi/target/jcel.owlapi-0.16.1.jar,
  	lib/jcel/jcel.owlapi/0.16.1/copying.txt=../jcel.owlapi/copying.txt,
  	lib/jcel/jcel.owlapi/0.16.1/copying-lesser.txt=../jcel.owlapi/copying-lesser.txt
- 	</Include-Resource>
+						</Include-Resource>
 					</instructions>
 				</configuration>
 			</plugin>

@@ -48,7 +48,6 @@
 	<property name="_bundle.directory" value="${project.build.directory}" />
 	<property name="_bundlejars.directory" value="${project.build.directory}" />
 	<property name="_bundle.name" value="de.tudresden.inf.lat.jcel" />
-	<property name="_release.directory" value="${project.build.directory}/release/${groupId}-${version}" />
 	<property name="_manifest.directory" value="${src.directory}/main/manifest/MANIFEST.MF" />
 
 	<property name="module.0.name" value="jcel.ontology" />
@@ -94,6 +93,14 @@
 		</antcall>
 	</target>
 
+	<!-- Prepares the local repository. -->
+	<target name="getrepository">
+		<mkdir dir="${_lib.directory}" />
+		<copy todir="${_lib.directory}">
+			<fileset dir="${repository.directory}" />
+		</copy>
+	</target>
+
 	<!-- Creates the bundle. -->
 	<target name="bundle">
 		<mkdir dir="${_bundle.directory}" />
@@ -104,7 +111,7 @@
 		</jar>
 	</target>
 
-	<target name="dist" depends="clean, getjars, bundle">
+	<target name="dist" depends="clean, getjars, getrepository, bundle">
 		<!--buildnumber file="version.properties"/-->
 	</target>
 
