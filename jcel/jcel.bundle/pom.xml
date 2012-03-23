@@ -43,23 +43,22 @@
 
 		<plugins>
 			<plugin>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.3.1</version>
-				<configuration>
-					<phase>package</phase>
-					<archive>
-						<manifestFile>src/main/manifest/MANIFEST.MF</manifestFile>
-					</archive>
-				</configuration>
-			</plugin>
-
-			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<version>2.3.4</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
+						<Bundle-SymbolicName>de.tudresden.inf.lat.jcel;singleton:=true</Bundle-SymbolicName>
+						<Bundle-Name>jcel</Bundle-Name>
+						<Bundle-Version>${project.version}.r455</Bundle-Version>
+						<Bundle-Activator>org.protege.editor.core.plugin.DefaultPluginActivator</Bundle-Activator>
+						<Bundle-Category>protege</Bundle-Category>
+						<Bundle-Description>jcel plugin for Protege</Bundle-Description>
+						<Bundle-Vendor>Chair of Automata Theory - TU Dresden</Bundle-Vendor>
+						<Bundle-DocURL>http://lat.inf.tu-dresden.de</Bundle-DocURL>
+						<Bundle-ClassPath>., lib/jcel/jcel.ontology/0.16.1/jcel.ontology-0.16.1.jar, lib/jcel/jcel.core/0.16.1/jcel.core-0.16.1.jar, lib/jcel/jcel.owlapi/0.16.1/jcel.owlapi-0.16.1.jar</Bundle-ClassPath>
+						<Import-Package>javax.accessibility, javax.swing, javax.swing.border, org.osgi.framework, org.protege.editor.core.ui.workspace, *</Import-Package>
 						<Include-Resource>
  	{maven-resources}, {maven-dependencies},
  	@../jcel.protege/target/jcel.protege-0.16.1.jar,
