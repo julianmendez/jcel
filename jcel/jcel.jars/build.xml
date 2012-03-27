@@ -28,8 +28,8 @@
 	For more information about this file, see http://ant.apache.org 
 	-->
 
-	<property name="groupId" value="jcel" />
-	<property name="artifactId" value="parent" />
+	<property name="project.groupId" value="jcel" />
+	<property name="project.artifactId" value="parent" />
 
 	<!-- Imports version properties. -->
 	<property file="version.properties" />
@@ -37,7 +37,7 @@
 	<!-- 
 
 	The following version properties should be defined at this point : 
-	  * version : has the version number of the form major.minor.patch 
+	  * project.version : has the version number of the form major.minor.patch 
 	  * build.number : has the build number
 	  * dependencies : has a space-separated list of the jars required to compile the project and run the test cases
 	  * javadocsrc : has a colon-separated list of source directories for the javadoc
@@ -70,7 +70,7 @@
 	<property name="_srclib.directory" value="${project.build.directory}" />
 	<property name="project.build.testOutputDirectory" value="${project.build.directory}/test-classes" />
 	<property name="_test.report.directory" value="${project.build.directory}/report" />
-	<property name="_zipfile.directory" value="${basedir}/../${groupId}-${artifactId}-${version}.${build.number}.zip" />
+	<property name="_zipfile.directory" value="${basedir}/../${project.groupId}-${project.artifactId}-${project.version}.${build.number}.zip" />
 	<property name="_debuglevel" value="lines,vars,source" />
 
 	<path id="libs.directory">
@@ -93,10 +93,10 @@
 	<!-- Creates a jar with the source code. -->
 	<target name="source" depends="clean">
 		<mkdir dir="${_srclib.directory}" />
-		<jar destfile="${_srclib.directory}/${artifactId}-${version}-sources.jar" basedir="${basedir}">
+		<jar destfile="${_srclib.directory}/${project.artifactId}-${project.version}-sources.jar" basedir="${basedir}">
 			<manifest>
-				<attribute name="Implementation-Title" value="${groupId}-${artifactId}" />
-				<attribute name="Implementation-Version" value="${version}" />
+				<attribute name="Implementation-Title" value="${project.groupId}-${project.artifactId}" />
+				<attribute name="Implementation-Version" value="${project.version}" />
 			</manifest>
 		</jar>
 	</target>
@@ -130,16 +130,16 @@
 	<!-- Creates the javadoc. -->
 	<target name="javadoc">
 		<mkdir dir="${_javadoc.directory}" />
-		<javadoc packagenames="*" sourcepath="${javadocsrc}" destdir="${_javadoc.directory}" version="true" use="true" windowtitle="${groupId}-${artifactId}" overview="${_src.javadoc.directory}/overview.html" classpathref="libs.directory" access="package" />
+		<javadoc packagenames="*" sourcepath="${javadocsrc}" destdir="${_javadoc.directory}" version="true" use="true" windowtitle="${project.groupId}-${project.artifactId}" overview="${_src.javadoc.directory}/overview.html" classpathref="libs.directory" access="package" />
 	</target>
 
 	<!-- Creates a jar with the binaries. -->
 	<target name="jar" depends="compile">
 		<mkdir dir="${_prjlib.directory}" />
-		<jar destfile="${_prjlib.directory}/${artifactId}-${version}.jar" basedir="${project.build.outputDirectory}">
+		<jar destfile="${_prjlib.directory}/${project.artifactId}-${project.version}.jar" basedir="${project.build.outputDirectory}">
 			<manifest>
-				<attribute name="Implementation-Title" value="${groupId}-${artifactId}" />
-				<attribute name="Implementation-Version" value="${version}" />
+				<attribute name="Implementation-Title" value="${project.groupId}-${project.artifactId}" />
+				<attribute name="Implementation-Version" value="${project.version}" />
 			</manifest>
 		</jar>
 	</target>

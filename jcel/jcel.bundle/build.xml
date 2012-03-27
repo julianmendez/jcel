@@ -28,8 +28,8 @@
 	For more information about this file, see http://ant.apache.org 
 	-->
 
-	<property name="groupId" value="jcel" />
-	<property name="artifactId" value="bundle" />
+	<property name="project.groupId" value="jcel" />
+	<property name="project.artifactId" value="bundle" />
 
 	<!-- Imports version properties. -->
 	<property file="version.properties" />
@@ -63,11 +63,11 @@
 
 	<!-- Copies the created jars. -->
 	<target name="getjar">
-		<mkdir dir="${_lib.directory}/${groupId.directory}/${module.name}/${version}" />
-		<copy todir="${_lib.directory}/${groupId.directory}/${module.name}/${version}">
+		<mkdir dir="${_lib.directory}/${groupId.directory}/${module.name}/${project.version}" />
+		<copy todir="${_lib.directory}/${groupId.directory}/${module.name}/${project.version}">
 			<fileset dir="${_root.directory}/${module.name}/${_targetlib.directory}">
-				<include name="${module.name}-${version}.jar" />
-				<include name="${module.name}-${version}-sources.jar" />
+				<include name="${module.name}-${project.version}.jar" />
+				<include name="${module.name}-${project.version}-sources.jar" />
 			</fileset>
 			<fileset dir="${_root.directory}/${module.name}">
 				<include name="copying.txt" />
@@ -111,13 +111,13 @@
 				<attribute name="Bundle-ManifestVersion" value="2" />
 				<attribute name="Bundle-SymbolicName" value="de.tudresden.inf.lat.jcel;singleton:=true" />
 				<attribute name="Bundle-Name" value="jcel" />
-				<attribute name="Bundle-Version" value="${version}.${revision}" />
+				<attribute name="Bundle-Version" value="${project.version}.${svn.revision}" />
 				<attribute name="Bundle-Activator" value="org.protege.editor.core.plugin.DefaultPluginActivator" />
 				<attribute name="Bundle-Category" value="protege" />
-				<attribute name="Bundle-Description" value=" jcel plugin for Protege" />
+				<attribute name="Bundle-Description" value="jcel plugin for Protege" />
 				<attribute name="Bundle-Vendor" value="Chair of Automata Theory - TU Dresden" />
 				<attribute name="Bundle-DocURL" value="http://lat.inf.tu-dresden.de" />
-				<attribute name="Bundle-ClassPath" value="${bundle_classpath}" />
+				<attribute name="Bundle-ClassPath" value="${bundle.classpath}" />
 				<attribute name="Import-Package" value="org.osgi.framework" />
 				<attribute name="Require-Bundle" value="org.eclipse.equinox.registry, org.eclipse.equinox.common, org.protege.editor.core.application, org.protege.editor.owl, org.semanticweb.owl.owlapi" />
 			</manifest>

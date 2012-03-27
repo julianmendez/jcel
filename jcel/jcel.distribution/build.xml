@@ -28,8 +28,8 @@
 	For more information about this file, see http://ant.apache.org 
 	-->
 
-	<property name="groupId" value="jcel" />
-	<property name="artifactId" value="distribution" />
+	<property name="project.groupId" value="jcel" />
+	<property name="project.artifactId" value="distribution" />
 
 	<!-- Imports version properties. -->
 	<property file="version.properties" />
@@ -45,7 +45,7 @@
 	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
 	<property name="_jars.directory" value="${basedir}/.." />
 	<property name="_resources.directory" value="${src.directory}/main/resources" />
-	<property name="_release.directory" value="${project.build.directory}/release/${groupId}-${version}" />
+	<property name="_release.directory" value="${project.build.directory}/release/${project.groupId}-${project.version}" />
 	<property name="_manifest.directory" value="${src.directory}/main/manifest/MANIFEST.MF" />
 	<property name="_javadoc.directory" value="${project.build.directory}/site/javadoc" />
 	<property name="_src.javadoc.directory" value="${src.directory}/main/javadoc" />
@@ -72,10 +72,10 @@
 	<!-- Prepares the jars for the release. -->
 	<target name="preparejars">
 		<copy todir="${_release.directory}/lib">
-			<fileset dir="${_root.directory}/${module.name}/target" includes="${module.name}-${version}.jar" />
+			<fileset dir="${_root.directory}/${module.name}/target" includes="${module.name}-${project.version}.jar" />
 		</copy>
 		<copy todir="${_release.directory}/src">
-			<fileset dir="${_root.directory}/${module.name}/target" includes="${module.name}-${version}-sources.jar" />
+			<fileset dir="${_root.directory}/${module.name}/target" includes="${module.name}-${project.version}-sources.jar" />
 		</copy>
 	</target>
 
@@ -124,12 +124,12 @@
 			<fileset dir="${_bundle_module.directory}/target" includes="${_bundle.name}.jar" />
 		</copy>
 
-		<zip destfile="${_release.directory}/doc/${groupId}-${version}-javadoc.zip">
+		<zip destfile="${_release.directory}/doc/${project.groupId}-${project.version}-javadoc.zip">
 			<fileset dir="${_root.directory}/${module.3.name}/target/site" includes="apidocs/**" />
 		</zip>
 
-		<zip destfile="${project.build.directory}/${groupId}-${version}.zip">
-			<fileset dir="${_release.directory}/.." includes="${groupId}-${version}/**" />
+		<zip destfile="${project.build.directory}/${project.groupId}-${project.version}.zip">
+			<fileset dir="${_release.directory}/.." includes="${project.groupId}-${project.version}/**" />
 		</zip>
 	</target>
 
