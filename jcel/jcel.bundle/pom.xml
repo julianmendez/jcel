@@ -77,7 +77,7 @@
 						<Bundle-Description>jcel plugin for Protege</Bundle-Description>
 						<Bundle-Vendor>Chair of Automata Theory - TU Dresden</Bundle-Vendor>
 						<Bundle-DocURL>http://lat.inf.tu-dresden.de</Bundle-DocURL>
-						<Bundle-ClassPath>., lib/jcel/jcel.ontology/0.16.1/jcel.ontology-0.16.1.jar, lib/jcel/jcel.core/0.16.1/jcel.core-0.16.1.jar, lib/jcel/jcel.owlapi/0.16.1/jcel.owlapi-0.16.1.jar</Bundle-ClassPath>
+						<Bundle-ClassPath>${bundle.classpath}</Bundle-ClassPath>
 						<Import-Package>javax.accessibility, javax.swing, javax.swing.border, org.osgi.framework, org.protege.editor.core.ui.workspace, *</Import-Package>
 						<Include-Resource>
  	{maven-resources}, {maven-dependencies},
