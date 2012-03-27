@@ -42,6 +42,26 @@
 		<finalName>de.tudresden.inf.lat.jcel</finalName>
 
 		<plugins>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>1.0-alpha-2</version>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>read-project-properties</goal>
+						</goals>
+						<configuration>
+							<files>
+								<file>version.properties</file>
+							</files>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
@@ -51,7 +71,7 @@
 					<instructions>
 						<Bundle-SymbolicName>de.tudresden.inf.lat.jcel;singleton:=true</Bundle-SymbolicName>
 						<Bundle-Name>jcel</Bundle-Name>
-						<Bundle-Version>${project.version}.455</Bundle-Version>
+						<Bundle-Version>${project.version}.${svn.revision}</Bundle-Version>
 						<Bundle-Activator>org.protege.editor.core.plugin.DefaultPluginActivator</Bundle-Activator>
 						<Bundle-Category>protege</Bundle-Category>
 						<Bundle-Description>jcel plugin for Protege</Bundle-Description>
@@ -61,20 +81,21 @@
 						<Import-Package>javax.accessibility, javax.swing, javax.swing.border, org.osgi.framework, org.protege.editor.core.ui.workspace, *</Import-Package>
 						<Include-Resource>
  	{maven-resources}, {maven-dependencies},
- 	@../jcel.protege/target/jcel.protege-0.16.1.jar,
- 	lib/jcel/jcel.ontology/0.16.1/jcel.ontology-0.16.1.jar=../jcel.ontology/target/jcel.ontology-0.16.1.jar,
- 	lib/jcel/jcel.ontology/0.16.1/copying.txt=../jcel.ontology/copying.txt,
- 	lib/jcel/jcel.ontology/0.16.1/copying-lesser.txt=../jcel.ontology/copying-lesser.txt,
- 	lib/jcel/jcel.core/0.16.1/jcel.core-0.16.1.jar=../jcel.core/target/jcel.core-0.16.1.jar,
- 	lib/jcel/jcel.core/0.16.1/copying.txt=../jcel.core/copying.txt,
- 	lib/jcel/jcel.core/0.16.1/copying-lesser.txt=../jcel.core/copying-lesser.txt,
- 	lib/jcel/jcel.owlapi/0.16.1/jcel.owlapi-0.16.1.jar=../jcel.owlapi/target/jcel.owlapi-0.16.1.jar,
- 	lib/jcel/jcel.owlapi/0.16.1/copying.txt=../jcel.owlapi/copying.txt,
- 	lib/jcel/jcel.owlapi/0.16.1/copying-lesser.txt=../jcel.owlapi/copying-lesser.txt
+ 	@../jcel.protege/target/jcel.protege-${project.version}.jar,
+ 	lib/jcel/jcel.ontology/${project.version}/jcel.ontology-${project.version}.jar=../jcel.ontology/target/jcel.ontology-${project.version}.jar,
+ 	lib/jcel/jcel.ontology/${project.version}/copying.txt=../jcel.ontology/copying.txt,
+ 	lib/jcel/jcel.ontology/${project.version}/copying-lesser.txt=../jcel.ontology/copying-lesser.txt,
+ 	lib/jcel/jcel.core/${project.version}/jcel.core-${project.version}.jar=../jcel.core/target/jcel.core-${project.version}.jar,
+ 	lib/jcel/jcel.core/${project.version}/copying.txt=../jcel.core/copying.txt,
+ 	lib/jcel/jcel.core/${project.version}/copying-lesser.txt=../jcel.core/copying-lesser.txt,
+ 	lib/jcel/jcel.owlapi/${project.version}/jcel.owlapi-${project.version}.jar=../jcel.owlapi/target/jcel.owlapi-${project.version}.jar,
+ 	lib/jcel/jcel.owlapi/${project.version}/copying.txt=../jcel.owlapi/copying.txt,
+ 	lib/jcel/jcel.owlapi/${project.version}/copying-lesser.txt=../jcel.owlapi/copying-lesser.txt
 						</Include-Resource>
 					</instructions>
 				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
 
