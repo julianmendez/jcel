@@ -30,7 +30,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>jcel</groupId>
-	<artifactId>distribution</artifactId>
+	<artifactId>jcel</artifactId>
 	<packaging>pom</packaging>
 	<version>0.16.1</version>
 
@@ -48,20 +48,37 @@
 		<plugins>
 
 			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.7</version>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.3</version>
 				<executions>
+
 					<execution>
+						<id>create-javadoc-zip</id>
 						<phase>package</phase>
-						<configuration>
-							<target>
-								<ant antfile="build.xml" target="release" />
-							</target>
-						</configuration>
 						<goals>
-							<goal>run</goal>
+							<goal>single</goal>
 						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>${basedir}/src/main/assembly/javadoc.xml</descriptor>
+							</descriptors>
+						</configuration>
 					</execution>
+
+					<execution>
+						<id>create-release</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptors>
+								<descriptor>${basedir}/src/main/assembly/release.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+
 				</executions>
 			</plugin>
 
