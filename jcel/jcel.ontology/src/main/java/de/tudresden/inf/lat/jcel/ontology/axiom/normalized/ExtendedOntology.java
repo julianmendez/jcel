@@ -123,21 +123,6 @@ public interface ExtendedOntology {
 
 	/**
 	 * Returns the set of all axioms GCI3 in the ontology such that the given
-	 * classes occur in the axiom.
-	 * 
-	 * @param leftClassId
-	 *            class identifier occurring in the left part of the axiom
-	 * @param rightClassId
-	 *            class identifier occurring in the right part of the axiom
-	 * 
-	 * @return the set of all axioms GCI3 in the ontology such that the given
-	 *         classes occur in the axiom
-	 */
-	public Set<GCI3Axiom> getGCI3ABAxioms(Integer leftClassId,
-			Integer rightClassId);
-
-	/**
-	 * Returns the set of all axioms GCI3 in the ontology such that the given
 	 * object property and the given class occur in the left part of the axiom.
 	 * 
 	 * @param objectPropertyId
@@ -164,24 +149,6 @@ public interface ExtendedOntology {
 	 *         object property occurs in the axiom
 	 */
 	public Set<GCI3Axiom> getGCI3rAxioms(Integer objectPropertyId);
-
-	/**
-	 * Returns the set of all axioms GCI3 in the ontology such that the given
-	 * object property occurs in left part of the axiom and the given class
-	 * occurs in the right part of the axiom.
-	 * 
-	 * @param objectPropertyId
-	 *            object property identifier occurring in the left part of the
-	 *            axiom
-	 * @param rightClassId
-	 *            class identifier occurring in the right part of the axiom
-	 * 
-	 * @return the set of all axioms GCI3 in the ontology such that the given
-	 *         object property occurs in the left part of the axiom and the
-	 *         given class occur in the right part of the axiom
-	 */
-	public Set<GCI3Axiom> getGCI3rBAxioms(Integer objectPropertyId,
-			Integer rightClassId);
 
 	/**
 	 * Returns the set of all object properties in the ontology.

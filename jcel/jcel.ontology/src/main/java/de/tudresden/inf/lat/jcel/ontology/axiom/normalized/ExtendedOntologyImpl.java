@@ -41,10 +41,8 @@ public class ExtendedOntologyImpl implements ExtendedOntology,
 	private Map<Integer, Set<GCI1Axiom>> mapOfGCI1 = new HashMap<Integer, Set<GCI1Axiom>>();
 	private Map<Integer, Set<GCI2Axiom>> mapOfGCI2 = new HashMap<Integer, Set<GCI2Axiom>>();
 	private Map<Integer, Set<GCI3Axiom>> mapOfGCI3A = new HashMap<Integer, Set<GCI3Axiom>>();
-	private Map<Integer, Map<Integer, Set<GCI3Axiom>>> mapOfGCI3AB = new HashMap<Integer, Map<Integer, Set<GCI3Axiom>>>();
 	private Map<Integer, Set<GCI3Axiom>> mapOfGCI3r = new HashMap<Integer, Set<GCI3Axiom>>();
 	private Map<Integer, Map<Integer, Set<GCI3Axiom>>> mapOfGCI3rA = new HashMap<Integer, Map<Integer, Set<GCI3Axiom>>>();
-	private Map<Integer, Map<Integer, Set<GCI3Axiom>>> mapOfGCI3rB = new HashMap<Integer, Map<Integer, Set<GCI3Axiom>>>();
 	private Map<Integer, Set<NominalAxiom>> mapOfNominalAxiom = new HashMap<Integer, Set<NominalAxiom>>();
 	private Map<Integer, Set<RangeAxiom>> mapOfRangeAxiom = new HashMap<Integer, Set<RangeAxiom>>();
 	private Map<Integer, Set<RI2Axiom>> mapOfRI2r = new HashMap<Integer, Set<RI2Axiom>>();
@@ -167,8 +165,6 @@ public class ExtendedOntologyImpl implements ExtendedOntology,
 		this.mapOfGCI3A.clear();
 		this.mapOfGCI3r.clear();
 		this.mapOfGCI3rA.clear();
-		this.mapOfGCI3rB.clear();
-		this.mapOfGCI3AB.clear();
 		this.mapOfRI2r.clear();
 		this.mapOfRI2s.clear();
 		this.mapOfRI3ByLeft.clear();
@@ -249,27 +245,6 @@ public class ExtendedOntologyImpl implements ExtendedOntology,
 	}
 
 	@Override
-	public Set<GCI3Axiom> getGCI3ABAxioms(Integer leftClassId,
-			Integer rightClassId) {
-		if (leftClassId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (rightClassId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		Set<GCI3Axiom> ret = Collections.emptySet();
-		Map<Integer, Set<GCI3Axiom>> map = this.mapOfGCI3AB.get(leftClassId);
-		if (map != null) {
-			ret = map.get(rightClassId);
-			if (ret == null) {
-				ret = Collections.emptySet();
-			}
-		}
-		return Collections.unmodifiableSet(ret);
-	}
-
-	@Override
 	public Set<GCI3Axiom> getGCI3rAAxioms(Integer propertyId,
 			Integer leftClassId) {
 		if (propertyId == null) {
@@ -299,27 +274,6 @@ public class ExtendedOntologyImpl implements ExtendedOntology,
 		Set<GCI3Axiom> ret = this.mapOfGCI3r.get(objectPropertyId);
 		if (ret == null) {
 			ret = Collections.emptySet();
-		}
-		return Collections.unmodifiableSet(ret);
-	}
-
-	@Override
-	public Set<GCI3Axiom> getGCI3rBAxioms(Integer propertyId,
-			Integer rightClassId) {
-		if (propertyId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (rightClassId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		Set<GCI3Axiom> ret = Collections.emptySet();
-		Map<Integer, Set<GCI3Axiom>> map = this.mapOfGCI3rB.get(propertyId);
-		if (map != null) {
-			ret = map.get(rightClassId);
-			if (ret == null) {
-				ret = Collections.emptySet();
-			}
 		}
 		return Collections.unmodifiableSet(ret);
 	}
@@ -478,10 +432,6 @@ public class ExtendedOntologyImpl implements ExtendedOntology,
 
 		addGCI3Axiom(this.mapOfGCI3rA, axiom, axiom.getPropertyInSubClass(),
 				axiom.getClassInSubClass());
-		addGCI3Axiom(this.mapOfGCI3rB, axiom, axiom.getPropertyInSubClass(),
-				axiom.getSuperClass());
-		addGCI3Axiom(this.mapOfGCI3AB, axiom, axiom.getClassInSubClass(),
-				axiom.getSuperClass());
 		addGCI3Axiom(this.mapOfGCI3A, axiom, axiom.getClassInSubClass());
 		addGCI3Axiom(this.mapOfGCI3r, axiom, axiom.getPropertyInSubClass());
 		return true;
