@@ -46,14 +46,7 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 	 * @param cl
 	 *            class identifier
 	 */
-	protected RangeAxiom(Integer prop, Integer cl) {
-		if (prop == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (cl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	protected RangeAxiom(int prop, int cl) {
 		this.property = prop;
 		this.range = cl;
 		this.hashCode = this.property + 31 * this.range;
@@ -109,7 +102,7 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property in the axiom
 	 */
-	public Integer getProperty() {
+	public int getProperty() {
 		return this.property;
 	}
 
@@ -118,7 +111,7 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the class identifier in the axiom
 	 */
-	public Integer getRange() {
+	public int getRange() {
 		return this.range;
 	}
 

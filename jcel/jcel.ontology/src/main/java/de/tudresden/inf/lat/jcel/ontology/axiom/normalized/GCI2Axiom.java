@@ -52,17 +52,7 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 	 * @param rightCl
 	 *            class identifier for the right-hand part
 	 */
-	protected GCI2Axiom(Integer leftCl, Integer rightProp, Integer rightCl) {
-		if (leftCl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (rightProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (rightCl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	protected GCI2Axiom(int leftCl, int rightProp, int rightCl) {
 		this.subClass = leftCl;
 		this.propertyInSuperClass = rightProp;
 		this.classInSuperClass = rightCl;
@@ -104,7 +94,7 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the class in the right-hand part of the axiom
 	 */
-	public Integer getClassInSuperClass() {
+	public int getClassInSuperClass() {
 		return this.classInSuperClass;
 	}
 
@@ -135,7 +125,7 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property on the right-hand part of the axiom
 	 */
-	public Integer getPropertyInSuperClass() {
+	public int getPropertyInSuperClass() {
 		return this.propertyInSuperClass;
 	}
 
@@ -144,7 +134,7 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the subclass in the axiom
 	 */
-	public Integer getSubClass() {
+	public int getSubClass() {
 		return this.subClass;
 	}
 

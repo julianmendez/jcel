@@ -47,14 +47,7 @@ public class GCI0Axiom implements NormalizedIntegerAxiom {
 	 * @param superCl
 	 *            superclass identifier
 	 */
-	protected GCI0Axiom(Integer subCl, Integer superCl) {
-		if (subCl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (superCl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	protected GCI0Axiom(int subCl, int superCl) {
 		this.subClass = subCl;
 		this.superClass = superCl;
 		this.hashCode = this.subClass + 31 * this.superClass;
@@ -113,7 +106,7 @@ public class GCI0Axiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the subclass in this axiom
 	 */
-	public Integer getSubClass() {
+	public int getSubClass() {
 		return this.subClass;
 	}
 
@@ -122,7 +115,7 @@ public class GCI0Axiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the superclass in this axiom
 	 */
-	public Integer getSuperClass() {
+	public int getSuperClass() {
 		return this.superClass;
 	}
 

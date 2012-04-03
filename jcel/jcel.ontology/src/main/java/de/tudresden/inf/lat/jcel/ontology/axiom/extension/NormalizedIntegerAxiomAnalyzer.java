@@ -200,8 +200,8 @@ class NormalizedIntegerAxiomAnalyzer implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		if (axiom.getSuperProperty().equals(axiom.getLeftSubProperty())
-				&& axiom.getSuperProperty().equals(axiom.getRightSubProperty())) {
+		if ((axiom.getSuperProperty() == axiom.getLeftSubProperty())
+				&& (axiom.getSuperProperty() == axiom.getRightSubProperty())) {
 			this.hasTransitiveObjectProperty = true;
 		} else {
 			this.hasSubPropertyChainOf = true;

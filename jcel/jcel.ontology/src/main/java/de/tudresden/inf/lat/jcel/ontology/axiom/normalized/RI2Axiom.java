@@ -48,14 +48,7 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 	 *            object property identifier for the right-hand part of the
 	 *            axiom
 	 */
-	protected RI2Axiom(Integer leftProp, Integer rightProp) {
-		if (leftProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (rightProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	protected RI2Axiom(int leftProp, int rightProp) {
 		this.subProperty = leftProp;
 		this.superProperty = rightProp;
 		this.hashCode = this.subProperty + 31 * this.superProperty;
@@ -114,7 +107,7 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property on the left-hand part of the axiom
 	 */
-	public Integer getSubProperty() {
+	public int getSubProperty() {
 		return this.subProperty;
 	}
 
@@ -123,7 +116,7 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property on the right-hand part of the axiom
 	 */
-	public Integer getSuperProperty() {
+	public int getSuperProperty() {
 		return this.superProperty;
 	}
 

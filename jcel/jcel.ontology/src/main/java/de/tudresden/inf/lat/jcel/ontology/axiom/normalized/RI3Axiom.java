@@ -52,18 +52,8 @@ public class RI3Axiom implements NormalizedIntegerAxiom {
 	 * @param rightProp
 	 *            object property identifier for super object property
 	 */
-	protected RI3Axiom(Integer leftLeftProp, Integer leftRightProp,
-			Integer rightProp) {
-		if (leftLeftProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (leftRightProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (rightProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	protected RI3Axiom(int leftLeftProp, int leftRightProp,
+			int rightProp) {
 		this.leftSubProperty = leftLeftProp;
 		this.rightSubProperty = leftRightProp;
 		this.superProperty = rightProp;
@@ -117,7 +107,7 @@ public class RI3Axiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property on the left-hand part of the composition
 	 */
-	public Integer getLeftSubProperty() {
+	public int getLeftSubProperty() {
 		return this.leftSubProperty;
 	}
 
@@ -135,7 +125,7 @@ public class RI3Axiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property on the right-hand part of the composition
 	 */
-	public Integer getRightSubProperty() {
+	public int getRightSubProperty() {
 		return this.rightSubProperty;
 	}
 
@@ -144,7 +134,7 @@ public class RI3Axiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the super object property
 	 */
-	public Integer getSuperProperty() {
+	public int getSuperProperty() {
 		return this.superProperty;
 	}
 

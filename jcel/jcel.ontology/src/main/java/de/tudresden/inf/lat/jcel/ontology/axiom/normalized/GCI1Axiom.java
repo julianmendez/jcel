@@ -51,11 +51,8 @@ public class GCI1Axiom implements NormalizedIntegerAxiom {
 	 * @param rightCl
 	 *            superclass in the axiom
 	 */
-	protected GCI1Axiom(List<Integer> leftClList, Integer rightCl) {
+	protected GCI1Axiom(List<Integer> leftClList, int rightCl) {
 		if (leftClList == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (rightCl == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
@@ -126,7 +123,7 @@ public class GCI1Axiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the superclass in the axiom
 	 */
-	public Integer getSuperClass() {
+	public int getSuperClass() {
 		return this.superClass;
 	}
 

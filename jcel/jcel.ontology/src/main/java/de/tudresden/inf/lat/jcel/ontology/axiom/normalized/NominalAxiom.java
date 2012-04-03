@@ -46,14 +46,7 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 	 * @param individualId
 	 *            individual identifier in the axiom
 	 */
-	protected NominalAxiom(Integer classId, Integer individualId) {
-		if (classId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (individualId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	protected NominalAxiom(int classId, int individualId) {
 		this.classExpression = classId;
 		this.individual = individualId;
 		this.hashCode = this.classExpression + 31 * this.individual;
@@ -84,7 +77,7 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 		return Collections.singleton(getClassExpression());
 	}
 
-	public Integer getClassExpression() {
+	public int getClassExpression() {
 		return this.classExpression;
 	}
 
@@ -98,7 +91,7 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 		return Collections.emptySet();
 	}
 
-	public Integer getIndividual() {
+	public int getIndividual() {
 		return this.individual;
 	}
 

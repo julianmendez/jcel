@@ -42,11 +42,7 @@ public class RI1Axiom implements NormalizedIntegerAxiom {
 	 * @param prop
 	 *            object property identifier
 	 */
-	protected RI1Axiom(Integer prop) {
-		if (prop == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	protected RI1Axiom(int prop) {
 		this.superProperty = prop;
 	}
 
@@ -99,7 +95,7 @@ public class RI1Axiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property in the axiom
 	 */
-	public Integer getSuperProperty() {
+	public int getSuperProperty() {
 		return this.superProperty;
 	}
 

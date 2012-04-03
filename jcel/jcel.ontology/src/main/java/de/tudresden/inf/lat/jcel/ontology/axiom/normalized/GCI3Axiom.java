@@ -52,17 +52,7 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 	 * @param rightCl
 	 *            superclass identifier
 	 */
-	protected GCI3Axiom(Integer leftProp, Integer leftCl, Integer rightCl) {
-		if (leftProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (leftCl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (rightCl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	protected GCI3Axiom(int leftProp, int leftCl, int rightCl) {
 		this.classInSubClass = leftCl;
 		this.propertyInSubClass = leftProp;
 		this.superClass = rightCl;
@@ -104,7 +94,7 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the class on the left-hand part of the axiom
 	 */
-	public Integer getClassInSubClass() {
+	public int getClassInSubClass() {
 		return this.classInSubClass;
 	}
 
@@ -133,7 +123,7 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property on the left-hand part of the axiom
 	 */
-	public Integer getPropertyInSubClass() {
+	public int getPropertyInSubClass() {
 		return this.propertyInSubClass;
 	}
 
@@ -142,7 +132,7 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the superclass in the axiom
 	 */
-	public Integer getSuperClass() {
+	public int getSuperClass() {
 		return this.superClass;
 	}
 

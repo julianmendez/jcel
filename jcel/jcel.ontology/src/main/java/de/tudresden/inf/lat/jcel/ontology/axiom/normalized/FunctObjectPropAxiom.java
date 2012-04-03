@@ -39,11 +39,7 @@ public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
 	 * @param prop
 	 *            object property
 	 */
-	protected FunctObjectPropAxiom(Integer prop) {
-		if (prop == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	protected FunctObjectPropAxiom(int prop) {
 		this.property = prop;
 	}
 
@@ -96,7 +92,7 @@ public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property in this axiom
 	 */
-	public Integer getProperty() {
+	public int getProperty() {
 		return this.property;
 	}
 
