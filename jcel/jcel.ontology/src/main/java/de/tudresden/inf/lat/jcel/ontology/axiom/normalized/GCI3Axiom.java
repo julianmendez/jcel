@@ -38,6 +38,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpressionWord;
 public class GCI3Axiom implements NormalizedIntegerAxiom {
 
 	private final int classInSubClass;
+	private final int hashCode;
 	private final int propertyInSubClass;
 	private final int superClass;
 
@@ -65,6 +66,8 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 		this.classInSubClass = leftCl;
 		this.propertyInSubClass = leftProp;
 		this.superClass = rightCl;
+		this.hashCode = this.classInSubClass + 31 * this.propertyInSubClass
+				+ 257 * this.superClass;
 	}
 
 	@Override
@@ -81,10 +84,9 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 		boolean ret = (this == o);
 		if (!ret && o instanceof GCI3Axiom) {
 			GCI3Axiom other = (GCI3Axiom) o;
-			ret = getClassInSubClass().equals(other.getClassInSubClass())
-					&& getPropertyInSubClass().equals(
-							other.getPropertyInSubClass())
-					&& getSuperClass().equals(other.getSuperClass());
+			ret = (this.classInSubClass == other.classInSubClass)
+					&& (this.propertyInSubClass == other.propertyInSubClass)
+					&& (this.superClass == other.superClass);
 		}
 		return ret;
 	}
@@ -146,8 +148,7 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public int hashCode() {
-		return getClassInSubClass().hashCode() + 31
-				* getSuperClass().hashCode();
+		return this.hashCode;
 	}
 
 	@Override

@@ -34,6 +34,7 @@ import java.util.Set;
  */
 public class RangeAxiom implements NormalizedIntegerAxiom {
 
+	private final int hashCode;
 	private final int property;
 	private final int range;
 
@@ -55,6 +56,7 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 
 		this.property = prop;
 		this.range = cl;
+		this.hashCode = this.property + 31 * this.range;
 	}
 
 	@Override
@@ -71,8 +73,8 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 		boolean ret = (this == o);
 		if (!ret && o instanceof RangeAxiom) {
 			RangeAxiom other = (RangeAxiom) o;
-			ret = getProperty().equals(other.getProperty())
-					&& getRange().equals(other.getRange());
+			ret = (this.property == other.property)
+					&& (this.range == other.range);
 		}
 		return ret;
 	}
@@ -122,7 +124,7 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public int hashCode() {
-		return getProperty().hashCode() + 31 * getRange().hashCode();
+		return this.hashCode;
 	}
 
 	@Override

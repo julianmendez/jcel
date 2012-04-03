@@ -61,7 +61,7 @@ public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
 		boolean ret = false;
 		if (o instanceof FunctObjectPropAxiom) {
 			FunctObjectPropAxiom other = (FunctObjectPropAxiom) o;
-			ret = getProperty().equals(other.getProperty());
+			ret = (this.property == other.property);
 		}
 		return ret;
 	}
@@ -102,7 +102,7 @@ public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public int hashCode() {
-		return getProperty().hashCode();
+		return this.property;
 	}
 
 	@Override

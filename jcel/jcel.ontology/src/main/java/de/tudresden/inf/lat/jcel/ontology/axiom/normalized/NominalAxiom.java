@@ -35,6 +35,7 @@ import java.util.Set;
 public class NominalAxiom implements NormalizedIntegerAxiom {
 
 	private final int classExpression;
+	private final int hashCode;
 	private final int individual;
 
 	/**
@@ -55,6 +56,7 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 
 		this.classExpression = classId;
 		this.individual = individualId;
+		this.hashCode = this.classExpression + 31 * this.individual;
 	}
 
 	@Override
@@ -71,8 +73,8 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 		boolean ret = (this == o);
 		if (!ret && o instanceof NominalAxiom) {
 			NominalAxiom other = (NominalAxiom) o;
-			ret = getClassExpression().equals(other.getClassExpression())
-					&& getIndividual().equals(other.getIndividual());
+			ret = (this.classExpression == other.classExpression)
+					&& (this.individual == other.individual);
 		}
 		return ret;
 	}
@@ -112,8 +114,7 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public int hashCode() {
-		return getClassExpression().hashCode() + 31
-				* getIndividual().hashCode();
+		return this.hashCode;
 	}
 
 	@Override

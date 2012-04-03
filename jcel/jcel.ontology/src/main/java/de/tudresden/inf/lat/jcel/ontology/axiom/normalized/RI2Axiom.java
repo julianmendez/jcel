@@ -35,6 +35,7 @@ import java.util.Set;
  */
 public class RI2Axiom implements NormalizedIntegerAxiom {
 
+	private final int hashCode;
 	private final int subProperty;
 	private final int superProperty;
 
@@ -57,6 +58,7 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 
 		this.subProperty = leftProp;
 		this.superProperty = rightProp;
+		this.hashCode = this.subProperty + 31 * this.superProperty;
 	}
 
 	@Override
@@ -73,8 +75,8 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 		boolean ret = (this == o);
 		if (!ret && o instanceof RI2Axiom) {
 			RI2Axiom other = (RI2Axiom) o;
-			ret = getSubProperty().equals(other.getSubProperty())
-					&& getSuperProperty().equals(other.getSuperProperty());
+			ret = (this.subProperty == other.subProperty)
+					&& (this.superProperty == other.superProperty);
 		}
 		return ret;
 	}
@@ -127,7 +129,7 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public int hashCode() {
-		return getSubProperty().hashCode() + 31 * getSuperProperty().hashCode();
+		return this.hashCode;
 	}
 
 	@Override

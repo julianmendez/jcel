@@ -35,6 +35,7 @@ import java.util.Set;
  */
 public class GCI0Axiom implements NormalizedIntegerAxiom {
 
+	private final int hashCode;
 	private final int subClass;
 	private final int superClass;
 
@@ -56,6 +57,7 @@ public class GCI0Axiom implements NormalizedIntegerAxiom {
 
 		this.subClass = subCl;
 		this.superClass = superCl;
+		this.hashCode = this.subClass + 31 * this.superClass;
 	}
 
 	@Override
@@ -72,8 +74,8 @@ public class GCI0Axiom implements NormalizedIntegerAxiom {
 		boolean ret = (this == o);
 		if (!ret && o instanceof GCI0Axiom) {
 			GCI0Axiom other = (GCI0Axiom) o;
-			ret = getSubClass().equals(other.getSubClass())
-					&& getSuperClass().equals(other.getSuperClass());
+			ret = (this.subClass == other.subClass)
+					&& (this.superClass == other.superClass);
 		}
 		return ret;
 	}
@@ -126,7 +128,7 @@ public class GCI0Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public int hashCode() {
-		return getSubClass().hashCode() + 31 * getSuperClass().hashCode();
+		return this.hashCode;
 	}
 
 	@Override
