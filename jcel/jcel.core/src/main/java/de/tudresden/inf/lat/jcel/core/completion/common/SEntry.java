@@ -36,13 +36,13 @@ public interface SEntry extends XEntry {
 	 * 
 	 * @return the subclass of this entry
 	 */
-	public Integer getSubClass();
+	public int getSubClass();
 
 	/**
 	 * Returns the superclass of this entry.
 	 * 
 	 * @return the superclass of this entry
 	 */
-	public Integer getSuperClass();
+	public int getSuperClass();
 
 }

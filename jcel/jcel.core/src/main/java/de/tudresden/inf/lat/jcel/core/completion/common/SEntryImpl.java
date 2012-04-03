@@ -31,6 +31,7 @@ package de.tudresden.inf.lat.jcel.core.completion.common;
  */
 public class SEntryImpl implements SEntry, Comparable<SEntryImpl> {
 
+	private final int hashCode;
 	private final int subClass;
 	private final int superClass;
 
@@ -42,16 +43,10 @@ public class SEntryImpl implements SEntry, Comparable<SEntryImpl> {
 	 * @param superCl
 	 *            superclass identifier
 	 */
-	public SEntryImpl(Integer subCl, Integer superCl) {
-		if (subCl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (superCl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public SEntryImpl(int subCl, int superCl) {
 		this.subClass = subCl;
 		this.superClass = superCl;
+		this.hashCode = this.subClass + 31 * this.superClass;
 	}
 
 	@Override
@@ -72,25 +67,25 @@ public class SEntryImpl implements SEntry, Comparable<SEntryImpl> {
 		boolean ret = (this == o);
 		if (!ret && o instanceof SEntry) {
 			SEntry other = (SEntry) o;
-			ret = getSubClass().equals(other.getSubClass())
-					&& getSuperClass().equals(other.getSuperClass());
+			ret = (this.subClass == other.getSubClass())
+					&& (this.superClass == other.getSuperClass());
 		}
 		return ret;
 	}
 
 	@Override
-	public Integer getSubClass() {
+	public int getSubClass() {
 		return this.subClass;
 	}
 
 	@Override
-	public Integer getSuperClass() {
+	public int getSuperClass() {
 		return this.superClass;
 	}
 
 	@Override
 	public int hashCode() {
-		return getSubClass() + 31 * getSuperClass();
+		return this.hashCode;
 	}
 
 	@Override

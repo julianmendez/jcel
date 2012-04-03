@@ -36,20 +36,20 @@ public interface REntry extends XEntry {
 	 * 
 	 * @return the class in the left part of this entry
 	 */
-	public Integer getLeftClass();
+	public int getLeftClass();
 
 	/**
 	 * Returns the class in the left part of this entry.
 	 * 
 	 * @return the class in the left part of this entry
 	 */
-	public Integer getProperty();
+	public int getProperty();
 
 	/**
 	 * Returns the object property of this entry.
 	 * 
 	 * @return the object property of this entry
 	 */
-	public Integer getRightClass();
+	public int getRightClass();
 
 }

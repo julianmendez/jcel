@@ -31,6 +31,7 @@ package de.tudresden.inf.lat.jcel.core.completion.common;
  */
 public class REntryImpl implements REntry, Comparable<REntryImpl> {
 
+	private final int hashCode;
 	private final int leftClass;
 	private final int property;
 	private final int rightClass;
@@ -45,20 +46,12 @@ public class REntryImpl implements REntry, Comparable<REntryImpl> {
 	 * @param rightCl
 	 *            class identifier of right component
 	 */
-	public REntryImpl(Integer prop, Integer leftCl, Integer rightCl) {
-		if (prop == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (leftCl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (rightCl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public REntryImpl(int prop, int leftCl, int rightCl) {
 		this.property = prop;
 		this.leftClass = leftCl;
 		this.rightClass = rightCl;
+		this.hashCode = this.property + 31 * this.leftClass + 257
+				* this.rightClass;
 	}
 
 	@Override
@@ -82,31 +75,31 @@ public class REntryImpl implements REntry, Comparable<REntryImpl> {
 		boolean ret = (this == o);
 		if (!ret && o instanceof REntry) {
 			REntry other = (REntry) o;
-			ret = getProperty().equals(other.getProperty())
-					&& getLeftClass().equals(other.getLeftClass())
-					&& getRightClass().equals(other.getRightClass());
+			ret = (this.property == other.getProperty())
+					&& (this.leftClass == other.getLeftClass())
+					&& (this.rightClass == other.getRightClass());
 		}
 		return ret;
 	}
 
 	@Override
-	public Integer getLeftClass() {
+	public int getLeftClass() {
 		return this.leftClass;
 	}
 
 	@Override
-	public Integer getProperty() {
+	public int getProperty() {
 		return this.property;
 	}
 
 	@Override
-	public Integer getRightClass() {
+	public int getRightClass() {
 		return this.rightClass;
 	}
 
 	@Override
 	public int hashCode() {
-		return getProperty() + 31 * getLeftClass() + 127 * getRightClass();
+		return this.hashCode;
 	}
 
 	@Override
