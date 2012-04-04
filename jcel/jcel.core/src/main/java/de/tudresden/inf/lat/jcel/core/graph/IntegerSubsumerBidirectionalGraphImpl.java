@@ -45,14 +45,7 @@ public class IntegerSubsumerBidirectionalGraphImpl implements
 	 * @param top
 	 *            top class identifier
 	 */
-	public IntegerSubsumerBidirectionalGraphImpl(Integer bottom, Integer top) {
-		if (bottom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (top == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public IntegerSubsumerBidirectionalGraphImpl(int bottom, int top) {
 		this.graph = new IntegerSubsumerGraphImpl(bottom, top);
 		this.invGraph = new IntegerSubsumerGraphImpl(top, bottom);
 	}
@@ -62,11 +55,7 @@ public class IntegerSubsumerBidirectionalGraphImpl implements
 	 * 
 	 * @param vertex
 	 */
-	public void add(Integer vertex) {
-		if (vertex == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public void add(int vertex) {
 		this.graph.add(vertex);
 		this.invGraph.add(vertex);
 	}
@@ -80,14 +69,7 @@ public class IntegerSubsumerBidirectionalGraphImpl implements
 	 * @param superId
 	 *            the subsumer
 	 */
-	public void addAncestor(Integer subId, Integer superId) {
-		if (subId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (superId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public void addAncestor(int subId, int superId) {
 		add(subId);
 		add(superId);
 		this.graph.addAncestor(subId, superId);
@@ -95,7 +77,7 @@ public class IntegerSubsumerBidirectionalGraphImpl implements
 	}
 
 	@Override
-	public boolean containsPair(Integer subsumee, Integer subsumer) {
+	public boolean containsPair(int subsumee, int subsumer) {
 		return getSubsumers(subsumee) != null
 				&& getSubsumers(subsumee).contains(subsumer);
 	}
@@ -105,8 +87,8 @@ public class IntegerSubsumerBidirectionalGraphImpl implements
 		boolean ret = (this == o);
 		if (!ret && o instanceof IntegerSubsumerBidirectionalGraph) {
 			IntegerSubsumerBidirectionalGraph other = (IntegerSubsumerBidirectionalGraph) o;
-			ret = getBottomElement().equals(other.getBottomElement())
-					&& getTopElement().equals(other.getTopElement())
+			ret = (getBottomElement() == other.getBottomElement())
+					&& (getTopElement() == other.getTopElement())
 					&& getElements().equals(other.getElements());
 			for (Iterator<Integer> it = getElements().iterator(); ret
 					&& it.hasNext();) {
@@ -119,7 +101,7 @@ public class IntegerSubsumerBidirectionalGraphImpl implements
 	}
 
 	@Override
-	public Integer getBottomElement() {
+	public int getBottomElement() {
 		return this.graph.getBottomElement();
 	}
 
@@ -129,25 +111,17 @@ public class IntegerSubsumerBidirectionalGraphImpl implements
 	}
 
 	@Override
-	public Collection<Integer> getSubsumees(Integer vertex) {
-		if (vertex == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public Collection<Integer> getSubsumees(int vertex) {
 		return this.invGraph.getSubsumers(vertex);
 	}
 
 	@Override
-	public Collection<Integer> getSubsumers(Integer vertex) {
-		if (vertex == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public Collection<Integer> getSubsumers(int vertex) {
 		return this.graph.getSubsumers(vertex);
 	}
 
 	@Override
-	public Integer getTopElement() {
+	public int getTopElement() {
 		return this.graph.getTopElement();
 	}
 

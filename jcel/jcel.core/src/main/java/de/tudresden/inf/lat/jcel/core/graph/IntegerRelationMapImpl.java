@@ -52,11 +52,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	 * @param relationId
 	 *            relation identifier
 	 */
-	public void add(Integer relationId) {
-		if (relationId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public void add(int relationId) {
 		if (!this.relationMap.containsKey(relationId)) {
 			this.relationMap.put(relationId, new IntegerBinaryRelationImpl());
 		}
@@ -72,17 +68,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	 * @param second
 	 *            second component
 	 */
-	public void add(Integer relationId, Integer first, Integer second) {
-		if (relationId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (first == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (second == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public void add(int relationId, int first, int second) {
 		IntegerBinaryRelationImpl relation = this.relationMap.get(relationId);
 		if (relation == null) {
 			relation = new IntegerBinaryRelationImpl();
@@ -106,26 +92,12 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	}
 
 	@Override
-	public boolean contains(Integer relationId) {
-		if (relationId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public boolean contains(int relationId) {
 		return this.relationMap.containsKey(relationId);
 	}
 
 	@Override
-	public boolean contains(Integer relationId, Integer first, Integer second) {
-		if (relationId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (first == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (second == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public boolean contains(int relationId, int first, int second) {
 		boolean ret = false;
 		IntegerBinaryRelation relation = this.relationMap.get(relationId);
 		if (relation != null) {
@@ -150,24 +122,12 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	}
 
 	@Override
-	public IntegerBinaryRelation get(Integer relationId) {
-		if (relationId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		IntegerBinaryRelation ret = this.relationMap.get(relationId);
-		return ret;
+	public IntegerBinaryRelation get(int relationId) {
+		return  this.relationMap.get(relationId);
 	}
 
 	@Override
-	public Collection<Integer> getByFirst(Integer relationId, Integer first) {
-		if (relationId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (first == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public Collection<Integer> getByFirst(int relationId, int first) {
 		Collection<Integer> ret = Collections.emptySet();
 		IntegerBinaryRelation relation = this.relationMap.get(relationId);
 		if (relation != null) {
@@ -177,14 +137,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	}
 
 	@Override
-	public Collection<Integer> getBySecond(Integer relationId, Integer second) {
-		if (relationId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (second == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public Collection<Integer> getBySecond(int relationId, int second) {
 		Collection<Integer> ret = Collections.emptySet();
 		IntegerBinaryRelation relation = this.relationMap.get(relationId);
 		if (relation != null) {
@@ -203,13 +156,13 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	 */
 	public long getDeepSize() {
 		long ret = 0;
-		for (Integer key : this.relationMap.keySet()) {
+		for (int key : this.relationMap.keySet()) {
 			ret += this.relationMap.get(key).getDeepSize();
 		}
-		for (Integer key : this.relationSetByFirst.keySet()) {
+		for (int key : this.relationSetByFirst.keySet()) {
 			ret += this.relationSetByFirst.get(key).size();
 		}
-		for (Integer key : this.relationSetBySecond.keySet()) {
+		for (int key : this.relationSetBySecond.keySet()) {
 			ret += this.relationSetBySecond.get(key).size();
 		}
 		return ret;
@@ -221,11 +174,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	}
 
 	@Override
-	public Collection<Integer> getRelationsByFirst(Integer first) {
-		if (first == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public Collection<Integer> getRelationsByFirst(int first) {
 		Collection<Integer> ret = this.relationSetByFirst.get(first);
 		if (ret == null) {
 			ret = Collections.emptySet();
@@ -234,11 +183,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	}
 
 	@Override
-	public Collection<Integer> getRelationsBySecond(Integer second) {
-		if (second == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public Collection<Integer> getRelationsBySecond(int second) {
 		Collection<Integer> ret = this.relationSetBySecond.get(second);
 		if (ret == null) {
 			ret = Collections.emptySet();

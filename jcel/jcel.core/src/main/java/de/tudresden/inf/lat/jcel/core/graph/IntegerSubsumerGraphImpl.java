@@ -39,12 +39,12 @@ import java.util.Set;
  */
 public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 
-	private Integer bottomElement = 0;
+	private final int bottomElement;
 	private Collection<Integer> emptyCollection = Collections
 			.unmodifiableCollection(new EfficientArray());
 	private Set<Integer> equivToBottom = new HashSet<Integer>();
 	private Map<Integer, Collection<Integer>> setS = new HashMap<Integer, Collection<Integer>>();
-	private Integer topElement = 1;
+	private final int topElement;
 
 	/**
 	 * Constructs an empty subsumer graph.
@@ -54,14 +54,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	 * @param top
 	 *            top class identifier
 	 */
-	public IntegerSubsumerGraphImpl(Integer bottom, Integer top) {
-		if (bottom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (top == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public IntegerSubsumerGraphImpl(int bottom, int top) {
 		this.bottomElement = bottom;
 		this.topElement = top;
 		this.setS.put(this.bottomElement, this.emptyCollection);
@@ -74,11 +67,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	 * 
 	 * @param vertex
 	 */
-	public void add(Integer vertex) {
-		if (vertex == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public void add(int vertex) {
 		if (!this.setS.containsKey(vertex)) {
 			Collection<Integer> aux = new EfficientArray();
 			aux.add(vertex);
@@ -95,16 +84,9 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	 * @param superId
 	 *            the subsumer
 	 */
-	public void addAncestor(Integer subId, Integer superId) {
-		if (subId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (superId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public void addAncestor(int subId, int superId) {
 		if (!this.equivToBottom.contains(subId)) {
-			if (this.bottomElement.equals(superId)) {
+			if (this.bottomElement == superId) {
 				this.equivToBottom.add(subId);
 				this.setS.put(subId, this.emptyCollection);
 			} else {
@@ -116,7 +98,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	}
 
 	@Override
-	public boolean containsPair(Integer subsumee, Integer subsumer) {
+	public boolean containsPair(int subsumee, int subsumer) {
 		return getSubsumers(subsumee) != null
 				&& getSubsumers(subsumee).contains(subsumer);
 	}
@@ -126,8 +108,8 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 		boolean ret = (this == o);
 		if (!ret && o instanceof IntegerSubsumerGraph) {
 			IntegerSubsumerGraph other = (IntegerSubsumerGraph) o;
-			ret = getBottomElement().equals(other.getBottomElement())
-					&& getTopElement().equals(other.getTopElement())
+			ret = (getBottomElement() == other.getBottomElement())
+					&& (getTopElement() == other.getTopElement())
 					&& getElements().equals(other.getElements());
 			for (Iterator<Integer> it = getElements().iterator(); ret
 					&& it.hasNext();) {
@@ -140,7 +122,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	}
 
 	@Override
-	public Integer getBottomElement() {
+	public int getBottomElement() {
 		return this.bottomElement;
 	}
 
@@ -166,11 +148,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	}
 
 	@Override
-	public Collection<Integer> getSubsumers(Integer vertex) {
-		if (vertex == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public Collection<Integer> getSubsumers(int vertex) {
 		Collection<Integer> ret;
 		if (this.equivToBottom.contains(vertex)) {
 			ret = getElements();
@@ -186,7 +164,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	}
 
 	@Override
-	public Integer getTopElement() {
+	public int getTopElement() {
 		return this.topElement;
 	}
 

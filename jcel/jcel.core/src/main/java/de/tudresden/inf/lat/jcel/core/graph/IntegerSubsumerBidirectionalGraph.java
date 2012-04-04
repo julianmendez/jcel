@@ -40,6 +40,6 @@ public interface IntegerSubsumerBidirectionalGraph extends IntegerSubsumerGraph 
 	 *            to get the collection of subsumees
 	 * @return the collection of subsumees of the given vertex
 	 */
-	public Collection<Integer> getSubsumees(Integer vertex);
+	public Collection<Integer> getSubsumees(int vertex);
 
 }
