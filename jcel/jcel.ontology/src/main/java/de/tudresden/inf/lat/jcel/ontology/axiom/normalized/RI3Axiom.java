@@ -52,13 +52,12 @@ public class RI3Axiom implements NormalizedIntegerAxiom {
 	 * @param rightProp
 	 *            object property identifier for super object property
 	 */
-	protected RI3Axiom(int leftLeftProp, int leftRightProp,
-			int rightProp) {
+	protected RI3Axiom(int leftLeftProp, int leftRightProp, int rightProp) {
 		this.leftSubProperty = leftLeftProp;
 		this.rightSubProperty = leftRightProp;
 		this.superProperty = rightProp;
-		this.hashCode = this.leftSubProperty + 31 * this.rightSubProperty + 257
-				* this.superProperty;
+		this.hashCode = this.leftSubProperty + 31
+				* (this.rightSubProperty + 31 * this.superProperty);
 	}
 
 	@Override

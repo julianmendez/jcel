@@ -56,8 +56,8 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 		this.classInSubClass = leftCl;
 		this.propertyInSubClass = leftProp;
 		this.superClass = rightCl;
-		this.hashCode = this.classInSubClass + 31 * this.propertyInSubClass
-				+ 257 * this.superClass;
+		this.hashCode = this.classInSubClass + 31
+				* (this.propertyInSubClass + 31 * this.superClass);
 	}
 
 	@Override

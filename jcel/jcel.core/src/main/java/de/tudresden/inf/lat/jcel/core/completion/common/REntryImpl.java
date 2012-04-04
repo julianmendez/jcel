@@ -50,8 +50,8 @@ public class REntryImpl implements REntry, Comparable<REntryImpl> {
 		this.property = prop;
 		this.leftClass = leftCl;
 		this.rightClass = rightCl;
-		this.hashCode = this.property + 31 * this.leftClass + 257
-				* this.rightClass;
+		this.hashCode = this.property + 31
+				* (this.leftClass + 31 * this.rightClass);
 	}
 
 	@Override

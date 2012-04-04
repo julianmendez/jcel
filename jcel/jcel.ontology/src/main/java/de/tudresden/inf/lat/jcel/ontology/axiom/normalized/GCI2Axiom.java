@@ -56,8 +56,8 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 		this.subClass = leftCl;
 		this.propertyInSuperClass = rightProp;
 		this.classInSuperClass = rightCl;
-		this.hashCode = this.subClass + 31 * this.propertyInSuperClass + 257
-				* this.classInSuperClass;
+		this.hashCode = this.subClass + 31
+				* (this.propertyInSuperClass + 31 * this.classInSuperClass);
 	}
 
 	@Override
