@@ -83,8 +83,7 @@ public class CR2AltHornRule implements SObserverRule {
 				entry.getSubClass(), entry.getSuperClass()));
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, Integer x,
-			Integer a) {
+	private Collection<XEntry> applyRule(ClassifierStatus status, int x, int a) {
 		List<XEntry> ret = new ArrayList<XEntry>();
 		Map<GCI1Axiom, Integer> maps = this.counters.get(x);
 		if (maps == null) {
@@ -102,7 +101,7 @@ public class CR2AltHornRule implements SObserverRule {
 				if (maps.isEmpty()) {
 					this.counters.remove(x);
 				}
-				Integer b = axiom.getSuperClass();
+				int b = axiom.getSuperClass();
 				ret.add(new SEntryImpl(x, b));
 			}
 			maps.put(axiom, count);
@@ -112,7 +111,7 @@ public class CR2AltHornRule implements SObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return getClass().equals(o.getClass());
+		return (o != null) && getClass().equals(o.getClass());
 	}
 
 	@Override

@@ -78,18 +78,17 @@ public class CR9ExtOptRule implements RObserverRule {
 				entry.getRightClass()));
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, Integer r1,
-			Integer x, Integer y) {
+	private Collection<XEntry> applyRule(ClassifierStatus status, int r1,
+			int x, int y) {
 		Set<XEntry> ret = new HashSet<XEntry>();
-		if (status.getNode(y).getClassId().equals(status.getClassTopElement())) {
+		if (status.getNode(y).getClassId() == status.getClassTopElement()) {
 
 			Set<Integer> valid = new HashSet<Integer>();
 			valid.add(y);
-			for (Integer r2 : status
-					.getObjectPropertiesWithFunctionalAncestor(r1)) {
-				for (Integer yi : status.getSecondByFirst(r2, x)) {
-					if (status.getNode(yi).getClassId()
-							.equals(status.getClassTopElement())) {
+			for (int r2 : status.getObjectPropertiesWithFunctionalAncestor(r1)) {
+				for (int yi : status.getSecondByFirst(r2, x)) {
+					if (status.getNode(yi).getClassId() == status
+							.getClassTopElement()) {
 						valid.add(yi);
 					}
 				}
@@ -97,12 +96,12 @@ public class CR9ExtOptRule implements RObserverRule {
 
 			if (valid.size() > 1) {
 				VNodeImpl newNode = new VNodeImpl(status.getClassTopElement());
-				for (Integer yi : valid) {
+				for (int yi : valid) {
 					newNode.addExistentialsOf(status.getNode(yi));
 				}
-				Integer v = status.createOrGetNodeId(newNode);
-				for (Integer yi : valid) {
-					for (Integer p : status.getSubsumers(yi)) {
+				int v = status.createOrGetNodeId(newNode);
+				for (int yi : valid) {
+					for (int p : status.getSubsumers(yi)) {
 						ret.add(new SEntryImpl(v, p));
 					}
 					ret.add(new REntryImpl(r1, x, v));
@@ -115,7 +114,7 @@ public class CR9ExtOptRule implements RObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return getClass().equals(o.getClass());
+		return (o != null) && getClass().equals(o.getClass());
 	}
 
 	@Override

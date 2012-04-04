@@ -45,11 +45,7 @@ public class VNodeImpl implements VNode {
 	 * @param id
 	 *            class identifier
 	 */
-	public VNodeImpl(Integer id) {
-		if (id == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public VNodeImpl(int id) {
 		this.classIdentifier = id;
 	}
 
@@ -63,14 +59,7 @@ public class VNodeImpl implements VNode {
 	 * @return <code>true</code> if and only if the node did not already contain
 	 *         the specified pair
 	 */
-	public boolean addExistential(Integer propertyId, Integer classId) {
-		if (propertyId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (classId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public boolean addExistential(int propertyId, int classId) {
 		boolean ret = this.existentialSet
 				.add(new VNodeObjectSomeValuesFromImpl(propertyId, classId));
 		return ret;
@@ -92,14 +81,7 @@ public class VNodeImpl implements VNode {
 	}
 
 	@Override
-	public boolean containsExistential(Integer propertyId, Integer classId) {
-		if (propertyId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (classId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public boolean containsExistential(int propertyId, int classId) {
 		return this.existentialSet.contains(new VNodeObjectSomeValuesFromImpl(
 				propertyId, classId));
 	}
@@ -109,7 +91,7 @@ public class VNodeImpl implements VNode {
 		boolean ret = (this == o);
 		if (!ret && o instanceof VNode) {
 			VNode other = (VNode) o;
-			ret = getClassId().equals(other.getClassId())
+			ret = (getClassId() == other.getClassId())
 					&& getExistentialEntries().equals(
 							other.getExistentialEntries());
 		}
@@ -117,7 +99,7 @@ public class VNodeImpl implements VNode {
 	}
 
 	@Override
-	public Integer getClassId() {
+	public int getClassId() {
 		return this.classIdentifier;
 	}
 

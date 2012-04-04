@@ -72,27 +72,26 @@ public class CR9AltRule implements RObserverRule {
 				entry.getRightClass()));
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, Integer r,
-			Integer x, Integer y) {
+	private Collection<XEntry> applyRule(ClassifierStatus status, int r, int x,
+			int y) {
 		List<XEntry> ret = new ArrayList<XEntry>();
 		VNode psiNode = status.getNode(y);
-		if (psiNode.getClassId().equals(status.getClassTopElement())) {
+		if (psiNode.getClassId() == status.getClassTopElement()) {
 			if (status.getExtendedOntology().getFunctionalObjectProperties()
 					.contains(r)) {
-				for (Integer z : status.getSecondByFirst(r, x)) {
+				for (int z : status.getSecondByFirst(r, x)) {
 					VNode phiNode = status.getNode(z);
-					if (phiNode.getClassId()
-							.equals(status.getClassTopElement())) {
-						if (!z.equals(y)) {
+					if (phiNode.getClassId() == status.getClassTopElement()) {
+						if (z != y) {
 							VNodeImpl newNode = new VNodeImpl(
 									status.getClassTopElement());
 							newNode.addExistentialsOf(psiNode);
 							newNode.addExistentialsOf(phiNode);
-							Integer v = status.createOrGetNodeId(newNode);
-							for (Integer p : status.getSubsumers(y)) {
+							int v = status.createOrGetNodeId(newNode);
+							for (int p : status.getSubsumers(y)) {
 								ret.add(new SEntryImpl(v, p));
 							}
-							for (Integer p : status.getSubsumers(z)) {
+							for (int p : status.getSubsumers(z)) {
 								ret.add(new SEntryImpl(v, p));
 							}
 							ret.add(new REntryImpl(r, x, v));
@@ -106,7 +105,7 @@ public class CR9AltRule implements RObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return getClass().equals(o.getClass());
+		return (o != null) && getClass().equals(o.getClass());
 	}
 
 	@Override

@@ -48,10 +48,10 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
  */
 public class ClassifierStatusImpl implements ClassifierStatus {
 
-	private static final Integer bottomClassId = IntegerEntityManager.bottomClassId;
-	private static final Integer bottomObjectPropertyId = IntegerEntityManager.bottomObjectPropertyId;
-	private static final Integer topClassId = IntegerEntityManager.topClassId;
-	private static final Integer topObjectPropertyId = IntegerEntityManager.topObjectPropertyId;
+	private static final int bottomClassId = IntegerEntityManager.bottomClassId;
+	private static final int bottomObjectPropertyId = IntegerEntityManager.bottomObjectPropertyId;
+	private static final int topClassId = IntegerEntityManager.topClassId;
+	private static final int topObjectPropertyId = IntegerEntityManager.topObjectPropertyId;
 
 	private IntegerSubsumerGraphImpl classGraph = null;
 	private Map<Integer, Set<Integer>> cognateFunctPropMap = new HashMap<Integer, Set<Integer>>();
@@ -150,14 +150,14 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	private void createClassGraph() {
 		this.classGraph = new IntegerSubsumerGraphImpl(bottomClassId,
 				topClassId);
-		for (Integer index : getExtendedOntology().getClassSet()) {
+		for (int index : getExtendedOntology().getClassSet()) {
 			this.classGraph.addAncestor(index, topClassId);
 		}
 		this.classGraph.addAncestor(topClassId, topClassId);
 
 		this.nodeSet.clear();
 		this.invNodeSet.clear();
-		for (Integer elem : this.classGraph.getElements()) {
+		for (int elem : this.classGraph.getElements()) {
 			VNodeImpl node = new VNodeImpl(elem);
 			this.nodeSet.put(elem, node);
 			this.invNodeSet.put(node, elem);
@@ -165,9 +165,9 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	}
 
 	private void createMapOfObjectPropertiesWithFunctionalAncestor() {
-		for (Integer s : this.extendedOntology.getFunctionalObjectProperties()) {
+		for (int s : this.extendedOntology.getFunctionalObjectProperties()) {
 			Collection<Integer> cognates = getSubObjectProperties(s);
-			for (Integer r : cognates) {
+			for (int r : cognates) {
 				Set<Integer> currentSet = this.cognateFunctPropMap.get(r);
 				if (currentSet == null) {
 					currentSet = new HashSet<Integer>();
@@ -182,14 +182,14 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	private void createObjectPropertyGraph() {
 		this.objectPropertyGraph = new IntegerSubsumerBidirectionalGraphImpl(
 				bottomObjectPropertyId, topObjectPropertyId);
-		for (Integer index : this.extendedOntology.getObjectPropertySet()) {
+		for (int index : this.extendedOntology.getObjectPropertySet()) {
 			this.objectPropertyGraph.addAncestor(index, topObjectPropertyId);
-			Integer inverseProp = this.idGenerator
+			int inverseProp = this.idGenerator
 					.createOrGetInverseObjectPropertyOf(index);
 			this.objectPropertyGraph.addAncestor(inverseProp,
 					topObjectPropertyId);
 		}
-		for (Integer property : this.extendedOntology.getObjectPropertySet()) {
+		for (int property : this.extendedOntology.getObjectPropertySet()) {
 			Set<RI2Axiom> axiomSet = this.extendedOntology
 					.getRI2rAxioms(property);
 			for (RI2Axiom axiom : axiomSet) {
@@ -201,7 +201,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	}
 
 	@Override
-	public Integer createOrGetNodeId(VNode node) {
+	public int createOrGetNodeId(VNode node) {
 		if (node == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -224,13 +224,13 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	private void createRelationSet() {
 		Collection<Integer> collection = getObjectPropertyGraph().getElements();
 		this.relationSet = new IntegerRelationMapImpl();
-		for (Integer index : collection) {
+		for (int index : collection) {
 			this.relationSet.add(index);
 		}
 	}
 
 	private void createSetOfNodes() {
-		for (Integer classId : getExtendedOntology().getClassSet()) {
+		for (int classId : getExtendedOntology().getClassSet()) {
 			createOrGetNodeId(new VNodeImpl(classId));
 		}
 	}
@@ -250,12 +250,12 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	}
 
 	@Override
-	public Integer geObjectPropertyBottomElement() {
+	public int geObjectPropertyBottomElement() {
 		return this.objectPropertyGraph.getBottomElement();
 	}
 
 	@Override
-	public Integer getClassBottomElement() {
+	public int getClassBottomElement() {
 		return this.classGraph.getBottomElement();
 	}
 
@@ -269,7 +269,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	}
 
 	@Override
-	public Integer getClassTopElement() {
+	public int getClassTopElement() {
 		return this.classGraph.getTopElement();
 	}
 
@@ -298,7 +298,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 */
 	public long getDeepSizeOfV() {
 		long ret = 0;
-		for (Integer nodeId : this.nodeSet.keySet()) {
+		for (int nodeId : this.nodeSet.keySet()) {
 			VNodeImpl node = this.nodeSet.get(nodeId);
 			ret += node.getDeepSize();
 		}
@@ -311,15 +311,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	}
 
 	@Override
-	public Collection<Integer> getFirstBySecond(Integer propertyId,
-			Integer classId) {
-		if (propertyId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (classId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public Collection<Integer> getFirstBySecond(int propertyId, int classId) {
 		return this.relationSet.getBySecond(propertyId, classId);
 	}
 
@@ -333,48 +325,28 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	}
 
 	@Override
-	public Integer getInverseObjectPropertyOf(Integer propertyId) {
-		if (propertyId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public int getInverseObjectPropertyOf(int propertyId) {
 		return this.idGenerator.createOrGetInverseObjectPropertyOf(propertyId);
 	}
 
 	@Override
-	public VNode getNode(Integer nodeId) {
-		if (nodeId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public VNode getNode(int nodeId) {
 		return this.nodeSet.get(nodeId);
 	}
 
 	@Override
-	public Collection<Integer> getObjectPropertiesByFirst(Integer cA) {
-		if (cA == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public Collection<Integer> getObjectPropertiesByFirst(int cA) {
 		return this.relationSet.getRelationsByFirst(cA);
 	}
 
 	@Override
-	public Collection<Integer> getObjectPropertiesBySecond(Integer cA) {
-		if (cA == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public Collection<Integer> getObjectPropertiesBySecond(int cA) {
 		return this.relationSet.getRelationsBySecond(cA);
 	}
 
 	@Override
 	public Set<Integer> getObjectPropertiesWithFunctionalAncestor(
-			Integer objectProperty) {
-		if (objectProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+			int objectProperty) {
 		Set<Integer> ret = this.cognateFunctPropMap.get(objectProperty);
 		if (ret == null) {
 			ret = Collections.emptySet();
@@ -394,7 +366,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	}
 
 	@Override
-	public Integer getObjectPropertyTopElement() {
+	public int getObjectPropertyTopElement() {
 		return this.objectPropertyGraph.getTopElement();
 	}
 
@@ -408,15 +380,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	}
 
 	@Override
-	public Collection<Integer> getSecondByFirst(Integer propertyId,
-			Integer classId) {
-		if (propertyId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (classId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public Collection<Integer> getSecondByFirst(int propertyId, int classId) {
 		return this.relationSet.getByFirst(propertyId, classId);
 	}
 
@@ -430,22 +394,18 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	}
 
 	@Override
-	public Collection<Integer> getSubObjectProperties(Integer objectProperty) {
+	public Collection<Integer> getSubObjectProperties(int objectProperty) {
 		return Collections.unmodifiableCollection(this.objectPropertyGraph
 				.getSubsumees(objectProperty));
 	}
 
 	@Override
-	public Collection<Integer> getSubsumers(Integer classId) {
-		if (classId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public Collection<Integer> getSubsumers(int classId) {
 		return this.classGraph.getSubsumers(classId);
 	}
 
 	@Override
-	public Collection<Integer> getSuperObjectProperties(Integer objectProperty) {
+	public Collection<Integer> getSuperObjectProperties(int objectProperty) {
 		return Collections.unmodifiableCollection(this.objectPropertyGraph
 				.getSubsumers(objectProperty));
 	}
@@ -455,17 +415,17 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 		boolean hasChanged = true;
 		while (hasChanged) {
 			hasChanged = false;
-			for (Integer elem : graph.getElements()) {
+			for (int elem : graph.getElements()) {
 				Collection<Integer> subsumerSet = graph.getSubsumers(elem);
 				Set<Integer> allSubsumers = new HashSet<Integer>();
 				allSubsumers.add(elem);
-				for (Integer otherElem : subsumerSet) {
+				for (int otherElem : subsumerSet) {
 					allSubsumers.addAll(graph.getSubsumers(otherElem));
 				}
 				allSubsumers.removeAll(subsumerSet);
 				if (!allSubsumers.isEmpty()) {
 					hasChanged = true;
-					for (Integer subsumer : allSubsumers) {
+					for (int subsumer : allSubsumers) {
 						graph.addAncestor(elem, subsumer);
 					}
 				}

@@ -68,24 +68,24 @@ public class CR5AltRule implements RObserverRule {
 		return Collections.unmodifiableCollection(ret);
 	}
 
-	private Collection<XEntry> apply1(ClassifierStatus status, Integer r,
-			Integer x, Integer y) {
+	private Collection<XEntry> apply1(ClassifierStatus status, int r, int x,
+			int y) {
 		List<XEntry> ret = new ArrayList<XEntry>();
 		if (status.getExtendedOntology().getTransitiveObjectProperties()
 				.contains(r)) {
-			for (Integer z : status.getSecondByFirst(r, y)) {
+			for (int z : status.getSecondByFirst(r, y)) {
 				ret.add(new REntryImpl(r, x, z));
 			}
 		}
 		return ret;
 	}
 
-	private Collection<XEntry> apply2(ClassifierStatus status, Integer r,
-			Integer y, Integer z) {
+	private Collection<XEntry> apply2(ClassifierStatus status, int r, int y,
+			int z) {
 		List<XEntry> ret = new ArrayList<XEntry>();
 		if (status.getExtendedOntology().getTransitiveObjectProperties()
 				.contains(r)) {
-			for (Integer x : status.getFirstBySecond(r, y)) {
+			for (int x : status.getFirstBySecond(r, y)) {
 				ret.add(new REntryImpl(r, x, z));
 			}
 		}
@@ -94,7 +94,7 @@ public class CR5AltRule implements RObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return getClass().equals(o.getClass());
+		return (o != null) && getClass().equals(o.getClass());
 	}
 
 	@Override

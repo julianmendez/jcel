@@ -41,14 +41,14 @@ public interface VNode {
 	 * @return <code>true</code> if and only if the node contains the given
 	 *         existential entry
 	 */
-	public boolean containsExistential(Integer objectPropertyId, Integer classId);
+	public boolean containsExistential(int objectPropertyId, int classId);
 
 	/**
 	 * Returns the class identifier for this node.
 	 * 
 	 * @return the class identifier for this node
 	 */
-	public Integer getClassId();
+	public int getClassId();
 
 	/**
 	 * Returns a collection containing the existential expressions.

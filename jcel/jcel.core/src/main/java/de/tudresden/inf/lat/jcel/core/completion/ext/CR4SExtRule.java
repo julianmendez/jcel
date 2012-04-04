@@ -72,15 +72,14 @@ public class CR4SExtRule implements SObserverRule {
 				entry.getSubClass(), entry.getSuperClass()));
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, Integer y,
-			Integer a) {
+	private Collection<XEntry> applyRule(ClassifierStatus status, int y, int a) {
 		List<XEntry> ret = new ArrayList<XEntry>();
-		for (Integer r : status.getObjectPropertiesBySecond(y)) {
-			for (Integer s : status.getSuperObjectProperties(r)) {
+		for (int r : status.getObjectPropertiesBySecond(y)) {
+			for (int s : status.getSuperObjectProperties(r)) {
 				for (GCI3Axiom axiom : status.getExtendedOntology()
 						.getGCI3rAAxioms(s, a)) {
-					for (Integer x : status.getFirstBySecond(r, y)) {
-						Integer b = axiom.getSuperClass();
+					for (int x : status.getFirstBySecond(r, y)) {
+						int b = axiom.getSuperClass();
 						ret.add(new SEntryImpl(x, b));
 					}
 				}
@@ -91,7 +90,7 @@ public class CR4SExtRule implements SObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return getClass().equals(o.getClass());
+		return (o != null) && getClass().equals(o.getClass());
 	}
 
 	@Override

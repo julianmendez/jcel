@@ -70,24 +70,24 @@ public class CR8RAltRule implements RObserverRule {
 				entry.getRightClass()));
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, Integer r,
-			Integer x, Integer y) {
+	private Collection<XEntry> applyRule(ClassifierStatus status, int r, int x,
+			int y) {
 		List<XEntry> ret = new ArrayList<XEntry>();
-		Integer rMinus = status.getInverseObjectPropertyOf(r);
+		int rMinus = status.getInverseObjectPropertyOf(r);
 		if (status.getExtendedOntology().getFunctionalObjectProperties()
 				.contains(rMinus)) {
-			for (Integer a : status.getSubsumers(y)) {
+			for (int a : status.getSubsumers(y)) {
 				for (GCI2Axiom axiom : status.getExtendedOntology()
 						.getGCI2Axioms(a)) {
-					Integer sMinus = axiom.getPropertyInSuperClass();
-					Integer s = status.getInverseObjectPropertyOf(sMinus);
+					int sMinus = axiom.getPropertyInSuperClass();
+					int s = status.getInverseObjectPropertyOf(sMinus);
 					Set<RI2Axiom> axiomSet = new HashSet<RI2Axiom>();
 					axiomSet.addAll(status.getExtendedOntology().getRI2rAxioms(
 							s));
 					axiomSet.retainAll(status.getExtendedOntology()
 							.getRI2sAxioms(r));
 					if (!axiomSet.isEmpty()) {
-						Integer b = axiom.getClassInSuperClass();
+						int b = axiom.getClassInSuperClass();
 						ret.add(new SEntryImpl(x, b));
 					}
 				}
@@ -98,7 +98,7 @@ public class CR8RAltRule implements RObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return getClass().equals(o.getClass());
+		return (o != null) && getClass().equals(o.getClass());
 	}
 
 	@Override

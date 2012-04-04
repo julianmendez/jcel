@@ -74,25 +74,25 @@ public class CR6RExtRule implements RObserverRule {
 				entry.getRightClass()));
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, Integer r,
-			Integer x, Integer y) {
+	private Collection<XEntry> applyRule(ClassifierStatus status, int r, int x,
+			int y) {
 		List<XEntry> ret = new ArrayList<XEntry>();
-		Integer rMinus = status.getInverseObjectPropertyOf(r);
-		for (Integer a : status.getSubsumers(x)) {
-			for (Integer s : status.getSuperObjectProperties(r)) {
-				Integer sMinus = status.getInverseObjectPropertyOf(s);
+		int rMinus = status.getInverseObjectPropertyOf(r);
+		for (int a : status.getSubsumers(x)) {
+			for (int s : status.getSuperObjectProperties(r)) {
+				int sMinus = status.getInverseObjectPropertyOf(s);
 				for (GCI3Axiom axiom : status.getExtendedOntology()
 						.getGCI3rAAxioms(sMinus, a)) {
-					Integer b = axiom.getSuperClass();
+					int b = axiom.getSuperClass();
 					if (!status.getSubsumers(y).contains(b)) {
 						VNode psiNode = status.getNode(y);
 						VNodeImpl newNode = new VNodeImpl(psiNode.getClassId());
 						newNode.addExistentialsOf(psiNode);
 						newNode.addExistential(rMinus, a);
 						boolean inV = status.contains(newNode);
-						Integer v = status.createOrGetNodeId(newNode);
+						int v = status.createOrGetNodeId(newNode);
 						if (!inV) {
-							for (Integer p : status.getSubsumers(y)) {
+							for (int p : status.getSubsumers(y)) {
 								ret.add(new SEntryImpl(v, p));
 							}
 						}
@@ -107,7 +107,7 @@ public class CR6RExtRule implements RObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return getClass().equals(o.getClass());
+		return (o != null) && getClass().equals(o.getClass());
 	}
 
 	@Override

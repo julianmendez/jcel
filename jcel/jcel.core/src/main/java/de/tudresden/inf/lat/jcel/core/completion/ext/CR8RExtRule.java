@@ -68,20 +68,20 @@ public class CR8RExtRule implements RObserverRule {
 				entry.getRightClass()));
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, Integer r1,
-			Integer x, Integer y) {
+	private Collection<XEntry> applyRule(ClassifierStatus status, int r1,
+			int x, int y) {
 		List<XEntry> ret = new ArrayList<XEntry>();
-		for (Integer s : status.getSuperObjectProperties(r1)) {
-			Integer sMinus = status.getInverseObjectPropertyOf(s);
+		for (int s : status.getSuperObjectProperties(r1)) {
+			int sMinus = status.getInverseObjectPropertyOf(s);
 			if (status.getExtendedOntology().getFunctionalObjectProperties()
 					.contains(sMinus)) {
-				for (Integer a : status.getSubsumers(y)) {
+				for (int a : status.getSubsumers(y)) {
 					for (GCI2Axiom axiom : status.getExtendedOntology()
 							.getGCI2Axioms(a)) {
-						Integer r2Minus = axiom.getPropertyInSuperClass();
-						Integer r2 = status.getInverseObjectPropertyOf(r2Minus);
+						int r2Minus = axiom.getPropertyInSuperClass();
+						int r2 = status.getInverseObjectPropertyOf(r2Minus);
 						if (status.getSubObjectProperties(s).contains(r2)) {
-							Integer b = axiom.getClassInSuperClass();
+							int b = axiom.getClassInSuperClass();
 							ret.add(new SEntryImpl(x, b));
 						}
 					}
@@ -93,7 +93,7 @@ public class CR8RExtRule implements RObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return getClass().equals(o.getClass());
+		return (o != null) && getClass().equals(o.getClass());
 	}
 
 	@Override

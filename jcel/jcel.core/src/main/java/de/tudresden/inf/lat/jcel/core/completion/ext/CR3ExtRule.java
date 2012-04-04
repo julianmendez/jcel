@@ -76,23 +76,22 @@ public class CR3ExtRule implements SObserverRule {
 				entry.getSubClass(), entry.getSuperClass()));
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, Integer x,
-			Integer a) {
+	private Collection<XEntry> applyRule(ClassifierStatus status, int x, int a) {
 		List<XEntry> ret = new ArrayList<XEntry>();
 		for (GCI2Axiom axiom : status.getExtendedOntology().getGCI2Axioms(a)) {
-			Integer r = axiom.getPropertyInSuperClass();
-			Integer b = axiom.getClassInSuperClass();
+			int r = axiom.getPropertyInSuperClass();
+			int b = axiom.getClassInSuperClass();
 			if (status.getExtendedOntology().getFunctionalObjectProperties()
 					.contains(r)) {
 				VNodeImpl newNode = new VNodeImpl(status.getClassTopElement());
-				Integer rMinus = status.getInverseObjectPropertyOf(r);
+				int rMinus = status.getInverseObjectPropertyOf(r);
 				newNode.addExistential(rMinus, a);
-				Integer v = status.createOrGetNodeId(newNode);
+				int v = status.createOrGetNodeId(newNode);
 				ret.add(new SEntryImpl(v, b));
 				ret.add(new SEntryImpl(v, status.getClassTopElement()));
 				ret.add(new REntryImpl(r, x, v));
 			} else {
-				Integer y = status.createOrGetNodeId(new VNodeImpl(b));
+				int y = status.createOrGetNodeId(new VNodeImpl(b));
 				ret.add(new REntryImpl(r, x, y));
 			}
 		}
@@ -101,7 +100,7 @@ public class CR3ExtRule implements SObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return getClass().equals(o.getClass());
+		return (o != null) && getClass().equals(o.getClass());
 	}
 
 	@Override

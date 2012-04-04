@@ -73,14 +73,14 @@ public class CR4RExtRule implements RObserverRule {
 				entry.getRightClass()));
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, Integer r,
-			Integer x, Integer y) {
+	private Collection<XEntry> applyRule(ClassifierStatus status, int r, int x,
+			int y) {
 		List<XEntry> ret = new ArrayList<XEntry>();
-		for (Integer a : status.getSubsumers(y)) {
-			for (Integer s : status.getSuperObjectProperties(r)) {
+		for (int a : status.getSubsumers(y)) {
+			for (int s : status.getSuperObjectProperties(r)) {
 				for (GCI3Axiom axiom : status.getExtendedOntology()
 						.getGCI3rAAxioms(s, a)) {
-					Integer b = axiom.getSuperClass();
+					int b = axiom.getSuperClass();
 					ret.add(new SEntryImpl(x, b));
 				}
 			}
@@ -90,7 +90,7 @@ public class CR4RExtRule implements RObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return getClass().equals(o.getClass());
+		return (o != null) && getClass().equals(o.getClass());
 	}
 
 	@Override

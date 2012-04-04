@@ -78,33 +78,32 @@ public class CR7ExtRule implements RObserverRule {
 				entry.getRightClass()));
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, Integer r2,
-			Integer x, Integer y) {
+	private Collection<XEntry> applyRule(ClassifierStatus status, int r2,
+			int x, int y) {
 		List<XEntry> ret = new ArrayList<XEntry>();
 		VNode phiNode = status.getNode(x);
 		VNode psiNode = status.getNode(y);
-		for (Integer r : status.getSuperObjectProperties(r2)) {
+		for (int r : status.getSuperObjectProperties(r2)) {
 			if (status.getExtendedOntology().getTransitiveObjectProperties()
 					.contains(r)) {
-				Integer rMinus = status.getInverseObjectPropertyOf(r);
-				for (Integer s : status.getSuperObjectProperties(r)) {
-					Integer sMinus = status.getInverseObjectPropertyOf(s);
+				int rMinus = status.getInverseObjectPropertyOf(r);
+				for (int s : status.getSuperObjectProperties(r)) {
+					int sMinus = status.getInverseObjectPropertyOf(s);
 					for (GCI3Axiom axiom : status.getExtendedOntology()
 							.getGCI3rAxioms(sMinus)) {
-						Integer a = axiom.getClassInSubClass();
-						Integer b = axiom.getSuperClass();
-						for (Integer r1 : status.getSubObjectProperties(r)) {
-							Integer r1Minus = status
-									.getInverseObjectPropertyOf(r1);
+						int a = axiom.getClassInSubClass();
+						int b = axiom.getSuperClass();
+						for (int r1 : status.getSubObjectProperties(r)) {
+							int r1Minus = status.getInverseObjectPropertyOf(r1);
 							if (phiNode.containsExistential(r1Minus, a)) {
 								VNodeImpl newNode = new VNodeImpl(
 										psiNode.getClassId());
 								newNode.addExistentialsOf(psiNode);
 								newNode.addExistential(rMinus, a);
 								boolean inV = status.contains(newNode);
-								Integer v = status.createOrGetNodeId(newNode);
+								int v = status.createOrGetNodeId(newNode);
 								if (!inV) {
-									for (Integer p : status.getSubsumers(y)) {
+									for (int p : status.getSubsumers(y)) {
 										ret.add(new SEntryImpl(v, p));
 									}
 								}
@@ -121,7 +120,7 @@ public class CR7ExtRule implements RObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return getClass().equals(o.getClass());
+		return (o != null) && getClass().equals(o.getClass());
 	}
 
 	@Override

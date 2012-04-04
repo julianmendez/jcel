@@ -31,6 +31,7 @@ package de.tudresden.inf.lat.jcel.core.graph;
 public class VNodeObjectSomeValuesFromImpl implements VNodeObjectSomeValuesFrom {
 
 	private final int classId;
+	private final int hashCode;
 	private final int objectPropertyId;
 
 	/**
@@ -41,16 +42,10 @@ public class VNodeObjectSomeValuesFromImpl implements VNodeObjectSomeValuesFrom 
 	 * @param cls
 	 *            class identifier
 	 */
-	public VNodeObjectSomeValuesFromImpl(Integer objectProp, Integer cls) {
-		if (objectProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (cls == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public VNodeObjectSomeValuesFromImpl(int objectProp, int cls) {
 		this.objectPropertyId = objectProp;
 		this.classId = cls;
+		this.hashCode = this.objectPropertyId + 31 * this.classId;
 	}
 
 	@Override
@@ -58,25 +53,25 @@ public class VNodeObjectSomeValuesFromImpl implements VNodeObjectSomeValuesFrom 
 		boolean ret = (this == o);
 		if (!ret && o instanceof VNodeObjectSomeValuesFrom) {
 			VNodeObjectSomeValuesFrom other = (VNodeObjectSomeValuesFrom) o;
-			ret = getObjectPropertyId().equals(other.getObjectPropertyId())
-					&& getClassId().equals(other.getClassId());
+			ret = (this.objectPropertyId == other.getObjectPropertyId())
+					&& (this.classId == other.getClassId());
 		}
 		return ret;
 	}
 
 	@Override
-	public Integer getClassId() {
+	public int getClassId() {
 		return this.classId;
 	}
 
 	@Override
-	public Integer getObjectPropertyId() {
+	public int getObjectPropertyId() {
 		return this.objectPropertyId;
 	}
 
 	@Override
 	public int hashCode() {
-		return this.objectPropertyId + 31 * this.classId;
+		return this.hashCode;
 	}
 
 	@Override

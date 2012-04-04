@@ -70,14 +70,14 @@ public class CR5ExtRule implements RObserverRule {
 		return Collections.unmodifiableCollection(ret);
 	}
 
-	private Collection<XEntry> apply1(ClassifierStatus status, Integer r1,
-			Integer x, Integer y) {
+	private Collection<XEntry> apply1(ClassifierStatus status, int r1, int x,
+			int y) {
 		List<XEntry> ret = new ArrayList<XEntry>();
-		for (Integer s : status.getSuperObjectProperties(r1)) {
+		for (int s : status.getSuperObjectProperties(r1)) {
 			if (status.getExtendedOntology().getTransitiveObjectProperties()
 					.contains(s)) {
-				for (Integer r2 : status.getSubObjectProperties(s)) {
-					for (Integer z : status.getSecondByFirst(r2, y)) {
+				for (int r2 : status.getSubObjectProperties(s)) {
+					for (int z : status.getSecondByFirst(r2, y)) {
 						ret.add(new REntryImpl(s, x, z));
 					}
 				}
@@ -86,14 +86,14 @@ public class CR5ExtRule implements RObserverRule {
 		return ret;
 	}
 
-	private Collection<XEntry> apply2(ClassifierStatus status, Integer r2,
-			Integer y, Integer z) {
+	private Collection<XEntry> apply2(ClassifierStatus status, int r2, int y,
+			int z) {
 		List<XEntry> ret = new ArrayList<XEntry>();
-		for (Integer s : status.getSuperObjectProperties(r2)) {
+		for (int s : status.getSuperObjectProperties(r2)) {
 			if (status.getExtendedOntology().getTransitiveObjectProperties()
 					.contains(s)) {
-				for (Integer r1 : status.getSubObjectProperties(s)) {
-					for (Integer x : status.getFirstBySecond(r1, y)) {
+				for (int r1 : status.getSubObjectProperties(s)) {
+					for (int x : status.getFirstBySecond(r1, y)) {
 						ret.add(new REntryImpl(s, x, z));
 					}
 				}
@@ -104,7 +104,7 @@ public class CR5ExtRule implements RObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return getClass().equals(o.getClass());
+		return (o != null) && getClass().equals(o.getClass());
 	}
 
 	@Override
