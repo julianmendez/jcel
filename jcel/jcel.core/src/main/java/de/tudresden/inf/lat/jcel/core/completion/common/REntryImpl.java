@@ -29,7 +29,7 @@ package de.tudresden.inf.lat.jcel.core.completion.common;
  * 
  * @see RObserverRule
  */
-public class REntryImpl implements REntry, Comparable<REntryImpl> {
+public class REntryImpl implements REntry, Comparable<REntry> {
 
 	private final int hashCode;
 	private final int leftClass;
@@ -55,17 +55,17 @@ public class REntryImpl implements REntry, Comparable<REntryImpl> {
 	}
 
 	@Override
-	public int compareTo(REntryImpl other) {
+	public int compareTo(REntry other) {
 		if (other == null) {
 			throw new NullPointerException("Null argument.");
 		}
 
-		int ret = this.property - other.property;
+		int ret = this.property - other.getProperty();
 		if (ret == 0) {
-			ret = this.leftClass - other.leftClass;
+			ret = this.leftClass - other.getLeftClass();
 		}
 		if (ret == 0) {
-			ret = this.rightClass - other.rightClass;
+			ret = this.rightClass - other.getRightClass();
 		}
 		return ret;
 	}

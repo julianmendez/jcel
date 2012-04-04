@@ -29,7 +29,7 @@ package de.tudresden.inf.lat.jcel.core.completion.common;
  * 
  * @see SObserverRule
  */
-public class SEntryImpl implements SEntry, Comparable<SEntryImpl> {
+public class SEntryImpl implements SEntry, Comparable<SEntry> {
 
 	private final int hashCode;
 	private final int subClass;
@@ -50,14 +50,14 @@ public class SEntryImpl implements SEntry, Comparable<SEntryImpl> {
 	}
 
 	@Override
-	public int compareTo(SEntryImpl other) {
+	public int compareTo(SEntry other) {
 		if (other == null) {
 			throw new NullPointerException("Null argument.");
 		}
 
-		int ret = this.subClass - other.subClass;
+		int ret = this.subClass - other.getSubClass();
 		if (ret == 0) {
-			ret = this.superClass - other.superClass;
+			ret = this.superClass - other.getSuperClass();
 		}
 		return ret;
 	}
