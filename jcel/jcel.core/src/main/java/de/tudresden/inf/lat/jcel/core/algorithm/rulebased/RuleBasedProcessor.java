@@ -69,7 +69,6 @@ public class RuleBasedProcessor implements Processor {
 	private long iteration = 0;
 	private long loggingCount = loggingFrequency;
 	private IntegerHierarchicalGraph objectPropertyHierarchy = null;
-	private Set<ComplexIntegerAxiom> originalAxiomSet = null;
 	private Map<Integer, Set<Integer>> sameIndividualMap = null;
 	private Set<REntry> setQsubR = new TreeSet<REntry>();
 	private Set<SEntry> setQsubS = new TreeSet<SEntry>();
@@ -151,11 +150,6 @@ public class RuleBasedProcessor implements Processor {
 			ret.put(indiv, Collections.unmodifiableSet(equivalents));
 		}
 		return ret;
-	}
-
-	@Override
-	public Set<ComplexIntegerAxiom> getAxiomSet() {
-		return this.originalAxiomSet;
 	}
 
 	/**
@@ -358,15 +352,14 @@ public class RuleBasedProcessor implements Processor {
 	 * <li>prepares all the queues to run the algorithm</li>
 	 * </ul>
 	 * 
-	 * @param origAxiomSet
+	 * @param originalAxiomSet
 	 *            set of axioms, i.e. the ontology
 	 */
-	protected void preProcess(Set<ComplexIntegerAxiom> origAxiomSet) {
-		if (origAxiomSet == null) {
+	protected void preProcess(Set<ComplexIntegerAxiom> originalAxiomSet) {
+		if (originalAxiomSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.originalAxiomSet = origAxiomSet;
 		this.isReady = false;
 
 		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
@@ -378,11 +371,11 @@ public class RuleBasedProcessor implements Processor {
 
 		logger.fine("configuring processor ...");
 
-		logger.fine("number of axioms : " + this.originalAxiomSet.size());
+		logger.fine("number of axioms : " + originalAxiomSet.size());
 
 		logger.fine("preprocessing ontology ...");
 		OntologyPreprocessor preprocessor = new OntologyPreprocessor(
-				this.originalAxiomSet, factory);
+				originalAxiomSet, factory);
 
 		logger.fine("description logic family : "
 				+ preprocessor.getExpressivity().toString() + " .");

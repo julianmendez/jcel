@@ -91,7 +91,6 @@ public class CelProcessor implements Processor {
 	private IntegerSubsumerGraphImpl objectPropertyGraph = null;
 	private IntegerHierarchicalGraph objectPropertyHierarchy = null;
 	private IntegerOntologyObjectFactory ontologyObjectFactory;
-	private Set<ComplexIntegerAxiom> originalAxiomSet = null;
 	private Map<Integer, Set<Integer>> propertyUsedByClass = null;
 	private Deque<ExtensionEntry> queueEntries = new ArrayDeque<ExtensionEntry>();
 	private Deque<Integer> queueKeys = new ArrayDeque<Integer>();
@@ -245,11 +244,6 @@ public class CelProcessor implements Processor {
 			ret.put(r, related);
 		}
 		return ret;
-	}
-
-	@Override
-	public Set<ComplexIntegerAxiom> getAxiomSet() {
-		return this.originalAxiomSet;
 	}
 
 	/**
@@ -484,15 +478,14 @@ public class CelProcessor implements Processor {
 	 * <li>prepares all the queues to run the algorithm</li>
 	 * </ul>
 	 * 
-	 * @param origAxiomSet
+	 * @param originalAxiomSet
 	 *            set of axioms, i.e. the ontology
 	 */
-	protected void preProcess(Set<ComplexIntegerAxiom> origAxiomSet) {
-		if (origAxiomSet == null) {
+	protected void preProcess(Set<ComplexIntegerAxiom> originalAxiomSet) {
+		if (originalAxiomSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.originalAxiomSet = origAxiomSet;
 		this.isReady = false;
 
 		logger.fine("using " + getClass().getSimpleName() + " ...");
@@ -508,7 +501,7 @@ public class CelProcessor implements Processor {
 		// normalized axioms.
 		Set<Integer> originalClassSet = new HashSet<Integer>();
 		Set<Integer> originalObjectPropertySet = new HashSet<Integer>();
-		for (IntegerAxiom axiom : this.originalAxiomSet) {
+		for (IntegerAxiom axiom : originalAxiomSet) {
 			originalClassSet.addAll(axiom.getClassesInSignature());
 			originalObjectPropertySet.addAll(axiom
 					.getObjectPropertiesInSignature());
@@ -521,7 +514,7 @@ public class CelProcessor implements Processor {
 		logger.finer("normalizing ontology ...");
 		OntologyNormalizer normalizer = new OntologyNormalizer();
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
-		ontology.addAll(normalizer.normalize(this.originalAxiomSet,
+		ontology.addAll(normalizer.normalize(originalAxiomSet,
 				getOntologyObjectFactory()));
 
 		logger.finer("auxiliary classes created (including nominals) : "

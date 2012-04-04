@@ -58,7 +58,6 @@ public class ModuleProcessor implements Processor {
 	private Integer moduleIndex = 0;
 	private List<Set<ComplexIntegerAxiom>> moduleList = null;
 	private IntegerHierarchicalGraphImpl objectPropertyHierarchy = null;
-	private Set<ComplexIntegerAxiom> originalAxiomSet = null;
 	private Processor processor = null;
 	private final ModuleProcessorFactory processorFactory;
 	private Map<Integer, Set<Integer>> sameIndividualMap = null;
@@ -160,11 +159,6 @@ public class ModuleProcessor implements Processor {
 	}
 
 	@Override
-	public Set<ComplexIntegerAxiom> getAxiomSet() {
-		return this.originalAxiomSet;
-	}
-
-	@Override
 	public IntegerHierarchicalGraph getClassHierarchy() {
 		IntegerHierarchicalGraph ret = null;
 		if (isReady()) {
@@ -215,9 +209,8 @@ public class ModuleProcessor implements Processor {
 		return this.isReady;
 	}
 
-	private void preProcess(Set<ComplexIntegerAxiom> origAxiomSet) {
+	private void preProcess(Set<ComplexIntegerAxiom> originalAxiomSet) {
 
-		this.originalAxiomSet = origAxiomSet;
 		this.isReady = false;
 
 		logger.fine("using " + getClass().getSimpleName() + " ...");
@@ -227,7 +220,7 @@ public class ModuleProcessor implements Processor {
 						IntegerEntityManager.bottomDataPropertyId,
 						IntegerEntityManager.topDataPropertyId));
 
-		this.moduleList = findModules(this.originalAxiomSet);
+		this.moduleList = findModules(originalAxiomSet);
 		logger.fine("modules found : " + this.moduleList.size());
 		for (int index = 0; index < this.moduleList.size(); index++) {
 			logger.fine("module " + index + " has "
