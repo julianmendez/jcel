@@ -71,8 +71,8 @@ public class CRBottomRule implements RObserverRule {
 				entry.getRightClass()));
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, Integer r,
-			Integer x, Integer y) {
+	private Collection<XEntry> applyRule(ClassifierStatus status, int r, int x,
+			int y) {
 		List<XEntry> ret = new ArrayList<XEntry>();
 		if (status.getSubsumers(y).contains(status.getClassBottomElement())) {
 			ret.add(new SEntryImpl(x, status.getClassBottomElement()));
@@ -82,7 +82,7 @@ public class CRBottomRule implements RObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return getClass().equals(o.getClass());
+		return (o != null) && getClass().equals(o.getClass());
 	}
 
 	@Override

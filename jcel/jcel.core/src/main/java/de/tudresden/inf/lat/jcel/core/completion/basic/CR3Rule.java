@@ -72,12 +72,11 @@ public class CR3Rule implements SObserverRule {
 				entry.getSubClass(), entry.getSuperClass()));
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, Integer x,
-			Integer a) {
+	private Collection<XEntry> applyRule(ClassifierStatus status, int x, int a) {
 		List<XEntry> ret = new ArrayList<XEntry>();
 		for (GCI2Axiom axiom : status.getExtendedOntology().getGCI2Axioms(a)) {
-			Integer r = axiom.getPropertyInSuperClass();
-			Integer b = axiom.getClassInSuperClass();
+			int r = axiom.getPropertyInSuperClass();
+			int b = axiom.getClassInSuperClass();
 			ret.add(new REntryImpl(r, x, b));
 		}
 		return ret;
@@ -85,7 +84,7 @@ public class CR3Rule implements SObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return getClass().equals(o.getClass());
+		return (o != null) && getClass().equals(o.getClass());
 	}
 
 	@Override

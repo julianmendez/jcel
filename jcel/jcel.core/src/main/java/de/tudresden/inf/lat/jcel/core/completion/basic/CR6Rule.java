@@ -76,28 +76,28 @@ public class CR6Rule implements RObserverRule {
 		return Collections.unmodifiableCollection(ret);
 	}
 
-	private Collection<XEntry> apply1(ClassifierStatus status, Integer s,
-			Integer y, Integer z) {
+	private Collection<XEntry> apply1(ClassifierStatus status, int s, int y,
+			int z) {
 		List<XEntry> ret = new ArrayList<XEntry>();
 		for (RI3Axiom axiom : status.getExtendedOntology().getRI3AxiomsByRight(
 				s)) {
-			Integer r = axiom.getLeftSubProperty();
-			Integer t = axiom.getSuperProperty();
-			for (Integer x : status.getFirstBySecond(r, y)) {
+			int r = axiom.getLeftSubProperty();
+			int t = axiom.getSuperProperty();
+			for (int x : status.getFirstBySecond(r, y)) {
 				ret.add(new REntryImpl(t, x, z));
 			}
 		}
 		return ret;
 	}
 
-	private Collection<XEntry> apply2(ClassifierStatus status, Integer r,
-			Integer x, Integer y) {
+	private Collection<XEntry> apply2(ClassifierStatus status, int r, int x,
+			int y) {
 		List<XEntry> ret = new ArrayList<XEntry>();
 		for (RI3Axiom axiom : status.getExtendedOntology()
 				.getRI3AxiomsByLeft(r)) {
-			Integer s = axiom.getRightSubProperty();
-			Integer t = axiom.getSuperProperty();
-			for (Integer z : status.getSecondByFirst(s, y)) {
+			int s = axiom.getRightSubProperty();
+			int t = axiom.getSuperProperty();
+			for (int z : status.getSecondByFirst(s, y)) {
 				ret.add(new REntryImpl(t, x, z));
 			}
 		}
@@ -106,7 +106,7 @@ public class CR6Rule implements RObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return getClass().equals(o.getClass());
+		return (o != null) && getClass().equals(o.getClass());
 	}
 
 	@Override

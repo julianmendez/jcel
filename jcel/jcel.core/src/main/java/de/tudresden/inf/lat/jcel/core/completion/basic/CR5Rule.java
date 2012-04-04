@@ -72,11 +72,11 @@ public class CR5Rule implements RObserverRule {
 				entry.getRightClass()));
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, Integer r,
-			Integer x, Integer y) {
+	private Collection<XEntry> applyRule(ClassifierStatus status, int r, int x,
+			int y) {
 		List<XEntry> ret = new ArrayList<XEntry>();
 		for (RI2Axiom axiom : status.getExtendedOntology().getRI2rAxioms(r)) {
-			Integer s = axiom.getSuperProperty();
+			int s = axiom.getSuperProperty();
 			ret.add(new REntryImpl(s, x, y));
 		}
 		return ret;
@@ -84,7 +84,7 @@ public class CR5Rule implements RObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return getClass().equals(o.getClass());
+		return (o != null) && getClass().equals(o.getClass());
 	}
 
 	@Override
