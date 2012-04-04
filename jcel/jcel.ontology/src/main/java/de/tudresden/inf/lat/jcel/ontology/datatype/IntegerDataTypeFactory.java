@@ -33,51 +33,50 @@ public interface IntegerDataTypeFactory {
 	/**
 	 * Creates a class.
 	 * 
-	 * @param n
+	 * @param classId
 	 *            class identifier
 	 * @return a class
 	 */
-	public IntegerClass createClass(Integer n);
+	public IntegerClass createClass(int classId);
 
 	/**
 	 * Creates a has-value class expression.
 	 * 
-	 * @param propertyId
+	 * @param dataPropertyId
 	 *            data property expression
 	 * @param val
 	 *            value
 	 * @return a has-value class expression
 	 */
-	public IntegerDataHasValue createDataHasValue(Integer propertyId,
-			Integer val);
+	public IntegerDataHasValue createDataHasValue(int dataPropertyId, int val);
 
 	/**
 	 * Creates a data property.
 	 * 
-	 * @param n
+	 * @param dataPropertyId
 	 *            data property identifier
 	 * @return a data property
 	 */
-	public IntegerDataProperty createDataProperty(Integer n);
+	public IntegerDataProperty createDataProperty(int dataPropertyId);
 
 	/**
 	 * Creates an existential restriction.
 	 * 
-	 * @param propertyId
+	 * @param dataPropertyId
 	 * @param classExpression
 	 * @return an existential restriction
 	 */
 	public IntegerDataSomeValuesFrom createDataSomeValuesFrom(
-			Integer propertyId, IntegerClassExpression classExpression);
+			int dataPropertyId, IntegerClassExpression classExpression);
 
 	/**
 	 * Creates a named individual.
 	 * 
-	 * @param n
+	 * @param individualId
 	 *            named individual identifier
 	 * @return a named individual
 	 */
-	public IntegerNamedIndividual createNamedIndividual(Integer n);
+	public IntegerNamedIndividual createNamedIndividual(int individualId);
 
 	/**
 	 * Creates an intersection of class expressions.
@@ -92,12 +91,12 @@ public interface IntegerDataTypeFactory {
 	/**
 	 * Creates an inverse object property.
 	 * 
-	 * @param property
+	 * @param objectPropertyId
 	 *            object property to create the inverse
 	 * @return an inverse object property
 	 */
 	public IntegerObjectInverseOf createObjectInverseOf(
-			IntegerObjectProperty property);
+			IntegerObjectProperty objectPropertyId);
 
 	/**
 	 * Creates a nominal expression.
@@ -106,16 +105,16 @@ public interface IntegerDataTypeFactory {
 	 *            individual identifier
 	 * @return a nominal expression
 	 */
-	public IntegerObjectOneOf createObjectOneOf(Integer individualId);
+	public IntegerObjectOneOf createObjectOneOf(int individualId);
 
 	/**
 	 * Creates an object property.
 	 * 
-	 * @param n
+	 * @param objectPropertyId
 	 *            object property identifier
 	 * @return an object property
 	 */
-	public IntegerObjectProperty createObjectProperty(Integer n);
+	public IntegerObjectProperty createObjectProperty(int objectPropertyId);
 
 	/**
 	 * Creates an existential restriction.

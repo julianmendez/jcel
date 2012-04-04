@@ -50,51 +50,32 @@ public class IntegerDataTypeFactoryImpl implements IntegerDataTypeFactory {
 	}
 
 	@Override
-	public IntegerClass createClass(Integer n) {
-		if (n == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		return new IntegerClass(n);
+	public IntegerClass createClass(int classId) {
+		return new IntegerClass(classId);
 	}
 
 	@Override
-	public IntegerDataHasValue createDataHasValue(Integer propertyId,
-			Integer val) {
-		if (propertyId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (val == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		return new IntegerDataHasValue(propertyId, val);
+	public IntegerDataHasValue createDataHasValue(int dataPropertyId, int val) {
+		return new IntegerDataHasValue(dataPropertyId, val);
 	}
 
 	@Override
-	public IntegerDataProperty createDataProperty(Integer n) {
-		if (n == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		return new IntegerDataProperty(n);
+	public IntegerDataProperty createDataProperty(int dataPropertyId) {
+		return new IntegerDataProperty(dataPropertyId);
 	}
 
 	@Override
-	public IntegerDataSomeValuesFrom createDataSomeValuesFrom(
-			Integer propertyId, IntegerClassExpression classExpression) {
-		if (propertyId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+	public IntegerDataSomeValuesFrom createDataSomeValuesFrom(int dataPropertyId,
+			IntegerClassExpression classExpression) {
 		if (classExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		return new IntegerDataSomeValuesFrom(propertyId, classExpression);
+		return new IntegerDataSomeValuesFrom(dataPropertyId, classExpression);
 	}
 
 	@Override
-	public IntegerNamedIndividual createNamedIndividual(Integer n) {
-		if (n == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		return new IntegerNamedIndividual(n);
+	public IntegerNamedIndividual createNamedIndividual(int individualId) {
+		return new IntegerNamedIndividual(individualId);
 	}
 
 	@Override
@@ -116,19 +97,13 @@ public class IntegerDataTypeFactoryImpl implements IntegerDataTypeFactory {
 	}
 
 	@Override
-	public IntegerObjectOneOf createObjectOneOf(Integer individualId) {
-		if (individualId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+	public IntegerObjectOneOf createObjectOneOf(int individualId) {
 		return new IntegerObjectOneOf(individualId);
 	}
 
 	@Override
-	public IntegerObjectProperty createObjectProperty(Integer n) {
-		if (n == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		return new IntegerObjectProperty(n);
+	public IntegerObjectProperty createObjectProperty(int objectPropertyId) {
+		return new IntegerObjectProperty(objectPropertyId);
 	}
 
 	@Override

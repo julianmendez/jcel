@@ -38,118 +38,53 @@ public class NormalizedIntegerAxiomFactoryImpl implements
 	}
 
 	@Override
-	public FunctObjectPropAxiom createFunctObjectPropAxiom(Integer prop) {
-		if (prop == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+	public FunctObjectPropAxiom createFunctObjectPropAxiom(int prop) {
 		return new FunctObjectPropAxiom(prop);
 	}
 
 	@Override
-	public GCI0Axiom createGCI0Axiom(Integer subCl, Integer superCl) {
-		if (subCl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (superCl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+	public GCI0Axiom createGCI0Axiom(int subCl, int superCl) {
 		return new GCI0Axiom(subCl, superCl);
 	}
 
 	@Override
-	public GCI1Axiom createGCI1Axiom(List<Integer> leftClList, Integer rightCl) {
-		if (leftClList == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (rightCl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+	public GCI1Axiom createGCI1Axiom(List<Integer> leftClList, int rightCl) {
 		return new GCI1Axiom(leftClList, rightCl);
 	}
 
 	@Override
-	public GCI2Axiom createGCI2Axiom(Integer leftCl, Integer rightProp,
-			Integer rightCl) {
-		if (leftCl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (rightProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (rightCl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+	public GCI2Axiom createGCI2Axiom(int leftCl, int rightProp, int rightCl) {
 		return new GCI2Axiom(leftCl, rightProp, rightCl);
 	}
 
 	@Override
-	public GCI3Axiom createGCI3Axiom(Integer leftProp, Integer leftCl,
-			Integer rightCl) {
-		if (leftProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (leftCl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (rightCl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+	public GCI3Axiom createGCI3Axiom(int leftProp, int leftCl, int rightCl) {
 		return new GCI3Axiom(leftProp, leftCl, rightCl);
 	}
 
 	@Override
-	public NominalAxiom createNominalAxiom(Integer classId, Integer individualId) {
-		if (classId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (individualId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+	public NominalAxiom createNominalAxiom(int classId, int individualId) {
 		return new NominalAxiom(classId, individualId);
 	}
 
 	@Override
-	public RangeAxiom createRangeAxiom(Integer prop, Integer cl) {
-		if (prop == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (cl == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+	public RangeAxiom createRangeAxiom(int prop, int cl) {
 		return new RangeAxiom(prop, cl);
 	}
 
 	@Override
-	public RI1Axiom createRI1Axiom(Integer prop) {
-		if (prop == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+	public RI1Axiom createRI1Axiom(int prop) {
 		return new RI1Axiom(prop);
 	}
 
 	@Override
-	public RI2Axiom createRI2Axiom(Integer leftProp, Integer rightProp) {
-		if (leftProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (rightProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+	public RI2Axiom createRI2Axiom(int leftProp, int rightProp) {
 		return new RI2Axiom(leftProp, rightProp);
 	}
 
 	@Override
-	public RI3Axiom createRI3Axiom(Integer leftLeftProp, Integer leftRightProp,
-			Integer rightProp) {
-		if (leftLeftProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (leftRightProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (rightProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+	public RI3Axiom createRI3Axiom(int leftLeftProp, int leftRightProp,
+			int rightProp) {
 		return new RI3Axiom(leftLeftProp, leftRightProp, rightProp);
 	}
 
