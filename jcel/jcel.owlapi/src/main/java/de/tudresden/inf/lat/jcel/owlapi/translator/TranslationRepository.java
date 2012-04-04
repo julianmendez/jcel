@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -119,37 +118,25 @@ public class TranslationRepository {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<OWLClass> classSet = new TreeSet<OWLClass>();
-		Set<OWLObjectProperty> objectPropertySet = new TreeSet<OWLObjectProperty>();
-		Set<OWLNamedIndividual> individualSet = new TreeSet<OWLNamedIndividual>();
-		Set<OWLDataProperty> dataPropertySet = new TreeSet<OWLDataProperty>();
-		Set<OWLLiteral> literalSet = new TreeSet<OWLLiteral>();
-
-		classSet.addAll(axiom.getClassesInSignature());
-		objectPropertySet.addAll(axiom.getObjectPropertiesInSignature());
-		individualSet.addAll(axiom.getIndividualsInSignature());
-		dataPropertySet.addAll(axiom.getDataPropertiesInSignature());
-		literalSet.addAll(collectLiterals(axiom));
-
 		boolean ret = false;
 
-		for (OWLClass cls : classSet) {
+		for (OWLClass cls : axiom.getClassesInSignature()) {
 			boolean changed = addClass(cls);
 			ret = ret || changed;
 		}
-		for (OWLObjectProperty objProp : objectPropertySet) {
+		for (OWLObjectProperty objProp : axiom.getObjectPropertiesInSignature()) {
 			boolean changed = addObjectProperty(objProp);
 			ret = ret || changed;
 		}
-		for (OWLNamedIndividual indiv : individualSet) {
+		for (OWLNamedIndividual indiv : axiom.getIndividualsInSignature()) {
 			boolean changed = addNamedIndividual(indiv);
 			ret = ret || changed;
 		}
-		for (OWLDataProperty dataProp : dataPropertySet) {
+		for (OWLDataProperty dataProp : axiom.getDataPropertiesInSignature()) {
 			boolean changed = addDataProperty(dataProp);
 			ret = ret || changed;
 		}
-		for (OWLLiteral lit : literalSet) {
+		for (OWLLiteral lit : collectLiterals(axiom)) {
 			boolean changed = addLiteral(lit);
 			ret = ret || changed;
 		}
