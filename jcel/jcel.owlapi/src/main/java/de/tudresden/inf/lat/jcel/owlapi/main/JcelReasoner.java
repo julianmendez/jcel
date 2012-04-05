@@ -107,7 +107,8 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		this.translator = new Translator(rootOntology.getOWLOntologyManager()
 				.getOWLDataFactory(), new IntegerOntologyObjectFactoryImpl());
 
-		Set<OWLAxiom> owlAxiomSet = rootOntology.getAxioms();
+		Set<OWLAxiom> owlAxiomSet = new HashSet<OWLAxiom>();
+		owlAxiomSet.addAll(rootOntology.getAxioms());
 		for (OWLOntology ont : rootOntology.getImportsClosure()) {
 			owlAxiomSet.addAll(ont.getAxioms());
 		}
