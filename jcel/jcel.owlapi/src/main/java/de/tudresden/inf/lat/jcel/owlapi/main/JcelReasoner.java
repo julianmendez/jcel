@@ -84,7 +84,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	private Set<OWLAxiom> pendingAxiomAdditions = new HashSet<OWLAxiom>();
 	private Set<OWLAxiom> pendingAxiomRemovals = new HashSet<OWLAxiom>();
 	private List<OWLOntologyChange> pendingChanges = new ArrayList<OWLOntologyChange>();
-	private final OWLReasonerConfiguration reasonerConfiguration;
+	private OWLReasonerConfiguration reasonerConfiguration = null;
 	private final OWLOntology rootOntology;
 	private final Date start = new Date();
 	private final Set<AxiomType<?>> supportedAxiomTypes;
@@ -111,7 +111,6 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		this.rootOntology.getOWLOntologyManager().addOntologyChangeListener(
 				this);
 		this.supportedAxiomTypes = getSupportedTypes();
-		this.reasonerConfiguration = null;
 	}
 
 	/**
@@ -126,22 +125,12 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	 */
 	public JcelReasoner(OWLOntology rootOntology, boolean buffering,
 			OWLReasonerConfiguration configuration) {
-		if (rootOntology == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		this(rootOntology, buffering);
 		if (configuration == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.rootOntology = rootOntology;
-		this.translator = new Translator(rootOntology,
-				new IntegerOntologyObjectFactoryImpl());
-		this.jcelCore = new RuleBasedReasoner(this.translator.getOntology(),
-				this.translator.getOntologyObjectFactory(), buffering);
 		this.reasonerConfiguration = configuration;
-		this.rootOntology.getOWLOntologyManager().addOntologyChangeListener(
-				this);
-		this.supportedAxiomTypes = getSupportedTypes();
 	}
 
 	public boolean addAxiom(OWLAxiom axiom) {
@@ -164,6 +153,8 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public void dispose() {
 		logger.finer("dispose()");
+		this.rootOntology.getOWLOntologyManager().removeOntologyChangeListener(
+				this);
 		getReasoner().dispose();
 	}
 
