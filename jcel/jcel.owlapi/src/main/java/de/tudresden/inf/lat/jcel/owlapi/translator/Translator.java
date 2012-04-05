@@ -28,9 +28,9 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.impl.NodeFactory;
@@ -58,42 +58,29 @@ public class Translator {
 
 	private final AxiomTranslator axiomTranslator;
 	private final IntegerOntologyObjectFactory factory;
-	private final Set<ComplexIntegerAxiom> ontology;
-	private final TranslationRepository repository;
 
-	public Translator(OWLOntology rootOntology,
+	public Translator(OWLDataFactory dataFactory,
 			IntegerOntologyObjectFactory factory) {
-		if (rootOntology == null) {
+		if (dataFactory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.repository = new TranslationRepository(rootOntology,
-				factory.getIdGenerator());
+		TranslationRepository repository = new TranslationRepository(
+				dataFactory, factory.getIdGenerator());
 		this.factory = factory;
 		ObjectPropertyExpressionTranslator objPropExprTranslator = new ObjectPropertyExpressionTranslator(
-				this.factory.getDataTypeFactory(), this.repository);
+				this.factory.getDataTypeFactory(), repository);
 		ClassExpressionTranslator cet = new ClassExpressionTranslator(
 				objPropExprTranslator);
 
 		this.axiomTranslator = new AxiomTranslator(cet, this.factory);
-
-		Set<OWLAxiom> owlAxiomSet = rootOntology.getAxioms();
-		for (OWLOntology ont : rootOntology.getImportsClosure()) {
-			owlAxiomSet.addAll(ont.getAxioms());
-		}
-
-		this.ontology = translateSA(owlAxiomSet);
 	}
 
 	public AxiomTranslator getAxiomTranslator() {
 		return this.axiomTranslator;
-	}
-
-	public Set<ComplexIntegerAxiom> getOntology() {
-		return this.ontology;
 	}
 
 	/**
@@ -106,7 +93,7 @@ public class Translator {
 	}
 
 	public TranslationRepository getTranslationRepository() {
-		return this.repository;
+		return this.axiomTranslator.getTranslationRepository();
 	}
 
 	public OWLClass translateC(IntegerClass integerObject) {

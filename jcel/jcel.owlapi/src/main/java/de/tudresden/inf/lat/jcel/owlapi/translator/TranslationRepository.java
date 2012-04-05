@@ -39,7 +39,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
 
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
@@ -74,23 +73,20 @@ public class TranslationRepository {
 	/**
 	 * Constructs a new translation repository.
 	 * 
-	 * @param rootOntology
+	 * @param dataFactory
 	 *            OWL ontology
 	 * @param manager
 	 *            entity manager
 	 */
-	public TranslationRepository(OWLOntology rootOntology,
+	public TranslationRepository(OWLDataFactory dataFactory,
 			IntegerEntityManager manager) {
-		if (rootOntology == null) {
+		if (dataFactory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 		if (manager == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 		this.entityManager = manager;
-
-		OWLDataFactory dataFactory = rootOntology.getOWLOntologyManager()
-				.getOWLDataFactory();
 
 		this.bottomClass = dataFactory.getOWLNothing();
 		this.topClass = dataFactory.getOWLThing();
@@ -100,10 +96,6 @@ public class TranslationRepository {
 		this.topDataProperty = dataFactory.getOWLTopDataProperty();
 
 		initializeMaps();
-		for (OWLAxiom axiom : rootOntology.getAxioms()) {
-			addAxiom(axiom);
-		}
-
 	}
 
 	/**
@@ -113,7 +105,7 @@ public class TranslationRepository {
 	 *            OWL axiom
 	 * @return <code>true</code> if and only if the repository has changed
 	 */
-	public boolean addAxiom(OWLAxiom axiom) {
+	public boolean addAxiomEntities(OWLAxiom axiom) {
 		if (axiom == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

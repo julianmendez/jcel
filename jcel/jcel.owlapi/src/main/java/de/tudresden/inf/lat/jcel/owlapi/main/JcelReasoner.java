@@ -104,9 +104,21 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		}
 
 		this.rootOntology = rootOntology;
-		this.translator = new Translator(rootOntology,
-				new IntegerOntologyObjectFactoryImpl());
-		this.jcelCore = new RuleBasedReasoner(this.translator.getOntology(),
+		this.translator = new Translator(rootOntology.getOWLOntologyManager()
+				.getOWLDataFactory(), new IntegerOntologyObjectFactoryImpl());
+
+		Set<OWLAxiom> owlAxiomSet = rootOntology.getAxioms();
+		for (OWLOntology ont : rootOntology.getImportsClosure()) {
+			owlAxiomSet.addAll(ont.getAxioms());
+		}
+
+		for (OWLAxiom axiom : owlAxiomSet) {
+			this.translator.getTranslationRepository().addAxiomEntities(axiom);
+		}
+
+		Set<ComplexIntegerAxiom> ontology = this.translator
+				.translateSA(owlAxiomSet);
+		this.jcelCore = new RuleBasedReasoner(ontology,
 				this.translator.getOntologyObjectFactory(), buffering);
 		this.rootOntology.getOWLOntologyManager().addOntologyChangeListener(
 				this);
@@ -140,7 +152,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 
 		logger.finer("addAxiom(" + axiom + ")");
 		boolean ret = this.pendingAxiomAdditions.add(axiom);
-		getTranslator().getTranslationRepository().addAxiom(axiom);
+		getTranslator().getTranslationRepository().addAxiomEntities(axiom);
 		Set<ComplexIntegerAxiom> axioms = getTranslator().translateSA(
 				Collections.singleton(axiom));
 		for (ComplexIntegerAxiom ax : axioms) {
