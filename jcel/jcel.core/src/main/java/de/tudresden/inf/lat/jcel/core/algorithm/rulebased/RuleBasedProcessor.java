@@ -49,7 +49,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.OntologyExpressivity;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
 
 /**
  * An object of this class is an implementation of a classification algorithm.

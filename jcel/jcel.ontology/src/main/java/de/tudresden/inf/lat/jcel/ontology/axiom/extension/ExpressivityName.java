@@ -21,6 +21,8 @@
 
 package de.tudresden.inf.lat.jcel.ontology.axiom.extension;
 
+import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
+
 /**
  * An object of this class can name the expressivity used in an ontology.
  * 

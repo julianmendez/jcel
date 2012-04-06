@@ -32,6 +32,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
 
 /**
  * An object implementing this class analyzes an complex axiom to detect what

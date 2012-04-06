@@ -23,6 +23,7 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.extension;
 
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 
 /**

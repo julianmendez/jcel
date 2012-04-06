@@ -21,6 +21,7 @@
 
 package de.tudresden.inf.lat.jcel.ontology.axiom.extension;
 
+import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomVisitor;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerClassAssertionAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerClassDeclarationAxiom;

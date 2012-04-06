@@ -44,7 +44,7 @@ import de.tudresden.inf.lat.jcel.core.completion.ext.CR7ExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR8RExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR8SExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR9ExtOptRule;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.OntologyExpressivity;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
 
 /**
  * An object of this class creates appropriate completion rule chains to process

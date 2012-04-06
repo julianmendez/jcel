@@ -19,7 +19,7 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.ontology.axiom.extension;
+package de.tudresden.inf.lat.jcel.coreontology.datatype;
 
 /**
  * 
