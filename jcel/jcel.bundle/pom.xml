@@ -97,7 +97,7 @@
  	lib/jcel/jcel.ontology/${project.version}/jcel.ontology-${project.version}.jar=../jcel.ontology/target/jcel.ontology-${project.version}.jar,
  	lib/jcel/jcel.ontology/${project.version}/copying.txt=../jcel.ontology/copying.txt,
  	lib/jcel/jcel.ontology/${project.version}/copying-lesser.txt=../jcel.ontology/copying-lesser.txt,
- 	lib/jcel/jcel.reasoner/${project.version}/jcel.ontology-${project.version}.jar=../jcel.reasoner/target/jcel.reasoner-${project.version}.jar,
+ 	lib/jcel/jcel.reasoner/${project.version}/jcel.reasoner-${project.version}.jar=../jcel.reasoner/target/jcel.reasoner-${project.version}.jar,
  	lib/jcel/jcel.reasoner/${project.version}/copying.txt=../jcel.reasoner/copying.txt,
  	lib/jcel/jcel.reasoner/${project.version}/copying-lesser.txt=../jcel.reasoner/copying-lesser.txt,
  	lib/jcel/jcel.owlapi/${project.version}/jcel.owlapi-${project.version}.jar=../jcel.owlapi/target/jcel.owlapi-${project.version}.jar,
