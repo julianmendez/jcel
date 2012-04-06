@@ -61,11 +61,11 @@ import org.semanticweb.owlapi.reasoner.TimeOutException;
 import org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException;
 import org.semanticweb.owlapi.util.Version;
 
-import de.tudresden.inf.lat.jcel.core.reasoner.IntegerReasoner;
-import de.tudresden.inf.lat.jcel.core.reasoner.RuleBasedReasoner;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactoryImpl;
 import de.tudresden.inf.lat.jcel.owlapi.translator.Translator;
+import de.tudresden.inf.lat.jcel.reasoner.main.IntegerReasoner;
+import de.tudresden.inf.lat.jcel.reasoner.main.RuleBasedReasoner;
 
 /**
  * This class is the connection with the OWL API. It implements some functions,

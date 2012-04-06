@@ -19,7 +19,7 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.core.reasoner;
+package de.tudresden.inf.lat.jcel.reasoner.main;
 
 import java.util.HashSet;
 import java.util.Iterator;

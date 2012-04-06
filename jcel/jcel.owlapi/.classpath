@@ -8,5 +8,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/jcel.coreontology"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jcel.core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jcel.ontology"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jcel.reasoner"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

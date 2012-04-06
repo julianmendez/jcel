@@ -19,7 +19,7 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.core.reasoner;
+package de.tudresden.inf.lat.jcel.reasoner.main;
 
 /**
  * This exception is thrown when a query is not supported.

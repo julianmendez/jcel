@@ -19,7 +19,7 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.core.reasoner;
+package de.tudresden.inf.lat.jcel.reasoner.main;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -111,8 +111,8 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			OntologyExpressivity expressivity = new ComplexAxiomExpressivityDetector(
 					originalAxiomSet);
 
-			logger.fine("description logic family : "
-					+ expressivity.toString() + " .");
+			logger.fine("description logic family : " + expressivity.toString()
+					+ " .");
 
 			Set<Integer> originalClassSet = new HashSet<Integer>();
 			Set<Integer> originalObjectPropertySet = new HashSet<Integer>();

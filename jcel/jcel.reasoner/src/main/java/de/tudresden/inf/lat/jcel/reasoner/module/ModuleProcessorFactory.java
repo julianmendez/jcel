@@ -19,7 +19,7 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.core.algorithm.module;
+package de.tudresden.inf.lat.jcel.reasoner.module;
 
 import java.util.Set;
 
