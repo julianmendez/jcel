@@ -22,9 +22,7 @@
 package de.tudresden.inf.lat.jcel.core.algorithm.rulebased;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.core.completion.basic.CR1Rule;
 import de.tudresden.inf.lat.jcel.core.completion.basic.CR2Rule;
@@ -46,15 +44,7 @@ import de.tudresden.inf.lat.jcel.core.completion.ext.CR7ExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR8RExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR8SExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR9ExtOptRule;
-import de.tudresden.inf.lat.jcel.core.saturation.SubPropertyNormalizer;
-import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.ComplexAxiomExpressivityDetector;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.OntologyExpressivity;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntology;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntologyImpl;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
-import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
 
 /**
  * An object of this class preprocesses an ontology. This preprocessing includes
@@ -71,15 +61,11 @@ import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
  * @author Julian Mendez
  * 
  */
-public class OntologyPreprocessor {
+public class CompletionRuleChainSelector {
 
 	private RChain chainR = new RChain(new ArrayList<RObserverRule>());
 	private SChain chainS = new SChain(new ArrayList<SObserverRule>());
-	private final OntologyExpressivity expressivityDetector;
-	private ExtendedOntology extendedOntology = new ExtendedOntologyImpl();
-	private final IntegerOntologyObjectFactory ontologyObjectFactory;
-	private Set<Integer> originalClassSet = new HashSet<Integer>();
-	private Set<Integer> originalObjectPropertySet = new HashSet<Integer>();
+	private final OntologyExpressivity expressivity;
 
 	/**
 	 * Constructs a new ontology preprocessor.
@@ -87,28 +73,22 @@ public class OntologyPreprocessor {
 	 * @param axiomSet
 	 *            set of axioms
 	 */
-	public OntologyPreprocessor(Set<ComplexIntegerAxiom> axiomSet,
-			IntegerOntologyObjectFactory factory) {
-		if (axiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (factory == null) {
+	public CompletionRuleChainSelector(OntologyExpressivity expressivity) {
+		if (expressivity == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.ontologyObjectFactory = factory;
+		this.expressivity = expressivity;
 
-		this.originalClassSet.add(IntegerEntityManager.bottomClassId);
-		this.originalClassSet.add(IntegerEntityManager.topClassId);
-		this.originalObjectPropertySet
-				.add(IntegerEntityManager.bottomObjectPropertyId);
-		this.originalObjectPropertySet
-				.add(IntegerEntityManager.topObjectPropertyId);
-
-		this.expressivityDetector = new ComplexAxiomExpressivityDetector(
-				axiomSet);
-
-		preProcess(axiomSet);
+		if (getOntologyExpressivity().hasInverseObjectProperty()
+				|| getOntologyExpressivity().hasFunctionalObjectProperty()) {
+			activateExtendedRules();
+		} else {
+			activateSimpleRules();
+		}
+		if (getOntologyExpressivity().hasBottom()) {
+			activateBottomRules();
+		}
 	}
 
 	private void activateBottomRules() {
@@ -181,48 +161,8 @@ public class OntologyPreprocessor {
 	 * 
 	 * @return the ontology expressivity
 	 */
-	public OntologyExpressivity getExpressivity() {
-		return this.expressivityDetector;
-	}
-
-	/**
-	 * Returns the extended ontology.
-	 * 
-	 * @return the extended ontology
-	 */
-	public ExtendedOntology getExtendedOntology() {
-		return this.extendedOntology;
-	}
-
-	private OntologyExpressivity getOntologyExpressivity() {
-		return this.expressivityDetector;
-	}
-
-	/**
-	 * Returns the ontology object factory.
-	 * 
-	 * @return the ontology object factory
-	 */
-	public IntegerOntologyObjectFactory getOntologyObjectFactory() {
-		return this.ontologyObjectFactory;
-	}
-
-	/**
-	 * Returns the set of classes that were before the normalization.
-	 * 
-	 * @return the set of classes that were before the normalization
-	 */
-	public Set<Integer> getOriginalClassSet() {
-		return this.originalClassSet;
-	}
-
-	/**
-	 * Returns the set of object properties that were before the normalization.
-	 * 
-	 * @return the set of object properties that were before the normalization
-	 */
-	public Set<Integer> getOriginalObjectPropertySet() {
-		return this.originalObjectPropertySet;
+	public OntologyExpressivity getOntologyExpressivity() {
+		return this.expressivity;
 	}
 
 	/**
@@ -241,39 +181,6 @@ public class OntologyPreprocessor {
 	 */
 	public SChain getSChain() {
 		return this.chainS;
-	}
-
-	private void preProcess(Set<ComplexIntegerAxiom> axiomSet) {
-		for (ComplexIntegerAxiom axiom : axiomSet) {
-			this.originalClassSet.addAll(axiom.getClassesInSignature());
-			this.originalObjectPropertySet.addAll(axiom
-					.getObjectPropertiesInSignature());
-		}
-
-		if (getOntologyExpressivity().hasInverseObjectProperty()
-				|| getOntologyExpressivity().hasFunctionalObjectProperty()) {
-			activateExtendedRules();
-		} else {
-			activateSimpleRules();
-		}
-		if (getOntologyExpressivity().hasBottom()) {
-			activateBottomRules();
-		}
-
-		OntologyNormalizer axiomNormalizer = new OntologyNormalizer();
-		SubPropertyNormalizer subPropNormalizer = new SubPropertyNormalizer(
-				getOntologyObjectFactory().getNormalizedAxiomFactory(),
-				getOntologyObjectFactory().getEntityManager());
-
-		this.extendedOntology.load(subPropNormalizer.apply(axiomNormalizer
-				.normalize(axiomSet, getOntologyObjectFactory())));
-
-		for (Integer elem : this.originalObjectPropertySet) {
-			this.extendedOntology.addObjectProperty(elem);
-		}
-		for (Integer elem : this.originalClassSet) {
-			this.extendedOntology.addClass(elem);
-		}
 	}
 
 }

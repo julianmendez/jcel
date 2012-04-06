@@ -42,10 +42,15 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
+import de.tudresden.inf.lat.jcel.core.saturation.SubPropertyNormalizer;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.ComplexAxiomExpressivityDetector;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntology;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntologyImpl;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
+import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
 
 /**
  * An object of this class is an implementation of a classification algorithm.
@@ -374,19 +379,45 @@ public class RuleBasedProcessor implements Processor {
 		logger.fine("number of axioms : " + originalAxiomSet.size());
 
 		logger.fine("preprocessing ontology ...");
-		OntologyPreprocessor preprocessor = new OntologyPreprocessor(
-				originalAxiomSet, factory);
+		ExtendedOntology extendedOntology = new ExtendedOntologyImpl();
+
+		Set<Integer> originalClassSet = new HashSet<Integer>();
+		Set<Integer> originalObjectPropertySet = new HashSet<Integer>();
+
+		for (ComplexIntegerAxiom axiom : originalAxiomSet) {
+			originalClassSet.addAll(axiom.getClassesInSignature());
+			originalObjectPropertySet.addAll(axiom
+					.getObjectPropertiesInSignature());
+		}
+
+		OntologyNormalizer axiomNormalizer = new OntologyNormalizer();
+		SubPropertyNormalizer subPropNormalizer = new SubPropertyNormalizer(
+				getOntologyObjectFactory().getNormalizedAxiomFactory(),
+				getOntologyObjectFactory().getEntityManager());
+
+		extendedOntology.load(subPropNormalizer.apply(axiomNormalizer
+				.normalize(originalAxiomSet, getOntologyObjectFactory())));
+
+		for (Integer elem : originalObjectPropertySet) {
+			extendedOntology.addObjectProperty(elem);
+		}
+		for (Integer elem : originalClassSet) {
+			extendedOntology.addClass(elem);
+		}
+
+		CompletionRuleChainSelector selector = new CompletionRuleChainSelector(
+				new ComplexAxiomExpressivityDetector(originalAxiomSet));
 
 		logger.fine("description logic family : "
-				+ preprocessor.getExpressivity().toString() + " .");
+				+ selector.getOntologyExpressivity().toString() + " .");
 
 		logger.fine("number of normalized axioms : "
-				+ preprocessor.getExtendedOntology().getAxiomSet().size());
+				+ extendedOntology.getAxiomSet().size());
 
-		preprocessor.activateProfiler();
+		selector.activateProfiler();
 
-		this.chainR = preprocessor.getRChain();
-		this.chainS = preprocessor.getSChain();
+		this.chainR = selector.getRChain();
+		this.chainS = selector.getSChain();
 		logger.fine("set of completion rules : \n" + this.chainS + "\n"
 				+ this.chainR + "\n");
 
@@ -409,7 +440,7 @@ public class RuleBasedProcessor implements Processor {
 		logger.fine("creating class graph and object property graph ...");
 
 		this.status = new ClassifierStatusImpl(factory.getEntityManager(),
-				preprocessor.getExtendedOntology());
+				extendedOntology);
 
 		logger.finer("preparing queue ...");
 		prepareSets();
