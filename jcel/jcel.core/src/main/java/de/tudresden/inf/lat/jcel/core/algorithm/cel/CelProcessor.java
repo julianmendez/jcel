@@ -40,15 +40,12 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerRelationMapImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
-import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
-import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
 
 /**
  * Classifies an ontology using the CEL algorithm. The rules are:
@@ -82,15 +79,16 @@ public class CelProcessor implements Processor {
 	private static final Integer topClassId = IntegerEntityManager.topClassId;
 	private static final Integer topObjectPropertyId = IntegerEntityManager.topObjectPropertyId;
 
+	private NormalizedIntegerAxiomFactory axiomFactory;
 	private IntegerSubsumerGraphImpl classGraph = null;
 	private IntegerHierarchicalGraph classHierarchy = null;
 	private IntegerHierarchicalGraph dataPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> directTypes = null;
+	private IntegerEntityManager entityManager;
 	private CelExtendedOntology extendedOntology = null;
 	private boolean isReady = false;
 	private IntegerSubsumerGraphImpl objectPropertyGraph = null;
 	private IntegerHierarchicalGraph objectPropertyHierarchy = null;
-	private IntegerOntologyObjectFactory ontologyObjectFactory;
 	private Map<Integer, Set<Integer>> propertyUsedByClass = null;
 	private Deque<ExtensionEntry> queueEntries = new ArrayDeque<ExtensionEntry>();
 	private Deque<Integer> queueKeys = new ArrayDeque<Integer>();
@@ -101,20 +99,33 @@ public class CelProcessor implements Processor {
 	/**
 	 * Constructs a new CEL processor.
 	 * 
-	 * @param axioms
+	 * @param normalizedAxiomSet
 	 *            set of axioms
 	 */
-	public CelProcessor(Set<ComplexIntegerAxiom> axioms,
-			IntegerOntologyObjectFactory factory) {
-		if (axioms == null) {
+	public CelProcessor(Set<Integer> originalObjectProperties,
+			Set<Integer> originalClasses,
+			Set<NormalizedIntegerAxiom> normalizedAxiomSet,
+			NormalizedIntegerAxiomFactory factory, IntegerEntityManager manager) {
+		if (originalObjectProperties == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (originalClasses == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (normalizedAxiomSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
+		if (manager == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
 
-		this.ontologyObjectFactory = factory;
-		preProcess(axioms);
+		this.axiomFactory = factory;
+		this.entityManager = manager;
+		preProcess(originalObjectProperties, originalClasses,
+				normalizedAxiomSet);
 	}
 
 	private void addToQueue(Integer className,
@@ -133,13 +144,13 @@ public class CelProcessor implements Processor {
 	private Map<Integer, Set<Integer>> computeDirectTypes(
 			IntegerHierarchicalGraph hierarchicalGraph) {
 		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
-		Set<Integer> individuals = getIdGenerator().getEntities(
+		Set<Integer> individuals = getEntityManager().getEntities(
 				IntegerEntityType.INDIVIDUAL, false);
 		for (Integer indiv : individuals) {
 			Set<Integer> subsumers = hierarchicalGraph
-					.getParents(getIdGenerator().getAuxiliaryNominal(indiv));
+					.getParents(getEntityManager().getAuxiliaryNominal(indiv));
 			for (Integer elem : subsumers) {
-				if (getIdGenerator().getAuxiliaryNominals().contains(elem)) {
+				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
 					throw new IllegalStateException(
 							"An individual has another individual as direct subsumer.");
 				}
@@ -152,15 +163,16 @@ public class CelProcessor implements Processor {
 	private Map<Integer, Set<Integer>> computeSameIndividualMap(
 			IntegerHierarchicalGraph hierarchicalGraph) {
 		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
-		Set<Integer> individuals = getIdGenerator().getEntities(
+		Set<Integer> individuals = getEntityManager().getEntities(
 				IntegerEntityType.INDIVIDUAL, false);
 		for (Integer indiv : individuals) {
 			Set<Integer> equivalentClasses = hierarchicalGraph
-					.getEquivalents(getIdGenerator().getAuxiliaryNominal(indiv));
+					.getEquivalents(getEntityManager().getAuxiliaryNominal(
+							indiv));
 			Set<Integer> equivalents = new HashSet<Integer>();
 			for (Integer elem : equivalentClasses) {
-				if (getIdGenerator().getAuxiliaryNominals().contains(elem)) {
-					equivalents.add(getIdGenerator().getIndividual(elem));
+				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
+					equivalents.add(getEntityManager().getIndividual(elem));
 				}
 			}
 			ret.put(indiv, Collections.unmodifiableSet(equivalents));
@@ -306,17 +318,17 @@ public class CelProcessor implements Processor {
 		return Collections.unmodifiableMap(this.directTypes);
 	}
 
-	private CelExtendedOntology getExtendedOntology() {
-		return this.extendedOntology;
-	}
-
 	/**
 	 * Returns the id generator.
 	 * 
 	 * @return the id generator.
 	 */
-	protected IntegerEntityManager getIdGenerator() {
-		return getOntologyObjectFactory().getEntityManager();
+	protected IntegerEntityManager getEntityManager() {
+		return this.entityManager;
+	}
+
+	private CelExtendedOntology getExtendedOntology() {
+		return this.extendedOntology;
 	}
 
 	private IntegerSubsumerGraph getObjectPropertyGraph() {
@@ -331,8 +343,8 @@ public class CelProcessor implements Processor {
 		return this.objectPropertyHierarchy;
 	}
 
-	public IntegerOntologyObjectFactory getOntologyObjectFactory() {
-		return this.ontologyObjectFactory;
+	public NormalizedIntegerAxiomFactory getOntologyObjectFactory() {
+		return this.axiomFactory;
 	}
 
 	private Set<Integer> getPropertyUsedByClass(Integer cA) {
@@ -478,11 +490,19 @@ public class CelProcessor implements Processor {
 	 * <li>prepares all the queues to run the algorithm</li>
 	 * </ul>
 	 * 
-	 * @param originalAxiomSet
+	 * @param normalizedAxiomSet
 	 *            set of axioms, i.e. the ontology
 	 */
-	protected void preProcess(Set<ComplexIntegerAxiom> originalAxiomSet) {
-		if (originalAxiomSet == null) {
+	protected void preProcess(Set<Integer> originalObjectProperties,
+			Set<Integer> originalClasses,
+			Set<NormalizedIntegerAxiom> normalizedAxiomSet) {
+		if (originalObjectProperties == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (originalClasses == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (normalizedAxiomSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
@@ -500,30 +520,26 @@ public class CelProcessor implements Processor {
 		// These sets include the declared entities that are not present in the
 		// normalized axioms.
 		Set<Integer> originalClassSet = new HashSet<Integer>();
-		Set<Integer> originalObjectPropertySet = new HashSet<Integer>();
-		for (IntegerAxiom axiom : originalAxiomSet) {
-			originalClassSet.addAll(axiom.getClassesInSignature());
-			originalObjectPropertySet.addAll(axiom
-					.getObjectPropertiesInSignature());
-		}
+		originalClassSet.addAll(originalClasses);
 		originalClassSet.add(bottomClassId);
 		originalClassSet.add(topClassId);
+
+		Set<Integer> originalObjectPropertySet = new HashSet<Integer>();
+		originalObjectPropertySet.addAll(originalObjectProperties);
 		originalObjectPropertySet.add(bottomObjectPropertyId);
 		originalObjectPropertySet.add(topObjectPropertyId);
 
 		logger.finer("normalizing ontology ...");
-		OntologyNormalizer normalizer = new OntologyNormalizer();
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
-		ontology.addAll(normalizer.normalize(originalAxiomSet,
-				getOntologyObjectFactory()));
+		ontology.addAll(normalizedAxiomSet);
 
 		logger.finer("auxiliary classes created (including nominals) : "
-				+ getIdGenerator().getEntities(IntegerEntityType.CLASS, true)
+				+ getEntityManager().getEntities(IntegerEntityType.CLASS, true)
 						.size());
 		logger.finer("auxiliary classes created for nominals : "
-				+ (getIdGenerator().getIndividuals().size()));
+				+ (getEntityManager().getIndividuals().size()));
 		logger.finer("auxiliary object properties created : "
-				+ getIdGenerator().getEntities(
+				+ getEntityManager().getEntities(
 						IntegerEntityType.OBJECT_PROPERTY, true).size());
 
 		logger.finer("creating extended ontology ...");
@@ -702,7 +718,7 @@ public class CelProcessor implements Processor {
 	 *            the hierarchical graph
 	 */
 	private void processNominals(IntegerHierarchicalGraph hierarchicalGraph) {
-		Set<Integer> nominals = getIdGenerator().getAuxiliaryNominals();
+		Set<Integer> nominals = getEntityManager().getAuxiliaryNominals();
 		for (Integer indiv : nominals) {
 			Set<Integer> descendants = getDescendants(hierarchicalGraph, indiv);
 			for (Integer c : descendants) {
@@ -731,25 +747,25 @@ public class CelProcessor implements Processor {
 	private void removeAuxiliaryClassesExceptNominals() {
 		Set<Integer> reqClasses = new HashSet<Integer>();
 		for (Integer elem : getClassGraph().getElements()) {
-			if (!getIdGenerator().isAuxiliary(elem)) {
+			if (!getEntityManager().isAuxiliary(elem)) {
 				reqClasses.add(elem);
 			}
 		}
-		reqClasses.addAll(getIdGenerator().getAuxiliaryNominals());
+		reqClasses.addAll(getEntityManager().getAuxiliaryNominals());
 		this.classGraph.retainAll(reqClasses);
 	}
 
 	private void removeAuxiliaryNominals() {
 		Set<Integer> reqClasses = new HashSet<Integer>();
 		reqClasses.addAll(getClassGraph().getElements());
-		reqClasses.removeAll(getIdGenerator().getAuxiliaryNominals());
+		reqClasses.removeAll(getEntityManager().getAuxiliaryNominals());
 		this.classGraph.retainAll(reqClasses);
 	}
 
 	private void removeAuxiliaryObjectProperties() {
 		Set<Integer> reqObjectProperties = new HashSet<Integer>();
 		for (Integer elem : getObjectPropertyGraph().getElements()) {
-			if (!getIdGenerator().isAuxiliary(elem)) {
+			if (!getEntityManager().isAuxiliary(elem)) {
 				reqObjectProperties.add(elem);
 			}
 		}
