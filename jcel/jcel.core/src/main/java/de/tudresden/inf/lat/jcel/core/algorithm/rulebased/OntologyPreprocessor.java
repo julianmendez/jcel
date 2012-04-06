@@ -262,7 +262,8 @@ public class OntologyPreprocessor {
 
 		OntologyNormalizer axiomNormalizer = new OntologyNormalizer();
 		SubPropertyNormalizer subPropNormalizer = new SubPropertyNormalizer(
-				getOntologyObjectFactory());
+				getOntologyObjectFactory().getNormalizedAxiomFactory(),
+				getOntologyObjectFactory().getEntityManager());
 
 		this.extendedOntology.load(subPropNormalizer.apply(axiomNormalizer
 				.normalize(axiomSet, getOntologyObjectFactory())));

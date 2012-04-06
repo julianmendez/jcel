@@ -109,7 +109,7 @@ class NormalizerNR2_4 implements NormalizationRule {
 		if (aLiteral != null) {
 			IntegerClass newClass = getOntologyObjectFactory()
 					.getDataTypeFactory().createClass(
-							getOntologyObjectFactory().getIdGenerator()
+							getOntologyObjectFactory().getEntityManager()
 									.createAnonymousEntity(
 											IntegerEntityType.CLASS, true));
 

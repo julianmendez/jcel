@@ -69,7 +69,7 @@ public class Translator {
 		}
 
 		TranslationRepository repository = new TranslationRepository(
-				dataFactory, factory.getIdGenerator());
+				dataFactory, factory.getEntityManager());
 		this.factory = factory;
 		ObjectPropertyExpressionTranslator objPropExprTranslator = new ObjectPropertyExpressionTranslator(
 				this.factory.getDataTypeFactory(), repository);

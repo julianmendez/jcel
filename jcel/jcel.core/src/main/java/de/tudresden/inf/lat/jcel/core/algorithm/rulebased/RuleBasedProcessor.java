@@ -213,7 +213,7 @@ public class RuleBasedProcessor implements Processor {
 	}
 
 	private IntegerEntityManager getIdGenerator() {
-		return getOntologyObjectFactory().getIdGenerator();
+		return getOntologyObjectFactory().getEntityManager();
 	}
 
 	private IntegerSubsumerGraph getObjectPropertyGraph() {
@@ -391,24 +391,24 @@ public class RuleBasedProcessor implements Processor {
 				+ this.chainR + "\n");
 
 		logger.fine("classes read (including TOP and BOTTOM classes) : "
-				+ (getOntologyObjectFactory().getIdGenerator().getEntities(
+				+ (getOntologyObjectFactory().getEntityManager().getEntities(
 						IntegerEntityType.CLASS, false).size()));
 		logger.fine("object properties read (including TOP and BOTTOM object properties) : "
-				+ (getOntologyObjectFactory().getIdGenerator().getEntities(
+				+ (getOntologyObjectFactory().getEntityManager().getEntities(
 						IntegerEntityType.OBJECT_PROPERTY, false).size()));
 		logger.fine("auxiliary classes created (including nominals) : "
-				+ (getOntologyObjectFactory().getIdGenerator().getEntities(
+				+ (getOntologyObjectFactory().getEntityManager().getEntities(
 						IntegerEntityType.CLASS, true).size()));
 		logger.fine("auxiliary classes created for nominals : "
-				+ (getOntologyObjectFactory().getIdGenerator().getIndividuals()
-						.size()));
+				+ (getOntologyObjectFactory().getEntityManager()
+						.getIndividuals().size()));
 		logger.fine("auxiliary object properties created : "
-				+ (getOntologyObjectFactory().getIdGenerator().getEntities(
+				+ (getOntologyObjectFactory().getEntityManager().getEntities(
 						IntegerEntityType.OBJECT_PROPERTY, false).size()));
 
 		logger.fine("creating class graph and object property graph ...");
 
-		this.status = new ClassifierStatusImpl(factory.getIdGenerator(),
+		this.status = new ClassifierStatusImpl(factory.getEntityManager(),
 				preprocessor.getExtendedOntology());
 
 		logger.finer("preparing queue ...");

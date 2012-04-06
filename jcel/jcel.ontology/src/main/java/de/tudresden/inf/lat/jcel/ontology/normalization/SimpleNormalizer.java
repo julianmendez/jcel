@@ -199,7 +199,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 	}
 
 	private IntegerEntityManager getIdGenerator() {
-		return getOntologyObjectFactory().getIdGenerator();
+		return getOntologyObjectFactory().getEntityManager();
 	}
 
 	private NormalizedIntegerAxiomFactory getNormalizedAxiomFactory() {

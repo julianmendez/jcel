@@ -91,7 +91,7 @@ class NormalizerEquivProperties implements NormalizationRule {
 
 	private Integer getObjectPropertyId(IntegerObjectPropertyExpression propExpr) {
 		return propExpr.accept(new ObjectPropertyIdFinder(
-				getOntologyObjectFactory().getIdGenerator()));
+				getOntologyObjectFactory().getEntityManager()));
 	}
 
 	private IntegerOntologyObjectFactory getOntologyObjectFactory() {

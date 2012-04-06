@@ -87,7 +87,7 @@ class NormalizerNR2_3 implements NormalizationRule {
 				ret = new HashSet<IntegerAxiom>();
 				IntegerClass newClass = getOntologyObjectFactory()
 						.getDataTypeFactory().createClass(
-								getOntologyObjectFactory().getIdGenerator()
+								getOntologyObjectFactory().getEntityManager()
 										.createAnonymousEntity(
 												IntegerEntityType.CLASS, true));
 				IntegerObjectSomeValuesFrom newExistential = getOntologyObjectFactory()

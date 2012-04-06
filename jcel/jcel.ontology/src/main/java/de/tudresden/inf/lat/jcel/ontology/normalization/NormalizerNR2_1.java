@@ -97,7 +97,7 @@ class NormalizerNR2_1 implements NormalizationRule {
 			Integer lastPropertyName = getObjectPropertyId(propertyList
 					.get(lastPos));
 			Integer newPropertyName = getOntologyObjectFactory()
-					.getIdGenerator().createAnonymousEntity(
+					.getEntityManager().createAnonymousEntity(
 							IntegerEntityType.OBJECT_PROPERTY, true);
 			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
 					.createRI3Axiom(newPropertyName, lastPropertyName,
@@ -131,10 +131,10 @@ class NormalizerNR2_1 implements NormalizationRule {
 	private RI2Axiom createRI2AxiomWithInverse(Integer subProperty,
 			Integer superProperty) {
 		Integer inverseSubProperty = getOntologyObjectFactory()
-				.getIdGenerator().createOrGetInverseObjectPropertyOf(
+				.getEntityManager().createOrGetInverseObjectPropertyOf(
 						subProperty);
 		Integer inverseSuperProperty = getOntologyObjectFactory()
-				.getIdGenerator().createOrGetInverseObjectPropertyOf(
+				.getEntityManager().createOrGetInverseObjectPropertyOf(
 						superProperty);
 		return getOntologyObjectFactory().getNormalizedAxiomFactory()
 				.createRI2Axiom(inverseSubProperty, inverseSuperProperty);
@@ -143,13 +143,13 @@ class NormalizerNR2_1 implements NormalizationRule {
 	private RI3Axiom createRI3AxiomWithInverse(Integer firstProperty,
 			Integer secondProperty, Integer superProperty) {
 		Integer inverseFirstProperty = getOntologyObjectFactory()
-				.getIdGenerator().createOrGetInverseObjectPropertyOf(
+				.getEntityManager().createOrGetInverseObjectPropertyOf(
 						firstProperty);
 		Integer inverseLastProperty = getOntologyObjectFactory()
-				.getIdGenerator().createOrGetInverseObjectPropertyOf(
+				.getEntityManager().createOrGetInverseObjectPropertyOf(
 						secondProperty);
 		Integer inverseSuperProperty = getOntologyObjectFactory()
-				.getIdGenerator().createOrGetInverseObjectPropertyOf(
+				.getEntityManager().createOrGetInverseObjectPropertyOf(
 						superProperty);
 		return getOntologyObjectFactory().getNormalizedAxiomFactory()
 				.createRI3Axiom(inverseLastProperty, inverseFirstProperty,
@@ -158,7 +158,7 @@ class NormalizerNR2_1 implements NormalizationRule {
 
 	private Integer getObjectPropertyId(IntegerObjectPropertyExpression propExpr) {
 		return propExpr.accept(new ObjectPropertyIdFinder(
-				getOntologyObjectFactory().getIdGenerator()));
+				getOntologyObjectFactory().getEntityManager()));
 	}
 
 	private IntegerOntologyObjectFactory getOntologyObjectFactory() {

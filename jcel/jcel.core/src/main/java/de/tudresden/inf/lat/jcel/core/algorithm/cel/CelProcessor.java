@@ -316,7 +316,7 @@ public class CelProcessor implements Processor {
 	 * @return the id generator.
 	 */
 	protected IntegerEntityManager getIdGenerator() {
-		return getOntologyObjectFactory().getIdGenerator();
+		return getOntologyObjectFactory().getEntityManager();
 	}
 
 	private IntegerSubsumerGraph getObjectPropertyGraph() {

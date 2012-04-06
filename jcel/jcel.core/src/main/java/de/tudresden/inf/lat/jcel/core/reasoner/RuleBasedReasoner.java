@@ -122,7 +122,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		} else {
 			Integer classIndex = this.auxClassInvMap.get(ce);
 			if (classIndex == null) {
-				Integer auxClassId = this.factory.getIdGenerator()
+				Integer auxClassId = this.factory.getEntityManager()
 						.createAnonymousEntity(IntegerEntityType.CLASS, false);
 				ret = getDataTypeFactory().createClass(auxClassId);
 				this.auxClassMap.put(auxClassId, ce);
@@ -370,7 +370,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	private Integer getObjectPropertyExpressionId(
 			IntegerObjectPropertyExpression propExpr) {
 		return propExpr.accept(new ObjectPropertyIdFinder(this.factory
-				.getIdGenerator()));
+				.getEntityManager()));
 	}
 
 	@Override

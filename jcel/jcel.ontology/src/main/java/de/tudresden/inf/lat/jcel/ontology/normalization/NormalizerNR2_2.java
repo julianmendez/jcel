@@ -108,7 +108,7 @@ class NormalizerNR2_2 implements NormalizationRule {
 				applied = true;
 				IntegerClass newClass = getOntologyObjectFactory()
 						.getDataTypeFactory().createClass(
-								getOntologyObjectFactory().getIdGenerator()
+								getOntologyObjectFactory().getEntityManager()
 										.createAnonymousEntity(
 												IntegerEntityType.CLASS, true));
 				ret.add(getOntologyObjectFactory().getComplexAxiomFactory()

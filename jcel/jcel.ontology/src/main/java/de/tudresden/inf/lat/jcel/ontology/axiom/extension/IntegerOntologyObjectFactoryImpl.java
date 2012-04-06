@@ -25,10 +25,10 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFacto
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactoryImpl;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactoryImpl;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManagerImpl;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactoryImpl;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManagerImpl;
 
 /**
  * An object of this class can create all the objects in an ontology.
@@ -60,7 +60,7 @@ public class IntegerOntologyObjectFactoryImpl implements
 	}
 
 	@Override
-	public IntegerEntityManager getIdGenerator() {
+	public IntegerEntityManager getEntityManager() {
 		return this.idGenerator;
 	}
 

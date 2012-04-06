@@ -51,14 +51,14 @@ public class OntologyNormalizerTest extends TestCase {
 	private IntegerClass createNewClass(IntegerOntologyObjectFactory factory,
 			String name) {
 		return factory.getDataTypeFactory().createClass(
-				factory.getIdGenerator().createNamedEntity(
+				factory.getEntityManager().createNamedEntity(
 						IntegerEntityType.CLASS, name, false));
 	}
 
 	private IntegerObjectProperty createNewObjectProperty(
 			IntegerOntologyObjectFactory factory, String name) {
 		return factory.getDataTypeFactory().createObjectProperty(
-				factory.getIdGenerator().createNamedEntity(
+				factory.getEntityManager().createNamedEntity(
 						IntegerEntityType.OBJECT_PROPERTY, name, false));
 	}
 
@@ -111,7 +111,7 @@ public class OntologyNormalizerTest extends TestCase {
 
 		Set<NormalizedIntegerAxiom> expectedSet = new HashSet<NormalizedIntegerAxiom>();
 		expectedSet.add(factory.getNormalizedAxiomFactory().createGCI3Axiom(
-				factory.getIdGenerator().createOrGetInverseObjectPropertyOf(
+				factory.getEntityManager().createOrGetInverseObjectPropertyOf(
 						r.getId()), a.getId(), b.getId()));
 
 		assertEquals(expectedSet, normalizedSet);

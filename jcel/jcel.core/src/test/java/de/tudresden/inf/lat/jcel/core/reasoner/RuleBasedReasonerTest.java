@@ -70,14 +70,14 @@ public class RuleBasedReasonerTest extends TestCase {
 	private IntegerClass createNewClass(IntegerOntologyObjectFactory factory,
 			String name) {
 		return factory.getDataTypeFactory().createClass(
-				factory.getIdGenerator().createNamedEntity(
+				factory.getEntityManager().createNamedEntity(
 						IntegerEntityType.CLASS, name, false));
 	}
 
 	private IntegerObjectProperty createNewObjectProperty(
 			IntegerOntologyObjectFactory factory, String name) {
 		return factory.getDataTypeFactory().createObjectProperty(
-				factory.getIdGenerator().createNamedEntity(
+				factory.getEntityManager().createNamedEntity(
 						IntegerEntityType.OBJECT_PROPERTY, name, false));
 	}
 

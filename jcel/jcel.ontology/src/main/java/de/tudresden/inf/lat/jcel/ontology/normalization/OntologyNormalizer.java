@@ -102,7 +102,7 @@ public class OntologyNormalizer {
 		}
 
 		for (Integer propId : objectPropIdSet) {
-			Integer inversePropId = factory.getIdGenerator()
+			Integer inversePropId = factory.getEntityManager()
 					.createOrGetInverseObjectPropertyOf(propId);
 			currentAxiomSet
 					.addAll(normalizer.getAxiomsForInverseObjectProperties(

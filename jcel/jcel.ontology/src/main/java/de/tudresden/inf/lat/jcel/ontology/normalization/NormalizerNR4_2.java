@@ -82,7 +82,7 @@ class NormalizerNR4_2 implements NormalizationRule {
 			ret = new HashSet<IntegerAxiom>();
 			Integer individual = oneOf.getIndividual();
 			Integer auxiliaryClass = getOntologyObjectFactory()
-					.getIdGenerator().createOrGetClassIdForIndividual(
+					.getEntityManager().createOrGetClassIdForIndividual(
 							individual);
 			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
 					.createNominalAxiom(auxiliaryClass, individual));

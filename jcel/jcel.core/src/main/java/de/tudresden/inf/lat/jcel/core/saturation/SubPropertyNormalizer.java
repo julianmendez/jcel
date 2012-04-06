@@ -24,8 +24,9 @@ package de.tudresden.inf.lat.jcel.core.saturation;
 import java.util.Collections;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 
 /**
  * This class models a normalizer that saturates an ontology with object
@@ -56,17 +57,16 @@ public class SubPropertyNormalizer implements SaturationRule {
 	 * @param factory
 	 *            factory
 	 */
-	public SubPropertyNormalizer(IntegerOntologyObjectFactory factory) {
+	public SubPropertyNormalizer(NormalizedIntegerAxiomFactory factory,
+			IntegerEntityManager entityManager) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.sr0 = new SR0Rule(factory.getNormalizedAxiomFactory());
-		this.sr1sr2 = new SR1AndSR2Rules(factory.getNormalizedAxiomFactory(),
-				factory.getIdGenerator());
-		this.sr3 = new SR3Rule(factory.getNormalizedAxiomFactory(),
-				factory.getIdGenerator());
-		this.sr4 = new SR4Rule(factory.getNormalizedAxiomFactory());
+		this.sr0 = new SR0Rule(factory);
+		this.sr1sr2 = new SR1AndSR2Rules(factory, entityManager);
+		this.sr3 = new SR3Rule(factory, entityManager);
+		this.sr4 = new SR4Rule(factory);
 	}
 
 	/**
