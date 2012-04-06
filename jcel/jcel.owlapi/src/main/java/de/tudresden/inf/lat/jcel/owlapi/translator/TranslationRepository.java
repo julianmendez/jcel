@@ -241,7 +241,7 @@ public class TranslationRepository {
 		}
 
 		boolean ret = false;
-		if (!this.individualInvMap.containsKey(objProp)) {
+		if (!this.objectPropertyInvMap.containsKey(objProp)) {
 			Integer id = this.entityManager.createNamedEntity(
 					IntegerEntityType.OBJECT_PROPERTY, objProp.toStringID(),
 					false);
