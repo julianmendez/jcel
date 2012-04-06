@@ -25,10 +25,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerPropertyRangeAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**

@@ -40,8 +40,8 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 
 /**
  * An object of this class is a repository used for the translation between OWL

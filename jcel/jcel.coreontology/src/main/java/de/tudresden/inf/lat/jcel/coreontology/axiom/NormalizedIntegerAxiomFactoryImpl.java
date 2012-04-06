@@ -19,7 +19,7 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.ontology.axiom.normalized;
+package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.List;
 

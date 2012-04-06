@@ -24,8 +24,8 @@ package de.tudresden.inf.lat.jcel.ontology.normalization;
 import java.util.Collections;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 
 /**
  * <p>

@@ -23,7 +23,7 @@ package de.tudresden.inf.lat.jcel.ontology.normalization;
 
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 
 /**
  * This interface is implemented by normalization rules. A normalization rule

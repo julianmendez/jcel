@@ -19,7 +19,7 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.ontology.datatype;
+package de.tudresden.inf.lat.jcel.coreontology.datatype;
 
 import java.util.Collections;
 import java.util.HashMap;

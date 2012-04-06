@@ -26,11 +26,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerDisjointClassesAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
 

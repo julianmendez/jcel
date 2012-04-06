@@ -19,7 +19,7 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.ontology.axiom.normalized;
+package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -27,7 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpressionWord;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
 
 /**
  * Axiom of the form:

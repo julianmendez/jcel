@@ -19,9 +19,9 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.ontology.axiom.normalized;
+package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 
 /**
  * This interface is for normalized axioms, that is, resulting axioms of the

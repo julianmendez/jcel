@@ -25,6 +25,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
+
 /**
  * This class models an existential restriction with object properties, this is:
  * &exist; r <i>.</i> C , where r is an object property expression and C is a

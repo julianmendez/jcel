@@ -23,7 +23,7 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.extension;
 
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 
 /**
  * An object implementing this class can detect the expressivity of a given set

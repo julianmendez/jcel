@@ -21,7 +21,7 @@
 
 package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 
 /**
  * This interface is for complex axioms. They are regular axioms before the

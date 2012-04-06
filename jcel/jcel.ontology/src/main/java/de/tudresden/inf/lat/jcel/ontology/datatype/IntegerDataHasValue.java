@@ -24,6 +24,8 @@ package de.tudresden.inf.lat.jcel.ontology.datatype;
 import java.util.Collections;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
+
 /**
  * This class models a has-value class expression, this is: &exist; r <i>.</i>
  * {v} , where r is data property expression and v is a value.

@@ -19,9 +19,9 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.ontology.axiom.normalized;
+package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpressionWord;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
 
 /**
  * This interface is a collection of constants used by classes that implement an

@@ -24,6 +24,8 @@ package de.tudresden.inf.lat.jcel.ontology.datatype;
 import java.util.Collections;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
+
 /**
  * This class models an inverse object property.
  * 

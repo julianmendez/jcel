@@ -19,7 +19,7 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.ontology.axiom.normalized;
+package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 /**
  * This class models a visitor of <code>NormalizedIntegerAxiom</code>.

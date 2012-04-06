@@ -21,10 +21,10 @@
 
 package de.tudresden.inf.lat.jcel.ontology.axiom.extension;
 
+import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 
 /**
  * An object implementing this interface can create all the objects in an

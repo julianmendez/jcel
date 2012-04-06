@@ -23,6 +23,8 @@ package de.tudresden.inf.lat.jcel.ontology.datatype;
 
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
+
 /**
  * An object implementing this class can create basic ontology objects.
  * 
@@ -65,8 +67,8 @@ public class IntegerDataTypeFactoryImpl implements IntegerDataTypeFactory {
 	}
 
 	@Override
-	public IntegerDataSomeValuesFrom createDataSomeValuesFrom(int dataPropertyId,
-			IntegerClassExpression classExpression) {
+	public IntegerDataSomeValuesFrom createDataSomeValuesFrom(
+			int dataPropertyId, IntegerClassExpression classExpression) {
 		if (classExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

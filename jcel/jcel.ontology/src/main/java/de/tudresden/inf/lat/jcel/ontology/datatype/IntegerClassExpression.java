@@ -21,6 +21,8 @@
 
 package de.tudresden.inf.lat.jcel.ontology.datatype;
 
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerDatatype;
+
 /**
  * This interface is implemented by classes that model class expressions with
  * integer numbers.

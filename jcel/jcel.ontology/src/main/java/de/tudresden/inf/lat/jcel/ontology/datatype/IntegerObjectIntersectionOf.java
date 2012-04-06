@@ -26,6 +26,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
+
 /**
  * This class models an intersection of several class expressions, this is:
  * C<sub>1</sub> &#8851; &hellip; &#8851; C<sub>n</sub>

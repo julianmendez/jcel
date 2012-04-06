@@ -24,6 +24,8 @@ package de.tudresden.inf.lat.jcel.ontology.datatype;
 import java.util.Collections;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
+
 /**
  * This models a class, this is : A
  * 

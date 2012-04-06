@@ -21,7 +21,7 @@
 
 package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpressionWord;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
 
 /**
  * This interface is a collection of constants used by classes that implement an
