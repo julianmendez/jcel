@@ -47,18 +47,6 @@
 
 		<dependency>
 			<groupId>jcel</groupId>
-			<artifactId>jcel.ontology</artifactId>
-			<version>0.17.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>jcel</groupId>
-			<artifactId>jcel.core</artifactId>
-			<version>0.17.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>jcel</groupId>
 			<artifactId>jcel.owlapi</artifactId>
 			<version>0.17.0</version>
 		</dependency>
