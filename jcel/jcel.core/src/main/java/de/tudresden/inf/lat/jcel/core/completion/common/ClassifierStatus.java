@@ -25,7 +25,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.core.graph.VNode;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntology;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.ExtendedOntology;
 
 /**
  * An class implementing this interface contains the axioms of the ontology and

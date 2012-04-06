@@ -26,9 +26,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.FunctObjectPropAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
 
 /**
  * <ul>

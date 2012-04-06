@@ -31,7 +31,7 @@ import de.tudresden.inf.lat.jcel.core.completion.common.REntry;
 import de.tudresden.inf.lat.jcel.core.completion.common.REntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 
 /**
  * <p>

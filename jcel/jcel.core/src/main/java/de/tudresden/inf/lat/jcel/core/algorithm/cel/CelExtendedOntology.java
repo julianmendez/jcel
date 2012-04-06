@@ -28,18 +28,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.FunctObjectPropAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI0Axiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI1Axiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI2Axiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI3Axiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NominalAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomVisitor;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI1Axiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RangeAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomVisitor;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
 
 /**
  * This class models an extended ontology. This is referred in the documentation

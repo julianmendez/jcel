@@ -35,12 +35,12 @@ import de.tudresden.inf.lat.jcel.core.algorithm.common.UnclassifiedOntologyExcep
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactory;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**

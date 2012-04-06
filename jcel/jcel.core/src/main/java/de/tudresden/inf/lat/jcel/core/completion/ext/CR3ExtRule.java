@@ -33,7 +33,7 @@ import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI2Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
 
 /**
  * <p>

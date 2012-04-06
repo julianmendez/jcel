@@ -31,7 +31,7 @@ import de.tudresden.inf.lat.jcel.core.completion.common.SEntry;
 import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.GCI0Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0Axiom;
 
 /**
  * <p>

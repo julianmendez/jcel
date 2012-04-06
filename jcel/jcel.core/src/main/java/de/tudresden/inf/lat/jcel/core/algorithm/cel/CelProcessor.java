@@ -40,12 +40,12 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerRelationMapImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI2Axiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.RI3Axiom;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 
 /**
  * Classifies an ontology using the CEL algorithm. The rules are:

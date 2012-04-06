@@ -43,13 +43,13 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.core.saturation.SubPropertyNormalizer;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.ExtendedOntology;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.ExtendedOntologyImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.OntologyExpressivity;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntology;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntologyImpl;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
 
 /**
  * An object of this class is an implementation of a classification algorithm.
