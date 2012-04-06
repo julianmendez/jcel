@@ -60,6 +60,7 @@ public class RuleBasedProcessor implements Processor {
 
 	private static final Logger logger = Logger
 			.getLogger(RuleBasedProcessor.class.getName());
+
 	private static final long loggingFrequency = 0x100000;
 	private static final Integer topClassId = IntegerEntityManager.topClassId;
 
@@ -425,7 +426,8 @@ public class RuleBasedProcessor implements Processor {
 
 		logger.fine("configuring processor ...");
 
-		logger.fine("number of axioms : " + normalizedAxiomSet.size());
+		logger.fine("number of normalized axioms before saturation : "
+				+ normalizedAxiomSet.size());
 
 		logger.fine("preprocessing ontology ...");
 		ExtendedOntology extendedOntology = new ExtendedOntologyImpl();
@@ -442,17 +444,12 @@ public class RuleBasedProcessor implements Processor {
 			extendedOntology.addClass(elem);
 		}
 
-		CompletionRuleChainSelector selector = new CompletionRuleChainSelector(
-				expressivity);
-
-		logger.fine("description logic family : "
-				+ selector.getOntologyExpressivity().toString() + " .");
-
-		logger.fine("number of normalized axioms : "
+		logger.fine("number of normalized axioms after saturation : "
 				+ extendedOntology.getAxiomSet().size());
 
+		CompletionRuleChainSelector selector = new CompletionRuleChainSelector(
+				expressivity);
 		selector.activateProfiler();
-
 		this.chainR = selector.getRChain();
 		this.chainS = selector.getSChain();
 		logger.fine("set of completion rules : \n" + this.chainS + "\n"
@@ -471,7 +468,7 @@ public class RuleBasedProcessor implements Processor {
 				+ (getEntityManager().getIndividuals().size()));
 		logger.fine("auxiliary object properties created : "
 				+ (getEntityManager().getEntities(
-						IntegerEntityType.OBJECT_PROPERTY, false).size()));
+						IntegerEntityType.OBJECT_PROPERTY, true).size()));
 
 		logger.fine("creating class graph and object property graph ...");
 

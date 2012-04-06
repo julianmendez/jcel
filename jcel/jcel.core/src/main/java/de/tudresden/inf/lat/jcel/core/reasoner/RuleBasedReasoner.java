@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
 import de.tudresden.inf.lat.jcel.core.algorithm.rulebased.RuleBasedProcessor;
@@ -53,6 +54,9 @@ import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
  * @author Julian Mendez
  */
 public class RuleBasedReasoner implements IntegerReasoner {
+
+	private static final Logger logger = Logger
+			.getLogger(RuleBasedReasoner.class.getName());
 
 	private static final String reasonerName = "jcel";
 
@@ -97,6 +101,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	@Override
 	public void classify() {
 		if (!this.classified) {
+			logger.fine("starting classification ...");
 			flush();
 
 			Set<ComplexIntegerAxiom> originalAxiomSet = new HashSet<ComplexIntegerAxiom>();
@@ -106,6 +111,9 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			OntologyExpressivity expressivity = new ComplexAxiomExpressivityDetector(
 					originalAxiomSet);
 
+			logger.fine("description logic family : "
+					+ expressivity.toString() + " .");
+
 			Set<Integer> originalClassSet = new HashSet<Integer>();
 			Set<Integer> originalObjectPropertySet = new HashSet<Integer>();
 
@@ -114,6 +122,11 @@ public class RuleBasedReasoner implements IntegerReasoner {
 				originalObjectPropertySet.addAll(axiom
 						.getObjectPropertiesInSignature());
 			}
+
+			logger.fine("number of axioms : " + originalAxiomSet.size());
+			logger.fine("number of classes : " + originalClassSet.size());
+			logger.fine("number of object properties : "
+					+ originalObjectPropertySet.size());
 
 			OntologyNormalizer axiomNormalizer = new OntologyNormalizer();
 			Set<NormalizedIntegerAxiom> normalizedAxiomSet = axiomNormalizer
@@ -131,6 +144,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 					throw new RuntimeException("Classification interrupted.");
 				}
 			}
+			logger.fine("classification finished.");
 		}
 
 		this.classified = true;
