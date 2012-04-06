@@ -29,7 +29,7 @@
 	-->
 
 	<property name="project.groupId" value="jcel" />
-	<property name="project.artifactId" value="jcel.ontology" />
+	<property name="project.artifactId" value="jcel.coreontology" />
 
 	<!-- Imports version properties. -->
 	<property file="version.properties" />

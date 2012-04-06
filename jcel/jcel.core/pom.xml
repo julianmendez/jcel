@@ -47,7 +47,7 @@
 
 		<dependency>
 			<groupId>jcel</groupId>
-			<artifactId>jcel.ontology</artifactId>
+			<artifactId>jcel.coreontology</artifactId>
 			<version>0.17.0</version>
 		</dependency>
 

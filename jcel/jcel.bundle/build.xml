@@ -49,12 +49,15 @@
 	<property name="_bundlejars.directory" value="${project.build.directory}" />
 	<property name="_bundle.name" value="de.tudresden.inf.lat.jcel" />
 
-	<property name="module.0.name" value="jcel.ontology" />
+	<property name="module.0.name" value="jcel.coreontology" />
 	<property name="module.1.name" value="jcel.core" />
-	<property name="module.2.name" value="jcel.owlapi" />
-	<property name="module.3.name" value="jcel.protege" />
+	<property name="module.2.name" value="jcel.ontology" />
+	<property name="module.3.name" value="jcel.reasoner" />
+	<property name="module.4.name" value="jcel.owlapi" />
+	<property name="module.5.name" value="jcel.protege" />
+	<property name="lastmodule.name" value="${module.5.name}" />
 
-	<property name="_bundleclasses.directory" value="${_root.directory}/${module.3.name}/target/classes" />
+	<property name="_bundleclasses.directory" value="${_root.directory}/${lastmodule.name}/target/classes" />
 
 	<!-- Cleans everything. -->
 	<target name="clean">
@@ -89,6 +92,12 @@
 		</antcall>
 		<antcall target="getjar">
 			<param name="module.name" value="${module.3.name}" />
+		</antcall>
+		<antcall target="getjar">
+			<param name="module.name" value="${module.4.name}" />
+		</antcall>
+		<antcall target="getjar">
+			<param name="module.name" value="${module.5.name}" />
 		</antcall>
 	</target>
 

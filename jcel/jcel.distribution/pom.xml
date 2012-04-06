@@ -37,8 +37,10 @@
 	<name>jcel distribution</name>
 
 	<modules>
-		<module>../jcel.ontology</module>
+		<module>../jcel.coreontology</module>
 		<module>../jcel.core</module>
+		<module>../jcel.ontology</module>
+		<module>../jcel.reasoner</module>
 		<module>../jcel.owlapi</module>
 		<module>../jcel.protege</module>
 		<module>../jcel.bundle</module>
