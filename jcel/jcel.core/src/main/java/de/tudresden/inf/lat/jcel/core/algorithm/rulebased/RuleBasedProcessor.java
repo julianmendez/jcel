@@ -43,14 +43,13 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.core.saturation.SubPropertyNormalizer;
-import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.ComplexAxiomExpressivityDetector;
-import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.OntologyExpressivity;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntology;
 import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.ExtendedOntologyImpl;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
-import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
 
 /**
  * An object of this class is an implementation of a classification algorithm.
@@ -69,7 +68,8 @@ public class RuleBasedProcessor implements Processor {
 	private IntegerHierarchicalGraph classHierarchy = null;
 	private IntegerHierarchicalGraph dataPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> directTypes = null;
-	private final IntegerOntologyObjectFactory factory;
+	private final IntegerEntityManager entityManager;
+	private final NormalizedIntegerAxiomFactory factory;
 	private boolean isReady = false;
 	private long iteration = 0;
 	private long loggingCount = loggingFrequency;
@@ -82,20 +82,48 @@ public class RuleBasedProcessor implements Processor {
 	/**
 	 * Constructs a new rule-based processor.
 	 * 
-	 * @param axioms
-	 *            set of complex axioms to be normalized and classified
+	 * @param originalObjectProperties
+	 *            set of original object properties
+	 * @param originalClasses
+	 *            set of original classes
+	 * @param normalizedAxiomSet
+	 *            set of normalized axioms
+	 * @param expressivity
+	 *            expressivity
+	 * @param factory
+	 *            factory of normalized integer axioms
+	 * @param entityManager
+	 *            entity manager
 	 */
-	public RuleBasedProcessor(Set<ComplexIntegerAxiom> axioms,
-			IntegerOntologyObjectFactory factory) {
-		if (axioms == null) {
+	public RuleBasedProcessor(Set<Integer> originalObjectProperties,
+			Set<Integer> originalClasses,
+			Set<NormalizedIntegerAxiom> normalizedAxiomSet,
+			OntologyExpressivity expressivity,
+			NormalizedIntegerAxiomFactory factory,
+			IntegerEntityManager entityManager) {
+		if (originalObjectProperties == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (originalClasses == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (normalizedAxiomSet == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (expressivity == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
+		if (entityManager == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
 
 		this.factory = factory;
-		preProcess(axioms);
+		this.entityManager = entityManager;
+		preProcess(originalObjectProperties, originalClasses,
+				normalizedAxiomSet, expressivity);
 	}
 
 	private void addSuggestedChanges(List<XEntry> changes) {
@@ -124,12 +152,12 @@ public class RuleBasedProcessor implements Processor {
 	private Map<Integer, Set<Integer>> computeDirectTypes(
 			IntegerHierarchicalGraph hierarchicalGraph) {
 		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
-		Set<Integer> individuals = getIdGenerator().getIndividuals();
+		Set<Integer> individuals = getEntityManager().getIndividuals();
 		for (Integer indiv : individuals) {
 			Set<Integer> subsumers = hierarchicalGraph
-					.getParents(getIdGenerator().getAuxiliaryNominal(indiv));
+					.getParents(getEntityManager().getAuxiliaryNominal(indiv));
 			for (Integer elem : subsumers) {
-				if (getIdGenerator().getAuxiliaryNominals().contains(elem)) {
+				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
 					throw new IllegalStateException(
 							"An individual has another individual as direct subsumer.");
 				}
@@ -142,14 +170,15 @@ public class RuleBasedProcessor implements Processor {
 	private Map<Integer, Set<Integer>> computeSameIndividualMap(
 			IntegerHierarchicalGraph hierarchicalGraph) {
 		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
-		Set<Integer> individuals = getIdGenerator().getIndividuals();
+		Set<Integer> individuals = getEntityManager().getIndividuals();
 		for (Integer indiv : individuals) {
 			Set<Integer> equivalentClasses = hierarchicalGraph
-					.getEquivalents(getIdGenerator().getAuxiliaryNominal(indiv));
+					.getEquivalents(getEntityManager().getAuxiliaryNominal(
+							indiv));
 			Set<Integer> equivalents = new HashSet<Integer>();
 			for (Integer elem : equivalentClasses) {
-				if (getIdGenerator().getAuxiliaryNominals().contains(elem)) {
-					equivalents.add(getIdGenerator().getIndividual(elem));
+				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
+					equivalents.add(getEntityManager().getIndividual(elem));
 				}
 			}
 			ret.put(indiv, Collections.unmodifiableSet(equivalents));
@@ -217,8 +246,8 @@ public class RuleBasedProcessor implements Processor {
 		return Collections.unmodifiableMap(this.directTypes);
 	}
 
-	private IntegerEntityManager getIdGenerator() {
-		return getOntologyObjectFactory().getEntityManager();
+	private IntegerEntityManager getEntityManager() {
+		return this.entityManager;
 	}
 
 	private IntegerSubsumerGraph getObjectPropertyGraph() {
@@ -238,7 +267,7 @@ public class RuleBasedProcessor implements Processor {
 	 * 
 	 * @return the ontology object factory.
 	 */
-	public IntegerOntologyObjectFactory getOntologyObjectFactory() {
+	public NormalizedIntegerAxiomFactory getOntologyObjectFactory() {
 		return this.factory;
 	}
 
@@ -357,11 +386,31 @@ public class RuleBasedProcessor implements Processor {
 	 * <li>prepares all the queues to run the algorithm</li>
 	 * </ul>
 	 * 
-	 * @param originalAxiomSet
-	 *            set of axioms, i.e. the ontology
+	 * *
+	 * 
+	 * @param originalObjectProperties
+	 *            set of original object properties
+	 * @param originalClasses
+	 *            set of original classes
+	 * @param normalizedAxiomSet
+	 *            set of normalized axioms
+	 * @param expressivity
+	 *            expressivity
 	 */
-	protected void preProcess(Set<ComplexIntegerAxiom> originalAxiomSet) {
-		if (originalAxiomSet == null) {
+	protected void preProcess(Set<Integer> originalObjectProperties,
+			Set<Integer> originalClasses,
+			Set<NormalizedIntegerAxiom> normalizedAxiomSet,
+			OntologyExpressivity expressivity) {
+		if (originalObjectProperties == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (originalClasses == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (normalizedAxiomSet == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (expressivity == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
@@ -376,37 +425,25 @@ public class RuleBasedProcessor implements Processor {
 
 		logger.fine("configuring processor ...");
 
-		logger.fine("number of axioms : " + originalAxiomSet.size());
+		logger.fine("number of axioms : " + normalizedAxiomSet.size());
 
 		logger.fine("preprocessing ontology ...");
 		ExtendedOntology extendedOntology = new ExtendedOntologyImpl();
 
-		Set<Integer> originalClassSet = new HashSet<Integer>();
-		Set<Integer> originalObjectPropertySet = new HashSet<Integer>();
-
-		for (ComplexIntegerAxiom axiom : originalAxiomSet) {
-			originalClassSet.addAll(axiom.getClassesInSignature());
-			originalObjectPropertySet.addAll(axiom
-					.getObjectPropertiesInSignature());
-		}
-
-		OntologyNormalizer axiomNormalizer = new OntologyNormalizer();
 		SubPropertyNormalizer subPropNormalizer = new SubPropertyNormalizer(
-				getOntologyObjectFactory().getNormalizedAxiomFactory(),
-				getOntologyObjectFactory().getEntityManager());
+				getOntologyObjectFactory(), getEntityManager());
 
-		extendedOntology.load(subPropNormalizer.apply(axiomNormalizer
-				.normalize(originalAxiomSet, getOntologyObjectFactory())));
+		extendedOntology.load(subPropNormalizer.apply(normalizedAxiomSet));
 
-		for (Integer elem : originalObjectPropertySet) {
+		for (Integer elem : originalObjectProperties) {
 			extendedOntology.addObjectProperty(elem);
 		}
-		for (Integer elem : originalClassSet) {
+		for (Integer elem : originalClasses) {
 			extendedOntology.addClass(elem);
 		}
 
 		CompletionRuleChainSelector selector = new CompletionRuleChainSelector(
-				new ComplexAxiomExpressivityDetector(originalAxiomSet));
+				expressivity);
 
 		logger.fine("description logic family : "
 				+ selector.getOntologyExpressivity().toString() + " .");
@@ -422,24 +459,23 @@ public class RuleBasedProcessor implements Processor {
 				+ this.chainR + "\n");
 
 		logger.fine("classes read (including TOP and BOTTOM classes) : "
-				+ (getOntologyObjectFactory().getEntityManager().getEntities(
-						IntegerEntityType.CLASS, false).size()));
+				+ (getEntityManager().getEntities(IntegerEntityType.CLASS,
+						false).size()));
 		logger.fine("object properties read (including TOP and BOTTOM object properties) : "
-				+ (getOntologyObjectFactory().getEntityManager().getEntities(
+				+ (getEntityManager().getEntities(
 						IntegerEntityType.OBJECT_PROPERTY, false).size()));
 		logger.fine("auxiliary classes created (including nominals) : "
-				+ (getOntologyObjectFactory().getEntityManager().getEntities(
-						IntegerEntityType.CLASS, true).size()));
+				+ (getEntityManager()
+						.getEntities(IntegerEntityType.CLASS, true).size()));
 		logger.fine("auxiliary classes created for nominals : "
-				+ (getOntologyObjectFactory().getEntityManager()
-						.getIndividuals().size()));
+				+ (getEntityManager().getIndividuals().size()));
 		logger.fine("auxiliary object properties created : "
-				+ (getOntologyObjectFactory().getEntityManager().getEntities(
+				+ (getEntityManager().getEntities(
 						IntegerEntityType.OBJECT_PROPERTY, false).size()));
 
 		logger.fine("creating class graph and object property graph ...");
 
-		this.status = new ClassifierStatusImpl(factory.getEntityManager(),
+		this.status = new ClassifierStatusImpl(getEntityManager(),
 				extendedOntology);
 
 		logger.finer("preparing queue ...");
@@ -491,7 +527,7 @@ public class RuleBasedProcessor implements Processor {
 	 *            the hierarchical graph
 	 */
 	private void processNominals(IntegerHierarchicalGraph hierarchicalGraph) {
-		Set<Integer> nominals = getIdGenerator().getAuxiliaryNominals();
+		Set<Integer> nominals = getEntityManager().getAuxiliaryNominals();
 		for (Integer indiv : nominals) {
 			Set<Integer> descendants = getDescendants(hierarchicalGraph, indiv);
 			for (Integer c : descendants) {
@@ -522,18 +558,18 @@ public class RuleBasedProcessor implements Processor {
 	private void removeAuxiliaryClassesExceptNominals() {
 		Set<Integer> reqClasses = new HashSet<Integer>();
 		for (Integer elem : getClassGraph().getElements()) {
-			if (!getIdGenerator().isAuxiliary(elem)) {
+			if (!getEntityManager().isAuxiliary(elem)) {
 				reqClasses.add(elem);
 			}
 		}
-		reqClasses.addAll(getIdGenerator().getAuxiliaryNominals());
+		reqClasses.addAll(getEntityManager().getAuxiliaryNominals());
 		this.status.getClassGraph().retainAll(reqClasses);
 	}
 
 	private void removeAuxiliaryNominals() {
 		Set<Integer> reqClasses = new HashSet<Integer>();
 		reqClasses.addAll(getClassGraph().getElements());
-		reqClasses.removeAll(getIdGenerator().getAuxiliaryNominals());
+		reqClasses.removeAll(getEntityManager().getAuxiliaryNominals());
 		this.status.getClassGraph().retainAll(reqClasses);
 	}
 
@@ -544,7 +580,7 @@ public class RuleBasedProcessor implements Processor {
 	private void removeAuxiliaryObjectProperties() {
 		Set<Integer> reqObjectProperties = new HashSet<Integer>();
 		for (Integer elem : getObjectPropertyGraph().getElements()) {
-			if (!getIdGenerator().isAuxiliary(elem)) {
+			if (!getEntityManager().isAuxiliary(elem)) {
 				reqObjectProperties.add(elem);
 			}
 		}

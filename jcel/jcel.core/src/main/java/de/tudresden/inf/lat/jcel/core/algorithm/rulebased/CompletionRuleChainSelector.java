@@ -47,16 +47,8 @@ import de.tudresden.inf.lat.jcel.core.completion.ext.CR9ExtOptRule;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.OntologyExpressivity;
 
 /**
- * An object of this class preprocesses an ontology. This preprocessing includes
- * <ul>
- * <li>finding the class identifiers and object property identifiers</li>
- * <li>creating an identifier generator for the auxiliary classes and object
- * properties</li>
- * <li>detecting the required expressivity for the ontology</li>
- * <li>creating appropriate completion rule chains to process the ontology</li>
- * <li>normalizing the ontology</li>
- * <li>extending the ontology</li>
- * </ul>
+ * An object of this class creates appropriate completion rule chains to process
+ * the ontology.
  * 
  * @author Julian Mendez
  * 
@@ -70,8 +62,8 @@ public class CompletionRuleChainSelector {
 	/**
 	 * Constructs a new ontology preprocessor.
 	 * 
-	 * @param axiomSet
-	 *            set of axioms
+	 * @param expressivity
+	 *            expressivity
 	 */
 	public CompletionRuleChainSelector(OntologyExpressivity expressivity) {
 		if (expressivity == null) {

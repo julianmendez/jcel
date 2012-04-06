@@ -32,7 +32,10 @@ import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
 import de.tudresden.inf.lat.jcel.core.algorithm.rulebased.RuleBasedProcessor;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.ComplexAxiomExpressivityDetector;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.OntologyExpressivity;
+import de.tudresden.inf.lat.jcel.ontology.axiom.normalized.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataProperty;
@@ -42,6 +45,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerNamedIndividual;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 import de.tudresden.inf.lat.jcel.ontology.normalization.ObjectPropertyIdFinder;
+import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
 
 /**
  * This class models a rule-based reasoner.
@@ -94,11 +98,33 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	public void classify() {
 		if (!this.classified) {
 			flush();
-			Set<ComplexIntegerAxiom> axiomSet = new HashSet<ComplexIntegerAxiom>();
-			axiomSet.addAll(this.ontology);
-			axiomSet.addAll(this.extendedOntology);
-			this.processor = new RuleBasedProcessor(axiomSet, this.factory);
-			axiomSet.clear();
+
+			Set<ComplexIntegerAxiom> originalAxiomSet = new HashSet<ComplexIntegerAxiom>();
+			originalAxiomSet.addAll(this.ontology);
+			originalAxiomSet.addAll(this.extendedOntology);
+
+			OntologyExpressivity expressivity = new ComplexAxiomExpressivityDetector(
+					originalAxiomSet);
+
+			Set<Integer> originalClassSet = new HashSet<Integer>();
+			Set<Integer> originalObjectPropertySet = new HashSet<Integer>();
+
+			for (ComplexIntegerAxiom axiom : originalAxiomSet) {
+				originalClassSet.addAll(axiom.getClassesInSignature());
+				originalObjectPropertySet.addAll(axiom
+						.getObjectPropertiesInSignature());
+			}
+
+			OntologyNormalizer axiomNormalizer = new OntologyNormalizer();
+			Set<NormalizedIntegerAxiom> normalizedAxiomSet = axiomNormalizer
+					.normalize(originalAxiomSet, this.factory);
+			originalAxiomSet.clear();
+
+			this.processor = new RuleBasedProcessor(originalObjectPropertySet,
+					originalClassSet, normalizedAxiomSet, expressivity,
+					this.factory.getNormalizedAxiomFactory(),
+					this.factory.getEntityManager());
+
 			while (this.processor.process()) {
 				if (this.interruptRequested) {
 					this.interruptRequested = false;
