@@ -47,7 +47,6 @@ public class ExtendedOntologyImpl implements ExtendedOntology,
 	private Map<Integer, Set<RI2Axiom>> mapOfRI2s = new HashMap<Integer, Set<RI2Axiom>>();
 	private Map<Integer, Set<RI3Axiom>> mapOfRI3ByLeft = new HashMap<Integer, Set<RI3Axiom>>();
 	private Map<Integer, Set<RI3Axiom>> mapOfRI3ByRight = new HashMap<Integer, Set<RI3Axiom>>();
-	private Set<NormalizedIntegerAxiom> normalizedAxiomSet = new HashSet<NormalizedIntegerAxiom>();
 	private Set<Integer> setOfAllObjectProperties = new HashSet<Integer>();
 	private Set<Integer> setOfClasses = new HashSet<Integer>();
 	private Set<Integer> setOfFunctionalObjectProperties = new HashSet<Integer>();
@@ -132,7 +131,6 @@ public class ExtendedOntologyImpl implements ExtendedOntology,
 
 	@Override
 	public void clear() {
-		this.normalizedAxiomSet.clear();
 		this.setOfClasses.clear();
 		this.setOfAllObjectProperties.clear();
 		this.mapOfGCI0.clear();
@@ -149,11 +147,6 @@ public class ExtendedOntologyImpl implements ExtendedOntology,
 		this.setOfTransitiveObjectProperties.clear();
 		this.setOfFunctionalObjectProperties.clear();
 		this.setOfReflexiveObjectProperties.clear();
-	}
-
-	@Override
-	public Set<NormalizedIntegerAxiom> getAxiomSet() {
-		return Collections.unmodifiableSet(this.normalizedAxiomSet);
 	}
 
 	@Override
@@ -204,8 +197,7 @@ public class ExtendedOntologyImpl implements ExtendedOntology,
 	}
 
 	@Override
-	public Set<GCI3Axiom> getGCI3rAAxioms(int propertyId,
-			int leftClassId) {
+	public Set<GCI3Axiom> getGCI3rAAxioms(int propertyId, int leftClassId) {
 		Set<GCI3Axiom> ret = new HashSet<GCI3Axiom>();
 		Set<GCI3Axiom> set1 = this.mapOfGCI3A.get(leftClassId);
 		if (set1 != null) {
@@ -288,7 +280,6 @@ public class ExtendedOntologyImpl implements ExtendedOntology,
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.normalizedAxiomSet.addAll(axiomSet);
 		for (NormalizedIntegerAxiom axiom : axiomSet) {
 			axiom.accept(this);
 			addEntities(axiom);

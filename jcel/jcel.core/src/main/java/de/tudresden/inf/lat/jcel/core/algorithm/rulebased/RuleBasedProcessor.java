@@ -432,20 +432,25 @@ public class RuleBasedProcessor implements Processor {
 		logger.fine("preprocessing ontology ...");
 		ExtendedOntology extendedOntology = new ExtendedOntologyImpl();
 
-		SubPropertyNormalizer subPropNormalizer = new SubPropertyNormalizer(
-				getOntologyObjectFactory(), getEntityManager());
+		{
+			SubPropertyNormalizer subPropNormalizer = new SubPropertyNormalizer(
+					getOntologyObjectFactory(), getEntityManager());
 
-		extendedOntology.load(subPropNormalizer.apply(normalizedAxiomSet));
+			Set<NormalizedIntegerAxiom> saturatedNormalizedAxiomSet = subPropNormalizer
+					.apply(normalizedAxiomSet);
 
-		for (Integer elem : originalObjectProperties) {
-			extendedOntology.addObjectProperty(elem);
+			extendedOntology.load(saturatedNormalizedAxiomSet);
+
+			for (Integer elem : originalObjectProperties) {
+				extendedOntology.addObjectProperty(elem);
+			}
+			for (Integer elem : originalClasses) {
+				extendedOntology.addClass(elem);
+			}
+
+			logger.fine("number of normalized axioms after saturation : "
+					+ saturatedNormalizedAxiomSet.size());
 		}
-		for (Integer elem : originalClasses) {
-			extendedOntology.addClass(elem);
-		}
-
-		logger.fine("number of normalized axioms after saturation : "
-				+ extendedOntology.getAxiomSet().size());
 
 		CompletionRuleChainSelector selector = new CompletionRuleChainSelector(
 				expressivity);

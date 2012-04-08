@@ -53,13 +53,6 @@ public interface ExtendedOntology {
 	public void clear();
 
 	/**
-	 * Returns the set of axioms in this ontology.
-	 * 
-	 * @return the set of axioms in this ontology
-	 */
-	public Set<NormalizedIntegerAxiom> getAxiomSet();
-
-	/**
 	 * Returns the set of all classes in the ontology.
 	 * 
 	 * @return the set of all classes in the ontology
