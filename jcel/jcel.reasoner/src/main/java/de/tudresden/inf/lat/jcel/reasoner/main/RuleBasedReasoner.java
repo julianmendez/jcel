@@ -62,40 +62,25 @@ public class RuleBasedReasoner implements IntegerReasoner {
 
 	private Map<IntegerClassExpression, Integer> auxClassInvMap = new HashMap<IntegerClassExpression, Integer>();
 	private Map<Integer, IntegerClassExpression> auxClassMap = new HashMap<Integer, IntegerClassExpression>();
-	private boolean bufferingMode;
 	private boolean classified = false;
 	private OntologyEntailmentChecker entailmentChecker = new OntologyEntailmentChecker(
 			this);
-	private Set<ComplexIntegerAxiom> extendedOntology = new HashSet<ComplexIntegerAxiom>();
 	private final IntegerOntologyObjectFactory factory;
 	private boolean interruptRequested = false;
-	private final Set<ComplexIntegerAxiom> ontology;
-	private Set<ComplexIntegerAxiom> pendingAxiomAdditions = new HashSet<ComplexIntegerAxiom>();
-	private Set<ComplexIntegerAxiom> pendingAxiomRemovals = new HashSet<ComplexIntegerAxiom>();
-	private Processor processor = null;
+	private RuleBasedProcessor processor = null;
 	private long timeOut = 0;
 
-	public RuleBasedReasoner(Set<ComplexIntegerAxiom> ont,
-			IntegerOntologyObjectFactory factory, boolean buffering) {
-		if (ont == null) {
+	public RuleBasedReasoner(Set<ComplexIntegerAxiom> ontology,
+			IntegerOntologyObjectFactory factory) {
+		if (ontology == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.ontology = ont;
 		this.factory = factory;
-		this.bufferingMode = buffering;
-	}
-
-	public boolean addAxiom(ComplexIntegerAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		this.classified = false;
-		return this.pendingAxiomAdditions.add(axiom);
+		this.processor = createProcessor(ontology);
 	}
 
 	@Override
@@ -103,40 +88,6 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		if (!this.classified) {
 			logger.fine("starting classification ...");
 			flush();
-
-			Set<ComplexIntegerAxiom> originalAxiomSet = new HashSet<ComplexIntegerAxiom>();
-			originalAxiomSet.addAll(this.ontology);
-			originalAxiomSet.addAll(this.extendedOntology);
-
-			OntologyExpressivity expressivity = new ComplexAxiomExpressivityDetector(
-					originalAxiomSet);
-
-			logger.fine("description logic family : " + expressivity.toString()
-					+ " .");
-
-			Set<Integer> originalClassSet = new HashSet<Integer>();
-			Set<Integer> originalObjectPropertySet = new HashSet<Integer>();
-
-			for (ComplexIntegerAxiom axiom : originalAxiomSet) {
-				originalClassSet.addAll(axiom.getClassesInSignature());
-				originalObjectPropertySet.addAll(axiom
-						.getObjectPropertiesInSignature());
-			}
-
-			logger.fine("number of axioms : " + originalAxiomSet.size());
-			logger.fine("number of classes : " + originalClassSet.size());
-			logger.fine("number of object properties : "
-					+ originalObjectPropertySet.size());
-
-			OntologyNormalizer axiomNormalizer = new OntologyNormalizer();
-			Set<NormalizedIntegerAxiom> normalizedAxiomSet = axiomNormalizer
-					.normalize(originalAxiomSet, this.factory);
-			originalAxiomSet.clear();
-
-			this.processor = new RuleBasedProcessor(originalObjectPropertySet,
-					originalClassSet, normalizedAxiomSet, expressivity,
-					this.factory.getNormalizedAxiomFactory(),
-					this.factory.getEntityManager());
 
 			while (this.processor.process()) {
 				if (this.interruptRequested) {
@@ -148,6 +99,42 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		}
 
 		this.classified = true;
+	}
+
+	private RuleBasedProcessor createProcessor(Set<ComplexIntegerAxiom> ontology) {
+		logger.fine("creating processor ...");
+
+		OntologyExpressivity expressivity = new ComplexAxiomExpressivityDetector(
+				ontology);
+
+		logger.fine("description logic family : " + expressivity.toString()
+				+ " .");
+
+		Set<Integer> originalClassSet = new HashSet<Integer>();
+		Set<Integer> originalObjectPropertySet = new HashSet<Integer>();
+
+		for (ComplexIntegerAxiom axiom : ontology) {
+			originalClassSet.addAll(axiom.getClassesInSignature());
+			originalObjectPropertySet.addAll(axiom
+					.getObjectPropertiesInSignature());
+		}
+
+		logger.fine("number of axioms : " + ontology.size());
+		logger.fine("number of classes : " + originalClassSet.size());
+		logger.fine("number of object properties : "
+				+ originalObjectPropertySet.size());
+
+		OntologyNormalizer axiomNormalizer = new OntologyNormalizer();
+		Set<NormalizedIntegerAxiom> normalizedAxiomSet = axiomNormalizer
+				.normalize(ontology, this.factory);
+
+		RuleBasedProcessor ret = new RuleBasedProcessor(
+				originalObjectPropertySet, originalClassSet,
+				normalizedAxiomSet, expressivity,
+				this.factory.getNormalizedAxiomFactory(),
+				this.factory.getEntityManager());
+		logger.fine("processor created.");
+		return ret;
 	}
 
 	@Override
@@ -170,8 +157,17 @@ public class RuleBasedReasoner implements IntegerReasoner {
 				Set<IntegerClassExpression> argument = new HashSet<IntegerClassExpression>();
 				argument.add(ret);
 				argument.add(ce);
-				this.extendedOntology.add(this.factory.getComplexAxiomFactory()
+
+				Set<ComplexIntegerAxiom> extendedOntology = new HashSet<ComplexIntegerAxiom>();
+				extendedOntology.add(this.factory.getComplexAxiomFactory()
 						.createEquivalentClassesAxiom(argument));
+
+				OntologyNormalizer axiomNormalizer = new OntologyNormalizer();
+				Set<NormalizedIntegerAxiom> extendedNormalizedAxiomSet = axiomNormalizer
+						.normalize(extendedOntology, this.factory);
+
+				this.processor.addAxioms(extendedNormalizedAxiomSet);
+
 				this.classified = false;
 			} else {
 				ret = getDataTypeFactory().createClass(classIndex);
@@ -184,12 +180,6 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	@Override
 	public void flush() {
 		this.classified = false;
-
-		this.ontology.removeAll(this.pendingAxiomRemovals);
-		this.pendingAxiomRemovals.clear();
-
-		this.ontology.addAll(this.pendingAxiomAdditions);
-		this.pendingAxiomAdditions.clear();
 	}
 
 	@Override
@@ -215,11 +205,6 @@ public class RuleBasedReasoner implements IntegerReasoner {
 				.getObjectPropertyHierarchy();
 		return toIntegerObjectPropertyExpression(graph.getEquivalents(graph
 				.getBottomElement()));
-	}
-
-	@Override
-	public boolean getBufferingMode() {
-		return this.bufferingMode;
 	}
 
 	@Override
@@ -440,16 +425,6 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		return null;
 	}
 
-	@Override
-	public Set<ComplexIntegerAxiom> getPendingAxiomAdditions() {
-		return Collections.unmodifiableSet(this.pendingAxiomAdditions);
-	}
-
-	@Override
-	public Set<ComplexIntegerAxiom> getPendingAxiomRemovals() {
-		return Collections.unmodifiableSet(this.pendingAxiomRemovals);
-	}
-
 	public Processor getProcessor() {
 		return this.processor;
 	}
@@ -462,11 +437,6 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	@Override
 	public String getReasonerVersion() {
 		return getClass().getPackage().getImplementationVersion();
-	}
-
-	@Override
-	public Set<ComplexIntegerAxiom> getRootOntology() {
-		return Collections.unmodifiableSet(this.ontology);
 	}
 
 	@Override
@@ -717,15 +687,6 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		IntegerClass cls = flattenClassExpression(classExpression);
 		classify();
 		return !getUnsatisfiableClasses().contains(cls);
-	}
-
-	public boolean removeAxiom(ComplexIntegerAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		this.classified = false;
-		return this.pendingAxiomRemovals.add(axiom);
 	}
 
 	private Set<IntegerClass> toIntegerClass(Set<Integer> set) {

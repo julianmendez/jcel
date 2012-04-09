@@ -187,8 +187,7 @@ public class RuleBasedReasonerTest extends TestCase {
 		ontology.add(factory.getComplexAxiomFactory()
 				.createTransitiveObjectPropertyAxiom(t));
 
-		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory,
-				false);
+		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
 
 		assertUniqueDirectSubClass(reasoner, l, e);
@@ -234,8 +233,7 @@ public class RuleBasedReasonerTest extends TestCase {
 				factory.getDataTypeFactory().createObjectSomeValuesFrom(r, c),
 				d));
 
-		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory,
-				false);
+		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
 
 		// test
@@ -315,8 +313,7 @@ public class RuleBasedReasonerTest extends TestCase {
 		ontology.add(factory.getComplexAxiomFactory()
 				.createTransitiveObjectPropertyAxiom(t));
 
-		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory,
-				false);
+		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
 
 		assertUniqueDirectSubClass(reasoner, a, e);
@@ -392,8 +389,7 @@ public class RuleBasedReasonerTest extends TestCase {
 		ontology.add(factory.getComplexAxiomFactory()
 				.createTransitiveObjectPropertyAxiom(r));
 
-		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory,
-				false);
+		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
 
 		assertUniqueDirectSubClass(reasoner, a, e);
@@ -521,8 +517,7 @@ public class RuleBasedReasonerTest extends TestCase {
 		ontology.add(factory.getComplexAxiomFactory()
 				.createTransitiveObjectPropertyAxiom(t));
 
-		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory,
-				false);
+		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
 
 		assertUniqueDirectSubClass(reasoner, a, d);

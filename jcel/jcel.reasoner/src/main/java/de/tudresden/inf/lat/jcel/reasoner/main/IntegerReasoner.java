@@ -75,13 +75,6 @@ public interface IntegerReasoner {
 	public Set<IntegerObjectPropertyExpression> getBottomObjectPropertyNode();
 
 	/**
-	 * Tells whether this reasoner is buffering.
-	 * 
-	 * @return <code>true</code> if and only if this reasoner is buffering
-	 */
-	public boolean getBufferingMode();
-
-	/**
 	 * Returns the classes that are domains of the specified data property.
 	 * 
 	 * @param pe
@@ -256,20 +249,6 @@ public interface IntegerReasoner {
 			IntegerNamedIndividual ind, IntegerObjectPropertyExpression pe);
 
 	/**
-	 * Returns the set of axioms that are pending to be added.
-	 * 
-	 * @return the set of axioms that are pending to be added
-	 */
-	public Set<ComplexIntegerAxiom> getPendingAxiomAdditions();
-
-	/**
-	 * Returns the set of axioms that are pending to be removed.
-	 * 
-	 * @return the set of axioms that are pending to be removed
-	 */
-	public Set<ComplexIntegerAxiom> getPendingAxiomRemovals();
-
-	/**
 	 * Returns the name of this reasoner.
 	 * 
 	 * @return the name of this reasoner
@@ -282,13 +261,6 @@ public interface IntegerReasoner {
 	 * @return the version of this reasoner
 	 */
 	public String getReasonerVersion();
-
-	/**
-	 * Returns the ontology used by this reasoner.
-	 * 
-	 * @return the ontology used by this reasoner
-	 */
-	public Set<ComplexIntegerAxiom> getRootOntology();
 
 	/**
 	 * Returns the individuals that are equivalent to the specified individual.

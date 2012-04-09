@@ -78,7 +78,8 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	private static final Logger logger = Logger.getLogger(JcelReasoner.class
 			.getName());
 
-	private final RuleBasedReasoner jcelCore;
+	private boolean buffering = false;
+	private RuleBasedReasoner jcelCore;
 	private final OWLOntologyChangeVisitorEx<Boolean> ontologyChangeVisitor = new JcelOntologyChangeVisitorEx(
 			this);
 	private Set<OWLAxiom> pendingAxiomAdditions = new HashSet<OWLAxiom>();
@@ -107,23 +108,10 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		this.translator = new Translator(rootOntology.getOWLOntologyManager()
 				.getOWLDataFactory(), new IntegerOntologyObjectFactoryImpl());
 
-		Set<OWLAxiom> owlAxiomSet = new HashSet<OWLAxiom>();
-		owlAxiomSet.addAll(rootOntology.getAxioms());
-		for (OWLOntology ont : rootOntology.getImportsClosure()) {
-			owlAxiomSet.addAll(ont.getAxioms());
-		}
-
-		for (OWLAxiom axiom : owlAxiomSet) {
-			this.translator.getTranslationRepository().addAxiomEntities(axiom);
-		}
-
-		Set<ComplexIntegerAxiom> ontology = this.translator
-				.translateSA(owlAxiomSet);
-		this.jcelCore = new RuleBasedReasoner(ontology,
-				this.translator.getOntologyObjectFactory(), buffering);
 		this.rootOntology.getOWLOntologyManager().addOntologyChangeListener(
 				this);
 		this.supportedAxiomTypes = getSupportedTypes();
+		resetReasoner();
 	}
 
 	/**
@@ -153,12 +141,8 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 
 		logger.finer("addAxiom(" + axiom + ")");
 		boolean ret = this.pendingAxiomAdditions.add(axiom);
-		getTranslator().getTranslationRepository().addAxiomEntities(axiom);
-		Set<ComplexIntegerAxiom> axioms = getTranslator().translateSA(
-				Collections.singleton(axiom));
-		for (ComplexIntegerAxiom ax : axioms) {
-			boolean changed = this.jcelCore.addAxiom(ax);
-			ret = ret || changed;
+		if (!this.buffering) {
+			resetReasoner();
 		}
 		return ret;
 	}
@@ -174,10 +158,11 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public void flush() {
 		logger.finer("flush()");
-		getReasoner().flush();
 		this.pendingAxiomAdditions.clear();
 		this.pendingAxiomRemovals.clear();
 		this.pendingChanges.clear();
+		resetReasoner();
+		getReasoner().flush();
 	}
 
 	@Override
@@ -209,7 +194,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	public BufferingMode getBufferingMode() {
 		logger.finer("getBufferingMode()");
 
-		BufferingMode ret = getReasoner().getBufferingMode() ? BufferingMode.BUFFERING
+		BufferingMode ret = this.buffering ? BufferingMode.BUFFERING
 				: BufferingMode.NON_BUFFERING;
 		logger.finer("" + ret);
 		return ret;
@@ -396,6 +381,20 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 						getTranslator().translateCE(classExpression), direct));
 		logger.finer("" + ret);
 		return ret;
+	}
+
+	private Set<ComplexIntegerAxiom> getIntegerOntology() {
+		Set<OWLAxiom> owlAxiomSet = new HashSet<OWLAxiom>();
+		owlAxiomSet.addAll(this.rootOntology.getAxioms());
+		for (OWLOntology ont : this.rootOntology.getImportsClosure()) {
+			owlAxiomSet.addAll(ont.getAxioms());
+		}
+
+		for (OWLAxiom axiom : owlAxiomSet) {
+			this.translator.getTranslationRepository().addAxiomEntities(axiom);
+		}
+
+		return this.translator.translateSA(owlAxiomSet);
 	}
 
 	@Override
@@ -857,13 +856,14 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 
 		logger.finer("removeAxiom(" + axiom + ")");
 		boolean ret = this.pendingAxiomRemovals.add(axiom);
-		Set<ComplexIntegerAxiom> axioms = getTranslator().translateSA(
-				Collections.singleton(axiom));
-		for (ComplexIntegerAxiom ax : axioms) {
-			boolean changed = this.jcelCore.removeAxiom(ax);
-			ret = ret || changed;
+		if (!this.buffering) {
+			resetReasoner();
 		}
 		return ret;
 	}
 
+	private void resetReasoner() {
+		this.jcelCore = new RuleBasedReasoner(getIntegerOntology(),
+				this.translator.getOntologyObjectFactory());
+	}
 }

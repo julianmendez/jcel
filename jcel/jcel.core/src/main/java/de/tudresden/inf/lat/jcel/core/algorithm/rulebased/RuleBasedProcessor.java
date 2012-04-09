@@ -123,8 +123,26 @@ public class RuleBasedProcessor implements Processor {
 
 		this.factory = factory;
 		this.entityManager = entityManager;
-		preProcess(originalObjectProperties, originalClasses,
-				normalizedAxiomSet, expressivity);
+
+		CompletionRuleChainSelector selector = new CompletionRuleChainSelector(
+				expressivity);
+		selector.activateProfiler();
+		this.chainR = selector.getRChain();
+		this.chainS = selector.getSChain();
+
+		preProcess(createExtendedOntology(originalObjectProperties,
+				originalClasses, normalizedAxiomSet));
+	}
+
+	public void addAxioms(Set<NormalizedIntegerAxiom> normalizedAxiomSet) {
+		if (normalizedAxiomSet == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		logger.fine("adding axioms ...");
+		this.status.getExtendedOntology().load(normalizedAxiomSet);
+		preProcess(this.status.getExtendedOntology());
+		logger.fine("processor reset.");
 	}
 
 	private void addSuggestedChanges(List<XEntry> changes) {
@@ -185,6 +203,25 @@ public class RuleBasedProcessor implements Processor {
 			ret.put(indiv, Collections.unmodifiableSet(equivalents));
 		}
 		return ret;
+	}
+
+	private ExtendedOntology createExtendedOntology(
+			Set<Integer> originalObjectPropertySet,
+			Set<Integer> originalClassSet, Set<NormalizedIntegerAxiom> axioms) {
+		SubPropertyNormalizer subPropNormalizer = new SubPropertyNormalizer(
+				getOntologyObjectFactory(), getEntityManager());
+		Set<NormalizedIntegerAxiom> saturatedNormalizedAxiomSet = subPropNormalizer
+				.apply(axioms);
+		ExtendedOntology extendedOntology = new ExtendedOntologyImpl();
+		extendedOntology.load(saturatedNormalizedAxiomSet);
+		for (Integer elem : originalObjectPropertySet) {
+			extendedOntology.addObjectProperty(elem);
+		}
+		for (Integer elem : originalClassSet) {
+			extendedOntology.addClass(elem);
+		}
+		return extendedOntology;
+
 	}
 
 	/**
@@ -366,7 +403,25 @@ public class RuleBasedProcessor implements Processor {
 		this.status.deleteClassGraph();
 	}
 
-	private void prepareSets() {
+	/**
+	 * The configuration follows the following steps:
+	 * <ul>
+	 * <li>creates the property hierarchy</li>
+	 * <li>prepares all the queues to run the algorithm</li>
+	 * </ul>
+	 * 
+	 * @param ontology
+	 *            ontology
+	 */
+	protected void preProcess(ExtendedOntology ontology) {
+		logger.fine("configuring processor ...");
+
+		this.isReady = false;
+		this.status = new ClassifierStatusImpl(getEntityManager(), ontology);
+		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
+				new IntegerSubsumerGraphImpl(
+						IntegerEntityManager.bottomDataPropertyId,
+						IntegerEntityManager.topDataPropertyId));
 		this.setQsubS.clear();
 		this.setQsubR.clear();
 		Set<Integer> classNameSet = new HashSet<Integer>();
@@ -375,115 +430,9 @@ public class RuleBasedProcessor implements Processor {
 			this.setQsubS.add(new SEntryImpl(className, className));
 			this.setQsubS.add(new SEntryImpl(className, topClassId));
 		}
-	}
-
-	/**
-	 * The configuration follows the following steps:
-	 * <ul>
-	 * <li>normalizes the ontology creating auxiliary entities</li>
-	 * <li>creates an extended ontonlogy based on the normalized ontology</li>
-	 * <li>adds the classes</li>
-	 * <li>creates the property hierarchy</li>
-	 * <li>prepares all the queues to run the algorithm</li>
-	 * </ul>
-	 * 
-	 * *
-	 * 
-	 * @param originalObjectProperties
-	 *            set of original object properties
-	 * @param originalClasses
-	 *            set of original classes
-	 * @param normalizedAxiomSet
-	 *            set of normalized axioms
-	 * @param expressivity
-	 *            expressivity
-	 */
-	protected void preProcess(Set<Integer> originalObjectProperties,
-			Set<Integer> originalClasses,
-			Set<NormalizedIntegerAxiom> normalizedAxiomSet,
-			OntologyExpressivity expressivity) {
-		if (originalObjectProperties == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (originalClasses == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (normalizedAxiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (expressivity == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		this.isReady = false;
-
-		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
-				new IntegerSubsumerGraphImpl(
-						IntegerEntityManager.bottomDataPropertyId,
-						IntegerEntityManager.topDataPropertyId));
-
-		logger.fine("using " + getClass().getSimpleName() + " ...");
-
-		logger.fine("configuring processor ...");
-
-		logger.fine("number of normalized axioms before saturation : "
-				+ normalizedAxiomSet.size());
-
-		logger.fine("preprocessing ontology ...");
-		ExtendedOntology extendedOntology = new ExtendedOntologyImpl();
-
-		{
-			SubPropertyNormalizer subPropNormalizer = new SubPropertyNormalizer(
-					getOntologyObjectFactory(), getEntityManager());
-
-			Set<NormalizedIntegerAxiom> saturatedNormalizedAxiomSet = subPropNormalizer
-					.apply(normalizedAxiomSet);
-
-			extendedOntology.load(saturatedNormalizedAxiomSet);
-
-			for (Integer elem : originalObjectProperties) {
-				extendedOntology.addObjectProperty(elem);
-			}
-			for (Integer elem : originalClasses) {
-				extendedOntology.addClass(elem);
-			}
-
-			logger.fine("number of normalized axioms after saturation : "
-					+ saturatedNormalizedAxiomSet.size());
-		}
-
-		CompletionRuleChainSelector selector = new CompletionRuleChainSelector(
-				expressivity);
-		selector.activateProfiler();
-		this.chainR = selector.getRChain();
-		this.chainS = selector.getSChain();
-		logger.fine("set of completion rules : \n" + this.chainS + "\n"
-				+ this.chainR + "\n");
-
-		logger.fine("classes read (including TOP and BOTTOM classes) : "
-				+ (getEntityManager().getEntities(IntegerEntityType.CLASS,
-						false).size()));
-		logger.fine("object properties read (including TOP and BOTTOM object properties) : "
-				+ (getEntityManager().getEntities(
-						IntegerEntityType.OBJECT_PROPERTY, false).size()));
-		logger.fine("auxiliary classes created (including nominals) : "
-				+ (getEntityManager()
-						.getEntities(IntegerEntityType.CLASS, true).size()));
-		logger.fine("auxiliary classes created for nominals : "
-				+ (getEntityManager().getIndividuals().size()));
-		logger.fine("auxiliary object properties created : "
-				+ (getEntityManager().getEntities(
-						IntegerEntityType.OBJECT_PROPERTY, true).size()));
-
-		logger.fine("creating class graph and object property graph ...");
-
-		this.status = new ClassifierStatusImpl(getEntityManager(),
-				extendedOntology);
-
-		logger.finer("preparing queue ...");
-		prepareSets();
 
 		logger.fine("processor configured.");
+		logger.fine(showInfo());
 	}
 
 	@Override
@@ -587,6 +536,32 @@ public class RuleBasedProcessor implements Processor {
 			}
 		}
 		this.status.getObjectPropertyGraph().retainAll(reqObjectProperties);
+	}
+
+	private String showInfo() {
+		return "using "
+				+ getClass().getSimpleName()
+				+ " ..."
+				+ "preprocessing ontology ..."
+				+ "\nset of completion rules : \n"
+				+ this.chainS
+				+ "\n"
+				+ this.chainR
+				+ "\n"
+				+ "\nclasses read (including TOP and BOTTOM classes) : "
+				+ (getEntityManager().getEntities(IntegerEntityType.CLASS,
+						false).size())
+				+ "\nobject properties read (including TOP and BOTTOM object properties) : "
+				+ (getEntityManager().getEntities(
+						IntegerEntityType.OBJECT_PROPERTY, false).size())
+				+ "\nauxiliary classes created (including nominals) : "
+				+ (getEntityManager()
+						.getEntities(IntegerEntityType.CLASS, true).size())
+				+ "\nauxiliary classes created for nominals : "
+				+ (getEntityManager().getIndividuals().size())
+				+ "\nauxiliary object properties created : "
+				+ (getEntityManager().getEntities(
+						IntegerEntityType.OBJECT_PROPERTY, true).size());
 	}
 
 	private String showSetSizes() {
