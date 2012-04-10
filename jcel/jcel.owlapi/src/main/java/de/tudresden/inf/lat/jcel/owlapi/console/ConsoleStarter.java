@@ -123,14 +123,25 @@ public class ConsoleStarter {
 		logger.setLevel(logLevel);
 		logger.addHandler(new OutputStreamHandler(logOutput));
 
+		logger.fine("starting jcel console ...");
+
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+
+		logger.fine("loading ontology using the OWL API ...");
 		OWLOntology ontology = manager
 				.loadOntologyFromOntologyDocument(ontologyFile);
 
+		logger.fine("starting reasoner ...");
 		JcelReasoner reasoner = new JcelReasoner(ontology, false);
+
+		logger.fine("precomputing inferences ...");
 		reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
 
+		logger.fine("generating output ...");
 		OWLReasonerXMLOutput xmlDoc = new OWLReasonerXMLOutput(reasoner);
 		xmlDoc.toXML(new FileOutputStream(inferredFile));
+
+		logger.fine("jcel console finished.");
 	}
+
 }

@@ -104,14 +104,18 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		logger.fine("configuring jcel reasoner ...");
 		this.rootOntology = rootOntology;
 		this.translator = new Translator(rootOntology.getOWLOntologyManager()
 				.getOWLDataFactory(), new IntegerOntologyObjectFactoryImpl());
-
 		this.rootOntology.getOWLOntologyManager().addOntologyChangeListener(
 				this);
 		this.supportedAxiomTypes = getSupportedTypes();
+
+		logger.fine("resetting reasoner ...");
 		resetReasoner();
+
+		logger.fine("jcel reasoner configured.");
 	}
 
 	/**
@@ -866,4 +870,5 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		this.jcelCore = new RuleBasedReasoner(getIntegerOntology(),
 				this.translator.getOntologyObjectFactory());
 	}
+
 }

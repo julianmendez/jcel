@@ -124,10 +124,12 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		logger.fine("number of object properties : "
 				+ originalObjectPropertySet.size());
 
+		logger.fine("normalizing ontology ...");
 		OntologyNormalizer axiomNormalizer = new OntologyNormalizer();
 		Set<NormalizedIntegerAxiom> normalizedAxiomSet = axiomNormalizer
 				.normalize(ontology, this.factory);
 
+		logger.fine("creating processor ...");
 		RuleBasedProcessor ret = new RuleBasedProcessor(
 				originalObjectPropertySet, originalClassSet,
 				normalizedAxiomSet, expressivity,
