@@ -21,6 +21,8 @@
 
 package de.tudresden.inf.lat.jcel.core.algorithm.rulebased;
 
+import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -61,7 +63,7 @@ public class RuleBasedProcessor implements Processor {
 	private static final Logger logger = Logger
 			.getLogger(RuleBasedProcessor.class.getName());
 
-	private static final long loggingFrequency = 0x100000;
+	private static final long loggingFrequency = 0x1000000;
 	private static final Integer topClassId = IntegerEntityManager.topClassId;
 
 	private RChain chainR = null;
@@ -205,6 +207,20 @@ public class RuleBasedProcessor implements Processor {
 		return ret;
 	}
 
+	/**
+	 * Convenience method to create a map entry. This method returns a map
+	 * entry.
+	 * 
+	 * @param key
+	 *            key
+	 * @param value
+	 *            value
+	 * @return a map entry created using the paramenters
+	 */
+	private Map.Entry<String, String> createEntry(String key, String value) {
+		return new AbstractMap.SimpleEntry<String, String>(key, value);
+	}
+
 	private ExtendedOntology createExtendedOntology(
 			Set<Integer> originalObjectPropertySet,
 			Set<Integer> originalClassSet, Set<NormalizedIntegerAxiom> axioms) {
@@ -239,6 +255,43 @@ public class RuleBasedProcessor implements Processor {
 			throw new UnclassifiedOntologyException();
 		}
 		return this.classHierarchy;
+	}
+
+	/**
+	 * Returns information about how the processor configuration.
+	 * 
+	 * @return information about how the processor configuration
+	 */
+	public List<Map.Entry<String, String>> getConfigurationInfo() {
+		List<Map.Entry<String, String>> ret = new ArrayList<Map.Entry<String, String>>();
+		ret.add(createEntry("processor", getClass().getSimpleName()));
+		ret.add(createEntry("iterations per log entry", "" + loggingFrequency));
+		ret.add(createEntry(
+				"classes read (including TOP and BOTTOM classes)",
+				""
+						+ getEntityManager().getEntities(
+								IntegerEntityType.CLASS, false).size()));
+		ret.add(createEntry(
+				"object properties read (including TOP and BOTTOM object properties)",
+				""
+						+ getEntityManager().getEntities(
+								IntegerEntityType.OBJECT_PROPERTY, false)
+								.size()));
+		ret.add(createEntry(
+				"auxiliary classes created (including nominals)",
+				""
+						+ getEntityManager().getEntities(
+								IntegerEntityType.CLASS, true).size()));
+		ret.add(createEntry("auxiliary classes created for nominals", ""
+				+ getEntityManager().getIndividuals().size()));
+		ret.add(createEntry(
+				"auxiliary object properties created",
+				""
+						+ getEntityManager().getEntities(
+								IntegerEntityType.OBJECT_PROPERTY, true).size()));
+		ret.add(createEntry("chain S", this.chainS.toString()));
+		ret.add(createEntry("chain R", this.chainR.toString()));
+		return ret;
 	}
 
 	@Override
@@ -345,6 +398,23 @@ public class RuleBasedProcessor implements Processor {
 	}
 
 	/**
+	 * Returns information about the processor status.
+	 * 
+	 * @return information about the processor status.
+	 */
+	public List<Map.Entry<String, String>> getStatusInfo() {
+		List<Map.Entry<String, String>> ret = new ArrayList<Map.Entry<String, String>>();
+		ret.add(createEntry("iteration", "" + this.iteration));
+		ret.add(createEntry("Q_S", "" + this.setQsubS.size()));
+		ret.add(createEntry("Q_R", "" + this.setQsubR.size()));
+		ret.add(createEntry("S", "" + this.status.getDeepSizeOfS()));
+		ret.add(createEntry("R", "" + this.status.getDeepSizeOfR()));
+		ret.add(createEntry("V", "" + this.status.getSizeOfV()));
+		ret.add(createEntry("subV", "" + this.status.getDeepSizeOfV()));
+		return ret;
+	}
+
+	/**
 	 * This is a graph reachability algorithm that tests whether an element d is
 	 * reachable from an element c using a path where each segment is from any
 	 * of the properties in R.
@@ -432,15 +502,16 @@ public class RuleBasedProcessor implements Processor {
 		}
 
 		logger.fine("processor configured.");
-		logger.fine(showInfo());
+		logger.fine(showConfigurationInfo());
 	}
 
 	@Override
 	public boolean process() {
 		if (!this.isReady) {
 			if (this.setQsubS.isEmpty() && this.setQsubR.isEmpty()) {
+				logger.fine(showStatusInfo());
 				postProcess();
-				logger.fine(showUsedRules());
+				logger.fine(showConfigurationInfo());
 				this.isReady = true;
 			} else {
 				if (this.setQsubS.size() > this.setQsubR.size()) {
@@ -462,8 +533,7 @@ public class RuleBasedProcessor implements Processor {
 				this.iteration++;
 				if (this.loggingCount < 1) {
 					this.loggingCount = loggingFrequency;
-					logger.fine(showSetSizes());
-					// logger.fine(showUsedRules());
+					logger.fine(showStatusInfo());
 				}
 			}
 		}
@@ -538,59 +608,25 @@ public class RuleBasedProcessor implements Processor {
 		this.status.getObjectPropertyGraph().retainAll(reqObjectProperties);
 	}
 
-	private String showInfo() {
-		return "using "
-				+ getClass().getSimpleName()
-				+ " ..."
-				+ "preprocessing ontology ..."
-				+ "\nset of completion rules : \n"
-				+ this.chainS
-				+ "\n"
-				+ this.chainR
-				+ "\n"
-				+ "\nclasses read (including TOP and BOTTOM classes) : "
-				+ (getEntityManager().getEntities(IntegerEntityType.CLASS,
-						false).size())
-				+ "\nobject properties read (including TOP and BOTTOM object properties) : "
-				+ (getEntityManager().getEntities(
-						IntegerEntityType.OBJECT_PROPERTY, false).size())
-				+ "\nauxiliary classes created (including nominals) : "
-				+ (getEntityManager()
-						.getEntities(IntegerEntityType.CLASS, true).size())
-				+ "\nauxiliary classes created for nominals : "
-				+ (getEntityManager().getIndividuals().size())
-				+ "\nauxiliary object properties created : "
-				+ (getEntityManager().getEntities(
-						IntegerEntityType.OBJECT_PROPERTY, true).size());
-	}
-
-	private String showSetSizes() {
+	public String showConfigurationInfo() {
 		StringBuffer sbuf = new StringBuffer();
-		sbuf.append("[ iteration=");
-		sbuf.append(this.iteration);
-		sbuf.append(" sizes of Q_S=");
-		sbuf.append(this.setQsubS.size());
-		sbuf.append(" Q_R=");
-		sbuf.append(this.setQsubR.size());
-		sbuf.append(" S=");
-		sbuf.append(this.status.getDeepSizeOfS());
-		sbuf.append(" R=");
-		sbuf.append(this.status.getDeepSizeOfR());
-		sbuf.append(" V=");
-		sbuf.append(this.status.getSizeOfV());
-		sbuf.append(" subV=");
-		sbuf.append(this.status.getDeepSizeOfV());
-		sbuf.append(" ]");
+		for (Map.Entry<String, String> entry : getConfigurationInfo()) {
+			sbuf.append(entry.getKey());
+			sbuf.append(" = ");
+			sbuf.append(entry.getValue());
+			sbuf.append("\n");
+		}
 		return sbuf.toString();
 	}
 
-	private String showUsedRules() {
+	public String showStatusInfo() {
 		StringBuffer sbuf = new StringBuffer();
-		sbuf.append("\n");
-		sbuf.append(this.chainS.toString());
-		sbuf.append("\n");
-		sbuf.append(this.chainR.toString());
-		sbuf.append("\n");
+		for (Map.Entry<String, String> entry : getStatusInfo()) {
+			sbuf.append(entry.getKey());
+			sbuf.append("=");
+			sbuf.append(entry.getValue());
+			sbuf.append(" ");
+		}
 		return sbuf.toString();
 	}
 

@@ -120,13 +120,14 @@ public class ConsoleStarter {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		logger.setLevel(logLevel);
+		logger.addHandler(new OutputStreamHandler(logOutput));
+
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		OWLOntology ontology = manager
 				.loadOntologyFromOntologyDocument(ontologyFile);
 
 		JcelReasoner reasoner = new JcelReasoner(ontology, false);
-		logger.setLevel(logLevel);
-		logger.addHandler(new OutputStreamHandler(logOutput));
 		reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
 
 		OWLReasonerXMLOutput xmlDoc = new OWLReasonerXMLOutput(reasoner);
