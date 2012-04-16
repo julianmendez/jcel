@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<plugin>
+	<extension id="de.tudresden.inf.lat.jcel.protege.main.JcelProtegeReasonerFactory" point="org.protege.editor.owl.inference_reasonerfactory">
+		<name value="jcel"/>
+		<class value="de.tudresden.inf.lat.jcel.protege.main.JcelProtegeReasonerFactory"/>
+	</extension>
+</plugin>
