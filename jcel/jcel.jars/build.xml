@@ -101,16 +101,25 @@
 		</jar>
 	</target>
 
-	<!-- Compiles the whole project. -->
+	<!-- Compiles the project. -->
 	<target name="compile">
 		<mkdir dir="${project.build.outputDirectory}" />
 		<javac srcdir="${project.build.sourceDirectory}" destdir="${project.build.outputDirectory}" classpathref="libs.directory" debug="on" debuglevel="${_debuglevel}" includeantruntime="false" />
+	</target>
+
+	<!-- Checks availability of unit tests. -->
+	<target name="checktestsources">
+		<available file="${project.build.testSourceDirectory}" property="testSourceDirectory.available" />
+	</target>
+
+		<!-- Compiles the tests. -->
+	<target name="compiletests" depends="compile, checktestsources" if="testSourceDirectory.available">
 		<mkdir dir="${project.build.testOutputDirectory}" />
 		<javac srcdir="${project.build.testSourceDirectory}" destdir="${project.build.testOutputDirectory}" classpath="${project.build.outputDirectory}" classpathref="libs.directory" debug="on" debuglevel="${_debuglevel}" includeantruntime="false" />
 	</target>
 
 	<!-- Performs the unit tests. -->
-	<target name="test" depends="compile">
+	<target name="test" depends="compiletests" if="testSourceDirectory.available">
 		<mkdir dir="${_test.report.directory}" />
 		<junit printsummary="on" haltonfailure="yes" fork="yes">
 			<classpath>
@@ -150,9 +159,7 @@
 		<zip destfile="${_zipfile.directory}" basedir="${basedir}" />
 	</target>
 
-	<target name="dist" depends="clean, source, compile, javadoc, jar">
-		<!--buildnumber file="version.properties"/-->
-	</target>
+	<target name="dist" depends="clean, source, compile, checktestsources, compiletests, javadoc, jar" />
 
 </project>
 
