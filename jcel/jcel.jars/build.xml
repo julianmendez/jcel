@@ -121,7 +121,7 @@
 	<!-- Performs the unit tests. -->
 	<target name="test" depends="compiletests" if="testSourceDirectory.available">
 		<mkdir dir="${_test.report.directory}" />
-		<junit printsummary="on" haltonfailure="yes" fork="yes">
+		<junit printsummary="on" haltonfailure="yes" fork="yes" dir="${basedir}">
 			<classpath>
 				<pathelement path="${project.build.outputDirectory}" />
 				<pathelement path="${project.build.testOutputDirectory}" />
