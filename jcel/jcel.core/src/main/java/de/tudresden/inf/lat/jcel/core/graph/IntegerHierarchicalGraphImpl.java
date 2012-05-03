@@ -126,6 +126,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 			for (Integer index : elemEquivalents) {
 				this.children.put(index, elemChildren);
 				this.parents.put(index, elemParents);
+				this.equivalents.put(index, elemEquivalents);
 			}
 			toVisit.removeAll(elemEquivalents);
 		}
