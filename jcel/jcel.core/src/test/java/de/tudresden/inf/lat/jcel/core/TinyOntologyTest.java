@@ -161,4 +161,39 @@ public class TinyOntologyTest extends TestCase {
 		assertTrue(subClassesOfC.contains(a));
 	}
 
+	/**
+	 * <ol>
+	 * <li>A &#x2291; B ,</li>
+	 * <li>B &#x2291; A ,</li>
+	 * </ol>
+	 * &#x22a8;
+	 * <ul>
+	 * <li>A &equiv; B</li>
+	 * </ul>
+	 */
+	public void testTinyOntology2() {
+		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
+		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
+		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
+		Integer a = createNewClass(entityManager, "A");
+		Integer b = createNewClass(entityManager, "B");
+
+		// 1
+		ontology.add(factory.createGCI0Axiom(a, b));
+
+		// 2
+		ontology.add(factory.createGCI0Axiom(b, a));
+
+		Processor processor = createProcessor(ontology, entityManager, factory);
+		classify(processor);
+
+		Set<Integer> equivalentsOfA = processor.getClassHierarchy()
+				.getEquivalents(a);
+		assertTrue(equivalentsOfA.contains(b));
+
+		Set<Integer> equivalentsOfB = processor.getClassHierarchy()
+				.getEquivalents(b);
+		assertTrue(equivalentsOfB.contains(a));
+	}
+
 }

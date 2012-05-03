@@ -153,4 +153,39 @@ public class TinyOntologyTest extends TestCase {
 		assertTrue(subClassesOfC.contains(a));
 	}
 
+	/**
+	 * <ol>
+	 * <li>A &#x2291; B ,</li>
+	 * <li>B &#x2291; A ,</li>
+	 * </ol>
+	 * &#x22a8;
+	 * <ul>
+	 * <li>A &equiv; B</li>
+	 * </ul>
+	 */
+	public void testTinyOntology2() {
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+
+		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
+		IntegerClass a = createNewClass(factory, "A");
+		IntegerClass b = createNewClass(factory, "B");
+
+		// 1
+		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
+				b));
+
+		// 2
+		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(b,
+				a));
+
+		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
+		reasoner.classify();
+
+		Set<IntegerClass> equivalentsOfA = reasoner.getEquivalentClasses(a);
+		assertTrue(equivalentsOfA.contains(b));
+
+		Set<IntegerClass> equivalentsOfB = reasoner.getEquivalentClasses(b);
+		assertTrue(equivalentsOfB.contains(a));
+	}
+
 }
