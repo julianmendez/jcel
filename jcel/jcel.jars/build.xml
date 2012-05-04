@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="parent" default="dist" basedir=".">
+
+	<!--
+ *
+ * Copyright 2009 Julian Mendez
+ *
+ *
+ * This file is part of jcel.
+ *
+ * jcel is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * jcel is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with jcel.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *
+-->
+
+	<!-- 
+	For more information about this file, see http://ant.apache.org 
+	-->
+
+	<property name="project.groupId" value="jcel" />
+	<property name="project.artifactId" value="parent" />
+
+	<!-- Imports version properties. -->
+	<property file="version.properties" />
+
+	<!-- 
+
+	The following version properties should be defined at this point : 
+	  * project.version : has the version number of the form major.minor.patch 
+	  * build.number : has the build number
+	  * dependencies : has a space-separated list of the jars required to compile the project and run the test cases
+	  * javadocsrc : has a colon-separated list of source directories for the javadoc
+
+	Source directories: (src)
+	  * src/main/javadoc : text for the javadoc
+	  * src/main/java : source code of the main part
+	  * src/test/java : source code of the unit tests
+
+	Generated directories: (target)
+	  * target/classes : compiled classes
+	  * target/site/apidocs : generated javadoc
+	  * target/report : generated reports of unit tests
+	  * target/test-classes : compiled unit test classes
+
+	-->
+
+	<property name="project.build.directory" value="${basedir}/target" />
+	<property name="src.directory" value="src" />
+
+	<property name="_src.javadoc.directory" value="${src.directory}/main/javadoc" />
+	<property name="project.build.sourceDirectory" value="${src.directory}/main/java" />
+	<property name="project.build.testSourceDirectory" value="${src.directory}/test/java" />
+	<property name="_src.appdata.directory" value="${src.directory}/data" />
+	<property name="_jars.directory" value="${basedir}/.." />
+	<property name="_app.directory" value="${project.build.directory}/app" />
+	<property name="_javadoc.directory" value="${project.build.directory}/site/apidocs" />
+	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
+	<property name="_prjlib.directory" value="${project.build.directory}" />
+	<property name="_srclib.directory" value="${project.build.directory}" />
+	<property name="project.build.testOutputDirectory" value="${project.build.directory}/test-classes" />
+	<property name="_test.report.directory" value="${project.build.directory}/report" />
+	<property name="_zipfile.directory" value="${basedir}/../${project.groupId}-${project.artifactId}-${project.version}.${build.number}.zip" />
+	<property name="_debuglevel" value="lines,vars,source" />
+
+	<path id="libs.directory">
+		<fileset dir="${_jars.directory}" includes="${dependencies}" />
+	</path>
+
+	<patternset id="javadoc.patternset">
+		<include name="${_javadoc.directory}/**" />
+	</patternset>
+
+	<patternset id="testclasses.patternset">
+		<include name="**/*Test.java" />
+	</patternset>
+
+	<!-- Cleans everything. -->
+	<target name="clean">
+		<delete dir="${project.build.directory}" />
+	</target>
+
+	<!-- Creates a jar with the source code. -->
+	<target name="source" depends="clean">
+		<mkdir dir="${_srclib.directory}" />
+		<jar destfile="${_srclib.directory}/${project.artifactId}-${project.version}-sources.jar" basedir="${basedir}">
+			<manifest>
+				<attribute name="Implementation-Title" value="${project.groupId}-${project.artifactId}" />
+				<attribute name="Implementation-Version" value="${project.version}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- Compiles the project. -->
+	<target name="compile">
+		<mkdir dir="${project.build.outputDirectory}" />
+		<javac srcdir="${project.build.sourceDirectory}" destdir="${project.build.outputDirectory}" classpathref="libs.directory" debug="on" debuglevel="${_debuglevel}" includeantruntime="false" />
+	</target>
+
+	<!-- Checks availability of unit tests. -->
+	<target name="checktestsources">
+		<available file="${project.build.testSourceDirectory}" property="testSourceDirectory.available" />
+	</target>
+
+	<!-- Compiles the tests. -->
+	<target name="compiletests" depends="compile, checktestsources" if="testSourceDirectory.available">
+		<mkdir dir="${project.build.testOutputDirectory}" />
+		<javac srcdir="${project.build.testSourceDirectory}" destdir="${project.build.testOutputDirectory}" classpath="${project.build.outputDirectory}" classpathref="libs.directory" debug="on" debuglevel="${_debuglevel}" includeantruntime="false" />
+	</target>
+
+	<!-- Performs the unit tests. -->
+	<target name="test" depends="compiletests" if="testSourceDirectory.available">
+		<mkdir dir="${_test.report.directory}" />
+		<junit printsummary="on" haltonfailure="yes" fork="yes" dir="${basedir}">
+			<classpath>
+				<pathelement path="${project.build.outputDirectory}" />
+				<pathelement path="${project.build.testOutputDirectory}" />
+				<fileset dir="${_jars.directory}" includes="${dependencies}" />
+			</classpath>
+			<formatter type="plain" usefile="on" />
+			<batchtest fork="yes" todir="${_test.report.directory}">
+				<fileset dir="${project.build.testSourceDirectory}">
+					<patternset refid="testclasses.patternset" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+	<!-- Creates a jar with the binaries. -->
+	<target name="jar" depends="compile">
+		<mkdir dir="${_prjlib.directory}" />
+		<jar destfile="${_prjlib.directory}/${project.artifactId}-${project.version}.jar" basedir="${project.build.outputDirectory}">
+			<manifest>
+				<attribute name="Implementation-Title" value="${project.groupId}-${project.artifactId}" />
+				<attribute name="Implementation-Version" value="${project.version}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- Creates the javadoc. -->
+	<target name="javadoc">
+		<mkdir dir="${_javadoc.directory}" />
+		<javadoc packagenames="*" sourcepath="${javadocsrc}" destdir="${_javadoc.directory}" version="true" use="true" windowtitle="${project.groupId}-${project.artifactId}" overview="${_src.javadoc.directory}/overview.html" classpathref="libs.directory" access="package" />
+	</target>
+
+	<!-- Executes all the tasks. -->
+	<target name="dist" depends="clean, source, compile, checktestsources, compiletests, test, jar, javadoc" />
+
+</project>
+

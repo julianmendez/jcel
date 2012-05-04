@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/jcel.jars/lib/junit/junit/4.10/junit-4.10.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jcel.coreontology"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
