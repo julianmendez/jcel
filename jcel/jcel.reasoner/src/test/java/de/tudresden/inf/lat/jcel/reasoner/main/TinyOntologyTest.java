@@ -188,4 +188,47 @@ public class TinyOntologyTest extends TestCase {
 		assertTrue(equivalentsOfB.contains(a));
 	}
 
+	/**
+	 * <ol>
+	 * <li>&#x22a4; &#x2291; A ,</li>
+	 * <li>A &#x2291; B</li>
+	 * </ol>
+	 * &#x22a8;
+	 * <ul>
+	 * <li>A &equiv; B</li>
+	 * <li>B &equiv; &#x22a4;</li>
+	 * </ul>
+	 */
+	public void testTinyOntology3() {
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+
+		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
+		IntegerClass a = createNewClass(factory, "A");
+		IntegerClass b = createNewClass(factory, "B");
+
+		// 1
+		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
+				factory.getDataTypeFactory().getTopClass(), a));
+
+		// 2
+		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
+				b));
+
+		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
+		reasoner.classify();
+
+		Set<IntegerClass> equivalentsOfA = reasoner.getEquivalentClasses(a);
+		assertTrue(equivalentsOfA.contains(b));
+
+		Set<IntegerClass> equivalentsOfB = reasoner.getEquivalentClasses(b);
+		assertTrue(equivalentsOfB.contains(a));
+		assertTrue(equivalentsOfB.contains(factory.getDataTypeFactory()
+				.getTopClass()));
+
+		Set<IntegerClass> equivalentsOfTop = reasoner
+				.getEquivalentClasses(factory.getDataTypeFactory()
+						.getTopClass());
+		assertTrue(equivalentsOfTop.contains(b));
+	}
+
 }

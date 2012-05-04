@@ -86,7 +86,7 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &#x2291; B,</li>
+	 * <li>A &#x2291; B ,</li>
 	 * <li>B &#x2291; C</li>
 	 * </ol>
 	 * &#x22a8;
@@ -164,7 +164,7 @@ public class TinyOntologyTest extends TestCase {
 	/**
 	 * <ol>
 	 * <li>A &#x2291; B ,</li>
-	 * <li>B &#x2291; A ,</li>
+	 * <li>B &#x2291; A</li>
 	 * </ol>
 	 * &#x22a8;
 	 * <ul>
@@ -194,6 +194,48 @@ public class TinyOntologyTest extends TestCase {
 		Set<Integer> equivalentsOfB = processor.getClassHierarchy()
 				.getEquivalents(b);
 		assertTrue(equivalentsOfB.contains(a));
+	}
+
+	/**
+	 * <ol>
+	 * <li>&#x22a4; &#x2291; A ,</li>
+	 * <li>A &#x2291; B</li>
+	 * </ol>
+	 * &#x22a8;
+	 * <ul>
+	 * <li>A &equiv; B</li>
+	 * <li>B &equiv; &#x22a4;</li>
+	 * </ul>
+	 */
+	public void testTinyOntology3() {
+		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
+		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
+		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
+		Integer top = IntegerEntityManager.topClassId;
+		Integer a = createNewClass(entityManager, "A");
+		Integer b = createNewClass(entityManager, "B");
+
+		// 1
+		ontology.add(factory.createGCI0Axiom(top, a));
+
+		// 2
+		ontology.add(factory.createGCI0Axiom(a, b));
+
+		Processor processor = createProcessor(ontology, entityManager, factory);
+		classify(processor);
+
+		Set<Integer> equivalentsOfA = processor.getClassHierarchy()
+				.getEquivalents(a);
+		assertTrue(equivalentsOfA.contains(b));
+
+		Set<Integer> equivalentsOfB = processor.getClassHierarchy()
+				.getEquivalents(b);
+		assertTrue(equivalentsOfB.contains(a));
+		assertTrue(equivalentsOfB.contains(top));
+
+		Set<Integer> equivalentsOfTop = processor.getClassHierarchy()
+				.getEquivalents(top);
+		assertTrue(equivalentsOfTop.contains(b));
 	}
 
 }

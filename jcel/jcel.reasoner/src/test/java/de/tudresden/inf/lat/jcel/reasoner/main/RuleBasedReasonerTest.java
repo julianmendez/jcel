@@ -236,17 +236,6 @@ public class RuleBasedReasonerTest extends TestCase {
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
 
-		// test
-		{
-			Set<Set<IntegerClass>> subClassesOfB = reasoner.getSubClasses(b,
-					true);
-			assertEquals(subClassesOfB.size(), 1);
-			Set<IntegerClass> subElemSet = subClassesOfB.iterator().next();
-			assertEquals(subElemSet.size(), 1);
-			IntegerClass x = subElemSet.iterator().next();
-			assertEquals(factory.getDataTypeFactory().getBottomClass(), x);
-		}
-
 		assertUniqueDirectSubClass(reasoner, a, d);
 	}
 
