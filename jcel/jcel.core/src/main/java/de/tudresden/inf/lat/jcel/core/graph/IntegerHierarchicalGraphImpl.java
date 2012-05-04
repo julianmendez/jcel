@@ -44,6 +44,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 	private Map<Integer, Set<Integer>> children = new TreeMap<Integer, Set<Integer>>();
 	private Map<Integer, Set<Integer>> equivalents = new TreeMap<Integer, Set<Integer>>();
 	private Map<Integer, Set<Integer>> parents = new TreeMap<Integer, Set<Integer>>();
+	private Map<Integer, Integer> representative = new TreeMap<Integer, Integer>();
 	private final Integer topElement;
 
 	/**
@@ -79,11 +80,13 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 		this.bottomElement = origGraph.getBottomElement();
 		this.topElement = origGraph.getTopElement();
+
 		if (origGraph.containsPair(getTopElement(), getBottomElement())) {
 			computeInconsistentDag(origGraph);
 		} else {
 			computeDag(origGraph);
-			computeEquivalents(origGraph);
+			updateParents();
+			updateChildren();
 		}
 	}
 
@@ -93,42 +96,19 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 		sCNTop.addAll(setS.getElements());
 		sCNTop.remove(getBottomElement());
 
+		Set<Integer> equivToTop = new TreeSet<Integer>();
+		equivToTop.addAll(setS.getSubsumers(getTopElement()));
+		for (Integer elem : equivToTop) {
+			makeEquivalent(getTopElement(), elem);
+		}
+
 		Set<Integer> classified = new TreeSet<Integer>();
-		classified.add(getTopElement());
+		classified.addAll(equivToTop);
 
 		for (Integer cA : sCNTop) {
 			if (!classified.contains(cA)) {
 				dagClassify(cA, classified, setS);
 			}
-		}
-		for (Integer cA : sCNTop) {
-			Set<Integer> chSet = this.children.get(cA);
-			if (chSet.size() == 0) {
-				chSet.add(getBottomElement());
-			}
-		}
-	}
-
-	private void computeEquivalents(IntegerSubsumerGraph graph) {
-		Set<Integer> toVisit = new HashSet<Integer>();
-		toVisit.addAll(graph.getElements());
-		while (!toVisit.isEmpty()) {
-			Integer elem = toVisit.iterator().next();
-			Set<Integer> elemEquivalents = new HashSet<Integer>();
-			elemEquivalents.addAll(this.equivalents.get(elem));
-			elemEquivalents.add(elem);
-			Set<Integer> elemChildren = new HashSet<Integer>();
-			Set<Integer> elemParents = new HashSet<Integer>();
-			for (Integer index : elemEquivalents) {
-				elemChildren.addAll(this.children.get(index));
-				elemParents.addAll(this.parents.get(index));
-			}
-			for (Integer index : elemEquivalents) {
-				this.children.put(index, elemChildren);
-				this.parents.put(index, elemParents);
-				this.equivalents.put(index, elemEquivalents);
-			}
-			toVisit.removeAll(elemEquivalents);
 		}
 	}
 
@@ -136,7 +116,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 		Collection<Integer> elements = setS.getElements();
 		reset(elements);
 		for (Integer elem : elements) {
-			this.equivalents.put(elem, new HashSet<Integer>(elements));
+			makeEquivalent(getBottomElement(), elem);
 		}
 	}
 
@@ -153,7 +133,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 			subsumersB.addAll(setS.getSubsumers(cB));
 			if (subsumersB.contains(cA)) {
 				classified.add(cB);
-				this.equivalents.get(cA).add(cB);
+				makeEquivalent(cA, cB);
 			} else {
 				if (!classified.contains(cB)) {
 					dagClassify(cB, classified, setS);
@@ -222,11 +202,16 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 				if (this.equivalents.get(elem) == null) {
 					this.equivalents.put(elem, new HashSet<Integer>());
-
 				}
-				this.equivalents.get(elem).addAll(
-						otherGraph.getEquivalents(elem));
+				if (this.representative.get(elem) == null) {
+					this.representative.put(elem, elem);
+				}
+				for (Integer otherElem : otherGraph.getEquivalents(elem)) {
+					makeEquivalent(elem, otherElem);
+				}
+
 			}
+
 		} else {
 			throw new IllegalArgumentException(
 					"Both graphs have different bottom element or different top element.");
@@ -312,7 +297,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 	@Override
 	public Set<Integer> getElements() {
-		return Collections.unmodifiableSet(this.equivalents.keySet());
+		return Collections.unmodifiableSet(this.representative.keySet());
 	}
 
 	@Override
@@ -321,7 +306,17 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return Collections.unmodifiableSet(this.equivalents.get(elem));
+		return Collections.unmodifiableSet(this.equivalents
+				.get(this.representative.get(elem)));
+	}
+
+	/**
+	 * Returns one vertex for each equivalence class of vertices in the graph.
+	 * 
+	 * @return one vertex for each equivalence class of vertices in the graph
+	 */
+	public Set<Integer> getNonEquivalentElements() {
+		return Collections.unmodifiableSet(this.equivalents.keySet());
 	}
 
 	@Override
@@ -343,10 +338,25 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 		return this.parents.hashCode();
 	}
 
+	private void makeEquivalent(Integer cA, Integer cB) {
+		Integer repA = this.representative.get(cA);
+		Integer repB = this.representative.get(cB);
+		if (!repA.equals(repB)) {
+			Integer rep = Math.min(repA, repB);
+			Integer exRep = Math.max(repA, repB);
+			this.equivalents.get(rep).addAll(this.equivalents.get(exRep));
+			for (Integer elem : this.equivalents.get(exRep)) {
+				this.representative.put(elem, rep);
+			}
+			this.equivalents.remove(exRep);
+		}
+	}
+
 	private void reset(Collection<Integer> elements) {
 		this.children.clear();
 		this.parents.clear();
 		this.equivalents.clear();
+		this.representative.clear();
 
 		for (Integer elem : elements) {
 			this.children.put(elem, new TreeSet<Integer>());
@@ -354,6 +364,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 			Set<Integer> equiv = new TreeSet<Integer>();
 			equiv.add(elem);
 			this.equivalents.put(elem, equiv);
+			this.representative.put(elem, elem);
 		}
 	}
 
@@ -366,8 +377,38 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 		ret.append(this.parents);
 		ret.append("\n* equivalents : ");
 		ret.append(this.equivalents);
+		ret.append("\n* representative : ");
+		ret.append(this.representative);
 		ret.append("\n");
 		return ret.toString();
+	}
+
+	private void updateChildren() {
+		for (Integer elem : getElements()) {
+			Set<Integer> elemChildren = new HashSet<Integer>();
+			for (Integer index : getEquivalents(elem)) {
+				for (Integer child : this.children.get(index)) {
+					elemChildren.addAll(getEquivalents(child));
+				}
+			}
+			for (Integer index : getEquivalents(elem)) {
+				this.children.put(index, elemChildren);
+			}
+		}
+	}
+
+	private void updateParents() {
+		for (Integer elem : getElements()) {
+			Set<Integer> elemParents = new HashSet<Integer>();
+			for (Integer index : getEquivalents(elem)) {
+				for (Integer parent : this.parents.get(index)) {
+					elemParents.addAll(getEquivalents(parent));
+				}
+			}
+			for (Integer index : getEquivalents(elem)) {
+				this.parents.put(index, elemParents);
+			}
+		}
 	}
 
 }
