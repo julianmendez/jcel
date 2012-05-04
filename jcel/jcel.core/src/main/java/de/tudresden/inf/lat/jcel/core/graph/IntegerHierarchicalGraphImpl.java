@@ -262,7 +262,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 		Set<Integer> ret = new HashSet<Integer>();
 		Set<Integer> toVisit = new HashSet<Integer>();
-		toVisit.add(orig);
+		toVisit.addAll(this.parents.get(orig));
 		while (!toVisit.isEmpty()) {
 			Integer elem = toVisit.iterator().next();
 			toVisit.remove(elem);
@@ -297,7 +297,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 		Set<Integer> ret = new HashSet<Integer>();
 		Set<Integer> toVisit = new HashSet<Integer>();
-		toVisit.add(orig);
+		toVisit.addAll(this.children.get(orig));
 		while (!toVisit.isEmpty()) {
 			Integer elem = toVisit.iterator().next();
 			toVisit.remove(elem);
