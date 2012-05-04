@@ -238,4 +238,46 @@ public class TinyOntologyTest extends TestCase {
 		assertTrue(equivalentsOfTop.contains(b));
 	}
 
+	/**
+	 * <ol>
+	 * <li>A &#x2291; &#x22a5; ,</li>
+	 * <li>B &#x2291; A</li>
+	 * </ol>
+	 * &#x22a8;
+	 * <ul>
+	 * <li>A &equiv; B</li>
+	 * <li>B &equiv; &#x22a5;</li>
+	 * </ul>
+	 */
+	public void testTinyOntology4() {
+		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
+		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
+		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
+		Integer bottom = IntegerEntityManager.bottomClassId;
+		Integer a = createNewClass(entityManager, "A");
+		Integer b = createNewClass(entityManager, "B");
+
+		// 1
+		ontology.add(factory.createGCI0Axiom(a, bottom));
+
+		// 2
+		ontology.add(factory.createGCI0Axiom(b, a));
+
+		Processor processor = createProcessor(ontology, entityManager, factory);
+		classify(processor);
+
+		Set<Integer> equivalentsOfA = processor.getClassHierarchy()
+				.getEquivalents(a);
+		assertTrue(equivalentsOfA.contains(b));
+
+		Set<Integer> equivalentsOfB = processor.getClassHierarchy()
+				.getEquivalents(b);
+		assertTrue(equivalentsOfB.contains(a));
+		assertTrue(equivalentsOfB.contains(bottom));
+
+		Set<Integer> equivalentsOfBottom = processor.getClassHierarchy()
+				.getEquivalents(bottom);
+		assertTrue(equivalentsOfBottom.contains(b));
+	}
+
 }
