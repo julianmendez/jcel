@@ -36,12 +36,21 @@
 
 	<name>jcel ontology</name>
 
-	<parent>
-		<groupId>jcel</groupId>
-		<artifactId>parent</artifactId>
-		<version>0.17.1</version>
-		<relativePath>../jcel.jars</relativePath>
-	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+
+	<repositories>
+
+		<repository>
+			<id>localrepo</id>
+			<name>local maven repository</name>
+			<url>file:../jcel.jars/lib</url>
+		</repository>
+
+	</repositories>
 
 	<dependencies>
 
