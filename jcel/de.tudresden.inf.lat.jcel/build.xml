@@ -72,7 +72,7 @@
 
 	<!-- Checks availability of unit tests. -->
 	<target name="checktestsources">
-		<available file="${project.build.testSourceDirectory}" property="testSourceDirectory.available" />
+		<available file="${_src.test.path}" property="testSourceDirectory.available" />
 	</target>
 
 	<!-- Compiles the tests. -->
@@ -135,7 +135,7 @@
 		<zip destfile="${_zipfile.path}" basedir="${basedir}" />
 	</target>
 
-	<target name="dist" depends="clean, compile, conf, checktestsources, compiletests, jar, javadoc, bundle">
+	<target name="dist" depends="clean, compile, conf, checktestsources, compiletests, test, jar, javadoc, bundle">
 		<!--buildnumber /-->
 	</target>
 
