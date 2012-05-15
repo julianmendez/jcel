@@ -28,8 +28,8 @@
 	For more information about this file, see http://ant.apache.org 
 	-->
 
-	<property name="groupId" value="jcel" />
-	<property name="artifactId" value="parent" />
+	<property name="project.groupId" value="jcel" />
+	<property name="project.artifactId" value="parent" />
 
 	<!-- Imports version properties. -->
 	<property file="version.properties" />
@@ -37,7 +37,7 @@
 	<!-- 
 
 	The following version properties should be defined at this point : 
-	  * version : has the version number of the form major.minor.patch 
+	  * project.version : has the version number of the form major.minor.patch 
 	  * build.number : has the build number
 	  * dependencies : has a space-separated list of the jars required to compile the project and run the test cases
 	  * javadocsrc : has a colon-separated list of source directories for the javadoc
@@ -70,7 +70,7 @@
 	<property name="_srclib.directory" value="${project.build.directory}" />
 	<property name="project.build.testOutputDirectory" value="${project.build.directory}/test-classes" />
 	<property name="_test.report.directory" value="${project.build.directory}/report" />
-	<property name="_zipfile.directory" value="${basedir}/../${groupId}-${artifactId}-${version}.${build.number}.zip" />
+	<property name="_zipfile.directory" value="${basedir}/../${project.groupId}-${project.artifactId}-${project.version}.${build.number}.zip" />
 	<property name="_debuglevel" value="lines,vars,source" />
 
 	<path id="libs.directory">
@@ -93,26 +93,35 @@
 	<!-- Creates a jar with the source code. -->
 	<target name="source" depends="clean">
 		<mkdir dir="${_srclib.directory}" />
-		<jar destfile="${_srclib.directory}/${artifactId}-${version}-sources.jar" basedir="${basedir}">
+		<jar destfile="${_srclib.directory}/${project.artifactId}-${project.version}-sources.jar" basedir="${basedir}">
 			<manifest>
-				<attribute name="Implementation-Title" value="${groupId}-${artifactId}" />
-				<attribute name="Implementation-Version" value="${version}" />
+				<attribute name="Implementation-Title" value="${project.groupId}-${project.artifactId}" />
+				<attribute name="Implementation-Version" value="${project.version}" />
 			</manifest>
 		</jar>
 	</target>
 
-	<!-- Compiles the whole project. -->
+	<!-- Compiles the project. -->
 	<target name="compile">
 		<mkdir dir="${project.build.outputDirectory}" />
-		<javac srcdir="${project.build.sourceDirectory}" destdir="${project.build.outputDirectory}" classpathref="libs.directory" debug="on" debuglevel="${_debuglevel}" />
+		<javac srcdir="${project.build.sourceDirectory}" destdir="${project.build.outputDirectory}" classpathref="libs.directory" debug="on" debuglevel="${_debuglevel}" includeantruntime="false" />
+	</target>
+
+	<!-- Checks availability of unit tests. -->
+	<target name="checktestsources">
+		<available file="${project.build.testSourceDirectory}" property="testSourceDirectory.available" />
+	</target>
+
+	<!-- Compiles the tests. -->
+	<target name="compiletests" depends="compile, checktestsources" if="testSourceDirectory.available">
 		<mkdir dir="${project.build.testOutputDirectory}" />
-		<javac srcdir="${project.build.testSourceDirectory}" destdir="${project.build.testOutputDirectory}" classpath="${project.build.outputDirectory}" classpathref="libs.directory" debug="on" debuglevel="${_debuglevel}" />
+		<javac srcdir="${project.build.testSourceDirectory}" destdir="${project.build.testOutputDirectory}" classpath="${project.build.outputDirectory}" classpathref="libs.directory" debug="on" debuglevel="${_debuglevel}" includeantruntime="false" />
 	</target>
 
 	<!-- Performs the unit tests. -->
-	<target name="test" depends="compile">
+	<target name="test" depends="compiletests" if="testSourceDirectory.available">
 		<mkdir dir="${_test.report.directory}" />
-		<junit printsummary="on" haltonfailure="yes" fork="yes">
+		<junit printsummary="on" haltonfailure="yes" fork="yes" dir="${basedir}">
 			<classpath>
 				<pathelement path="${project.build.outputDirectory}" />
 				<pathelement path="${project.build.testOutputDirectory}" />
@@ -127,32 +136,25 @@
 		</junit>
 	</target>
 
-	<!-- Creates the javadoc. -->
-	<target name="javadoc">
-		<mkdir dir="${_javadoc.directory}" />
-		<javadoc packagenames="*" sourcepath="${javadocsrc}" destdir="${_javadoc.directory}" version="true" use="true" windowtitle="${groupId}-${artifactId}" overview="${_src.javadoc.directory}/overview.html" classpathref="libs.directory" access="package" />
-	</target>
-
 	<!-- Creates a jar with the binaries. -->
 	<target name="jar" depends="compile">
 		<mkdir dir="${_prjlib.directory}" />
-		<jar destfile="${_prjlib.directory}/${artifactId}-${version}.jar" basedir="${project.build.outputDirectory}">
+		<jar destfile="${_prjlib.directory}/${project.artifactId}-${project.version}.jar" basedir="${project.build.outputDirectory}">
 			<manifest>
-				<attribute name="Implementation-Title" value="${groupId}-${artifactId}" />
-				<attribute name="Implementation-Version" value="${version}" />
+				<attribute name="Implementation-Title" value="${project.groupId}-${project.artifactId}" />
+				<attribute name="Implementation-Version" value="${project.version}" />
 			</manifest>
 		</jar>
 	</target>
 
-	<!-- Creates a compressed file containing the whole project. -->
-	<target name="zip">
-		<delete file="${_zipfile.directory}" />
-		<zip destfile="${_zipfile.directory}" basedir="${basedir}" />
+	<!-- Creates the javadoc. -->
+	<target name="javadoc">
+		<mkdir dir="${_javadoc.directory}" />
+		<javadoc packagenames="*" sourcepath="${javadocsrc}" destdir="${_javadoc.directory}" version="true" use="true" windowtitle="${project.groupId}-${project.artifactId}" overview="${_src.javadoc.directory}/overview.html" classpathref="libs.directory" access="package" />
 	</target>
 
-	<target name="dist" depends="clean, source, compile, javadoc, jar">
-		<!--buildnumber file="version.properties"/-->
-	</target>
+	<!-- Executes all the tasks. -->
+	<target name="dist" depends="clean, source, compile, checktestsources, compiletests, test, jar, javadoc" />
 
 </project>
 
