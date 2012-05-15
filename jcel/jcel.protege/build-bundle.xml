@@ -28,8 +28,8 @@
 	For more information about this file, see http://ant.apache.org 
 	-->
 
-	<property name="groupId" value="jcel" />
-	<property name="artifactId" value="bundle" />
+	<property name="project.groupId" value="jcel" />
+	<property name="project.artifactId" value="bundle" />
 
 	<!-- Imports version properties. -->
 	<property file="version.properties" />
@@ -73,11 +73,11 @@
 
 	<!-- Copies the created jars. -->
 	<target name="getjar">
-		<mkdir dir="${_lib.directory}/${groupId.directory}/${module.name}/${version}" />
-		<copy todir="${_lib.directory}/${groupId.directory}/${module.name}/${version}">
+		<mkdir dir="${_lib.directory}/${groupId.directory}/${module.name}/${project.version}" />
+		<copy todir="${_lib.directory}/${groupId.directory}/${module.name}/${project.version}">
 			<fileset dir="${_root.directory}/${module.name}/${_targetlib.directory}">
-				<include name="${module.name}-${version}.jar" />
-				<include name="${module.name}-${version}-sources.jar" />
+				<include name="${module.name}-${project.version}.jar" />
+				<include name="${module.name}-${project.version}-sources.jar" />
 			</fileset>
 			<fileset dir="${_root.directory}/${module.name}">
 				<include name="copying.txt" />

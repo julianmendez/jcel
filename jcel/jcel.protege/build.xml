@@ -28,8 +28,8 @@
 	For more information about this file, see http://ant.apache.org 
 	-->
 
-	<property name="groupId" value="jcel" />
-	<property name="artifactId" value="jcel.protege" />
+	<property name="project.groupId" value="jcel" />
+	<property name="project.artifactId" value="jcel.protege" />
 
 	<!-- Imports version properties. -->
 	<property file="version.properties" />
@@ -37,7 +37,7 @@
 	<!-- 
 
 	The following version properties should be defined at this point : 
-	  * version : has the version number of the form major.minor.patch 
+	  * project.version : has the version number of the form major.minor.patch 
 	  * build.number : has the build number
 	  * dependencies : has a space-separated list of the jars required to compile the project and run the test cases
 	  * javadocsrc : has a colon-separated list of source directories for the javadoc
@@ -49,9 +49,9 @@
 	<!-- Compiles this module. -->
 	<target name="dist">
 		<subant genericantfile="${parent.directory}/build.xml" buildpath=".">
-			<property name="groupId" value="${groupId}" />
-			<property name="artifactId" value="${artifactId}" />
-			<property name="version" value="${version}" />
+			<property name="project.groupId" value="${project.groupId}" />
+			<property name="project.artifactId" value="${project.artifactId}" />
+			<property name="project.version" value="${project.version}" />
 			<property name="build.number" value="${build.number}" />
 			<property name="dependencies" value="${dependencies}" />
 		</subant>
