@@ -127,7 +127,7 @@
 	</target>
 
 	<!-- Creates the bundle. -->
-	<target name="bundle" depends="build">
+	<target name="bundle" depends="compile">
 		<mkdir dir="${_bundle.path}" />
 		<jar destfile="${_bundle.path}/${_bundle.name}.jar" manifest="${_manifest.path}">
 			<fileset dir="${_main.bin.path}" />
