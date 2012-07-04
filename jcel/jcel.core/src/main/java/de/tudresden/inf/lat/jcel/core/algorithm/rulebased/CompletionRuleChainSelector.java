@@ -43,7 +43,7 @@ import de.tudresden.inf.lat.jcel.core.completion.ext.CR6SExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR7ExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR8RExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR8SExtRule;
-import de.tudresden.inf.lat.jcel.core.completion.ext.CR9ExtOptRule;
+import de.tudresden.inf.lat.jcel.core.completion.ext.CR9ExtRule;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
 
 /**
@@ -108,7 +108,7 @@ public class CompletionRuleChainSelector {
 		listR.add(new CR6RExtRule());
 		listR.add(new CR7ExtRule());
 		listR.add(new CR8RExtRule());
-		listR.add(new CR9ExtOptRule());
+		listR.add(new CR9ExtRule());
 		this.chainR = new RChain(listR);
 	}
 
