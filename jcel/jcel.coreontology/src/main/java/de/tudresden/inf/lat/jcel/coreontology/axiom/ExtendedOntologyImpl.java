@@ -199,16 +199,13 @@ public class ExtendedOntologyImpl implements ExtendedOntology,
 	@Override
 	public Set<GCI3Axiom> getGCI3rAAxioms(int propertyId, int leftClassId) {
 		Set<GCI3Axiom> ret = new HashSet<GCI3Axiom>();
-		Set<GCI3Axiom> set1 = this.mapOfGCI3A.get(leftClassId);
-		if (set1 != null) {
-			ret.addAll(set1);
-		}
-		Set<GCI3Axiom> set2 = this.mapOfGCI3r.get(propertyId);
-		if (set2 == null) {
-			ret = Collections.emptySet();
-		} else {
-			ret.retainAll(set2);
-
+		Set<GCI3Axiom> set = this.mapOfGCI3A.get(leftClassId);
+		if (set != null) {
+			for (GCI3Axiom axiom : set) {
+				if (axiom.getPropertyInSubClass() == propertyId) {
+					ret.add(axiom);
+				}
+			}
 		}
 		return Collections.unmodifiableSet(ret);
 	}
