@@ -22,23 +22,16 @@
 package de.tudresden.inf.lat.jcel.owlapi.translator;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataHasValue;
-import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
@@ -99,37 +92,33 @@ public class TranslationRepository {
 	}
 
 	/**
-	 * Adds the entities of an axiom to the repository.
+	 * Adds the entities of an ontology to the repository.
 	 * 
-	 * @param axiom
-	 *            OWL axiom
+	 * @param ontology
+	 *            OWL ontology
 	 * @return <code>true</code> if and only if the repository has changed
 	 */
-	public boolean addAxiomEntities(OWLAxiom axiom) {
-		if (axiom == null) {
+	public boolean addAxiomEntities(OWLOntology ontology) {
+		if (ontology == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		boolean ret = false;
-
-		for (OWLClass cls : axiom.getClassesInSignature()) {
+		for (OWLClass cls : ontology.getClassesInSignature()) {
 			boolean changed = addClass(cls);
 			ret = ret || changed;
 		}
-		for (OWLObjectProperty objProp : axiom.getObjectPropertiesInSignature()) {
+		for (OWLObjectProperty objProp : ontology
+				.getObjectPropertiesInSignature()) {
 			boolean changed = addObjectProperty(objProp);
 			ret = ret || changed;
 		}
-		for (OWLNamedIndividual indiv : axiom.getIndividualsInSignature()) {
+		for (OWLNamedIndividual indiv : ontology.getIndividualsInSignature()) {
 			boolean changed = addNamedIndividual(indiv);
 			ret = ret || changed;
 		}
-		for (OWLDataProperty dataProp : axiom.getDataPropertiesInSignature()) {
+		for (OWLDataProperty dataProp : ontology.getDataPropertiesInSignature()) {
 			boolean changed = addDataProperty(dataProp);
-			ret = ret || changed;
-		}
-		for (OWLLiteral lit : collectLiterals(axiom)) {
-			boolean changed = addLiteral(lit);
 			ret = ret || changed;
 		}
 		return ret;
@@ -248,27 +237,6 @@ public class TranslationRepository {
 			this.objectPropertyMap.put(id, objProp);
 			this.objectPropertyInvMap.put(objProp, id);
 			ret = true;
-		}
-		return ret;
-	}
-
-	private Set<OWLLiteral> collectLiterals(OWLAxiom axiom) {
-		Set<OWLLiteral> ret = new HashSet<OWLLiteral>();
-		if ((axiom instanceof OWLDataPropertyAssertionAxiom)) {
-			ret.add(((OWLDataPropertyAssertionAxiom) axiom).getObject());
-		}
-		if (axiom instanceof OWLNegativeDataPropertyAssertionAxiom) {
-			ret.add(((OWLNegativeDataPropertyAssertionAxiom) axiom).getObject());
-		}
-		Set<OWLClassExpression> classExpressions = axiom
-				.getNestedClassExpressions();
-		for (OWLClassExpression classExpr : classExpressions) {
-			if (classExpr instanceof OWLDataHasValue) {
-				ret.add(((OWLDataHasValue) classExpr).getValue());
-			}
-			if (classExpr instanceof OWLDataOneOf) {
-				ret.addAll(((OWLDataOneOf) classExpr).getValues());
-			}
 		}
 		return ret;
 	}

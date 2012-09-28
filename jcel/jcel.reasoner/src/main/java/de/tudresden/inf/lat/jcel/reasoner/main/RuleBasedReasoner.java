@@ -102,7 +102,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	}
 
 	private RuleBasedProcessor createProcessor(Set<ComplexIntegerAxiom> ontology) {
-		logger.fine("creating processor ...");
+		logger.fine("creating processor (phase 1) ...");
 
 		OntologyExpressivity expressivity = new ComplexAxiomExpressivityDetector(
 				ontology);
@@ -129,7 +129,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		Set<NormalizedIntegerAxiom> normalizedAxiomSet = axiomNormalizer
 				.normalize(ontology, this.factory);
 
-		logger.fine("creating processor ...");
+		logger.fine("creating processor (phase 2) ...");
 		RuleBasedProcessor ret = new RuleBasedProcessor(
 				originalObjectPropertySet, originalClassSet,
 				normalizedAxiomSet, expressivity,

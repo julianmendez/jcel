@@ -394,11 +394,14 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 			owlAxiomSet.addAll(ont.getAxioms());
 		}
 
-		for (OWLAxiom axiom : owlAxiomSet) {
-			this.translator.getTranslationRepository().addAxiomEntities(axiom);
-		}
+		this.translator.getTranslationRepository().addAxiomEntities(
+				this.rootOntology);
 
-		return this.translator.translateSA(owlAxiomSet);
+		logger.fine("translating axioms ...");
+		Set<ComplexIntegerAxiom> ret = this.translator.translateSA(owlAxiomSet);
+
+		logger.fine("axioms translated.");
+		return ret;
 	}
 
 	@Override
