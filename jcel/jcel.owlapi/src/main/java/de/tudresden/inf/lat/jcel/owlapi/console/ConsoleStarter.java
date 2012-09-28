@@ -131,6 +131,9 @@ public class ConsoleStarter {
 		OWLOntology ontology = manager
 				.loadOntologyFromOntologyDocument(ontologyFile);
 
+		System.gc();
+		System.gc();
+
 		logger.fine("starting reasoner ...");
 		JcelReasoner reasoner = new JcelReasoner(ontology, false);
 
