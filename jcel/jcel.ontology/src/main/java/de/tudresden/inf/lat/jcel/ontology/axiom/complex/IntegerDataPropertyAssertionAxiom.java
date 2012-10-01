@@ -49,18 +49,8 @@ public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 	 * @param objectInd
 	 *            target individual
 	 */
-	protected IntegerDataPropertyAssertionAxiom(Integer objectProp,
-			Integer subjectInd, Integer objectInd) {
-		if (objectProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (subjectInd == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (objectInd == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	protected IntegerDataPropertyAssertionAxiom(int objectProp, int subjectInd,
+			int objectInd) {
 		this.property = objectProp;
 		this.subject = subjectInd;
 		this.object = objectInd;

@@ -43,26 +43,26 @@ public class ComplexIntegerAxiomFactoryImpl implements
 
 	@Override
 	public IntegerClassAssertionAxiom createClassAssertionAxiom(
-			IntegerClassExpression classExpr, Integer individualId) {
+			IntegerClassExpression classExpr, int individualId) {
 		return new IntegerClassAssertionAxiom(classExpr, individualId);
 	}
 
 	@Override
 	public IntegerClassDeclarationAxiom createClassDeclarationAxiom(
-			Integer declaredEntity) {
+			int declaredEntity) {
 		return new IntegerClassDeclarationAxiom(declaredEntity);
 	}
 
 	@Override
 	public IntegerDataPropertyAssertionAxiom createDataPropertyAssertionAxiom(
-			Integer objectProp, Integer subjectInd, Integer objectInd) {
+			int objectProp, int subjectInd, int objectInd) {
 		return new IntegerDataPropertyAssertionAxiom(objectProp, subjectInd,
 				objectInd);
 	}
 
 	@Override
 	public IntegerDataPropertyDeclarationAxiom createDataPropertyDeclarationAxiom(
-			Integer declaredEntity) {
+			int declaredEntity) {
 		return new IntegerDataPropertyDeclarationAxiom(declaredEntity);
 	}
 
@@ -111,29 +111,29 @@ public class ComplexIntegerAxiomFactoryImpl implements
 
 	@Override
 	public IntegerNamedIndividualDeclarationAxiom createNamedIndividualDeclarationAxiom(
-			Integer declaredEntity) {
+			int declaredEntity) {
 		return new IntegerNamedIndividualDeclarationAxiom(declaredEntity);
 	}
 
 	@Override
 	public IntegerNegativeObjectPropertyAssertionAxiom createNegativeObjectPropertyAssertionAxiom(
-			IntegerObjectPropertyExpression objectProp, Integer subjectInd,
-			Integer objectInd) {
+			IntegerObjectPropertyExpression objectProp, int subjectInd,
+			int objectInd) {
 		return new IntegerNegativeObjectPropertyAssertionAxiom(objectProp,
 				subjectInd, objectInd);
 	}
 
 	@Override
 	public IntegerObjectPropertyAssertionAxiom createObjectPropertyAssertionAxiom(
-			IntegerObjectPropertyExpression objectProp, Integer subjectInd,
-			Integer objectInd) {
+			IntegerObjectPropertyExpression objectProp, int subjectInd,
+			int objectInd) {
 		return new IntegerObjectPropertyAssertionAxiom(objectProp, subjectInd,
 				objectInd);
 	}
 
 	@Override
 	public IntegerObjectPropertyDeclarationAxiom createObjectPropertyDeclarationAxiom(
-			Integer declaredEntity) {
+			int declaredEntity) {
 		return new IntegerObjectPropertyDeclarationAxiom(declaredEntity);
 	}
 

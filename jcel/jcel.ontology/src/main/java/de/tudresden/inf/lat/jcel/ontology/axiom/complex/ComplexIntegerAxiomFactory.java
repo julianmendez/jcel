@@ -43,7 +43,7 @@ public interface ComplexIntegerAxiomFactory {
 	 *            individual of the assertion
 	 */
 	public IntegerClassAssertionAxiom createClassAssertionAxiom(
-			IntegerClassExpression classExpr, Integer individualId);
+			IntegerClassExpression classExpr, int individualId);
 
 	/**
 	 * Constructs a new class declaration axiom.
@@ -52,7 +52,7 @@ public interface ComplexIntegerAxiomFactory {
 	 *            class identifier
 	 */
 	public IntegerClassDeclarationAxiom createClassDeclarationAxiom(
-			Integer declaredEntity);
+			int declaredEntity);
 
 	/**
 	 * Constructs a new data property assertion axiom.
@@ -65,7 +65,7 @@ public interface ComplexIntegerAxiomFactory {
 	 *            target individual
 	 */
 	public IntegerDataPropertyAssertionAxiom createDataPropertyAssertionAxiom(
-			Integer objectProp, Integer subjectInd, Integer objectInd);
+			int objectProp, int subjectInd, int objectInd);
 
 	/**
 	 * Constructs a new data property declaration axiom.
@@ -74,7 +74,7 @@ public interface ComplexIntegerAxiomFactory {
 	 *            data property
 	 */
 	public IntegerDataPropertyDeclarationAxiom createDataPropertyDeclarationAxiom(
-			Integer declaredEntity);
+			int declaredEntity);
 
 	/**
 	 * Constructs a new different individuals axiom
@@ -150,7 +150,7 @@ public interface ComplexIntegerAxiomFactory {
 	 *            named individual
 	 */
 	public IntegerNamedIndividualDeclarationAxiom createNamedIndividualDeclarationAxiom(
-			Integer declaredEntity);
+			int declaredEntity);
 
 	/**
 	 * Constructs a new negative object property axiom.
@@ -163,8 +163,8 @@ public interface ComplexIntegerAxiomFactory {
 	 *            target individual
 	 */
 	public IntegerNegativeObjectPropertyAssertionAxiom createNegativeObjectPropertyAssertionAxiom(
-			IntegerObjectPropertyExpression objectProp, Integer subjectInd,
-			Integer objectInd);
+			IntegerObjectPropertyExpression objectProp, int subjectInd,
+			int objectInd);
 
 	/**
 	 * Constructs a new object property assertion axiom.
@@ -177,8 +177,8 @@ public interface ComplexIntegerAxiomFactory {
 	 *            target individual
 	 */
 	public IntegerObjectPropertyAssertionAxiom createObjectPropertyAssertionAxiom(
-			IntegerObjectPropertyExpression objectProp, Integer subjectInd,
-			Integer objectInd);
+			IntegerObjectPropertyExpression objectProp, int subjectInd,
+			int objectInd);
 
 	/**
 	 * Constructs a new object property declaration axiom.
@@ -187,7 +187,7 @@ public interface ComplexIntegerAxiomFactory {
 	 *            object property
 	 */
 	public IntegerObjectPropertyDeclarationAxiom createObjectPropertyDeclarationAxiom(
-			Integer declaredEntity);
+			int declaredEntity);
 
 	/**
 	 * Constructs a new object property range axiom.

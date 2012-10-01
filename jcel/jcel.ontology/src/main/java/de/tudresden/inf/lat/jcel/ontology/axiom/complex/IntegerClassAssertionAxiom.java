@@ -46,11 +46,8 @@ public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 	 *            individual of the assertion
 	 */
 	protected IntegerClassAssertionAxiom(IntegerClassExpression classExpr,
-			Integer individualId) {
+			int individualId) {
 		if (classExpr == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (individualId == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 

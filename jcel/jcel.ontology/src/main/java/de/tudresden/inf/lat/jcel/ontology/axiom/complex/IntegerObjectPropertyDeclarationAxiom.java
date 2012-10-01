@@ -40,11 +40,7 @@ public class IntegerObjectPropertyDeclarationAxiom implements
 	 * @param declaredEntity
 	 *            object property
 	 */
-	protected IntegerObjectPropertyDeclarationAxiom(Integer declaredEntity) {
-		if (declaredEntity == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	protected IntegerObjectPropertyDeclarationAxiom(int declaredEntity) {
 		this.entity = declaredEntity;
 	}
 

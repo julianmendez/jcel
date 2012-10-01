@@ -52,15 +52,9 @@ public class IntegerObjectPropertyAssertionAxiom implements ComplexIntegerAxiom 
 	 *            target individual
 	 */
 	protected IntegerObjectPropertyAssertionAxiom(
-			IntegerObjectPropertyExpression objectProp, Integer subjectInd,
-			Integer objectInd) {
+			IntegerObjectPropertyExpression objectProp, int subjectInd,
+			int objectInd) {
 		if (objectProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (subjectInd == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (objectInd == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
