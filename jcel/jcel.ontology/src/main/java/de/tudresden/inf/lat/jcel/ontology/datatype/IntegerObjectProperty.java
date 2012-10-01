@@ -41,11 +41,7 @@ public class IntegerObjectProperty implements IntegerObjectPropertyExpression,
 	 * @param n
 	 *            object property identifier
 	 */
-	protected IntegerObjectProperty(Integer n) {
-		if (n == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	protected IntegerObjectProperty(int n) {
 		this.id = n;
 	}
 
@@ -113,7 +109,7 @@ public class IntegerObjectProperty implements IntegerObjectPropertyExpression,
 
 	@Override
 	public int hashCode() {
-		return getId().hashCode();
+		return this.id;
 	}
 
 	@Override

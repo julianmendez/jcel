@@ -37,6 +37,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
 public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 
 	private final IntegerClassExpression filler;
+	private final int hashCode;
 	private final boolean normalized;
 	private final IntegerObjectPropertyExpression property;
 
@@ -61,6 +62,8 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 		this.property = propertyExpression;
 		this.filler = classExpression;
 		this.normalized = classExpression.isLiteral();
+		this.hashCode = propertyExpression.hashCode() + 31
+				* classExpression.hashCode();
 	}
 
 	@Override
@@ -138,7 +141,7 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 
 	@Override
 	public int hashCode() {
-		return getProperty().hashCode() + 31 * getFiller().hashCode();
+		return this.hashCode;
 	}
 
 	@Override

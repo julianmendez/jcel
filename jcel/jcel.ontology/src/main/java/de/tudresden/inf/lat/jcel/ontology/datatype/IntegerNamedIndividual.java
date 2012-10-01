@@ -42,11 +42,7 @@ public class IntegerNamedIndividual implements IntegerClassExpression,
 	 * @param n
 	 *            named individual identifier
 	 */
-	protected IntegerNamedIndividual(Integer n) {
-		if (n == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	protected IntegerNamedIndividual(int n) {
 		this.id = n;
 	}
 

@@ -41,11 +41,7 @@ public class IntegerDataProperty implements IntegerDataPropertyExpression,
 	 * @param n
 	 *            data property identifier
 	 */
-	protected IntegerDataProperty(Integer n) {
-		if (n == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	protected IntegerDataProperty(int n) {
 		this.id = n;
 	}
 
@@ -100,7 +96,7 @@ public class IntegerDataProperty implements IntegerDataPropertyExpression,
 
 	@Override
 	public int hashCode() {
-		return getId().hashCode();
+		return this.id;
 	}
 
 	@Override

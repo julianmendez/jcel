@@ -34,6 +34,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
 public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression,
 		Comparable<IntegerObjectInverseOf> {
 
+	private final int hashCode;
 	private final IntegerObjectProperty invProperty;
 
 	/**
@@ -48,6 +49,7 @@ public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression,
 		}
 
 		this.invProperty = property;
+		this.hashCode = property.hashCode();
 	}
 
 	@Override
@@ -114,7 +116,7 @@ public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression,
 
 	@Override
 	public int hashCode() {
-		return getInverse().hashCode();
+		return this.hashCode;
 	}
 
 	@Override

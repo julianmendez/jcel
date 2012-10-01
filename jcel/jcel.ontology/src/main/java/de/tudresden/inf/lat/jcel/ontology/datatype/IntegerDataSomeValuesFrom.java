@@ -36,6 +36,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
 public class IntegerDataSomeValuesFrom implements IntegerClassExpression {
 
 	private final IntegerClassExpression filler;
+	private final int hashCode;
 	private final boolean normalized;
 	private final int property;
 
@@ -45,11 +46,8 @@ public class IntegerDataSomeValuesFrom implements IntegerClassExpression {
 	 * @param propertyId
 	 * @param classExpression
 	 */
-	protected IntegerDataSomeValuesFrom(Integer propertyId,
+	protected IntegerDataSomeValuesFrom(int propertyId,
 			IntegerClassExpression classExpression) {
-		if (propertyId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
 		if (classExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -57,6 +55,7 @@ public class IntegerDataSomeValuesFrom implements IntegerClassExpression {
 		this.property = propertyId;
 		this.filler = classExpression;
 		this.normalized = classExpression.isLiteral();
+		this.hashCode = propertyId + 31 * classExpression.hashCode();
 	}
 
 	@Override
@@ -141,7 +140,7 @@ public class IntegerDataSomeValuesFrom implements IntegerClassExpression {
 
 	@Override
 	public int hashCode() {
-		return getProperty().hashCode() + 31 * getFiller().hashCode();
+		return this.hashCode;
 	}
 
 	@Override

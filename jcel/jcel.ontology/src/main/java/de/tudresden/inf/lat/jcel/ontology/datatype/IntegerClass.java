@@ -42,11 +42,7 @@ public class IntegerClass implements IntegerClassExpression,
 	 * @param n
 	 *            class identifier
 	 */
-	protected IntegerClass(Integer n) {
-		if (n == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	protected IntegerClass(int n) {
 		this.id = n;
 	}
 
@@ -124,7 +120,7 @@ public class IntegerClass implements IntegerClassExpression,
 
 	@Override
 	public int hashCode() {
-		return getId().hashCode();
+		return this.id;
 	}
 
 	@Override

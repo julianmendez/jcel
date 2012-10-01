@@ -42,11 +42,7 @@ public class IntegerObjectOneOf implements IntegerClassExpression {
 	 * @param individualId
 	 *            individual identifier
 	 */
-	protected IntegerObjectOneOf(Integer individualId) {
-		if (individualId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	protected IntegerObjectOneOf(int individualId) {
 		this.individual = individualId;
 	}
 
@@ -115,7 +111,7 @@ public class IntegerObjectOneOf implements IntegerClassExpression {
 
 	@Override
 	public int hashCode() {
-		return getIndividual().hashCode();
+		return this.individual;
 	}
 
 	@Override

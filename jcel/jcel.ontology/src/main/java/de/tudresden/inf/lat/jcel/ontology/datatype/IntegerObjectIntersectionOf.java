@@ -37,6 +37,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
  */
 public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 
+	private final int hashCode;
 	private final boolean normalized;
 	private final Set<IntegerClassExpression> operands;
 	private final boolean withBottom;
@@ -53,6 +54,7 @@ public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 		}
 
 		this.operands = operands;
+		this.hashCode = operands.hashCode();
 		boolean normalized = true;
 		boolean withBottom = false;
 		for (IntegerClassExpression elem : this.operands) {
@@ -141,7 +143,7 @@ public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 
 	@Override
 	public int hashCode() {
-		return getOperands().hashCode();
+		return this.hashCode;
 	}
 
 	@Override
