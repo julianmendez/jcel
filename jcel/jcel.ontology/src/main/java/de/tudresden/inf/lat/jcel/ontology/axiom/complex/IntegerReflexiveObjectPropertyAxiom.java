@@ -33,6 +33,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  */
 public class IntegerReflexiveObjectPropertyAxiom implements ComplexIntegerAxiom {
 
+	private final int hashCode;
 	private final IntegerObjectPropertyExpression objectProperty;
 
 	/**
@@ -48,6 +49,7 @@ public class IntegerReflexiveObjectPropertyAxiom implements ComplexIntegerAxiom 
 		}
 
 		this.objectProperty = property;
+		this.hashCode = property.hashCode();
 	}
 
 	@Override
@@ -104,7 +106,7 @@ public class IntegerReflexiveObjectPropertyAxiom implements ComplexIntegerAxiom 
 
 	@Override
 	public int hashCode() {
-		return getProperty().hashCode();
+		return this.hashCode;
 
 	}
 

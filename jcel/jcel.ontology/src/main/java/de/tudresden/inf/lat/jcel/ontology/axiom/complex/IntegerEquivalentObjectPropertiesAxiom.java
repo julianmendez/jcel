@@ -38,6 +38,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 public class IntegerEquivalentObjectPropertiesAxiom implements
 		ComplexIntegerAxiom {
 
+	private final int hashCode;
 	private final Set<IntegerObjectPropertyExpression> objectProperties;
 	private final Set<Integer> objectPropertiesInSignature;
 
@@ -54,6 +55,7 @@ public class IntegerEquivalentObjectPropertiesAxiom implements
 		}
 
 		this.objectProperties = Collections.unmodifiableSet(propSet);
+		this.hashCode = propSet.hashCode();
 
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
 		for (IntegerObjectPropertyExpression expression : this.objectProperties) {
@@ -119,7 +121,7 @@ public class IntegerEquivalentObjectPropertiesAxiom implements
 
 	@Override
 	public int hashCode() {
-		return getProperties().hashCode();
+		return this.hashCode;
 	}
 
 	@Override

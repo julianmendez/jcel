@@ -38,6 +38,7 @@ public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 
 	private final Set<Integer> classesInSignature;
 	private final Set<IntegerClassExpression> classExpressions;
+	private final int hashCode;
 	private final Set<Integer> objectPropertiesInSignature;
 
 	/**
@@ -52,6 +53,7 @@ public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 		}
 
 		this.classExpressions = Collections.unmodifiableSet(descSet);
+		this.hashCode = descSet.hashCode();
 
 		Set<Integer> classesInSignature = new HashSet<Integer>();
 		for (IntegerClassExpression expression : this.classExpressions) {
@@ -124,7 +126,7 @@ public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 
 	@Override
 	public int hashCode() {
-		return getClassExpressions().hashCode();
+		return this.hashCode;
 	}
 
 	@Override

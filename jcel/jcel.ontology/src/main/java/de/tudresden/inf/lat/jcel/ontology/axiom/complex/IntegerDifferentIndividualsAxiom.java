@@ -32,6 +32,7 @@ import java.util.Set;
  */
 public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 
+	private final int hashCode;
 	private final Set<Integer> individuals;
 
 	/**
@@ -46,6 +47,7 @@ public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 		}
 
 		this.individuals = Collections.unmodifiableSet(individualSet);
+		this.hashCode = individualSet.hashCode();
 	}
 
 	@Override
@@ -103,7 +105,7 @@ public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 
 	@Override
 	public int hashCode() {
-		return getIndividuals().hashCode();
+		return this.hashCode;
 	}
 
 	@Override

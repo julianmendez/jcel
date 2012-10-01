@@ -38,6 +38,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 
 	private final Set<Integer> classesInSignature;
+	private final int hashCode;
 	private final Set<Integer> objectPropertiesInSignature;
 	private final IntegerObjectPropertyExpression property;
 	private final IntegerClassExpression range;
@@ -61,6 +62,7 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 
 		this.property = prop;
 		this.range = clExpr;
+		this.hashCode = prop.hashCode() + 31 * clExpr.hashCode();
 
 		Set<Integer> classesInSignature = new HashSet<Integer>();
 		classesInSignature.addAll(this.range.getClassesInSignature());
@@ -140,7 +142,7 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 
 	@Override
 	public int hashCode() {
-		return getProperty().hashCode() + getRange().hashCode();
+		return this.hashCode;
 	}
 
 	@Override

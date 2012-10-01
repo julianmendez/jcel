@@ -35,6 +35,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 public class IntegerInverseFunctionalObjectPropertyAxiom implements
 		ComplexIntegerAxiom {
 
+	private final int hashCode;
 	private final IntegerObjectPropertyExpression objectProperty;
 
 	/**
@@ -50,6 +51,7 @@ public class IntegerInverseFunctionalObjectPropertyAxiom implements
 		}
 
 		this.objectProperty = property;
+		this.hashCode = property.hashCode();
 	}
 
 	@Override
@@ -106,7 +108,7 @@ public class IntegerInverseFunctionalObjectPropertyAxiom implements
 
 	@Override
 	public int hashCode() {
-		return getProperty().hashCode();
+		return this.hashCode;
 	}
 
 	@Override

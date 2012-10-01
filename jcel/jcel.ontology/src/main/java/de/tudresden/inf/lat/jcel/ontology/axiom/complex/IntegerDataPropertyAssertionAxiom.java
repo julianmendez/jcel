@@ -34,6 +34,7 @@ import java.util.Set;
  */
 public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 
+	private final int hashCode;
 	private final Set<Integer> individualsInSignature;
 	private final int object;
 	private final int property;
@@ -54,6 +55,7 @@ public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 		this.property = objectProp;
 		this.subject = subjectInd;
 		this.object = objectInd;
+		this.hashCode = objectProp + 31 * subjectInd;
 
 		Set<Integer> individualsInSignature = new HashSet<Integer>();
 		individualsInSignature.add(this.subject);
@@ -137,7 +139,7 @@ public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 
 	@Override
 	public int hashCode() {
-		return getProperty().hashCode() + 31 * getSubject().hashCode();
+		return this.hashCode;
 	}
 
 	@Override

@@ -94,7 +94,7 @@ public class IntegerClassDeclarationAxiom implements IntegerDeclarationAxiom {
 
 	@Override
 	public int hashCode() {
-		return getEntity().hashCode();
+		return this.entity;
 	}
 
 	@Override

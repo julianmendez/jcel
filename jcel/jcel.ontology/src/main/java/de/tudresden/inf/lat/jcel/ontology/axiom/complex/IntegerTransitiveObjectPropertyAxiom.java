@@ -36,6 +36,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 public class IntegerTransitiveObjectPropertyAxiom implements
 		ComplexIntegerAxiom {
 
+	private final int hashCode;
 	private final IntegerObjectPropertyExpression property;
 
 	/**
@@ -51,6 +52,7 @@ public class IntegerTransitiveObjectPropertyAxiom implements
 		}
 
 		this.property = prop;
+		this.hashCode = prop.hashCode();
 	}
 
 	@Override
@@ -108,7 +110,7 @@ public class IntegerTransitiveObjectPropertyAxiom implements
 
 	@Override
 	public int hashCode() {
-		return getProperty().hashCode();
+		return this.hashCode;
 	}
 
 	@Override

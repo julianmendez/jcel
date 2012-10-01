@@ -95,7 +95,7 @@ public class IntegerDataPropertyDeclarationAxiom implements
 
 	@Override
 	public int hashCode() {
-		return getEntity().hashCode();
+		return this.entity;
 	}
 
 	@Override

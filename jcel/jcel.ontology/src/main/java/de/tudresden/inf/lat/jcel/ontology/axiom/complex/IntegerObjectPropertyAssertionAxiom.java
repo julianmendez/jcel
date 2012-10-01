@@ -36,6 +36,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  */
 public class IntegerObjectPropertyAssertionAxiom implements ComplexIntegerAxiom {
 
+	private final int hashCode;
 	private final Set<Integer> individualsInSignature;
 	private final int object;
 	private final IntegerObjectPropertyExpression property;
@@ -61,6 +62,7 @@ public class IntegerObjectPropertyAssertionAxiom implements ComplexIntegerAxiom 
 		this.property = objectProp;
 		this.subject = subjectInd;
 		this.object = objectInd;
+		this.hashCode = objectProp.hashCode() + 31 * subjectInd;
 
 		Set<Integer> individualsInSignature = new HashSet<Integer>();
 		individualsInSignature.add(this.subject);
@@ -144,7 +146,7 @@ public class IntegerObjectPropertyAssertionAxiom implements ComplexIntegerAxiom 
 
 	@Override
 	public int hashCode() {
-		return getProperty().hashCode() + 31 * getSubject().hashCode();
+		return this.hashCode;
 	}
 
 	@Override

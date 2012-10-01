@@ -35,6 +35,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 
 	private final IntegerClassExpression classExpression;
+	private final int hashCode;
 	private final int individual;
 
 	/**
@@ -53,6 +54,7 @@ public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 
 		this.classExpression = classExpr;
 		this.individual = individualId;
+		this.hashCode = classExpr.hashCode() + 31 * individualId;
 	}
 
 	@Override
@@ -120,8 +122,7 @@ public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 
 	@Override
 	public int hashCode() {
-		return getClassExpression().hashCode() + 31
-				* getIndividual().hashCode();
+		return this.hashCode;
 	}
 
 	@Override
