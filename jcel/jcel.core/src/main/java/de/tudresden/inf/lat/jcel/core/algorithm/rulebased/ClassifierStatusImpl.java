@@ -29,8 +29,6 @@ import java.util.Map;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.REntry;
-import de.tudresden.inf.lat.jcel.core.completion.common.SEntry;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerRelationMapImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerBidirectionalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
@@ -92,21 +90,19 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	/**
 	 * Adds a new triplet to the set R.
 	 * 
-	 * @param entry
-	 *            the new triplet
+	 * @param property
+	 *            property
+	 * @param leftClass
+	 *            left class
+	 * @param rightClass
+	 *            right class
 	 * @return <code>true</code> if the triplet was effectively added,
 	 *         <code>false</code> otherwise
 	 */
-	public boolean addToR(REntry entry) {
-		if (entry == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public boolean addToR(int property, int leftClass, int rightClass) {
 		boolean ret = false;
-		if (!this.relationSet.contains(entry.getProperty(),
-				entry.getLeftClass(), entry.getRightClass())) {
-			this.relationSet.add(entry.getProperty(), entry.getLeftClass(),
-					entry.getRightClass());
+		if (!this.relationSet.contains(property, leftClass, rightClass)) {
+			this.relationSet.add(property, leftClass, rightClass);
 			ret = true;
 		}
 		return ret;
@@ -115,24 +111,20 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	/**
 	 * Adds a new pair to the set S.
 	 * 
-	 * @param entry
-	 *            the new pair
+	 * @param subClass
+	 *            sub class
+	 * @param superClass
+	 *            super class
 	 * @return <code>true</code> if the pair was effectively added,
 	 *         <code>false</code> otherwise
 	 */
-	public boolean addToS(SEntry entry) {
-		if (entry == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public boolean addToS(int subClass, int superClass) {
 		boolean ret = false;
-		if (!this.classGraph.getElements().contains(entry.getSubClass())) {
-			this.classGraph.add(entry.getSubClass());
+		if (!this.classGraph.getElements().contains(subClass)) {
+			this.classGraph.add(subClass);
 		}
-		if (!this.classGraph.containsPair(entry.getSubClass(),
-				entry.getSuperClass())) {
-			this.classGraph.addAncestor(entry.getSubClass(),
-					entry.getSuperClass());
+		if (!this.classGraph.containsPair(subClass, superClass)) {
+			this.classGraph.addAncestor(subClass, superClass);
 			ret = true;
 		}
 		return ret;
