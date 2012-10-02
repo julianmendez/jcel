@@ -38,10 +38,15 @@ public interface RObserverRule {
 	 * 
 	 * @param status
 	 *            classifier status
-	 * @param entry
-	 *            entry to be applied
+	 * @param property
+	 *            property to be applied
+	 * @param leftClass
+	 *            left class to be applied
+	 * @param rightClass
+	 *            right class to be applied
 	 * @return the result of applying the rule to the specified relation entry
 	 */
-	public Collection<XEntry> apply(ClassifierStatus status, REntry entry);
+	public Collection<XEntry> apply(ClassifierStatus status, int property,
+			int leftClass, int rightClass);
 
 }

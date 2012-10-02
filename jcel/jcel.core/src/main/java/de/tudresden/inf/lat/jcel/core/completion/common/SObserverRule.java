@@ -38,11 +38,14 @@ public interface SObserverRule {
 	 * 
 	 * @param status
 	 *            classifier status
-	 * @param entry
-	 *            entry to be applied
+	 * @param subClass
+	 *            sub class to be applied
+	 * @param superClass
+	 *            super class to be applied
 	 * @return the result of applying the rule to the specified subsumption
 	 *         entry
 	 */
-	public Collection<XEntry> apply(ClassifierStatus status, SEntry entry);
+	public Collection<XEntry> apply(ClassifierStatus status, int subClass,
+			int superClass);
 
 }

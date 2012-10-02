@@ -26,7 +26,6 @@ import java.util.Collections;
 import java.util.List;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.REntry;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 
@@ -55,17 +54,15 @@ public class RChain implements RObserverRule {
 	}
 
 	@Override
-	public List<XEntry> apply(ClassifierStatus status, REntry entry) {
+	public List<XEntry> apply(ClassifierStatus status, int property,
+			int leftClass, int rightClass) {
 		if (status == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (entry == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		List<XEntry> ret = new ArrayList<XEntry>();
 		for (RObserverRule elem : this.chain) {
-			ret.addAll(elem.apply(status, entry));
+			ret.addAll(elem.apply(status, property, leftClass, rightClass));
 		}
 		return Collections.unmodifiableList(ret);
 	}

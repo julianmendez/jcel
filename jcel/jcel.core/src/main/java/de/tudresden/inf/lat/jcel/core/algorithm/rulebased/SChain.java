@@ -26,7 +26,6 @@ import java.util.Collections;
 import java.util.List;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.SEntry;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 
@@ -55,17 +54,15 @@ public class SChain implements SObserverRule {
 	}
 
 	@Override
-	public List<XEntry> apply(ClassifierStatus status, SEntry entry) {
+	public List<XEntry> apply(ClassifierStatus status, int subClass,
+			int superClass) {
 		if (status == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (entry == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		List<XEntry> ret = new ArrayList<XEntry>();
 		for (SObserverRule elem : this.chain) {
-			ret.addAll(elem.apply(status, entry));
+			ret.addAll(elem.apply(status, subClass, superClass));
 		}
 		return Collections.unmodifiableList(ret);
 	}

@@ -26,9 +26,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.REntry;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
-import de.tudresden.inf.lat.jcel.core.completion.common.SEntry;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 
@@ -76,16 +74,15 @@ public class RuleProfiler implements RObserverRule, SObserverRule {
 	}
 
 	@Override
-	public Collection<XEntry> apply(ClassifierStatus status, REntry entry) {
+	public Collection<XEntry> apply(ClassifierStatus status, int property,
+			int leftClass, int rightClass) {
 		if (status == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (entry == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		long start = Calendar.getInstance().getTimeInMillis();
-		Collection<XEntry> ret = this.rListener.apply(status, entry);
+		Collection<XEntry> ret = this.rListener.apply(status, property,
+				leftClass, rightClass);
 		this.totalTime += (Calendar.getInstance().getTimeInMillis() - start);
 		this.times++;
 		if (!ret.isEmpty()) {
@@ -95,16 +92,15 @@ public class RuleProfiler implements RObserverRule, SObserverRule {
 	}
 
 	@Override
-	public Collection<XEntry> apply(ClassifierStatus status, SEntry entry) {
+	public Collection<XEntry> apply(ClassifierStatus status, int subClass,
+			int superClass) {
 		if (status == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (entry == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		long start = (new Date()).getTime();
-		Collection<XEntry> ret = this.sListener.apply(status, entry);
+		Collection<XEntry> ret = this.sListener.apply(status, subClass,
+				superClass);
 		this.totalTime += ((new Date()).getTime() - start);
 		this.times++;
 		if (!ret.isEmpty()) {

@@ -27,7 +27,6 @@ import java.util.Collections;
 import java.util.List;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.REntry;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
@@ -58,17 +57,14 @@ public class CRBottomRule implements RObserverRule {
 	}
 
 	@Override
-	public Collection<XEntry> apply(ClassifierStatus status, REntry entry) {
+	public Collection<XEntry> apply(ClassifierStatus status, int property,
+			int leftClass, int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		if (entry == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
 
-		return Collections.unmodifiableCollection(applyRule(status,
-				entry.getProperty(), entry.getLeftClass(),
-				entry.getRightClass()));
+		return Collections.unmodifiableCollection(applyRule(status, property,
+				leftClass, rightClass));
 	}
 
 	private Collection<XEntry> applyRule(ClassifierStatus status, int r, int x,

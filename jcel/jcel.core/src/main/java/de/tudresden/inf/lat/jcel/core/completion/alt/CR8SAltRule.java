@@ -27,7 +27,6 @@ import java.util.Collections;
 import java.util.List;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.SEntry;
 import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
@@ -55,20 +54,17 @@ public class CR8SAltRule implements SObserverRule {
 	}
 
 	@Override
-	public Collection<XEntry> apply(ClassifierStatus status, SEntry entry) {
+	public Collection<XEntry> apply(ClassifierStatus status, int subClass,
+			int superClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		if (entry == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
 
-		return Collections.unmodifiableCollection(applyRule(status,
-				entry.getSubClass(), entry.getSuperClass()));
+		return Collections.unmodifiableCollection(applyRule(status, subClass,
+				superClass));
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, int y,
-			int a) {
+	private Collection<XEntry> applyRule(ClassifierStatus status, int y, int a) {
 		List<XEntry> ret = new ArrayList<XEntry>();
 		for (GCI2Axiom axiom : status.getExtendedOntology().getGCI2Axioms(a)) {
 			int sMinus = axiom.getPropertyInSuperClass();

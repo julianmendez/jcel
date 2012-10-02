@@ -517,18 +517,21 @@ public class RuleBasedProcessor implements Processor {
 				if (this.setQsubS.size() > this.setQsubR.size()) {
 					SEntry entry = this.setQsubS.iterator().next();
 					this.setQsubS.remove(entry);
-					this.status.addToS(entry.getSubClass(),
-							entry.getSuperClass());
-					List<XEntry> changes = this.chainS
-							.apply(this.status, entry);
+					int subClass = entry.getSubClass();
+					int superClass = entry.getSuperClass();
+					this.status.addToS(subClass, superClass);
+					List<XEntry> changes = this.chainS.apply(this.status,
+							subClass, superClass);
 					addSuggestedChanges(changes);
 				} else {
 					REntry entry = this.setQsubR.iterator().next();
 					this.setQsubR.remove(entry);
-					this.status.addToR(entry.getProperty(),
-							entry.getLeftClass(), entry.getRightClass());
-					List<XEntry> changes = this.chainR
-							.apply(this.status, entry);
+					int property = entry.getProperty();
+					int leftClass = entry.getLeftClass();
+					int rightClass = entry.getRightClass();
+					this.status.addToR(property, leftClass, rightClass);
+					List<XEntry> changes = this.chainR.apply(this.status,
+							property, leftClass, rightClass);
 					addSuggestedChanges(changes);
 				}
 				this.loggingCount--;
