@@ -22,6 +22,9 @@
 package de.tudresden.inf.lat.jcel.core.graph;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
 
 import junit.framework.TestCase;
 
@@ -30,27 +33,49 @@ import junit.framework.TestCase;
  * 
  * @author Julian Mendez
  */
-public class EfficientArrayTest extends TestCase {
+public class ArraySetTest extends TestCase {
 
-	public EfficientArrayTest() {
+	public ArraySetTest() {
 	}
 
 	public void testInsertion() {
 
-		EfficientArray efficientArray = new EfficientArray();
+		ArraySet arraySet = new ArraySet();
 		ArrayList<Integer> arrayList = new ArrayList<Integer>();
+		Set<Integer> treeSet = new TreeSet<Integer>();
 
 		for (int i = 0; i < 0x1000; i++) {
 			int element = i % 0xff;
-			efficientArray.add(element);
+			treeSet.add(element);
 			arrayList.add(element);
+			arraySet.add(element);
+			assertEquals(treeSet.size(), arraySet.size());
 		}
 
 		for (int i = 0x1000; i < 0x10000; i++) {
 			int element = i % 0xff;
-			boolean b1 = arrayList.contains(element);
-			boolean b2 = efficientArray.contains(element);
-			assertEquals(b1, b2);
+			boolean b1 = treeSet.contains(element);
+			boolean b2 = arrayList.contains(element);
+			boolean b3 = arraySet.contains(element);
+			assertEquals(b1, b3);
+			assertEquals(b2, b3);
+		}
+	}
+
+	public void testIteration() {
+		Set<Integer> treeSet = new TreeSet<Integer>();
+		ArraySet arraySet = new ArraySet();
+
+		for (int i = 0; i < 0x1000; i++) {
+			int element = i % 0xf0;
+			treeSet.add(element);
+			arraySet.add(element);
+			assertEquals(treeSet.size(), arraySet.size());
+		}
+
+		Iterator<Integer> it = treeSet.iterator();
+		for (Integer e : arraySet) {
+			assertEquals(it.next(), e);
 		}
 	}
 

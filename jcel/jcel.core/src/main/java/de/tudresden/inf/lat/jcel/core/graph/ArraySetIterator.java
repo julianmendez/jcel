@@ -27,11 +27,11 @@ import java.util.NoSuchElementException;
 /**
  * This class is an iterator for an efficient array.
  * 
- * @see EfficientArray
+ * @see ArraySet
  * 
  * @author Julian Mendez
  */
-public class EfficientArrayIterator implements Iterator<Integer> {
+public class ArraySetIterator implements Iterator<Integer> {
 
 	private final int[] array;
 	private int pointer = 0;
@@ -45,7 +45,7 @@ public class EfficientArrayIterator implements Iterator<Integer> {
 	 * @param s
 	 *            number of elements to consider in the array
 	 */
-	public EfficientArrayIterator(int[] a, int s) {
+	public ArraySetIterator(int[] a, int s) {
 		if (a == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -57,8 +57,8 @@ public class EfficientArrayIterator implements Iterator<Integer> {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof EfficientArrayIterator) {
-			EfficientArrayIterator other = (EfficientArrayIterator) o;
+		if (!ret && o instanceof ArraySetIterator) {
+			ArraySetIterator other = (ArraySetIterator) o;
 			ret = (this.size == other.size) && (this.pointer == other.pointer);
 			for (int index = 0; ret && index < size; index++) {
 				ret = ret && (this.array[index] == other.array[index]);

@@ -91,7 +91,7 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	private boolean addTo(int elem, Map<Integer, Collection<Integer>> map) {
 		boolean ret = false;
 		if (map.get(elem) == null) {
-			map.put(elem, new EfficientArray());
+			map.put(elem, new ArraySet());
 			ret = true;
 		}
 		return ret;
@@ -101,14 +101,7 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	public boolean contains(int first, int second) {
 		boolean ret = false;
 		Collection<Integer> byFirst = this.byFirstComp.get(first);
-		Collection<Integer> bySecond = this.bySecondComp.get(second);
-		if ((byFirst != null) && (bySecond != null)) {
-			if (byFirst.size() < bySecond.size()) {
-				ret = byFirst.contains(second);
-			} else {
-				ret = bySecond.contains(first);
-			}
-		}
+		ret = (byFirst != null) && byFirst.contains(second);
 		return ret;
 	}
 

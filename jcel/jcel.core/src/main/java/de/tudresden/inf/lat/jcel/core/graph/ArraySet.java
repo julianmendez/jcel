@@ -24,14 +24,15 @@ package de.tudresden.inf.lat.jcel.core.graph;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
- * This class implements an efficient array. It is an array of <code>int</code>
- * with exponential growth.
+ * This class implements a set of integers using a sorted array of
+ * <code>int</code> with exponential growth.
  * 
  * @author Julian Mendez
  */
-public class EfficientArray implements Collection<Integer> {
+public class ArraySet implements Set<Integer> {
 
 	private static final int exponentialGrowthFactor = 2;
 	private static final int initialSize = 1;
@@ -43,7 +44,7 @@ public class EfficientArray implements Collection<Integer> {
 	/**
 	 * Constructs an empty efficient array.
 	 */
-	public EfficientArray() {
+	public ArraySet() {
 		clear();
 	}
 
@@ -120,8 +121,8 @@ public class EfficientArray implements Collection<Integer> {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof EfficientArray) {
-			EfficientArray other = (EfficientArray) o;
+		if (!ret && o instanceof ArraySet) {
+			ArraySet other = (ArraySet) o;
 			ret = (this.size == other.size);
 			for (int index = 0; ret && index < this.size; index++) {
 				ret = ret && (this.array[index] == other.array[index]);
@@ -142,7 +143,7 @@ public class EfficientArray implements Collection<Integer> {
 
 	@Override
 	public Iterator<Integer> iterator() {
-		return new EfficientArrayIterator(this.array, this.size);
+		return new ArraySetIterator(this.array, this.size);
 	}
 
 	@Override

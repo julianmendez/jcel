@@ -41,7 +41,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 
 	private final int bottomElement;
 	private Collection<Integer> emptyCollection = Collections
-			.unmodifiableCollection(new EfficientArray());
+			.unmodifiableCollection(new ArraySet());
 	private Set<Integer> equivToBottom = new HashSet<Integer>();
 	private Map<Integer, Collection<Integer>> setS = new HashMap<Integer, Collection<Integer>>();
 	private final int topElement;
@@ -58,7 +58,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 		this.bottomElement = bottom;
 		this.topElement = top;
 		this.setS.put(this.bottomElement, this.emptyCollection);
-		this.setS.put(this.topElement, new EfficientArray());
+		this.setS.put(this.topElement, new ArraySet());
 		this.equivToBottom.add(this.bottomElement);
 	}
 
@@ -70,7 +70,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	public boolean add(int vertex) {
 		boolean ret = false;
 		if (!this.setS.containsKey(vertex)) {
-			this.setS.put(vertex, new EfficientArray());
+			this.setS.put(vertex, new ArraySet());
 			ret = true;
 		}
 		return ret;
