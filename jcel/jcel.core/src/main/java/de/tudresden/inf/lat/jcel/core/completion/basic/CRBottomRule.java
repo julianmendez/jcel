@@ -30,6 +30,7 @@ import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
 /**
  * <p>
@@ -70,8 +71,8 @@ public class CRBottomRule implements RObserverRule {
 	private Collection<XEntry> applyRule(ClassifierStatus status, int r, int x,
 			int y) {
 		List<XEntry> ret = new ArrayList<XEntry>();
-		if (status.getSubsumers(y).contains(status.getClassBottomElement())) {
-			ret.add(new SEntryImpl(x, status.getClassBottomElement()));
+		if (status.getSubsumers(y).contains(IntegerEntityManager.bottomClassId)) {
+			ret.add(new SEntryImpl(x, IntegerEntityManager.bottomClassId));
 		}
 		return ret;
 	}

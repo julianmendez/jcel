@@ -33,6 +33,7 @@ import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
 /**
  * <p>
@@ -80,12 +81,13 @@ public class CR3ExtRule implements SObserverRule {
 			int b = axiom.getClassInSuperClass();
 			if (status.getExtendedOntology().getFunctionalObjectProperties()
 					.contains(r)) {
-				VNodeImpl newNode = new VNodeImpl(status.getClassTopElement());
+				VNodeImpl newNode = new VNodeImpl(
+						IntegerEntityManager.topClassId);
 				int rMinus = status.getInverseObjectPropertyOf(r);
 				newNode.addExistential(rMinus, a);
 				int v = status.createOrGetNodeId(newNode);
 				ret.add(new SEntryImpl(v, b));
-				ret.add(new SEntryImpl(v, status.getClassTopElement()));
+				ret.add(new SEntryImpl(v, IntegerEntityManager.topClassId));
 				ret.add(new REntryImpl(r, x, v));
 			} else {
 				int y = status.createOrGetNodeId(new VNodeImpl(b));

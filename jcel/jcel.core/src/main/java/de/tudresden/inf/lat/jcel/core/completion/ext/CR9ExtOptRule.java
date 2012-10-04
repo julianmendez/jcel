@@ -32,6 +32,7 @@ import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
 /**
  * <p>
@@ -77,21 +78,21 @@ public class CR9ExtOptRule implements RObserverRule {
 	private Collection<XEntry> applyRule(ClassifierStatus status, int r1,
 			int x, int y) {
 		Set<XEntry> ret = new HashSet<XEntry>();
-		if (status.getNode(y).getClassId() == status.getClassTopElement()) {
+		if (status.getNode(y).getClassId() == IntegerEntityManager.topClassId) {
 
 			Set<Integer> valid = new HashSet<Integer>();
 			valid.add(y);
 			for (int r2 : status.getObjectPropertiesWithFunctionalAncestor(r1)) {
 				for (int yi : status.getSecondByFirst(r2, x)) {
-					if (status.getNode(yi).getClassId() == status
-							.getClassTopElement()) {
+					if (status.getNode(yi).getClassId() == IntegerEntityManager.topClassId) {
 						valid.add(yi);
 					}
 				}
 			}
 
 			if (valid.size() > 1) {
-				VNodeImpl newNode = new VNodeImpl(status.getClassTopElement());
+				VNodeImpl newNode = new VNodeImpl(
+						IntegerEntityManager.topClassId);
 				for (int yi : valid) {
 					newNode.addExistentialsOf(status.getNode(yi));
 				}

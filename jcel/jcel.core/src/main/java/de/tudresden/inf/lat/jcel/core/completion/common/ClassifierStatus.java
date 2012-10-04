@@ -54,27 +54,6 @@ public interface ClassifierStatus {
 	public int createOrGetNodeId(VNode node);
 
 	/**
-	 * Returns the object property bottom element.
-	 * 
-	 * @return the object property bottom element
-	 */
-	public int geObjectPropertyBottomElement();
-
-	/**
-	 * Returns the class bottom element.
-	 * 
-	 * @return the class bottom element
-	 */
-	public int getClassBottomElement();
-
-	/**
-	 * Returns the class top element.
-	 * 
-	 * @return the class top element
-	 */
-	public int getClassTopElement();
-
-	/**
 	 * Return an ontology with convenience methods to get its axioms.
 	 * 
 	 * @return an ontology with convenience methods to get its axioms
@@ -146,13 +125,6 @@ public interface ClassifierStatus {
 	 */
 	public Set<Integer> getObjectPropertiesWithFunctionalAncestor(
 			int objectProperty);
-
-	/**
-	 * Returns the object property top element.
-	 * 
-	 * @return the object property top element
-	 */
-	public int getObjectPropertyTopElement();
 
 	/**
 	 * Returns all the classes that are related from a certain class using a

@@ -241,16 +241,6 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 		this.objectPropertyGraph = null;
 	}
 
-	@Override
-	public int geObjectPropertyBottomElement() {
-		return this.objectPropertyGraph.getBottomElement();
-	}
-
-	@Override
-	public int getClassBottomElement() {
-		return this.classGraph.getBottomElement();
-	}
-
 	/**
 	 * Returns the class graph.
 	 * 
@@ -258,11 +248,6 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 */
 	protected IntegerSubsumerGraphImpl getClassGraph() {
 		return this.classGraph;
-	}
-
-	@Override
-	public int getClassTopElement() {
-		return this.classGraph.getTopElement();
 	}
 
 	/**
@@ -355,11 +340,6 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 */
 	protected IntegerSubsumerBidirectionalGraphImpl getObjectPropertyGraph() {
 		return this.objectPropertyGraph;
-	}
-
-	@Override
-	public int getObjectPropertyTopElement() {
-		return this.objectPropertyGraph.getTopElement();
 	}
 
 	/**

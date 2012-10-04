@@ -33,6 +33,7 @@ import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 import de.tudresden.inf.lat.jcel.core.graph.VNode;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
 /**
  * <p>
@@ -72,15 +73,15 @@ public class CR9AltRule implements RObserverRule {
 			int y) {
 		List<XEntry> ret = new ArrayList<XEntry>();
 		VNode psiNode = status.getNode(y);
-		if (psiNode.getClassId() == status.getClassTopElement()) {
+		if (psiNode.getClassId() == IntegerEntityManager.topClassId) {
 			if (status.getExtendedOntology().getFunctionalObjectProperties()
 					.contains(r)) {
 				for (int z : status.getSecondByFirst(r, x)) {
 					VNode phiNode = status.getNode(z);
-					if (phiNode.getClassId() == status.getClassTopElement()) {
+					if (phiNode.getClassId() == IntegerEntityManager.topClassId) {
 						if (z != y) {
 							VNodeImpl newNode = new VNodeImpl(
-									status.getClassTopElement());
+									IntegerEntityManager.topClassId);
 							newNode.addExistentialsOf(psiNode);
 							newNode.addExistentialsOf(phiNode);
 							int v = status.createOrGetNodeId(newNode);
