@@ -53,13 +53,23 @@ public class EfficientArray implements Collection<Integer> {
 			throw new NullPointerException("Null argument.");
 		}
 
-		if (this.size >= this.array.length) {
-			this.array = Arrays.copyOf(this.array, linearGrowthFactor
-					+ (exponentialGrowthFactor * this.array.length));
+		boolean ret = false;
+		int pointer = Arrays.binarySearch(this.array, 0, this.size, elem);
+		if (pointer < 0) {
+			pointer = (-1) * (pointer + 1);
+			ret = true;
+			if (this.size >= this.array.length) {
+				this.array = Arrays.copyOf(this.array, linearGrowthFactor
+						+ (exponentialGrowthFactor * this.array.length));
+			}
+
+			for (int i = this.size - 1; i >= pointer; i--) {
+				this.array[i + 1] = this.array[i];
+			}
+			this.array[pointer] = elem;
+			this.size++;
 		}
-		this.array[this.size] = elem;
-		this.size++;
-		return true;
+		return ret;
 	}
 
 	@Override
@@ -68,10 +78,11 @@ public class EfficientArray implements Collection<Integer> {
 			throw new NullPointerException("Null argument.");
 		}
 
+		boolean ret = false;
 		for (Integer elem : collection) {
-			add(elem);
+			ret |= add(elem);
 		}
-		return true;
+		return ret;
 	}
 
 	@Override
@@ -88,9 +99,8 @@ public class EfficientArray implements Collection<Integer> {
 
 		boolean ret = false;
 		int e = ((Integer) elem).intValue();
-		for (int index = 0; !ret && index < this.size; index++) {
-			ret = ret || (this.array[index] == e);
-		}
+		int pointer = Arrays.binarySearch(this.array, 0, this.size, e);
+		ret = (pointer >= 0);
 		return ret;
 	}
 
