@@ -41,7 +41,7 @@ public interface IntegerBinaryRelation {
 	 * @return true if and only if the pair (first, second) belongs to this
 	 *         binary relation.
 	 */
-	public boolean contains(Integer first, Integer second);
+	public boolean contains(int first, int second);
 
 	/**
 	 * Returns the elements connecting from a particular element in the first
@@ -52,7 +52,7 @@ public interface IntegerBinaryRelation {
 	 * @return the collection of elements connecting from a first component, or
 	 *         an empty set if the first component is not defined.
 	 */
-	public Collection<Integer> getByFirst(Integer first);
+	public Collection<Integer> getByFirst(int first);
 
 	/**
 	 * Returns the elements connecting to a particular element in the second
@@ -63,7 +63,7 @@ public interface IntegerBinaryRelation {
 	 * @return the collection of elements connecting to a second component, or
 	 *         an empty set if the second component is not defined
 	 */
-	public Collection<Integer> getBySecond(Integer second);
+	public Collection<Integer> getBySecond(int second);
 
 	/**
 	 * @return the set of elements that have been added to this binary relation.

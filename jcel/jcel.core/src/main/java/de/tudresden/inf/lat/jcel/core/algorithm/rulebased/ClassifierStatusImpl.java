@@ -100,12 +100,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean addToR(int property, int leftClass, int rightClass) {
-		boolean ret = false;
-		if (!this.relationSet.contains(property, leftClass, rightClass)) {
-			this.relationSet.add(property, leftClass, rightClass);
-			ret = true;
-		}
-		return ret;
+		return this.relationSet.add(property, leftClass, rightClass);
 	}
 
 	/**
@@ -119,15 +114,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean addToS(int subClass, int superClass) {
-		boolean ret = false;
-		if (!this.classGraph.getElements().contains(subClass)) {
-			this.classGraph.add(subClass);
-		}
-		if (!this.classGraph.containsPair(subClass, superClass)) {
-			this.classGraph.addAncestor(subClass, superClass);
-			ret = true;
-		}
-		return ret;
+		return this.classGraph.addAncestor(subClass, superClass);
 	}
 
 	@Override

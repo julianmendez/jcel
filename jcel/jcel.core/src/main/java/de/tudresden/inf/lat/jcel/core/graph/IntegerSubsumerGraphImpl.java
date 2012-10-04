@@ -67,12 +67,13 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	 * 
 	 * @param vertex
 	 */
-	public void add(int vertex) {
+	public boolean add(int vertex) {
+		boolean ret = false;
 		if (!this.setS.containsKey(vertex)) {
-			Collection<Integer> aux = new EfficientArray();
-			aux.add(vertex);
-			this.setS.put(vertex, aux);
+			this.setS.put(vertex, new EfficientArray());
+			ret = true;
 		}
+		return ret;
 	}
 
 	/**
@@ -84,17 +85,22 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	 * @param superId
 	 *            the subsumer
 	 */
-	public void addAncestor(int subId, int superId) {
+	public boolean addAncestor(int subId, int superId) {
+		boolean ret = false;
 		if (!this.equivToBottom.contains(subId)) {
 			if (this.bottomElement == superId) {
-				this.equivToBottom.add(subId);
+				ret |= this.equivToBottom.add(subId);
 				this.setS.put(subId, this.emptyCollection);
 			} else {
-				add(subId);
-				add(superId);
-				this.setS.get(subId).add(superId);
+				ret |= add(subId);
+				ret |= add(superId);
+				Collection<Integer> set = this.setS.get(subId);
+				if (!set.contains(superId)) {
+					ret |= set.add(superId);
+				}
 			}
 		}
+		return ret;
 	}
 
 	@Override

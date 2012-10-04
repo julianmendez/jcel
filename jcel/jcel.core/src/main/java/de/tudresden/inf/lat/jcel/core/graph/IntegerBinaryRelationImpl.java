@@ -51,13 +51,11 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	 * 
 	 * @param elem
 	 */
-	public void add(Integer elem) {
-		if (elem == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		addTo(elem, this.byFirstComp);
-		addTo(elem, this.bySecondComp);
+	public boolean add(int elem) {
+		boolean ret = false;
+		ret |= addTo(elem, this.byFirstComp);
+		ret |= addTo(elem, this.bySecondComp);
+		return ret;
 	}
 
 	/**
@@ -66,39 +64,52 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	 * @param first
 	 * @param second
 	 */
-	public void add(Integer first, Integer second) {
-		if (first == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (second == null) {
-			throw new IllegalArgumentException("Null argument.");
+	public boolean add(int first, int second) {
+		boolean ret = false;
+
+		ret |= add(first);
+		ret |= add(second);
+
+		Collection<Integer> byFirst = this.byFirstComp.get(first);
+		Collection<Integer> bySecond = this.bySecondComp.get(second);
+
+		boolean found = false;
+		if (byFirst.size() < bySecond.size()) {
+			found = byFirst.contains(second);
+		} else {
+			found = bySecond.contains(first);
 		}
 
-		add(first);
-		add(second);
-		this.byFirstComp.get(first).add(second);
-		this.bySecondComp.get(second).add(first);
+		if (!found) {
+			ret |= byFirst.add(second);
+			ret |= bySecond.add(first);
+		}
+
+		return ret;
 	}
 
-	private void addTo(Integer elem, Map<Integer, Collection<Integer>> map) {
-		Collection<Integer> connected = map.get(elem);
-		if (connected == null) {
-			connected = new EfficientArray();
-			map.put(elem, connected);
+	private boolean addTo(int elem, Map<Integer, Collection<Integer>> map) {
+		boolean ret = false;
+		if (map.get(elem) == null) {
+			map.put(elem, new EfficientArray());
+			ret = true;
 		}
+		return ret;
 	}
 
 	@Override
-	public boolean contains(Integer first, Integer second) {
-		if (first == null) {
-			throw new IllegalArgumentException("Null argument.");
+	public boolean contains(int first, int second) {
+		boolean ret = false;
+		Collection<Integer> byFirst = this.byFirstComp.get(first);
+		Collection<Integer> bySecond = this.bySecondComp.get(second);
+		if ((byFirst != null) && (bySecond != null)) {
+			if (byFirst.size() < bySecond.size()) {
+				ret = byFirst.contains(second);
+			} else {
+				ret = bySecond.contains(first);
+			}
 		}
-		if (second == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		Collection<Integer> connected = this.byFirstComp.get(first);
-		return (connected != null && connected.contains(second));
+		return ret;
 	}
 
 	@Override
@@ -117,11 +128,7 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	}
 
 	@Override
-	public Collection<Integer> getByFirst(Integer first) {
-		if (first == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public Collection<Integer> getByFirst(int first) {
 		Collection<Integer> ret = Collections.emptySet();
 		Collection<Integer> set = this.byFirstComp.get(first);
 		if (set != null) {
@@ -131,11 +138,7 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	}
 
 	@Override
-	public Collection<Integer> getBySecond(Integer second) {
-		if (second == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+	public Collection<Integer> getBySecond(int second) {
 		Collection<Integer> ret = Collections.emptySet();
 		Collection<Integer> set = this.bySecondComp.get(second);
 		if (set != null) {

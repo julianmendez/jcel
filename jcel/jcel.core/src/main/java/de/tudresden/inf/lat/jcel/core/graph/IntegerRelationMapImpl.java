@@ -52,10 +52,13 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	 * @param relationId
 	 *            relation identifier
 	 */
-	public void add(int relationId) {
+	public boolean add(int relationId) {
+		boolean ret = false;
 		if (!this.relationMap.containsKey(relationId)) {
 			this.relationMap.put(relationId, new IntegerBinaryRelationImpl());
+			ret = true;
 		}
+		return ret;
 	}
 
 	/**
@@ -68,27 +71,33 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	 * @param second
 	 *            second component
 	 */
-	public void add(int relationId, int first, int second) {
+	public boolean add(int relationId, int first, int second) {
+		boolean ret = false;
 		IntegerBinaryRelationImpl relation = this.relationMap.get(relationId);
 		if (relation == null) {
 			relation = new IntegerBinaryRelationImpl();
 			this.relationMap.put(relationId, relation);
+			ret = true;
 		}
-		relation.add(first, second);
+		ret |= relation.add(first, second);
 
 		Collection<Integer> byFirst = this.relationSetByFirst.get(first);
 		if (byFirst == null) {
 			byFirst = new HashSet<Integer>();
 			this.relationSetByFirst.put(first, byFirst);
+			ret = true;
 		}
-		byFirst.add(relationId);
+		ret |= byFirst.add(relationId);
 
 		Collection<Integer> bySecond = this.relationSetBySecond.get(second);
 		if (bySecond == null) {
 			bySecond = new HashSet<Integer>();
 			this.relationSetBySecond.put(second, bySecond);
+			ret = true;
 		}
-		bySecond.add(relationId);
+		ret |= bySecond.add(relationId);
+
+		return ret;
 	}
 
 	@Override
@@ -123,7 +132,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 
 	@Override
 	public IntegerBinaryRelation get(int relationId) {
-		return  this.relationMap.get(relationId);
+		return this.relationMap.get(relationId);
 	}
 
 	@Override

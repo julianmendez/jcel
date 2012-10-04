@@ -151,16 +151,10 @@ public class RuleBasedProcessor implements Processor {
 		for (XEntry entry : changes) {
 			if (entry.isSEntry()) {
 				SEntry sEntry = (SEntry) entry;
-				if (!this.status.getSubsumers(sEntry.getSubClass()).contains(
-						sEntry.getSuperClass())) {
-					this.setQsubS.add(sEntry);
-				}
+				this.setQsubS.add(sEntry);
 			} else if (entry.isREntry()) {
 				REntry rEntry = (REntry) entry;
-				if (!this.status.getSecondByFirst(rEntry.getProperty(),
-						rEntry.getLeftClass()).contains(rEntry.getRightClass())) {
-					this.setQsubR.add(rEntry);
-				}
+				this.setQsubR.add(rEntry);
 			}
 		}
 	}
@@ -514,31 +508,40 @@ public class RuleBasedProcessor implements Processor {
 				logger.fine(showConfigurationInfo());
 				this.isReady = true;
 			} else {
+				boolean applied = false;
 				if (this.setQsubS.size() > this.setQsubR.size()) {
 					SEntry entry = this.setQsubS.iterator().next();
 					this.setQsubS.remove(entry);
 					int subClass = entry.getSubClass();
 					int superClass = entry.getSuperClass();
-					this.status.addToS(subClass, superClass);
-					List<XEntry> changes = this.chainS.apply(this.status,
-							subClass, superClass);
-					addSuggestedChanges(changes);
+					applied = this.status.addToS(subClass, superClass);
+					applied |= (subClass == topClassId && superClass == topClassId);
+					if (applied) {
+						List<XEntry> changes = this.chainS.apply(this.status,
+								subClass, superClass);
+						addSuggestedChanges(changes);
+					}
 				} else {
 					REntry entry = this.setQsubR.iterator().next();
 					this.setQsubR.remove(entry);
 					int property = entry.getProperty();
 					int leftClass = entry.getLeftClass();
 					int rightClass = entry.getRightClass();
-					this.status.addToR(property, leftClass, rightClass);
-					List<XEntry> changes = this.chainR.apply(this.status,
-							property, leftClass, rightClass);
-					addSuggestedChanges(changes);
+					applied = this.status.addToR(property, leftClass,
+							rightClass);
+					if (applied) {
+						List<XEntry> changes = this.chainR.apply(this.status,
+								property, leftClass, rightClass);
+						addSuggestedChanges(changes);
+					}
 				}
-				this.loggingCount--;
-				this.iteration++;
-				if (this.loggingCount < 1) {
-					this.loggingCount = loggingFrequency;
-					logger.fine(showStatusInfo());
+				if (applied) {
+					this.loggingCount--;
+					this.iteration++;
+					if (this.loggingCount < 1) {
+						this.loggingCount = loggingFrequency;
+						logger.fine(showStatusInfo());
+					}
 				}
 			}
 		}
