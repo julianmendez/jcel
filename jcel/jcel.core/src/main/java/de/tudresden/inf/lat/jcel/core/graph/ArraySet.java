@@ -42,7 +42,7 @@ public class ArraySet implements Set<Integer> {
 	private int size = 0;
 
 	/**
-	 * Constructs an empty efficient array.
+	 * Constructs an empty array set.
 	 */
 	public ArraySet() {
 		clear();
@@ -60,12 +60,15 @@ public class ArraySet implements Set<Integer> {
 			pointer = (-1) * (pointer + 1);
 			ret = true;
 			if (this.size >= this.array.length) {
-				this.array = Arrays.copyOf(this.array, linearGrowthFactor
-						+ (exponentialGrowthFactor * this.array.length));
-			}
-
-			for (int i = this.size - 1; i >= pointer; i--) {
-				this.array[i + 1] = this.array[i];
+				int[] newArray = new int[linearGrowthFactor
+						+ (exponentialGrowthFactor * this.array.length)];
+				System.arraycopy(this.array, 0, newArray, 0, pointer);
+				System.arraycopy(this.array, pointer, newArray, pointer + 1,
+						this.size - pointer);
+				this.array = newArray;
+			} else {
+				System.arraycopy(this.array, pointer, this.array, pointer + 1,
+						this.size - pointer);
 			}
 			this.array[pointer] = elem;
 			this.size++;
@@ -168,7 +171,7 @@ public class ArraySet implements Set<Integer> {
 
 	@Override
 	public Object[] toArray() {
-		Object[] ret = new Object[size()];
+		Object[] ret = new Object[this.size];
 		for (int index = 0; index < this.size; index++) {
 			ret[index] = this.array[index];
 		}

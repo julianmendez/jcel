@@ -25,7 +25,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * This class is an iterator for an efficient array.
+ * This class implements an iterator for an array set.
  * 
  * @see ArraySet
  * 
@@ -38,10 +38,10 @@ public class ArraySetIterator implements Iterator<Integer> {
 	private final int size;
 
 	/**
-	 * Constructs an iterator for an efficient array.
+	 * Constructs an iterator for an array set.
 	 * 
 	 * @param a
-	 *            array of <code>int</code> of the efficient array
+	 *            array of <code>int</code> of the array set
 	 * @param s
 	 *            number of elements to consider in the array
 	 */
