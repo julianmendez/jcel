@@ -21,15 +21,8 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.basic;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.REntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
-import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 
 /**
@@ -58,22 +51,20 @@ public class CR5Rule implements RObserverRule {
 	}
 
 	@Override
-	public Collection<XEntry> apply(ClassifierStatus status, int property,
-			int leftClass, int rightClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass,
+			int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return Collections.unmodifiableCollection(applyRule(status, property,
-				leftClass, rightClass));
+		return applyRule(status, property, leftClass, rightClass);
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, int r, int x,
-			int y) {
-		List<XEntry> ret = new ArrayList<XEntry>();
+	private boolean applyRule(ClassifierStatus status, int r, int x, int y) {
+		boolean ret = false;
 		for (RI2Axiom axiom : status.getExtendedOntology().getRI2rAxioms(r)) {
 			int s = axiom.getSuperProperty();
-			ret.add(new REntryImpl(s, x, y));
+			ret |= status.addNewREntry(s, x, y);
 		}
 		return ret;
 	}

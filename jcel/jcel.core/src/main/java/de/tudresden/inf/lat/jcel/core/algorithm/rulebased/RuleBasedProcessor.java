@@ -30,15 +30,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.logging.Logger;
 
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
 import de.tudresden.inf.lat.jcel.core.algorithm.common.UnclassifiedOntologyException;
 import de.tudresden.inf.lat.jcel.core.completion.common.REntry;
 import de.tudresden.inf.lat.jcel.core.completion.common.SEntry;
-import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
-import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerBinaryRelation;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
@@ -78,8 +75,6 @@ public class RuleBasedProcessor implements Processor {
 	private long loggingCount = loggingFrequency;
 	private IntegerHierarchicalGraph objectPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> sameIndividualMap = null;
-	private Set<REntry> setQsubR = new TreeSet<REntry>();
-	private Set<SEntry> setQsubS = new TreeSet<SEntry>();
 	private ClassifierStatusImpl status = null;
 
 	/**
@@ -145,18 +140,6 @@ public class RuleBasedProcessor implements Processor {
 		this.status.getExtendedOntology().load(normalizedAxiomSet);
 		preProcess(this.status.getExtendedOntology());
 		logger.fine("processor reset.");
-	}
-
-	private void addSuggestedChanges(List<XEntry> changes) {
-		for (XEntry entry : changes) {
-			if (entry.isSEntry()) {
-				SEntry sEntry = (SEntry) entry;
-				this.setQsubS.add(sEntry);
-			} else if (entry.isREntry()) {
-				REntry rEntry = (REntry) entry;
-				this.setQsubR.add(rEntry);
-			}
-		}
 	}
 
 	/**
@@ -399,8 +382,8 @@ public class RuleBasedProcessor implements Processor {
 	public List<Map.Entry<String, String>> getStatusInfo() {
 		List<Map.Entry<String, String>> ret = new ArrayList<Map.Entry<String, String>>();
 		ret.add(createEntry("iteration", "" + this.iteration));
-		ret.add(createEntry("Q_S", "" + this.setQsubS.size()));
-		ret.add(createEntry("Q_R", "" + this.setQsubR.size()));
+		ret.add(createEntry("Q_S", "" + this.status.getNumberOfSEntries()));
+		ret.add(createEntry("Q_R", "" + this.status.getNumberOfREntries()));
 		ret.add(createEntry("S", "" + this.status.getDeepSizeOfS()));
 		ret.add(createEntry("R", "" + this.status.getDeepSizeOfR()));
 		ret.add(createEntry("V", "" + this.status.getSizeOfV()));
@@ -486,13 +469,11 @@ public class RuleBasedProcessor implements Processor {
 				new IntegerSubsumerGraphImpl(
 						IntegerEntityManager.bottomDataPropertyId,
 						IntegerEntityManager.topDataPropertyId));
-		this.setQsubS.clear();
-		this.setQsubR.clear();
 		Set<Integer> classNameSet = new HashSet<Integer>();
 		classNameSet.addAll(this.status.getExtendedOntology().getClassSet());
 		for (Integer className : classNameSet) {
-			this.setQsubS.add(new SEntryImpl(className, className));
-			this.setQsubS.add(new SEntryImpl(className, topClassId));
+			this.status.addNewSEntry(className, className);
+			this.status.addNewSEntry(className, topClassId);
 		}
 
 		logger.fine("processor configured.");
@@ -502,37 +483,34 @@ public class RuleBasedProcessor implements Processor {
 	@Override
 	public boolean process() {
 		if (!this.isReady) {
-			if (this.setQsubS.isEmpty() && this.setQsubR.isEmpty()) {
+			if (this.status.getNumberOfSEntries() == 0
+					&& this.status.getNumberOfREntries() == 0) {
 				logger.fine(showStatusInfo());
 				postProcess();
 				logger.fine(showConfigurationInfo());
 				this.isReady = true;
 			} else {
 				boolean applied = false;
-				if (this.setQsubS.size() > this.setQsubR.size()) {
-					SEntry entry = this.setQsubS.iterator().next();
-					this.setQsubS.remove(entry);
+				if (this.status.getNumberOfSEntries() > this.status
+						.getNumberOfREntries()) {
+					SEntry entry = this.status.removeNextSEntry();
 					int subClass = entry.getSubClass();
 					int superClass = entry.getSuperClass();
 					applied = this.status.addToS(subClass, superClass);
 					applied |= (subClass == topClassId && superClass == topClassId);
 					if (applied) {
-						List<XEntry> changes = this.chainS.apply(this.status,
-								subClass, superClass);
-						addSuggestedChanges(changes);
+						this.chainS.apply(this.status, subClass, superClass);
 					}
 				} else {
-					REntry entry = this.setQsubR.iterator().next();
-					this.setQsubR.remove(entry);
+					REntry entry = this.status.removeNextREntry();
 					int property = entry.getProperty();
 					int leftClass = entry.getLeftClass();
 					int rightClass = entry.getRightClass();
 					applied = this.status.addToR(property, leftClass,
 							rightClass);
 					if (applied) {
-						List<XEntry> changes = this.chainR.apply(this.status,
-								property, leftClass, rightClass);
-						addSuggestedChanges(changes);
+						this.chainR.apply(this.status, property, leftClass,
+								rightClass);
 					}
 				}
 				if (applied) {

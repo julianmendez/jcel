@@ -21,15 +21,8 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.alt;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.REntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
-import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 
 /**
  * <p>
@@ -51,37 +44,35 @@ public class CR5AltRule implements RObserverRule {
 	}
 
 	@Override
-	public Collection<XEntry> apply(ClassifierStatus status, int property,
-			int leftClass, int rightClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass,
+			int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Collection<XEntry> ret = new ArrayList<XEntry>();
-		ret.addAll(apply1(status, property, leftClass, rightClass));
-		ret.addAll(apply2(status, property, leftClass, rightClass));
-		return Collections.unmodifiableCollection(ret);
+		boolean ret = false;
+		ret |= apply1(status, property, leftClass, rightClass);
+		ret |= apply2(status, property, leftClass, rightClass);
+		return ret;
 	}
 
-	private Collection<XEntry> apply1(ClassifierStatus status, int r, int x,
-			int y) {
-		List<XEntry> ret = new ArrayList<XEntry>();
+	private boolean apply1(ClassifierStatus status, int r, int x, int y) {
+		boolean ret = false;
 		if (status.getExtendedOntology().getTransitiveObjectProperties()
 				.contains(r)) {
 			for (int z : status.getSecondByFirst(r, y)) {
-				ret.add(new REntryImpl(r, x, z));
+				ret |= status.addNewREntry(r, x, z);
 			}
 		}
 		return ret;
 	}
 
-	private Collection<XEntry> apply2(ClassifierStatus status, int r, int y,
-			int z) {
-		List<XEntry> ret = new ArrayList<XEntry>();
+	private boolean apply2(ClassifierStatus status, int r, int y, int z) {
+		boolean ret = false;
 		if (status.getExtendedOntology().getTransitiveObjectProperties()
 				.contains(r)) {
 			for (int x : status.getFirstBySecond(r, y)) {
-				ret.add(new REntryImpl(r, x, z));
+				ret |= status.addNewREntry(r, x, z);
 			}
 		}
 		return ret;

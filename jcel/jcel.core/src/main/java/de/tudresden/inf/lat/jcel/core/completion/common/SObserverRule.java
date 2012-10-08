@@ -21,8 +21,6 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.common;
 
-import java.util.Collection;
-
 /**
  * This is the interface of a subsumption observer. A subsumption observer is a
  * completion rule that triggers only when a new subsumption is added to the
@@ -42,10 +40,8 @@ public interface SObserverRule {
 	 *            sub class to be applied
 	 * @param superClass
 	 *            super class to be applied
-	 * @return the result of applying the rule to the specified subsumption
-	 *         entry
+	 * @return <code>true</code> if and only if the rule was applied
 	 */
-	public Collection<XEntry> apply(ClassifierStatus status, int subClass,
-			int superClass);
+	public boolean apply(ClassifierStatus status, int subClass, int superClass);
 
 }

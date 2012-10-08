@@ -21,15 +21,8 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.alt;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
-import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 
@@ -54,18 +47,16 @@ public class CR8SAltRule implements SObserverRule {
 	}
 
 	@Override
-	public Collection<XEntry> apply(ClassifierStatus status, int subClass,
-			int superClass) {
+	public boolean apply(ClassifierStatus status, int subClass, int superClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return Collections.unmodifiableCollection(applyRule(status, subClass,
-				superClass));
+		return applyRule(status, subClass, superClass);
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, int y, int a) {
-		List<XEntry> ret = new ArrayList<XEntry>();
+	private boolean applyRule(ClassifierStatus status, int y, int a) {
+		boolean ret = false;
 		for (GCI2Axiom axiom : status.getExtendedOntology().getGCI2Axioms(a)) {
 			int sMinus = axiom.getPropertyInSuperClass();
 			int s = status.getInverseObjectPropertyOf(sMinus);
@@ -77,7 +68,7 @@ public class CR8SAltRule implements SObserverRule {
 				if (status.getExtendedOntology()
 						.getFunctionalObjectProperties().contains(rMinus)) {
 					for (int x : status.getFirstBySecond(r, y)) {
-						ret.add(new SEntryImpl(x, b));
+						ret |= status.addNewSEntry(x, b);
 					}
 				}
 			}

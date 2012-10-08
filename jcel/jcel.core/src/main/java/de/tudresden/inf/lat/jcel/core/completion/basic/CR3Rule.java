@@ -21,15 +21,8 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.basic;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.REntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
-import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
 
 /**
@@ -59,22 +52,20 @@ public class CR3Rule implements SObserverRule {
 	}
 
 	@Override
-	public Collection<XEntry> apply(ClassifierStatus status, int subClass,
-			int superClass) {
+	public boolean apply(ClassifierStatus status, int subClass, int superClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return Collections.unmodifiableCollection(applyRule(status, subClass,
-				superClass));
+		return applyRule(status, subClass, superClass);
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, int x, int a) {
-		List<XEntry> ret = new ArrayList<XEntry>();
+	private boolean applyRule(ClassifierStatus status, int x, int a) {
+		boolean ret = false;
 		for (GCI2Axiom axiom : status.getExtendedOntology().getGCI2Axioms(a)) {
 			int r = axiom.getPropertyInSuperClass();
 			int b = axiom.getClassInSuperClass();
-			ret.add(new REntryImpl(r, x, b));
+			ret |= status.addNewREntry(r, x, b);
 		}
 		return ret;
 	}

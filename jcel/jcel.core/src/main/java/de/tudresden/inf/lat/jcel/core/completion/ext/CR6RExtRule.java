@@ -21,16 +21,8 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.REntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
-import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
-import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 import de.tudresden.inf.lat.jcel.core.graph.VNode;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
@@ -60,19 +52,17 @@ public class CR6RExtRule implements RObserverRule {
 	}
 
 	@Override
-	public Collection<XEntry> apply(ClassifierStatus status, int property,
-			int leftClass, int rightClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass,
+			int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return Collections.unmodifiableCollection(applyRule(status, property,
-				leftClass, rightClass));
+		return applyRule(status, property, leftClass, rightClass);
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, int r, int x,
-			int y) {
-		List<XEntry> ret = new ArrayList<XEntry>();
+	private boolean applyRule(ClassifierStatus status, int r, int x, int y) {
+		boolean ret = false;
 		int rMinus = status.getInverseObjectPropertyOf(r);
 		for (int a : status.getSubsumers(x)) {
 			for (int s : status.getSuperObjectProperties(r)) {
@@ -89,11 +79,11 @@ public class CR6RExtRule implements RObserverRule {
 						int v = status.createOrGetNodeId(newNode);
 						if (!inV) {
 							for (int p : status.getSubsumers(y)) {
-								ret.add(new SEntryImpl(v, p));
+								ret |= status.addNewSEntry(v, p);
 							}
 						}
-						ret.add(new SEntryImpl(v, b));
-						ret.add(new REntryImpl(r, x, v));
+						ret |= status.addNewSEntry(v, b);
+						ret |= status.addNewREntry(r, x, v);
 					}
 				}
 			}

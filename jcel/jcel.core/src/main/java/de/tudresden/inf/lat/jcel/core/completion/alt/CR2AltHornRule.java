@@ -21,17 +21,11 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.alt;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
-import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
 
 /**
@@ -70,18 +64,16 @@ public class CR2AltHornRule implements SObserverRule {
 	}
 
 	@Override
-	public Collection<XEntry> apply(ClassifierStatus status, int subClass,
-			int superClass) {
+	public boolean apply(ClassifierStatus status, int subClass, int superClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return Collections.unmodifiableCollection(applyRule(status, subClass,
-				superClass));
+		return applyRule(status, subClass, superClass);
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, int x, int a) {
-		List<XEntry> ret = new ArrayList<XEntry>();
+	private boolean applyRule(ClassifierStatus status, int x, int a) {
+		boolean ret = false;
 		Map<GCI1Axiom, Integer> maps = this.counters.get(x);
 		if (maps == null) {
 			maps = new HashMap<GCI1Axiom, Integer>();
@@ -99,7 +91,7 @@ public class CR2AltHornRule implements SObserverRule {
 					this.counters.remove(x);
 				}
 				int b = axiom.getSuperClass();
-				ret.add(new SEntryImpl(x, b));
+				ret |= status.addNewSEntry(x, b);
 			}
 			maps.put(axiom, count);
 		}

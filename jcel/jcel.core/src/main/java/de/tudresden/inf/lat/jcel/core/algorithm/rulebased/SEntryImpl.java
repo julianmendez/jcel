@@ -19,7 +19,10 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.core.completion.common;
+package de.tudresden.inf.lat.jcel.core.algorithm.rulebased;
+
+import de.tudresden.inf.lat.jcel.core.completion.common.SEntry;
+import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 
 /**
  * An object of this class is a subsumer entry and can be used by a subsumer

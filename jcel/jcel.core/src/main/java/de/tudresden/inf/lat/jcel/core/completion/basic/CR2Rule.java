@@ -21,16 +21,11 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.basic;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
-import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
 
 /**
@@ -63,18 +58,16 @@ public class CR2Rule implements SObserverRule {
 	}
 
 	@Override
-	public Collection<XEntry> apply(ClassifierStatus status, int subClass,
-			int superClass) {
+	public boolean apply(ClassifierStatus status, int subClass, int superClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return Collections.unmodifiableCollection(applyRule(status, subClass,
-				superClass));
+		return applyRule(status, subClass, superClass);
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, int x, int a) {
-		List<XEntry> ret = new ArrayList<XEntry>();
+	private boolean applyRule(ClassifierStatus status, int x, int a) {
+		boolean ret = false;
 		Collection<Integer> subsumers = status.getSubsumers(x);
 		for (GCI1Axiom axiom : status.getExtendedOntology().getGCI1Axioms(a)) {
 			boolean valid = true;
@@ -84,7 +77,7 @@ public class CR2Rule implements SObserverRule {
 			}
 			if (valid) {
 				int b = axiom.getSuperClass();
-				ret.add(new SEntryImpl(x, b));
+				ret |= status.addNewSEntry(x, b);
 			}
 		}
 		return ret;

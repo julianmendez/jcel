@@ -36,6 +36,31 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.ExtendedOntology;
 public interface ClassifierStatus {
 
 	/**
+	 * Adds a new R-entry to the set of entries to be processed.
+	 * 
+	 * @param propertyId
+	 *            property id
+	 * @param leftClassId
+	 *            left class id
+	 * @param rightClassId
+	 *            right class id
+	 * @return <code>true</code> if and only if the entry was added
+	 */
+	public boolean addNewREntry(int propertyId, int leftClassId,
+			int rightClassId);
+
+	/**
+	 * Adds a new S-entry to the set of entries to be processed.
+	 * 
+	 * @param subClassId
+	 *            subclass id
+	 * @param superClassId
+	 *            superclass id
+	 * @return <code>true</code> if and only if the entry was added
+	 */
+	public boolean addNewSEntry(int subClassId, int superClassId);
+
+	/**
 	 * Returns whether a particular node belongs to the set V.
 	 * 
 	 * @param node

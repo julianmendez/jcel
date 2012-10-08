@@ -26,9 +26,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.TreeSet;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
+import de.tudresden.inf.lat.jcel.core.completion.common.REntry;
+import de.tudresden.inf.lat.jcel.core.completion.common.SEntry;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerRelationMapImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerBidirectionalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
@@ -59,6 +63,8 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	private Map<Integer, VNodeImpl> nodeSet = new HashMap<Integer, VNodeImpl>();
 	private IntegerSubsumerBidirectionalGraphImpl objectPropertyGraph = null;
 	private IntegerRelationMapImpl relationSet = null;
+	private Set<REntry> setQsubR = new TreeSet<REntry>();
+	private Set<SEntry> setQsubS = new TreeSet<SEntry>();
 
 	/**
 	 * Constructs a new classifier status.
@@ -85,6 +91,18 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 		createRelationSet();
 		createSetOfNodes();
 		createMapOfObjectPropertiesWithFunctionalAncestor();
+	}
+
+	@Override
+	public boolean addNewREntry(int propertyId, int leftClassId,
+			int rightClassId) {
+		return this.setQsubR.add(new REntryImpl(propertyId, leftClassId,
+				rightClassId));
+	}
+
+	@Override
+	public boolean addNewSEntry(int subClassId, int superClassId) {
+		return this.setQsubS.add(new SEntryImpl(subClassId, superClassId));
 	}
 
 	/**
@@ -298,6 +316,25 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 		return this.nodeSet.get(nodeId);
 	}
 
+	/**
+	 * Returns the number of R-entries to be processed.
+	 * 
+	 * @return the number of R-entries to be processed
+	 */
+	public int getNumberOfREntries() {
+		return this.setQsubR.size();
+	}
+
+	/**
+	 * Returns the number of S-entries to be processed.
+	 * 
+	 * @return the number of S-entries to be processed
+	 */
+
+	public int getNumberOfSEntries() {
+		return this.setQsubS.size();
+	}
+
 	@Override
 	public Collection<Integer> getObjectPropertiesByFirst(int cA) {
 		return this.relationSet.getRelationsByFirst(cA);
@@ -390,6 +427,41 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Returns the next R-entry and removes it from the set to be processed.
+	 * 
+	 * @return the next R-entry and removes it from the set to be processed
+	 * 
+	 * @throws NoSuchElementException
+	 *             if the set of R-entries is empty
+	 */
+	public REntry removeNextREntry() {
+		if (this.setQsubR.isEmpty()) {
+			throw new NoSuchElementException();
+		}
+
+		REntry ret = this.setQsubR.iterator().next();
+		this.setQsubR.remove(ret);
+		return ret;
+	}
+
+	/**
+	 * Returns the next S-entry and removes it from the set to be processed.
+	 * 
+	 * @return the next S-entry and removes it from the set to be processed
+	 * @throws NoSuchElementException
+	 *             if the set of S-entries is empty
+	 */
+	public SEntry removeNextSEntry() {
+		if (this.setQsubS.isEmpty()) {
+			throw new NoSuchElementException();
+		}
+
+		SEntry ret = this.setQsubS.iterator().next();
+		this.setQsubS.remove(ret);
+		return ret;
 	}
 
 }

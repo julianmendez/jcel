@@ -21,17 +21,11 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.alt;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
-import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
-import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 
@@ -56,19 +50,17 @@ public class CR8RAltRule implements RObserverRule {
 	}
 
 	@Override
-	public Collection<XEntry> apply(ClassifierStatus status, int property,
-			int leftClass, int rightClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass,
+			int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return Collections.unmodifiableCollection(applyRule(status, property,
-				leftClass, rightClass));
+		return applyRule(status, property, leftClass, rightClass);
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, int r, int x,
-			int y) {
-		List<XEntry> ret = new ArrayList<XEntry>();
+	private boolean applyRule(ClassifierStatus status, int r, int x, int y) {
+		boolean ret = false;
 		int rMinus = status.getInverseObjectPropertyOf(r);
 		if (status.getExtendedOntology().getFunctionalObjectProperties()
 				.contains(rMinus)) {
@@ -84,7 +76,7 @@ public class CR8RAltRule implements RObserverRule {
 							.getRI2sAxioms(r));
 					if (!axiomSet.isEmpty()) {
 						int b = axiom.getClassInSuperClass();
-						ret.add(new SEntryImpl(x, b));
+						ret |= status.addNewSEntry(x, b);
 					}
 				}
 			}

@@ -19,7 +19,10 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.core.completion.common;
+package de.tudresden.inf.lat.jcel.core.algorithm.rulebased;
+
+import de.tudresden.inf.lat.jcel.core.completion.common.REntry;
+import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 
 /**
  * An object of this class is a relation entry and can be used by a relation

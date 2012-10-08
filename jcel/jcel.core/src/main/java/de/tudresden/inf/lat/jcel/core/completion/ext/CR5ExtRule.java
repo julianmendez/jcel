@@ -21,15 +21,8 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.REntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
-import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 
 /**
  * <p>
@@ -53,27 +46,26 @@ public class CR5ExtRule implements RObserverRule {
 	}
 
 	@Override
-	public Collection<XEntry> apply(ClassifierStatus status, int property,
-			int leftClass, int rightClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass,
+			int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Collection<XEntry> ret = new ArrayList<XEntry>();
-		ret.addAll(apply1(status, property, leftClass, rightClass));
-		ret.addAll(apply2(status, property, leftClass, rightClass));
-		return Collections.unmodifiableCollection(ret);
+		boolean ret = false;
+		ret |= apply1(status, property, leftClass, rightClass);
+		ret |= apply2(status, property, leftClass, rightClass);
+		return ret;
 	}
 
-	private Collection<XEntry> apply1(ClassifierStatus status, int r1, int x,
-			int y) {
-		List<XEntry> ret = new ArrayList<XEntry>();
+	private boolean apply1(ClassifierStatus status, int r1, int x, int y) {
+		boolean ret = false;
 		for (int s : status.getSuperObjectProperties(r1)) {
 			if (status.getExtendedOntology().getTransitiveObjectProperties()
 					.contains(s)) {
 				for (int r2 : status.getSubObjectProperties(s)) {
 					for (int z : status.getSecondByFirst(r2, y)) {
-						ret.add(new REntryImpl(s, x, z));
+						ret |= status.addNewREntry(s, x, z);
 					}
 				}
 			}
@@ -81,15 +73,14 @@ public class CR5ExtRule implements RObserverRule {
 		return ret;
 	}
 
-	private Collection<XEntry> apply2(ClassifierStatus status, int r2, int y,
-			int z) {
-		List<XEntry> ret = new ArrayList<XEntry>();
+	private boolean apply2(ClassifierStatus status, int r2, int y, int z) {
+		boolean ret = false;
 		for (int s : status.getSuperObjectProperties(r2)) {
 			if (status.getExtendedOntology().getTransitiveObjectProperties()
 					.contains(s)) {
 				for (int r1 : status.getSubObjectProperties(s)) {
 					for (int x : status.getFirstBySecond(r1, y)) {
-						ret.add(new REntryImpl(s, x, z));
+						ret |= status.addNewREntry(s, x, z);
 					}
 				}
 			}

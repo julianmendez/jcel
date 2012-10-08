@@ -21,8 +21,6 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.common;
 
-import java.util.Collection;
-
 /**
  * This is the interface of a relation observer. A relation observer is a
  * completion rule that triggers only when a new relation is added to the
@@ -39,14 +37,14 @@ public interface RObserverRule {
 	 * @param status
 	 *            classifier status
 	 * @param property
-	 *            property to be applied
+	 *            object property to be applied
 	 * @param leftClass
 	 *            left class to be applied
 	 * @param rightClass
 	 *            right class to be applied
-	 * @return the result of applying the rule to the specified relation entry
+	 * @return <code>true</code> if and only if the rule was applied
 	 */
-	public Collection<XEntry> apply(ClassifierStatus status, int property,
-			int leftClass, int rightClass);
+	public boolean apply(ClassifierStatus status, int property, int leftClass,
+			int rightClass);
 
 }

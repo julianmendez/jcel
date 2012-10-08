@@ -21,13 +21,11 @@
 
 package de.tudresden.inf.lat.jcel.core.algorithm.rulebased;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
-import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 
 /**
  * An object implementing this class is a completion rule chain for the set of
@@ -54,17 +52,17 @@ public class RChain implements RObserverRule {
 	}
 
 	@Override
-	public List<XEntry> apply(ClassifierStatus status, int property,
-			int leftClass, int rightClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass,
+			int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		List<XEntry> ret = new ArrayList<XEntry>();
+		boolean ret = false;
 		for (RObserverRule elem : this.chain) {
-			ret.addAll(elem.apply(status, property, leftClass, rightClass));
+			ret |= elem.apply(status, property, leftClass, rightClass);
 		}
-		return Collections.unmodifiableList(ret);
+		return ret;
 	}
 
 	/**

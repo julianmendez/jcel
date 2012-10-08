@@ -21,16 +21,8 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.REntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
-import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
-import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 import de.tudresden.inf.lat.jcel.core.graph.VNode;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
@@ -61,19 +53,17 @@ public class CR9ExtRule implements RObserverRule {
 	}
 
 	@Override
-	public Collection<XEntry> apply(ClassifierStatus status, int property,
-			int leftClass, int rightClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass,
+			int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return Collections.unmodifiableCollection(applyRule(status, property,
-				leftClass, rightClass));
+		return applyRule(status, property, leftClass, rightClass);
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, int r1,
-			int x, int y) {
-		Set<XEntry> ret = new HashSet<XEntry>();
+	private boolean applyRule(ClassifierStatus status, int r1, int x, int y) {
+		boolean ret = false;
 		VNode psiNode = status.getNode(y);
 		if (psiNode.getClassId() == IntegerEntityManager.topClassId) {
 			for (int r2 : status.getObjectPropertiesWithFunctionalAncestor(r1)) {
@@ -87,12 +77,12 @@ public class CR9ExtRule implements RObserverRule {
 							newNode.addExistentialsOf(phiNode);
 							int v = status.createOrGetNodeId(newNode);
 							for (int p : status.getSubsumers(y)) {
-								ret.add(new SEntryImpl(v, p));
+								ret |= status.addNewSEntry(v, p);
 							}
 							for (int p : status.getSubsumers(z)) {
-								ret.add(new SEntryImpl(v, p));
+								ret |= status.addNewSEntry(v, p);
 							}
-							ret.add(new REntryImpl(r1, x, v));
+							ret |= status.addNewREntry(r1, x, v);
 						}
 					}
 				}

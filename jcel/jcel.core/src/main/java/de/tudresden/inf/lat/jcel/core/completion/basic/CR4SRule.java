@@ -21,15 +21,8 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.basic;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
-import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
 
 /**
@@ -59,24 +52,22 @@ public class CR4SRule implements SObserverRule {
 	}
 
 	@Override
-	public Collection<XEntry> apply(ClassifierStatus status, int subClass,
-			int superClass) {
+	public boolean apply(ClassifierStatus status, int subClass, int superClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return Collections.unmodifiableCollection(applyRule(status, subClass,
-				superClass));
+		return applyRule(status, subClass, superClass);
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, int y, int a) {
-		List<XEntry> ret = new ArrayList<XEntry>();
+	private boolean applyRule(ClassifierStatus status, int y, int a) {
+		boolean ret = false;
 		for (int r : status.getObjectPropertiesBySecond(y)) {
 			for (GCI3Axiom axiom : status.getExtendedOntology()
 					.getGCI3rAAxioms(r, a)) {
 				for (int x : status.getFirstBySecond(r, y)) {
 					int b = axiom.getSuperClass();
-					ret.add(new SEntryImpl(x, b));
+					ret |= status.addNewSEntry(x, b);
 				}
 			}
 		}

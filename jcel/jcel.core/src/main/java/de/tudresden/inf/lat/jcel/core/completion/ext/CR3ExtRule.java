@@ -21,16 +21,8 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.REntryImpl;
-import de.tudresden.inf.lat.jcel.core.completion.common.SEntryImpl;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
-import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
@@ -64,18 +56,16 @@ public class CR3ExtRule implements SObserverRule {
 	}
 
 	@Override
-	public Collection<XEntry> apply(ClassifierStatus status, int subClass,
-			int superClass) {
+	public boolean apply(ClassifierStatus status, int subClass, int superClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return Collections.unmodifiableCollection(applyRule(status, subClass,
-				superClass));
+		return applyRule(status, subClass, superClass);
 	}
 
-	private Collection<XEntry> applyRule(ClassifierStatus status, int x, int a) {
-		List<XEntry> ret = new ArrayList<XEntry>();
+	private boolean applyRule(ClassifierStatus status, int x, int a) {
+		boolean ret = false;
 		for (GCI2Axiom axiom : status.getExtendedOntology().getGCI2Axioms(a)) {
 			int r = axiom.getPropertyInSuperClass();
 			int b = axiom.getClassInSuperClass();
@@ -86,12 +76,12 @@ public class CR3ExtRule implements SObserverRule {
 				int rMinus = status.getInverseObjectPropertyOf(r);
 				newNode.addExistential(rMinus, a);
 				int v = status.createOrGetNodeId(newNode);
-				ret.add(new SEntryImpl(v, b));
-				ret.add(new SEntryImpl(v, IntegerEntityManager.topClassId));
-				ret.add(new REntryImpl(r, x, v));
+				ret |= status.addNewSEntry(v, b);
+				ret |= status.addNewSEntry(v, IntegerEntityManager.topClassId);
+				ret |= status.addNewREntry(r, x, v);
 			} else {
 				int y = status.createOrGetNodeId(new VNodeImpl(b));
-				ret.add(new REntryImpl(r, x, y));
+				ret |= status.addNewREntry(r, x, y);
 			}
 		}
 		return ret;

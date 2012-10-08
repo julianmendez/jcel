@@ -21,13 +21,11 @@
 
 package de.tudresden.inf.lat.jcel.core.algorithm.rulebased;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
-import de.tudresden.inf.lat.jcel.core.completion.common.XEntry;
 
 /**
  * An object implementing this class is a completion rule chain for the set of
@@ -54,17 +52,16 @@ public class SChain implements SObserverRule {
 	}
 
 	@Override
-	public List<XEntry> apply(ClassifierStatus status, int subClass,
-			int superClass) {
+	public boolean apply(ClassifierStatus status, int subClass, int superClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		List<XEntry> ret = new ArrayList<XEntry>();
+		boolean ret = false;
 		for (SObserverRule elem : this.chain) {
-			ret.addAll(elem.apply(status, subClass, superClass));
+			ret |= elem.apply(status, subClass, superClass);
 		}
-		return Collections.unmodifiableList(ret);
+		return ret;
 	}
 
 	/**
