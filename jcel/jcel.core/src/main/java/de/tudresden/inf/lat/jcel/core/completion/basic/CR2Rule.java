@@ -30,15 +30,22 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
 /**
  * <p>
  * <ul>
+ * <li>CR-2 : <b>if</b> A<sub>1</sub> &#8851; A<sub>2</sub> &#8849; B &isin;
+ * <i>T</i>, <u>(x, A<sub>1</sub>) &isin; S</u>, (x, A<sub>2</sub>) &isin; S <br />
+ * <b>then</b> S := S &cup; {(x, B)}</li>
+ * </ul>
+ * </p>
+ * 
+ * Previous forms:
+ * 
+ * <ul>
  * <li>CR-2 : <b>if</b> A<sub>1</sub> &#8851; &hellip; &#8851; A<sub>i</sub>
  * &#8851; &hellip; &#8851; A<sub>n</sub> &#8849; B &isin; <i>T</i>, (x,
  * A<sub>1</sub>) &isin; S, &hellip; <u>(x, A<sub>i</sub>) &isin; S</u>,
  * &hellip; , (x, A<sub>n</sub>) &isin; S <br />
  * <b>then</b> S := S &cup; {(x, B)}</li>
  * </ul>
- * </p>
  * 
- * Previous form:
  * <ul>
  * <li>CR1 : <b>if</b> A<sub>1</sub>, &hellip; , A<sub>n</sub> &isin; S(X)
  * <b>and</b> A<sub>1</sub> &#8851; &hellip; &#8851; A<sub>n</sub> &#8849; B
@@ -67,13 +74,14 @@ public class CR2Rule implements SObserverRule {
 
 	private boolean applyRule(ClassifierStatus status, int x, int a) {
 		boolean ret = false;
-		Collection<Integer> subsumers = status.getSubsumers(x);
+		Collection<Integer> subsumersOfX = status.getSubsumers(x);
 		for (GCI1Axiom axiom : status.getExtendedOntology().getGCI1Axioms(a)) {
 			boolean valid = true;
 			if (a == axiom.getRightSubClass()) {
-				valid = valid && subsumers.contains(axiom.getLeftSubClass());
+				valid = valid && subsumersOfX.contains(axiom.getLeftSubClass());
 			} else {
-				valid = valid && subsumers.contains(axiom.getRightSubClass());
+				valid = valid
+						&& subsumersOfX.contains(axiom.getRightSubClass());
 			}
 			if (valid) {
 				int b = axiom.getSuperClass();
