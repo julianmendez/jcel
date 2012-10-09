@@ -129,7 +129,7 @@ class NormalizerNR2_4 implements NormalizationRule {
 					.getDataTypeFactory().createObjectIntersectionOf(
 							pairOfLiterals);
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-					.createSubClassOfAxiom(intersectionOfLiterals, newClass));
+					.createSubClassOfAxiom(intersectionOfLiterals, superClass));
 		}
 		return ret;
 	}
