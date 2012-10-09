@@ -21,8 +21,6 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
-import java.util.List;
-
 /**
  * An object of this class is a factory to create any normalized axiom.
  * 
@@ -48,8 +46,8 @@ public class NormalizedIntegerAxiomFactoryImpl implements
 	}
 
 	@Override
-	public GCI1Axiom createGCI1Axiom(List<Integer> leftClList, int rightCl) {
-		return new GCI1Axiom(leftClList, rightCl);
+	public GCI1Axiom createGCI1Axiom(int leftCl, int rightCl, int superCl) {
+		return new GCI1Axiom(leftCl, rightCl, superCl);
 	}
 
 	@Override

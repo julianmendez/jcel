@@ -21,8 +21,6 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
-import java.util.List;
-
 /**
  * An object implementing this interface is a factory to create normalized
  * axioms.
@@ -52,12 +50,14 @@ public interface NormalizedIntegerAxiomFactory {
 	/**
 	 * Constructs a new GCI-1 axiom.
 	 * 
-	 * @param leftClList
-	 *            list of class identifier for the part of the left-hand side
-	 * @param rightCl
+	 * @param leftSubCl
+	 *            left subclass in the axiom
+	 * @param rightSubCl
+	 *            right subclass in the axiom
+	 * @param superCl
 	 *            superclass in the axiom
 	 */
-	public GCI1Axiom createGCI1Axiom(List<Integer> leftClList, int rightCl);
+	public GCI1Axiom createGCI1Axiom(int leftSubCl, int rightSubCl, int superCl);
 
 	/**
 	 * Constructs a new GCI-2 axiom.

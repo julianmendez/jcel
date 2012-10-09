@@ -24,7 +24,6 @@ package de.tudresden.inf.lat.jcel.coreontology.axiom;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -346,13 +345,8 @@ public class ExtendedOntologyImpl implements ExtendedOntology,
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		List<Integer> operandSet = axiom.getOperands();
-		for (Integer currentOperand : operandSet) {
-			Set<Integer> currentSet = new HashSet<Integer>();
-			currentSet.addAll(operandSet);
-			currentSet.remove(currentOperand);
-			addGCI1Axiom(currentOperand, axiom);
-		}
+		addGCI1Axiom(axiom.getLeftSubClass(), axiom);
+		addGCI1Axiom(axiom.getRightSubClass(), axiom);
 		return true;
 	}
 

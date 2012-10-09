@@ -23,8 +23,6 @@ package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
@@ -32,7 +30,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
 /**
  * Axiom of the form:
  * <ul>
- * <li>A<sub>1</sub> &#8851; &hellip; &#8851; A<sub>n</sub> &#8849; B</li>
+ * <li>A<sub>1</sub> &#8851; A<sub>2</sub> &#8849; B</li>
  * </ul>
  * 
  * @author Julian Mendez
@@ -40,25 +38,26 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
 public class GCI1Axiom implements NormalizedIntegerAxiom {
 
 	private final int hashCode;
-	private final List<Integer> operands;
+	private final int leftSubClass;
+	private final int rightSubClass;
 	private final int superClass;
 
 	/**
 	 * Constructs a new GCI-1 axiom.
 	 * 
-	 * @param leftClList
-	 *            list of class identifier for the part of the left-hand side
+	 * @param leftSubCl
+	 *            left subclass in the axiom
+	 * @param rightSubCl
+	 *            right subclass in the axiom
 	 * @param rightCl
 	 *            superclass in the axiom
 	 */
-	protected GCI1Axiom(List<Integer> leftClList, int rightCl) {
-		if (leftClList == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		this.operands = leftClList;
+	protected GCI1Axiom(int leftSubCl, int rightSubCl, int rightCl) {
+		this.leftSubClass = leftSubCl;
+		this.rightSubClass = rightSubCl;
 		this.superClass = rightCl;
-		this.hashCode = this.operands.hashCode() + 31 * this.superClass;
+		this.hashCode = this.leftSubClass
+				+ (31 * this.rightSubClass + (31 * this.superClass));
 	}
 
 	@Override
@@ -75,8 +74,9 @@ public class GCI1Axiom implements NormalizedIntegerAxiom {
 		boolean ret = (this == o);
 		if (!ret && o instanceof GCI1Axiom) {
 			GCI1Axiom other = (GCI1Axiom) o;
-			ret = (this.superClass == other.superClass)
-					&& this.operands.equals(other.operands);
+			ret = (this.leftSubClass == other.leftSubClass)
+					&& (this.rightSubClass == other.rightSubClass)
+					&& (this.superClass == other.superClass);
 		}
 		return ret;
 	}
@@ -84,7 +84,8 @@ public class GCI1Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public Set<Integer> getClassesInSignature() {
 		Set<Integer> ret = new HashSet<Integer>();
-		ret.addAll(this.operands);
+		ret.add(this.leftSubClass);
+		ret.add(this.rightSubClass);
 		ret.add(this.superClass);
 		return Collections.unmodifiableSet(ret);
 	}
@@ -104,18 +105,27 @@ public class GCI1Axiom implements NormalizedIntegerAxiom {
 		return Collections.emptySet();
 	}
 
+	/**
+	 * Returns the left subclass in the axiom.
+	 * 
+	 * @return the left subclass in the axiom
+	 */
+	public int getLeftSubClass() {
+		return this.leftSubClass;
+	}
+
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
 		return Collections.emptySet();
 	}
 
 	/**
-	 * Returns the list of operands on the left-hand side of the axiom.
+	 * Returns the right subclass in the axiom.
 	 * 
-	 * @return the list of operands in the axiom.
+	 * @return the right subclass in the axiom
 	 */
-	public List<Integer> getOperands() {
-		return Collections.unmodifiableList(this.operands);
+	public int getRightSubClass() {
+		return this.rightSubClass;
 	}
 
 	/**
@@ -139,13 +149,9 @@ public class GCI1Axiom implements NormalizedIntegerAxiom {
 		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
 		sbuf.append(IntegerClassExpressionWord.ObjectIntersectionOf);
 		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
-		for (Iterator<Integer> it = getOperands().iterator(); it.hasNext();) {
-			Integer currentId = it.next();
-			sbuf.append(currentId);
-			if (it.hasNext()) {
-				sbuf.append(NormalizedIntegerAxiomConstant.sp);
-			}
-		}
+		sbuf.append(getLeftSubClass());
+		sbuf.append(NormalizedIntegerAxiomConstant.sp);
+		sbuf.append(getRightSubClass());
 		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
 		sbuf.append(NormalizedIntegerAxiomConstant.sp);
 		sbuf.append(getSuperClass());

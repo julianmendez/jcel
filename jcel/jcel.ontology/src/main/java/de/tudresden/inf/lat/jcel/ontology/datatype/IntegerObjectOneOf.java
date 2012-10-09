@@ -61,7 +61,7 @@ public class IntegerObjectOneOf implements IntegerClassExpression {
 	}
 
 	@Override
-	public boolean containsOnlyOneClass() {
+	public boolean hasOnlyClasses() {
 		return false;
 	}
 

@@ -48,7 +48,7 @@ public interface IntegerClassExpression extends IntegerDatatype {
 	 * @return <code>true</code> if and only if this class expression contains
 	 *         only literals
 	 */
-	public boolean containsOnlyOneClass();
+	public boolean hasOnlyClasses();
 
 	/**
 	 * Tells whether or not this class expression is a literal.

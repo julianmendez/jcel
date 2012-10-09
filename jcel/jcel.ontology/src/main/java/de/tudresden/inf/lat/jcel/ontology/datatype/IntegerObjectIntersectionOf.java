@@ -84,7 +84,7 @@ public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 	}
 
 	@Override
-	public boolean containsOnlyOneClass() {
+	public boolean hasOnlyClasses() {
 		return this.normalized;
 	}
 

@@ -82,7 +82,7 @@ public class CR2AltHornRule implements SObserverRule {
 		for (GCI1Axiom axiom : status.getExtendedOntology().getGCI1Axioms(a)) {
 			Integer count = maps.get(axiom);
 			if (count == null) {
-				count = axiom.getOperands().size();
+				count = 2;
 			}
 			count--;
 			if (count.equals(0)) {

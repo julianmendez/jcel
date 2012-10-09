@@ -81,7 +81,7 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 	}
 
 	@Override
-	public boolean containsOnlyOneClass() {
+	public boolean hasOnlyClasses() {
 		return this.normalized;
 	}
 

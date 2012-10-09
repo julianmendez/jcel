@@ -70,7 +70,7 @@ public class IntegerClass implements IntegerClassExpression,
 	}
 
 	@Override
-	public boolean containsOnlyOneClass() {
+	public boolean hasOnlyClasses() {
 		return true;
 	}
 

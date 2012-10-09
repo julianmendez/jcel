@@ -104,6 +104,8 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 				getOntologyObjectFactory()));
 		this.norChainOfSubClass.add(new NormalizerNR2_3(
 				getOntologyObjectFactory()));
+		this.norChainOfSubClass.add(new NormalizerNR2_4(
+				getOntologyObjectFactory()));
 		this.norChainOfSubClass.add(new NormalizerNR3_1(
 				getOntologyObjectFactory()));
 		this.norChainOfSubClass.add(new NormalizerNR3_2(
@@ -122,30 +124,6 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		this.norNR1_2 = new NormalizerNR1_2(getOntologyObjectFactory());
 		this.norNR2_1 = new NormalizerNR2_1(getOntologyObjectFactory());
 		this.norNR1_6 = new NormalizerNR1_6();
-	}
-
-	/**
-	 * Returns a list of classes occurring in a set of class expressions.
-	 * 
-	 * @param operands
-	 *            the set of class expressions
-	 * @return a list of classes occurring in a set of class expressions
-	 * @throws IllegalStateException
-	 *             if there is any invalid class expression
-	 */
-	private List<Integer> convertToClassList(
-			Set<IntegerClassExpression> operands) {
-		List<Integer> ret = new ArrayList<Integer>();
-		for (IntegerClassExpression classExpression : operands) {
-			if (classExpression.isLiteral()) {
-				IntegerClass c = (IntegerClass) classExpression;
-				ret.add(c.getId());
-			} else {
-				throw new IllegalStateException(
-						" Invalid state in class expression set.");
-			}
-		}
-		return ret;
 	}
 
 	/**
@@ -247,17 +225,33 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 		} else if (!subClass.isLiteral() && superClass.isLiteral()
 				&& (subClass instanceof IntegerObjectIntersectionOf)
-				&& subClass.containsOnlyOneClass()) {
+				&& subClass.hasOnlyClasses()) {
 
 			IntegerObjectIntersectionOf intersection = (IntegerObjectIntersectionOf) subClass;
 			Set<IntegerClassExpression> operands = intersection.getOperands();
-			ret.add(getNormalizedAxiomFactory().createGCI1Axiom(
-					convertToClassList(operands),
-					((IntegerClass) superClass).getId()));
+			if (operands.size() == 0) {
+				ret.add(getNormalizedAxiomFactory().createGCI0Axiom(
+						IntegerEntityManager.topClassId,
+						((IntegerClass) superClass).getId()));
+
+			} else if (operands.size() == 1) {
+				ret.add(getNormalizedAxiomFactory().createGCI0Axiom(
+						((IntegerClass) operands.iterator().next()).getId(),
+						((IntegerClass) superClass).getId()));
+
+			} else if (operands.size() == 2) {
+				Iterator<IntegerClassExpression> it = operands.iterator();
+				int leftSubClassId = ((IntegerClass) it.next()).getId();
+				int rightSubClassId = ((IntegerClass) it.next()).getId();
+				int superClassId = ((IntegerClass) superClass).getId();
+				ret.add(getNormalizedAxiomFactory().createGCI1Axiom(
+						leftSubClassId, rightSubClassId, superClassId));
+
+			}
 
 		} else if (subClass.isLiteral() && !superClass.isLiteral()
 				&& (superClass instanceof IntegerObjectSomeValuesFrom)
-				&& superClass.containsOnlyOneClass()) {
+				&& superClass.hasOnlyClasses()) {
 
 			IntegerObjectSomeValuesFrom restriction = (IntegerObjectSomeValuesFrom) superClass;
 			IntegerClass filler = (IntegerClass) restriction.getFiller();
@@ -268,7 +262,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 		} else if (!subClass.isLiteral() && superClass.isLiteral()
 				&& (subClass instanceof IntegerObjectSomeValuesFrom)
-				&& subClass.containsOnlyOneClass()) {
+				&& subClass.hasOnlyClasses()) {
 
 			IntegerObjectSomeValuesFrom restriction = (IntegerObjectSomeValuesFrom) subClass;
 			IntegerClass filler = (IntegerClass) restriction.getFiller();

@@ -21,6 +21,7 @@
 
 package de.tudresden.inf.lat.jcel.core.algorithm.cel;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -256,7 +257,9 @@ public class CelExtendedOntology implements
 		}
 
 		Integer superClass = axiom.getSuperClass();
-		List<Integer> operandSet = axiom.getOperands();
+		List<Integer> operandSet = new ArrayList<Integer>();
+		operandSet.add(axiom.getLeftSubClass());
+		operandSet.add(axiom.getRightSubClass());
 		for (Integer currentOperand : operandSet) {
 			Set<Integer> currentSet = new HashSet<Integer>();
 			currentSet.addAll(operandSet);

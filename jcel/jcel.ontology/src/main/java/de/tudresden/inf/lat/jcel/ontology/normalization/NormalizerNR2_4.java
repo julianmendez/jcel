@@ -41,8 +41,6 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
  * </ul>
  * </p>
  * 
- * This rule is not part of the original set of rules.
- * 
  * @author Julian Mendez
  */
 class NormalizerNR2_4 implements NormalizationRule {

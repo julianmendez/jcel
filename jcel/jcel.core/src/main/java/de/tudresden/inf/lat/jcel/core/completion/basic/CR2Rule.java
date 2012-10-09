@@ -22,7 +22,6 @@
 package de.tudresden.inf.lat.jcel.core.completion.basic;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
@@ -71,9 +70,10 @@ public class CR2Rule implements SObserverRule {
 		Collection<Integer> subsumers = status.getSubsumers(x);
 		for (GCI1Axiom axiom : status.getExtendedOntology().getGCI1Axioms(a)) {
 			boolean valid = true;
-			for (Iterator<Integer> it = axiom.getOperands().iterator(); valid
-					&& it.hasNext();) {
-				valid = valid && subsumers.contains(it.next());
+			if (a == axiom.getRightSubClass()) {
+				valid = valid && subsumers.contains(axiom.getLeftSubClass());
+			} else {
+				valid = valid && subsumers.contains(axiom.getRightSubClass());
 			}
 			if (valid) {
 				int b = axiom.getSuperClass();
