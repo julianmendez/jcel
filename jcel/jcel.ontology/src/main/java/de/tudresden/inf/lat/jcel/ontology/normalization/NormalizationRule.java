@@ -34,11 +34,13 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 public interface NormalizationRule {
 
 	/**
-	 * Applies the normalization rule to a specified axiom.
+	 * Applies the normalization rule to a specified axiom. This returns the
+	 * empty set if the rule is not applicable.
 	 * 
 	 * @param axiom
 	 *            axiom to be processed
-	 * @return the set of axioms after the application of the normalization rule
+	 * @return the set of axioms after the application of the normalization
+	 *         rule, or the empty set if the rule is not applicable
 	 */
 	public Set<IntegerAxiom> apply(IntegerAxiom axiom);
 

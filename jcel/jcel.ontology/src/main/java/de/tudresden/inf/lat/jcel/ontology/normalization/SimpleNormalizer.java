@@ -22,7 +22,6 @@
 package de.tudresden.inf.lat.jcel.ontology.normalization;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -82,6 +81,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 	private final NormalizationRule norNR1_5;
 	private final NormalizerNR1_6 norNR1_6;
 	private final NormalizationRule norNR2_1;
+	private final NormalizationRule norSubPropertyChainOf;
 	private final IntegerOntologyObjectFactory ontologyObjectFactory;
 
 	/**
@@ -116,9 +116,13 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 				getOntologyObjectFactory()));
 		this.norChainOfSubClass.add(new NormalizerNR4_2(
 				getOntologyObjectFactory()));
+		this.norChainOfSubClass.add(new NormalizerSubClassOf(
+				getOntologyObjectFactory()));
 
 		this.norDisjoint = new NormalizerDisjoint(getOntologyObjectFactory());
 		this.norEquivProperties = new NormalizerEquivProperties(
+				getOntologyObjectFactory());
+		this.norSubPropertyChainOf = new NormalizerSubPropertyChainOf(
 				getOntologyObjectFactory());
 		this.norNR1_5 = new NormalizerNR1_5(getOntologyObjectFactory());
 		this.norNR1_2 = new NormalizerNR1_2(getOntologyObjectFactory());
@@ -208,102 +212,6 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		if (axiom instanceof ComplexIntegerAxiom) {
 			ComplexIntegerAxiom complexAxiom = (ComplexIntegerAxiom) axiom;
 			ret = complexAxiom.accept(this);
-		}
-		return ret;
-	}
-
-	private Collection<NormalizedIntegerAxiom> simplify(
-			IntegerSubClassOfAxiom axiom) {
-		Collection<NormalizedIntegerAxiom> ret = new ArrayList<NormalizedIntegerAxiom>();
-		IntegerClassExpression subClass = axiom.getSubClass();
-		IntegerClassExpression superClass = axiom.getSuperClass();
-
-		if (subClass.isLiteral() && superClass.isLiteral()) {
-			ret.add(getNormalizedAxiomFactory().createGCI0Axiom(
-					((IntegerClass) subClass).getId(),
-					((IntegerClass) superClass).getId()));
-
-		} else if (!subClass.isLiteral() && superClass.isLiteral()
-				&& (subClass instanceof IntegerObjectIntersectionOf)
-				&& subClass.hasOnlyClasses()) {
-
-			IntegerObjectIntersectionOf intersection = (IntegerObjectIntersectionOf) subClass;
-			Set<IntegerClassExpression> operands = intersection.getOperands();
-			if (operands.size() == 0) {
-				ret.add(getNormalizedAxiomFactory().createGCI0Axiom(
-						IntegerEntityManager.topClassId,
-						((IntegerClass) superClass).getId()));
-
-			} else if (operands.size() == 1) {
-				ret.add(getNormalizedAxiomFactory().createGCI0Axiom(
-						((IntegerClass) operands.iterator().next()).getId(),
-						((IntegerClass) superClass).getId()));
-
-			} else if (operands.size() == 2) {
-				Iterator<IntegerClassExpression> it = operands.iterator();
-				int leftSubClassId = ((IntegerClass) it.next()).getId();
-				int rightSubClassId = ((IntegerClass) it.next()).getId();
-				int superClassId = ((IntegerClass) superClass).getId();
-				ret.add(getNormalizedAxiomFactory().createGCI1Axiom(
-						leftSubClassId, rightSubClassId, superClassId));
-
-			}
-
-		} else if (subClass.isLiteral() && !superClass.isLiteral()
-				&& (superClass instanceof IntegerObjectSomeValuesFrom)
-				&& superClass.hasOnlyClasses()) {
-
-			IntegerObjectSomeValuesFrom restriction = (IntegerObjectSomeValuesFrom) superClass;
-			IntegerClass filler = (IntegerClass) restriction.getFiller();
-			Integer property = getObjectPropertyId(restriction.getProperty());
-			ret.add(getNormalizedAxiomFactory()
-					.createGCI2Axiom(((IntegerClass) subClass).getId(),
-							property, filler.getId()));
-
-		} else if (!subClass.isLiteral() && superClass.isLiteral()
-				&& (subClass instanceof IntegerObjectSomeValuesFrom)
-				&& subClass.hasOnlyClasses()) {
-
-			IntegerObjectSomeValuesFrom restriction = (IntegerObjectSomeValuesFrom) subClass;
-			IntegerClass filler = (IntegerClass) restriction.getFiller();
-			Integer property = getObjectPropertyId(restriction.getProperty());
-			ret.add(getNormalizedAxiomFactory().createGCI3Axiom(property,
-					filler.getId(), ((IntegerClass) superClass).getId()));
-
-		}
-		return ret;
-	}
-
-	private Collection<NormalizedIntegerAxiom> simplify(
-			IntegerSubPropertyChainOfAxiom axiom) {
-		Collection<NormalizedIntegerAxiom> ret = new ArrayList<NormalizedIntegerAxiom>();
-		List<IntegerObjectPropertyExpression> propChain = axiom
-				.getPropertyChain();
-		IntegerObjectPropertyExpression rightPart = axiom.getSuperProperty();
-
-		if (propChain.size() == 0) {
-
-			ret.add(getNormalizedAxiomFactory().createRI1Axiom(
-					getObjectPropertyId(rightPart)));
-
-		} else if (propChain.size() == 1) {
-
-			Iterator<IntegerObjectPropertyExpression> it = propChain.iterator();
-			IntegerObjectPropertyExpression leftPropExpr = it.next();
-			ret.add(getNormalizedAxiomFactory().createRI2Axiom(
-					getObjectPropertyId(leftPropExpr),
-					getObjectPropertyId(rightPart)));
-
-		} else if (propChain.size() == 2) {
-
-			Iterator<IntegerObjectPropertyExpression> it = propChain.iterator();
-			IntegerObjectPropertyExpression leftLeftProp = it.next();
-			IntegerObjectPropertyExpression leftRightProp = it.next();
-			ret.add(getNormalizedAxiomFactory().createRI3Axiom(
-					getObjectPropertyId(leftLeftProp),
-					getObjectPropertyId(leftRightProp),
-					getObjectPropertyId(rightPart)));
-
 		}
 		return ret;
 	}
@@ -598,8 +506,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		}
 
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
-		ret.addAll(simplify(axiom));
-		if (ret.isEmpty() && !this.norNR1_6.canBeApplied(axiom)) {
+		if (!this.norNR1_6.canBeApplied(axiom)) {
 			for (Iterator<NormalizationRule> it = this.norChainOfSubClass
 					.iterator(); it.hasNext() && ret.isEmpty();) {
 				ret = it.next().apply(axiom);
@@ -635,10 +542,13 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		}
 
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
-		ret.addAll(simplify(axiom));
 		if (ret.isEmpty()) {
 			ret = this.norNR2_1.apply(axiom);
 		}
+		if (ret.isEmpty()) {
+			ret = this.norSubPropertyChainOf.apply(axiom);
+		}
+
 		return Collections.unmodifiableSet(ret);
 	}
 
