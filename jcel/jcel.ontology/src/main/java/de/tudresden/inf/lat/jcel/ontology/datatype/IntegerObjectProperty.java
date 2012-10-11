@@ -60,7 +60,7 @@ public class IntegerObjectProperty implements IntegerObjectPropertyExpression,
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return getId().compareTo(o.getId());
+		return getId() - o.getId();
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class IntegerObjectProperty implements IntegerObjectPropertyExpression,
 		boolean ret = (this == o);
 		if (!ret && o instanceof IntegerObjectProperty) {
 			IntegerObjectProperty other = (IntegerObjectProperty) o;
-			ret = getId().equals(other.getId());
+			ret = (getId() == other.getId());
 		}
 		return ret;
 	}
@@ -93,7 +93,7 @@ public class IntegerObjectProperty implements IntegerObjectPropertyExpression,
 	 * 
 	 * @return the identifier for this object property
 	 */
-	public Integer getId() {
+	public int getId() {
 		return this.id;
 	}
 
@@ -119,7 +119,7 @@ public class IntegerObjectProperty implements IntegerObjectPropertyExpression,
 
 	@Override
 	public String toString() {
-		return getId().toString();
+		return ((Integer) getId()).toString();
 	}
 
 }

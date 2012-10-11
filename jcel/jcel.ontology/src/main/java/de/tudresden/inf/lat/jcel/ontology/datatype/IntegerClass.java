@@ -61,7 +61,7 @@ public class IntegerClass implements IntegerClassExpression,
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return getId().compareTo(o.getId());
+		return getId() - o.getId();
 	}
 
 	@Override
@@ -70,16 +70,11 @@ public class IntegerClass implements IntegerClassExpression,
 	}
 
 	@Override
-	public boolean hasOnlyClasses() {
-		return true;
-	}
-
-	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
 		if (!ret && o instanceof IntegerClass) {
 			IntegerClass other = (IntegerClass) o;
-			ret = getId().equals(other.getId());
+			ret = getId() == other.getId();
 		}
 		return ret;
 	}
@@ -104,7 +99,7 @@ public class IntegerClass implements IntegerClassExpression,
 	 * 
 	 * @return the class identifier
 	 */
-	public Integer getId() {
+	public int getId() {
 		return this.id;
 	}
 
@@ -124,13 +119,18 @@ public class IntegerClass implements IntegerClassExpression,
 	}
 
 	@Override
+	public boolean hasOnlyClasses() {
+		return true;
+	}
+
+	@Override
 	public boolean isLiteral() {
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return getId().toString();
+		return ((Integer) getId()).toString();
 	}
 
 }

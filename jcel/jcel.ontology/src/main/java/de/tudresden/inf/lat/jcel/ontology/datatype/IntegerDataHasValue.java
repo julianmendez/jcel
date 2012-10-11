@@ -68,17 +68,12 @@ public class IntegerDataHasValue implements IntegerClassExpression {
 	}
 
 	@Override
-	public boolean hasOnlyClasses() {
-		return this.normalized;
-	}
-
-	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
 		if (!ret && o instanceof IntegerDataHasValue) {
 			IntegerDataHasValue other = (IntegerDataHasValue) o;
-			ret = getProperty().equals(other.getProperty())
-					&& getValue().equals(other.getValue());
+			ret = (getProperty() == other.getProperty())
+					&& (getValue() == other.getValue());
 		}
 		return ret;
 	}
@@ -113,7 +108,7 @@ public class IntegerDataHasValue implements IntegerClassExpression {
 	 * 
 	 * @return the data property in this class expression
 	 */
-	public Integer getProperty() {
+	public int getProperty() {
 		return this.property;
 	}
 
@@ -122,13 +117,18 @@ public class IntegerDataHasValue implements IntegerClassExpression {
 	 * 
 	 * @return the value in this class expression
 	 */
-	public Integer getValue() {
+	public int getValue() {
 		return this.value;
 	}
 
 	@Override
 	public int hashCode() {
 		return this.hashCode;
+	}
+
+	@Override
+	public boolean hasOnlyClasses() {
+		return this.normalized;
 	}
 
 	@Override
@@ -143,7 +143,7 @@ public class IntegerDataHasValue implements IntegerClassExpression {
 		sbuf.append(IntegerClassExpressionWord.openPar);
 		sbuf.append(getProperty());
 		sbuf.append(IntegerClassExpressionWord.sp);
-		sbuf.append(getValue().toString());
+		sbuf.append(getValue());
 		sbuf.append(IntegerClassExpressionWord.closePar);
 		return sbuf.toString();
 	}

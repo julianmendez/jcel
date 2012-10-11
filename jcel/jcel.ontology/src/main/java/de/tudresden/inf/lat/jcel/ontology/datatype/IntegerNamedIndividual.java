@@ -61,7 +61,7 @@ public class IntegerNamedIndividual implements IntegerClassExpression,
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return getId().compareTo(o.getId());
+		return getId() - o.getId();
 	}
 
 	@Override
@@ -70,16 +70,11 @@ public class IntegerNamedIndividual implements IntegerClassExpression,
 	}
 
 	@Override
-	public boolean hasOnlyClasses() {
-		return true;
-	}
-
-	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
 		if (!ret && o instanceof IntegerNamedIndividual) {
 			IntegerNamedIndividual other = (IntegerNamedIndividual) o;
-			ret = getId().equals(other.getId());
+			ret = (getId() == other.getId());
 		}
 		return ret;
 	}
@@ -104,7 +99,7 @@ public class IntegerNamedIndividual implements IntegerClassExpression,
 	 * 
 	 * @return the named individual identifier
 	 */
-	public Integer getId() {
+	public int getId() {
 		return this.id;
 	}
 
@@ -120,7 +115,12 @@ public class IntegerNamedIndividual implements IntegerClassExpression,
 
 	@Override
 	public int hashCode() {
-		return getId().hashCode();
+		return getId();
+	}
+
+	@Override
+	public boolean hasOnlyClasses() {
+		return true;
 	}
 
 	@Override
@@ -130,7 +130,7 @@ public class IntegerNamedIndividual implements IntegerClassExpression,
 
 	@Override
 	public String toString() {
-		return getId().toString();
+		return ((Integer) getId()).toString();
 	}
 
 }

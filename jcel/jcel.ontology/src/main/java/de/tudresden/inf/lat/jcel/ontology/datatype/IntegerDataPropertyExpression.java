@@ -36,6 +36,6 @@ public interface IntegerDataPropertyExpression extends IntegerDatatype {
 	 * 
 	 * @return the identifier of the used data property
 	 */
-	public Integer getId();
+	public int getId();
 
 }

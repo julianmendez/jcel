@@ -81,11 +81,6 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 	}
 
 	@Override
-	public boolean hasOnlyClasses() {
-		return this.normalized;
-	}
-
-	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
 		if (!ret && o instanceof IntegerObjectSomeValuesFrom) {
@@ -142,6 +137,11 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 	@Override
 	public int hashCode() {
 		return this.hashCode;
+	}
+
+	@Override
+	public boolean hasOnlyClasses() {
+		return this.normalized;
 	}
 
 	@Override

@@ -51,7 +51,7 @@ public class IntegerDataProperty implements IntegerDataPropertyExpression,
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return getId().compareTo(o.getId());
+		return getId() - o.getId();
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class IntegerDataProperty implements IntegerDataPropertyExpression,
 		boolean ret = (this == o);
 		if (!ret && o instanceof IntegerDataProperty) {
 			IntegerDataProperty other = (IntegerDataProperty) o;
-			ret = getId().equals(other.getId());
+			ret = (getId() == other.getId());
 		}
 		return ret;
 	}
@@ -80,7 +80,7 @@ public class IntegerDataProperty implements IntegerDataPropertyExpression,
 	}
 
 	@Override
-	public Integer getId() {
+	public int getId() {
 		return this.id;
 	}
 
@@ -101,7 +101,7 @@ public class IntegerDataProperty implements IntegerDataPropertyExpression,
 
 	@Override
 	public String toString() {
-		return getId().toString();
+		return ((Integer) getId()).toString();
 	}
 
 }
