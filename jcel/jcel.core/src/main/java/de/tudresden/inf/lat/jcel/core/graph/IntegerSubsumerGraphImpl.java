@@ -21,7 +21,6 @@
 
 package de.tudresden.inf.lat.jcel.core.graph;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -194,7 +193,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 		keySet.addAll(this.setS.keySet());
 		for (Integer key : keySet) {
 			if (collection.contains(key)) {
-				Collection<Integer> value = new ArrayList<Integer>();
+				Collection<Integer> value = new ArraySet();
 				for (Integer elem : getSubsumers(key)) {
 					if (collection.contains(elem)) {
 						value.add(elem);
