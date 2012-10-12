@@ -41,6 +41,9 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
  */
 public class NormalizerNR1_5Test extends TestCase {
 
+	/**
+	 * C &#8801; D &#8605; C &#8849; D, D &#8849; C
+	 */
 	public void testUsingClasses() {
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR1_5 normalizer = new NormalizerNR1_5(factory);

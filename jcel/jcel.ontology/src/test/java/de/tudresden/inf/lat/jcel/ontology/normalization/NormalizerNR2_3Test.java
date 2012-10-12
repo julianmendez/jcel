@@ -59,23 +59,23 @@ public class NormalizerNR2_3Test extends TestCase {
 
 		IntegerClass c1 = factory.getDataTypeFactory().createClass(
 				factory.getEntityManager().createNamedEntity(
-						IntegerEntityType.CLASS, "A1", false));
+						IntegerEntityType.CLASS, "C1", false));
 
 		IntegerObjectProperty s1 = factory
 				.getDataTypeFactory()
 				.createObjectProperty(
 						factory.getEntityManager().createNamedEntity(
-								IntegerEntityType.OBJECT_PROPERTY, "r1", false));
+								IntegerEntityType.OBJECT_PROPERTY, "s1", false));
 
 		IntegerClass c2 = factory.getDataTypeFactory().createClass(
 				factory.getEntityManager().createNamedEntity(
-						IntegerEntityType.CLASS, "A2", false));
+						IntegerEntityType.CLASS, "C2", false));
 
 		IntegerObjectProperty s2 = factory
 				.getDataTypeFactory()
 				.createObjectProperty(
 						factory.getEntityManager().createNamedEntity(
-								IntegerEntityType.OBJECT_PROPERTY, "r2", false));
+								IntegerEntityType.OBJECT_PROPERTY, "s2", false));
 
 		IntegerClassExpression cPrime = factory.getDataTypeFactory()
 				.createObjectSomeValuesFrom(s1, c1);
