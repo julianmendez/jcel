@@ -42,6 +42,12 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
  */
 public class NormalizerNR2_3Test extends TestCase {
 
+	/**
+	 * &exist; r <i>.</i> &exist; s<sub>1</sub> <i>.</i> C<sub>1</sub> &#8849;
+	 * &exist; s<sub>2</sub> <i>.</i> C<sub>2</sub> &#8605; &exist;
+	 * s<sub>1</sub> <i>.</i> C<sub>1</sub> &#8849; A, &exist; r <i>.</i> A
+	 * &#8849; &exist; s<sub>2</sub> <i>.</i> C<sub>2</sub>
+	 */
 	public void testRule() {
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR2_3 normalizer = new NormalizerNR2_3(factory);
@@ -51,32 +57,32 @@ public class NormalizerNR2_3Test extends TestCase {
 						factory.getEntityManager().createNamedEntity(
 								IntegerEntityType.OBJECT_PROPERTY, "r", false));
 
-		IntegerClass a1 = factory.getDataTypeFactory().createClass(
+		IntegerClass c1 = factory.getDataTypeFactory().createClass(
 				factory.getEntityManager().createNamedEntity(
 						IntegerEntityType.CLASS, "A1", false));
 
-		IntegerObjectProperty r1 = factory
+		IntegerObjectProperty s1 = factory
 				.getDataTypeFactory()
 				.createObjectProperty(
 						factory.getEntityManager().createNamedEntity(
 								IntegerEntityType.OBJECT_PROPERTY, "r1", false));
 
-		IntegerClass a2 = factory.getDataTypeFactory().createClass(
+		IntegerClass c2 = factory.getDataTypeFactory().createClass(
 				factory.getEntityManager().createNamedEntity(
 						IntegerEntityType.CLASS, "A2", false));
 
-		IntegerObjectProperty r2 = factory
+		IntegerObjectProperty s2 = factory
 				.getDataTypeFactory()
 				.createObjectProperty(
 						factory.getEntityManager().createNamedEntity(
 								IntegerEntityType.OBJECT_PROPERTY, "r2", false));
 
 		IntegerClassExpression cPrime = factory.getDataTypeFactory()
-				.createObjectSomeValuesFrom(r1, a1);
+				.createObjectSomeValuesFrom(s1, c1);
 		IntegerClassExpression c = factory.getDataTypeFactory()
 				.createObjectSomeValuesFrom(r, cPrime);
 		IntegerClassExpression d = factory.getDataTypeFactory()
-				.createObjectSomeValuesFrom(r2, a2);
+				.createObjectSomeValuesFrom(s2, c2);
 		IntegerSubClassOfAxiom axiom = factory.getComplexAxiomFactory()
 				.createSubClassOfAxiom(c, d);
 
