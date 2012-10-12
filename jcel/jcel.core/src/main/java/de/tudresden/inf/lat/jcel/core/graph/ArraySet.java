@@ -21,6 +21,7 @@
 
 package de.tudresden.inf.lat.jcel.core.graph;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -171,17 +172,20 @@ public class ArraySet implements Set<Integer> {
 
 	@Override
 	public Object[] toArray() {
-		Object[] ret = new Object[this.size];
-		for (int index = 0; index < this.size; index++) {
-			ret[index] = this.array[index];
-		}
-		return ret;
+		return toArrayList().toArray();
 	}
 
 	@Override
 	public <T> T[] toArray(T[] a) {
-		// TODO
-		throw new UnsupportedOperationException();
+		return toArrayList().toArray(a);
+	}
+
+	private ArrayList<Integer> toArrayList() {
+		ArrayList<Integer> ret = new ArrayList<Integer>();
+		for (int index = 0; index < this.size; index++) {
+			ret.add(this.array[index]);
+		}
+		return ret;
 	}
 
 	@Override
