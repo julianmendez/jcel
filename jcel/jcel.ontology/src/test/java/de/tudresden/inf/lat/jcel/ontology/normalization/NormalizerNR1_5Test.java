@@ -32,6 +32,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactoryImpl;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 
 /**
  * 
@@ -54,6 +55,54 @@ public class NormalizerNR1_5Test extends TestCase {
 		IntegerClass d = factory.getDataTypeFactory().createClass(
 				factory.getEntityManager().createNamedEntity(
 						IntegerEntityType.CLASS, "D", false));
+
+		Set<IntegerClassExpression> set = new HashSet<IntegerClassExpression>();
+		set.add(c);
+		set.add(d);
+		IntegerEquivalentClassesAxiom axiom = factory.getComplexAxiomFactory()
+				.createEquivalentClassesAxiom(set);
+		Set<IntegerAxiom> normalizedAxioms = normalizer.apply(axiom);
+
+		Set<IntegerAxiom> expectedAxioms = new HashSet<IntegerAxiom>();
+		expectedAxioms.add(factory.getComplexAxiomFactory()
+				.createSubClassOfAxiom(c, d));
+		expectedAxioms.add(factory.getComplexAxiomFactory()
+				.createSubClassOfAxiom(d, c));
+
+		assertEquals(expectedAxioms, normalizedAxioms);
+	}
+
+	/**
+	 * &exist; r <i>.</i> C<sub>1</sub> &#8801; C<sub>2</sub> &#8851;
+	 * C<sub>3</sub> &#8605; &exist; r <i>.</i> C<sub>1</sub> &#8849;
+	 * C<sub>2</sub> &#8851; C<sub>3</sub>, C<sub>2</sub> &#8851; C<sub>3</sub>
+	 * &#8849; &exist; r <i>.</i> C<sub>1</sub>
+	 */
+	public void testUsingClassExpressions() {
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		NormalizerNR1_5 normalizer = new NormalizerNR1_5(factory);
+
+		IntegerObjectProperty r = factory.getDataTypeFactory()
+				.createObjectProperty(
+						factory.getEntityManager().createNamedEntity(
+								IntegerEntityType.OBJECT_PROPERTY, "r", false));
+		IntegerClass c1 = factory.getDataTypeFactory().createClass(
+				factory.getEntityManager().createNamedEntity(
+						IntegerEntityType.CLASS, "C1", false));
+		IntegerClass c2 = factory.getDataTypeFactory().createClass(
+				factory.getEntityManager().createNamedEntity(
+						IntegerEntityType.CLASS, "C2", false));
+		IntegerClass c3 = factory.getDataTypeFactory().createClass(
+				factory.getEntityManager().createNamedEntity(
+						IntegerEntityType.CLASS, "C3", false));
+
+		IntegerClassExpression c = factory.getDataTypeFactory()
+				.createObjectSomeValuesFrom(r, c1);
+		Set<IntegerClassExpression> parameter = new HashSet<IntegerClassExpression>();
+		parameter.add(c2);
+		parameter.add(c3);
+		IntegerClassExpression d = factory.getDataTypeFactory()
+				.createObjectIntersectionOf(parameter);
 
 		Set<IntegerClassExpression> set = new HashSet<IntegerClassExpression>();
 		set.add(c);
