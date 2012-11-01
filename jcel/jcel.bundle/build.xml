@@ -120,7 +120,7 @@
 				<attribute name="Bundle-ManifestVersion" value="2" />
 				<attribute name="Bundle-SymbolicName" value="de.tudresden.inf.lat.jcel;singleton:=true" />
 				<attribute name="Bundle-Name" value="jcel" />
-				<attribute name="Bundle-Version" value="${project.version}.${svn.revision}" />
+				<attribute name="Bundle-Version" value="${project.version}" />
 				<attribute name="Bundle-Activator" value="org.protege.editor.core.plugin.DefaultPluginActivator" />
 				<attribute name="Bundle-Category" value="protege" />
 				<attribute name="Bundle-Description" value="jcel plugin for Protege" />
@@ -133,9 +133,7 @@
 		</jar>
 	</target>
 
-	<target name="dist" depends="clean, getjars, getrepository, bundle">
-		<!--buildnumber file="version.properties"/-->
-	</target>
+	<target name="dist" depends="clean, getjars, getrepository, bundle" />
 
 </project>
 
