@@ -91,6 +91,18 @@ public class Renderer {
 		return ret;
 	}
 
+	/**
+	 * Renders set R using Turtle syntax.
+	 * 
+	 * @param output
+	 *            writer
+	 * @param entityManager
+	 *            entity manager
+	 * @param setR
+	 *            set R
+	 * @return <code>true</code> if and only if it renders at least one triple
+	 * @throws IOException
+	 */
 	public boolean renderWithNames(Writer output,
 			IntegerEntityManager entityManager, IntegerRelationMap setR)
 			throws IOException {
@@ -129,6 +141,18 @@ public class Renderer {
 		return ret;
 	}
 
+	/**
+	 * Renders set S using Turtle syntax.
+	 * 
+	 * @param output
+	 *            writer
+	 * @param entityManager
+	 *            entity manager
+	 * @param setS
+	 *            set S
+	 * @return <code>true</code> if and only if it renders at least one triple
+	 * @throws IOException
+	 */
 	public boolean renderWithNames(Writer output,
 			IntegerEntityManager entityManager, IntegerSubsumerGraph setS)
 			throws IOException {

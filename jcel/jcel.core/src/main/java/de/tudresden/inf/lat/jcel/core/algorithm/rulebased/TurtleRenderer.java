@@ -66,14 +66,34 @@ public class TurtleRenderer {
 		this.output = new BufferedWriter(writer);
 	}
 
-	private String getNameWithoutPrefix(String name) {
+	private String getName(URI uri) {
+		String ret = uri.getFragment();
+		if (ret == null) {
+			ret = uri.getPath();
+		}
+		return ret;
+	}
+
+	private String getPrefix(URI uri) {
+		String ret = "";
+		if (uri.getHost() != null) {
+			ret = uri.getScheme() + colonSlashSlash + uri.getHost();
+			if (uri.getFragment() != null) {
+				ret += uri.getPath() + fragmentSeparator;
+			}
+		}
+		return ret;
+	}
+
+	private String getTurtleEntity(String name) {
 		String ret = prefixSeparator + name;
 		try {
 			URI uri = new URI(name);
-			if (uri.getHost() != null) {
-				String prefixId = mapOfPrefixes.get(getPrefix(uri));
+			String prefix = getPrefix(uri);
+			if (prefix.length() > 0) {
+				String prefixId = this.mapOfPrefixes.get(prefix);
 				if (prefixId != null) {
-					ret = prefixId + prefixSeparator + uri.getFragment();
+					ret = prefixId + prefixSeparator + getName(uri);
 				} else {
 					ret = uriDelimiterLeft + name + uriDelimiterRight;
 				}
@@ -81,11 +101,6 @@ public class TurtleRenderer {
 		} catch (URISyntaxException e) {
 		}
 		return ret;
-	}
-
-	private String getPrefix(URI uri) {
-		return uri.getScheme() + colonSlashSlash + uri.getHost()
-				+ uri.getPath() + fragmentSeparator;
 	}
 
 	/**
@@ -101,13 +116,12 @@ public class TurtleRenderer {
 		for (String name : identifiers) {
 			try {
 				URI uri = new URI(name);
-				if (uri.getHost() != null) {
-					String prefix = getPrefix(uri);
-					if (!this.mapOfPrefixes.containsKey(prefix)) {
-						this.mapOfPrefixes.put(prefix, prefixBeginning
-								+ this.mapOfPrefixes.keySet().size());
-						ret = true;
-					}
+				String prefix = getPrefix(uri);
+				if (prefix.length() > 0
+						&& !this.mapOfPrefixes.containsKey(prefix)) {
+					this.mapOfPrefixes.put(prefix, prefixBeginning
+							+ this.mapOfPrefixes.keySet().size());
+					ret = true;
 				}
 			} catch (URISyntaxException e) {
 			}
@@ -146,11 +160,11 @@ public class TurtleRenderer {
 	 */
 	public void renderTriple(String predicate, String subject, String object)
 			throws IOException {
-		this.output.write(getNameWithoutPrefix(subject));
+		this.output.write(getTurtleEntity(subject));
 		this.output.write(separator);
-		this.output.write(getNameWithoutPrefix(predicate));
+		this.output.write(getTurtleEntity(predicate));
 		this.output.write(separator);
-		this.output.write(getNameWithoutPrefix(object));
+		this.output.write(getTurtleEntity(object));
 		this.output.write(space);
 		this.output.write(lineEnd);
 		this.output.newLine();
