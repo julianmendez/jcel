@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -65,6 +66,7 @@ public class RuleBasedProcessor implements Processor {
 
 	private RChain chainR = null;
 	private SChain chainS = null;
+
 	private IntegerHierarchicalGraph classHierarchy = null;
 	private IntegerHierarchicalGraph dataPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> directTypes = null;
@@ -490,36 +492,16 @@ public class RuleBasedProcessor implements Processor {
 				logger.fine(showConfigurationInfo());
 				this.isReady = true;
 			} else {
-				boolean applied = false;
-				if (this.status.getNumberOfSEntries() > this.status
-						.getNumberOfREntries()) {
-					SEntry entry = this.status.removeNextSEntry();
-					int subClass = entry.getSubClass();
-					int superClass = entry.getSuperClass();
-					applied = this.status.addToS(subClass, superClass);
-					applied |= (subClass == topClassId && superClass == topClassId);
-					if (applied) {
-						this.chainS.apply(this.status, subClass, superClass);
-					}
+
+				if (status.getNumberOfSEntries() > status.getNumberOfREntries()) {
+					processSEntries();
 				} else {
-					REntry entry = this.status.removeNextREntry();
-					int property = entry.getProperty();
-					int leftClass = entry.getLeftClass();
-					int rightClass = entry.getRightClass();
-					applied = this.status.addToR(property, leftClass,
-							rightClass);
-					if (applied) {
-						this.chainR.apply(this.status, property, leftClass,
-								rightClass);
-					}
+					processREntries();
 				}
-				if (applied) {
-					this.loggingCount--;
-					this.iteration++;
-					if (this.loggingCount < 1) {
-						this.loggingCount = loggingFrequency;
-						logger.fine(showStatusInfo());
-					}
+
+				if (this.loggingCount < 1) {
+					this.loggingCount = loggingFrequency;
+					logger.fine(showStatusInfo());
 				}
 			}
 		}
@@ -559,6 +541,38 @@ public class RuleBasedProcessor implements Processor {
 					}
 				}
 			}
+		}
+	}
+
+	private void processREntries() {
+		try {
+			REntry entry = status.removeNextREntry();
+			int property = entry.getProperty();
+			int leftClass = entry.getLeftClass();
+			int rightClass = entry.getRightClass();
+			boolean applied = status.addToR(property, leftClass, rightClass);
+			if (applied) {
+				chainR.apply(status, property, leftClass, rightClass);
+				loggingCount--;
+				iteration++;
+			}
+		} catch (NoSuchElementException e) {
+		}
+	}
+
+	private void processSEntries() {
+		try {
+			SEntry entry = status.removeNextSEntry();
+			int subClass = entry.getSubClass();
+			int superClass = entry.getSuperClass();
+			boolean applied = status.addToS(subClass, superClass);
+			applied |= (subClass == topClassId && superClass == topClassId);
+			if (applied) {
+				chainS.apply(status, subClass, superClass);
+				loggingCount--;
+				iteration++;
+			}
+		} catch (NoSuchElementException e) {
 		}
 	}
 
