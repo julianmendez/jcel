@@ -60,6 +60,10 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	private final ExtendedOntology extendedOntology;
 	private IntegerEntityManager idGenerator = null;
 	private Map<VNodeImpl, Integer> invNodeSet = new HashMap<VNodeImpl, Integer>();
+	private Object monitorClassGraph = new Object();
+	private Object monitorRelationSet = new Object();
+	private Object monitorSetQsubR = new Object();
+	private Object monitorSetQsubS = new Object();
 	private Map<Integer, VNodeImpl> nodeSet = new HashMap<Integer, VNodeImpl>();
 	private IntegerSubsumerBidirectionalGraphImpl objectPropertyGraph = null;
 	private IntegerRelationMapImpl relationSet = null;
@@ -96,13 +100,21 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	@Override
 	public boolean addNewREntry(int propertyId, int leftClassId,
 			int rightClassId) {
-		return this.setQsubR.add(new REntryImpl(propertyId, leftClassId,
-				rightClassId));
+		boolean ret = false;
+		synchronized (this.monitorSetQsubR) {
+			ret = this.setQsubR.add(new REntryImpl(propertyId, leftClassId,
+					rightClassId));
+		}
+		return ret;
 	}
 
 	@Override
 	public boolean addNewSEntry(int subClassId, int superClassId) {
-		return this.setQsubS.add(new SEntryImpl(subClassId, superClassId));
+		boolean ret = false;
+		synchronized (this.monitorSetQsubS) {
+			ret = this.setQsubS.add(new SEntryImpl(subClassId, superClassId));
+		}
+		return ret;
 	}
 
 	/**
@@ -118,7 +130,11 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean addToR(int property, int leftClass, int rightClass) {
-		return this.relationSet.add(property, leftClass, rightClass);
+		boolean ret = false;
+		synchronized (this.monitorRelationSet) {
+			ret = this.relationSet.add(property, leftClass, rightClass);
+		}
+		return ret;
 	}
 
 	/**
@@ -132,7 +148,11 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean addToS(int subClass, int superClass) {
-		return this.classGraph.addAncestor(subClass, superClass);
+		boolean ret = false;
+		synchronized (this.monitorClassGraph) {
+			ret = this.classGraph.addAncestor(subClass, superClass);
+		}
+		return ret;
 	}
 
 	@Override
@@ -145,13 +165,14 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	}
 
 	private void createClassGraph() {
-		this.classGraph = new IntegerSubsumerGraphImpl(bottomClassId,
-				topClassId);
-		for (int index : getExtendedOntology().getClassSet()) {
-			this.classGraph.addAncestor(index, topClassId);
+		synchronized (this.monitorClassGraph) {
+			this.classGraph = new IntegerSubsumerGraphImpl(bottomClassId,
+					topClassId);
+			for (int index : getExtendedOntology().getClassSet()) {
+				this.classGraph.addAncestor(index, topClassId);
+			}
+			this.classGraph.addAncestor(topClassId, topClassId);
 		}
-		this.classGraph.addAncestor(topClassId, topClassId);
-
 		this.nodeSet.clear();
 		this.invNodeSet.clear();
 		for (int elem : this.classGraph.getElements()) {
@@ -173,7 +194,6 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 				currentSet.addAll(cognates);
 			}
 		}
-
 	}
 
 	private void createObjectPropertyGraph() {
@@ -220,9 +240,11 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	private void createRelationSet() {
 		Collection<Integer> collection = getObjectPropertyGraph().getElements();
-		this.relationSet = new IntegerRelationMapImpl();
-		for (int index : collection) {
-			this.relationSet.add(index);
+		synchronized (this.monitorRelationSet) {
+			this.relationSet = new IntegerRelationMapImpl();
+			for (int index : collection) {
+				this.relationSet.add(index);
+			}
 		}
 	}
 
@@ -236,7 +258,9 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 * Deletes the class graph.
 	 */
 	protected void deleteClassGraph() {
-		this.classGraph = null;
+		synchronized (this.monitorClassGraph) {
+			this.classGraph = null;
+		}
 	}
 
 	/**
@@ -294,7 +318,11 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	@Override
 	public Collection<Integer> getFirstBySecond(int propertyId, int classId) {
-		return this.relationSet.getBySecond(propertyId, classId);
+		Collection<Integer> ret = null;
+		synchronized (this.monitorRelationSet) {
+			ret = this.relationSet.getBySecond(propertyId, classId);
+		}
+		return ret;
 	}
 
 	/**
@@ -322,7 +350,11 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 * @return the number of R-entries to be processed
 	 */
 	public int getNumberOfREntries() {
-		return this.setQsubR.size();
+		int ret = 0;
+		synchronized (this.monitorSetQsubR) {
+			ret = this.setQsubR.size();
+		}
+		return ret;
 	}
 
 	/**
@@ -332,17 +364,29 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 */
 
 	public int getNumberOfSEntries() {
-		return this.setQsubS.size();
+		int ret = 0;
+		synchronized (this.monitorSetQsubS) {
+			ret = this.setQsubS.size();
+		}
+		return ret;
 	}
 
 	@Override
 	public Collection<Integer> getObjectPropertiesByFirst(int cA) {
-		return this.relationSet.getRelationsByFirst(cA);
+		Collection<Integer> ret = null;
+		synchronized (this.monitorRelationSet) {
+			ret = this.relationSet.getRelationsByFirst(cA);
+		}
+		return ret;
 	}
 
 	@Override
 	public Collection<Integer> getObjectPropertiesBySecond(int cA) {
-		return this.relationSet.getRelationsBySecond(cA);
+		Collection<Integer> ret = null;
+		synchronized (this.monitorRelationSet) {
+			ret = this.relationSet.getRelationsBySecond(cA);
+		}
+		return ret;
 	}
 
 	@Override
@@ -377,7 +421,11 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	@Override
 	public Collection<Integer> getSecondByFirst(int propertyId, int classId) {
-		return this.relationSet.getByFirst(propertyId, classId);
+		Collection<Integer> ret = null;
+		synchronized (this.monitorRelationSet) {
+			ret = this.relationSet.getByFirst(propertyId, classId);
+		}
+		return ret;
 	}
 
 	/**
@@ -397,7 +445,11 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	@Override
 	public Collection<Integer> getSubsumers(int classId) {
-		return this.classGraph.getSubsumers(classId);
+		Collection<Integer> ret = null;
+		synchronized (this.monitorClassGraph) {
+			ret = this.classGraph.getSubsumers(classId);
+		}
+		return ret;
 	}
 
 	@Override
@@ -438,12 +490,15 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 *             if the set of R-entries is empty
 	 */
 	public REntry removeNextREntry() {
-		if (this.setQsubR.isEmpty()) {
-			throw new NoSuchElementException();
-		}
+		REntry ret = null;
+		synchronized (this.monitorSetQsubR) {
+			if (this.setQsubR.isEmpty()) {
+				throw new NoSuchElementException();
+			}
 
-		REntry ret = this.setQsubR.iterator().next();
-		this.setQsubR.remove(ret);
+			ret = this.setQsubR.iterator().next();
+			this.setQsubR.remove(ret);
+		}
 		return ret;
 	}
 
@@ -455,12 +510,15 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 *             if the set of S-entries is empty
 	 */
 	public SEntry removeNextSEntry() {
-		if (this.setQsubS.isEmpty()) {
-			throw new NoSuchElementException();
-		}
+		SEntry ret = null;
+		synchronized (this.monitorSetQsubS) {
+			if (this.setQsubS.isEmpty()) {
+				throw new NoSuchElementException();
+			}
 
-		SEntry ret = this.setQsubS.iterator().next();
-		this.setQsubS.remove(ret);
+			ret = this.setQsubS.iterator().next();
+			this.setQsubS.remove(ret);
+		}
 		return ret;
 	}
 
