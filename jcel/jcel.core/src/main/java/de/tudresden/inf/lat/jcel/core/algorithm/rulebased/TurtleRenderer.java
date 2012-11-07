@@ -45,11 +45,12 @@ public class TurtleRenderer {
 	private static final String prefixKeyword = "@prefix";
 	private static final String prefixSeparator = ":";
 	private static final String separator = "\t";
+	private static final String slash = "/";
 	private static final String space = " ";
 	private static final String uriDelimiterLeft = "<";
 	private static final String uriDelimiterRight = ">";
-
 	private Map<String, String> mapOfPrefixes = new TreeMap<String, String>();
+
 	private final BufferedWriter output;
 
 	/**
@@ -69,7 +70,10 @@ public class TurtleRenderer {
 	private String getName(URI uri) {
 		String ret = uri.getFragment();
 		if (ret == null) {
-			ret = uri.getPath();
+			String path = uri.getPath();
+			if (path != null) {
+				ret = path.substring(path.lastIndexOf(slash) + slash.length());
+			}
 		}
 		return ret;
 	}
@@ -78,9 +82,16 @@ public class TurtleRenderer {
 		String ret = "";
 		if (uri.getHost() != null) {
 			ret = uri.getScheme() + colonSlashSlash + uri.getHost();
-			if (uri.getFragment() != null) {
+			if (uri.getFragment() == null) {
+				String path = uri.getPath();
+				if (path != null) {
+					ret += path.substring(0,
+							path.lastIndexOf(slash) + slash.length());
+				}
+			} else {
 				ret += uri.getPath() + fragmentSeparator;
 			}
+
 		}
 		return ret;
 	}
