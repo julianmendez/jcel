@@ -84,24 +84,17 @@
 						<Bundle-DocURL>http://lat.inf.tu-dresden.de</Bundle-DocURL>
 						<Bundle-ClassPath>${bundle.classpath}</Bundle-ClassPath>
 						<Import-Package>javax.accessibility, javax.swing, javax.swing.border, org.osgi.framework, org.protege.editor.core.ui.workspace, *</Import-Package>
+						<Main-Class>de.tudresden.inf.lat.jcel.owlapi.console.ConsoleStarter</Main-Class>
 						<Include-Resource>
  	{maven-resources}, {maven-dependencies},
+ 	@../jcel.coreontology/target/jcel.coreontology-${project.version}.jar,
+ 	@../jcel.core/target/jcel.core-${project.version}.jar,
+ 	@../jcel.ontology/target/jcel.ontology-${project.version}.jar,
+ 	@../jcel.reasoner/target/jcel.reasoner-${project.version}.jar,
+ 	@../jcel.owlapi/target/jcel.owlapi-${project.version}.jar,
  	@../jcel.protege/target/jcel.protege-${project.version}.jar,
- 	lib/jcel/jcel.coreontology/${project.version}/jcel.coreontology-${project.version}.jar=../jcel.coreontology/target/jcel.coreontology-${project.version}.jar,
- 	lib/jcel/jcel.coreontology/${project.version}/copying.txt=../jcel.coreontology/copying.txt,
- 	lib/jcel/jcel.coreontology/${project.version}/copying-lesser.txt=../jcel.coreontology/copying-lesser.txt,
- 	lib/jcel/jcel.core/${project.version}/jcel.core-${project.version}.jar=../jcel.core/target/jcel.core-${project.version}.jar,
- 	lib/jcel/jcel.core/${project.version}/copying.txt=../jcel.core/copying.txt,
- 	lib/jcel/jcel.core/${project.version}/copying-lesser.txt=../jcel.core/copying-lesser.txt,
- 	lib/jcel/jcel.ontology/${project.version}/jcel.ontology-${project.version}.jar=../jcel.ontology/target/jcel.ontology-${project.version}.jar,
- 	lib/jcel/jcel.ontology/${project.version}/copying.txt=../jcel.ontology/copying.txt,
- 	lib/jcel/jcel.ontology/${project.version}/copying-lesser.txt=../jcel.ontology/copying-lesser.txt,
- 	lib/jcel/jcel.reasoner/${project.version}/jcel.reasoner-${project.version}.jar=../jcel.reasoner/target/jcel.reasoner-${project.version}.jar,
- 	lib/jcel/jcel.reasoner/${project.version}/copying.txt=../jcel.reasoner/copying.txt,
- 	lib/jcel/jcel.reasoner/${project.version}/copying-lesser.txt=../jcel.reasoner/copying-lesser.txt,
- 	lib/jcel/jcel.owlapi/${project.version}/jcel.owlapi-${project.version}.jar=../jcel.owlapi/target/jcel.owlapi-${project.version}.jar,
- 	lib/jcel/jcel.owlapi/${project.version}/copying.txt=../jcel.owlapi/copying.txt,
- 	lib/jcel/jcel.owlapi/${project.version}/copying-lesser.txt=../jcel.owlapi/copying-lesser.txt
+ 	copying.txt=copying.txt,
+ 	copying-lesser.txt=copying-lesser.txt
 						</Include-Resource>
 					</instructions>
 				</configuration>
