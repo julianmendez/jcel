@@ -76,7 +76,7 @@
 					<instructions>
 						<Bundle-SymbolicName>de.tudresden.inf.lat.jcel;singleton:=true</Bundle-SymbolicName>
 						<Bundle-Name>jcel</Bundle-Name>
-						<Bundle-Version>${project.version}.${svn.revision}</Bundle-Version>
+						<Bundle-Version>${project.version}</Bundle-Version>
 						<Bundle-Activator>org.protege.editor.core.plugin.DefaultPluginActivator</Bundle-Activator>
 						<Bundle-Category>protege</Bundle-Category>
 						<Bundle-Description>jcel plugin for Protege</Bundle-Description>
