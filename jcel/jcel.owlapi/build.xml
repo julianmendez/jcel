@@ -44,11 +44,11 @@
 
 	-->
 
-	<property name="parent.directory" value="../jcel.jars" />
+	<property name="parent.directory" value="../jcel.build" />
 
 	<!-- Compiles this module. -->
 	<target name="dist">
-		<subant genericantfile="${parent.directory}/build.xml" buildpath=".">
+		<subant genericantfile="${parent.directory}/genericantfile.xml" buildpath=".">
 			<property name="project.groupId" value="${project.groupId}" />
 			<property name="project.artifactId" value="${project.artifactId}" />
 			<property name="project.version" value="${project.version}" />

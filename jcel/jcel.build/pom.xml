@@ -33,7 +33,7 @@
 	<packaging>pom</packaging>
 	<version>0.18.0</version>
 
-	<name>jcel distribution</name>
+	<name>jcel build</name>
 
 
 	<properties>
@@ -48,7 +48,8 @@
 		<module>../jcel.reasoner</module>
 		<module>../jcel.owlapi</module>
 		<module>../jcel.protege</module>
-		<module>../jcel.bundle</module>
+		<module>library</module>
+		<module>plugin</module>
 	</modules>
 
 	<build>

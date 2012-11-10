@@ -30,11 +30,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>jcel</groupId>
-	<artifactId>bundle</artifactId>
+	<artifactId>library</artifactId>
 	<version>0.18.0</version>
 	<packaging>bundle</packaging>
 
-	<name>jcel bundle</name>
+	<name>jcel library</name>
 
 
 	<properties>
@@ -44,7 +44,7 @@
 
 	<build>
 
-		<finalName>de.tudresden.inf.lat.jcel</finalName>
+		<finalName>jcel-${project.version}.jar</finalName>
 
 		<plugins>
 
@@ -86,15 +86,13 @@
 						<Import-Package>javax.accessibility, javax.swing, javax.swing.border, org.osgi.framework, org.protege.editor.core.ui.workspace, *</Import-Package>
 						<Main-Class>de.tudresden.inf.lat.jcel.owlapi.console.ConsoleStarter</Main-Class>
 						<Include-Resource>
- 	{maven-resources}, {maven-dependencies},
- 	@../jcel.coreontology/target/jcel.coreontology-${project.version}.jar,
- 	@../jcel.core/target/jcel.core-${project.version}.jar,
- 	@../jcel.ontology/target/jcel.ontology-${project.version}.jar,
- 	@../jcel.reasoner/target/jcel.reasoner-${project.version}.jar,
- 	@../jcel.owlapi/target/jcel.owlapi-${project.version}.jar,
- 	@../jcel.protege/target/jcel.protege-${project.version}.jar,
- 	copying.txt=copying.txt,
- 	copying-lesser.txt=copying-lesser.txt
+	{maven-resources}, {maven-dependencies},
+	@../../jcel.coreontology/target/jcel.coreontology-${project.version}.jar,
+	@../../jcel.core/target/jcel.core-${project.version}.jar,
+	@../../jcel.ontology/target/jcel.ontology-${project.version}.jar,
+	@../../jcel.reasoner/target/jcel.reasoner-${project.version}.jar,
+	@../../jcel.owlapi/target/jcel.owlapi-${project.version}.jar,
+	@../../jcel.protege/target/jcel.protege-${project.version}.jar
 						</Include-Resource>
 					</instructions>
 				</configuration>

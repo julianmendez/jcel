@@ -46,7 +46,7 @@
 		<repository>
 			<id>localrepo</id>
 			<name>local maven repository</name>
-			<url>file:../jcel.jars/lib</url>
+			<url>file:../jcel.build/jars/lib</url>
 		</repository>
 
 	</repositories>
