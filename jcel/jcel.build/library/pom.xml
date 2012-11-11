@@ -44,7 +44,7 @@
 
 	<build>
 
-		<finalName>jcel-${project.version}.jar</finalName>
+		<finalName>jcel-${project.version}</finalName>
 
 		<plugins>
 

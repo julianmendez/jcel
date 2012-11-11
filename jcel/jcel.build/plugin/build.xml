@@ -44,9 +44,9 @@
 	<property name="repository.directory" value="../jars/lib" />
 	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
 	<property name="_jars.directory" value="${basedir}/.." />
-	<property name="_pluginxml.file" value="plugin.xml" />
 	<property name="_bundle.directory" value="${project.build.directory}" />
 	<property name="_bundlejars.directory" value="${project.build.directory}" />
+	<property name="_bundleresources.directory" value="${basedir}/src/main/resources" />
 	<property name="_bundle.name" value="de.tudresden.inf.lat.jcel" />
 
 	<property name="module.0.name" value="jcel.coreontology" />
@@ -112,7 +112,7 @@
 	<target name="bundle">
 		<mkdir dir="${_bundle.directory}" />
 		<jar destfile="${_bundle.directory}/${_bundle.name}.jar">
-			<file file="${_pluginxml.file}" />
+			<fileset dir="${_bundleresources.directory}" />
 			<fileset dir="${_bundleclasses.directory}" />
 			<fileset dir="${_bundlejars.directory}" includes="${bundlejars}" />
 			<manifest>
