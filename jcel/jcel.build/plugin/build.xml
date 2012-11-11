@@ -56,7 +56,6 @@
 	<property name="module.4.name" value="jcel.owlapi" />
 	<property name="module.5.name" value="jcel.protege" />
 	<property name="lastmodule.name" value="${module.5.name}" />
-
 	<property name="_bundleclasses.directory" value="${_root.directory}/${lastmodule.name}/target/classes" />
 
 	<!-- Cleans everything. -->
