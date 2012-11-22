@@ -61,7 +61,7 @@
 	</target>
 
 	<!-- Copies the compiled classes and the created jars. -->
-	<target name="getclasses">
+	<target name="getjar">
 		<mkdir dir="${_lib.directory}/${groupId.directory}/${module.name}/${project.version}" />
 		<copy todir="${project.build.outputDirectory}">
 			<fileset dir="${_root.directory}/${module.name}/${_targetclasses.directory}" />
@@ -82,22 +82,22 @@
 
 	<!-- Compiles all modules and gets their jars. -->
 	<target name="getjars">
-		<antcall target="getclasses">
+		<antcall target="getjar">
 			<param name="module.name" value="${module.0.name}" />
 		</antcall>
-		<antcall target="getclasses">
+		<antcall target="getjar">
 			<param name="module.name" value="${module.1.name}" />
 		</antcall>
-		<antcall target="getclasses">
+		<antcall target="getjar">
 			<param name="module.name" value="${module.2.name}" />
 		</antcall>
-		<antcall target="getclasses">
+		<antcall target="getjar">
 			<param name="module.name" value="${module.3.name}" />
 		</antcall>
-		<antcall target="getclasses">
+		<antcall target="getjar">
 			<param name="module.name" value="${module.4.name}" />
 		</antcall>
-		<antcall target="getclasses">
+		<antcall target="getjar">
 			<param name="module.name" value="${module.5.name}" />
 		</antcall>
 	</target>
