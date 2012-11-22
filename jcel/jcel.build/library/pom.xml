@@ -26,7 +26,6 @@
  *
 -->
 
-
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>jcel</groupId>
@@ -79,7 +78,7 @@
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Bundle-Activator>org.protege.editor.core.plugin.DefaultPluginActivator</Bundle-Activator>
 						<Bundle-Category>protege</Bundle-Category>
-						<Bundle-Description>jcel plugin for Protege</Bundle-Description>
+						<Bundle-Description>jcel library</Bundle-Description>
 						<Bundle-Vendor>Chair of Automata Theory - TU Dresden</Bundle-Vendor>
 						<Bundle-DocURL>http://lat.inf.tu-dresden.de</Bundle-DocURL>
 						<Bundle-ClassPath>${bundle.classpath}</Bundle-ClassPath>
