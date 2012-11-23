@@ -28,6 +28,11 @@
 		</file>
 
 		<file>
+			<source>${basedir}/standalone/target/jcel-${project.version}-standalone.jar</source>
+			<outputDirectory>standalone</outputDirectory>
+		</file>
+
+		<file>
 			<source>${basedir}/target/jcel-${project.version}-javadoc.zip</source>
 			<outputDirectory>doc</outputDirectory>
 		</file>

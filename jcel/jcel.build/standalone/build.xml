@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="jcel.build.plugin" default="dist" basedir=".">
+<project name="jcel.build.standalone" default="dist" basedir=".">
 
 	<!--
  *
@@ -29,7 +29,7 @@
 	-->
 
 	<property name="project.groupId" value="jcel" />
-	<property name="project.artifactId" value="build.plugin" />
+	<property name="project.artifactId" value="build.standalone" />
 
 	<!-- Imports version properties. -->
 	<property file="version.properties" />
@@ -40,14 +40,14 @@
 	<property name="_root.directory" value="../.." />
 	<property name="_lib.directory" value="${project.build.directory}/lib" />
 	<property name="_targetlib.directory" value="target" />
+	<property name="_targetclasses.directory" value="${_targetlib.directory}/classes" />
 	<property name="groupId.directory" value="jcel" />
 	<property name="repository.directory" value="../jars/lib" />
 	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
 	<property name="_jars.directory" value="${basedir}/.." />
 	<property name="_bundle.directory" value="${project.build.directory}" />
 	<property name="_bundlejars.directory" value="${project.build.directory}" />
-	<property name="_bundleresources.directory" value="${basedir}/src/main/resources" />
-	<property name="_bundle.name" value="de.tudresden.inf.lat.jcel" />
+	<property name="_bundle.name" value="jcel-${project.version}-standalone" />
 
 	<property name="module.0.name" value="jcel.coreontology" />
 	<property name="module.1.name" value="jcel.core" />
@@ -55,16 +55,19 @@
 	<property name="module.3.name" value="jcel.reasoner" />
 	<property name="module.4.name" value="jcel.owlapi" />
 	<property name="module.5.name" value="jcel.protege" />
-	<property name="lastmodule.name" value="${module.5.name}" />
-	<property name="_bundleclasses.directory" value="${_root.directory}/${lastmodule.name}/target/classes" />
 
 	<!-- Cleans everything. -->
 	<target name="clean">
 		<delete dir="${project.build.directory}" />
 	</target>
 
-	<!-- Copies the created jars. -->
+	<!-- Copies the compiled classes and the created jars. -->
 	<target name="getjar">
+		<mkdir dir="${_lib.directory}/${groupId.directory}/${module.name}/${project.version}" />
+		<copy todir="${project.build.outputDirectory}">
+			<fileset dir="${_root.directory}/${module.name}/${_targetclasses.directory}" />
+		</copy>
+
 		<mkdir dir="${_lib.directory}/${groupId.directory}/${module.name}/${project.version}" />
 		<copy todir="${_lib.directory}/${groupId.directory}/${module.name}/${project.version}">
 			<fileset dir="${_root.directory}/${module.name}/${_targetlib.directory}">
@@ -108,32 +111,29 @@
 		</copy>
 	</target>
 
+	<!-- Decompresses the external jars. -->
+	<target name="unjar">
+		<mkdir dir="${_targetclasses.directory}" />
+		<unjar dest="${_targetclasses.directory}">
+			<fileset dir="${_bundlejars.directory}" includes="${bundlejars}" />
+		</unjar>
+	</target>
+
 	<!-- Creates the bundle. -->
 	<target name="bundle">
 		<mkdir dir="${_bundle.directory}" />
 		<jar destfile="${_bundle.directory}/${_bundle.name}.jar">
-			<fileset dir="${_bundleresources.directory}" />
-			<fileset dir="${_bundleclasses.directory}" />
-			<fileset dir="${_bundlejars.directory}" includes="${bundlejars}" />
+			<fileset dir="${project.build.outputDirectory}" />
 			<fileset dir="${_bundlejars.directory}" includes="${bundlelicenses}" />
 			<manifest>
-				<attribute name="Bundle-ManifestVersion" value="2" />
-				<attribute name="Bundle-SymbolicName" value="de.tudresden.inf.lat.jcel;singleton:=true" />
-				<attribute name="Bundle-Name" value="jcel" />
-				<attribute name="Bundle-Version" value="${project.version}" />
-				<attribute name="Bundle-Activator" value="org.protege.editor.core.plugin.DefaultPluginActivator" />
-				<attribute name="Bundle-Category" value="protege" />
-				<attribute name="Bundle-Description" value="jcel plugin for Protege" />
-				<attribute name="Bundle-Vendor" value="Chair of Automata Theory - TU Dresden" />
-				<attribute name="Bundle-DocURL" value="http://lat.inf.tu-dresden.de" />
-				<attribute name="Bundle-ClassPath" value="${bundle.classpath}" />
-				<attribute name="Import-Package" value="org.osgi.framework" />
-				<attribute name="Require-Bundle" value="org.eclipse.equinox.registry, org.eclipse.equinox.common, org.protege.editor.core.application, org.protege.editor.owl, org.semanticweb.owl.owlapi" />
+				<attribute name="Implementation-Title" value="${project.groupId}" />
+				<attribute name="Implementation-Version" value="${project.version}" />
+				<attribute name="Main-Class" value="${mainclass}" />
 			</manifest>
 		</jar>
 	</target>
 
-	<target name="dist" depends="clean, getjars, getrepository, bundle" />
+	<target name="dist" depends="clean, getjars, getrepository, unjar, bundle" />
 
 </project>
 
