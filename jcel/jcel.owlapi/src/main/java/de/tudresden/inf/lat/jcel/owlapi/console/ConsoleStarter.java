@@ -25,6 +25,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,6 +39,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 
 import de.tudresden.inf.lat.jcel.owlapi.main.JcelReasoner;
+import de.tudresden.inf.lat.jcel.reasoner.main.VersionInfo;
 
 /**
  * This class makes possible to start a classifier instance from the command
@@ -45,8 +49,23 @@ import de.tudresden.inf.lat.jcel.owlapi.main.JcelReasoner;
  */
 public class ConsoleStarter {
 
+	public static final String licenseInfo = ""
+			+ "Copyright (C) 2009-2012 Julian Mendez"
+			+ "\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>."
+			+ "\nThis is free software: you are free to change and redistribute it."
+			+ "\njcel is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY."
+			+ "\n";
+
 	private static final Logger logger = Logger
 			.getLogger("de.tudresden.inf.lat.jcel");
+
+	public static final String optHelp = "--help";
+	public static final String optInput = "--input=";
+	public static final String optLogLevel = "--loglevel=";
+	public static final String optOutput = "--output=";
+	public static final String optVersion = "--version";
+	public static final String versionInfo = VersionInfo.reasonerName + " "
+			+ VersionInfo.reasonerVersion;
 
 	/**
 	 * Starts a classifier instance from the command line.
@@ -66,26 +85,19 @@ public class ConsoleStarter {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		boolean helpNeeded = true;
-		ConsoleStarter instance = new ConsoleStarter();
-		if (args.length > 1) {
-			helpNeeded = false;
-			Level logLevel = Level.FINE;
-			if (args.length > 2) {
-				logLevel = Level.parse(args[2]);
-			}
-			instance.start(new File(args[0]), new File(args[1]), logLevel,
-					System.out);
-		}
-		if (helpNeeded) {
-			System.out.println(instance.minihelp);
-		}
+		(new ConsoleStarter()).start(args);
 	}
 
 	/** A very small help about how to start a new instance. */
-	private String minihelp = "\nUsage:\njava -cp .:<list of jars> "
-			+ this.getClass().getCanonicalName()
-			+ " <input ontology file name> <inferred data file name> [<log level>]\n";
+	private String minihelp = "\nusage: java -jar jcel-"
+			+ VersionInfo.reasonerVersion
+			+ "-standalone.jar [COMMAND] [OPTION]..."
+			+ "\n\n\nthe available options are:" + "\n   " + optInput
+			+ "FILE              input ontology" + "\n   " + optOutput
+			+ "FILE             output with the inferred data" + "\n   "
+			+ optLogLevel + "LEVEL          log level" + "\n   " + optHelp
+			+ "                    display this help" + "\n   " + optVersion
+			+ "                 output version" + "\n\n\n";
 
 	public ConsoleStarter() {
 	}
@@ -145,6 +157,58 @@ public class ConsoleStarter {
 		xmlDoc.toXML(new FileOutputStream(inferredFile));
 
 		logger.fine("jcel console finished.");
+	}
+
+	public void start(String[] args) throws OWLRendererException,
+			OWLOntologyCreationException, SecurityException, IOException {
+
+		if (args.length == 0) {
+			System.out.println(minihelp);
+		} else {
+			Set<String> arguments = toSet(args);
+			if (arguments.contains(optHelp)) {
+				System.out.println(minihelp);
+			} else if (arguments.contains(optVersion)) {
+				System.out.println(versionInfo);
+				System.out.println(licenseInfo);
+			} else {
+				File input = null;
+				File output = null;
+				Level logLevel = Level.FINE;
+				for (String argument : arguments) {
+					if (argument.startsWith(optInput)) {
+						input = new File(argument.substring(optInput.length()));
+					} else if (argument.startsWith(optOutput)) {
+						output = new File(
+								argument.substring(optOutput.length()));
+					} else if (argument.startsWith(optLogLevel)) {
+						logLevel = Level.parse(argument.substring(optLogLevel
+								.length()));
+
+					} else {
+						throw new IllegalArgumentException(
+								"Unrecognized option: '" + argument + "'");
+					}
+				}
+
+				if (input == null) {
+					throw new IllegalArgumentException(
+							"No input file has been defined.");
+				}
+				if (output == null) {
+					throw new IllegalArgumentException(
+							"No output file has been defined.");
+				}
+
+				start(input, output, logLevel, System.out);
+			}
+		}
+	}
+
+	private Set<String> toSet(String[] args) {
+		Set<String> ret = new HashSet<String>();
+		ret.addAll(Arrays.asList(args));
+		return ret;
 	}
 
 }

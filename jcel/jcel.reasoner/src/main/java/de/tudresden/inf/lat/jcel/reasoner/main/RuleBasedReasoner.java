@@ -58,8 +58,6 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	private static final Logger logger = Logger
 			.getLogger(RuleBasedReasoner.class.getName());
 
-	private static final String reasonerName = "jcel";
-
 	private Map<IntegerClassExpression, Integer> auxClassInvMap = new HashMap<IntegerClassExpression, Integer>();
 	private Map<Integer, IntegerClassExpression> auxClassMap = new HashMap<Integer, IntegerClassExpression>();
 	private boolean classified = false;
@@ -433,12 +431,12 @@ public class RuleBasedReasoner implements IntegerReasoner {
 
 	@Override
 	public String getReasonerName() {
-		return reasonerName;
+		return VersionInfo.reasonerName;
 	}
 
 	@Override
 	public String getReasonerVersion() {
-		return getClass().getPackage().getImplementationVersion();
+		return VersionInfo.reasonerVersion;
 	}
 
 	@Override
