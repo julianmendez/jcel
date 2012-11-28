@@ -157,7 +157,7 @@ public class ConsoleStarter {
 
 		boolean ret = true;
 		for (OWLAxiom axiom : conclusionOntology.getAxioms()) {
-			ret |= reasoner.isEntailed(axiom);
+			ret = ret && reasoner.isEntailed(axiom);
 		}
 
 		logger.fine("jcel console finished.");
