@@ -47,7 +47,7 @@
 	<property name="_jars.directory" value="${basedir}/.." />
 	<property name="_bundle.directory" value="${project.build.directory}" />
 	<property name="_bundlejars.directory" value="${project.build.directory}" />
-	<property name="_bundle.name" value="jcel-${project.version}-standalone" />
+	<property name="_bundle.name" value="jcel" />
 
 	<property name="module.0.name" value="jcel.coreontology" />
 	<property name="module.1.name" value="jcel.core" />

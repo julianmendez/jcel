@@ -28,7 +28,7 @@
 		</file>
 
 		<file>
-			<source>${basedir}/standalone/target/jcel-${project.version}-standalone.jar</source>
+			<source>${basedir}/standalone/target/jcel.jar</source>
 			<outputDirectory>standalone</outputDirectory>
 		</file>
 

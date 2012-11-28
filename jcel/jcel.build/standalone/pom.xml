@@ -43,7 +43,7 @@
 
 	<build>
 
-		<finalName>jcel-${project.version}-standalone</finalName>
+		<finalName>jcel</finalName>
 
 		<plugins>
 
