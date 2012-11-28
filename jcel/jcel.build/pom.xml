@@ -50,6 +50,7 @@
 		<module>../jcel.protege</module>
 		<module>library</module>
 		<module>plugin</module>
+		<module>standalone</module>
 	</modules>
 
 	<build>
