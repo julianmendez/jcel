@@ -22,9 +22,9 @@
 package de.tudresden.inf.lat.jcel.owlapi.console;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLRendererException;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -49,6 +50,9 @@ import de.tudresden.inf.lat.jcel.reasoner.main.VersionInfo;
  */
 public class ConsoleStarter {
 
+	public static final String cmdClassHierarchy = "classhierarchy";
+	public static final String cmdEntailment = "entailment";
+
 	public static final String licenseInfo = ""
 			+ "Copyright (C) 2009-2012 Julian Mendez"
 			+ "\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>."
@@ -59,9 +63,13 @@ public class ConsoleStarter {
 	private static final Logger logger = Logger
 			.getLogger("de.tudresden.inf.lat.jcel");
 
+	public static final int modeClassHierarchy = 1;
+	public static final int modeEntailment = 2;
+	public static final int modeNothing = 0;
+	public static final String optConclusion = "--conclusion=";
 	public static final String optHelp = "--help";
-	public static final String optInput = "--input=";
 	public static final String optLogLevel = "--loglevel=";
+	public static final String optOntology = "--ontology=";
 	public static final String optOutput = "--output=";
 	public static final String optVersion = "--version";
 	public static final String versionInfo = VersionInfo.reasonerName + " "
@@ -89,17 +97,71 @@ public class ConsoleStarter {
 	}
 
 	/** A very small help about how to start a new instance. */
-	private String minihelp = "\nusage: java -jar jcel-"
-			+ VersionInfo.reasonerVersion
-			+ "-standalone.jar [COMMAND] [OPTION]..."
-			+ "\n\n\nthe available options are:" + "\n   " + optInput
-			+ "FILE              input ontology" + "\n   " + optOutput
-			+ "FILE             output with the inferred data" + "\n   "
-			+ optLogLevel + "LEVEL          log level" + "\n   " + optHelp
-			+ "                    display this help" + "\n   " + optVersion
+	private String minihelp = "\nusage: java -jar jcel.jar [COMMAND] [OPTION]..."
+			+ "\n\n\nthe available commands are:" + "\n   "
+			+ cmdClassHierarchy
+			+ "            compute the class hierarchy and the object property hierarchy of the given ontology"
+			+ "\n   "
+			+ cmdEntailment
+			+ "                determine whether the given ontology entails the given conclusion"
+			+ "\n\n\nthe available options are:"
+			+ "\n   "
+			+ optOntology
+			+ "FILE           ontology to be classified (or premise ontology)"
+			+ "\n   "
+			+ optOutput
+			+ "FILE             output with the inferred data"
+			+ "\n   "
+			+ optConclusion
+			+ "FILE         conclusion ontology"
+			+ "\n   "
+			+ optLogLevel
+			+ "LEVEL          log level"
+			+ "\n   "
+			+ optHelp
+			+ "                    display this help"
+			+ "\n   "
+			+ optVersion
 			+ "                 output version" + "\n\n\n";
 
 	public ConsoleStarter() {
+	}
+
+	public boolean computeEntailment(File premiseFile, File conclusionFile)
+			throws OWLOntologyCreationException, OWLRendererException,
+			FileNotFoundException {
+		if (premiseFile == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (conclusionFile == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		logger.fine("starting jcel console ...");
+
+		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+
+		logger.fine("loading premise ontology using the OWL API ...");
+		OWLOntology premiseOntology = manager
+				.loadOntologyFromOntologyDocument(premiseFile);
+
+		logger.fine("loading conclusion ontology using the OWL API ...");
+		OWLOntology conclusionOntology = manager
+				.loadOntologyFromOntologyDocument(conclusionFile);
+
+		logger.fine("starting reasoner ...");
+		JcelReasoner reasoner = new JcelReasoner(premiseOntology, false);
+
+		logger.fine("precomputing inferences ...");
+		reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
+
+		boolean ret = true;
+		for (OWLAxiom axiom : conclusionOntology.getAxioms()) {
+			ret |= reasoner.isEntailed(axiom);
+		}
+
+		logger.fine("jcel console finished.");
+		return ret;
 	}
 
 	/**
@@ -116,24 +178,15 @@ public class ConsoleStarter {
 	 * @throws IOException
 	 * @throws SecurityException
 	 */
-	public void start(File ontologyFile, File inferredFile, Level logLevel,
-			OutputStream logOutput) throws OWLOntologyCreationException,
-			OWLRendererException, SecurityException, IOException {
+	public void computeHierarchy(File ontologyFile, File inferredFile)
+			throws OWLOntologyCreationException, OWLRendererException,
+			SecurityException, FileNotFoundException {
 		if (ontologyFile == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 		if (inferredFile == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		if (logLevel == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (logOutput == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		logger.setLevel(logLevel);
-		logger.addHandler(new OutputStreamHandler(logOutput));
 
 		logger.fine("starting jcel console ...");
 
@@ -172,35 +225,65 @@ public class ConsoleStarter {
 				System.out.println(versionInfo);
 				System.out.println(licenseInfo);
 			} else {
-				File input = null;
-				File output = null;
-				Level logLevel = Level.FINE;
+
+				File ontologyFile = null;
+				File outputFile = null;
+				File conclusionFile = null;
+				Level logLevel = Level.OFF;
+				int mode = modeClassHierarchy;
+
 				for (String argument : arguments) {
-					if (argument.startsWith(optInput)) {
-						input = new File(argument.substring(optInput.length()));
+					if (argument.startsWith(optOntology)) {
+						ontologyFile = new File(argument.substring(optOntology
+								.length()));
 					} else if (argument.startsWith(optOutput)) {
-						output = new File(
-								argument.substring(optOutput.length()));
+						outputFile = new File(argument.substring(optOutput
+								.length()));
+					} else if (argument.startsWith(optConclusion)) {
+						conclusionFile = new File(
+								argument.substring(optConclusion.length()));
 					} else if (argument.startsWith(optLogLevel)) {
 						logLevel = Level.parse(argument.substring(optLogLevel
 								.length()));
-
+					} else if (argument.equals(cmdClassHierarchy)) {
+						mode = modeClassHierarchy;
+					} else if (argument.equals(cmdEntailment)) {
+						mode = modeEntailment;
 					} else {
 						throw new IllegalArgumentException(
 								"Unrecognized option: '" + argument + "'");
 					}
 				}
 
-				if (input == null) {
-					throw new IllegalArgumentException(
-							"No input file has been defined.");
-				}
-				if (output == null) {
-					throw new IllegalArgumentException(
-							"No output file has been defined.");
-				}
+				logger.setLevel(logLevel);
+				logger.addHandler(new OutputStreamHandler(System.out));
 
-				start(input, output, logLevel, System.out);
+				if (mode == modeClassHierarchy) {
+					if (ontologyFile == null) {
+						throw new IllegalArgumentException(
+								"No input file has been defined.");
+					}
+					if (outputFile == null) {
+						throw new IllegalArgumentException(
+								"No output file has been defined.");
+					}
+
+					computeHierarchy(ontologyFile, outputFile);
+
+				} else if (mode == modeEntailment) {
+					if (ontologyFile == null) {
+						throw new IllegalArgumentException(
+								"No input file has been defined.");
+					}
+					if (conclusionFile == null) {
+						throw new IllegalArgumentException(
+								"No conclusion file has been defined.");
+					}
+
+					System.out.println(computeEntailment(ontologyFile,
+							conclusionFile));
+
+				}
 			}
 		}
 	}
