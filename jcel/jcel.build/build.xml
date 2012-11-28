@@ -61,7 +61,7 @@
 	<property name="build.2.name" value="plugin" />
 	<property name="build.2.filename" value="de.tudresden.inf.lat.jcel" />
 	<property name="build.3.name" value="standalone" />
-	<property name="build.3.filename" value="jcel-${project.version}-standalone" />
+	<property name="build.3.filename" value="jcel" />
 
 	<!-- Cleans everything. -->
 	<target name="clean">
@@ -98,10 +98,6 @@
 	<!-- Creates the release. -->
 	<target name="release">
 		<mkdir dir="${_release.directory}/doc" />
-		<mkdir dir="${_release.directory}/lib" />
-		<mkdir dir="${_release.directory}/library" />
-		<mkdir dir="${_release.directory}/plugin" />
-		<mkdir dir="${_release.directory}/src" />
 
 		<antcall target="preparejars">
 			<param name="module.name" value="${module.0.name}" />
