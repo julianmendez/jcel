@@ -280,14 +280,12 @@ public class OntologyEntailmentChecker implements
 				superClassExpr);
 		getReasoner().classify();
 
-		Set<Integer> ancestors = getReasoner().getProcessor()
-				.getClassHierarchy().getAncestors(subClass.getId());
-		Set<Integer> equivalents = getReasoner().getProcessor()
-				.getClassHierarchy().getEquivalents(subClass.getId());
+		boolean isAncestor = getReasoner().getSuperClasses(subClass, false)
+				.contains(superClass);
+		boolean isEquivalent = getReasoner().getEquivalentClasses(subClass)
+				.contains(superClass);
 
-		boolean ret = ancestors.contains(superClass.getId())
-				|| equivalents.contains(superClass.getId());
-		return ret;
+		return (isAncestor || isEquivalent);
 	}
 
 	@Override
@@ -301,11 +299,13 @@ public class OntologyEntailmentChecker implements
 		IntegerObjectPropertyExpression superObjectPropExpr = axiom
 				.getSuperProperty();
 		getReasoner().classify();
-		boolean ret = getReasoner().getSuperObjectProperties(subObjectPropExpr,
-				false).contains(superObjectPropExpr)
-				&& getReasoner().getSubObjectProperties(superObjectPropExpr,
-						false).contains(subObjectPropExpr);
-		return ret;
+
+		boolean isAncestor = getReasoner().getSuperObjectProperties(
+				subObjectPropExpr, false).contains(superObjectPropExpr);
+		boolean isEquivalent = getReasoner().getEquivalentObjectProperties(
+				subObjectPropExpr).contains(superObjectPropExpr);
+
+		return (isAncestor || isEquivalent);
 	}
 
 	@Override
