@@ -279,8 +279,14 @@ public class OntologyEntailmentChecker implements
 		IntegerClass superClass = getReasoner().flattenClassExpression(
 				superClassExpr);
 		getReasoner().classify();
-		boolean ret = getReasoner().getProcessor().getClassHierarchy()
-				.getAncestors(subClass.getId()).contains(superClass.getId());
+
+		Set<Integer> ancestors = getReasoner().getProcessor()
+				.getClassHierarchy().getAncestors(subClass.getId());
+		Set<Integer> equivalents = getReasoner().getProcessor()
+				.getClassHierarchy().getEquivalents(subClass.getId());
+
+		boolean ret = ancestors.contains(superClass.getId())
+				|| equivalents.contains(superClass.getId());
 		return ret;
 	}
 
