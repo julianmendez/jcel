@@ -127,7 +127,19 @@ public class ConsoleStarter {
 	public ConsoleStarter() {
 	}
 
-	public boolean computeEntailment(File premiseFile, File conclusionFile)
+	/**
+	 * Classifies a given ontology and checks whether another ontology is
+	 * entailed by the former.
+	 * 
+	 * @param premiseFile
+	 *            ontology file to be classified and used as premise
+	 * @param conclusionFile
+	 *            file with the conclusion
+	 * @throws FileNotFoundException
+	 * @throws OWLOntologyCreationException
+	 * @throws OWLRendererException
+	 */
+	public boolean checkEntailment(File premiseFile, File conclusionFile)
 			throws OWLOntologyCreationException, OWLRendererException,
 			FileNotFoundException {
 		if (premiseFile == null) {
@@ -165,17 +177,16 @@ public class ConsoleStarter {
 	}
 
 	/**
-	 * Executes the classifier on a given ontology.
+	 * Classifies a given ontology and computes the class hierarchy and the
+	 * object property hierarchy.
 	 * 
 	 * @param ontologyFile
 	 *            ontology file to be classified
 	 * @param inferredFile
 	 *            file to write the inferred data
-	 * @param logLevel
-	 *            log level
+	 * @throws FileNotFoundException
 	 * @throws OWLOntologyCreationException
 	 * @throws OWLRendererException
-	 * @throws IOException
 	 * @throws SecurityException
 	 */
 	public void computeHierarchy(File ontologyFile, File inferredFile)
@@ -280,7 +291,7 @@ public class ConsoleStarter {
 								"No conclusion file has been defined.");
 					}
 
-					System.out.println(computeEntailment(ontologyFile,
+					System.out.println(checkEntailment(ontologyFile,
 							conclusionFile));
 
 				}
