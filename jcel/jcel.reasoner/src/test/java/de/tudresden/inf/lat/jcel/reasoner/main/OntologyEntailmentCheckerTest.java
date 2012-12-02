@@ -66,11 +66,12 @@ public class OntologyEntailmentCheckerTest extends TestCase {
 	 * </ol>
 	 * &#8872;
 	 * <ul>
+	 * <li>A &#8849; &exist; r <i>.</i> B ,</li>
+	 * <li>&exist; r <i>.</i> C &#8849; D ,</li>
 	 * <li>B &#8849; C ,</li>
 	 * <li>A &#8849; D</li>
 	 * </ul>
 	 */
-
 	public void testOntology0() {
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
@@ -101,6 +102,8 @@ public class OntologyEntailmentCheckerTest extends TestCase {
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
 
+		assertTrue(reasoner.isEntailed(axiom1));
+		assertTrue(reasoner.isEntailed(axiom2));
 		assertTrue(reasoner.isEntailed(axiom3));
 
 		boolean isEntailed = reasoner.isEntailed(factory

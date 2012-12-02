@@ -528,7 +528,8 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		}
 		Set<Set<IntegerClass>> ret = new HashSet<Set<IntegerClass>>();
 		for (Integer currentElem : set) {
-			ret.add(toIntegerClass(graph.getEquivalents(currentElem)));
+			Set<Integer> equivalents = graph.getEquivalents(currentElem);
+			ret.add(toIntegerClass(equivalents));
 		}
 		return ret;
 	}
@@ -692,9 +693,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	private Set<IntegerClass> toIntegerClass(Set<Integer> set) {
 		Set<IntegerClass> ret = new HashSet<IntegerClass>();
 		for (Integer elem : set) {
-			if (!this.auxClassMap.containsKey(elem)) {
-				ret.add(getDataTypeFactory().createClass(elem));
-			}
+			ret.add(getDataTypeFactory().createClass(elem));
 		}
 		return ret;
 	}
