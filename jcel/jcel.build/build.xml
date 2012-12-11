@@ -139,9 +139,7 @@
 		</zip>
 	</target>
 
-	<target name="dist" depends="clean, compilemodules, bundle, release">
-		<!--buildnumber file="version.properties"/-->
-	</target>
+	<target name="dist" depends="clean, compilemodules, bundle, release" />
 
 </project>
 
