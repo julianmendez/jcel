@@ -76,6 +76,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>net.sourceforge.owlapi</groupId>
+			<artifactId>owlapi</artifactId>
+			<version>3.4.1</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.protege</groupId>
 			<artifactId>editor.owl</artifactId>
 			<version>4.1</version>
