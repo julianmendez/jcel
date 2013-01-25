@@ -31,6 +31,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactoryImpl;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 
 /**
@@ -272,6 +273,95 @@ public class TinyOntologyTest extends TestCase {
 				.getEquivalentClasses(factory.getDataTypeFactory()
 						.getBottomClass());
 		assertTrue(equivalentsOfBottom.contains(b));
+	}
+
+	/**
+	 * <ol>
+	 * <li>C &equiv; A<sub>1</sub> &#x2293; A<sub>2</sub> &#x2293;
+	 * A<sub>3</sub>,</li>
+	 * <li>D &equiv; A<sub>2</sub> &#x2293; A<sub>3</sub> &#x2293;
+	 * A<sub>4</sub>,</li>
+	 * <li>A<sub>1</sub> &equiv; &#x22a4;</li>
+	 * <li>A<sub>4</sub> &equiv; &#x22a4;</li>
+	 * </ol>
+	 * &#x22a8;
+	 * <ul>
+	 * <li>C &equiv; D</li>
+	 * </ul>
+	 */
+	public void testTinyOntology5() {
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+
+		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
+		IntegerClass a1 = createNewClass(factory, "A1");
+		IntegerClass a2 = createNewClass(factory, "A2");
+		IntegerClass a3 = createNewClass(factory, "A3");
+		IntegerClass a4 = createNewClass(factory, "A4");
+		IntegerClass c = createNewClass(factory, "C");
+		IntegerClass d = createNewClass(factory, "D");
+
+		{
+			Set<IntegerClassExpression> conjunction = new HashSet<IntegerClassExpression>();
+			conjunction.add(a1);
+			conjunction.add(a2);
+			conjunction.add(a3);
+			IntegerClassExpression defOfC = factory.getDataTypeFactory()
+					.createObjectIntersectionOf(conjunction);
+			Set<IntegerClassExpression> equivClasses = new HashSet<IntegerClassExpression>();
+			equivClasses.add(c);
+			equivClasses.add(defOfC);
+
+			// 1
+			ontology.add(factory.getComplexAxiomFactory()
+					.createEquivalentClassesAxiom(equivClasses));
+		}
+
+		{
+			Set<IntegerClassExpression> conjunction = new HashSet<IntegerClassExpression>();
+			conjunction.add(a2);
+			conjunction.add(a3);
+			conjunction.add(a4);
+			IntegerClassExpression defOfD = factory.getDataTypeFactory()
+					.createObjectIntersectionOf(conjunction);
+			Set<IntegerClassExpression> equivClasses = new HashSet<IntegerClassExpression>();
+			equivClasses.add(d);
+			equivClasses.add(defOfD);
+
+			// 2
+			ontology.add(factory.getComplexAxiomFactory()
+					.createEquivalentClassesAxiom(equivClasses));
+		}
+
+		{
+
+			Set<IntegerClassExpression> equivClasses = new HashSet<IntegerClassExpression>();
+			equivClasses.add(a1);
+			equivClasses.add(factory.getDataTypeFactory().getTopClass());
+
+			// 3
+			ontology.add(factory.getComplexAxiomFactory()
+					.createEquivalentClassesAxiom(equivClasses));
+		}
+
+		{
+
+			Set<IntegerClassExpression> equivClasses = new HashSet<IntegerClassExpression>();
+			equivClasses.add(a4);
+			equivClasses.add(factory.getDataTypeFactory().getTopClass());
+
+			// 4
+			ontology.add(factory.getComplexAxiomFactory()
+					.createEquivalentClassesAxiom(equivClasses));
+		}
+
+		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
+		reasoner.classify();
+
+		Set<IntegerClass> equivToC = reasoner.getEquivalentClasses(c);
+		assertTrue(equivToC.contains(d));
+
+		Set<IntegerClass> equivToD = reasoner.getEquivalentClasses(d);
+		assertTrue(equivToD.contains(c));
 	}
 
 }
