@@ -566,7 +566,6 @@ public class RuleBasedProcessor implements Processor {
 			int subClass = entry.getSubClass();
 			int superClass = entry.getSuperClass();
 			boolean applied = status.addToS(subClass, superClass);
-			applied |= (superClass == topClassId);
 			if (applied) {
 				chainS.apply(status, subClass, superClass);
 				loggingCount--;

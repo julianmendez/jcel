@@ -168,10 +168,6 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 		synchronized (this.monitorClassGraph) {
 			this.classGraph = new IntegerSubsumerGraphImpl(bottomClassId,
 					topClassId);
-			for (int index : getExtendedOntology().getClassSet()) {
-				this.classGraph.addAncestor(index, topClassId);
-			}
-			this.classGraph.addAncestor(topClassId, topClassId);
 		}
 		this.nodeSet.clear();
 		this.invNodeSet.clear();
