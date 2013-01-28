@@ -393,6 +393,10 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 		}
 		Set<Integer> equivToBottom = this.equivalents.get(this.bottomElement);
 		parentsOfBottom.removeAll(equivToBottom);
+		if (!equivToBottom.contains(this.topElement)
+				&& parentsOfBottom.isEmpty()) {
+			parentsOfBottom.add(this.topElement);
+		}
 		for (Integer elem : parentsOfBottom) {
 			this.children.get(elem).add(this.bottomElement);
 		}
