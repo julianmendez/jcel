@@ -87,6 +87,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 			computeDag(origGraph);
 			updateParents();
 			updateChildren();
+			updateBottom();
 		}
 	}
 
@@ -381,6 +382,23 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 		ret.append(this.representative);
 		ret.append("\n");
 		return ret.toString();
+	}
+
+	private void updateBottom() {
+		Set<Integer> parentsOfBottom = new HashSet<Integer>();
+		for (Integer elem : getElements()) {
+			if (this.children.get(elem).isEmpty()) {
+				parentsOfBottom.add(elem);
+			}
+		}
+		Set<Integer> equivToBottom = this.equivalents.get(this.bottomElement);
+		parentsOfBottom.removeAll(equivToBottom);
+		for (Integer elem : parentsOfBottom) {
+			this.children.get(elem).add(this.bottomElement);
+		}
+		for (Integer elem : equivToBottom) {
+			this.parents.put(elem, parentsOfBottom);
+		}
 	}
 
 	private void updateChildren() {
