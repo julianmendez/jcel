@@ -171,7 +171,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 		}
 		this.nodeSet.clear();
 		this.invNodeSet.clear();
-		for (int elem : this.classGraph.getElements()) {
+		for (int elem : getExtendedOntology().getClassSet()) {
 			VNodeImpl node = new VNodeImpl(elem);
 			this.nodeSet.put(elem, node);
 			this.invNodeSet.put(node, elem);
