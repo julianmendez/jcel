@@ -30,7 +30,7 @@
 
 	<groupId>jcel</groupId>
 	<artifactId>jcel.owlapi</artifactId>
-	<version>0.18.0</version>
+	<version>0.18.1</version>
 	<packaging>jar</packaging>
 
 	<name>jcel OWL API</name>
@@ -56,19 +56,19 @@
 		<dependency>
 			<groupId>jcel</groupId>
 			<artifactId>jcel.coreontology</artifactId>
-			<version>0.18.0</version>
+			<version>0.18.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>jcel</groupId>
 			<artifactId>jcel.ontology</artifactId>
-			<version>0.18.0</version>
+			<version>0.18.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>jcel</groupId>
 			<artifactId>jcel.reasoner</artifactId>
-			<version>0.18.0</version>
+			<version>0.18.1</version>
 		</dependency>
 
 		<dependency>
