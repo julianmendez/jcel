@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/jcel.build/jars/lib/net/sourceforge/owlapi/owlapi/3.4.1/owlapi-3.4.1.jar" sourcepath="/jcel.build/jars/lib/net/sourceforge/owlapi/owlapi/3.4.1/owlapi-src-3.4.1.jar"/>
+	<classpathentry kind="lib" path="/jcel.build/jars/lib/net/sourceforge/owlapi/owlapi/3.4.2/owlapi-3.4.2.jar" sourcepath="/jcel.build/jars/lib/net/sourceforge/owlapi/owlapi/3.4.2/owlapi-src-3.4.2.jar"/>
 	<classpathentry kind="lib" path="/jcel.build/jars/lib/junit/junit/4.10/junit-4.10.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jcel.coreontology"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jcel.ontology"/>
