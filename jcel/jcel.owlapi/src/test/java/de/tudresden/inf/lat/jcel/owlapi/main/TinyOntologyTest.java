@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * Set of tests using tiny ontologies.
  * 
  * @author Julian Mendez
- * 
  */
 public class TinyOntologyTest extends TestCase {
 
@@ -110,6 +109,9 @@ public class TinyOntologyTest extends TestCase {
 
 		Set<OWLClass> subClassesOfC = flatten(reasoner.getSubClasses(c, false));
 		assertTrue(subClassesOfC.contains(a));
+
+		verifyBottomAndTop(reasoner);
+
 	}
 
 	/**
@@ -155,6 +157,9 @@ public class TinyOntologyTest extends TestCase {
 
 		Set<OWLClass> subClassesOfC = flatten(reasoner.getSubClasses(c, false));
 		assertTrue(subClassesOfC.contains(a));
+
+		verifyBottomAndTop(reasoner);
+
 	}
 
 	/**
@@ -193,6 +198,9 @@ public class TinyOntologyTest extends TestCase {
 		Set<OWLClass> equivalentsOfB = reasoner.getEquivalentClasses(b)
 				.getEntities();
 		assertTrue(equivalentsOfB.contains(a));
+
+		verifyBottomAndTop(reasoner);
+
 	}
 
 	/**
@@ -237,6 +245,9 @@ public class TinyOntologyTest extends TestCase {
 		Set<OWLClass> equivalentsOfTop = reasoner.getEquivalentClasses(
 				factory.getOWLThing()).getEntities();
 		assertTrue(equivalentsOfTop.contains(b));
+
+		verifyBottomAndTop(reasoner);
+
 	}
 
 	/**
@@ -281,6 +292,9 @@ public class TinyOntologyTest extends TestCase {
 		Set<OWLClass> equivalentsOfBottom = reasoner.getEquivalentClasses(
 				factory.getOWLNothing()).getEntities();
 		assertTrue(equivalentsOfBottom.contains(b));
+
+		verifyBottomAndTop(reasoner);
+
 	}
 
 	/**
@@ -369,6 +383,21 @@ public class TinyOntologyTest extends TestCase {
 
 		Set<OWLClass> equivToD = reasoner.getEquivalentClasses(d).getEntities();
 		assertTrue(equivToD.contains(c));
+
+		verifyBottomAndTop(reasoner);
+
+	}
+
+	private void verifyBottomAndTop(OWLReasoner reasoner) {
+		OWLClass top = reasoner.getRootOntology().getOWLOntologyManager()
+				.getOWLDataFactory().getOWLThing();
+		OWLClass bottom = reasoner.getRootOntology().getOWLOntologyManager()
+				.getOWLDataFactory().getOWLNothing();
+
+		assertTrue(reasoner.getSubClasses(bottom, true).isEmpty());
+		assertTrue(reasoner.getSubClasses(bottom, false).isEmpty());
+		assertTrue(reasoner.getSuperClasses(top, true).isEmpty());
+		assertTrue(reasoner.getSuperClasses(top, false).isEmpty());
 	}
 
 }

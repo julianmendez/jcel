@@ -107,6 +107,8 @@ public class TinyOntologyTest extends TestCase {
 		Set<IntegerClass> subClassesOfC = flatten(reasoner.getSubClasses(c,
 				false));
 		assertTrue(subClassesOfC.contains(a));
+
+		verifyBottomAndTop(factory, reasoner);
 	}
 
 	/**
@@ -152,6 +154,8 @@ public class TinyOntologyTest extends TestCase {
 		Set<IntegerClass> subClassesOfC = flatten(reasoner.getSubClasses(c,
 				false));
 		assertTrue(subClassesOfC.contains(a));
+
+		verifyBottomAndTop(factory, reasoner);
 	}
 
 	/**
@@ -187,6 +191,8 @@ public class TinyOntologyTest extends TestCase {
 
 		Set<IntegerClass> equivalentsOfB = reasoner.getEquivalentClasses(b);
 		assertTrue(equivalentsOfB.contains(a));
+
+		verifyBottomAndTop(factory, reasoner);
 	}
 
 	/**
@@ -230,6 +236,8 @@ public class TinyOntologyTest extends TestCase {
 				.getEquivalentClasses(factory.getDataTypeFactory()
 						.getTopClass());
 		assertTrue(equivalentsOfTop.contains(b));
+
+		verifyBottomAndTop(factory, reasoner);
 	}
 
 	/**
@@ -273,6 +281,8 @@ public class TinyOntologyTest extends TestCase {
 				.getEquivalentClasses(factory.getDataTypeFactory()
 						.getBottomClass());
 		assertTrue(equivalentsOfBottom.contains(b));
+
+		verifyBottomAndTop(factory, reasoner);
 	}
 
 	/**
@@ -362,6 +372,20 @@ public class TinyOntologyTest extends TestCase {
 
 		Set<IntegerClass> equivToD = reasoner.getEquivalentClasses(d);
 		assertTrue(equivToD.contains(c));
+
+		verifyBottomAndTop(factory, reasoner);
+	}
+
+	private void verifyBottomAndTop(IntegerOntologyObjectFactory factory,
+			IntegerReasoner reasoner) {
+
+		IntegerClass top = factory.getDataTypeFactory().getTopClass();
+		IntegerClass bottom = factory.getDataTypeFactory().getBottomClass();
+
+		assertTrue(reasoner.getSubClasses(bottom, true).isEmpty());
+		assertTrue(reasoner.getSubClasses(bottom, false).isEmpty());
+		assertTrue(reasoner.getSuperClasses(top, true).isEmpty());
+		assertTrue(reasoner.getSuperClasses(top, false).isEmpty());
 	}
 
 }
