@@ -93,9 +93,10 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 	private void computeDag(IntegerSubsumerGraph setS) {
 		reset(setS.getElements());
-		Set<Integer> sCNTop = new TreeSet<Integer>();
-		sCNTop.addAll(setS.getElements());
-		sCNTop.remove(getBottomElement());
+		Set<Integer> sCN = new TreeSet<Integer>();
+		sCN.addAll(setS.getElements());
+		sCN.remove(getBottomElement());
+		sCN.remove(getTopElement());
 
 		Set<Integer> equivToTop = new TreeSet<Integer>();
 		equivToTop.addAll(setS.getSubsumers(getTopElement()));
@@ -106,7 +107,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 		Set<Integer> classified = new TreeSet<Integer>();
 		classified.addAll(equivToTop);
 
-		for (Integer cA : sCNTop) {
+		for (Integer cA : sCN) {
 			if (!classified.contains(cA)) {
 				dagClassify(cA, classified, setS);
 			}
@@ -149,8 +150,8 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 	private void dagInsert(Integer cA, Set<Integer> candidates) {
 		Set<Integer> marked = new TreeSet<Integer>();
 		for (Integer cB : candidates) {
-			Set<Integer> parenSet = this.parents.get(cB);
-			for (Integer cX : parenSet) {
+			Set<Integer> parentSet = this.parents.get(cB);
+			for (Integer cX : parentSet) {
 				marked.add(cX);
 			}
 		}
