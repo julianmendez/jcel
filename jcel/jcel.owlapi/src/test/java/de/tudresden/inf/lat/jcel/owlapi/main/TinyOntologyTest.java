@@ -388,6 +388,60 @@ public class TinyOntologyTest extends TestCase {
 
 	}
 
+	/**
+	 * <ol>
+	 * <li>A &#x2291; &exist; r <i>.</i> B</li>
+	 * <li>B &#x2291; &exist; s <i>.</i> &#x22a5;</li>
+	 * </ol>
+	 * &#x22a8;
+	 * <ul>
+	 * <li>A &equiv; &#x22a5;</li>
+	 * <li>B &equiv; &#x22a5;</li>
+	 * </ul>
+	 * 
+	 * @throws OWLOntologyCreationException
+	 */
+	public void testTinyOntology6() throws OWLOntologyCreationException {
+		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+		OWLDataFactory factory = manager.getOWLDataFactory();
+		Set<OWLAxiom> axiomSet = new HashSet<OWLAxiom>();
+		OWLClass a = createNewClass(factory, "A");
+		OWLClass b = createNewClass(factory, "B");
+		OWLClass c = createNewClass(factory, "C");
+		OWLObjectProperty r = createNewObjectProperty(factory, "r");
+		OWLObjectProperty s = createNewObjectProperty(factory, "s");
+
+		// 1
+		axiomSet.add(factory.getOWLSubClassOfAxiom(a,
+				factory.getOWLObjectSomeValuesFrom(r, b)));
+
+		// 2
+		axiomSet.add(factory.getOWLSubClassOfAxiom(b,
+				factory.getOWLObjectSomeValuesFrom(s, factory.getOWLNothing())));
+
+		OWLOntology ontology = manager.createOntology(axiomSet);
+		JcelReasonerFactory reasonerFactory = new JcelReasonerFactory();
+		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
+
+		Set<OWLClass> equivalentsOfA = reasoner.getEquivalentClasses(a)
+				.getEntities();
+		assertTrue(equivalentsOfA.contains(b));
+		assertTrue(equivalentsOfA.contains(factory.getOWLNothing()));
+
+		Set<OWLClass> equivalentsOfB = reasoner.getEquivalentClasses(b)
+				.getEntities();
+		assertTrue(equivalentsOfB.contains(a));
+		assertTrue(equivalentsOfB.contains(factory.getOWLNothing()));
+
+		Set<OWLClass> equivalentsOfBottom = reasoner.getEquivalentClasses(
+				factory.getOWLNothing()).getEntities();
+		assertTrue(equivalentsOfBottom.contains(a));
+		assertTrue(equivalentsOfBottom.contains(b));
+
+		verifyBottomAndTop(reasoner);
+
+	}
+
 	private void verifyBottomAndTop(OWLReasoner reasoner) {
 		OWLClass top = reasoner.getRootOntology().getOWLOntologyManager()
 				.getOWLDataFactory().getOWLThing();
