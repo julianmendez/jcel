@@ -23,6 +23,7 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.extension;
 
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpressionVisitor;
@@ -44,6 +45,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
 class IntegerExpressionAnalyzer implements
 		IntegerClassExpressionVisitor<Boolean> {
 
+	private boolean hasBottom = false;
 	private boolean hasDatatype = false;
 	private boolean hasInverseObjectProperty = false;
 	private boolean hasNominal = false;
@@ -52,6 +54,16 @@ class IntegerExpressionAnalyzer implements
 	 * Constructs a new expression analyzer.
 	 */
 	public IntegerExpressionAnalyzer() {
+	}
+
+	/**
+	 * Tells whether the expression analyzer has detected bottom.
+	 * 
+	 * @return <code>true</code> if and only if the expression analyzer has
+	 *         detected bottom
+	 */
+	public boolean hasBottom() {
+		return this.hasBottom;
 	}
 
 	/**
@@ -91,6 +103,7 @@ class IntegerExpressionAnalyzer implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		this.hasBottom |= (classExpression.getId() == IntegerEntityManager.bottomClassId);
 		return true;
 	}
 

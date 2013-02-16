@@ -21,6 +21,9 @@
 
 package de.tudresden.inf.lat.jcel.ontology.axiom.extension;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomVisitor;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerClassAssertionAxiom;
@@ -45,6 +48,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubObjectPropertyOfAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubPropertyChainOfAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerTransitiveObjectPropertyAxiom;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 
 /**
  * An object implementing this class analyzes an complex axiom to detect what
@@ -74,7 +78,7 @@ class ComplexIntegerAxiomAnalyzer implements
 
 	@Override
 	public boolean hasBottom() {
-		return this.hasBottom;
+		return this.hasBottom || this.expressionAnalyzer.hasBottom();
 	}
 
 	@Override
@@ -308,7 +312,11 @@ class ComplexIntegerAxiomAnalyzer implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return true;
+		Set<IntegerClassExpression> set = new HashSet<IntegerClassExpression>();
+		set.add(axiom.getSubClass());
+		set.add(axiom.getSuperClass());
+		return this.expressionAnalyzer.visit(set);
+
 	}
 
 	@Override
