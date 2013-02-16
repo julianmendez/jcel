@@ -31,7 +31,8 @@ import de.tudresden.inf.lat.jcel.core.completion.basic.CR4RRule;
 import de.tudresden.inf.lat.jcel.core.completion.basic.CR4SRule;
 import de.tudresden.inf.lat.jcel.core.completion.basic.CR5Rule;
 import de.tudresden.inf.lat.jcel.core.completion.basic.CR6Rule;
-import de.tudresden.inf.lat.jcel.core.completion.basic.CRBottomRule;
+import de.tudresden.inf.lat.jcel.core.completion.basic.CRBottomRRule;
+import de.tudresden.inf.lat.jcel.core.completion.basic.CRBottomSRule;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR3ExtRule;
@@ -84,9 +85,14 @@ public class CompletionRuleChainSelector {
 	}
 
 	private void activateBottomRules() {
+		List<SObserverRule> listS = new ArrayList<SObserverRule>();
+		listS.addAll(this.chainS.getList());
+		listS.add(new CRBottomSRule());
+		this.chainS = new SChain(listS);
+
 		List<RObserverRule> listR = new ArrayList<RObserverRule>();
 		listR.addAll(this.chainR.getList());
-		listR.add(new CRBottomRule());
+		listR.add(new CRBottomRRule());
 		this.chainR = new RChain(listR);
 	}
 

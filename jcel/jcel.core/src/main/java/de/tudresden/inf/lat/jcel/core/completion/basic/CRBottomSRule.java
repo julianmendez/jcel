@@ -22,13 +22,13 @@
 package de.tudresden.inf.lat.jcel.core.completion.basic;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
+import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
 /**
  * <p>
  * <ul>
- * <li>CR bottom : <b>if</b> <u>(r, x, y) &isin; R</u>, (y, &#8869;) &isin; S <br />
+ * <li>CR bottom : <b>if</b> (r, x, y) &isin; R, <u>(y, &#8869;) &isin; S</u> <br />
  * <b>then</b> S := S &cup; {(x, &#8869;)}</li>
  * </ul>
  * </p>
@@ -42,28 +42,32 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
  * 
  * @author Julian Mendez
  */
-public class CRBottomRule implements RObserverRule {
+public class CRBottomSRule implements SObserverRule {
 
 	/**
-	 * Constructs a new completion rule CR bottom.
+	 * Constructs a new completion rule CR bottom (S).
 	 */
-	public CRBottomRule() {
+	public CRBottomSRule() {
 	}
 
 	@Override
-	public boolean apply(ClassifierStatus status, int property, int leftClass,
-			int rightClass) {
+	public boolean apply(ClassifierStatus status, int subClass, int superClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return applyRule(status, property, leftClass, rightClass);
+		return applyRule(status, subClass, superClass);
 	}
 
-	private boolean applyRule(ClassifierStatus status, int r, int x, int y) {
+	private boolean applyRule(ClassifierStatus status, int y, int a) {
 		boolean ret = false;
-		if (status.getSubsumers(y).contains(IntegerEntityManager.bottomClassId)) {
-			ret |= status.addNewSEntry(x, IntegerEntityManager.bottomClassId);
+		if (a == IntegerEntityManager.bottomClassId) {
+			for (int r : status.getObjectPropertiesBySecond(y)) {
+				for (int x : status.getFirstBySecond(r, y)) {
+					ret |= status.addNewSEntry(x,
+							IntegerEntityManager.bottomClassId);
+				}
+			}
 		}
 		return ret;
 	}
