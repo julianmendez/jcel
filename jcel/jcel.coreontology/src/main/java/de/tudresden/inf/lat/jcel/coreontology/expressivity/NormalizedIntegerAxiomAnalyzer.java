@@ -32,6 +32,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
 
 /**
@@ -126,6 +127,8 @@ class NormalizedIntegerAxiomAnalyzer implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		this.hasBottom |= (axiom.getSubClass() == IntegerEntityManager.bottomClassId)
+				|| (axiom.getSuperClass() == IntegerEntityManager.bottomClassId);
 		return true;
 	}
 
@@ -135,6 +138,9 @@ class NormalizedIntegerAxiomAnalyzer implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		this.hasBottom |= (axiom.getLeftSubClass() == IntegerEntityManager.bottomClassId)
+				|| (axiom.getRightSubClass() == IntegerEntityManager.bottomClassId)
+				|| (axiom.getSuperClass() == IntegerEntityManager.bottomClassId);
 		return true;
 	}
 
@@ -144,6 +150,8 @@ class NormalizedIntegerAxiomAnalyzer implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		this.hasBottom |= (axiom.getSubClass() == IntegerEntityManager.bottomClassId)
+				|| (axiom.getClassInSuperClass() == IntegerEntityManager.bottomClassId);
 		return true;
 	}
 
@@ -153,6 +161,8 @@ class NormalizedIntegerAxiomAnalyzer implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		this.hasBottom |= (axiom.getClassInSubClass() == IntegerEntityManager.bottomClassId)
+				|| (axiom.getSuperClass() == IntegerEntityManager.bottomClassId);
 		return true;
 	}
 
@@ -172,6 +182,7 @@ class NormalizedIntegerAxiomAnalyzer implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		this.hasBottom |= (axiom.getRange() == IntegerEntityManager.bottomClassId);
 		return true;
 	}
 
