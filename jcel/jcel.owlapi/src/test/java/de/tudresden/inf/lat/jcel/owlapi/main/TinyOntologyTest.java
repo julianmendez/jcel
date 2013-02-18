@@ -407,7 +407,6 @@ public class TinyOntologyTest extends TestCase {
 		Set<OWLAxiom> axiomSet = new HashSet<OWLAxiom>();
 		OWLClass a = createNewClass(factory, "A");
 		OWLClass b = createNewClass(factory, "B");
-		OWLClass c = createNewClass(factory, "C");
 		OWLObjectProperty r = createNewObjectProperty(factory, "r");
 		OWLObjectProperty s = createNewObjectProperty(factory, "s");
 
@@ -437,6 +436,84 @@ public class TinyOntologyTest extends TestCase {
 				factory.getOWLNothing()).getEntities();
 		assertTrue(equivalentsOfBottom.contains(a));
 		assertTrue(equivalentsOfBottom.contains(b));
+
+		verifyBottomAndTop(reasoner);
+
+	}
+
+	/**
+	 * <ol>
+	 * <li>A &#x2291; &exist; r <i>.</i> B</li>
+	 * <li>B &#x2291; &exist; r <i>.</i> C</li>
+	 * <li>C &#x2291; &exist; s <i>.</i> D</li>
+	 * <li>D &#x2291; &exist; s <i>.</i> E</li>
+	 * <li>E &#x2291; &exist; s <i>.</i> &#x22a5;</li>
+	 * </ol>
+	 * &#x22a8;
+	 * <ul>
+	 * <li>A &equiv; &#x22a5;</li>
+	 * <li>B &equiv; &#x22a5;</li>
+	 * <li>C &equiv; &#x22a5;</li>
+	 * <li>D &equiv; &#x22a5;</li>
+	 * <li>E &equiv; &#x22a5;</li>
+	 * </ul>
+	 * 
+	 * @throws OWLOntologyCreationException
+	 */
+	public void testTinyOntology7() throws OWLOntologyCreationException {
+		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+		OWLDataFactory factory = manager.getOWLDataFactory();
+		Set<OWLAxiom> axiomSet = new HashSet<OWLAxiom>();
+		OWLClass a = createNewClass(factory, "A");
+		OWLClass b = createNewClass(factory, "B");
+		OWLClass c = createNewClass(factory, "C");
+		OWLClass d = createNewClass(factory, "D");
+		OWLClass e = createNewClass(factory, "E");
+		OWLObjectProperty r = createNewObjectProperty(factory, "r");
+		OWLObjectProperty s = createNewObjectProperty(factory, "s");
+
+		// 1
+		axiomSet.add(factory.getOWLSubClassOfAxiom(a,
+				factory.getOWLObjectSomeValuesFrom(r, b)));
+
+		// 2
+		axiomSet.add(factory.getOWLSubClassOfAxiom(b,
+				factory.getOWLObjectSomeValuesFrom(r, c)));
+
+		// 3
+		axiomSet.add(factory.getOWLSubClassOfAxiom(c,
+				factory.getOWLObjectSomeValuesFrom(s, d)));
+
+		// 4
+		axiomSet.add(factory.getOWLSubClassOfAxiom(d,
+				factory.getOWLObjectSomeValuesFrom(s, e)));
+
+		// 5
+		axiomSet.add(factory.getOWLSubClassOfAxiom(e,
+				factory.getOWLObjectSomeValuesFrom(s, factory.getOWLNothing())));
+
+		OWLOntology ontology = manager.createOntology(axiomSet);
+		JcelReasonerFactory reasonerFactory = new JcelReasonerFactory();
+		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
+
+		Set<OWLClass> elementsToTest = new TreeSet<OWLClass>();
+		elementsToTest.add(a);
+		elementsToTest.add(b);
+		elementsToTest.add(c);
+		elementsToTest.add(d);
+		elementsToTest.add(e);
+		elementsToTest.add(factory.getOWLNothing());
+
+		for (OWLClass element : elementsToTest) {
+			Set<OWLClass> equivalents = reasoner.getEquivalentClasses(element)
+					.getEntities();
+			assertTrue(equivalents.contains(a));
+			assertTrue(equivalents.contains(b));
+			assertTrue(equivalents.contains(c));
+			assertTrue(equivalents.contains(d));
+			assertTrue(equivalents.contains(e));
+			assertTrue(equivalents.contains(factory.getOWLNothing()));
+		}
 
 		verifyBottomAndTop(reasoner);
 
