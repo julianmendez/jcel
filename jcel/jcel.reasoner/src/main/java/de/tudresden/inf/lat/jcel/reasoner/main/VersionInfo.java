@@ -29,6 +29,6 @@ package de.tudresden.inf.lat.jcel.reasoner.main;
 public interface VersionInfo {
 
 	public static final String reasonerName = "jcel";
-	public static final String reasonerVersion = "0.18.1";
+	public static final String reasonerVersion = "0.18.2";
 
 }

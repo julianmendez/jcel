@@ -30,7 +30,7 @@
 
 	<groupId>jcel</groupId>
 	<artifactId>jcel.coreontology</artifactId>
-	<version>0.18.1</version>
+	<version>0.18.2</version>
 	<packaging>jar</packaging>
 
 	<name>jcel coreontology</name>

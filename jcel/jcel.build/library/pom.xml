@@ -30,7 +30,7 @@
 
 	<groupId>jcel</groupId>
 	<artifactId>library</artifactId>
-	<version>0.18.1</version>
+	<version>0.18.2</version>
 	<packaging>bundle</packaging>
 
 	<name>jcel library</name>
