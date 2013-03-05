@@ -167,6 +167,45 @@ public class RuleBasedProcessor implements Processor {
 		return ret;
 	}
 
+	/**
+	 * This is a graph reachability algorithm that returns all elements d
+	 * reachable from an element c using a path where each segment is from any
+	 * of the properties in R.
+	 * 
+	 * @param c
+	 *            first element in the path
+	 * @return the set of all nodes reachable from c using any possible segment
+	 */
+	private Set<Integer> computeReachability(Integer c) {
+		Set<Integer> ret = new HashSet<Integer>();
+		Set<Integer> toVisit = new HashSet<Integer>();
+		toVisit.add(c);
+		while (!toVisit.isEmpty()) {
+			Integer elem = toVisit.iterator().next();
+			toVisit.remove(elem);
+			ret.add(elem);
+			Set<Integer> newToVisit = new HashSet<Integer>();
+			for (Integer r : this.status.getObjectPropertiesByFirst(elem)) {
+				IntegerBinaryRelation relation = this.status.getRelationSet()
+						.get(r);
+				newToVisit.addAll(relation.getByFirst(elem));
+			}
+			newToVisit.removeAll(ret);
+			toVisit.addAll(newToVisit);
+		}
+		return ret;
+	}
+
+	private Set<Integer> computeReachability(Integer c,
+			Map<Integer, Set<Integer>> reachableNodeCache) {
+		Set<Integer> reachableNodes = reachableNodeCache.get(c);
+		if (reachableNodes == null) {
+			reachableNodes = computeReachability(c);
+			reachableNodeCache.put(c, reachableNodes);
+		}
+		return reachableNodes;
+	}
+
 	private Map<Integer, Set<Integer>> computeSameIndividualMap(
 			IntegerHierarchicalGraph hierarchicalGraph) {
 		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
@@ -216,7 +255,6 @@ public class RuleBasedProcessor implements Processor {
 			extendedOntology.addClass(elem);
 		}
 		return extendedOntology;
-
 	}
 
 	/**
@@ -393,38 +431,6 @@ public class RuleBasedProcessor implements Processor {
 		return ret;
 	}
 
-	/**
-	 * This is a graph reachability algorithm that tests whether an element d is
-	 * reachable from an element c using a path where each segment is from any
-	 * of the properties in R.
-	 * 
-	 * @param c
-	 *            first element in the path
-	 * @param d
-	 *            last element in the path
-	 * @return <code>true</code> if it is possible to reach d from c using any
-	 *         possible segment, <code>false</code> otherwise
-	 */
-	private boolean isConnectedTo(Integer c, Integer d) {
-		Set<Integer> visited = new HashSet<Integer>();
-		Set<Integer> toVisit = new HashSet<Integer>();
-		toVisit.add(c);
-		while (!toVisit.isEmpty()) {
-			Integer elem = toVisit.iterator().next();
-			toVisit.remove(elem);
-			visited.add(elem);
-			Set<Integer> newToVisit = new HashSet<Integer>();
-			for (Integer r : this.status.getObjectPropertiesByFirst(elem)) {
-				IntegerBinaryRelation relation = this.status.getRelationSet()
-						.get(r);
-				newToVisit.addAll(relation.getByFirst(elem));
-			}
-			newToVisit.removeAll(visited);
-			toVisit.addAll(newToVisit);
-		}
-		return visited.contains(d);
-	}
-
 	@Override
 	public boolean isReady() {
 		return this.isReady;
@@ -516,6 +522,7 @@ public class RuleBasedProcessor implements Processor {
 	 *            the hierarchical graph
 	 */
 	private void processNominals(IntegerHierarchicalGraph hierarchicalGraph) {
+		Map<Integer, Set<Integer>> reachabilityCache = new HashMap<Integer, Set<Integer>>();
 		Set<Integer> nominals = getEntityManager().getAuxiliaryNominals();
 		for (Integer indiv : nominals) {
 			Set<Integer> descendants = getDescendants(hierarchicalGraph, indiv);
@@ -524,14 +531,16 @@ public class RuleBasedProcessor implements Processor {
 					Collection<Integer> sC = getClassGraph().getSubsumers(c);
 					Collection<Integer> sD = getClassGraph().getSubsumers(d);
 					if (!(sD.containsAll(sC))) {
-						if (isConnectedTo(c, d)) {
+						if (computeReachability(c, reachabilityCache).contains(
+								d)) {
 							for (Integer elem : sD) {
 								this.status.getClassGraph()
 										.addAncestor(c, elem);
 							}
 						}
 						for (Integer nominal : nominals) {
-							if (isConnectedTo(nominal, d)) {
+							if (computeReachability(nominal, reachabilityCache)
+									.contains(d)) {
 								for (Integer elem : sD) {
 									this.status.getClassGraph().addAncestor(c,
 											elem);
