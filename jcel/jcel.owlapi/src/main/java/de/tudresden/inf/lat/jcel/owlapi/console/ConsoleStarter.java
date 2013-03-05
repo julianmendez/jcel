@@ -54,7 +54,7 @@ public class ConsoleStarter {
 	public static final String cmdEntailment = "entailment";
 
 	public static final String licenseInfo = ""
-			+ "Copyright (C) 2009-2012 Julian Mendez"
+			+ "Copyright (C) 2009-2013 Julian Mendez"
 			+ "\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>."
 			+ "\nThis is free software: you are free to change and redistribute it."
 			+ "\njcel is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY."
