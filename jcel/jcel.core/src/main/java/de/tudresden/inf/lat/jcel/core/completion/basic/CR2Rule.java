@@ -31,7 +31,8 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
  * <p>
  * <ul>
  * <li>CR-2 : <b>if</b> A<sub>1</sub> &#8851; A<sub>2</sub> &#8849; B &isin;
- * <i>T</i>, <u>(x, A<sub>1</sub>) &isin; S</u>, (x, A<sub>2</sub>) &isin; S <br />
+ * <i>T</i>, <u>(x, A<sub>1</sub>) &isin; S</u>, <u>(x, A<sub>2</sub>) &isin;
+ * S</u> <br />
  * <b>then</b> S := S &cup; {(x, B)}</li>
  * </ul>
  * </p>
