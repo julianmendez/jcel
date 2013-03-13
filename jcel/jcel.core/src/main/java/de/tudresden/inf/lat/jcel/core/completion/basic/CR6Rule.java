@@ -64,26 +64,26 @@ public class CR6Rule implements RObserverRule {
 		return ret;
 	}
 
-	private boolean apply1(ClassifierStatus status, int s, int y, int z) {
-		boolean ret = false;
-		for (RI3Axiom axiom : status.getExtendedOntology().getRI3AxiomsByRight(
-				s)) {
-			int r = axiom.getLeftSubProperty();
-			int t = axiom.getSuperProperty();
-			for (int x : status.getFirstBySecond(r, y)) {
-				ret |= status.addNewREntry(t, x, z);
-			}
-		}
-		return ret;
-	}
-
-	private boolean apply2(ClassifierStatus status, int r, int x, int y) {
+	private boolean apply1(ClassifierStatus status, int r, int x, int y) {
 		boolean ret = false;
 		for (RI3Axiom axiom : status.getExtendedOntology()
 				.getRI3AxiomsByLeft(r)) {
 			int s = axiom.getRightSubProperty();
 			int t = axiom.getSuperProperty();
 			for (int z : status.getSecondByFirst(s, y)) {
+				ret |= status.addNewREntry(t, x, z);
+			}
+		}
+		return ret;
+	}
+
+	private boolean apply2(ClassifierStatus status, int s, int y, int z) {
+		boolean ret = false;
+		for (RI3Axiom axiom : status.getExtendedOntology().getRI3AxiomsByRight(
+				s)) {
+			int r = axiom.getLeftSubProperty();
+			int t = axiom.getSuperProperty();
+			for (int x : status.getFirstBySecond(r, y)) {
 				ret |= status.addNewREntry(t, x, z);
 			}
 		}
