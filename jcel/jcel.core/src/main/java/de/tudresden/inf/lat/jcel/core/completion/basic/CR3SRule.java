@@ -19,40 +19,36 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.core.completion.ext;
+package de.tudresden.inf.lat.jcel.core.completion.basic;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
-import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
 /**
  * <p>
  * <ul>
- * <li>CR-3 : <b>if</b> A &#8849; &exist; r <i>.</i> B &isin; <i>T</i> , <u>(x,
+ * <li>CR-3 : <b>if</b> A &#8849; &exist; r <i>.</i> B &isin; <i>T</i>, <u>(x,
  * A) &isin; S</u> <br />
- * <b>then</b> <b>if</b> f(r) <br />
- * &nbsp;&nbsp;&nbsp;&nbsp; <b>then</b> v := (&#8868; , {&exist; r<sup>-</sup>
- * <i>.</i> A}) <br />
- * &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <b>if</b> v &notin; V
- * <b>then</b> V := V &cup; {v} <br />
- * &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; S := S &cup; {(v, B)} &cup;
- * {(v, &#8868;)} <br />
- * &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; R := R &cup; {(r, x, v)} <br />
- * &nbsp;&nbsp;&nbsp;&nbsp; <b>else</b> y := (B, &empty;) <br />
- * &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; R := R &cup; {(r, x, y)}</li>
+ * <b>then</b> R := R &cup;{(r, x, B)}</li>
  * </ul>
  * </p>
  * 
+ * Previous form:
+ * <ul>
+ * <li>CR2 : <b>if</b> A &isin; S(X) <b>and</b> A &#8849; &exist; r <i>.</i> B
+ * &isin; O <b>and</b> (X, B) &notin; R(r) <br />
+ * <b>then</b> R(r) := R(r) &cup;{(X, B)}</li>
+ * </ul>
+ * 
  * @author Julian Mendez
  */
-public class CR3ExtRule implements SObserverRule {
+public class CR3SRule implements SObserverRule {
 
 	/**
 	 * Constructs a new completion rule CR-3.
 	 */
-	public CR3ExtRule() {
+	public CR3SRule() {
 	}
 
 	@Override
@@ -69,20 +65,7 @@ public class CR3ExtRule implements SObserverRule {
 		for (GCI2Axiom axiom : status.getExtendedOntology().getGCI2Axioms(a)) {
 			int r = axiom.getPropertyInSuperClass();
 			int b = axiom.getClassInSuperClass();
-			if (status.getExtendedOntology().getFunctionalObjectProperties()
-					.contains(r)) {
-				VNodeImpl newNode = new VNodeImpl(
-						IntegerEntityManager.topClassId);
-				int rMinus = status.getInverseObjectPropertyOf(r);
-				newNode.addExistential(rMinus, a);
-				int v = status.createOrGetNodeId(newNode);
-				ret |= status.addNewSEntry(v, b);
-				ret |= status.addNewSEntry(v, IntegerEntityManager.topClassId);
-				ret |= status.addNewREntry(r, x, v);
-			} else {
-				int y = status.createOrGetNodeId(new VNodeImpl(b));
-				ret |= status.addNewREntry(r, x, y);
-			}
+			ret |= status.addNewREntry(r, x, b);
 		}
 		return ret;
 	}

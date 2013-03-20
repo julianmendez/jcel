@@ -21,35 +21,42 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
-import de.tudresden.inf.lat.jcel.core.graph.VNode;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
 /**
  * <p>
  * <ul>
- * <li>CR-9 : <b>if</b> <u>(r<sub>1</sub>, x, y) &isin; R</u>, (r<sub>2</sub>,
- * x, z) &isin; R, r<sub>1</sub> &#8849;<sub><i>T</i></sub> s, r<sub>2</sub>
- * &#8849;<sub><i>T</i></sub> s, y = (&#8868; , &psi;), z = (&#8868; , &phi;), y
- * &ne; z, f(s) <br />
- * <b>then</b> v := (&#8868; , &psi; &cup; &phi;) <br />
+ * <li>CR-9 (optimized) : <b>if</b> <u>(r<sub>1</sub>, x, y<sub>1</sub>) &isin;
+ * R</u>, (r<sub>2</sub>, x, y<sub>2</sub>) &isin; R, &hellip;, (r<sub>n</sub>,
+ * x, y<sub>n</sub>) &isin; R, <br />
+ * r<sub>1</sub> &#8849;<sub><i>T</i></sub> s, r<sub>2</sub>
+ * &#8849;<sub><i>T</i></sub> s, &hellip;, r<sub>n</sub>
+ * &#8849;<sub><i>T</i></sub> s, y<sub>i</sub> = (&#8868; , &psi;<sub>i</sub>)
+ * for 1 &le; i &le; n, y<sub>i</sub> &ne; y<sub>j</sub> for 1 &le; i < j &le;
+ * n, f(s) <br />
+ * <b>then</b> v := (&#8868; , &psi;<sub>1</sub> &cup; &hellip; &cup
+ * &psi;<sub>n</sub>) <br />
  * &nbsp;&nbsp;&nbsp;&nbsp; <b>if</b> v &notin; V <b>then</b> V := V &cup; {v} <br />
- * &nbsp;&nbsp;&nbsp;&nbsp; S := S &cup; {(v, k) | (y, k) &isin; S} &cup; {(v,
- * k) | (z, k) &isin; S} <br />
+ * &nbsp;&nbsp;&nbsp;&nbsp; S := S &cup; {(v, k) | (y<sub>1</sub>, k) &isin; S}
+ * &cup; &hellip; &cup; {(v, k) | (y<sub>n</sub>, k) &isin; S} <br />
  * &nbsp;&nbsp;&nbsp;&nbsp; R := R &cup; {(r<sub>1</sub>, x, v)}</li>
  * </ul>
  * </p>
  * 
  * @author Julian Mendez
  */
-public class CR9ExtRule implements RObserverRule {
+public class CR9RExtOptRule implements RObserverRule {
 
 	/**
 	 * Constructs a new completion rule CR-9.
 	 */
-	public CR9ExtRule() {
+	public CR9RExtOptRule() {
 	}
 
 	@Override
@@ -64,29 +71,33 @@ public class CR9ExtRule implements RObserverRule {
 
 	private boolean applyRule(ClassifierStatus status, int r1, int x, int y) {
 		boolean ret = false;
-		VNode psiNode = status.getNode(y);
-		if (psiNode.getClassId() == IntegerEntityManager.topClassId) {
+		if (status.getNode(y).getClassId() == IntegerEntityManager.topClassId) {
+
+			Set<Integer> valid = new HashSet<Integer>();
+			valid.add(y);
 			for (int r2 : status.getObjectPropertiesWithFunctionalAncestor(r1)) {
-				for (int z : status.getSecondByFirst(r2, x)) {
-					VNode phiNode = status.getNode(z);
-					if (phiNode.getClassId() == IntegerEntityManager.topClassId) {
-						if (y != z) {
-							VNodeImpl newNode = new VNodeImpl(
-									IntegerEntityManager.topClassId);
-							newNode.addExistentialsOf(psiNode);
-							newNode.addExistentialsOf(phiNode);
-							int v = status.createOrGetNodeId(newNode);
-							for (int p : status.getSubsumers(y)) {
-								ret |= status.addNewSEntry(v, p);
-							}
-							for (int p : status.getSubsumers(z)) {
-								ret |= status.addNewSEntry(v, p);
-							}
-							ret |= status.addNewREntry(r1, x, v);
-						}
+				for (int yi : status.getSecondByFirst(r2, x)) {
+					if (status.getNode(yi).getClassId() == IntegerEntityManager.topClassId) {
+						valid.add(yi);
 					}
 				}
 			}
+
+			if (valid.size() > 1) {
+				VNodeImpl newNode = new VNodeImpl(
+						IntegerEntityManager.topClassId);
+				for (int yi : valid) {
+					newNode.addExistentialsOf(status.getNode(yi));
+				}
+				int v = status.createOrGetNodeId(newNode);
+				for (int yi : valid) {
+					for (int p : status.getSubsumers(yi)) {
+						ret |= status.addNewSEntry(v, p);
+					}
+					ret |= status.addNewREntry(r1, x, v);
+				}
+			}
+
 		}
 		return ret;
 	}

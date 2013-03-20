@@ -22,48 +22,50 @@
 package de.tudresden.inf.lat.jcel.core.completion.basic;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
-import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
+import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0Axiom;
 
 /**
  * <p>
  * <ul>
- * <li>CR bottom : <b>if</b> <u>(r, x, y) &isin; R</u>, (y, &#8869;) &isin; S <br />
- * <b>then</b> S := S &cup; {(x, &#8869;)}</li>
+ * <li>CR-1 : <b>if</b> A &#8849; B &isin; <i>T</i>, <u>(x, A) &isin; S</u> <br />
+ * <b>then</b> S := S &cup; {(x, B)}</li>
  * </ul>
  * </p>
  * 
  * Previous form:
  * <ul>
- * <li>CR4 : <b>if</b> (X, Y) &isin; R(r) <b>and</b> &#8869; &isin; S(Y)
- * <b>and</b> &#8869; &notin; S(X) <br />
- * <b>then</b> S(X) := S(X) &cup; {&#8869;}</li>
+ * <li>CR0 : <b>if</b> A &isin; S(X) <b>and</b> A &#8849; B &isin; O <br />
+ * <b>then</b> S(X) := S(X) &cup; {B}</li>
  * </ul>
+ * 
+ * This rule was not present in the original CEL algorithm. <br />
+ * 
  * 
  * @author Julian Mendez
  */
-public class CRBottomRRule implements RObserverRule {
+public class CR1SRule implements SObserverRule {
 
 	/**
-	 * Constructs a new completion rule CR bottom (R).
+	 * Constructs a new completion rule CR-1.
 	 */
-	public CRBottomRRule() {
+	public CR1SRule() {
 	}
 
 	@Override
-	public boolean apply(ClassifierStatus status, int property, int leftClass,
-			int rightClass) {
+	public boolean apply(ClassifierStatus status, int subClass, int superClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return applyRule(status, property, leftClass, rightClass);
+		return applyRule(status, subClass, superClass);
 	}
 
-	private boolean applyRule(ClassifierStatus status, int r, int x, int y) {
+	private boolean applyRule(ClassifierStatus status, int x, int a) {
 		boolean ret = false;
-		if (status.getSubsumers(y).contains(IntegerEntityManager.bottomClassId)) {
-			ret |= status.addNewSEntry(x, IntegerEntityManager.bottomClassId);
+		for (GCI0Axiom axiom : status.getExtendedOntology().getGCI0Axioms(a)) {
+			int b = axiom.getSuperClass();
+			ret |= status.addNewSEntry(x, b);
 		}
 		return ret;
 	}

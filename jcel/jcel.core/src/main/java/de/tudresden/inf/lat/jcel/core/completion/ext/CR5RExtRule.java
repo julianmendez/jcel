@@ -37,12 +37,12 @@ import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
  * 
  * @author Julian Mendez
  */
-public class CR5ExtRule implements RObserverRule {
+public class CR5RExtRule implements RObserverRule {
 
 	/**
 	 * Constructs a new completion rule CR-5.
 	 */
-	public CR5ExtRule() {
+	public CR5RExtRule() {
 	}
 
 	@Override

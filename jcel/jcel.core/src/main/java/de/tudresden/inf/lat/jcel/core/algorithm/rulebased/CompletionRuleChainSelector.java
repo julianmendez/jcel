@@ -24,27 +24,28 @@ package de.tudresden.inf.lat.jcel.core.algorithm.rulebased;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.tudresden.inf.lat.jcel.core.completion.basic.CR1Rule;
-import de.tudresden.inf.lat.jcel.core.completion.basic.CR2Rule;
-import de.tudresden.inf.lat.jcel.core.completion.basic.CR3Rule;
+import de.tudresden.inf.lat.jcel.core.completion.basic.CR1SRule;
+import de.tudresden.inf.lat.jcel.core.completion.basic.CR2SRule;
+import de.tudresden.inf.lat.jcel.core.completion.basic.CR3SRule;
 import de.tudresden.inf.lat.jcel.core.completion.basic.CR4RRule;
 import de.tudresden.inf.lat.jcel.core.completion.basic.CR4SRule;
-import de.tudresden.inf.lat.jcel.core.completion.basic.CR5Rule;
-import de.tudresden.inf.lat.jcel.core.completion.basic.CR6Rule;
-import de.tudresden.inf.lat.jcel.core.completion.basic.CRBottomRRule;
-import de.tudresden.inf.lat.jcel.core.completion.basic.CRBottomSRule;
+import de.tudresden.inf.lat.jcel.core.completion.basic.CR5RRule;
+import de.tudresden.inf.lat.jcel.core.completion.basic.CR6RRule;
+import de.tudresden.inf.lat.jcel.core.completion.basic.CR6RTrRule;
+import de.tudresden.inf.lat.jcel.core.completion.basic.CR7RRule;
+import de.tudresden.inf.lat.jcel.core.completion.basic.CR7SRule;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
-import de.tudresden.inf.lat.jcel.core.completion.ext.CR3ExtRule;
+import de.tudresden.inf.lat.jcel.core.completion.ext.CR3SExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR4RExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR4SExtRule;
-import de.tudresden.inf.lat.jcel.core.completion.ext.CR5ExtRule;
+import de.tudresden.inf.lat.jcel.core.completion.ext.CR5RExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR6RExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR6SExtRule;
-import de.tudresden.inf.lat.jcel.core.completion.ext.CR7ExtRule;
+import de.tudresden.inf.lat.jcel.core.completion.ext.CR7RExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR8RExtRule;
 import de.tudresden.inf.lat.jcel.core.completion.ext.CR8SExtRule;
-import de.tudresden.inf.lat.jcel.core.completion.ext.CR9ExtRule;
+import de.tudresden.inf.lat.jcel.core.completion.ext.CR9RExtRule;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
 
 /**
@@ -78,6 +79,11 @@ public class CompletionRuleChainSelector {
 			activateExtendedRules();
 		} else {
 			activateSimpleRules();
+			if (getOntologyExpressivity().hasSubPropertyChainOf()) {
+				activatePropertyChainRules();
+			} else if (getOntologyExpressivity().hasTransitiveObjectProperty()) {
+				activateTransitivePropertyRules();
+			}
 		}
 		if (getOntologyExpressivity().hasBottom()) {
 			activateBottomRules();
@@ -87,21 +93,21 @@ public class CompletionRuleChainSelector {
 	private void activateBottomRules() {
 		List<SObserverRule> listS = new ArrayList<SObserverRule>();
 		listS.addAll(this.chainS.getList());
-		listS.add(new CRBottomSRule());
+		listS.add(new CR7SRule());
 		this.chainS = new SChain(listS);
 
 		List<RObserverRule> listR = new ArrayList<RObserverRule>();
 		listR.addAll(this.chainR.getList());
-		listR.add(new CRBottomRRule());
+		listR.add(new CR7RRule());
 		this.chainR = new RChain(listR);
 	}
 
 	private void activateExtendedRules() {
 		List<SObserverRule> listS = new ArrayList<SObserverRule>();
 		listS.addAll(this.chainS.getList());
-		listS.add(new CR1Rule());
-		listS.add(new CR2Rule());
-		listS.add(new CR3ExtRule());
+		listS.add(new CR1SRule());
+		listS.add(new CR2SRule());
+		listS.add(new CR3SExtRule());
 		listS.add(new CR4SExtRule());
 		listS.add(new CR6SExtRule());
 		listS.add(new CR8SExtRule());
@@ -110,11 +116,11 @@ public class CompletionRuleChainSelector {
 		List<RObserverRule> listR = new ArrayList<RObserverRule>();
 		listR.addAll(this.chainR.getList());
 		listR.add(new CR4RExtRule());
-		listR.add(new CR5ExtRule());
+		listR.add(new CR5RExtRule());
 		listR.add(new CR6RExtRule());
-		listR.add(new CR7ExtRule());
+		listR.add(new CR7RExtRule());
 		listR.add(new CR8RExtRule());
-		listR.add(new CR9ExtRule());
+		listR.add(new CR9RExtRule());
 		this.chainR = new RChain(listR);
 	}
 
@@ -137,20 +143,33 @@ public class CompletionRuleChainSelector {
 		this.chainR = new RChain(listRWithProfiler);
 	}
 
+	private void activatePropertyChainRules() {
+		List<RObserverRule> listR = new ArrayList<RObserverRule>();
+		listR.addAll(this.chainR.getList());
+		listR.add(new CR6RRule());
+		this.chainR = new RChain(listR);
+	}
+
 	private void activateSimpleRules() {
 		List<SObserverRule> listS = new ArrayList<SObserverRule>();
 		listS.addAll(this.chainS.getList());
-		listS.add(new CR1Rule());
-		listS.add(new CR2Rule());
-		listS.add(new CR3Rule());
+		listS.add(new CR1SRule());
+		listS.add(new CR2SRule());
+		listS.add(new CR3SRule());
 		listS.add(new CR4SRule());
 		this.chainS = new SChain(listS);
 
 		List<RObserverRule> listR = new ArrayList<RObserverRule>();
 		listR.addAll(this.chainR.getList());
 		listR.add(new CR4RRule());
-		listR.add(new CR5Rule());
-		listR.add(new CR6Rule());
+		listR.add(new CR5RRule());
+		this.chainR = new RChain(listR);
+	}
+
+	private void activateTransitivePropertyRules() {
+		List<RObserverRule> listR = new ArrayList<RObserverRule>();
+		listR.addAll(this.chainR.getList());
+		listR.add(new CR6RTrRule());
 		this.chainR = new RChain(listR);
 	}
 

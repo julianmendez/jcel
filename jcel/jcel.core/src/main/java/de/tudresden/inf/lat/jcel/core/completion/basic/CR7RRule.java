@@ -22,50 +22,48 @@
 package de.tudresden.inf.lat.jcel.core.completion.basic;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
+import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
 /**
  * <p>
  * <ul>
- * <li>CR-3 : <b>if</b> A &#8849; &exist; r <i>.</i> B &isin; <i>T</i>, <u>(x,
- * A) &isin; S</u> <br />
- * <b>then</b> R := R &cup;{(r, x, B)}</li>
+ * <li>CR-7 : <b>if</b> <u>(r, x, y) &isin; R</u>, (y, &#8869;) &isin; S <br />
+ * <b>then</b> S := S &cup; {(x, &#8869;)}</li>
  * </ul>
  * </p>
  * 
  * Previous form:
  * <ul>
- * <li>CR2 : <b>if</b> A &isin; S(X) <b>and</b> A &#8849; &exist; r <i>.</i> B
- * &isin; O <b>and</b> (X, B) &notin; R(r) <br />
- * <b>then</b> R(r) := R(r) &cup;{(X, B)}</li>
+ * <li>CR4 : <b>if</b> (X, Y) &isin; R(r) <b>and</b> &#8869; &isin; S(Y)
+ * <b>and</b> &#8869; &notin; S(X) <br />
+ * <b>then</b> S(X) := S(X) &cup; {&#8869;}</li>
  * </ul>
  * 
  * @author Julian Mendez
  */
-public class CR3Rule implements SObserverRule {
+public class CR7RRule implements RObserverRule {
 
 	/**
-	 * Constructs a new completion rule CR-3.
+	 * Constructs a new completion rule CR bottom (R).
 	 */
-	public CR3Rule() {
+	public CR7RRule() {
 	}
 
 	@Override
-	public boolean apply(ClassifierStatus status, int subClass, int superClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass,
+			int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return applyRule(status, subClass, superClass);
+		return applyRule(status, property, leftClass, rightClass);
 	}
 
-	private boolean applyRule(ClassifierStatus status, int x, int a) {
+	private boolean applyRule(ClassifierStatus status, int r, int x, int y) {
 		boolean ret = false;
-		for (GCI2Axiom axiom : status.getExtendedOntology().getGCI2Axioms(a)) {
-			int r = axiom.getPropertyInSuperClass();
-			int b = axiom.getClassInSuperClass();
-			ret |= status.addNewREntry(r, x, b);
+		if (status.getSubsumers(y).contains(IntegerEntityManager.bottomClassId)) {
+			ret |= status.addNewSEntry(x, IntegerEntityManager.bottomClassId);
 		}
 		return ret;
 	}

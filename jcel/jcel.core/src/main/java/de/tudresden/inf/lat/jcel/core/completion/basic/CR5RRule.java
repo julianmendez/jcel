@@ -23,32 +23,31 @@ package de.tudresden.inf.lat.jcel.core.completion.basic;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 
 /**
  * <p>
  * <ul>
- * <li>CR-6 : <b>if</b> r &#8728; s &#8849; t &isin; <i>T</i>, <u>(r, x, y)
- * &isin; R</u>, <u>(s, y, z) &isin; R</u> <br />
- * <b>then</b> R := R &cup; {(t, x, z)}</li>
+ * <li>CR-5 : <b>if</b> r &#8849; s &isin; <i>T</i>, <u>(r, x, y) &isin; R</u> <br />
+ * <b>then</b> R := R &cup; {(s, x, y)}</li>
  * </ul>
  * </p>
  * 
  * Previous form:
  * <ul>
- * <li>CR6 : <b>if</b> (X, Y) &isin; R(r) <b>and</b> (Y,Z) &isin; R(s)
- * <b>and</b> r &#8728; s &#8849; t &isin; O <b>and</b> (X,Z) &notin; R(t) <br />
- * <b>then</b> R(t) := R(t) &cup; {(X, Z)}</li>
+ * <li>CR5 : <b>if</b> (X, Y) &isin; R(r) <b>and</b> r &#8849; s &isin; O
+ * <b>and</b> (X, Y) &notin; R(s) <br />
+ * <b>then</b> R(s) := R(s) &cup; {(X, Y)}</li>
  * </ul>
  * 
  * @author Julian Mendez
  */
-public class CR6Rule implements RObserverRule {
+public class CR5RRule implements RObserverRule {
 
 	/**
-	 * Constructs a new completion rule CR-6.
+	 * Constructs a new completion rule CR-5.
 	 */
-	public CR6Rule() {
+	public CR5RRule() {
 	}
 
 	@Override
@@ -58,34 +57,14 @@ public class CR6Rule implements RObserverRule {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		boolean ret = false;
-		ret |= apply1(status, property, leftClass, rightClass);
-		ret |= apply2(status, property, leftClass, rightClass);
-		return ret;
+		return applyRule(status, property, leftClass, rightClass);
 	}
 
-	private boolean apply1(ClassifierStatus status, int r, int x, int y) {
+	private boolean applyRule(ClassifierStatus status, int r, int x, int y) {
 		boolean ret = false;
-		for (RI3Axiom axiom : status.getExtendedOntology()
-				.getRI3AxiomsByLeft(r)) {
-			int s = axiom.getRightSubProperty();
-			int t = axiom.getSuperProperty();
-			for (int z : status.getSecondByFirst(s, y)) {
-				ret |= status.addNewREntry(t, x, z);
-			}
-		}
-		return ret;
-	}
-
-	private boolean apply2(ClassifierStatus status, int s, int y, int z) {
-		boolean ret = false;
-		for (RI3Axiom axiom : status.getExtendedOntology().getRI3AxiomsByRight(
-				s)) {
-			int r = axiom.getLeftSubProperty();
-			int t = axiom.getSuperProperty();
-			for (int x : status.getFirstBySecond(r, y)) {
-				ret |= status.addNewREntry(t, x, z);
-			}
+		for (RI2Axiom axiom : status.getExtendedOntology().getRI2rAxioms(r)) {
+			int s = axiom.getSuperProperty();
+			ret |= status.addNewREntry(s, x, y);
 		}
 		return ret;
 	}

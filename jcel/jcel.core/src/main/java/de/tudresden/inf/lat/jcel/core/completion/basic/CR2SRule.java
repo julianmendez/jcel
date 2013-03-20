@@ -21,35 +21,47 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.basic;
 
+import java.util.Collection;
+
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
 
 /**
  * <p>
  * <ul>
- * <li>CR-1 : <b>if</b> A &#8849; B &isin; <i>T</i>, <u>(x, A) &isin; S</u> <br />
+ * <li>CR-2 : <b>if</b> A<sub>1</sub> &#8851; A<sub>2</sub> &#8849; B &isin;
+ * <i>T</i>, <u>(x, A<sub>1</sub>) &isin; S</u>, <u>(x, A<sub>2</sub>) &isin;
+ * S</u> <br />
  * <b>then</b> S := S &cup; {(x, B)}</li>
  * </ul>
  * </p>
  * 
- * Previous form:
+ * Previous forms:
+ * 
  * <ul>
- * <li>CR0 : <b>if</b> A &isin; S(X) <b>and</b> A &#8849; B &isin; O <br />
+ * <li>CR-2 : <b>if</b> A<sub>1</sub> &#8851; &hellip; &#8851; A<sub>i</sub>
+ * &#8851; &hellip; &#8851; A<sub>n</sub> &#8849; B &isin; <i>T</i>, (x,
+ * A<sub>1</sub>) &isin; S, &hellip; <u>(x, A<sub>i</sub>) &isin; S</u>,
+ * &hellip; , (x, A<sub>n</sub>) &isin; S <br />
+ * <b>then</b> S := S &cup; {(x, B)}</li>
+ * </ul>
+ * 
+ * <ul>
+ * <li>CR1 : <b>if</b> A<sub>1</sub>, &hellip; , A<sub>n</sub> &isin; S(X)
+ * <b>and</b> A<sub>1</sub> &#8851; &hellip; &#8851; A<sub>n</sub> &#8849; B
+ * &isin; O <b>and</b> B &notin; S(X) <br />
  * <b>then</b> S(X) := S(X) &cup; {B}</li>
  * </ul>
  * 
- * This rule was not present in the original CEL algorithm. <br />
- * 
- * 
  * @author Julian Mendez
  */
-public class CR1Rule implements SObserverRule {
+public class CR2SRule implements SObserverRule {
 
 	/**
-	 * Constructs a new completion rule CR-1.
+	 * Constructs a new completion rule CR-2.
 	 */
-	public CR1Rule() {
+	public CR2SRule() {
 	}
 
 	@Override
@@ -63,9 +75,19 @@ public class CR1Rule implements SObserverRule {
 
 	private boolean applyRule(ClassifierStatus status, int x, int a) {
 		boolean ret = false;
-		for (GCI0Axiom axiom : status.getExtendedOntology().getGCI0Axioms(a)) {
-			int b = axiom.getSuperClass();
-			ret |= status.addNewSEntry(x, b);
+		Collection<Integer> subsumersOfX = status.getSubsumers(x);
+		for (GCI1Axiom axiom : status.getExtendedOntology().getGCI1Axioms(a)) {
+			boolean valid = true;
+			if (a == axiom.getRightSubClass()) {
+				valid = valid && subsumersOfX.contains(axiom.getLeftSubClass());
+			} else {
+				valid = valid
+						&& subsumersOfX.contains(axiom.getRightSubClass());
+			}
+			if (valid) {
+				int b = axiom.getSuperClass();
+				ret |= status.addNewSEntry(x, b);
+			}
 		}
 		return ret;
 	}

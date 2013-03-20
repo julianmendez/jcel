@@ -28,7 +28,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 /**
  * <p>
  * <ul>
- * <li>CR bottom : <b>if</b> (r, x, y) &isin; R, <u>(y, &#8869;) &isin; S</u> <br />
+ * <li>CR-7 : <b>if</b> (r, x, y) &isin; R, <u>(y, &#8869;) &isin; S</u> <br />
  * <b>then</b> S := S &cup; {(x, &#8869;)}</li>
  * </ul>
  * </p>
@@ -42,12 +42,12 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
  * 
  * @author Julian Mendez
  */
-public class CRBottomSRule implements SObserverRule {
+public class CR7SRule implements SObserverRule {
 
 	/**
 	 * Constructs a new completion rule CR bottom (S).
 	 */
-	public CRBottomSRule() {
+	public CR7SRule() {
 	}
 
 	@Override

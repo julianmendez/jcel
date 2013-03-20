@@ -47,12 +47,12 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
  * 
  * @author Julian Mendez
  */
-public class CR7ExtRule implements RObserverRule {
+public class CR7RExtRule implements RObserverRule {
 
 	/**
 	 * Constructs a new completion rule CR-7.
 	 */
-	public CR7ExtRule() {
+	public CR7RExtRule() {
 	}
 
 	@Override
