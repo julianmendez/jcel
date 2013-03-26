@@ -23,7 +23,6 @@ package de.tudresden.inf.lat.jcel.owlapi.main;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.reasoner.IllegalConfigurationException;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
@@ -39,7 +38,7 @@ public class JcelReasonerFactory implements OWLReasonerFactory {
 	// .getLogger("de.tudresden.inf.lat.jcel");
 
 	@Override
-	public OWLReasoner createNonBufferingReasoner(OWLOntology ontology) {
+	public JcelReasoner createNonBufferingReasoner(OWLOntology ontology) {
 		if (ontology == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -48,7 +47,7 @@ public class JcelReasonerFactory implements OWLReasonerFactory {
 	}
 
 	@Override
-	public OWLReasoner createNonBufferingReasoner(OWLOntology ontology,
+	public JcelReasoner createNonBufferingReasoner(OWLOntology ontology,
 			OWLReasonerConfiguration configuration)
 			throws IllegalConfigurationException {
 		if (ontology == null) {
@@ -62,7 +61,7 @@ public class JcelReasonerFactory implements OWLReasonerFactory {
 	}
 
 	@Override
-	public OWLReasoner createReasoner(OWLOntology ontology) {
+	public JcelReasoner createReasoner(OWLOntology ontology) {
 		if (ontology == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -71,7 +70,7 @@ public class JcelReasonerFactory implements OWLReasonerFactory {
 	}
 
 	@Override
-	public OWLReasoner createReasoner(OWLOntology ontology,
+	public JcelReasoner createReasoner(OWLOntology ontology,
 			OWLReasonerConfiguration configuration)
 			throws IllegalConfigurationException {
 		if (ontology == null) {
