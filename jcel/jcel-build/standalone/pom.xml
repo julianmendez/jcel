@@ -1,0 +1,105 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+
+	<!--
+ *
+ * Copyright 2009 Julian Mendez
+ *
+ *
+ * This file is part of jcel.
+ *
+ * jcel is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * jcel is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with jcel.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *
+-->
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>jcel</groupId>
+	<artifactId>standalone</artifactId>
+	<version>0.18.2</version>
+	<packaging>bundle</packaging>
+
+	<name>jcel standalone</name>
+
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+
+	<build>
+
+		<finalName>jcel</finalName>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>1.0-alpha-2</version>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>read-project-properties</goal>
+						</goals>
+						<configuration>
+							<files>
+								<file>version.properties</file>
+							</files>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.3.4</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>de.tudresden.inf.lat.jcel;singleton:=true</Bundle-SymbolicName>
+						<Bundle-Name>jcel</Bundle-Name>
+						<Bundle-Version>${project.version}</Bundle-Version>
+						<Bundle-Activator>org.protege.editor.core.plugin.DefaultPluginActivator</Bundle-Activator>
+						<Bundle-Category>protege</Bundle-Category>
+						<Bundle-Description>jcel standalone</Bundle-Description>
+						<Bundle-Vendor>Chair of Automata Theory - TU Dresden</Bundle-Vendor>
+						<Bundle-DocURL>http://lat.inf.tu-dresden.de</Bundle-DocURL>
+						<Bundle-ClassPath>${bundle.classpath}</Bundle-ClassPath>
+						<Import-Package>javax.accessibility, javax.swing, javax.swing.border, org.osgi.framework, org.protege.editor.core.ui.workspace, *</Import-Package>
+						<Main-Class>${mainclass}</Main-Class>
+						<Include-Resource>
+							{maven-resources}, {maven-dependencies},
+							@../../jcel-coreontology/target/jcel-coreontology-${project.version}.jar,
+							@../../jcel-core/target/jcel-core-${project.version}.jar,
+							@../../jcel-ontology/target/jcel-ontology-${project.version}.jar,
+							@../../jcel-reasoner/target/jcel-reasoner-${project.version}.jar,
+							@../../jcel-owlapi/target/jcel-owlapi-${project.version}.jar,
+							@../../jcel-protege/target/jcel-protege-${project.version}.jar,
+							@../jars/lib/net/sourceforge/owlapi/owlapi/3.4.2/owlapi-3.4.2.jar
+						</Include-Resource>
+					</instructions>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>
+
