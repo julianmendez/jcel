@@ -63,19 +63,30 @@
 	<property name="build.3.name" value="standalone" />
 	<property name="build.3.filename" value="jcel" />
 
-	<!-- Cleans everything. -->
+
+	<!-- Calls subprojects. -->
+	<target name="callsubprojects">
+		<subant antfile="${_root.directory}/${module.0.name}/build.xml" buildpath="." target="${target}" />
+		<subant antfile="${_root.directory}/${module.1.name}/build.xml" buildpath="." target="${target}" />
+		<subant antfile="${_root.directory}/${module.2.name}/build.xml" buildpath="." target="${target}" />
+		<subant antfile="${_root.directory}/${module.3.name}/build.xml" buildpath="." target="${target}" />
+		<subant antfile="${_root.directory}/${module.4.name}/build.xml" buildpath="." target="${target}" />
+		<subant antfile="${_root.directory}/${module.5.name}/build.xml" buildpath="." target="${target}" />
+	</target>
+
+	<!-- Cleans compiled files. -->
 	<target name="clean">
+		<antcall target="callsubprojects">
+			<param name="target" value="clean" />
+		</antcall>
 		<delete dir="${project.build.directory}" />
 	</target>
 
 	<!-- Compiles all modules and gets their jars. -->
 	<target name="compilemodules">
-		<subant antfile="${_root.directory}/${module.0.name}/build.xml" buildpath="." />
-		<subant antfile="${_root.directory}/${module.1.name}/build.xml" buildpath="." />
-		<subant antfile="${_root.directory}/${module.2.name}/build.xml" buildpath="." />
-		<subant antfile="${_root.directory}/${module.3.name}/build.xml" buildpath="." />
-		<subant antfile="${_root.directory}/${module.4.name}/build.xml" buildpath="." />
-		<subant antfile="${_root.directory}/${module.5.name}/build.xml" buildpath="." />
+		<antcall target="callsubprojects">
+			<param name="target" value="dist" />
+		</antcall>
 	</target>
 
 	<!-- Prepares the jars for the release. -->

@@ -85,7 +85,7 @@
 		<include name="**/*Test.java" />
 	</patternset>
 
-	<!-- Cleans everything. -->
+	<!-- Cleans compiled files. -->
 	<target name="clean">
 		<delete dir="${project.build.directory}" />
 	</target>
