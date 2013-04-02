@@ -150,7 +150,7 @@
 	<!-- Creates the javadoc. -->
 	<target name="javadoc">
 		<mkdir dir="${_javadoc.directory}" />
-		<javadoc packagenames="*" sourcepath="${javadocsrc}" destdir="${_javadoc.directory}" version="true" use="true" windowtitle="${project.groupId}-${project.artifactId}" overview="${_src.javadoc.directory}/overview.html" classpathref="libs.directory" access="package" />
+		<javadoc packagenames="*" sourcepath="${javadocsrc}" destdir="${_javadoc.directory}" version="true" use="true" windowtitle="${project.groupId}-${project.artifactId}" overview="${_src.javadoc.directory}/overview.html" classpathref="libs.directory" access="package" useexternalfile="true" />
 	</target>
 
 	<!-- Executes all the tasks. -->
