@@ -102,6 +102,14 @@ public class RuleBasedProcessor implements Processor {
 	private Map<Integer, Set<Integer>> sameIndividualMap = null;
 	private ClassifierStatusImpl status = null;
 
+	private Thread threadR = null;
+
+	private boolean threadRrunning = false;
+
+	private Thread threadS = null;
+
+	private boolean threadSrunning = false;
+
 	/**
 	 * Constructs a new rule-based processor.
 	 * 
@@ -453,12 +461,10 @@ public class RuleBasedProcessor implements Processor {
 		ret.add(createEntry("subV", "" + this.status.getDeepSizeOfV()));
 		return ret;
 	}
-
 	@Override
 	public boolean isReady() {
 		return this.isReady;
 	}
-
 	/**
 	 * Post processes the data after the classification phase.
 	 */
@@ -480,7 +486,6 @@ public class RuleBasedProcessor implements Processor {
 				this.status.getClassGraph());
 		this.status.deleteClassGraph();
 	}
-
 	/**
 	 * The configuration follows the following steps:
 	 * <ul>
@@ -514,18 +519,55 @@ public class RuleBasedProcessor implements Processor {
 	@Override
 	public boolean process() {
 		if (!this.isReady) {
-			if (this.status.getNumberOfSEntries() == 0
+			if (!threadSrunning && !threadRrunning
+					&& this.status.getNumberOfSEntries() == 0
 					&& this.status.getNumberOfREntries() == 0) {
+
 				logger.fine(showStatusInfo());
 				postProcess();
 				logger.fine(showConfigurationInfo());
 				this.isReady = true;
 			} else {
 
-				if (status.getNumberOfSEntries() > status.getNumberOfREntries()) {
-					processSEntries();
-				} else {
-					processREntries();
+				if (!threadSrunning) {
+					threadSrunning = true;
+					threadS = new Thread() {
+						@Override
+						public void run() {
+							threadSrunning = true;
+							while (status.getNumberOfSEntries() > 0) {
+								processSEntries();
+							}
+							threadSrunning = false;
+						}
+					};
+					threadS.start();
+				}
+
+				if (!threadRrunning) {
+					threadRrunning = true;
+					threadR = new Thread() {
+						@Override
+						public void run() {
+							threadRrunning = true;
+							while (status.getNumberOfREntries() > 0) {
+								processREntries();
+							}
+							threadRrunning = false;
+						}
+					};
+					threadR.start();
+				}
+
+				try {
+					if (status.getNumberOfREntries() < status
+							.getNumberOfSEntries()) {
+						threadR.join();
+					} else {
+						threadS.join();
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 
 				if (this.loggingCount < 1) {
