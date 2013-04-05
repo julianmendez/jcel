@@ -104,6 +104,13 @@ public interface ClassifierStatus {
 	public int createOrGetNodeId(VNode node);
 
 	/**
+	 * Returns the monitor of set S.
+	 * 
+	 * @return the monitor of set S
+	 */
+	public Object getClassGraphMonitor();
+
+	/**
 	 * Return an ontology with convenience methods to get its axioms.
 	 * 
 	 * @return an ontology with convenience methods to get its axioms
@@ -175,6 +182,13 @@ public interface ClassifierStatus {
 	 */
 	public Set<Integer> getObjectPropertiesWithFunctionalAncestor(
 			int objectProperty);
+
+	/**
+	 * Returns the monitor of set R.
+	 * 
+	 * @return the monitor of set R
+	 */
+	public Object getRelationSetMonitor();
 
 	/**
 	 * Returns all the classes that are related from a certain class using a

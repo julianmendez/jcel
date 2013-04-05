@@ -300,13 +300,22 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 		return this.classGraph;
 	}
 
+	@Override
+	public Object getClassGraphMonitor() {
+		return this.monitorClassGraph;
+	}
+
 	/**
 	 * Returns the number of nodes in the relation set.
 	 * 
 	 * @return the number of nodes in the relation set
 	 */
 	public long getDeepSizeOfR() {
-		return this.relationSet.getDeepSize();
+		long ret;
+		synchronized (this.monitorClassGraph) {
+			ret = this.relationSet.getDeepSize();
+		}
+		return ret;
 	}
 
 	/**
@@ -315,7 +324,11 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 * @return the number of nodes in the subsumer set
 	 */
 	public long getDeepSizeOfS() {
-		return this.classGraph.getDeepSize();
+		long ret;
+		synchronized (this.monitorClassGraph) {
+			ret = this.classGraph.getDeepSize();
+		}
+		return ret;
 	}
 
 	/**
@@ -438,6 +451,11 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 */
 	protected IntegerRelationMapImpl getRelationSet() {
 		return this.relationSet;
+	}
+
+	@Override
+	public Object getRelationSetMonitor() {
+		return this.monitorRelationSet;
 	}
 
 	@Override
