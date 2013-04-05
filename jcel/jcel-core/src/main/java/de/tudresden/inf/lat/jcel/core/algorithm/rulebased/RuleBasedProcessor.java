@@ -54,7 +54,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -91,7 +90,6 @@ public class RuleBasedProcessor implements Processor {
 
 	private RChain chainR = null;
 	private SChain chainS = null;
-
 	private IntegerHierarchicalGraph classHierarchy = null;
 	private IntegerHierarchicalGraph dataPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> directTypes = null;
@@ -578,9 +576,11 @@ public class RuleBasedProcessor implements Processor {
 		}
 	}
 
-	private void processREntries() {
-		try {
+	private boolean processREntries() {
+		boolean ret = false;
+		if (status.getNumberOfREntries() > 0) {
 			REntry entry = status.removeNextREntry();
+			ret = true;
 			int property = entry.getProperty();
 			int leftClass = entry.getLeftClass();
 			int rightClass = entry.getRightClass();
@@ -590,13 +590,15 @@ public class RuleBasedProcessor implements Processor {
 				loggingCount--;
 				iteration++;
 			}
-		} catch (NoSuchElementException e) {
 		}
+		return ret;
 	}
 
-	private void processSEntries() {
-		try {
+	private boolean processSEntries() {
+		boolean ret = false;
+		if (status.getNumberOfSEntries() > 0) {
 			SEntry entry = status.removeNextSEntry();
+			ret = true;
 			int subClass = entry.getSubClass();
 			int superClass = entry.getSuperClass();
 			boolean applied = status.addToS(subClass, superClass);
@@ -605,8 +607,8 @@ public class RuleBasedProcessor implements Processor {
 				loggingCount--;
 				iteration++;
 			}
-		} catch (NoSuchElementException e) {
 		}
+		return ret;
 	}
 
 	private void removeAuxiliaryClassesExceptNominals() {
