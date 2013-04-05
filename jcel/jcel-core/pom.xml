@@ -64,15 +64,19 @@
 	</properties>
 
 
-	<repositories>
+	<licenses>
 
-		<repository>
-			<id>localrepo</id>
-			<name>local maven repository</name>
-			<url>file:../jcel-build/jars/lib</url>
-		</repository>
+		<license>
+			<name>GNU Lesser General Public License version 3</name>
+			<url>http://www.gnu.org/licenses/lgpl.txt</url>
+		</license>
 
-	</repositories>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+
+	</licenses>
 
 	<dependencies>
 
@@ -90,6 +94,16 @@
 		</dependency>
 
 	</dependencies>
+
+	<repositories>
+
+		<repository>
+			<id>localrepo</id>
+			<name>local maven repository</name>
+			<url>file:../jcel-build/jars/lib</url>
+		</repository>
+
+	</repositories>
 
 </project>
 
