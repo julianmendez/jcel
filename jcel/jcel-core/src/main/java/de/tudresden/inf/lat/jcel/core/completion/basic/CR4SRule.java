@@ -46,9 +46,6 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.basic;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
@@ -90,11 +87,7 @@ public class CR4SRule implements SObserverRule {
 
 	private boolean applyRule(ClassifierStatus status, int y, int a) {
 		boolean ret = false;
-		Collection<Integer> properties = new HashSet<Integer>();
-		synchronized (status.getRelationSetMonitor()) {
-			properties.addAll(status.getObjectPropertiesBySecond(y));
-		}
-		for (int r : properties) {
+		for (int r : status.getObjectPropertiesBySecond(y)) {
 			for (GCI3Axiom axiom : status.getExtendedOntology()
 					.getGCI3rAAxioms(r, a)) {
 				for (int x : status.getFirstBySecond(r, y)) {

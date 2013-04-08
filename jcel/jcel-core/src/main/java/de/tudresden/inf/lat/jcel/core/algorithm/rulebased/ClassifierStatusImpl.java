@@ -352,9 +352,9 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	@Override
 	public Collection<Integer> getFirstBySecond(int propertyId, int classId) {
-		Collection<Integer> ret = null;
+		Collection<Integer> ret = new TreeSet<Integer>();
 		synchronized (this.monitorRelationSet) {
-			ret = this.relationSet.getBySecond(propertyId, classId);
+			ret.addAll(this.relationSet.getBySecond(propertyId, classId));
 		}
 		return ret;
 	}
@@ -407,18 +407,18 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	@Override
 	public Collection<Integer> getObjectPropertiesByFirst(int cA) {
-		Collection<Integer> ret = null;
+		Collection<Integer> ret = new TreeSet<Integer>();
 		synchronized (this.monitorRelationSet) {
-			ret = this.relationSet.getRelationsByFirst(cA);
+			ret.addAll(this.relationSet.getRelationsByFirst(cA));
 		}
 		return ret;
 	}
 
 	@Override
 	public Collection<Integer> getObjectPropertiesBySecond(int cA) {
-		Collection<Integer> ret = null;
+		Collection<Integer> ret = new TreeSet<Integer>();
 		synchronized (this.monitorRelationSet) {
-			ret = this.relationSet.getRelationsBySecond(cA);
+			ret.addAll(this.relationSet.getRelationsBySecond(cA));
 		}
 		return ret;
 	}
@@ -460,9 +460,9 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	@Override
 	public Collection<Integer> getSecondByFirst(int propertyId, int classId) {
-		Collection<Integer> ret = null;
+		Collection<Integer> ret = new TreeSet<Integer>();
 		synchronized (this.monitorRelationSet) {
-			ret = this.relationSet.getByFirst(propertyId, classId);
+			ret.addAll(this.relationSet.getByFirst(propertyId, classId));
 		}
 		return ret;
 	}
