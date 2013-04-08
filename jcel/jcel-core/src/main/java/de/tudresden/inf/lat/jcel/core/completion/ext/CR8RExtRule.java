@@ -87,17 +87,21 @@ public class CR8RExtRule implements RObserverRule {
 			int sMinus = status.getInverseObjectPropertyOf(s);
 			if (status.getExtendedOntology().getFunctionalObjectProperties()
 					.contains(sMinus)) {
-				for (int a : status.getSubsumers(y)) {
-					for (GCI2Axiom axiom : status.getExtendedOntology()
-							.getGCI2Axioms(a)) {
-						int r2Minus = axiom.getPropertyInSuperClass();
-						int r2 = status.getInverseObjectPropertyOf(r2Minus);
-						if (status.getSubObjectProperties(s).contains(r2)) {
-							int b = axiom.getClassInSuperClass();
-							ret |= status.addNewSEntry(x, b);
+
+				synchronized (status.getClassGraphMonitor()) {
+					for (int a : status.getSubsumers(y)) {
+						for (GCI2Axiom axiom : status.getExtendedOntology()
+								.getGCI2Axioms(a)) {
+							int r2Minus = axiom.getPropertyInSuperClass();
+							int r2 = status.getInverseObjectPropertyOf(r2Minus);
+							if (status.getSubObjectProperties(s).contains(r2)) {
+								int b = axiom.getClassInSuperClass();
+								ret |= status.addNewSEntry(x, b);
+							}
 						}
 					}
 				}
+
 			}
 		}
 		return ret;

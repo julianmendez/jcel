@@ -101,12 +101,19 @@ public class CR9RExtRule implements RObserverRule {
 							newNode.addExistentialsOf(psiNode);
 							newNode.addExistentialsOf(phiNode);
 							int v = status.createOrGetNodeId(newNode);
-							for (int p : status.getSubsumers(y)) {
-								ret |= status.addNewSEntry(v, p);
+
+							synchronized (status.getClassGraphMonitor()) {
+								for (int p : status.getSubsumers(y)) {
+									ret |= status.addNewSEntry(v, p);
+								}
 							}
-							for (int p : status.getSubsumers(z)) {
-								ret |= status.addNewSEntry(v, p);
+
+							synchronized (status.getClassGraphMonitor()) {
+								for (int p : status.getSubsumers(z)) {
+									ret |= status.addNewSEntry(v, p);
+								}
 							}
+
 							ret |= status.addNewREntry(r1, x, v);
 						}
 					}

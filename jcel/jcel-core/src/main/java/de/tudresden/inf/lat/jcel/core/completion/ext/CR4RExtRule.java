@@ -88,14 +88,18 @@ public class CR4RExtRule implements RObserverRule {
 
 	private boolean applyRule(ClassifierStatus status, int r, int x, int y) {
 		boolean ret = false;
-		for (int a : status.getSubsumers(y)) {
-			for (int s : status.getSuperObjectProperties(r)) {
-				for (GCI3Axiom axiom : status.getExtendedOntology()
-						.getGCI3rAAxioms(s, a)) {
-					int b = axiom.getSuperClass();
-					ret |= status.addNewSEntry(x, b);
+		for (int s : status.getSuperObjectProperties(r)) {
+
+			synchronized (status.getClassGraphMonitor()) {
+				for (int a : status.getSubsumers(y)) {
+					for (GCI3Axiom axiom : status.getExtendedOntology()
+							.getGCI3rAAxioms(s, a)) {
+						int b = axiom.getSuperClass();
+						ret |= status.addNewSEntry(x, b);
+					}
 				}
 			}
+
 		}
 		return ret;
 	}
