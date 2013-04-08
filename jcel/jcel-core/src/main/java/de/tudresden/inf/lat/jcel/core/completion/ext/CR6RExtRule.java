@@ -92,27 +92,24 @@ public class CR6RExtRule implements RObserverRule {
 		for (int s : status.getSuperObjectProperties(r)) {
 			int sMinus = status.getInverseObjectPropertyOf(s);
 
-			synchronized (status.getClassGraphMonitor()) {
-				for (int a : status.getSubsumers(x)) {
-					for (GCI3Axiom axiom : status.getExtendedOntology()
-							.getGCI3rAAxioms(sMinus, a)) {
-						int b = axiom.getSuperClass();
-						if (!status.getSubsumers(y).contains(b)) {
-							VNode psiNode = status.getNode(y);
-							VNodeImpl newNode = new VNodeImpl(
-									psiNode.getClassId());
-							newNode.addExistentialsOf(psiNode);
-							newNode.addExistential(rMinus, a);
-							boolean inV = status.contains(newNode);
-							int v = status.createOrGetNodeId(newNode);
-							if (!inV) {
-								for (int p : status.getSubsumers(y)) {
-									ret |= status.addNewSEntry(v, p);
-								}
+			for (int a : status.getSubsumers(x)) {
+				for (GCI3Axiom axiom : status.getExtendedOntology()
+						.getGCI3rAAxioms(sMinus, a)) {
+					int b = axiom.getSuperClass();
+					if (!status.getSubsumers(y).contains(b)) {
+						VNode psiNode = status.getNode(y);
+						VNodeImpl newNode = new VNodeImpl(psiNode.getClassId());
+						newNode.addExistentialsOf(psiNode);
+						newNode.addExistential(rMinus, a);
+						boolean inV = status.contains(newNode);
+						int v = status.createOrGetNodeId(newNode);
+						if (!inV) {
+							for (int p : status.getSubsumers(y)) {
+								ret |= status.addNewSEntry(v, p);
 							}
-							ret |= status.addNewSEntry(v, b);
-							ret |= status.addNewREntry(r, x, v);
 						}
+						ret |= status.addNewSEntry(v, b);
+						ret |= status.addNewREntry(r, x, v);
 					}
 				}
 			}

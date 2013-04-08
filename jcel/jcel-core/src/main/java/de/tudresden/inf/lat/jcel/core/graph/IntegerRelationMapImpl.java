@@ -49,7 +49,6 @@ package de.tudresden.inf.lat.jcel.core.graph;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -108,7 +107,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 
 		Collection<Integer> byFirst = this.relationSetByFirst.get(first);
 		if (byFirst == null) {
-			byFirst = new HashSet<Integer>();
+			byFirst = new ArraySet();
 			this.relationSetByFirst.put(first, byFirst);
 			ret = true;
 		}
@@ -116,7 +115,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 
 		Collection<Integer> bySecond = this.relationSetBySecond.get(second);
 		if (bySecond == null) {
-			bySecond = new HashSet<Integer>();
+			bySecond = new ArraySet();
 			this.relationSetBySecond.put(second, bySecond);
 			ret = true;
 		}

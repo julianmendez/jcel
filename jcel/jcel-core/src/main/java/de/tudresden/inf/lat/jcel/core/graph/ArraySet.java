@@ -51,18 +51,20 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
- * This class implements a set of integers using a sorted array of
- * <code>int</code> with exponential growth.
+ * This class implements a thread-safe set of integers using a sorted array of
+ * <code>int</code> with linear growth.
+ * 
+ * @see CopyOnWriteArraySet
  * 
  * @author Julian Mendez
  */
 public class ArraySet implements Set<Integer> {
 
-	private static final int exponentialGrowthFactor = 2;
 	private static final int initialSize = 1;
-	private static final int linearGrowthFactor = 0;
+	private static final int linearGrowthFactor = 1;
 
 	private int[] array = null;
 	private int size = 0;
@@ -85,17 +87,11 @@ public class ArraySet implements Set<Integer> {
 		if (pointer < 0) {
 			pointer = (-1) * (pointer + 1);
 			ret = true;
-			if (this.size >= this.array.length) {
-				int[] newArray = new int[linearGrowthFactor
-						+ (exponentialGrowthFactor * this.array.length)];
-				System.arraycopy(this.array, 0, newArray, 0, pointer);
-				System.arraycopy(this.array, pointer, newArray, pointer + 1,
-						this.size - pointer);
-				this.array = newArray;
-			} else {
-				System.arraycopy(this.array, pointer, this.array, pointer + 1,
-						this.size - pointer);
-			}
+			int[] newArray = new int[linearGrowthFactor + this.array.length];
+			System.arraycopy(this.array, 0, newArray, 0, pointer);
+			System.arraycopy(this.array, pointer, newArray, pointer + 1,
+					this.size - pointer);
+			this.array = newArray;
 			this.array[pointer] = elem;
 			this.size++;
 		}

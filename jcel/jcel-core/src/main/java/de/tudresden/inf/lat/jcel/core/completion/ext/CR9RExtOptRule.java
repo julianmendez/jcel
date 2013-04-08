@@ -117,10 +117,8 @@ public class CR9RExtOptRule implements RObserverRule {
 				int v = status.createOrGetNodeId(newNode);
 				for (int yi : valid) {
 
-					synchronized (status.getClassGraphMonitor()) {
-						for (int p : status.getSubsumers(yi)) {
-							ret |= status.addNewSEntry(v, p);
-						}
+					for (int p : status.getSubsumers(yi)) {
+						ret |= status.addNewSEntry(v, p);
 					}
 
 					ret |= status.addNewREntry(r1, x, v);
