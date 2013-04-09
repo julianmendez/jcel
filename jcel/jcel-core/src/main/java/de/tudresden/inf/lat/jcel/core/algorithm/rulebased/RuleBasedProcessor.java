@@ -101,14 +101,8 @@ public class RuleBasedProcessor implements Processor {
 	private IntegerHierarchicalGraph objectPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> sameIndividualMap = null;
 	private ClassifierStatusImpl status = null;
-
 	private Thread threadR = null;
-
-	private boolean threadRrunning = false;
-
 	private Thread threadS = null;
-
-	private boolean threadSrunning = false;
 
 	/**
 	 * Constructs a new rule-based processor.
@@ -461,10 +455,12 @@ public class RuleBasedProcessor implements Processor {
 		ret.add(createEntry("subV", "" + this.status.getDeepSizeOfV()));
 		return ret;
 	}
+
 	@Override
 	public boolean isReady() {
 		return this.isReady;
 	}
+
 	/**
 	 * Post processes the data after the classification phase.
 	 */
@@ -486,6 +482,7 @@ public class RuleBasedProcessor implements Processor {
 				this.status.getClassGraph());
 		this.status.deleteClassGraph();
 	}
+
 	/**
 	 * The configuration follows the following steps:
 	 * <ul>
@@ -519,7 +516,9 @@ public class RuleBasedProcessor implements Processor {
 	@Override
 	public boolean process() {
 		if (!this.isReady) {
-			if (!threadSrunning && !threadRrunning
+			if (threadS != null && threadR != null
+					&& threadS.getState().equals(Thread.State.TERMINATED)
+					&& threadR.getState().equals(Thread.State.TERMINATED)
 					&& this.status.getNumberOfSEntries() == 0
 					&& this.status.getNumberOfREntries() == 0) {
 
@@ -529,31 +528,29 @@ public class RuleBasedProcessor implements Processor {
 				this.isReady = true;
 			} else {
 
-				if (!threadSrunning) {
-					threadSrunning = true;
+				if (threadS == null
+						|| (threadS != null && threadS.getState().equals(
+								Thread.State.TERMINATED))) {
 					threadS = new Thread() {
 						@Override
 						public void run() {
-							threadSrunning = true;
 							while (status.getNumberOfSEntries() > 0) {
 								processSEntries();
 							}
-							threadSrunning = false;
 						}
 					};
 					threadS.start();
 				}
 
-				if (!threadRrunning) {
-					threadRrunning = true;
+				if (threadR == null
+						|| (threadR != null && threadR.getState().equals(
+								Thread.State.TERMINATED))) {
 					threadR = new Thread() {
 						@Override
 						public void run() {
-							threadRrunning = true;
 							while (status.getNumberOfREntries() > 0) {
 								processREntries();
 							}
-							threadRrunning = false;
 						}
 					};
 					threadR.start();
