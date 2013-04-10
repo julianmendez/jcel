@@ -103,11 +103,16 @@ public class CR2SRule implements SObserverRule {
 		Collection<Integer> subsumersOfX = status.getSubsumers(x);
 		for (GCI1Axiom axiom : status.getExtendedOntology().getGCI1Axioms(a)) {
 			boolean valid = true;
-			if (a == axiom.getRightSubClass()) {
-				valid = valid && subsumersOfX.contains(axiom.getLeftSubClass());
-			} else {
-				valid = valid
-						&& subsumersOfX.contains(axiom.getRightSubClass());
+			synchronized (status.getClassGraphMonitor()) {
+
+				if (a == axiom.getRightSubClass()) {
+					valid = valid
+							&& subsumersOfX.contains(axiom.getLeftSubClass());
+				} else {
+					valid = valid
+							&& subsumersOfX.contains(axiom.getRightSubClass());
+				}
+
 			}
 			if (valid) {
 				int b = axiom.getSuperClass();
