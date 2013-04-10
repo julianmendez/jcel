@@ -77,7 +77,7 @@ public class ArraySet implements Set<Integer> {
 	}
 
 	@Override
-	public boolean add(Integer elem) {
+	public synchronized boolean add(Integer elem) {
 		if (elem == null) {
 			throw new NullPointerException("Null argument.");
 		}
@@ -99,7 +99,7 @@ public class ArraySet implements Set<Integer> {
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends Integer> collection) {
+	public synchronized boolean addAll(Collection<? extends Integer> collection) {
 		if (collection == null) {
 			throw new NullPointerException("Null argument.");
 		}
@@ -112,13 +112,13 @@ public class ArraySet implements Set<Integer> {
 	}
 
 	@Override
-	public void clear() {
+	public synchronized void clear() {
 		this.array = new int[initialSize];
 		this.size = 0;
 	}
 
 	@Override
-	public boolean contains(Object elem) {
+	public synchronized boolean contains(Object elem) {
 		if (elem == null) {
 			throw new NullPointerException("Null argument.");
 		}
@@ -131,7 +131,7 @@ public class ArraySet implements Set<Integer> {
 	}
 
 	@Override
-	public boolean containsAll(Collection<?> collection) {
+	public synchronized boolean containsAll(Collection<?> collection) {
 		if (collection == null) {
 			throw new NullPointerException("Null argument.");
 		}
@@ -144,7 +144,7 @@ public class ArraySet implements Set<Integer> {
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public synchronized boolean equals(Object o) {
 		boolean ret = (this == o);
 		if (!ret && o instanceof ArraySet) {
 			ArraySet other = (ArraySet) o;
@@ -157,51 +157,51 @@ public class ArraySet implements Set<Integer> {
 	}
 
 	@Override
-	public int hashCode() {
+	public synchronized int hashCode() {
 		return this.array.hashCode();
 	}
 
 	@Override
-	public boolean isEmpty() {
+	public synchronized boolean isEmpty() {
 		return this.size == 0;
 	}
 
 	@Override
-	public Iterator<Integer> iterator() {
+	public synchronized Iterator<Integer> iterator() {
 		return new ArraySetIterator(this.array, this.size);
 	}
 
 	@Override
-	public boolean remove(Object o) {
+	public synchronized boolean remove(Object o) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public boolean removeAll(Collection<?> c) {
+	public synchronized boolean removeAll(Collection<?> c) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public boolean retainAll(Collection<?> c) {
+	public synchronized boolean retainAll(Collection<?> c) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int size() {
+	public synchronized int size() {
 		return this.size;
 	}
 
 	@Override
-	public Object[] toArray() {
+	public synchronized Object[] toArray() {
 		return toArrayList().toArray();
 	}
 
 	@Override
-	public <T> T[] toArray(T[] a) {
+	public synchronized <T> T[] toArray(T[] a) {
 		return toArrayList().toArray(a);
 	}
 
-	private ArrayList<Integer> toArrayList() {
+	private synchronized ArrayList<Integer> toArrayList() {
 		ArrayList<Integer> ret = new ArrayList<Integer>();
 		for (int index = 0; index < this.size; index++) {
 			ret.add(this.array[index]);
@@ -210,7 +210,7 @@ public class ArraySet implements Set<Integer> {
 	}
 
 	@Override
-	public String toString() {
+	public synchronized String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append("[ ");
 		for (int index = 0; index < size(); index++) {
