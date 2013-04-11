@@ -98,6 +98,7 @@ public class RuleBasedProcessor implements Processor {
 	private boolean isReady = false;
 	private long iteration = 0;
 	private long loggingCount = loggingFrequency;
+	private boolean multiThreadedMode = false;
 	private IntegerHierarchicalGraph objectPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> sameIndividualMap = null;
 	private ClassifierStatusImpl status = null;
@@ -511,10 +512,35 @@ public class RuleBasedProcessor implements Processor {
 
 		logger.fine("processor configured.");
 		logger.fine(showConfigurationInfo());
+
+		int numberOfCores = Runtime.getRuntime().availableProcessors();
+		logger.fine("number of cores : " + numberOfCores);
+		this.multiThreadedMode = numberOfCores > 2;
+		if (multiThreadedMode) {
+			logger.fine("running processor on multiple threads.");
+		} else {
+			logger.fine("running processor on a single thread.");
+		}
 	}
 
 	@Override
 	public boolean process() {
+		boolean ret = false;
+		if (this.multiThreadedMode) {
+			ret = processMultiThreaded();
+		} else {
+			ret = processSingleThreaded();
+		}
+		if (!ret) {
+			if (this.loggingCount < 1) {
+				this.loggingCount = loggingFrequency;
+				logger.fine(showStatusInfo());
+			}
+		}
+		return ret;
+	}
+
+	private boolean processMultiThreaded() {
 		if (!this.isReady) {
 			if (threadS != null && threadR != null
 					&& threadS.getState().equals(Thread.State.TERMINATED)
@@ -565,11 +591,6 @@ public class RuleBasedProcessor implements Processor {
 					}
 				} catch (InterruptedException e) {
 					e.printStackTrace();
-				}
-
-				if (this.loggingCount < 1) {
-					this.loggingCount = loggingFrequency;
-					logger.fine(showStatusInfo());
 				}
 			}
 		}
@@ -648,6 +669,25 @@ public class RuleBasedProcessor implements Processor {
 			}
 		}
 		return ret;
+	}
+
+	private boolean processSingleThreaded() {
+		if (!this.isReady) {
+			if (this.status.getNumberOfSEntries() == 0
+					&& this.status.getNumberOfREntries() == 0) {
+				logger.fine(showStatusInfo());
+				postProcess();
+				logger.fine(showConfigurationInfo());
+				this.isReady = true;
+			} else {
+				if (status.getNumberOfSEntries() > status.getNumberOfREntries()) {
+					processSEntries();
+				} else {
+					processREntries();
+				}
+			}
+		}
+		return !this.isReady;
 	}
 
 	private void removeAuxiliaryClassesExceptNominals() {
