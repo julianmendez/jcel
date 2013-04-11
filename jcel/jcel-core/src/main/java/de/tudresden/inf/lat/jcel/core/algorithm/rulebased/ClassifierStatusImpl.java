@@ -312,7 +312,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 */
 	public long getDeepSizeOfR() {
 		long ret;
-		synchronized (this.monitorClassGraph) {
+		synchronized (this.monitorRelationSet) {
 			ret = this.relationSet.getDeepSize();
 		}
 		return ret;
