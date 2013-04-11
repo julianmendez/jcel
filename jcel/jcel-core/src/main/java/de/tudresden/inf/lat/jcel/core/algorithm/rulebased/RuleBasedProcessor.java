@@ -531,7 +531,7 @@ public class RuleBasedProcessor implements Processor {
 		} else {
 			ret = processSingleThreaded();
 		}
-		if (!ret) {
+		if (ret) {
 			if (this.loggingCount < 1) {
 				this.loggingCount = loggingFrequency;
 				logger.fine(showStatusInfo());
