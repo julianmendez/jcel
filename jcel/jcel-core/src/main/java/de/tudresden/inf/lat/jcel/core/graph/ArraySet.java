@@ -63,6 +63,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  */
 public class ArraySet implements Set<Integer> {
 
+	private static final int exponentialGrowthFactor = 2;
 	private static final int initialSize = 1;
 	private static final int linearGrowthFactor = 1;
 
@@ -87,11 +88,17 @@ public class ArraySet implements Set<Integer> {
 		if (pointer < 0) {
 			pointer = (-1) * (pointer + 1);
 			ret = true;
-			int[] newArray = new int[linearGrowthFactor + this.array.length];
-			System.arraycopy(this.array, 0, newArray, 0, pointer);
-			System.arraycopy(this.array, pointer, newArray, pointer + 1,
-					this.size - pointer);
-			this.array = newArray;
+			if (this.size >= this.array.length) {
+				int[] newArray = new int[linearGrowthFactor
+						+ (exponentialGrowthFactor * this.array.length)];
+				System.arraycopy(this.array, 0, newArray, 0, pointer);
+				System.arraycopy(this.array, pointer, newArray, pointer + 1,
+						this.size - pointer);
+				this.array = newArray;
+			} else {
+				System.arraycopy(this.array, pointer, this.array, pointer + 1,
+						this.size - pointer);
+			}
 			this.array[pointer] = elem;
 			this.size++;
 		}
