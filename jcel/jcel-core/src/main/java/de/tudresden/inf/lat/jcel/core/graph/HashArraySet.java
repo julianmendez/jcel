@@ -47,22 +47,23 @@
 package de.tudresden.inf.lat.jcel.core.graph;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
 /**
- * This class implements a set of integers using a sorted array of
- * <code>int</code> with exponential growth.
+ * This class implements a set of integers using an array of <code>int</code>
+ * with exponential growth. The elements are stored using a hash function.
  * 
  * @author Julian Mendez
  */
-public class ArraySet implements Set<Integer> {
+public class HashArraySet implements Set<Integer> {
 
+	protected static final int EMPTY = Integer.MIN_VALUE;
 	private static final int exponentialGrowthFactor = 2;
-	private static final int initialSize = 1;
+	private static final int initialSize = 0x10;
 	private static final int linearGrowthFactor = 1;
+	private static final int REHASH = Integer.MIN_VALUE;
 
 	private int[] array = null;
 	private int size = 0;
@@ -70,7 +71,7 @@ public class ArraySet implements Set<Integer> {
 	/**
 	 * Constructs an empty array set.
 	 */
-	public ArraySet() {
+	public HashArraySet() {
 		clear();
 	}
 
@@ -81,22 +82,15 @@ public class ArraySet implements Set<Integer> {
 		}
 
 		boolean ret = false;
-		int pointer = Arrays.binarySearch(this.array, 0, this.size, elem);
-		if (pointer < 0) {
-			pointer = (-1) * (pointer + 1);
+		int pointer = find(elem, this.array);
+		if ((pointer == REHASH) || (pointer < 0)) {
 			ret = true;
-			if (this.size >= this.array.length) {
-				int[] newArray = new int[linearGrowthFactor
-						+ (exponentialGrowthFactor * this.array.length)];
-				System.arraycopy(this.array, 0, newArray, 0, pointer);
-				System.arraycopy(this.array, pointer, newArray, pointer + 1,
-						this.size - pointer);
-				this.array = newArray;
+			if (pointer != REHASH) {
+				pointer = (-1) * (pointer + 1);
+				this.array[pointer] = elem;
 			} else {
-				System.arraycopy(this.array, pointer, this.array, pointer + 1,
-						this.size - pointer);
+				this.array = rehashAndAdd(this.array, elem);
 			}
-			this.array[pointer] = elem;
 			this.size++;
 		}
 		return ret;
@@ -117,8 +111,16 @@ public class ArraySet implements Set<Integer> {
 
 	@Override
 	public synchronized void clear() {
-		this.array = new int[initialSize];
+		this.array = makeNewArray(initialSize);
 		this.size = 0;
+	}
+
+	private int computeNewLength(int length) {
+		int ret = linearGrowthFactor + (exponentialGrowthFactor * length);
+		while ((ret % 2 == 0) || (ret % 3 == 0) || (ret % 5 == 0)) {
+			ret++;
+		}
+		return ret;
 	}
 
 	@Override
@@ -129,8 +131,8 @@ public class ArraySet implements Set<Integer> {
 
 		boolean ret = false;
 		int e = ((Integer) elem).intValue();
-		int pointer = Arrays.binarySearch(this.array, 0, this.size, e);
-		ret = (pointer >= 0);
+		int pointer = find(e, this.array);
+		ret = (pointer >= 0) && (pointer != REHASH);
 		return ret;
 	}
 
@@ -150,14 +152,57 @@ public class ArraySet implements Set<Integer> {
 	@Override
 	public synchronized boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof ArraySet) {
-			ArraySet other = (ArraySet) o;
+		if (!ret && o instanceof HashArraySet) {
+			HashArraySet other = (HashArraySet) o;
 			ret = (this.size == other.size);
-			for (int index = 0; ret && index < this.size; index++) {
-				ret = ret && (this.array[index] == other.array[index]);
+			for (int index = 0; ret && index < this.array.length; index++) {
+				int current = this.array[index];
+				if (current != EMPTY) {
+					ret = ret && other.contains(current);
+				}
+			}
+			for (int index = 0; ret && index < other.array.length; index++) {
+				int current = other.array[index];
+				if (current != EMPTY) {
+					contains(current);
+				}
 			}
 		}
 		return ret;
+	}
+
+	private int find(int elem, int[] currentArray) {
+		if (elem == EMPTY) {
+			throw new IllegalArgumentException("Out of range: " + elem);
+		}
+		if (elem == REHASH) {
+			throw new IllegalArgumentException("Out of range: " + elem);
+		}
+
+		boolean indexFound = false;
+		int pointer = REHASH;
+		int mod = currentArray.length;
+		int dist = 1;
+		int initial = elem;
+		while (!indexFound && (dist < mod)) {
+			pointer = Math.abs(initial + dist) % mod;
+			int element = currentArray[pointer];
+			if (element == EMPTY) {
+				pointer = (-1) * (pointer + 1);
+				indexFound = true;
+			} else {
+				if (elem == element) {
+					indexFound = true;
+				} else {
+					dist *= 2;
+				}
+			}
+		}
+		if (!indexFound) {
+			pointer = REHASH;
+		}
+
+		return pointer;
 	}
 
 	@Override
@@ -172,7 +217,47 @@ public class ArraySet implements Set<Integer> {
 
 	@Override
 	public synchronized Iterator<Integer> iterator() {
-		return new ArraySetIterator(this.array, this.size);
+		return new HashArraySetIterator(this.array, this.size);
+	}
+
+	private int[] makeNewArray(int size) {
+		int[] ret = new int[size];
+		for (int i = 0; i < size; i++) {
+			ret[i] = EMPTY;
+		}
+		return ret;
+	}
+
+	private boolean rehash(int[] originalArray, int[] newArray) {
+		boolean ret = true;
+		for (int index = 0; ret && (index < originalArray.length); index++) {
+			int element = originalArray[index];
+			if (element != EMPTY) {
+				int pointer = find(element, newArray);
+				if (pointer == REHASH) {
+					ret = false;
+				} else if (pointer < 0) {
+					pointer = (-1) * (pointer + 1);
+					newArray[pointer] = element;
+				}
+			}
+		}
+		return ret;
+	}
+
+	private int[] rehashAndAdd(int[] originalArray, int elem) {
+		int[] newArray = originalArray;
+		boolean rehashDone = false;
+		while (!rehashDone) {
+			int newLength = computeNewLength(newArray.length);
+			newArray = makeNewArray(newLength);
+			int newPointer = find(elem, newArray);
+			newPointer = (-1) * (newPointer + 1);
+			newArray[newPointer] = elem;
+
+			rehashDone = rehash(originalArray, newArray);
+		}
+		return newArray;
 	}
 
 	@Override
@@ -207,8 +292,11 @@ public class ArraySet implements Set<Integer> {
 
 	private synchronized ArrayList<Integer> toArrayList() {
 		ArrayList<Integer> ret = new ArrayList<Integer>();
-		for (int index = 0; index < this.size; index++) {
-			ret.add(this.array[index]);
+		for (int index = 0; index < this.array.length; index++) {
+			int element = this.array[index];
+			if (element != EMPTY) {
+				ret.add(element);
+			}
 		}
 		return ret;
 	}
@@ -217,8 +305,13 @@ public class ArraySet implements Set<Integer> {
 	public synchronized String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append("[ ");
-		for (int index = 0; index < size(); index++) {
-			sbuf.append(this.array[index]);
+		for (int index = 0; index < this.array.length; index++) {
+			int element = this.array[index];
+			if (element == EMPTY) {
+				sbuf.append(".");
+			} else {
+				sbuf.append(element);
+			}
 			sbuf.append(" ");
 		}
 		sbuf.append("]");
