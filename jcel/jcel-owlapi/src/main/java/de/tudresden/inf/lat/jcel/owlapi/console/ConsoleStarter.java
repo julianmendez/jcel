@@ -80,7 +80,9 @@ public class ConsoleStarter {
 
 	public static final String licenseInfo = ""
 			+ "Copyright (C) 2009-2013 Julian Mendez"
-			+ "\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>."
+			+ "\nLicenses:"
+			+ "\n  GNU Lesser General Public License version 3 <http://www.gnu.org/licenses/lgpl.txt>"
+			+ "\n  Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0.txt>"
 			+ "\nThis is free software: you are free to change and redistribute it."
 			+ "\njcel is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY."
 			+ "\n";
@@ -231,9 +233,6 @@ public class ConsoleStarter {
 		logger.fine("loading ontology using the OWL API ...");
 		OWLOntology ontology = manager
 				.loadOntologyFromOntologyDocument(ontologyFile);
-
-		System.gc();
-		System.gc();
 
 		logger.fine("starting reasoner ...");
 		JcelReasoner reasoner = new JcelReasoner(ontology, false);
