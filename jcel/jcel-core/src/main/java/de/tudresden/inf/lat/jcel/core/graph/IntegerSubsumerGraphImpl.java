@@ -48,11 +48,11 @@ package de.tudresden.inf.lat.jcel.core.graph;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class implements a subsumer graph. This implementation keeps a set of
@@ -67,7 +67,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	private Collection<Integer> emptyCollection = Collections
 			.unmodifiableCollection(new ArraySet());
 	private Set<Integer> equivToBottom = new HashSet<Integer>();
-	private Map<Integer, Collection<Integer>> setS = new HashMap<Integer, Collection<Integer>>();
+	private Map<Integer, Collection<Integer>> setS = new ConcurrentHashMap<Integer, Collection<Integer>>();
 	private final int topElement;
 
 	/**
@@ -82,7 +82,8 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 		this.bottomElement = bottom;
 		this.topElement = top;
 		this.setS.put(this.bottomElement, this.emptyCollection);
-		this.setS.put(this.topElement, new ArraySet());
+		this.setS.put(this.topElement,
+				Collections.synchronizedCollection(new ArraySet()));
 		this.equivToBottom.add(this.bottomElement);
 	}
 
@@ -94,7 +95,8 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	public boolean add(int vertex) {
 		boolean ret = false;
 		if (!this.setS.containsKey(vertex)) {
-			this.setS.put(vertex, new ArraySet());
+			this.setS.put(vertex,
+					Collections.synchronizedCollection(new ArraySet()));
 			ret = true;
 		}
 		return ret;
@@ -218,7 +220,8 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 		keySet.addAll(this.setS.keySet());
 		for (Integer key : keySet) {
 			if (collection.contains(key)) {
-				Collection<Integer> value = new ArraySet();
+				Collection<Integer> value = Collections
+						.synchronizedCollection(new ArraySet());
 				for (Integer elem : getSubsumers(key)) {
 					if (collection.contains(elem)) {
 						value.add(elem);

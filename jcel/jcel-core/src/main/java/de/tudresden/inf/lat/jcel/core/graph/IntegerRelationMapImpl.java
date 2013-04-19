@@ -48,10 +48,10 @@ package de.tudresden.inf.lat.jcel.core.graph;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class implements a map of binary relations.
@@ -60,9 +60,9 @@ import java.util.Set;
  */
 public class IntegerRelationMapImpl implements IntegerRelationMap {
 
-	private Map<Integer, IntegerBinaryRelationImpl> relationMap = new HashMap<Integer, IntegerBinaryRelationImpl>();
-	private Map<Integer, Collection<Integer>> relationSetByFirst = new HashMap<Integer, Collection<Integer>>();
-	private Map<Integer, Collection<Integer>> relationSetBySecond = new HashMap<Integer, Collection<Integer>>();
+	private Map<Integer, IntegerBinaryRelationImpl> relationMap = new ConcurrentHashMap<Integer, IntegerBinaryRelationImpl>();
+	private Map<Integer, Collection<Integer>> relationSetByFirst = new ConcurrentHashMap<Integer, Collection<Integer>>();
+	private Map<Integer, Collection<Integer>> relationSetBySecond = new ConcurrentHashMap<Integer, Collection<Integer>>();
 
 	/**
 	 * Constructs an empty map of binary relations.
