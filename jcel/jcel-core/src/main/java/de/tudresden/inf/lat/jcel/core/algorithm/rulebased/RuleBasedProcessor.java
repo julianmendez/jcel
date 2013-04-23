@@ -54,6 +54,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -82,10 +83,44 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
  */
 public class RuleBasedProcessor implements Processor {
 
+	private class WorkerThreadR extends Thread {
+		@Override
+		public void run() {
+			while (status.getNumberOfREntries() > 0) {
+				while (status.getNumberOfREntries() > 0) {
+					processREntries();
+				}
+				try {
+					Thread.sleep(threadWaitingTime);
+				} catch (InterruptedException e) {
+					throw new IllegalStateException(e);
+				}
+			}
+		}
+	}
+
+	private class WorkerThreadS extends Thread {
+		@Override
+		public void run() {
+			while (status.getNumberOfSEntries() > 0) {
+				while (status.getNumberOfSEntries() > 0) {
+					processSEntries();
+				}
+				try {
+					Thread.sleep(threadWaitingTime);
+				} catch (InterruptedException e) {
+					throw new IllegalStateException(e);
+				}
+			}
+		}
+	}
+
 	private static final Logger logger = Logger
 			.getLogger(RuleBasedProcessor.class.getName());
 
 	private static final long loggingFrequency = 0x1000000;
+	private static final int numberOfThreads = 4;
+	private static final long threadWaitingTime = 0x20;
 	private static final Integer topClassId = IntegerEntityManager.topClassId;
 
 	private RChain chainR = null;
@@ -102,9 +137,10 @@ public class RuleBasedProcessor implements Processor {
 	private IntegerHierarchicalGraph objectPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> sameIndividualMap = null;
 	private ClassifierStatusImpl status = null;
-	private Thread threadR = null;
-	private Thread threadS = null;
-	private long threadWaitingTime = 0x20;
+	private WorkerThreadR threadR1 = null;
+	private WorkerThreadR threadR2 = null;
+	private WorkerThreadS threadS1 = null;
+	private WorkerThreadS threadS2 = null;
 
 	/**
 	 * Constructs a new rule-based processor.
@@ -483,7 +519,7 @@ public class RuleBasedProcessor implements Processor {
 		this.classHierarchy = new IntegerHierarchicalGraphImpl(
 				this.status.getClassGraph());
 		this.status.deleteClassGraph();
-	}
+	};
 
 	/**
 	 * The configuration follows the following steps:
@@ -516,7 +552,8 @@ public class RuleBasedProcessor implements Processor {
 
 		int numberOfCores = Runtime.getRuntime().availableProcessors();
 		logger.fine("number of cores : " + numberOfCores);
-		this.multiThreadedMode = numberOfCores > 2;
+		int suggestedNumberOfThreads = (numberOfCores / 2) - 1;
+		this.multiThreadedMode = suggestedNumberOfThreads >= numberOfThreads;
 		if (multiThreadedMode) {
 			logger.fine("running processor on multiple threads.");
 		} else {
@@ -539,13 +576,16 @@ public class RuleBasedProcessor implements Processor {
 			}
 		}
 		return ret;
-	}
+	};
 
 	private boolean processMultiThreaded() {
 		if (!this.isReady) {
-			if (threadS != null && threadR != null
-					&& threadS.getState().equals(Thread.State.TERMINATED)
-					&& threadR.getState().equals(Thread.State.TERMINATED)
+			if (this.threadS1 != null && this.threadS2 != null
+					&& this.threadR1 != null && this.threadR2 != null
+					&& this.threadS1.getState().equals(Thread.State.TERMINATED)
+					&& this.threadS2.getState().equals(Thread.State.TERMINATED)
+					&& this.threadR1.getState().equals(Thread.State.TERMINATED)
+					&& this.threadR2.getState().equals(Thread.State.TERMINATED)
 					&& this.status.getNumberOfSEntries() == 0
 					&& this.status.getNumberOfREntries() == 0) {
 
@@ -555,57 +595,55 @@ public class RuleBasedProcessor implements Processor {
 				this.isReady = true;
 			} else {
 
-				if (threadS == null
-						|| (threadS != null && threadS.getState().equals(
-								Thread.State.TERMINATED))) {
-					threadS = new Thread() {
-						@Override
-						public void run() {
-							while (status.getNumberOfSEntries() > 0) {
-								while (status.getNumberOfSEntries() > 0) {
-									processSEntries();
-								}
-								try {
-									Thread.sleep(threadWaitingTime);
-								} catch (InterruptedException e) {
-									throw new IllegalStateException(e);
-								}
-							}
-						}
-					};
-					threadS.start();
+				if (this.threadS1 == null
+						|| (this.threadS1 != null && this.threadS1.getState()
+								.equals(Thread.State.TERMINATED))) {
+					this.threadS1 = new WorkerThreadS();
+					this.threadS1.start();
+					logger.finest("starting new thread S-1 ...");
 				}
 
-				if (threadR == null
-						|| (threadR != null && threadR.getState().equals(
-								Thread.State.TERMINATED))) {
-					threadR = new Thread() {
-						@Override
-						public void run() {
-							while (status.getNumberOfREntries() > 0) {
-								while (status.getNumberOfREntries() > 0) {
-									processREntries();
-								}
-								try {
-									Thread.sleep(threadWaitingTime);
-								} catch (InterruptedException e) {
-									throw new IllegalStateException(e);
-								}
-							}
-						}
-					};
-					threadR.start();
+				if (this.threadS2 == null
+						|| (this.threadS2 != null && this.threadS2.getState()
+								.equals(Thread.State.TERMINATED))) {
+					this.threadS2 = new WorkerThreadS();
+					this.threadS2.start();
+					logger.finest("starting new thread S-2 ...");
+				}
+
+				if (this.threadR1 == null
+						|| (this.threadR1 != null && this.threadR1.getState()
+								.equals(Thread.State.TERMINATED))) {
+					this.threadR1 = new WorkerThreadR();
+					this.threadR1.start();
+					logger.finest("starting new thread R-1 ...");
+				}
+
+				if (this.threadR2 == null
+						|| (this.threadR2 != null && this.threadR2.getState()
+								.equals(Thread.State.TERMINATED))) {
+					this.threadR2 = new WorkerThreadR();
+					this.threadR2.start();
+					logger.finest("starting new thread R-2 ...");
 				}
 
 				try {
-					if (status.getNumberOfREntries() < status
+					if (this.status.getNumberOfREntries() < this.status
 							.getNumberOfSEntries()) {
-						threadR.join();
+						if (this.iteration % 2 == 0) {
+							this.threadR1.join();
+						} else {
+							this.threadR2.join();
+						}
 					} else {
-						threadS.join();
+						if (this.iteration % 2 == 0) {
+							this.threadS1.join();
+						} else {
+							this.threadS2.join();
+						}
 					}
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					throw new IllegalStateException(e);
 				}
 			}
 		}
@@ -653,8 +691,12 @@ public class RuleBasedProcessor implements Processor {
 
 	private boolean processREntries() {
 		boolean ret = false;
-		if (status.getNumberOfREntries() > 0) {
-			REntry entry = status.removeNextREntry();
+		REntry entry = null;
+		try {
+			entry = status.removeNextREntry();
+		} catch (NoSuchElementException e) {
+		}
+		if (entry != null) {
 			ret = true;
 			int property = entry.getProperty();
 			int leftClass = entry.getLeftClass();
@@ -671,8 +713,12 @@ public class RuleBasedProcessor implements Processor {
 
 	private boolean processSEntries() {
 		boolean ret = false;
-		if (status.getNumberOfSEntries() > 0) {
-			SEntry entry = status.removeNextSEntry();
+		SEntry entry = null;
+		try {
+			entry = status.removeNextSEntry();
+		} catch (NoSuchElementException e) {
+		}
+		if (entry != null) {
 			ret = true;
 			int subClass = entry.getSubClass();
 			int superClass = entry.getSuperClass();
