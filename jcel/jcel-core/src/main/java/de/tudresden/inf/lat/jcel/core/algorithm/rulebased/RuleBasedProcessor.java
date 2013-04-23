@@ -104,6 +104,7 @@ public class RuleBasedProcessor implements Processor {
 	private ClassifierStatusImpl status = null;
 	private Thread threadR = null;
 	private Thread threadS = null;
+	private long threadWaitingTime = 0x20;
 
 	/**
 	 * Constructs a new rule-based processor.
@@ -561,7 +562,14 @@ public class RuleBasedProcessor implements Processor {
 						@Override
 						public void run() {
 							while (status.getNumberOfSEntries() > 0) {
-								processSEntries();
+								while (status.getNumberOfSEntries() > 0) {
+									processSEntries();
+								}
+								try {
+									Thread.sleep(threadWaitingTime);
+								} catch (InterruptedException e) {
+									throw new IllegalStateException(e);
+								}
 							}
 						}
 					};
@@ -575,7 +583,14 @@ public class RuleBasedProcessor implements Processor {
 						@Override
 						public void run() {
 							while (status.getNumberOfREntries() > 0) {
-								processREntries();
+								while (status.getNumberOfREntries() > 0) {
+									processREntries();
+								}
+								try {
+									Thread.sleep(threadWaitingTime);
+								} catch (InterruptedException e) {
+									throw new IllegalStateException(e);
+								}
 							}
 						}
 					};
