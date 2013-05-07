@@ -119,7 +119,6 @@ public class RuleBasedProcessor implements Processor {
 			.getLogger(RuleBasedProcessor.class.getName());
 
 	private static final long loggingFrequency = 0x1000000;
-	private static final int numberOfThreads = 4;
 	private static final long threadWaitingTime = 0x20;
 	private static final Integer topClassId = IntegerEntityManager.topClassId;
 
@@ -552,8 +551,11 @@ public class RuleBasedProcessor implements Processor {
 
 		int numberOfCores = Runtime.getRuntime().availableProcessors();
 		logger.fine("number of cores : " + numberOfCores);
-		int suggestedNumberOfThreads = (numberOfCores / 2) - 1;
-		this.multiThreadedMode = suggestedNumberOfThreads >= numberOfThreads;
+
+		// uncomment the following two lines to allow multithreaded mode
+		// int suggestedNumberOfThreads = (numberOfCores / 2) - 1;
+		// this.multiThreadedMode = suggestedNumberOfThreads >= 4;
+
 		if (multiThreadedMode) {
 			logger.fine("running processor on multiple threads.");
 		} else {
