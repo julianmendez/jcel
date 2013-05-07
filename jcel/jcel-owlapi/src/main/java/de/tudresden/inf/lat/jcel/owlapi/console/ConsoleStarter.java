@@ -51,8 +51,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -75,8 +74,15 @@ import de.tudresden.inf.lat.jcel.reasoner.main.VersionInfo;
  */
 public class ConsoleStarter {
 
-	public static final String cmdClassHierarchy = "classhierarchy";
+	public enum Mode {
+		CLASSIFICATION, CONSISTENCY, ENTAILMENT, NOTHING, QUERY, SAT
+	}
+
+	public static final String cmdClassification = "classification";
+	public static final String cmdConsistency = "consistency";
 	public static final String cmdEntailment = "entailment";
+	public static final String cmdQuery = "query";
+	public static final String cmdSat = "sat";
 
 	public static final String licenseInfo = ""
 			+ "Copyright (C) 2009-2013 Julian Mendez"
@@ -88,11 +94,8 @@ public class ConsoleStarter {
 			+ "\n";
 
 	private static final Logger logger = Logger
-			.getLogger("de.tudresden.inf.lat.jcel");
+			.getLogger("de.tudresden.inf.lat.jcel");;
 
-	public static final int modeClassHierarchy = 1;
-	public static final int modeEntailment = 2;
-	public static final int modeNothing = 0;
 	public static final String optConclusion = "--conclusion=";
 	public static final String optHelp = "--help";
 	public static final String optLogLevel = "--loglevel=";
@@ -124,20 +127,18 @@ public class ConsoleStarter {
 	}
 
 	/** A very small help about how to start a new instance. */
-	private String minihelp = "\nusage: java -jar jcel.jar [COMMAND] [OPTION]..."
-			+ "\n\n\nthe available commands are:" + "\n   "
-			+ cmdClassHierarchy
+	private String minihelp = "\nusage: java -jar jcel.jar <Operation> <OntologyFile> <Output> [Options]..."
+			+ "\n\n\n<Operation>:" + "\n   "
+			+ cmdClassification
 			+ "            compute the class hierarchy and the object property hierarchy of the given ontology"
 			+ "\n   "
 			+ cmdEntailment
 			+ "                determine whether the given ontology entails the given conclusion"
+			+ "\n\n"
+			+ "<OntologyFile>               ontology to be classified (or premise ontology)"
+			+ "\n\n"
+			+ "<Output>                     output with the inferred data"
 			+ "\n\n\nthe available options are:"
-			+ "\n   "
-			+ optOntology
-			+ "FILE           ontology to be classified (or premise ontology)"
-			+ "\n   "
-			+ optOutput
-			+ "FILE             output with the inferred data"
 			+ "\n   "
 			+ optConclusion
 			+ "FILE         conclusion ontology"
@@ -247,69 +248,76 @@ public class ConsoleStarter {
 		logger.fine("jcel console finished.");
 	}
 
+	public Mode parseMode(String argument) {
+		Mode mode = Mode.NOTHING;
+		if (argument.equals(cmdClassification)) {
+			mode = Mode.CLASSIFICATION;
+		} else if (argument.equals(cmdConsistency)) {
+			mode = Mode.CONSISTENCY;
+		} else if (argument.equals(cmdSat)) {
+			mode = Mode.SAT;
+		} else if (argument.equals(cmdQuery)) {
+			mode = Mode.QUERY;
+		} else if (argument.equals(cmdEntailment)) {
+			mode = Mode.ENTAILMENT;
+		} else {
+			throw new IllegalArgumentException("Unrecognized mode: '"
+					+ argument + "'");
+		}
+		return mode;
+	}
+
 	public void start(String[] args) throws OWLRendererException,
 			OWLOntologyCreationException, SecurityException, IOException {
 
 		if (args.length == 0) {
 			System.out.println(minihelp);
 		} else {
-			Set<String> arguments = toSet(args);
+			List<String> arguments = Arrays.asList(args);
 			if (arguments.contains(optHelp)) {
 				System.out.println(minihelp);
 			} else if (arguments.contains(optVersion)) {
 				System.out.println(versionInfo);
 				System.out.println(licenseInfo);
-			} else {
+			} else if (arguments.size() >= 3) {
 
-				File ontologyFile = null;
-				File outputFile = null;
+				Mode mode = parseMode(arguments.get(0));
+				File ontologyFile = new File(arguments.get(1));
+				File outputFile = new File(arguments.get(2));
+
 				File conclusionFile = null;
 				Level logLevel = Level.OFF;
-				int mode = modeClassHierarchy;
 
 				for (String argument : arguments) {
-					if (argument.startsWith(optOntology)) {
-						ontologyFile = new File(argument.substring(optOntology
-								.length()));
-					} else if (argument.startsWith(optOutput)) {
-						outputFile = new File(argument.substring(optOutput
-								.length()));
-					} else if (argument.startsWith(optConclusion)) {
+					if (argument.startsWith(optConclusion)) {
 						conclusionFile = new File(
 								argument.substring(optConclusion.length()));
 					} else if (argument.startsWith(optLogLevel)) {
 						logLevel = Level.parse(argument.substring(optLogLevel
 								.length()));
-					} else if (argument.equals(cmdClassHierarchy)) {
-						mode = modeClassHierarchy;
-					} else if (argument.equals(cmdEntailment)) {
-						mode = modeEntailment;
-					} else {
-						throw new IllegalArgumentException(
-								"Unrecognized option: '" + argument + "'");
 					}
 				}
 
 				logger.setLevel(logLevel);
 				logger.addHandler(new OutputStreamHandler(System.out));
 
-				if (mode == modeClassHierarchy) {
-					if (ontologyFile == null) {
-						throw new IllegalArgumentException(
-								"No input file has been defined.");
-					}
-					if (outputFile == null) {
-						throw new IllegalArgumentException(
-								"No output file has been defined.");
-					}
+				if (mode == Mode.CLASSIFICATION) {
 
 					computeHierarchy(ontologyFile, outputFile);
 
-				} else if (mode == modeEntailment) {
-					if (ontologyFile == null) {
-						throw new IllegalArgumentException(
-								"No input file has been defined.");
-					}
+				} else if (mode == Mode.SAT) {
+					throw new UnsupportedOperationException(
+							"Operation is not supported yet.");
+
+				} else if (mode == Mode.CONSISTENCY) {
+					throw new UnsupportedOperationException(
+							"Operation is not supported yet.");
+
+				} else if (mode == Mode.QUERY) {
+					throw new UnsupportedOperationException(
+							"Operation is not supported yet.");
+
+				} else if (mode == Mode.ENTAILMENT) {
 					if (conclusionFile == null) {
 						throw new IllegalArgumentException(
 								"No conclusion file has been defined.");
@@ -319,14 +327,11 @@ public class ConsoleStarter {
 							conclusionFile));
 
 				}
+			} else {
+				System.out.println(minihelp);
 			}
-		}
-	}
 
-	private Set<String> toSet(String[] args) {
-		Set<String> ret = new HashSet<String>();
-		ret.addAll(Arrays.asList(args));
-		return ret;
+		}
 	}
 
 }
