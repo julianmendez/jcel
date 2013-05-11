@@ -132,8 +132,14 @@ public class ConsoleStarter {
 	}
 
 	/** A very small help about how to start a new instance. */
-	private String minihelp = "\nusage: java -jar jcel.jar <Operation> <OntologyFile> <Output> [Options]..."
+	private String minihelp = "\nusage: java -jar jcel.jar <Operation> <OntologyFile> <Output> [<ClassURI>] [Options]..."
 			+ "\n\n\n<Operation>:" + "\n   "
+			+ cmdConsistency
+			+ "               determine whether the given ontology is consistent"
+			+ "\n   "
+			+ cmdSat
+			+ "                       determine whether the given class (<ClassURI>) is satisfiable with respect to the given ontology"
+			+ "\n   "
 			+ cmdClassification
 			+ "            compute the class hierarchy and the object property hierarchy of the given ontology"
 			+ "\n   "
@@ -143,6 +149,10 @@ public class ConsoleStarter {
 			+ "<OntologyFile>               ontology to be classified (or premise ontology)"
 			+ "\n\n"
 			+ "<Output>                     output with the inferred data"
+			+ "\n\n"
+			+ "<ClassURI>                   (only for "
+			+ cmdSat
+			+ ") URI of the class to check satisfiability"
 			+ "\n\n\nthe available options are:"
 			+ "\n   "
 			+ optConclusion
