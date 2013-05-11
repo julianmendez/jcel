@@ -46,9 +46,11 @@
 
 package de.tudresden.inf.lat.jcel.owlapi.console;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -58,6 +60,7 @@ import java.util.logging.Logger;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -156,6 +159,52 @@ public class ConsoleStarter {
 	}
 
 	/**
+	 * Checks the consistency of a given ontology.
+	 * 
+	 * @param ontologyFile
+	 *            ontology file to be checked
+	 * @throws OWLOntologyCreationException
+	 */
+	public boolean checkConsistency(File ontologyFile)
+			throws OWLOntologyCreationException {
+		if (ontologyFile == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		JcelReasoner reasoner = createReasoner(ontologyFile);
+		OWLDataFactory dataFactory = reasoner.getRootOntology()
+				.getOWLOntologyManager().getOWLDataFactory();
+		boolean ret = !reasoner.getEquivalentClasses(dataFactory.getOWLThing())
+				.contains(dataFactory.getOWLNothing());
+		return ret;
+	}
+
+	/**
+	 * Checks the consistency of a given ontology and stores the result in a
+	 * file.
+	 * 
+	 * @param ontologyFile
+	 *            ontology file to be checked
+	 * @param outputFile
+	 *            output file
+	 * @throws OWLOntologyCreationException
+	 * @throws IOException
+	 */
+	public void checkConsistency(File ontologyFile, File outputFile)
+			throws OWLOntologyCreationException, IOException {
+		if (ontologyFile == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		boolean ret = checkConsistency(ontologyFile);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+		writer.write("" + ret);
+		writer.newLine();
+		writer.flush();
+		writer.close();
+	}
+
+	/**
 	 * Classifies a given ontology and checks whether another ontology is
 	 * entailed by the former.
 	 * 
@@ -215,15 +264,40 @@ public class ConsoleStarter {
 	 * @throws FileNotFoundException
 	 * @throws OWLOntologyCreationException
 	 * @throws OWLRendererException
-	 * @throws SecurityException
 	 */
-	public void computeHierarchy(File ontologyFile, File inferredFile)
+	public void computeClassification(File ontologyFile, File inferredFile)
 			throws OWLOntologyCreationException, OWLRendererException,
-			SecurityException, FileNotFoundException {
+			FileNotFoundException {
 		if (ontologyFile == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 		if (inferredFile == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		JcelReasoner reasoner = createReasoner(ontologyFile);
+
+		logger.fine("precomputing inferences ...");
+		reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
+
+		logger.fine("generating output ...");
+		OWLReasonerXMLOutput xmlDoc = new OWLReasonerXMLOutput(reasoner);
+		xmlDoc.toXML(new FileOutputStream(inferredFile));
+
+		logger.fine("jcel console finished.");
+	}
+
+	/**
+	 * Creates an instance of jcel reasoner using the given ontology file.
+	 * 
+	 * @param ontologyFile
+	 *            ontology file
+	 * @return an instance of jcel reasoner
+	 * @throws OWLOntologyCreationException
+	 */
+	public JcelReasoner createReasoner(File ontologyFile)
+			throws OWLOntologyCreationException {
+		if (ontologyFile == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
@@ -236,16 +310,12 @@ public class ConsoleStarter {
 				.loadOntologyFromOntologyDocument(ontologyFile);
 
 		logger.fine("starting reasoner ...");
-		JcelReasoner reasoner = new JcelReasoner(ontology, false);
+		JcelReasoner ret = new JcelReasoner(ontology, false);
 
 		logger.fine("precomputing inferences ...");
-		reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
+		ret.precomputeInferences(InferenceType.CLASS_HIERARCHY);
 
-		logger.fine("generating output ...");
-		OWLReasonerXMLOutput xmlDoc = new OWLReasonerXMLOutput(reasoner);
-		xmlDoc.toXML(new FileOutputStream(inferredFile));
-
-		logger.fine("jcel console finished.");
+		return ret;
 	}
 
 	public Mode parseMode(String argument) {
@@ -303,15 +373,15 @@ public class ConsoleStarter {
 
 				if (mode == Mode.CLASSIFICATION) {
 
-					computeHierarchy(ontologyFile, outputFile);
+					computeClassification(ontologyFile, outputFile);
 
 				} else if (mode == Mode.SAT) {
 					throw new UnsupportedOperationException(
 							"Operation is not supported yet.");
 
 				} else if (mode == Mode.CONSISTENCY) {
-					throw new UnsupportedOperationException(
-							"Operation is not supported yet.");
+
+					checkConsistency(ontologyFile, outputFile);
 
 				} else if (mode == Mode.QUERY) {
 					throw new UnsupportedOperationException(
