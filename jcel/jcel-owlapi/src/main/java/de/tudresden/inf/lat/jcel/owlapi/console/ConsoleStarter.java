@@ -59,6 +59,7 @@ import java.util.logging.Logger;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLRendererException;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -180,31 +181,6 @@ public class ConsoleStarter {
 	}
 
 	/**
-	 * Checks the consistency of a given ontology and stores the result in a
-	 * file.
-	 * 
-	 * @param ontologyFile
-	 *            ontology file to be checked
-	 * @param outputFile
-	 *            output file
-	 * @throws OWLOntologyCreationException
-	 * @throws IOException
-	 */
-	public void checkConsistency(File ontologyFile, File outputFile)
-			throws OWLOntologyCreationException, IOException {
-		if (ontologyFile == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		boolean ret = checkConsistency(ontologyFile);
-		BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
-		writer.write("" + ret);
-		writer.newLine();
-		writer.flush();
-		writer.close();
-	}
-
-	/**
 	 * Classifies a given ontology and checks whether another ontology is
 	 * entailed by the former.
 	 * 
@@ -250,6 +226,33 @@ public class ConsoleStarter {
 		}
 
 		logger.fine("jcel console finished.");
+		return ret;
+	}
+
+	/**
+	 * Checks satisfiability of a given concept with respect to an ontology.
+	 * 
+	 * @param ontologyFile
+	 *            ontology file to be checked
+	 * @param conceptIRI
+	 *            concept IRI
+	 * @throws OWLOntologyCreationException
+	 */
+	public boolean checkSatisfiability(File ontologyFile, IRI conceptIRI)
+			throws OWLOntologyCreationException {
+		if (ontologyFile == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (conceptIRI == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		JcelReasoner reasoner = createReasoner(ontologyFile);
+		OWLDataFactory dataFactory = reasoner.getRootOntology()
+				.getOWLOntologyManager().getOWLDataFactory();
+		boolean ret = !reasoner.getEquivalentClasses(
+				dataFactory.getOWLClass(conceptIRI)).contains(
+				dataFactory.getOWLNothing());
 		return ret;
 	}
 
@@ -354,6 +357,10 @@ public class ConsoleStarter {
 				Mode mode = parseMode(arguments.get(0));
 				File ontologyFile = new File(arguments.get(1));
 				File outputFile = new File(arguments.get(2));
+				IRI conceptIRI = null;
+				if (mode.equals(Mode.SAT)) {
+					conceptIRI = IRI.create(arguments.get(3));
+				}
 
 				File conclusionFile = null;
 				Level logLevel = Level.OFF;
@@ -376,12 +383,14 @@ public class ConsoleStarter {
 					computeClassification(ontologyFile, outputFile);
 
 				} else if (mode == Mode.SAT) {
-					throw new UnsupportedOperationException(
-							"Operation is not supported yet.");
+
+					storeInFile("" + conceptIRI.getFragment() + ", "
+							+ checkSatisfiability(ontologyFile, conceptIRI),
+							outputFile);
 
 				} else if (mode == Mode.CONSISTENCY) {
 
-					checkConsistency(ontologyFile, outputFile);
+					storeInFile("" + checkConsistency(ontologyFile), outputFile);
 
 				} else if (mode == Mode.QUERY) {
 					throw new UnsupportedOperationException(
@@ -393,8 +402,9 @@ public class ConsoleStarter {
 								"No conclusion file has been defined.");
 					}
 
-					System.out.println(checkEntailment(ontologyFile,
-							conclusionFile));
+					storeInFile(
+							"" + checkEntailment(ontologyFile, conclusionFile),
+							outputFile);
 
 				}
 			} else {
@@ -402,6 +412,14 @@ public class ConsoleStarter {
 			}
 
 		}
+	}
+
+	private void storeInFile(String output, File outputFile) throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+		writer.write(output);
+		writer.newLine();
+		writer.flush();
+		writer.close();
 	}
 
 }
