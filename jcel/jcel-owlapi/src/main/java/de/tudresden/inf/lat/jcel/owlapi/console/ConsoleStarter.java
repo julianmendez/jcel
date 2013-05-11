@@ -57,6 +57,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxRenderer;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.IRI;
@@ -284,8 +285,11 @@ public class ConsoleStarter {
 		reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
 
 		logger.fine("generating output ...");
-		OWLReasonerXMLOutput xmlDoc = new OWLReasonerXMLOutput(reasoner);
-		xmlDoc.toXML(new FileOutputStream(inferredFile));
+		OWLInferredOntologyWrapper inferredOntology = new OWLInferredOntologyWrapper(
+				reasoner);
+		OWLFunctionalSyntaxRenderer renderer = new OWLFunctionalSyntaxRenderer();
+		renderer.render(inferredOntology.getOWLOntology(),
+				new FileOutputStream(inferredFile));
 
 		logger.fine("jcel console finished.");
 	}
