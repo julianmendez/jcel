@@ -103,13 +103,13 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	private static final Logger logger = Logger.getLogger(JcelReasoner.class
 			.getName());
 
-	private boolean buffering = false;
+	private final boolean buffering = false;
 	private RuleBasedReasoner jcelCore;
 	private final OWLOntologyChangeVisitorEx<Boolean> ontologyChangeVisitor = new JcelOntologyChangeVisitorEx(
 			this);
-	private Set<OWLAxiom> pendingAxiomAdditions = new HashSet<OWLAxiom>();
-	private Set<OWLAxiom> pendingAxiomRemovals = new HashSet<OWLAxiom>();
-	private List<OWLOntologyChange> pendingChanges = new ArrayList<OWLOntologyChange>();
+	private final Set<OWLAxiom> pendingAxiomAdditions = new HashSet<OWLAxiom>();
+	private final Set<OWLAxiom> pendingAxiomRemovals = new HashSet<OWLAxiom>();
+	private final List<OWLOntologyChange> pendingChanges = new ArrayList<OWLOntologyChange>();
 	private OWLReasonerConfiguration reasonerConfiguration = null;
 	private final OWLOntology rootOntology;
 	private final Date start = new Date();

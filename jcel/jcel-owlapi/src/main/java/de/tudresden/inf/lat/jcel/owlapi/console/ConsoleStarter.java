@@ -132,7 +132,7 @@ public class ConsoleStarter {
 	}
 
 	/** A very small help about how to start a new instance. */
-	private String minihelp = "\nusage: java -jar jcel.jar <Operation> <OntologyFile> <Output> [<ClassURI>] [Options]..."
+	private final String minihelp = "\nusage: java -jar jcel.jar <Operation> <OntologyFile> <Output> [<ClassURI>] [Options]..."
 			+ "\n\n\n<Operation>:" + "\n   "
 			+ cmdConsistency
 			+ "               determine whether the given ontology is consistent"
