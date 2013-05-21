@@ -66,10 +66,10 @@ import java.util.TreeSet;
 public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 	private final Integer bottomElement;
-	private Map<Integer, Set<Integer>> children = new TreeMap<Integer, Set<Integer>>();
-	private Map<Integer, Set<Integer>> equivalents = new TreeMap<Integer, Set<Integer>>();
-	private Map<Integer, Set<Integer>> parents = new TreeMap<Integer, Set<Integer>>();
-	private Map<Integer, Integer> representative = new TreeMap<Integer, Integer>();
+	private final Map<Integer, Set<Integer>> children = new TreeMap<Integer, Set<Integer>>();
+	private final Map<Integer, Set<Integer>> equivalents = new TreeMap<Integer, Set<Integer>>();
+	private final Map<Integer, Set<Integer>> parents = new TreeMap<Integer, Set<Integer>>();
+	private final Map<Integer, Integer> representative = new TreeMap<Integer, Integer>();
 	private final Integer topElement;
 
 	/**

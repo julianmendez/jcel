@@ -76,10 +76,10 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
 public class CelExtendedOntology implements
 		NormalizedIntegerAxiomVisitor<Boolean> {
 
-	private Map<Integer, Set<ExtensionEntry>> ohatOfClass = new HashMap<Integer, Set<ExtensionEntry>>();
-	private Map<Integer, Map<Integer, Set<ExtensionEntry>>> ohatOfExistential = new HashMap<Integer, Map<Integer, Set<ExtensionEntry>>>();
-	private Map<Integer, Set<RI3Axiom>> subPropertyAxiomSetByLeft = new HashMap<Integer, Set<RI3Axiom>>();
-	private Map<Integer, Set<RI3Axiom>> subPropertyAxiomSetByRight = new HashMap<Integer, Set<RI3Axiom>>();
+	private final Map<Integer, Set<ExtensionEntry>> ohatOfClass = new HashMap<Integer, Set<ExtensionEntry>>();
+	private final Map<Integer, Map<Integer, Set<ExtensionEntry>>> ohatOfExistential = new HashMap<Integer, Map<Integer, Set<ExtensionEntry>>>();
+	private final Map<Integer, Set<RI3Axiom>> subPropertyAxiomSetByLeft = new HashMap<Integer, Set<RI3Axiom>>();
+	private final Map<Integer, Set<RI3Axiom>> subPropertyAxiomSetByRight = new HashMap<Integer, Set<RI3Axiom>>();
 
 	/**
 	 * Constructs a new CEL extended ontology.

@@ -70,10 +70,10 @@ class NormalizedIntegerAxiomAnalyzer implements
 		NormalizedIntegerAxiomVisitor<Boolean>, OntologyExpressivity {
 
 	private boolean hasBottom = false;
-	private boolean hasDatatype = false;
+	private final boolean hasDatatype = false;
 	private boolean hasFunctionalObjectProperty = false;
-	private boolean hasIndividual = false;
-	private boolean hasInverseObjectProperty = false;
+	private final boolean hasIndividual = false;
+	private final boolean hasInverseObjectProperty = false;
 	private boolean hasNominal = false;
 	private boolean hasReflexiveObjectProperty = false;
 	private boolean hasSubObjectPropertyOf = false;

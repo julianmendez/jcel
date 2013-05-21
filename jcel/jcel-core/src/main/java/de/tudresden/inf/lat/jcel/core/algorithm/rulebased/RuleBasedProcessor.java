@@ -132,7 +132,7 @@ public class RuleBasedProcessor implements Processor {
 	private boolean isReady = false;
 	private long iteration = 0;
 	private long loggingCount = loggingFrequency;
-	private boolean multiThreadedMode = false;
+	private final boolean multiThreadedMode = false;
 	private IntegerHierarchicalGraph objectPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> sameIndividualMap = null;
 	private ClassifierStatusImpl status = null;

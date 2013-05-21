@@ -102,6 +102,7 @@ public class SubPropertyNormalizer implements SaturationRule {
 	 *            set of normalized axioms to be saturated
 	 * @return the saturated set of normalized axioms
 	 */
+	@Override
 	public Set<NormalizedIntegerAxiom> apply(
 			Set<NormalizedIntegerAxiom> originalSet) {
 		if (originalSet == null) {

@@ -65,7 +65,7 @@ public class ObjectPropertyIdFinder implements
 		IntegerObjectPropertyExpressionVisitor<Integer> {
 
 	private final IntegerEntityManager idGenerator;
-	private Set<NormalizedIntegerAxiom> requiredAxioms = new HashSet<NormalizedIntegerAxiom>();
+	private final Set<NormalizedIntegerAxiom> requiredAxioms = new HashSet<NormalizedIntegerAxiom>();
 
 	/**
 	 * Constructs a new normalizer for inverse object properties. During the

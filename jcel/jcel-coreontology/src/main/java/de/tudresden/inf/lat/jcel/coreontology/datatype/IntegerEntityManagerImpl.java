@@ -63,16 +63,16 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	public static final String anonymousEntity = "AnonymousEntity";
 	public static final String auxiliaryEntity = "AuxiliaryEntity";
 
-	private Map<IntegerEntityType, Set<Integer>> auxEntityMap = new HashMap<IntegerEntityType, Set<Integer>>();
-	private Set<Integer> auxEntitySet = new HashSet<Integer>();
-	private Set<Integer> auxInverseObjectPropertySet = new HashSet<Integer>();
-	private Map<Integer, Integer> auxNominalInvMap = new HashMap<Integer, Integer>();
-	private Map<Integer, Integer> auxNominalMap = new HashMap<Integer, Integer>();
+	private final Map<IntegerEntityType, Set<Integer>> auxEntityMap = new HashMap<IntegerEntityType, Set<Integer>>();
+	private final Set<Integer> auxEntitySet = new HashSet<Integer>();
+	private final Set<Integer> auxInverseObjectPropertySet = new HashSet<Integer>();
+	private final Map<Integer, Integer> auxNominalInvMap = new HashMap<Integer, Integer>();
+	private final Map<Integer, Integer> auxNominalMap = new HashMap<Integer, Integer>();
 	private int entityCounter = firstUsableIdentifier;
-	private Map<Integer, IntegerEntityType> entityTypeMap = new HashMap<Integer, IntegerEntityType>();
-	private Map<Integer, Integer> inverseObjectPropertyMap = new HashMap<Integer, Integer>();
-	private Map<Integer, String> nameMap = new HashMap<Integer, String>();
-	private Map<IntegerEntityType, Set<Integer>> nonAuxEntityMap = new HashMap<IntegerEntityType, Set<Integer>>();
+	private final Map<Integer, IntegerEntityType> entityTypeMap = new HashMap<Integer, IntegerEntityType>();
+	private final Map<Integer, Integer> inverseObjectPropertyMap = new HashMap<Integer, Integer>();
+	private final Map<Integer, String> nameMap = new HashMap<Integer, String>();
+	private final Map<IntegerEntityType, Set<Integer>> nonAuxEntityMap = new HashMap<IntegerEntityType, Set<Integer>>();
 
 	/**
 	 * Constructs a new identifier generator.

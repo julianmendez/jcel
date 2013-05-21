@@ -60,7 +60,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
 public class NormalizedAxiomExpressivityDetector implements
 		OntologyExpressivity {
 
-	private NormalizedIntegerAxiomAnalyzer axiomAnalyzer = new NormalizedIntegerAxiomAnalyzer();
+	private final NormalizedIntegerAxiomAnalyzer axiomAnalyzer = new NormalizedIntegerAxiomAnalyzer();
 	private final String name;
 
 	/**

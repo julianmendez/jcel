@@ -104,19 +104,19 @@ public class CelProcessor implements Processor {
 	private static final Integer topClassId = IntegerEntityManager.topClassId;
 	private static final Integer topObjectPropertyId = IntegerEntityManager.topObjectPropertyId;
 
-	private NormalizedIntegerAxiomFactory axiomFactory;
+	private final NormalizedIntegerAxiomFactory axiomFactory;
 	private IntegerSubsumerGraphImpl classGraph = null;
 	private IntegerHierarchicalGraph classHierarchy = null;
 	private IntegerHierarchicalGraph dataPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> directTypes = null;
-	private IntegerEntityManager entityManager;
+	private final IntegerEntityManager entityManager;
 	private CelExtendedOntology extendedOntology = null;
 	private boolean isReady = false;
 	private IntegerSubsumerGraphImpl objectPropertyGraph = null;
 	private IntegerHierarchicalGraph objectPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> propertyUsedByClass = null;
-	private Deque<ExtensionEntry> queueEntries = new ArrayDeque<ExtensionEntry>();
-	private Deque<Integer> queueKeys = new ArrayDeque<Integer>();
+	private final Deque<ExtensionEntry> queueEntries = new ArrayDeque<ExtensionEntry>();
+	private final Deque<Integer> queueKeys = new ArrayDeque<Integer>();
 	private IntegerRelationMapImpl relationSet = null;
 	private Map<Integer, Set<Integer>> sameIndividualMap = null;
 	private Map<Integer, Set<Integer>> transitiveSubsumed = null;

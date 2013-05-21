@@ -74,7 +74,7 @@ public class TurtleRenderer {
 	private static final String space = " ";
 	private static final String uriDelimiterLeft = "<";
 	private static final String uriDelimiterRight = ">";
-	private Map<String, String> mapOfPrefixes = new TreeMap<String, String>();
+	private final Map<String, String> mapOfPrefixes = new TreeMap<String, String>();
 
 	private final BufferedWriter output;
 

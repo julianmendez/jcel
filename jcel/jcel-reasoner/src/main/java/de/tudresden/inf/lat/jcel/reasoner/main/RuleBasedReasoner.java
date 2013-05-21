@@ -83,15 +83,15 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	private static final Logger logger = Logger
 			.getLogger(RuleBasedReasoner.class.getName());
 
-	private Map<IntegerClassExpression, Integer> auxClassInvMap = new HashMap<IntegerClassExpression, Integer>();
-	private Map<Integer, IntegerClassExpression> auxClassMap = new HashMap<Integer, IntegerClassExpression>();
+	private final Map<IntegerClassExpression, Integer> auxClassInvMap = new HashMap<IntegerClassExpression, Integer>();
+	private final Map<Integer, IntegerClassExpression> auxClassMap = new HashMap<Integer, IntegerClassExpression>();
 	private boolean classified = false;
-	private OntologyEntailmentChecker entailmentChecker = new OntologyEntailmentChecker(
+	private final OntologyEntailmentChecker entailmentChecker = new OntologyEntailmentChecker(
 			this);
 	private final IntegerOntologyObjectFactory factory;
 	private boolean interruptRequested = false;
 	private RuleBasedProcessor processor = null;
-	private long timeOut = 0;
+	private final long timeOut = 0;
 
 	public RuleBasedReasoner(Set<ComplexIntegerAxiom> ontology,
 			IntegerOntologyObjectFactory factory) {

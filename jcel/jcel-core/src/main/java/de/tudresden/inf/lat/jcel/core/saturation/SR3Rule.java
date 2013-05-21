@@ -71,7 +71,8 @@ public class SR3Rule implements SaturationRule {
 	/**
 	 * Constructs a new SR-3 rule.
 	 */
-	public SR3Rule(NormalizedIntegerAxiomFactory factory, IntegerEntityManager generator) {
+	public SR3Rule(NormalizedIntegerAxiomFactory factory,
+			IntegerEntityManager generator) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

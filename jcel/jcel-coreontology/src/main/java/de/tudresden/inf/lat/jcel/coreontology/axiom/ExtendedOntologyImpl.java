@@ -60,23 +60,23 @@ import java.util.Set;
 public class ExtendedOntologyImpl implements ExtendedOntology,
 		NormalizedIntegerAxiomVisitor<Boolean> {
 
-	private Map<Integer, Set<GCI0Axiom>> mapOfGCI0 = new HashMap<Integer, Set<GCI0Axiom>>();
-	private Map<Integer, Set<GCI1Axiom>> mapOfGCI1 = new HashMap<Integer, Set<GCI1Axiom>>();
-	private Map<Integer, Set<GCI2Axiom>> mapOfGCI2 = new HashMap<Integer, Set<GCI2Axiom>>();
-	private Map<Integer, Set<GCI3Axiom>> mapOfGCI3A = new HashMap<Integer, Set<GCI3Axiom>>();
-	private Map<Integer, Set<GCI3Axiom>> mapOfGCI3r = new HashMap<Integer, Set<GCI3Axiom>>();
-	private Map<Integer, Map<Integer, Set<GCI3Axiom>>> mapOfGCI3rA = new HashMap<Integer, Map<Integer, Set<GCI3Axiom>>>();
-	private Map<Integer, Set<NominalAxiom>> mapOfNominalAxiom = new HashMap<Integer, Set<NominalAxiom>>();
-	private Map<Integer, Set<RangeAxiom>> mapOfRangeAxiom = new HashMap<Integer, Set<RangeAxiom>>();
-	private Map<Integer, Set<RI2Axiom>> mapOfRI2r = new HashMap<Integer, Set<RI2Axiom>>();
-	private Map<Integer, Set<RI2Axiom>> mapOfRI2s = new HashMap<Integer, Set<RI2Axiom>>();
-	private Map<Integer, Set<RI3Axiom>> mapOfRI3ByLeft = new HashMap<Integer, Set<RI3Axiom>>();
-	private Map<Integer, Set<RI3Axiom>> mapOfRI3ByRight = new HashMap<Integer, Set<RI3Axiom>>();
-	private Set<Integer> setOfAllObjectProperties = new HashSet<Integer>();
-	private Set<Integer> setOfClasses = new HashSet<Integer>();
-	private Set<Integer> setOfFunctionalObjectProperties = new HashSet<Integer>();
-	private Set<Integer> setOfReflexiveObjectProperties = new HashSet<Integer>();
-	private Set<Integer> setOfTransitiveObjectProperties = new HashSet<Integer>();
+	private final Map<Integer, Set<GCI0Axiom>> mapOfGCI0 = new HashMap<Integer, Set<GCI0Axiom>>();
+	private final Map<Integer, Set<GCI1Axiom>> mapOfGCI1 = new HashMap<Integer, Set<GCI1Axiom>>();
+	private final Map<Integer, Set<GCI2Axiom>> mapOfGCI2 = new HashMap<Integer, Set<GCI2Axiom>>();
+	private final Map<Integer, Set<GCI3Axiom>> mapOfGCI3A = new HashMap<Integer, Set<GCI3Axiom>>();
+	private final Map<Integer, Set<GCI3Axiom>> mapOfGCI3r = new HashMap<Integer, Set<GCI3Axiom>>();
+	private final Map<Integer, Map<Integer, Set<GCI3Axiom>>> mapOfGCI3rA = new HashMap<Integer, Map<Integer, Set<GCI3Axiom>>>();
+	private final Map<Integer, Set<NominalAxiom>> mapOfNominalAxiom = new HashMap<Integer, Set<NominalAxiom>>();
+	private final Map<Integer, Set<RangeAxiom>> mapOfRangeAxiom = new HashMap<Integer, Set<RangeAxiom>>();
+	private final Map<Integer, Set<RI2Axiom>> mapOfRI2r = new HashMap<Integer, Set<RI2Axiom>>();
+	private final Map<Integer, Set<RI2Axiom>> mapOfRI2s = new HashMap<Integer, Set<RI2Axiom>>();
+	private final Map<Integer, Set<RI3Axiom>> mapOfRI3ByLeft = new HashMap<Integer, Set<RI3Axiom>>();
+	private final Map<Integer, Set<RI3Axiom>> mapOfRI3ByRight = new HashMap<Integer, Set<RI3Axiom>>();
+	private final Set<Integer> setOfAllObjectProperties = new HashSet<Integer>();
+	private final Set<Integer> setOfClasses = new HashSet<Integer>();
+	private final Set<Integer> setOfFunctionalObjectProperties = new HashSet<Integer>();
+	private final Set<Integer> setOfReflexiveObjectProperties = new HashSet<Integer>();
+	private final Set<Integer> setOfTransitiveObjectProperties = new HashSet<Integer>();
 
 	/**
 	 * Constructs an empty ontology.

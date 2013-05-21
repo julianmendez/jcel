@@ -65,7 +65,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  */
 class NormalizerEquivProperties implements NormalizationRule {
 
-	private IntegerOntologyObjectFactory ontologyObjectFactory;
+	private final IntegerOntologyObjectFactory ontologyObjectFactory;
 
 	/**
 	 * Constructs a new normalizer of equivalent object properties.

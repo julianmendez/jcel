@@ -64,10 +64,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 
 	private final int bottomElement;
-	private Collection<Integer> emptyCollection = Collections
+	private final Collection<Integer> emptyCollection = Collections
 			.unmodifiableCollection(new ArraySet());
-	private Set<Integer> equivToBottom = new HashSet<Integer>();
-	private Map<Integer, Collection<Integer>> setS = new ConcurrentHashMap<Integer, Collection<Integer>>();
+	private final Set<Integer> equivToBottom = new HashSet<Integer>();
+	private final Map<Integer, Collection<Integer>> setS = new ConcurrentHashMap<Integer, Collection<Integer>>();
 	private final int topElement;
 
 	/**

@@ -59,8 +59,8 @@ import java.util.Iterator;
 public class IntegerSubsumerBidirectionalGraphImpl implements
 		IntegerSubsumerBidirectionalGraph {
 
-	private IntegerSubsumerGraphImpl graph;
-	private IntegerSubsumerGraphImpl invGraph;
+	private final IntegerSubsumerGraphImpl graph;
+	private final IntegerSubsumerGraphImpl invGraph;
 
 	/**
 	 * Constructs an empty subsumer bidirectional graph.

@@ -81,19 +81,19 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	private static final int topObjectPropertyId = IntegerEntityManager.topObjectPropertyId;
 
 	private IntegerSubsumerGraphImpl classGraph = null;
-	private Map<Integer, Set<Integer>> cognateFunctPropMap = new HashMap<Integer, Set<Integer>>();
+	private final Map<Integer, Set<Integer>> cognateFunctPropMap = new HashMap<Integer, Set<Integer>>();
 	private final ExtendedOntology extendedOntology;
 	private IntegerEntityManager idGenerator = null;
-	private Map<VNodeImpl, Integer> invNodeSet = new HashMap<VNodeImpl, Integer>();
-	private Object monitorClassGraph = new Object();
-	private Object monitorRelationSet = new Object();
-	private Object monitorSetQsubR = new Object();
-	private Object monitorSetQsubS = new Object();
-	private Map<Integer, VNodeImpl> nodeSet = new HashMap<Integer, VNodeImpl>();
+	private final Map<VNodeImpl, Integer> invNodeSet = new HashMap<VNodeImpl, Integer>();
+	private final Object monitorClassGraph = new Object();
+	private final Object monitorRelationSet = new Object();
+	private final Object monitorSetQsubR = new Object();
+	private final Object monitorSetQsubS = new Object();
+	private final Map<Integer, VNodeImpl> nodeSet = new HashMap<Integer, VNodeImpl>();
 	private IntegerSubsumerBidirectionalGraphImpl objectPropertyGraph = null;
 	private IntegerRelationMapImpl relationSet = null;
-	private Set<REntry> setQsubR = new TreeSet<REntry>();
-	private Set<SEntry> setQsubS = new TreeSet<SEntry>();
+	private final Set<REntry> setQsubR = new TreeSet<REntry>();
+	private final Set<SEntry> setQsubS = new TreeSet<SEntry>();
 
 	/**
 	 * Constructs a new classifier status.

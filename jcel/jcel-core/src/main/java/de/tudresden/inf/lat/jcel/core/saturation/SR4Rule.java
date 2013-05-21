@@ -65,7 +65,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactor
 public class SR4Rule implements SaturationRule {
 
 	private final NormalizedIntegerAxiomFactory factory;
-	private SaturationRuleHelper helper = new SaturationRuleHelper();
+	private final SaturationRuleHelper helper = new SaturationRuleHelper();
 
 	/**
 	 * Constructs a new SR-4 rule.

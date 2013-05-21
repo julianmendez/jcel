@@ -46,7 +46,6 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.datatype;
 
-
 /**
  * An <code>IntegerAxiom</code> is an axiom that is composed by integer numbers.
  * It should use a small amount of memory.
@@ -54,6 +53,5 @@ package de.tudresden.inf.lat.jcel.coreontology.datatype;
  * @author Julian Mendez
  */
 public interface IntegerAxiom extends IntegerDatatype {
-
 
 }
