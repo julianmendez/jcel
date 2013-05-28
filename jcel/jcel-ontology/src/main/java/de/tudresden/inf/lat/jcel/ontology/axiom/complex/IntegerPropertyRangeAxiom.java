@@ -56,7 +56,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 /**
  * This class models an axiom stating that the range of a particular object
  * property is included in a particular class expression. <br />
- * This is: range(r) &#8849; C
+ * This is: range(r) &sqsube; C
  * 
  * @author Julian Mendez
  */

@@ -55,15 +55,15 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 /**
  * <p>
  * <ul>
- * <li>CR-3 : <b>if</b> A &#8849; &exist; r <i>.</i> B &isin; <i>T</i> , <u>(x,
+ * <li>CR-3 : <b>if</b> A &sqsube; &exist; r <i>.</i> B &isin; <i>T</i> , <u>(x,
  * A) &isin; S</u> <br />
  * <b>then</b> <b>if</b> f(r) <br />
- * &nbsp;&nbsp;&nbsp;&nbsp; <b>then</b> v := (&#8868; , {&exist; r<sup>-</sup>
+ * &nbsp;&nbsp;&nbsp;&nbsp; <b>then</b> v := (&top; , {&exist; r<sup>-</sup>
  * <i>.</i> A}) <br />
  * &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <b>if</b> v &notin; V
  * <b>then</b> V := V &cup; {v} <br />
  * &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; S := S &cup; {(v, B)} &cup;
- * {(v, &#8868;)} <br />
+ * {(v, &top;)} <br />
  * &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; R := R &cup; {(r, x, v)} <br />
  * &nbsp;&nbsp;&nbsp;&nbsp; <b>else</b> y := (B, &empty;) <br />
  * &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; R := R &cup; {(r, x, y)}</li>

@@ -55,7 +55,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
 /**
  * Axiom of the form:
  * <ul>
- * <li>A<sub>1</sub> &#8851; A<sub>2</sub> &#8849; B</li>
+ * <li>A<sub>1</sub> &sqcap; A<sub>2</sub> &sqsube; B</li>
  * </ul>
  * 
  * @author Julian Mendez

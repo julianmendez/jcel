@@ -55,7 +55,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
 /**
  * <p>
  * <ul>
- * <li>NR-1.6 : C<sup>&#8869;</sup> &#8849; D &#8605;</li>
+ * <li>NR-1.6 : C<sup>&perp;</sup> &sqsube; D &rarrw;</li>
  * </ul>
  * </p>
  * 

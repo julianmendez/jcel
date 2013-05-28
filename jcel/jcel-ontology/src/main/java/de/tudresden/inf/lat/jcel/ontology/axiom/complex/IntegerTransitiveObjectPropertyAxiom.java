@@ -54,7 +54,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 /**
  * This class models an axiom stating that the contained object property is
  * transitive. <br />
- * This is : r <sub><sup>o</sup></sub> r &#8849; r
+ * This is : r &compfn; r &sqsube; r
  * 
  * @author Julian Mendez
  */

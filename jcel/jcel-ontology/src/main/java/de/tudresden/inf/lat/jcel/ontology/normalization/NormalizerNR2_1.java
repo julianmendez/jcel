@@ -61,9 +61,9 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 /**
  * <p>
  * <ul>
- * <li>NR 2-1 : r<sub>1</sub> &#8728; &hellip; &#8728; r<sub>k</sub> &#8849; s
- * &#8605; r<sub>1</sub> &#8728; &hellip; &#8728; r<sub>k-1</sub> &#8849; u, u
- * &#8728; r<sub>k</sub> &#8849; s</li>
+ * <li>NR 2-1 : r<sub>1</sub> &compfn; &hellip; &compfn; r<sub>k</sub> &sqsube;
+ * s &rarrw; r<sub>1</sub> &compfn; &hellip; &compfn; r<sub>k-1</sub> &sqsube;
+ * u, u &compfn; r<sub>k</sub> &sqsube; s</li>
  * </ul>
  * </p>
  * 

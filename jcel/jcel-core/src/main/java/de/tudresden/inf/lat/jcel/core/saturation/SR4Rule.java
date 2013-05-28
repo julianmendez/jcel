@@ -57,7 +57,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactor
 
 /**
  * <ul>
- * <li>SR-4 : r &#8849; s, f(s) &#8605; f(r)</li>
+ * <li>SR-4 : r &sqsube; s, f(s) &rarrw; f(r)</li>
  * </ul>
  * 
  * @author Julian Mendez

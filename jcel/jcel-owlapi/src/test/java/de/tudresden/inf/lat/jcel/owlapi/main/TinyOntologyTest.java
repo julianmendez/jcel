@@ -100,12 +100,12 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &#x2291; B,</li>
-	 * <li>B &#x2291; C</li>
+	 * <li>A &sqsube; B,</li>
+	 * <li>B &sqsube; C</li>
 	 * </ol>
-	 * &#x22a8;
+	 * &vDash;
 	 * <ul>
-	 * <li>A &#x2291; C</li>
+	 * <li>A &sqsube; C</li>
 	 * </ul>
 	 * 
 	 * @throws OWLOntologyCreationException
@@ -141,13 +141,13 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &#x2291; &exist; r <i>.</i> A ,</li>
-	 * <li>A &#x2291; B ,</li>
-	 * <li>&exist; r <i>.</i> B &#x2291; C</li>
+	 * <li>A &sqsube; &exist; r <i>.</i> A ,</li>
+	 * <li>A &sqsube; B ,</li>
+	 * <li>&exist; r <i>.</i> B &sqsube; C</li>
 	 * </ol>
-	 * &#x22a8;
+	 * &vDash;
 	 * <ul>
-	 * <li>A &#x2291; C</li>
+	 * <li>A &sqsube; C</li>
 	 * </ul>
 	 * 
 	 * @throws OWLOntologyCreationException
@@ -189,10 +189,10 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &#x2291; B ,</li>
-	 * <li>B &#x2291; A ,</li>
+	 * <li>A &sqsube; B ,</li>
+	 * <li>B &sqsube; A ,</li>
 	 * </ol>
-	 * &#x22a8;
+	 * &vDash;
 	 * <ul>
 	 * <li>A &equiv; B</li>
 	 * </ul>
@@ -230,13 +230,13 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>&#x22a4; &#x2291; A ,</li>
-	 * <li>A &#x2291; B</li>
+	 * <li>&top; &sqsube; A ,</li>
+	 * <li>A &sqsube; B</li>
 	 * </ol>
-	 * &#x22a8;
+	 * &vDash;
 	 * <ul>
 	 * <li>A &equiv; B</li>
-	 * <li>B &equiv; &#x22a4;</li>
+	 * <li>B &equiv; &top;</li>
 	 * </ul>
 	 * 
 	 * @throws OWLOntologyCreationException
@@ -277,13 +277,13 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &#x2291; &#x22a5; ,</li>
-	 * <li>B &#x2291; A</li>
+	 * <li>A &sqsube; &perp; ,</li>
+	 * <li>B &sqsube; A</li>
 	 * </ol>
-	 * &#x22a8;
+	 * &vDash;
 	 * <ul>
 	 * <li>A &equiv; B</li>
-	 * <li>B &equiv; &#x22a5;</li>
+	 * <li>B &equiv; &perp;</li>
 	 * </ul>
 	 * 
 	 * @throws OWLOntologyCreationException
@@ -324,14 +324,12 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>C &equiv; A<sub>1</sub> &#x2293; A<sub>2</sub> &#x2293;
-	 * A<sub>3</sub>,</li>
-	 * <li>D &equiv; A<sub>2</sub> &#x2293; A<sub>3</sub> &#x2293;
-	 * A<sub>4</sub>,</li>
-	 * <li>A<sub>1</sub> &equiv; &#x22a4;</li>
-	 * <li>A<sub>4</sub> &equiv; &#x22a4;</li>
+	 * <li>C &equiv; A<sub>1</sub> &sqcap; A<sub>2</sub> &sqcap; A<sub>3</sub>,</li>
+	 * <li>D &equiv; A<sub>2</sub> &sqcap; A<sub>3</sub> &sqcap; A<sub>4</sub>,</li>
+	 * <li>A<sub>1</sub> &equiv; &top;</li>
+	 * <li>A<sub>4</sub> &equiv; &top;</li>
 	 * </ol>
-	 * &#x22a8;
+	 * &vDash;
 	 * <ul>
 	 * <li>C &equiv; D</li>
 	 * </ul>
@@ -415,13 +413,13 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &#x2291; &exist; r <i>.</i> B</li>
-	 * <li>B &#x2291; &exist; s <i>.</i> &#x22a5;</li>
+	 * <li>A &sqsube; &exist; r <i>.</i> B</li>
+	 * <li>B &sqsube; &exist; s <i>.</i> &perp;</li>
 	 * </ol>
-	 * &#x22a8;
+	 * &vDash;
 	 * <ul>
-	 * <li>A &equiv; &#x22a5;</li>
-	 * <li>B &equiv; &#x22a5;</li>
+	 * <li>A &equiv; &perp;</li>
+	 * <li>B &equiv; &perp;</li>
 	 * </ul>
 	 * 
 	 * @throws OWLOntologyCreationException
@@ -468,19 +466,19 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &#x2291; &exist; r <i>.</i> B</li>
-	 * <li>B &#x2291; &exist; r <i>.</i> C</li>
-	 * <li>C &#x2291; &exist; s <i>.</i> D</li>
-	 * <li>D &#x2291; &exist; s <i>.</i> E</li>
-	 * <li>E &#x2291; &exist; s <i>.</i> &#x22a5;</li>
+	 * <li>A &sqsube; &exist; r <i>.</i> B</li>
+	 * <li>B &sqsube; &exist; r <i>.</i> C</li>
+	 * <li>C &sqsube; &exist; s <i>.</i> D</li>
+	 * <li>D &sqsube; &exist; s <i>.</i> E</li>
+	 * <li>E &sqsube; &exist; s <i>.</i> &perp;</li>
 	 * </ol>
-	 * &#x22a8;
+	 * &vDash;
 	 * <ul>
-	 * <li>A &equiv; &#x22a5;</li>
-	 * <li>B &equiv; &#x22a5;</li>
-	 * <li>C &equiv; &#x22a5;</li>
-	 * <li>D &equiv; &#x22a5;</li>
-	 * <li>E &equiv; &#x22a5;</li>
+	 * <li>A &equiv; &perp;</li>
+	 * <li>B &equiv; &perp;</li>
+	 * <li>C &equiv; &perp;</li>
+	 * <li>D &equiv; &perp;</li>
+	 * <li>E &equiv; &perp;</li>
 	 * </ul>
 	 * 
 	 * @throws OWLOntologyCreationException

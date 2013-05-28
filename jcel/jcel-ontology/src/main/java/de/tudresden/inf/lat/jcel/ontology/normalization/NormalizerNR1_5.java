@@ -60,7 +60,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 /**
  * <p>
  * <ul>
- * <li>NR-1.5 : C &#8801; D &#8605; C &#8849; D, D &#8849; C</li>
+ * <li>NR-1.5 : C &equiv; D &rarrw; C &sqsube; D, D &sqsube; C</li>
  * </ul>
  * </p>
  * 

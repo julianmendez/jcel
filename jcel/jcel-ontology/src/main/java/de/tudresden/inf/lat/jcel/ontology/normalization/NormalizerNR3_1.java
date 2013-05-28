@@ -61,15 +61,15 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
 /**
  * <p>
  * <ul>
- * <li>NR-3.1 : C' &#8849; &exist; r <i>.</i> D &#8605; C' &#8849; A, A &#8849;
- * &exist; r <i>.</i> D</li>
+ * <li>NR-3.1 : C' &sqsube; &exist; r <i>.</i> D &rarrw; C' &sqsube; A, A
+ * &sqsube; &exist; r <i>.</i> D</li>
  * </ul>
  * </p>
  * 
  * This is a modified version of NR3-1 since the original rule is:
  * 
  * <ul>
- * <li>NR-3.1 : C' &#8849; D' &#8605; C' &#8849; A, A &#8849; D'</li>
+ * <li>NR-3.1 : C' &sqsube; D' &rarrw; C' &sqsube; A, A &sqsube; D'</li>
  * </ul>
  * 
  * @author Julian Mendez

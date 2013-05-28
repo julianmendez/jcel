@@ -60,7 +60,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectOneOf;
 /**
  * <p>
  * <ul>
- * <li>NR-4.1 : B &#8849; {a} &#8605; B &#8849; A , A &equiv; {a}</li>
+ * <li>NR-4.1 : B &sqsube; {a} &rarrw; B &sqsube; A , A &equiv; {a}</li>
  * </ul>
  * </p>
  * 

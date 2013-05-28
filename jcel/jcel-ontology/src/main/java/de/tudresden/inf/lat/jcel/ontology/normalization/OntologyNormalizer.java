@@ -61,25 +61,25 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
  * normalization rules:
  * 
  * <ul>
- * <li>NR-1.1 : domain(r) &#8849; C &#8605; &exist;r <i>.</i> &#8868; &#8849; C</li>
- * <li>NR-1.2 : range(r) &#8849; C &#8605; range(r) &#8849; A, A &#8849; C</li>
- * <li>NR-1.3 : reflexive(r) &#8605; &#1013; &#8849; r</li>
- * <li>NR-1.4 : transitive(r) &#8605; r &#8728; r &#8849; r</li>
- * <li>NR-1.5 : C &#8801; D &#8605; C &#8849; D, D &#8849; C</li>
- * <li>NR-1.6 : C<sup>&#8869;</sup> &#8849; D &#8605;</li>
- * <li>NR-1.7 : C &#8849; D<sup>&#8869;</sup> &#8605; C &#8849; &#8869;</li>
- * <li>NR-2.1 : r<sub>1</sub> &#8728; &hellip; &#8728; r<sub>k</sub> &#8849; s
- * &#8605; r<sub>1</sub> &#8728; &hellip; &#8728; r<sub>k-1</sub> &#8849; u, u
- * &#8728; r<sub>k</sub> &#8849; s</li>
- * <li>NR-2.2 : C<sub>1</sub> &#8851; &hellip; &#8851; C' &#8851; &hellip;
- * &#8851; C<sub>n</sub> &#8849; D &#8605; C' &#8849; A, C<sub>1</sub> &#8851;
- * &hellip; &#8851; A &#8851; &hellip; &#8851; C<sub>n</sub> &#8849; D</li>
- * <li>NR-2.3 : &exist; r <i>.</i> C'&#8849; D &#8605; C' &#8849; A, &exist; r
- * <i>.</i> A &#8849; D</li>
- * <li>NR-3.1 : C' &#8849; D' &#8605; C' &#8849; A, A &#8849; D'</li>
- * <li>NR-3.2 : B &#8849; &exist; r <i>.</i> C' &#8605; B &#8849; &exist; r
- * <i>.</i> A, A &#8849; C'</li>
- * <li>NR-3.3 : B &#8849; C &#8851; D &#8605; B &#8849; C, B &#8849; D</li>
+ * <li>NR-1.1 : domain(r) &sqsube; C &rarrw; &exist;r <i>.</i> &top; &sqsube; C</li>
+ * <li>NR-1.2 : range(r) &sqsube; C &rarrw; range(r) &sqsube; A, A &sqsube; C</li>
+ * <li>NR-1.3 : reflexive(r) &rarrw; &varepsilon; &sqsube; r</li>
+ * <li>NR-1.4 : transitive(r) &rarrw; r &compfn; r &sqsube; r</li>
+ * <li>NR-1.5 : C &equiv; D &rarrw; C &sqsube; D, D &sqsube; C</li>
+ * <li>NR-1.6 : C<sup>&perp;</sup> &sqsube; D &rarrw;</li>
+ * <li>NR-1.7 : C &sqsube; D<sup>&perp;</sup> &rarrw; C &sqsube; &perp;</li>
+ * <li>NR-2.1 : r<sub>1</sub> &compfn; &hellip; &compfn; r<sub>k</sub> &sqsube;
+ * s &rarrw; r<sub>1</sub> &compfn; &hellip; &compfn; r<sub>k-1</sub> &sqsube;
+ * u, u &compfn; r<sub>k</sub> &sqsube; s</li>
+ * <li>NR-2.2 : C<sub>1</sub> &sqcap; &hellip; &sqcap; C' &sqcap; &hellip;
+ * &sqcap; C<sub>n</sub> &sqsube; D &rarrw; C' &sqsube; A, C<sub>1</sub> &sqcap;
+ * &hellip; &sqcap; A &sqcap; &hellip; &sqcap; C<sub>n</sub> &sqsube; D</li>
+ * <li>NR-2.3 : &exist; r <i>.</i> C'&sqsube; D &rarrw; C' &sqsube; A, &exist; r
+ * <i>.</i> A &sqsube; D</li>
+ * <li>NR-3.1 : C' &sqsube; D' &rarrw; C' &sqsube; A, A &sqsube; D'</li>
+ * <li>NR-3.2 : B &sqsube; &exist; r <i>.</i> C' &rarrw; B &sqsube; &exist; r
+ * <i>.</i> A, A &sqsube; C'</li>
+ * <li>NR-3.3 : B &sqsube; C &sqcap; D &rarrw; B &sqsube; C, B &sqsube; D</li>
  * </ul>
  * 
  * @author Julian Mendez

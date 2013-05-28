@@ -70,10 +70,10 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 public class NormalizerNR2_1Test extends TestCase {
 
 	/**
-	 * r<sub>1</sub> &#8728; r<sub>2</sub> &#8728; r<sub>3</sub> &#8728;
-	 * r<sub>4</sub> &#8849; s &#8605; r<sub>1</sub> &#8728; r<sub>2</sub>
-	 * &#8849; u<sub>1</sub>, u<sub>1</sub> &#8728; r<sub>3</sub> &#8849;
-	 * u<sub>2</sub>, u<sub>2</sub> &#8728; r<sub>4</sub> &#8849; s
+	 * r<sub>1</sub> &compfn; r<sub>2</sub> &compfn; r<sub>3</sub> &compfn;
+	 * r<sub>4</sub> &sqsube; s &rarrw; r<sub>1</sub> &compfn; r<sub>2</sub>
+	 * &sqsube; u<sub>1</sub>, u<sub>1</sub> &compfn; r<sub>3</sub> &sqsube;
+	 * u<sub>2</sub>, u<sub>2</sub> &compfn; r<sub>4</sub> &sqsube; s
 	 */
 	public void testRule() {
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();

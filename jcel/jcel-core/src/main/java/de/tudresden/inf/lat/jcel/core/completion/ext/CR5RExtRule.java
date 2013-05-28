@@ -52,10 +52,10 @@ import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 /**
  * <p>
  * <ul>
- * <li>CR-5 : <b>if</b> s &#8728; s &#8849; s &isin; <i>T</i> ,
+ * <li>CR-5 : <b>if</b> s &compfn; s &sqsube; s &isin; <i>T</i> ,
  * <u>(r<sub>1</sub>, x, y) &isin; R</u>, <u>(r<sub>2</sub>, y, z) &isin; R</u>,
- * r<sub>1</sub> &#8849;<sub><i>T</i></sub> s, r<sub>2</sub>
- * &#8849;<sub><i>T</i></sub> s <br />
+ * r<sub>1</sub> &sqsube;<sub><i>T</i></sub> s, r<sub>2</sub>
+ * &sqsube;<sub><i>T</i></sub> s <br />
  * <b>then</b> R := R &cup; {(s, x, z)}</li>
  * </ul>
  * </p>

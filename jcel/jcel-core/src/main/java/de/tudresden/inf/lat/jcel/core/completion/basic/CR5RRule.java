@@ -53,14 +53,15 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 /**
  * <p>
  * <ul>
- * <li>CR-5 : <b>if</b> r &#8849; s &isin; <i>T</i>, <u>(r, x, y) &isin; R</u> <br />
+ * <li>CR-5 : <b>if</b> r &sqsube; s &isin; <i>T</i>, <u>(r, x, y) &isin; R</u>
+ * <br />
  * <b>then</b> R := R &cup; {(s, x, y)}</li>
  * </ul>
  * </p>
  * 
  * Previous form:
  * <ul>
- * <li>CR5 : <b>if</b> (X, Y) &isin; R(r) <b>and</b> r &#8849; s &isin; O
+ * <li>CR5 : <b>if</b> (X, Y) &isin; R(r) <b>and</b> r &sqsube; s &isin; O
  * <b>and</b> (X, Y) &notin; R(s) <br />
  * <b>then</b> R(s) := R(s) &cup; {(X, Y)}</li>
  * </ul>

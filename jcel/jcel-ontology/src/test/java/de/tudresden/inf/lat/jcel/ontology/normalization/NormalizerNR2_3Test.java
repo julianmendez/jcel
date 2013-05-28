@@ -68,10 +68,10 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
 public class NormalizerNR2_3Test extends TestCase {
 
 	/**
-	 * &exist; r <i>.</i> &exist; s<sub>1</sub> <i>.</i> C<sub>1</sub> &#8849;
-	 * &exist; s<sub>2</sub> <i>.</i> C<sub>2</sub> &#8605; &exist;
-	 * s<sub>1</sub> <i>.</i> C<sub>1</sub> &#8849; A, &exist; r <i>.</i> A
-	 * &#8849; &exist; s<sub>2</sub> <i>.</i> C<sub>2</sub>
+	 * &exist; r <i>.</i> &exist; s<sub>1</sub> <i>.</i> C<sub>1</sub> &sqsube;
+	 * &exist; s<sub>2</sub> <i>.</i> C<sub>2</sub> &rarrw; &exist;
+	 * s<sub>1</sub> <i>.</i> C<sub>1</sub> &sqsube; A, &exist; r <i>.</i> A
+	 * &sqsube; &exist; s<sub>2</sub> <i>.</i> C<sub>2</sub>
 	 */
 	public void testRule() {
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();

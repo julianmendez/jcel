@@ -53,8 +53,8 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
 /**
  * <p>
  * <ul>
- * <li>CR-4 : <b>if</b> &exist; s <i>.</i> A &#8849; B &isin; <i>T</i>, (r, x,
- * y) &isin; R, <u>(y, A) &isin; S</u>, r &#8849;<sub><i>T</i></sub> s <br />
+ * <li>CR-4 : <b>if</b> &exist; s <i>.</i> A &sqsube; B &isin; <i>T</i>, (r, x,
+ * y) &isin; R, <u>(y, A) &isin; S</u>, r &sqsube;<sub><i>T</i></sub> s <br />
  * <b>then</b> S := S &cup; {(x, B)}</li>
  * </ul>
  * </p>
@@ -62,7 +62,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
  * Previous form:
  * <ul>
  * <li>CR3 : <b>if</b> (X, Y) &isin; R(r) <b>and</b> A &isin; S(Y) <b>and</b>
- * &exist; r <i>.</i> A &#8849; B &isin; O <b>and</b> B &notin; S(X) <br />
+ * &exist; r <i>.</i> A &sqsube; B &isin; O <b>and</b> B &notin; S(X) <br />
  * <b>then</b> S(X) := S(X) &cup; {B}</li>
  * </ul>
  * 

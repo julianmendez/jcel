@@ -61,8 +61,8 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
 /**
  * <p>
  * <ul>
- * <li>NR-2.4 : B &#8851; C' &#8849; D &#8605; C' &#8849; A, B &#8851; A &#8849;
- * D</li>
+ * <li>NR-2.4 : B &sqcap; C' &sqsube; D &rarrw; C' &sqsube; A, B &sqcap; A
+ * &sqsube; D</li>
  * </ul>
  * </p>
  * 

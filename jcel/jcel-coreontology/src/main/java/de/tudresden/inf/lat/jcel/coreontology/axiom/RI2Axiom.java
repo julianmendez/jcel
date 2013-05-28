@@ -53,7 +53,7 @@ import java.util.Set;
 /**
  * Axiom of the form:
  * <ul>
- * <li>r &#8849; s</li>
+ * <li>r &sqsube; s</li>
  * </ul>
  * 
  * @author Julian Mendez

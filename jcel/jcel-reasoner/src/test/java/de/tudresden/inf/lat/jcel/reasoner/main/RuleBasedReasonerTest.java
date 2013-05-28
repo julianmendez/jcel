@@ -108,24 +108,24 @@ public class RuleBasedReasonerTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>L &#8849; &exist; s <i>.</i> &#8868; ,</li>
-	 * <li>&exist; s <sup>-</sup> <i>.</i> L &#8849; K ,</li>
-	 * <li>&exist; s <i>.</i> K &#8849; E ,</li>
-	 * <li>E &#8849; &exist; t <i>.</i> &exist; t <i>.</i> D ,</li>
-	 * <li>&exist; t <i>.</i> D &#8849; C ,</li>
-	 * <li>C &#8849; &exist; r<sub>1</sub> <i>.</i> G ,</li>
-	 * <li>C &#8849; &exist; r<sub>2</sub> <i>.</i> H ,</li>
-	 * <li>&exist; r <i>.</i> (G &#8851; H) &#8849; J ,</li>
-	 * <li>r<sub>1</sub> &#8849; r ,</li>
-	 * <li>r<sub>2</sub> &#8849; r ,</li>
+	 * <li>L &sqsube; &exist; s <i>.</i> &top; ,</li>
+	 * <li>&exist; s <sup>-</sup> <i>.</i> L &sqsube; K ,</li>
+	 * <li>&exist; s <i>.</i> K &sqsube; E ,</li>
+	 * <li>E &sqsube; &exist; t <i>.</i> &exist; t <i>.</i> D ,</li>
+	 * <li>&exist; t <i>.</i> D &sqsube; C ,</li>
+	 * <li>C &sqsube; &exist; r<sub>1</sub> <i>.</i> G ,</li>
+	 * <li>C &sqsube; &exist; r<sub>2</sub> <i>.</i> H ,</li>
+	 * <li>&exist; r <i>.</i> (G &sqcap; H) &sqsube; J ,</li>
+	 * <li>r<sub>1</sub> &sqsube; r ,</li>
+	 * <li>r<sub>2</sub> &sqsube; r ,</li>
 	 * <li><i>f</i>(r) ,</li>
-	 * <li>t &#8728; t &#8849; t</li>
+	 * <li>t &compfn; t &sqsube; t</li>
 	 * </ol>
-	 * &#8872;
+	 * &vDash;
 	 * <ul>
-	 * <li>L &#8849; E ,</li>
-	 * <li>E &#8849; C ,</li>
-	 * <li>C &#8849; J</li>
+	 * <li>L &sqsube; E ,</li>
+	 * <li>E &sqsube; C ,</li>
+	 * <li>C &sqsube; J</li>
 	 * </ul>
 	 */
 	public void testOntology0() {
@@ -222,13 +222,13 @@ public class RuleBasedReasonerTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &#8849; &exist; r <i>.</i> B ,</li>
-	 * <li>&exist; r<sup>-</sup> <i>.</i> A &#8849; C ,</li>
-	 * <li>&exist; r <i>.</i> C &#8849; D</li>
+	 * <li>A &sqsube; &exist; r <i>.</i> B ,</li>
+	 * <li>&exist; r<sup>-</sup> <i>.</i> A &sqsube; C ,</li>
+	 * <li>&exist; r <i>.</i> C &sqsube; D</li>
 	 * </ol>
-	 * &#8872;
+	 * &vDash;
 	 * <ul>
-	 * <li>A &#8849; D</li>
+	 * <li>A &sqsube; D</li>
 	 * </ul>
 	 */
 	public void testOntology1() {
@@ -266,17 +266,17 @@ public class RuleBasedReasonerTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &#8849; &exist; r <i>.</i> B ,</li>
-	 * <li>D &#8849; &exist; r<sup>-</sup> <i>.</i> E ,</li>
-	 * <li>&exist; r<sup>-</sup> <i>.</i> A &#8849; D ,</li>
-	 * <li>&exist; r <i>.</i> C &#8849; D ,</li>
+	 * <li>A &sqsube; &exist; r <i>.</i> B ,</li>
+	 * <li>D &sqsube; &exist; r<sup>-</sup> <i>.</i> E ,</li>
+	 * <li>&exist; r<sup>-</sup> <i>.</i> A &sqsube; D ,</li>
+	 * <li>&exist; r <i>.</i> C &sqsube; D ,</li>
 	 * <li><i>f</i>(r<sup>-</sup>) ,</li>
 	 * <li><i>f</i>(s) ,</li>
-	 * <li>t &#8728; t &#8849; t</li>
+	 * <li>t &compfn; t &sqsube; t</li>
 	 * </ol>
-	 * &#8872;
+	 * &vDash;
 	 * <ul>
-	 * <li>A &#8849; E</li>
+	 * <li>A &sqsube; E</li>
 	 * </ul>
 	 */
 	public void testOntology2() {
@@ -335,18 +335,18 @@ public class RuleBasedReasonerTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &#8849; &exist; r<sub>1</sub> <i>.</i> B ,</li>
-	 * <li>B &#8849; &exist; r<sub>2</sub> <i>.</i> C ,</li>
-	 * <li>&exist; s <i>.</i> D &#8849; E ,</li>
-	 * <li>&exist; s<sup>-</sup> <i>.</i> A &#8849; D ,</li>
-	 * <li>r &#8849; s ,</li>
-	 * <li>r<sub>1</sub> &#8849; r ,</li>
-	 * <li>r<sub>2</sub> &#8849; r ,</li>
-	 * <li>r &#8728; r &#8849; r</li>
+	 * <li>A &sqsube; &exist; r<sub>1</sub> <i>.</i> B ,</li>
+	 * <li>B &sqsube; &exist; r<sub>2</sub> <i>.</i> C ,</li>
+	 * <li>&exist; s <i>.</i> D &sqsube; E ,</li>
+	 * <li>&exist; s<sup>-</sup> <i>.</i> A &sqsube; D ,</li>
+	 * <li>r &sqsube; s ,</li>
+	 * <li>r<sub>1</sub> &sqsube; r ,</li>
+	 * <li>r<sub>2</sub> &sqsube; r ,</li>
+	 * <li>r &compfn; r &sqsube; r</li>
 	 * </ol>
-	 * &#8872;
+	 * &vDash;
 	 * <ul>
-	 * <li>A &#8849; E</li>
+	 * <li>A &sqsube; E</li>
 	 * </ul>
 	 */
 	public void testOntology3() {
@@ -411,26 +411,26 @@ public class RuleBasedReasonerTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &#8849; &exist; s<sub>1</sub> <i>.</i> B ,</li>
-	 * <li>B &#8849; &exist; s<sub>2</sub><sup>-</sup> <i>.</i> D ,</li>
-	 * <li>D &#8849; &exist; r<sub>1</sub> <i>.</i> B<sub>1</sub> ,</li>
-	 * <li>D &#8849; &exist; r<sub>2</sub> <i>.</i> B<sub>2</sub> ,</li>
-	 * <li>&exist; r <i>.</i> C &#8849; E ,</li>
-	 * <li>B<sub>1</sub> &#8851; B<sub>2</sub> &#8849; C ,</li>
-	 * <li>r<sub>1</sub> &#8849; r ,</li>
-	 * <li>r<sub>2</sub> &#8849; r ,</li>
-	 * <li>s<sub>1</sub> &#8849; s ,</li>
-	 * <li>s<sub>1</sub> &#8849; t ,</li>
-	 * <li>s<sub>2</sub> &#8849; s ,</li>
-	 * <li>s<sub>2</sub><sup>-</sup> &#8849; t ,</li>
+	 * <li>A &sqsube; &exist; s<sub>1</sub> <i>.</i> B ,</li>
+	 * <li>B &sqsube; &exist; s<sub>2</sub><sup>-</sup> <i>.</i> D ,</li>
+	 * <li>D &sqsube; &exist; r<sub>1</sub> <i>.</i> B<sub>1</sub> ,</li>
+	 * <li>D &sqsube; &exist; r<sub>2</sub> <i>.</i> B<sub>2</sub> ,</li>
+	 * <li>&exist; r <i>.</i> C &sqsube; E ,</li>
+	 * <li>B<sub>1</sub> &sqcap; B<sub>2</sub> &sqsube; C ,</li>
+	 * <li>r<sub>1</sub> &sqsube; r ,</li>
+	 * <li>r<sub>2</sub> &sqsube; r ,</li>
+	 * <li>s<sub>1</sub> &sqsube; s ,</li>
+	 * <li>s<sub>1</sub> &sqsube; t ,</li>
+	 * <li>s<sub>2</sub> &sqsube; s ,</li>
+	 * <li>s<sub>2</sub><sup>-</sup> &sqsube; t ,</li>
 	 * <li><i>f</i>(r) ,</li>
 	 * <li><i>f</i>(s<sup>-</sup>) ,</li>
-	 * <li>t &#8728; t &#8849; t</li>
+	 * <li>t &compfn; t &sqsube; t</li>
 	 * </ol>
-	 * &#8872;
+	 * &vDash;
 	 * <ul>
-	 * <li>A &#8849; D ,</li>
-	 * <li>D &#8849; E</li>
+	 * <li>A &sqsube; D ,</li>
+	 * <li>D &sqsube; E</li>
 	 * </ul>
 	 */
 	public void testOntology4() {

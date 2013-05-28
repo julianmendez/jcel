@@ -55,13 +55,13 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
 /**
  * <p>
  * <ul>
- * <li>CR-7 : <b>if</b> &exist; s<sup>-</sup> <i>.</i> A &#8849; B &isin;
+ * <li>CR-7 : <b>if</b> &exist; s<sup>-</sup> <i>.</i> A &sqsube; B &isin;
  * <i>T</i> , <u>(r<sub>2</sub>, x, y) &isin; R</u>, x = (A', &phi;) , y = (B',
  * &psi;), <br />
- * r &#8728; r &#8849; r &isin; <i>T</i>, r<sub>1</sub>
- * &#8849;<sub><i>T</i></sub> r, r<sub>2</sub> &#8849;<sub><i>T</i></sub> r,
+ * r &compfn; r &sqsube; r &isin; <i>T</i>, r<sub>1</sub>
+ * &sqsube;<sub><i>T</i></sub> r, r<sub>2</sub> &sqsube;<sub><i>T</i></sub> r,
  * &exist; r<sub>1</sub><sup>-</sup> <i>.</i> A &isin; &phi;, r
- * &#8849;<sub><i>T</i></sub> s <br />
+ * &sqsube;<sub><i>T</i></sub> s <br />
  * <b>then</b> v := (B', &psi; &cup; {&exist; r<sup>-</sup> <i>.</i> A}) <br />
  * &nbsp;&nbsp;&nbsp;&nbsp; <b>if</b> v &notin; V <b>then</b> V := V &cup; {v} ,
  * S := S &cup; {(v, k) | (y, k) &isin; S} <br />

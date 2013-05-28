@@ -57,8 +57,8 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
 /**
  * <ul>
- * <li>SR-3 : r &#8728; s &#8849; t &#8605; s<sup>-</sup> &#8728; r<sup>-</sup>
- * &#8849; t<sup>-</sup></li>
+ * <li>SR-3 : r &compfn; s &sqsube; t &rarrw; s<sup>-</sup> &compfn;
+ * r<sup>-</sup> &sqsube; t<sup>-</sup></li>
  * </ul>
  * 
  * @author Julian Mendez

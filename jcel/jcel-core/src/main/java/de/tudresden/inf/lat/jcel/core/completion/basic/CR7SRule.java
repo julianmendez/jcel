@@ -53,16 +53,16 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 /**
  * <p>
  * <ul>
- * <li>CR-7 : <b>if</b> (r, x, y) &isin; R, <u>(y, &#8869;) &isin; S</u> <br />
- * <b>then</b> S := S &cup; {(x, &#8869;)}</li>
+ * <li>CR-7 : <b>if</b> (r, x, y) &isin; R, <u>(y, &perp;) &isin; S</u> <br />
+ * <b>then</b> S := S &cup; {(x, &perp;)}</li>
  * </ul>
  * </p>
  * 
  * Previous form:
  * <ul>
- * <li>CR4 : <b>if</b> (X, Y) &isin; R(r) <b>and</b> &#8869; &isin; S(Y)
- * <b>and</b> &#8869; &notin; S(X) <br />
- * <b>then</b> S(X) := S(X) &cup; {&#8869;}</li>
+ * <li>CR4 : <b>if</b> (X, Y) &isin; R(r) <b>and</b> &perp; &isin; S(Y)
+ * <b>and</b> &perp; &notin; S(X) <br />
+ * <b>then</b> S(X) := S(X) &cup; {&perp;}</li>
  * </ul>
  * 
  * @author Julian Mendez

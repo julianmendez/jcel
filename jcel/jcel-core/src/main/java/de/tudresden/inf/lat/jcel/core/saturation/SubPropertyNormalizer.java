@@ -55,15 +55,15 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
 /**
  * This class models a normalizer that saturates an ontology with object
- * property inclusions. The saturation adds an axiom r &#8849; r for each object
- * property r, and then applies the following rules:
+ * property inclusions. The saturation adds an axiom r &sqsube; r for each
+ * object property r, and then applies the following rules:
  * 
  * <ul>
- * <li>SR-1 : r &#8849; s &#8605; r<sup>-</sup> &#8849; s<sup>-</sup></li>
- * <li>SR-2 : r &#8849; s, s &#8849; t &#8605; r &#8849; t</li>
- * <li>SR-3 : r &#8728; s &#8849; t &#8605; s<sup>-</sup> &#8728; r<sup>-</sup>
- * &#8849; t<sup>-</sup></li>
- * <li>SR-4 : r &#8849; s, f(s) &#8605; f(r)</li>
+ * <li>SR-1 : r &sqsube; s &rarrw; r<sup>-</sup> &sqsube; s<sup>-</sup></li>
+ * <li>SR-2 : r &sqsube; s, s &sqsube; t &rarrw; r &sqsube; t</li>
+ * <li>SR-3 : r &compfn; s &sqsube; t &rarrw; s<sup>-</sup> &compfn;
+ * r<sup>-</sup> &sqsube; t<sup>-</sup></li>
+ * <li>SR-4 : r &sqsube; s, f(s) &rarrw; f(r)</li>
  * </ul>
  * 
  * @author Julian Mendez

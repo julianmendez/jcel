@@ -77,20 +77,20 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
  * 
  * <ul>
  * <li>CR1 : <b>if</b> A<sub>1</sub>, &hellip; , A<sub>n</sub> &isin; S(X)
- * <b>and</b> A<sub>1</sub> &#8851; &hellip; &#8851; A<sub>n</sub> &#8849; B
+ * <b>and</b> A<sub>1</sub> &sqcap; &hellip; &sqcap; A<sub>n</sub> &sqsube; B
  * &isin; O <b>and</b> B &notin; S(X) <b>then</b> S(X) := S(X) &cup; {B}</li>
- * <li>CR2 : <b>if</b> A &isin; S(X) <b>and</b> A &#8849; &exist; r <i>.</i> B
+ * <li>CR2 : <b>if</b> A &isin; S(X) <b>and</b> A &sqsube; &exist; r <i>.</i> B
  * &isin; O <b>and</b> (X,B) &notin; R(r) <b>then</b> R(r) := R(r) &cup;{(X,B)}</li>
  * <li>CR3 : <b>if</b> (X,Y) &isin; R(r) <b>and</b> A &isin; S(Y) <b>and</b>
- * &exist; r <i>.</i> A &#8849; B &isin; O <b>and</b> B &notin; S(X) <b>then</b>
- * S(X) := S(X) &cup; {B}</li>
- * <li>CR4 : <b>if</b> (X,Y) &isin; R(r) <b>and</b> &#8869; &isin; S(Y)
- * <b>and</b> &#8869; &notin; S(X) <b>then</b> S(X) := S(X) &cup; {&#8869;}</li>
- * <li>CR5 : <b>if</b> (X,Y) &isin; R(r) <b>and</b> r &#8849; s &isin; O
+ * &exist; r <i>.</i> A &sqsube; B &isin; O <b>and</b> B &notin; S(X)
+ * <b>then</b> S(X) := S(X) &cup; {B}</li>
+ * <li>CR4 : <b>if</b> (X,Y) &isin; R(r) <b>and</b> &perp; &isin; S(Y)
+ * <b>and</b> &perp; &notin; S(X) <b>then</b> S(X) := S(X) &cup; {&perp;}</li>
+ * <li>CR5 : <b>if</b> (X,Y) &isin; R(r) <b>and</b> r &sqsube; s &isin; O
  * <b>and</b> (X,Y) &notin; R(s) <b>then</b> R(s) := R(s) &cup; {(X,Y)}</li>
  * <li>CR6 : <b>if</b> (X,Y) &isin; R(r) <b>and</b> (Y,Z) &isin; R(s) <b>and</b>
- * r &#8728; s &#8849; t &isin; O <b>and</b> (X,Z) &notin; R(t) <b>then</b> R(t)
- * := R(t) &cup; {(X,Z)}</li>
+ * r &compfn; s &sqsube; t &isin; O <b>and</b> (X,Z) &notin; R(t) <b>then</b>
+ * R(t) := R(t) &cup; {(X,Z)}</li>
  * </ul>
  * 
  * @author Julian Mendez

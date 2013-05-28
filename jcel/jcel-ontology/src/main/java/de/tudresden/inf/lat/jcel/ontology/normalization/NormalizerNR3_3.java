@@ -59,15 +59,15 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
 /**
  * <p>
  * <ul>
- * <li>NR-3.3 : D &#8849; C<sub>1</sub> &#8851; &hellip; &#8851; C<sub>n</sub>
- * &#8605; D &#8849; C<sub>1</sub>, &hellip; , D &#8849; C<sub>n</sub></li>
+ * <li>NR-3.3 : D &sqsube; C<sub>1</sub> &sqcap; &hellip; &sqcap; C<sub>n</sub>
+ * &rarrw; D &sqsube; C<sub>1</sub>, &hellip; , D &sqsube; C<sub>n</sub></li>
  * </ul>
  * </p>
  * 
  * This is a modified version of NR3-3 which is: <br />
  * 
  * <ul>
- * <li>NR-3.3 : B &#8849; C &#8851; D &#8605; B &#8849; C, B &#8849; D</li>
+ * <li>NR-3.3 : B &sqsube; C &sqcap; D &rarrw; B &sqsube; C, B &sqsube; D</li>
  * </ul>
  * 
  * @author Julian Mendez

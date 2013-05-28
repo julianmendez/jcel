@@ -55,7 +55,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
 /**
  * Axiom of the form:
  * <ul>
- * <li>&exist; r <i>.</i> A &#8849; B</li>
+ * <li>&exist; r <i>.</i> A &sqsube; B</li>
  * </ul>
  * 
  * @author Julian Mendez

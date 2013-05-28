@@ -55,10 +55,10 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 /**
  * This class models an axiom stating that the contained classes are pairwise
  * disjoint. <br />
- * This is: A<sub>1</sub> &#8851; A<sub>2</sub> &#8849; &#8869;, A<sub>1</sub>
- * &#8851; A<sub>3</sub> &#8849; &#8869;, A<sub>2</sub> &#8851; A<sub>3</sub>
- * &#8849; &#8869;, &hellip; , A<sub>n-1</sub> &#8851; A<sub>n</sub> &#8849;
- * &#8869;
+ * This is: A<sub>1</sub> &sqcap; A<sub>2</sub> &sqsube; &perp;, A<sub>1</sub>
+ * &sqcap; A<sub>3</sub> &sqsube; &perp;, A<sub>2</sub> &sqcap; A<sub>3</sub>
+ * &sqsube; &perp;, &hellip; , A<sub>n-1</sub> &sqcap; A<sub>n</sub> &sqsube;
+ * &perp;
  * 
  * @author Julian Mendez
  */

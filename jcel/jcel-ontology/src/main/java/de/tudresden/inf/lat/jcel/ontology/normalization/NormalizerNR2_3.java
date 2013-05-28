@@ -62,8 +62,8 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
 /**
  * <p>
  * <ul>
- * <li>NR-2.3 : &exist; r <i>.</i> C' &#8849; D &#8605; C' &#8849; A, &exist; r
- * <i>.</i> A &#8849; D</li>
+ * <li>NR-2.3 : &exist; r <i>.</i> C' &sqsube; D &rarrw; C' &sqsube; A, &exist;
+ * r <i>.</i> A &sqsube; D</li>
  * </ul>
  * </p>
  * 

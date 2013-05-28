@@ -56,10 +56,10 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
  * <p>
  * <ul>
  * <li>CR-9 : <b>if</b> <u>(r<sub>1</sub>, x, y) &isin; R</u>, (r<sub>2</sub>,
- * x, z) &isin; R, r<sub>1</sub> &#8849;<sub><i>T</i></sub> s, r<sub>2</sub>
- * &#8849;<sub><i>T</i></sub> s, y = (&#8868; , &psi;), z = (&#8868; , &phi;), y
+ * x, z) &isin; R, r<sub>1</sub> &sqsube;<sub><i>T</i></sub> s, r<sub>2</sub>
+ * &sqsube;<sub><i>T</i></sub> s, y = (&top; , &psi;), z = (&top; , &phi;), y
  * &ne; z, f(s) <br />
- * <b>then</b> v := (&#8868; , &psi; &cup; &phi;) <br />
+ * <b>then</b> v := (&top; , &psi; &cup; &phi;) <br />
  * &nbsp;&nbsp;&nbsp;&nbsp; <b>if</b> v &notin; V <b>then</b> V := V &cup; {v} <br />
  * &nbsp;&nbsp;&nbsp;&nbsp; S := S &cup; {(v, k) | (y, k) &isin; S} &cup; {(v,
  * k) | (z, k) &isin; S} <br />

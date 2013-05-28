@@ -59,7 +59,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 /**
  * <p>
  * <ul>
- * <li>NR-1.2 : range(r) &#8849; C &#8605; range(r) &#8849; A, A &#8849; C</li>
+ * <li>NR-1.2 : range(r) &sqsube; C &rarrw; range(r) &sqsube; A, A &sqsube; C</li>
  * </ul>
  * </p>
  * 

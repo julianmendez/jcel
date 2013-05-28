@@ -68,7 +68,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 public class NormalizerNR1_5Test extends TestCase {
 
 	/**
-	 * C &#8801; D &#8605; C &#8849; D, D &#8849; C
+	 * C &equiv; D &rarrw; C &sqsube; D, D &sqsube; C
 	 */
 	public void testUsingClasses() {
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
@@ -98,10 +98,10 @@ public class NormalizerNR1_5Test extends TestCase {
 	}
 
 	/**
-	 * &exist; r <i>.</i> C<sub>1</sub> &#8801; C<sub>2</sub> &#8851;
-	 * C<sub>3</sub> &#8605; &exist; r <i>.</i> C<sub>1</sub> &#8849;
-	 * C<sub>2</sub> &#8851; C<sub>3</sub>, C<sub>2</sub> &#8851; C<sub>3</sub>
-	 * &#8849; &exist; r <i>.</i> C<sub>1</sub>
+	 * &exist; r <i>.</i> C<sub>1</sub> &equiv; C<sub>2</sub> &sqcap;
+	 * C<sub>3</sub> &rarrw; &exist; r <i>.</i> C<sub>1</sub> &sqsube;
+	 * C<sub>2</sub> &sqcap; C<sub>3</sub>, C<sub>2</sub> &sqcap; C<sub>3</sub>
+	 * &sqsube; &exist; r <i>.</i> C<sub>1</sub>
 	 */
 	public void testUsingClassExpressions() {
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();

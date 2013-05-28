@@ -53,10 +53,10 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
 /**
  * <p>
  * <ul>
- * <li>CR-8 : <b>if</b> A &#8849; &exist; r<sub>2</sub><sup>-</sup> <i>.</i> B
+ * <li>CR-8 : <b>if</b> A &sqsube; &exist; r<sub>2</sub><sup>-</sup> <i>.</i> B
  * &isin; <i>T</i> , <u>(r<sub>1</sub>, x, y) &isin; R</u>, (y, A) &isin; S,
- * r<sub>1</sub> &#8849;<sub><i>T</i></sub> s, r<sub>2</sub>
- * &#8849;<sub><i>T</i></sub> s, f(s<sup>-</sup>) <br />
+ * r<sub>1</sub> &sqsube;<sub><i>T</i></sub> s, r<sub>2</sub>
+ * &sqsube;<sub><i>T</i></sub> s, f(s<sup>-</sup>) <br />
  * <b>then</b> S := S &cup; {(x, B)}</li>
  * </ul>
  * </p>

@@ -54,7 +54,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
 
 /**
- * For each object property r, this rule adds r &#8849; r.
+ * For each object property r, this rule adds r &sqsube; r.
  * 
  * @author Julian Mendez
  */

@@ -55,8 +55,8 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
 /**
  * <p>
  * <ul>
- * <li>CR-6 : <b>if</b> &exist; s<sup>-</sup> <i>.</i> A &#8849; B &isin;
- * <i>T</i>, r &#8849;<sub><i>T</i></sub> s, (r, x, y) &isin; R, <u>(x, A)
+ * <li>CR-6 : <b>if</b> &exist; s<sup>-</sup> <i>.</i> A &sqsube; B &isin;
+ * <i>T</i>, r &sqsube;<sub><i>T</i></sub> s, (r, x, y) &isin; R, <u>(x, A)
  * &isin; S</u> , (y, B) &notin; S, y = (B', &psi;) <br />
  * <b>then</b> v := (B', &psi; &cup; {&exist; r <sup>-</sup> <i>.</i> A}) <br />
  * &nbsp;&nbsp;&nbsp;&nbsp; <b>if</b> v &notin; V <b>then</b> V := V &cup; {v} ,

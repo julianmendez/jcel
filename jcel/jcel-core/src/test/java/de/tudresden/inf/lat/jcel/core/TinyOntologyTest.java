@@ -112,12 +112,12 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &#x2291; B ,</li>
-	 * <li>B &#x2291; C</li>
+	 * <li>A &sqsube; B ,</li>
+	 * <li>B &sqsube; C</li>
 	 * </ol>
-	 * &#x22a8;
+	 * &vDash;
 	 * <ul>
-	 * <li>A &#x2291; C</li>
+	 * <li>A &sqsube; C</li>
 	 * </ul>
 	 */
 	public void testTinyOntology0() {
@@ -154,13 +154,13 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &#x2291; &exist; r <i>.</i> A ,</li>
-	 * <li>A &#x2291; B ,</li>
-	 * <li>&exist; r <i>.</i> B &#x2291; C</li>
+	 * <li>A &sqsube; &exist; r <i>.</i> A ,</li>
+	 * <li>A &sqsube; B ,</li>
+	 * <li>&exist; r <i>.</i> B &sqsube; C</li>
 	 * </ol>
-	 * &#x22a8;
+	 * &vDash;
 	 * <ul>
-	 * <li>A &#x2291; C</li>
+	 * <li>A &sqsube; C</li>
 	 * </ul>
 	 */
 	public void testTinyOntology1() {
@@ -201,10 +201,10 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &#x2291; B ,</li>
-	 * <li>B &#x2291; A</li>
+	 * <li>A &sqsube; B ,</li>
+	 * <li>B &sqsube; A</li>
 	 * </ol>
-	 * &#x22a8;
+	 * &vDash;
 	 * <ul>
 	 * <li>A &equiv; B</li>
 	 * </ul>
@@ -241,13 +241,13 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>&#x22a4; &#x2291; A ,</li>
-	 * <li>A &#x2291; B</li>
+	 * <li>&top; &sqsube; A ,</li>
+	 * <li>A &sqsube; B</li>
 	 * </ol>
-	 * &#x22a8;
+	 * &vDash;
 	 * <ul>
 	 * <li>A &equiv; B</li>
-	 * <li>B &equiv; &#x22a4;</li>
+	 * <li>B &equiv; &top;</li>
 	 * </ul>
 	 */
 	public void testTinyOntology3() {
@@ -306,13 +306,13 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &#x2291; &#x22a5; ,</li>
-	 * <li>B &#x2291; A</li>
+	 * <li>A &sqsube; &perp; ,</li>
+	 * <li>B &sqsube; A</li>
 	 * </ol>
-	 * &#x22a8;
+	 * &vDash;
 	 * <ul>
 	 * <li>A &equiv; B</li>
-	 * <li>B &equiv; &#x22a5;</li>
+	 * <li>B &equiv; &perp;</li>
 	 * </ul>
 	 */
 	public void testTinyOntology4() {
