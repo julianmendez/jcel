@@ -87,7 +87,7 @@ public class HashArraySetTest extends TestCase {
 		}
 
 		for (int i = 0x1000; i < 0x10000; i++) {
-			int element = i % 0xff;
+			int element = i % 0xFF;
 			boolean b1 = treeSet.contains(element);
 			boolean b2 = arrayList.contains(element);
 			boolean b3 = arraySet.contains(element);
@@ -101,7 +101,7 @@ public class HashArraySetTest extends TestCase {
 		HashArraySet arraySet = new HashArraySet();
 
 		for (int i = 0; i < 0x1000; i++) {
-			int element = i % 0xf0;
+			int element = i % 0xF0;
 			treeSet.add(element);
 			arraySet.add(element);
 			assertEquals(treeSet.size(), arraySet.size());
@@ -110,8 +110,8 @@ public class HashArraySetTest extends TestCase {
 		assertInclusion(treeSet, arraySet);
 		assertInclusion(arraySet, treeSet);
 
-		for (int i = 0; i < 0x10000; i += 0x2a) {
-			int element = i % 0xf08;
+		for (int i = 0; i < 0x10000; i += 0x2A) {
+			int element = i % 0xF08;
 			treeSet.add(element);
 			arraySet.add(element);
 			assertEquals(treeSet.size(), arraySet.size());
@@ -121,7 +121,7 @@ public class HashArraySetTest extends TestCase {
 		assertInclusion(arraySet, treeSet);
 
 		for (int i = 0; i < 0x1000; i++) {
-			int element = i % 0xf0;
+			int element = i % 0xF0;
 			treeSet.add(element);
 			arraySet.add(element);
 			assertEquals(treeSet.size(), arraySet.size());

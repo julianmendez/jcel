@@ -70,7 +70,7 @@ public class ArraySetTest extends TestCase {
 		Set<Integer> treeSet = new TreeSet<Integer>();
 
 		for (int i = 0; i < 0x1000; i++) {
-			int element = i % 0xff;
+			int element = i % 0xFF;
 			treeSet.add(element);
 			arrayList.add(element);
 			arraySet.add(element);
@@ -78,7 +78,7 @@ public class ArraySetTest extends TestCase {
 		}
 
 		for (int i = 0x1000; i < 0x10000; i++) {
-			int element = i % 0xff;
+			int element = i % 0xFF;
 			boolean b1 = treeSet.contains(element);
 			boolean b2 = arrayList.contains(element);
 			boolean b3 = arraySet.contains(element);
@@ -92,7 +92,7 @@ public class ArraySetTest extends TestCase {
 		ArraySet arraySet = new ArraySet();
 
 		for (int i = 0; i < 0x1000; i++) {
-			int element = i % 0xf0;
+			int element = i % 0xF0;
 			treeSet.add(element);
 			arraySet.add(element);
 			assertEquals(treeSet.size(), arraySet.size());
