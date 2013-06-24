@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import de.tudresden.inf.lat.jcel.owlapi.main.JcelReasonerFactory;
 
 /**
- * This factory is used by Protege 4.1 .
+ * This factory is used by Protege.
  * 
  * @author Julian Mendez
  */
