@@ -82,6 +82,7 @@ import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 import org.semanticweb.owlapi.reasoner.ReasonerInterruptedException;
+import org.semanticweb.owlapi.reasoner.ReasonerProgressMonitor;
 import org.semanticweb.owlapi.reasoner.TimeOutException;
 import org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException;
 import org.semanticweb.owlapi.util.Version;
@@ -884,7 +885,21 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		}
 
 		logger.finer("precomputeInferences(" + inferenceTypes + ")");
+		if (reasonerConfiguration != null) {
+			this.reasonerConfiguration.getProgressMonitor()
+					.reasonerTaskStarted(ReasonerProgressMonitor.CLASSIFYING);
+		}
+
+		logger.finer("classifying ...");
+		Date start = new Date();
 		getReasoner().classify();
+		logger.finer("jcel classified in "
+				+ ((new Date()).getTime() - start.getTime()) + "ms");
+
+		if (reasonerConfiguration != null) {
+			this.reasonerConfiguration.getProgressMonitor()
+					.reasonerTaskStopped();
+		}
 	}
 
 	public boolean removeAxiom(OWLAxiom axiom) {
