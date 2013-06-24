@@ -58,7 +58,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxRenderer;
+import org.coode.owlapi.latex.LatexRenderer;
+import org.coode.owlapi.owlxml.renderer.OWLXMLRenderer;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -68,8 +71,13 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 
+import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxRenderer;
+import uk.ac.manchester.owl.owlapi.tutorialowled2011.OWLTutorialSyntaxRenderer;
 import de.tudresden.inf.lat.jcel.owlapi.main.JcelReasoner;
 import de.tudresden.inf.lat.jcel.reasoner.main.VersionInfo;
+import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2OWLSyntaxRenderer;
+import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2SyntaxRenderer;
+import de.uulm.ecs.ai.owlapi.krssrenderer.KRSSSyntaxRenderer;
 
 /**
  * This class makes possible to start a classifier instance from the command
@@ -108,7 +116,17 @@ public class ConsoleStarter {
 	public static final String optOntology = "--ontology=";
 	public static final String optOperation = "--operation=";
 	public static final String optOutput = "--output=";
+	public static final String optRenderer = "--renderer=";
 	public static final String optVersion = "--version";
+
+	public static final String rendererFunctional = "functional";
+	public static final String rendererKRSS = "krss";
+	public static final String rendererKRSS2 = "krss2";
+	public static final String rendererKRSS2OWL = "krss2owl";
+	public static final String rendererLatex = "latex";
+	public static final String rendererManchester = "manchester";
+	public static final String rendererTutorial = "tutorial";
+	public static final String rendererXML = "xml";
 	public static final String versionInfo = VersionInfo.reasonerName + " "
 			+ VersionInfo.reasonerVersion;
 
@@ -160,6 +178,9 @@ public class ConsoleStarter {
 			+ optConclusion
 			+ "FILE         conclusion ontology"
 			+ "\n   "
+			+ optRenderer
+			+ "RENDERER       renderer for the class hierarchy computed by the classification operation"
+			+ "\n   "
 			+ optLogLevel
 			+ "LEVEL          log level"
 			+ "\n   "
@@ -169,7 +190,7 @@ public class ConsoleStarter {
 			+ optVersion
 			+ "                 output version"
 			+ "\n\n"
-			+ "and these options override the main arguments:"
+			+ "these options override the main arguments:"
 			+ "\n   "
 			+ optOperation
 			+ "OPERATION     select an operation to execute"
@@ -183,7 +204,55 @@ public class ConsoleStarter {
 			+ optClassURI
 			+ "CLASS_URI      (only for "
 			+ cmdSat
-			+ ") URI of the class to check satisfiability" + "\n\n\n\n";
+			+ ") URI of the class to check satisfiability"
+			+ "\n\nthe types are:"
+			+ "\n   CLASS_URI                 class URI, e.g.: http://www.w3.org/2002/07/owl#Thing"
+			+ "\n   FILE                      file name, e.g.: /tmp/inputOntology.owl"
+			+ "\n   LEVEL                     a "
+			+ (Level.class).getName()
+			+ " number or string, e.g. "
+			+ Level.INFO.intValue()
+			+ " or "
+			+ " \n                             "
+			+ Level.OFF.getName()
+			+ " | "
+			+ Level.SEVERE.getName()
+			+ " | "
+			+ Level.WARNING.getName()
+			+ " | "
+			+ Level.INFO.getName()
+			+ " | "
+			+ Level.CONFIG.getName()
+			+ " | "
+			+ Level.FINE.getName()
+			+ " | "
+			+ Level.FINER.getName()
+			+ " | "
+			+ Level.FINEST.getName()
+			+ " | "
+			+ Level.ALL.getName()
+			+ "\n   OPERATION                 "
+			+ cmdConsistency
+			+ " | "
+			+ cmdSat
+			+ " | "
+			+ cmdClassification
+			+ " | "
+			+ cmdEntailment
+			+ "\n   RENDERER                  "
+			+ rendererFunctional
+			+ " | "
+			+ rendererKRSS
+			+ " | "
+			+ rendererKRSS2
+			+ " | "
+			+ rendererKRSS2OWL
+			+ " | "
+			+ rendererLatex
+			+ " | "
+			+ rendererManchester
+			+ " | "
+			+ rendererTutorial + " | " + rendererXML + "\n\n\n\n";
 
 	public ConsoleStarter() {
 	}
@@ -297,9 +366,9 @@ public class ConsoleStarter {
 	 * @throws OWLOntologyCreationException
 	 * @throws OWLRendererException
 	 */
-	public void computeClassification(File ontologyFile, File inferredFile)
-			throws OWLOntologyCreationException, OWLRendererException,
-			FileNotFoundException {
+	public void computeClassification(File ontologyFile, File inferredFile,
+			AbstractOWLRenderer renderer) throws OWLOntologyCreationException,
+			OWLRendererException, FileNotFoundException {
 		if (ontologyFile == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -315,7 +384,7 @@ public class ConsoleStarter {
 		logger.fine("generating output ...");
 		OWLInferredOntologyWrapper inferredOntology = new OWLInferredOntologyWrapper(
 				reasoner);
-		OWLFunctionalSyntaxRenderer renderer = new OWLFunctionalSyntaxRenderer();
+
 		renderer.render(inferredOntology.getOWLOntology(),
 				new FileOutputStream(inferredFile));
 
@@ -354,6 +423,10 @@ public class ConsoleStarter {
 	}
 
 	public Mode parseMode(String argument) {
+		if (argument == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
 		Mode mode = Mode.NOTHING;
 		if (argument.equals(cmdClassification)) {
 			mode = Mode.CLASSIFICATION;
@@ -370,6 +443,33 @@ public class ConsoleStarter {
 					+ argument + "'");
 		}
 		return mode;
+	}
+
+	public AbstractOWLRenderer parseRenderer(String argument) {
+		if (argument == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		AbstractOWLRenderer ret = null;
+		if (argument.equals(rendererKRSS2OWL)) {
+			ret = new KRSS2OWLSyntaxRenderer();
+		} else if (argument.equals(rendererKRSS2)) {
+			ret = new KRSS2SyntaxRenderer();
+		} else if (argument.equals(rendererKRSS)) {
+			ret = new KRSSSyntaxRenderer();
+		} else if (argument.equals(rendererLatex)) {
+			ret = new LatexRenderer();
+		} else if (argument.equals(rendererManchester)) {
+			ret = new ManchesterOWLSyntaxRenderer();
+		} else if (argument.equals(rendererFunctional)) {
+			ret = new OWLFunctionalSyntaxRenderer();
+		} else if (argument.equals(rendererTutorial)) {
+			ret = new OWLTutorialSyntaxRenderer();
+		} else if (argument.equals(rendererXML)) {
+			ret = new OWLXMLRenderer();
+		}
+
+		return ret;
 	}
 
 	public void start(String[] args) throws OWLRendererException,
@@ -392,6 +492,7 @@ public class ConsoleStarter {
 				File conclusionFile = null;
 				Level logLevel = Level.OFF;
 				IRI classIRI = null;
+				AbstractOWLRenderer renderer = null;
 
 				for (String argument : arguments) {
 
@@ -415,6 +516,10 @@ public class ConsoleStarter {
 						conclusionFile = new File(
 								argument.substring(optConclusion.length()));
 
+					} else if (argument.startsWith(optRenderer)) {
+						renderer = parseRenderer(argument.substring(optRenderer
+								.length()));
+
 					} else if (argument.startsWith(optLogLevel)) {
 						logLevel = Level.parse(argument.substring(optLogLevel
 								.length()));
@@ -433,6 +538,9 @@ public class ConsoleStarter {
 				if (classIRI == null && operation.equals(Mode.SAT)) {
 					classIRI = IRI.create(arguments.get(3));
 				}
+				if (renderer == null) {
+					renderer = new OWLFunctionalSyntaxRenderer();
+				}
 
 				if (outputFile.getParentFile() != null) {
 					outputFile.getParentFile().mkdirs();
@@ -443,7 +551,7 @@ public class ConsoleStarter {
 
 				if (operation == Mode.CLASSIFICATION) {
 
-					computeClassification(ontologyFile, outputFile);
+					computeClassification(ontologyFile, outputFile, renderer);
 
 				} else if (operation == Mode.SAT) {
 
