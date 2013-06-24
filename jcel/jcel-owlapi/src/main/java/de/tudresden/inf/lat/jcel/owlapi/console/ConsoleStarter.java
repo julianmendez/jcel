@@ -371,6 +371,10 @@ public class ConsoleStarter {
 				Mode mode = parseMode(arguments.get(0));
 				File ontologyFile = new File(arguments.get(1));
 				File outputFile = new File(arguments.get(2));
+				File parent = outputFile.getParentFile();
+				if (parent != null) {
+					parent.mkdirs();
+				}
 				IRI conceptIRI = null;
 				if (mode.equals(Mode.SAT)) {
 					conceptIRI = IRI.create(arguments.get(3));
