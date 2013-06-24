@@ -526,7 +526,13 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public Set<InferenceType> getPrecomputableInferenceTypes() {
 		logger.finer("getPrecomputableInferenceTypes()");
-		Set<InferenceType> ret = Collections.emptySet();
+		Set<InferenceType> ret = new HashSet<InferenceType>();
+		ret.add(InferenceType.CLASS_HIERARCHY);
+		ret.add(InferenceType.OBJECT_PROPERTY_HIERARCHY);
+		ret.add(InferenceType.CLASS_ASSERTIONS);
+		ret.add(InferenceType.OBJECT_PROPERTY_ASSERTIONS);
+		ret.add(InferenceType.SAME_INDIVIDUAL);
+		ret.add(InferenceType.DIFFERENT_INDIVIDUALS);
 		logger.finer("" + ret);
 		return ret;
 	}
