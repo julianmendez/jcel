@@ -101,10 +101,12 @@ public class ConsoleStarter {
 	private static final Logger logger = Logger
 			.getLogger("de.tudresden.inf.lat.jcel");;
 
+	public static final String optClassURI = "--classuri=";
 	public static final String optConclusion = "--conclusion=";
 	public static final String optHelp = "--help";
 	public static final String optLogLevel = "--loglevel=";
 	public static final String optOntology = "--ontology=";
+	public static final String optOperation = "--operation=";
 	public static final String optOutput = "--output=";
 	public static final String optVersion = "--version";
 	public static final String versionInfo = VersionInfo.reasonerName + " "
@@ -165,7 +167,23 @@ public class ConsoleStarter {
 			+ "                    display this help"
 			+ "\n   "
 			+ optVersion
-			+ "                 output version" + "\n\n\n";
+			+ "                 output version"
+			+ "\n\n"
+			+ "and these options override the main arguments:"
+			+ "\n   "
+			+ optOperation
+			+ "OPERATION     select an operation to execute"
+			+ "\n   "
+			+ optOntology
+			+ "FILE           ontology to be classified (or premise ontology)"
+			+ "\n   "
+			+ optOutput
+			+ "FILE             output with the inferred data"
+			+ "\n   "
+			+ optClassURI
+			+ "CLASS_URI      (only for "
+			+ cmdSat
+			+ ") URI of the class to check satisfiability" + "\n\n\n\n";
 
 	public ConsoleStarter() {
 	}
@@ -368,53 +386,80 @@ public class ConsoleStarter {
 				System.out.println(licenseInfo);
 			} else if (arguments.size() >= 3) {
 
-				Mode mode = parseMode(arguments.get(0));
-				File ontologyFile = new File(arguments.get(1));
-				File outputFile = new File(arguments.get(2));
-				File parent = outputFile.getParentFile();
-				if (parent != null) {
-					parent.mkdirs();
-				}
-				IRI conceptIRI = null;
-				if (mode.equals(Mode.SAT)) {
-					conceptIRI = IRI.create(arguments.get(3));
-				}
-
+				Mode operation = null;
+				File ontologyFile = null;
+				File outputFile = null;
 				File conclusionFile = null;
 				Level logLevel = Level.OFF;
+				IRI classIRI = null;
 
 				for (String argument : arguments) {
-					if (argument.startsWith(optConclusion)) {
+
+					if (argument.startsWith(optOperation)) {
+						operation = parseMode(argument.substring(optOperation
+								.length()));
+
+					} else if (argument.startsWith(optOntology)) {
+						ontologyFile = new File(argument.substring(optOntology
+								.length()));
+
+					} else if (argument.startsWith(optOutput)) {
+						outputFile = new File(argument.substring(optOutput
+								.length()));
+
+					} else if (argument.startsWith(optClassURI)) {
+						classIRI = IRI.create(argument.substring(optClassURI
+								.length()));
+
+					} else if (argument.startsWith(optConclusion)) {
 						conclusionFile = new File(
 								argument.substring(optConclusion.length()));
+
 					} else if (argument.startsWith(optLogLevel)) {
 						logLevel = Level.parse(argument.substring(optLogLevel
 								.length()));
 					}
 				}
 
+				if (operation == null) {
+					operation = parseMode(arguments.get(0));
+				}
+				if (ontologyFile == null) {
+					ontologyFile = new File(arguments.get(1));
+				}
+				if (outputFile == null) {
+					outputFile = new File(arguments.get(2));
+				}
+				if (classIRI == null && operation.equals(Mode.SAT)) {
+					classIRI = IRI.create(arguments.get(3));
+				}
+
+				if (outputFile.getParentFile() != null) {
+					outputFile.getParentFile().mkdirs();
+				}
+
 				logger.setLevel(logLevel);
 				logger.addHandler(new OutputStreamHandler(System.out));
 
-				if (mode == Mode.CLASSIFICATION) {
+				if (operation == Mode.CLASSIFICATION) {
 
 					computeClassification(ontologyFile, outputFile);
 
-				} else if (mode == Mode.SAT) {
+				} else if (operation == Mode.SAT) {
 
-					storeInFile("" + conceptIRI.getFragment() + ", "
-							+ checkSatisfiability(ontologyFile, conceptIRI),
+					storeInFile("" + classIRI.getFragment() + ", "
+							+ checkSatisfiability(ontologyFile, classIRI),
 							outputFile);
 
-				} else if (mode == Mode.CONSISTENCY) {
+				} else if (operation == Mode.CONSISTENCY) {
 
 					storeInFile("" + checkConsistency(ontologyFile), outputFile);
 
-				} else if (mode == Mode.QUERY) {
+				} else if (operation == Mode.QUERY) {
 					throw new UnsupportedOperationException(
 							"Operation is not supported yet.");
 
-				} else if (mode == Mode.ENTAILMENT) {
+				} else if (operation == Mode.ENTAILMENT) {
 					if (conclusionFile == null) {
 						throw new IllegalArgumentException(
 								"No conclusion file has been defined.");
