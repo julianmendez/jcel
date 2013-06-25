@@ -3,8 +3,8 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/jcel-build/jars/lib/net/sourceforge/owlapi/owlapi/3.4.4/owlapi-3.4.4.jar" sourcepath="/jcel-build/jars/lib/net/sourceforge/owlapi/owlapi/3.4.4/owlapi-3.4.4-sources.jar"/>
-	<classpathentry kind="lib" path="/jcel-build/jars/lib/org/protege/protege-editor-owl/4.1/protege-editor-owl-4.1.jar"/>
-	<classpathentry kind="lib" path="/jcel-build/jars/lib/org/protege/protege-editor-core-application/4.1/protege-editor-core-application-4.1.jar"/>
+	<classpathentry kind="lib" path="/jcel-build/jars/lib/org/protege/protege-editor-owl/4.1.0/protege-editor-owl-4.1.0.jar"/>
+	<classpathentry kind="lib" path="/jcel-build/jars/lib/org/protege/protege-editor-core-application/4.1.0/protege-editor-core-application-4.1.0.jar"/>
 	<classpathentry kind="lib" path="/jcel-build/jars/lib/junit/junit/4.10/junit-4.10.jar" sourcepath="/jcel-build/jars/lib/junit/junit/4.10/junit-4.10-sources.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jcel-owlapi"/>
 	<classpathentry kind="output" path="target/classes"/>
