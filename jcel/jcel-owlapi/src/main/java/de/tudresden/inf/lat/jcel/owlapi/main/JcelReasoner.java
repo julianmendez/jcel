@@ -888,6 +888,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		if (reasonerConfiguration != null) {
 			this.reasonerConfiguration.getProgressMonitor()
 					.reasonerTaskStarted(ReasonerProgressMonitor.CLASSIFYING);
+			this.reasonerConfiguration.getProgressMonitor().reasonerTaskBusy();
 		}
 
 		logger.finer("classifying ...");
