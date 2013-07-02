@@ -86,8 +86,8 @@ public class RuleBasedProcessor implements Processor {
 	private class WorkerThreadR extends Thread {
 		@Override
 		public void run() {
-			while (status.getNumberOfREntries() > 0) {
-				while (status.getNumberOfREntries() > 0) {
+			while (RuleBasedProcessor.this.status.getNumberOfREntries() > 0) {
+				while (RuleBasedProcessor.this.status.getNumberOfREntries() > 0) {
 					processREntries();
 				}
 				try {
@@ -102,8 +102,8 @@ public class RuleBasedProcessor implements Processor {
 	private class WorkerThreadS extends Thread {
 		@Override
 		public void run() {
-			while (status.getNumberOfSEntries() > 0) {
-				while (status.getNumberOfSEntries() > 0) {
+			while (RuleBasedProcessor.this.status.getNumberOfSEntries() > 0) {
+				while (RuleBasedProcessor.this.status.getNumberOfSEntries() > 0) {
 					processSEntries();
 				}
 				try {
@@ -556,7 +556,7 @@ public class RuleBasedProcessor implements Processor {
 		// int suggestedNumberOfThreads = (numberOfCores / 2) - 1;
 		// this.multiThreadedMode = suggestedNumberOfThreads >= 4;
 
-		if (multiThreadedMode) {
+		if (this.multiThreadedMode) {
 			logger.fine("running processor on multiple threads.");
 		} else {
 			logger.fine("running processor on a single thread.");
@@ -582,14 +582,14 @@ public class RuleBasedProcessor implements Processor {
 
 	private boolean processMultiThreaded() {
 		if (!this.isReady) {
-			if (this.threadS1 != null && this.threadS2 != null
-					&& this.threadR1 != null && this.threadR2 != null
+			if ((this.threadS1 != null) && (this.threadS2 != null)
+					&& (this.threadR1 != null) && (this.threadR2 != null)
 					&& this.threadS1.getState().equals(Thread.State.TERMINATED)
 					&& this.threadS2.getState().equals(Thread.State.TERMINATED)
 					&& this.threadR1.getState().equals(Thread.State.TERMINATED)
 					&& this.threadR2.getState().equals(Thread.State.TERMINATED)
-					&& this.status.getNumberOfSEntries() == 0
-					&& this.status.getNumberOfREntries() == 0) {
+					&& (this.status.getNumberOfSEntries() == 0)
+					&& (this.status.getNumberOfREntries() == 0)) {
 
 				logger.fine(showStatusInfo());
 				postProcess();
@@ -597,32 +597,32 @@ public class RuleBasedProcessor implements Processor {
 				this.isReady = true;
 			} else {
 
-				if (this.threadS1 == null
-						|| (this.threadS1 != null && this.threadS1.getState()
+				if ((this.threadS1 == null)
+						|| ((this.threadS1 != null) && this.threadS1.getState()
 								.equals(Thread.State.TERMINATED))) {
 					this.threadS1 = new WorkerThreadS();
 					this.threadS1.start();
 					logger.finest("starting new thread S-1 ...");
 				}
 
-				if (this.threadS2 == null
-						|| (this.threadS2 != null && this.threadS2.getState()
+				if ((this.threadS2 == null)
+						|| ((this.threadS2 != null) && this.threadS2.getState()
 								.equals(Thread.State.TERMINATED))) {
 					this.threadS2 = new WorkerThreadS();
 					this.threadS2.start();
 					logger.finest("starting new thread S-2 ...");
 				}
 
-				if (this.threadR1 == null
-						|| (this.threadR1 != null && this.threadR1.getState()
+				if ((this.threadR1 == null)
+						|| ((this.threadR1 != null) && this.threadR1.getState()
 								.equals(Thread.State.TERMINATED))) {
 					this.threadR1 = new WorkerThreadR();
 					this.threadR1.start();
 					logger.finest("starting new thread R-1 ...");
 				}
 
-				if (this.threadR2 == null
-						|| (this.threadR2 != null && this.threadR2.getState()
+				if ((this.threadR2 == null)
+						|| ((this.threadR2 != null) && this.threadR2.getState()
 								.equals(Thread.State.TERMINATED))) {
 					this.threadR2 = new WorkerThreadR();
 					this.threadR2.start();
@@ -632,13 +632,13 @@ public class RuleBasedProcessor implements Processor {
 				try {
 					if (this.status.getNumberOfREntries() < this.status
 							.getNumberOfSEntries()) {
-						if (this.iteration % 2 == 0) {
+						if ((this.iteration % 2) == 0) {
 							this.threadR1.join();
 						} else {
 							this.threadR2.join();
 						}
 					} else {
-						if (this.iteration % 2 == 0) {
+						if ((this.iteration % 2) == 0) {
 							this.threadS1.join();
 						} else {
 							this.threadS2.join();
@@ -695,7 +695,7 @@ public class RuleBasedProcessor implements Processor {
 		boolean ret = false;
 		REntry entry = null;
 		try {
-			entry = status.removeNextREntry();
+			entry = this.status.removeNextREntry();
 		} catch (NoSuchElementException e) {
 		}
 		if (entry != null) {
@@ -703,11 +703,12 @@ public class RuleBasedProcessor implements Processor {
 			int property = entry.getProperty();
 			int leftClass = entry.getLeftClass();
 			int rightClass = entry.getRightClass();
-			boolean applied = status.addToR(property, leftClass, rightClass);
+			boolean applied = this.status.addToR(property, leftClass,
+					rightClass);
 			if (applied) {
-				chainR.apply(status, property, leftClass, rightClass);
-				loggingCount--;
-				iteration++;
+				this.chainR.apply(this.status, property, leftClass, rightClass);
+				this.loggingCount--;
+				this.iteration++;
 			}
 		}
 		return ret;
@@ -717,18 +718,18 @@ public class RuleBasedProcessor implements Processor {
 		boolean ret = false;
 		SEntry entry = null;
 		try {
-			entry = status.removeNextSEntry();
+			entry = this.status.removeNextSEntry();
 		} catch (NoSuchElementException e) {
 		}
 		if (entry != null) {
 			ret = true;
 			int subClass = entry.getSubClass();
 			int superClass = entry.getSuperClass();
-			boolean applied = status.addToS(subClass, superClass);
+			boolean applied = this.status.addToS(subClass, superClass);
 			if (applied) {
-				chainS.apply(status, subClass, superClass);
-				loggingCount--;
-				iteration++;
+				this.chainS.apply(this.status, subClass, superClass);
+				this.loggingCount--;
+				this.iteration++;
 			}
 		}
 		return ret;
@@ -736,14 +737,15 @@ public class RuleBasedProcessor implements Processor {
 
 	private boolean processSingleThreaded() {
 		if (!this.isReady) {
-			if (this.status.getNumberOfSEntries() == 0
-					&& this.status.getNumberOfREntries() == 0) {
+			if ((this.status.getNumberOfSEntries() == 0)
+					&& (this.status.getNumberOfREntries() == 0)) {
 				logger.fine(showStatusInfo());
 				postProcess();
 				logger.fine(showConfigurationInfo());
 				this.isReady = true;
 			} else {
-				if (status.getNumberOfSEntries() > status.getNumberOfREntries()) {
+				if (this.status.getNumberOfSEntries() > this.status
+						.getNumberOfREntries()) {
 					processSEntries();
 				} else {
 					processREntries();

@@ -82,10 +82,10 @@ public class ArraySetIterator implements Iterator<Integer> {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof ArraySetIterator) {
+		if (!ret && (o instanceof ArraySetIterator)) {
 			ArraySetIterator other = (ArraySetIterator) o;
 			ret = (this.size == other.size) && (this.pointer == other.pointer);
-			for (int index = 0; ret && index < size; index++) {
+			for (int index = 0; ret && (index < this.size); index++) {
 				ret = ret && (this.array[index] == other.array[index]);
 			}
 		}
@@ -94,7 +94,7 @@ public class ArraySetIterator implements Iterator<Integer> {
 
 	@Override
 	public int hashCode() {
-		return this.pointer + 31 * this.array.hashCode();
+		return this.pointer + (31 * this.array.hashCode());
 	}
 
 	@Override

@@ -79,7 +79,7 @@ class ImplicationEntry implements ExtensionEntry {
 
 		this.leftPart = left;
 		this.superClass = right;
-		this.hashcode = 31 * this.leftPart.hashCode()
+		this.hashcode = (31 * this.leftPart.hashCode())
 				+ this.superClass.hashCode();
 	}
 

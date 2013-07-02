@@ -114,7 +114,7 @@ public class VNodeImpl implements VNode {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof VNode) {
+		if (!ret && (o instanceof VNode)) {
 			VNode other = (VNode) o;
 			ret = (getClassId() == other.getClassId())
 					&& getExistentialEntries().equals(
@@ -144,7 +144,7 @@ public class VNodeImpl implements VNode {
 
 	@Override
 	public int hashCode() {
-		return this.classIdentifier + 31 * this.existentialSet.hashCode();
+		return this.classIdentifier + (31 * this.existentialSet.hashCode());
 	}
 
 	@Override

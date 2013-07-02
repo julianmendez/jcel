@@ -150,10 +150,10 @@ public class ArraySet implements Set<Integer> {
 	@Override
 	public synchronized boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof ArraySet) {
+		if (!ret && (o instanceof ArraySet)) {
 			ArraySet other = (ArraySet) o;
 			ret = (this.size == other.size);
-			for (int index = 0; ret && index < this.size; index++) {
+			for (int index = 0; ret && (index < this.size); index++) {
 				ret = ret && (this.array[index] == other.array[index]);
 			}
 		}

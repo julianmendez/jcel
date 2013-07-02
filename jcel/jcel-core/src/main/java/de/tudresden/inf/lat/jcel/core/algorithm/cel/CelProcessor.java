@@ -52,7 +52,6 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -448,7 +447,7 @@ public class CelProcessor implements Processor {
 
 	private boolean isReflexiveTransitiveSubsumed(Integer leftPropertyName,
 			Integer rightPropertyName) {
-		return this.objectPropertyGraph != null
+		return (this.objectPropertyGraph != null)
 				&& this.objectPropertyGraph.containsPair(leftPropertyName,
 						rightPropertyName);
 	}
@@ -620,9 +619,7 @@ public class CelProcessor implements Processor {
 	private void processBottom(Integer className) {
 		this.classGraph.addAncestor(className, bottomClassId);
 
-		for (Iterator<Integer> it = this.relationSet.getElements().iterator(); it
-				.hasNext();) {
-			Integer relation = it.next();
+		for (Integer relation : this.relationSet.getElements()) {
 			for (Integer firstComponent : this.relationSet.getBySecond(
 					relation, className)) {
 				if (!this.classGraph

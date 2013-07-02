@@ -78,8 +78,8 @@ public class REntryImpl implements REntry, Comparable<REntry> {
 		this.property = prop;
 		this.leftClass = leftCl;
 		this.rightClass = rightCl;
-		this.hashCode = this.property + 31
-				* (this.leftClass + 31 * this.rightClass);
+		this.hashCode = this.property
+				+ (31 * (this.leftClass + (31 * this.rightClass)));
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public class REntryImpl implements REntry, Comparable<REntry> {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof REntry) {
+		if (!ret && (o instanceof REntry)) {
 			REntry other = (REntry) o;
 			ret = (this.property == other.getProperty())
 					&& (this.leftClass == other.getLeftClass())

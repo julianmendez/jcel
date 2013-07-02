@@ -103,14 +103,14 @@ public class IntegerSubsumerBidirectionalGraphImpl implements
 
 	@Override
 	public boolean containsPair(int subsumee, int subsumer) {
-		return getSubsumers(subsumee) != null
+		return (getSubsumers(subsumee) != null)
 				&& getSubsumers(subsumee).contains(subsumer);
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerSubsumerBidirectionalGraph) {
+		if (!ret && (o instanceof IntegerSubsumerBidirectionalGraph)) {
 			IntegerSubsumerBidirectionalGraph other = (IntegerSubsumerBidirectionalGraph) o;
 			ret = (getBottomElement() == other.getBottomElement())
 					&& (getTopElement() == other.getTopElement())

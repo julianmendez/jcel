@@ -153,7 +153,7 @@ public class TurtleRenderer {
 			try {
 				URI uri = new URI(name);
 				String prefix = getPrefix(uri);
-				if (prefix.length() > 0
+				if ((prefix.length() > 0)
 						&& !this.mapOfPrefixes.containsKey(prefix)) {
 					this.mapOfPrefixes.put(prefix, prefixBeginning
 							+ this.mapOfPrefixes.keySet().size());

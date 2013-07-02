@@ -133,7 +133,7 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerBinaryRelation) {
+		if (!ret && (o instanceof IntegerBinaryRelation)) {
 			IntegerBinaryRelation other = (IntegerBinaryRelation) o;
 			ret = getElements().equals(other.getElements());
 			for (Iterator<Integer> it = getElements().iterator(); ret

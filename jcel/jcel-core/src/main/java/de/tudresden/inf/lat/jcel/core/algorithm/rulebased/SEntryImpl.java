@@ -74,7 +74,7 @@ public class SEntryImpl implements SEntry, Comparable<SEntry> {
 	public SEntryImpl(int subCl, int superCl) {
 		this.subClass = subCl;
 		this.superClass = superCl;
-		this.hashCode = this.subClass + 31 * this.superClass;
+		this.hashCode = this.subClass + (31 * this.superClass);
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class SEntryImpl implements SEntry, Comparable<SEntry> {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof SEntry) {
+		if (!ret && (o instanceof SEntry)) {
 			SEntry other = (SEntry) o;
 			ret = (this.subClass == other.getSubClass())
 					&& (this.superClass == other.getSuperClass());

@@ -142,7 +142,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerRelationMap) {
+		if (!ret && (o instanceof IntegerRelationMap)) {
 			IntegerRelationMap other = (IntegerRelationMap) o;
 			ret = getElements().equals(other.getElements());
 			for (Iterator<Integer> it = getElements().iterator(); ret

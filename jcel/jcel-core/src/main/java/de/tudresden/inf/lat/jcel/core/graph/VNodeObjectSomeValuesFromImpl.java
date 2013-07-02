@@ -70,13 +70,13 @@ public class VNodeObjectSomeValuesFromImpl implements VNodeObjectSomeValuesFrom 
 	public VNodeObjectSomeValuesFromImpl(int objectProp, int cls) {
 		this.objectPropertyId = objectProp;
 		this.classId = cls;
-		this.hashCode = this.objectPropertyId + 31 * this.classId;
+		this.hashCode = this.objectPropertyId + (31 * this.classId);
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof VNodeObjectSomeValuesFrom) {
+		if (!ret && (o instanceof VNodeObjectSomeValuesFrom)) {
 			VNodeObjectSomeValuesFrom other = (VNodeObjectSomeValuesFrom) o;
 			ret = (this.objectPropertyId == other.getObjectPropertyId())
 					&& (this.classId == other.getClassId());

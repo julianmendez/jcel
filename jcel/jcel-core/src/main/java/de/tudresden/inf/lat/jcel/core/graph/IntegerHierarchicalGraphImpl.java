@@ -248,7 +248,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerHierarchicalGraph) {
+		if (!ret && (o instanceof IntegerHierarchicalGraph)) {
 			IntegerHierarchicalGraph other = (IntegerHierarchicalGraph) o;
 			ret = getBottomElement().equals(other.getBottomElement())
 					&& getTopElement().equals(other.getTopElement())

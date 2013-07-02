@@ -117,7 +117,7 @@ public class HashArraySet implements Set<Integer> {
 
 	private int computeNewLength(int length) {
 		int ret = linearGrowthFactor + (exponentialGrowthFactor * length);
-		while ((ret % 2 == 0) || (ret % 3 == 0) || (ret % 5 == 0)) {
+		while (((ret % 2) == 0) || ((ret % 3) == 0) || ((ret % 5) == 0)) {
 			ret++;
 		}
 		return ret;
@@ -152,16 +152,16 @@ public class HashArraySet implements Set<Integer> {
 	@Override
 	public synchronized boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof HashArraySet) {
+		if (!ret && (o instanceof HashArraySet)) {
 			HashArraySet other = (HashArraySet) o;
 			ret = (this.size == other.size);
-			for (int index = 0; ret && index < this.array.length; index++) {
+			for (int index = 0; ret && (index < this.array.length); index++) {
 				int current = this.array[index];
 				if (current != EMPTY) {
 					ret = ret && other.contains(current);
 				}
 			}
-			for (int index = 0; ret && index < other.array.length; index++) {
+			for (int index = 0; ret && (index < other.array.length); index++) {
 				int current = other.array[index];
 				if (current != EMPTY) {
 					contains(current);
@@ -292,8 +292,7 @@ public class HashArraySet implements Set<Integer> {
 
 	private synchronized ArrayList<Integer> toArrayList() {
 		ArrayList<Integer> ret = new ArrayList<Integer>();
-		for (int index = 0; index < this.array.length; index++) {
-			int element = this.array[index];
+		for (int element : this.array) {
 			if (element != EMPTY) {
 				ret.add(element);
 			}
@@ -305,8 +304,7 @@ public class HashArraySet implements Set<Integer> {
 	public synchronized String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append("[ ");
-		for (int index = 0; index < this.array.length; index++) {
-			int element = this.array[index];
+		for (int element : this.array) {
 			if (element == EMPTY) {
 				sbuf.append(".");
 			} else {

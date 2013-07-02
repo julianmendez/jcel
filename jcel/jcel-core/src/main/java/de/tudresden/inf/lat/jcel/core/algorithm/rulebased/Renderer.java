@@ -96,11 +96,11 @@ public class Renderer {
 		}
 
 		public int getId() {
-			return id;
+			return this.id;
 		}
 
 		public String getName() {
-			return name;
+			return this.name;
 		}
 
 	}
@@ -131,7 +131,7 @@ public class Renderer {
 	public boolean renderWithNames(Writer output,
 			IntegerEntityManager entityManager, IntegerRelationMap setR)
 			throws IOException {
-		if (output == null || entityManager == null || setR == null) {
+		if ((output == null) || (entityManager == null) || (setR == null)) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
@@ -181,7 +181,7 @@ public class Renderer {
 	public boolean renderWithNames(Writer output,
 			IntegerEntityManager entityManager, IntegerSubsumerGraph setS)
 			throws IOException {
-		if (output == null || entityManager == null || setS == null) {
+		if ((output == null) || (entityManager == null) || (setS == null)) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 

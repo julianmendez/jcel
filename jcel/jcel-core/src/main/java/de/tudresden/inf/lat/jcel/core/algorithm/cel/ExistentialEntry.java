@@ -76,7 +76,7 @@ class ExistentialEntry implements ExtensionEntry {
 
 		this.propertyId = property;
 		this.classId = cls;
-		this.hashcode = 31 * this.classId.hashCode()
+		this.hashcode = (31 * this.classId.hashCode())
 				+ this.propertyId.hashCode();
 	}
 
@@ -121,7 +121,7 @@ class ExistentialEntry implements ExtensionEntry {
 
 	@Override
 	public int hashCode() {
-		return hashcode;
+		return this.hashcode;
 	}
 
 	@Override
