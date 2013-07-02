@@ -82,7 +82,7 @@ public class IntegerDataProperty implements IntegerDataPropertyExpression,
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerDataProperty) {
+		if (!ret && (o instanceof IntegerDataProperty)) {
 			IntegerDataProperty other = (IntegerDataProperty) o;
 			ret = (getId() == other.getId());
 		}

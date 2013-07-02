@@ -48,7 +48,6 @@ package de.tudresden.inf.lat.jcel.ontology.normalization;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
@@ -101,12 +100,8 @@ class NormalizerNR1_5 implements NormalizationRule {
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
 		Set<IntegerClassExpression> classExpressionSet = equivalentAxiom
 				.getClassExpressions();
-		for (Iterator<IntegerClassExpression> firstIt = classExpressionSet
-				.iterator(); firstIt.hasNext();) {
-			IntegerClassExpression firstClassExpression = firstIt.next();
-			for (Iterator<IntegerClassExpression> secondIt = classExpressionSet
-					.iterator(); secondIt.hasNext();) {
-				IntegerClassExpression secondClassExpression = secondIt.next();
+		for (IntegerClassExpression firstClassExpression : classExpressionSet) {
+			for (IntegerClassExpression secondClassExpression : classExpressionSet) {
 				if (!firstClassExpression.equals(secondClassExpression)) {
 					IntegerSubClassOfAxiom subClassAxiom = getOntologyObjectFactory()
 							.getComplexAxiomFactory()

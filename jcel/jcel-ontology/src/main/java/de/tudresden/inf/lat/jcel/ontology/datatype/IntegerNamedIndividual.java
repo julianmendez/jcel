@@ -97,7 +97,7 @@ public class IntegerNamedIndividual implements IntegerClassExpression,
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerNamedIndividual) {
+		if (!ret && (o instanceof IntegerNamedIndividual)) {
 			IntegerNamedIndividual other = (IntegerNamedIndividual) o;
 			ret = (getId() == other.getId());
 		}

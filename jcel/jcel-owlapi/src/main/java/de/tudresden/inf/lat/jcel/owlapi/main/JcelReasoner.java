@@ -885,7 +885,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		}
 
 		logger.finer("precomputeInferences(" + inferenceTypes + ")");
-		if (reasonerConfiguration != null) {
+		if (this.reasonerConfiguration != null) {
 			this.reasonerConfiguration.getProgressMonitor()
 					.reasonerTaskStarted(ReasonerProgressMonitor.CLASSIFYING);
 			this.reasonerConfiguration.getProgressMonitor().reasonerTaskBusy();
@@ -897,7 +897,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		logger.finer("jcel classified in "
 				+ ((new Date()).getTime() - start.getTime()) + "ms");
 
-		if (reasonerConfiguration != null) {
+		if (this.reasonerConfiguration != null) {
 			this.reasonerConfiguration.getProgressMonitor()
 					.reasonerTaskStopped();
 		}

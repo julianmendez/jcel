@@ -154,9 +154,9 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerEntityManagerImpl) {
+		if (!ret && (o instanceof IntegerEntityManagerImpl)) {
 			IntegerEntityManagerImpl other = (IntegerEntityManagerImpl) o;
-			ret = this.entityCounter == other.entityCounter
+			ret = (this.entityCounter == other.entityCounter)
 					&& this.auxEntityMap.equals(other.auxEntityMap)
 					&& this.nonAuxEntityMap.equals(other.nonAuxEntityMap)
 					&& this.auxNominalMap.equals(other.auxNominalMap)
@@ -261,7 +261,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 
 	@Override
 	public int hashCode() {
-		return this.entityCounter + 31 * this.nonAuxEntityMap.hashCode();
+		return this.entityCounter + (31 * this.nonAuxEntityMap.hashCode());
 	}
 
 	@Override
@@ -292,7 +292,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 				.get(firstProperty);
 		Integer invSecondProperty = this.inverseObjectPropertyMap
 				.get(secondProperty);
-		if (invFirstProperty == null && invSecondProperty == null) {
+		if ((invFirstProperty == null) && (invSecondProperty == null)) {
 			this.inverseObjectPropertyMap.put(firstProperty, secondProperty);
 			this.inverseObjectPropertyMap.put(secondProperty, firstProperty);
 			ret = true;

@@ -81,8 +81,8 @@ public class RI3Axiom implements NormalizedIntegerAxiom {
 		this.leftSubProperty = leftLeftProp;
 		this.rightSubProperty = leftRightProp;
 		this.superProperty = rightProp;
-		this.hashCode = this.leftSubProperty + 31
-				* (this.rightSubProperty + 31 * this.superProperty);
+		this.hashCode = this.leftSubProperty
+				+ (31 * (this.rightSubProperty + (31 * this.superProperty)));
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class RI3Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof RI3Axiom) {
+		if (!ret && (o instanceof RI3Axiom)) {
 			RI3Axiom other = (RI3Axiom) o;
 			ret = (this.leftSubProperty == other.leftSubProperty)
 					&& (this.rightSubProperty == other.rightSubProperty)

@@ -90,7 +90,7 @@ public class OWLInferredOntologyWrapper {
 	}
 
 	private void addAxiom(OWLAxiom axiom) {
-		this.ontology.getOWLOntologyManager().addAxiom(ontology, axiom);
+		this.ontology.getOWLOntologyManager().addAxiom(this.ontology, axiom);
 	}
 
 	public OWLOntology getOWLOntology() {

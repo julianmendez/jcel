@@ -86,14 +86,9 @@ public class IntegerObjectOneOf implements IntegerClassExpression {
 	}
 
 	@Override
-	public boolean hasOnlyClasses() {
-		return false;
-	}
-
-	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerObjectOneOf) {
+		if (!ret && (o instanceof IntegerObjectOneOf)) {
 			IntegerObjectOneOf other = (IntegerObjectOneOf) o;
 			ret = getIndividual().equals(other.getIndividual());
 		}
@@ -137,6 +132,11 @@ public class IntegerObjectOneOf implements IntegerClassExpression {
 	@Override
 	public int hashCode() {
 		return this.individual;
+	}
+
+	@Override
+	public boolean hasOnlyClasses() {
+		return false;
 	}
 
 	@Override

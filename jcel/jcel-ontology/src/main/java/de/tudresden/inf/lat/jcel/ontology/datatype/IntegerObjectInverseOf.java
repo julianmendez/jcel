@@ -98,7 +98,7 @@ public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression,
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerObjectInverseOf) {
+		if (!ret && (o instanceof IntegerObjectInverseOf)) {
 			IntegerObjectInverseOf other = (IntegerObjectInverseOf) o;
 			ret = getInverse().equals(other.getInverse());
 		}

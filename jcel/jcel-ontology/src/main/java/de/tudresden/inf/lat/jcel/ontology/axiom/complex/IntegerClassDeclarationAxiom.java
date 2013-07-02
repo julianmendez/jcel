@@ -80,7 +80,7 @@ public class IntegerClassDeclarationAxiom implements IntegerDeclarationAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerClassDeclarationAxiom) {
+		if (!ret && (o instanceof IntegerClassDeclarationAxiom)) {
 			IntegerClassDeclarationAxiom other = (IntegerClassDeclarationAxiom) o;
 			ret = getEntity().equals(other.getEntity());
 		}

@@ -103,7 +103,7 @@ public class IntegerEquivalentObjectPropertiesAxiom implements
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerEquivalentObjectPropertiesAxiom) {
+		if (!ret && (o instanceof IntegerEquivalentObjectPropertiesAxiom)) {
 			IntegerEquivalentObjectPropertiesAxiom other = (IntegerEquivalentObjectPropertiesAxiom) o;
 			ret = getProperties().equals(other.getProperties());
 		}

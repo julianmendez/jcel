@@ -75,7 +75,7 @@ public class IntegerDataHasValue implements IntegerClassExpression {
 	protected IntegerDataHasValue(int propertyId, int val) {
 		this.property = propertyId;
 		this.value = val;
-		this.hashCode = propertyId + 31 * val;
+		this.hashCode = propertyId + (31 * val);
 	}
 
 	@Override
@@ -95,7 +95,7 @@ public class IntegerDataHasValue implements IntegerClassExpression {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerDataHasValue) {
+		if (!ret && (o instanceof IntegerDataHasValue)) {
 			IntegerDataHasValue other = (IntegerDataHasValue) o;
 			ret = (getProperty() == other.getProperty())
 					&& (getValue() == other.getValue());

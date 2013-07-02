@@ -87,7 +87,7 @@ public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerDifferentIndividualsAxiom) {
+		if (!ret && (o instanceof IntegerDifferentIndividualsAxiom)) {
 			IntegerDifferentIndividualsAxiom other = (IntegerDifferentIndividualsAxiom) o;
 			ret = getIndividuals().equals(other.getIndividuals());
 		}

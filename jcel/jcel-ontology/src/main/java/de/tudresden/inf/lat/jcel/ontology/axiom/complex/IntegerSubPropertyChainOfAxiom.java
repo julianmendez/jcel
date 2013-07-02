@@ -87,7 +87,7 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 
 		this.propertyChain = chain;
 		this.superProperty = superProp;
-		this.hashCode = superProp.hashCode() + 31 * chain.hashCode();
+		this.hashCode = superProp.hashCode() + (31 * chain.hashCode());
 
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
 		for (IntegerObjectPropertyExpression propertyExpr : getPropertyChain()) {
@@ -112,7 +112,7 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerSubPropertyChainOfAxiom) {
+		if (!ret && (o instanceof IntegerSubPropertyChainOfAxiom)) {
 			IntegerSubPropertyChainOfAxiom other = (IntegerSubPropertyChainOfAxiom) o;
 			ret = getPropertyChain().equals(other.getPropertyChain())
 					&& getSuperProperty().equals(other.getSuperProperty());

@@ -476,11 +476,11 @@ public class ConsoleStarter {
 			OWLOntologyCreationException, SecurityException, IOException {
 
 		if (args.length == 0) {
-			System.out.println(minihelp);
+			System.out.println(this.minihelp);
 		} else {
 			List<String> arguments = Arrays.asList(args);
 			if (arguments.contains(optHelp)) {
-				System.out.println(minihelp);
+				System.out.println(this.minihelp);
 			} else if (arguments.contains(optVersion)) {
 				System.out.println(versionInfo);
 				System.out.println(licenseInfo);
@@ -535,7 +535,7 @@ public class ConsoleStarter {
 				if (outputFile == null) {
 					outputFile = new File(arguments.get(2));
 				}
-				if (classIRI == null && operation.equals(Mode.SAT)) {
+				if ((classIRI == null) && operation.equals(Mode.SAT)) {
 					classIRI = IRI.create(arguments.get(3));
 				}
 				if (renderer == null) {
@@ -579,7 +579,7 @@ public class ConsoleStarter {
 
 				}
 			} else {
-				System.out.println(minihelp);
+				System.out.println(this.minihelp);
 			}
 
 		}

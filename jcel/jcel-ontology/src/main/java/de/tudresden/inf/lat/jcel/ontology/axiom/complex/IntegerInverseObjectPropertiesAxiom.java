@@ -87,7 +87,7 @@ public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom 
 
 		this.firstProperty = first;
 		this.secondProperty = second;
-		this.hashCode = first.hashCode() + 31 * second.hashCode();
+		this.hashCode = first.hashCode() + (31 * second.hashCode());
 
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
 		objectPropertiesInSignature.addAll(this.firstProperty
@@ -109,7 +109,7 @@ public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom 
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerInverseObjectPropertiesAxiom) {
+		if (!ret && (o instanceof IntegerInverseObjectPropertiesAxiom)) {
 			IntegerInverseObjectPropertiesAxiom other = (IntegerInverseObjectPropertiesAxiom) o;
 			ret = getFirstProperty().equals(other.getFirstProperty())
 					&& getSecondProperty().equals(other.getSecondProperty());

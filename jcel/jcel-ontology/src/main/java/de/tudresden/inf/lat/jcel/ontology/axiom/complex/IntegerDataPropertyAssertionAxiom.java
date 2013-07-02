@@ -80,7 +80,7 @@ public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 		this.property = objectProp;
 		this.subject = subjectInd;
 		this.object = objectInd;
-		this.hashCode = objectProp + 31 * subjectInd;
+		this.hashCode = objectProp + (31 * subjectInd);
 
 		Set<Integer> individualsInSignature = new HashSet<Integer>();
 		individualsInSignature.add(this.subject);
@@ -101,7 +101,7 @@ public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerDataPropertyAssertionAxiom) {
+		if (!ret && (o instanceof IntegerDataPropertyAssertionAxiom)) {
 			IntegerDataPropertyAssertionAxiom other = (IntegerDataPropertyAssertionAxiom) o;
 			ret = getProperty().equals(other.getProperty())
 					&& getSubject().equals(other.getSubject())

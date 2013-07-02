@@ -74,7 +74,7 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 	protected RangeAxiom(int prop, int cl) {
 		this.property = prop;
 		this.range = cl;
-		this.hashCode = this.property + 31 * this.range;
+		this.hashCode = this.property + (31 * this.range);
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof RangeAxiom) {
+		if (!ret && (o instanceof RangeAxiom)) {
 			RangeAxiom other = (RangeAxiom) o;
 			ret = (this.property == other.property)
 					&& (this.range == other.range);

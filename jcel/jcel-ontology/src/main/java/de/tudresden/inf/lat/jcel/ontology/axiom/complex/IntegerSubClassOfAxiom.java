@@ -86,7 +86,7 @@ public class IntegerSubClassOfAxiom implements ComplexIntegerAxiom {
 
 		this.subClass = subClExpr;
 		this.superClass = superClExpr;
-		this.hashCode = subClExpr.hashCode() + 31 * superClExpr.hashCode();
+		this.hashCode = subClExpr.hashCode() + (31 * superClExpr.hashCode());
 
 		Set<Integer> classesInSignature = new HashSet<Integer>();
 		classesInSignature.addAll(this.subClass.getClassesInSignature());
@@ -115,7 +115,7 @@ public class IntegerSubClassOfAxiom implements ComplexIntegerAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerSubClassOfAxiom) {
+		if (!ret && (o instanceof IntegerSubClassOfAxiom)) {
 			IntegerSubClassOfAxiom other = (IntegerSubClassOfAxiom) o;
 			ret = getSubClass().equals(other.getSubClass())
 					&& getSuperClass().equals(other.getSuperClass());

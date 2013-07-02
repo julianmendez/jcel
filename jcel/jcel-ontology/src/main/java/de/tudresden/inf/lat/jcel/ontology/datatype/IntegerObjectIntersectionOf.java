@@ -109,14 +109,9 @@ public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 	}
 
 	@Override
-	public boolean hasOnlyClasses() {
-		return this.normalized;
-	}
-
-	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerObjectIntersectionOf) {
+		if (!ret && (o instanceof IntegerObjectIntersectionOf)) {
 			IntegerObjectIntersectionOf other = (IntegerObjectIntersectionOf) o;
 			ret = getOperands().equals(other.getOperands())
 					&& (containsBottom() == other.containsBottom());
@@ -169,6 +164,11 @@ public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 	@Override
 	public int hashCode() {
 		return this.hashCode;
+	}
+
+	@Override
+	public boolean hasOnlyClasses() {
+		return this.normalized;
 	}
 
 	@Override

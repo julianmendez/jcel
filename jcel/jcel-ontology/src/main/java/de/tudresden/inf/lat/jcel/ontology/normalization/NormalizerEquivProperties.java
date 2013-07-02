@@ -48,7 +48,6 @@ package de.tudresden.inf.lat.jcel.ontology.normalization;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
@@ -99,12 +98,10 @@ class NormalizerEquivProperties implements NormalizationRule {
 		Set<IntegerObjectPropertyExpression> expressionSet = equivPropAxiom
 				.getProperties();
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
-		for (Iterator<IntegerObjectPropertyExpression> firstIt = expressionSet
-				.iterator(); firstIt.hasNext();) {
-			Integer firstExpression = getObjectPropertyId(firstIt.next());
-			for (Iterator<IntegerObjectPropertyExpression> secondIt = expressionSet
-					.iterator(); secondIt.hasNext();) {
-				Integer secondExpression = getObjectPropertyId(secondIt.next());
+		for (IntegerObjectPropertyExpression integerObjectPropertyExpression : expressionSet) {
+			Integer firstExpression = getObjectPropertyId(integerObjectPropertyExpression);
+			for (IntegerObjectPropertyExpression integerObjectPropertyExpression2 : expressionSet) {
+				Integer secondExpression = getObjectPropertyId(integerObjectPropertyExpression2);
 				RI2Axiom subPropertyAxiom = getOntologyObjectFactory()
 						.getNormalizedAxiomFactory().createRI2Axiom(
 								firstExpression, secondExpression);

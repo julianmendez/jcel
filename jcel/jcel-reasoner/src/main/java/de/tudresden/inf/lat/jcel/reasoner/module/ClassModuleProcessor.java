@@ -90,8 +90,8 @@ public class ClassModuleProcessor implements Processor {
 	private Set<ComplexIntegerAxiom> accumulatedAxiomSet = null;
 	private final IntegerOntologyObjectFactory axiomFactory;
 	private IntegerHierarchicalGraph classHierarchy = null;
-	private Map<Integer, Set<ComplexIntegerAxiom>> classToAxiom = new HashMap<Integer, Set<ComplexIntegerAxiom>>();
-	private Map<Integer, Set<Integer>> classToClass = new HashMap<Integer, Set<Integer>>();
+	private final Map<Integer, Set<ComplexIntegerAxiom>> classToAxiom = new HashMap<Integer, Set<ComplexIntegerAxiom>>();
+	private final Map<Integer, Set<Integer>> classToClass = new HashMap<Integer, Set<Integer>>();
 	private IntegerHierarchicalGraphImpl dataPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> directTypes = null;
 	private boolean finalClassification = false;
@@ -102,7 +102,7 @@ public class ClassModuleProcessor implements Processor {
 	private Processor processor = null;
 	private final ModuleProcessorFactory processorFactory;
 	private Map<Integer, Set<Integer>> sameIndividualMap = null;
-	private Set<ComplexIntegerAxiom> sharedAxioms = new HashSet<ComplexIntegerAxiom>();
+	private final Set<ComplexIntegerAxiom> sharedAxioms = new HashSet<ComplexIntegerAxiom>();
 
 	/**
 	 * Constructs a class module processor. It uses an auxiliary processor to

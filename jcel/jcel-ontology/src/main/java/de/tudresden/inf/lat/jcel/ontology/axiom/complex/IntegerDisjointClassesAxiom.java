@@ -111,7 +111,7 @@ public class IntegerDisjointClassesAxiom implements ComplexIntegerAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerDisjointClassesAxiom) {
+		if (!ret && (o instanceof IntegerDisjointClassesAxiom)) {
 			IntegerDisjointClassesAxiom other = (IntegerDisjointClassesAxiom) o;
 			ret = getClassExpressions().equals(other.getClassExpressions());
 		}

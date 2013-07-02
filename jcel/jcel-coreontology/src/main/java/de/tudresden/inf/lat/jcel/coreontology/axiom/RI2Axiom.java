@@ -76,7 +76,7 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 	protected RI2Axiom(int leftProp, int rightProp) {
 		this.subProperty = leftProp;
 		this.superProperty = rightProp;
-		this.hashCode = this.subProperty + 31 * this.superProperty;
+		this.hashCode = this.subProperty + (31 * this.superProperty);
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof RI2Axiom) {
+		if (!ret && (o instanceof RI2Axiom)) {
 			RI2Axiom other = (RI2Axiom) o;
 			ret = (this.subProperty == other.subProperty)
 					&& (this.superProperty == other.superProperty);

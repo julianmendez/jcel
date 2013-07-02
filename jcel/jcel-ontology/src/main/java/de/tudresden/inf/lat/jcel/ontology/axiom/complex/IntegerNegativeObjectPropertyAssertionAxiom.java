@@ -88,7 +88,7 @@ public class IntegerNegativeObjectPropertyAssertionAxiom implements
 		this.property = objectProp;
 		this.subject = subjectInd;
 		this.object = objectInd;
-		this.hashCode = objectProp.hashCode() + 31 * subjectInd;
+		this.hashCode = objectProp.hashCode() + (31 * subjectInd);
 
 		Set<Integer> individuals = new HashSet<Integer>();
 		individuals.add(this.subject);
@@ -108,7 +108,7 @@ public class IntegerNegativeObjectPropertyAssertionAxiom implements
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerNegativeObjectPropertyAssertionAxiom) {
+		if (!ret && (o instanceof IntegerNegativeObjectPropertyAssertionAxiom)) {
 			IntegerNegativeObjectPropertyAssertionAxiom other = (IntegerNegativeObjectPropertyAssertionAxiom) o;
 			ret = getProperty().equals(other.getProperty())
 					&& getSubject().equals(other.getSubject())

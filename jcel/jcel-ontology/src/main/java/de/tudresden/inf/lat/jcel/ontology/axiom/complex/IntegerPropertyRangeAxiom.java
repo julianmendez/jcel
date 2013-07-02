@@ -87,7 +87,7 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 
 		this.property = prop;
 		this.range = clExpr;
-		this.hashCode = prop.hashCode() + 31 * clExpr.hashCode();
+		this.hashCode = prop.hashCode() + (31 * clExpr.hashCode());
 
 		Set<Integer> classesInSignature = new HashSet<Integer>();
 		classesInSignature.addAll(this.range.getClassesInSignature());
@@ -114,7 +114,7 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerPropertyRangeAxiom) {
+		if (!ret && (o instanceof IntegerPropertyRangeAxiom)) {
 			IntegerPropertyRangeAxiom other = (IntegerPropertyRangeAxiom) o;
 			ret = getProperty().equals(other.getProperty())
 					&& getRange().equals(other.getRange());

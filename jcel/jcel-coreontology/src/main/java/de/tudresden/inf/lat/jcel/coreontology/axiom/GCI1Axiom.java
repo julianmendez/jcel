@@ -82,7 +82,7 @@ public class GCI1Axiom implements NormalizedIntegerAxiom {
 		this.rightSubClass = rightSubCl;
 		this.superClass = rightCl;
 		this.hashCode = this.leftSubClass
-				+ (31 * this.rightSubClass + (31 * this.superClass));
+				+ ((31 * this.rightSubClass) + (31 * this.superClass));
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class GCI1Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof GCI1Axiom) {
+		if (!ret && (o instanceof GCI1Axiom)) {
 			GCI1Axiom other = (GCI1Axiom) o;
 			ret = (this.leftSubClass == other.leftSubClass)
 					&& (this.rightSubClass == other.rightSubClass)

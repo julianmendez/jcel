@@ -91,7 +91,7 @@ public class IntegerObjectProperty implements IntegerObjectPropertyExpression,
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerObjectProperty) {
+		if (!ret && (o instanceof IntegerObjectProperty)) {
 			IntegerObjectProperty other = (IntegerObjectProperty) o;
 			ret = (getId() == other.getId());
 		}

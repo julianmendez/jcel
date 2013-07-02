@@ -75,7 +75,7 @@ public class GCI0Axiom implements NormalizedIntegerAxiom {
 	protected GCI0Axiom(int subCl, int superCl) {
 		this.subClass = subCl;
 		this.superClass = superCl;
-		this.hashCode = this.subClass + 31 * this.superClass;
+		this.hashCode = this.subClass + (31 * this.superClass);
 	}
 
 	@Override
@@ -90,7 +90,7 @@ public class GCI0Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof GCI0Axiom) {
+		if (!ret && (o instanceof GCI0Axiom)) {
 			GCI0Axiom other = (GCI0Axiom) o;
 			ret = (this.subClass == other.subClass)
 					&& (this.superClass == other.superClass);

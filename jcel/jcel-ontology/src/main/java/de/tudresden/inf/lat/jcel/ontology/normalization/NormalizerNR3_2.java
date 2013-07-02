@@ -104,7 +104,7 @@ class NormalizerNR3_2 implements NormalizationRule {
 		IntegerClassExpression subClass = classAxiom.getSubClass();
 		IntegerClassExpression superClass = classAxiom.getSuperClass();
 		if (subClass.isLiteral()
-				&& superClass instanceof IntegerObjectSomeValuesFrom) {
+				&& (superClass instanceof IntegerObjectSomeValuesFrom)) {
 			IntegerObjectSomeValuesFrom restriction = (IntegerObjectSomeValuesFrom) superClass;
 			IntegerObjectPropertyExpression propertyExpression = restriction
 					.getProperty();

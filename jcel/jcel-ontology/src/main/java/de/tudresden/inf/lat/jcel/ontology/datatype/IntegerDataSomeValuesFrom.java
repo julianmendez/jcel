@@ -80,7 +80,7 @@ public class IntegerDataSomeValuesFrom implements IntegerClassExpression {
 		this.property = propertyId;
 		this.filler = classExpression;
 		this.normalized = classExpression.isLiteral();
-		this.hashCode = propertyId + 31 * classExpression.hashCode();
+		this.hashCode = propertyId + (31 * classExpression.hashCode());
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class IntegerDataSomeValuesFrom implements IntegerClassExpression {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerDataSomeValuesFrom) {
+		if (!ret && (o instanceof IntegerDataSomeValuesFrom)) {
 			IntegerDataSomeValuesFrom other = (IntegerDataSomeValuesFrom) o;
 			ret = (getProperty() == other.getProperty())
 					&& getFiller().equals(other.getFiller());

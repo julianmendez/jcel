@@ -79,7 +79,7 @@ public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 
 		this.classExpression = classExpr;
 		this.individual = individualId;
-		this.hashCode = classExpr.hashCode() + 31 * individualId;
+		this.hashCode = classExpr.hashCode() + (31 * individualId);
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerClassAssertionAxiom) {
+		if (!ret && (o instanceof IntegerClassAssertionAxiom)) {
 			IntegerClassAssertionAxiom other = (IntegerClassAssertionAxiom) o;
 			ret = getClassExpression().equals(other.getClassExpression())
 					&& getIndividual().equals(other.getIndividual());

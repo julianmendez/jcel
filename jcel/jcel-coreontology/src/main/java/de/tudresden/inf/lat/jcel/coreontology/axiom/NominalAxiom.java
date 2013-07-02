@@ -74,7 +74,7 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 	protected NominalAxiom(int classId, int individualId) {
 		this.classExpression = classId;
 		this.individual = individualId;
-		this.hashCode = this.classExpression + 31 * this.individual;
+		this.hashCode = this.classExpression + (31 * this.individual);
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof NominalAxiom) {
+		if (!ret && (o instanceof NominalAxiom)) {
 			NominalAxiom other = (NominalAxiom) o;
 			ret = (this.classExpression == other.classExpression)
 					&& (this.individual == other.individual);

@@ -86,7 +86,8 @@ public class IntegerSubObjectPropertyOfAxiom implements ComplexIntegerAxiom {
 
 		this.subObjectProperty = subPropExpr;
 		this.superObjectProperty = superPropExpr;
-		this.hashCode = subPropExpr.hashCode() + 31 * superPropExpr.hashCode();
+		this.hashCode = subPropExpr.hashCode()
+				+ (31 * superPropExpr.hashCode());
 
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
 		objectPropertiesInSignature.addAll(this.subObjectProperty
@@ -109,7 +110,7 @@ public class IntegerSubObjectPropertyOfAxiom implements ComplexIntegerAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerSubObjectPropertyOfAxiom) {
+		if (!ret && (o instanceof IntegerSubObjectPropertyOfAxiom)) {
 			IntegerSubObjectPropertyOfAxiom other = (IntegerSubObjectPropertyOfAxiom) o;
 			ret = getSubProperty().equals(other.getSubProperty())
 					&& getSuperProperty().equals(other.getSuperProperty());

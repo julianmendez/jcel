@@ -81,8 +81,8 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 		this.classInSubClass = leftCl;
 		this.propertyInSubClass = leftProp;
 		this.superClass = rightCl;
-		this.hashCode = this.classInSubClass + 31
-				* (this.propertyInSubClass + 31 * this.superClass);
+		this.hashCode = this.classInSubClass
+				+ (31 * (this.propertyInSubClass + (31 * this.superClass)));
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof GCI3Axiom) {
+		if (!ret && (o instanceof GCI3Axiom)) {
 			GCI3Axiom other = (GCI3Axiom) o;
 			ret = (this.classInSubClass == other.classInSubClass)
 					&& (this.propertyInSubClass == other.propertyInSubClass)

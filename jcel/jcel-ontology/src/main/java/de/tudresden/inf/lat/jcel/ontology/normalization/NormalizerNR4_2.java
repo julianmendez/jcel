@@ -102,7 +102,7 @@ class NormalizerNR4_2 implements NormalizationRule {
 		Set<IntegerAxiom> ret = Collections.emptySet();
 		IntegerClassExpression subClass = classAxiom.getSubClass();
 		IntegerClassExpression superClass = classAxiom.getSuperClass();
-		if (subClass instanceof IntegerObjectOneOf && superClass.isLiteral()) {
+		if ((subClass instanceof IntegerObjectOneOf) && superClass.isLiteral()) {
 			IntegerObjectOneOf oneOf = (IntegerObjectOneOf) subClass;
 			ret = new HashSet<IntegerAxiom>();
 			Integer individual = oneOf.getIndividual();

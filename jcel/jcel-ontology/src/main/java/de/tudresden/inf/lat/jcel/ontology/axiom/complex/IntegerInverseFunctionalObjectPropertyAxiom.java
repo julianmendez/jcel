@@ -90,7 +90,7 @@ public class IntegerInverseFunctionalObjectPropertyAxiom implements
 	@Override
 	public boolean equals(Object o) {
 		boolean ret = (this == o);
-		if (!ret && o instanceof IntegerInverseFunctionalObjectPropertyAxiom) {
+		if (!ret && (o instanceof IntegerInverseFunctionalObjectPropertyAxiom)) {
 			IntegerInverseFunctionalObjectPropertyAxiom other = (IntegerInverseFunctionalObjectPropertyAxiom) o;
 			ret = getProperty().equals(other.getProperty());
 		}
