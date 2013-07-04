@@ -619,7 +619,7 @@ public class ConsoleStarter {
 
 				} else if (operation == Mode.SATISFIABILITY) {
 
-					storeInFile("" + classIRI.getFragment() + ", "
+					storeInFile("" + classIRI.toString() + ", "
 							+ checkSatisfiability(ontologyFile, classIRI),
 							outputFile);
 
