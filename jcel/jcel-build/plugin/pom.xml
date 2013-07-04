@@ -54,7 +54,7 @@
 
 	<groupId>jcel</groupId>
 	<artifactId>plugin</artifactId>
-	<version>0.19.0</version>
+	<version>0.19.1</version>
 	<packaging>bundle</packaging>
 
 	<name>jcel plugin</name>
