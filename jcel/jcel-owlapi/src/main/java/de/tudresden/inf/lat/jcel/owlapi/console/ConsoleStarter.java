@@ -100,6 +100,8 @@ public class ConsoleStarter {
 	public static final String cmdSat = "sat";
 	public static final String cmdSatisfiability = "satisfiability ";
 
+	private static final String errorSuffix = "_err";
+
 	public static final String licenseInfo = ""
 			+ "Copyright (C) 2009-2013 Julian Mendez"
 			+ "\nLicenses:"
@@ -111,12 +113,11 @@ public class ConsoleStarter {
 
 	private static final Logger logger = Logger
 			.getLogger("de.tudresden.inf.lat.jcel");
-
 	private static final String msgPartCompleted = "Completed ";
 	private static final String msgPartOn = " on ";
 	private static final String msgPartOperationTime = "Operation time: ";
-	private static final String msgPartStarted = "Started ";
 
+	private static final String msgPartStarted = "Started ";
 	public static final String optClassURI = "--classuri=";
 	public static final String optConclusion = "--conclusion=";
 	public static final String optHelp = "--help";
@@ -125,7 +126,7 @@ public class ConsoleStarter {
 	public static final String optOperation = "--operation=";
 	public static final String optOutput = "--output=";
 	public static final String optRenderer = "--renderer=";
-	public static final String optTimeout = "--timeout=";
+	public static final String optTimeOut = "--timeout=";
 	public static final String optVerbose = "--verbose";
 	public static final String optVersion = "--version";
 	public static final String rendererFunctional = "functional";
@@ -135,6 +136,7 @@ public class ConsoleStarter {
 	public static final String rendererLatex = "latex";
 	public static final String rendererManchester = "manchester";
 	public static final String rendererTutorial = "tutorial";
+
 	public static final String rendererXML = "xml";
 
 	public static final String versionInfo = VersionInfo.reasonerName + " "
@@ -191,8 +193,8 @@ public class ConsoleStarter {
 			+ optRenderer
 			+ "RENDERER       renderer for the class hierarchy computed by the classification operation"
 			+ "\n   "
-			+ optTimeout
-			+ "MILLISECONDS    force a timeout after the given number of milliseconds"
+			+ optTimeOut
+			+ "MILLISECONDS    force a time-out after a given number of milliseconds"
 			+ "\n   "
 			+ optLogLevel
 			+ "LEVEL          log level"
@@ -270,8 +272,10 @@ public class ConsoleStarter {
 			+ rendererManchester
 			+ " | "
 			+ rendererTutorial + " | " + rendererXML + "\n\n\n\n";
-
+	private long timeOut = 0;
+	private boolean timeOutMode = false;
 	private boolean verboseMode = false;
+
 	private final PrintStream verboseModeOutput = System.out;
 
 	public ConsoleStarter() {
@@ -439,11 +443,24 @@ public class ConsoleStarter {
 
 		JcelReasoner ret = new JcelReasoner(ontology, false);
 
+		long wallClockTimeMidPoint = (new Date()).getTime();
+
+		TimeOutMonitor monitor = new TimeOutMonitor(ret, this.timeOut
+				- (wallClockTimeMidPoint - wallClockTimeBeginning));
+
+		if (this.timeOutMode) {
+			monitor.start();
+		}
+
 		logger.fine("precomputing inferences ...");
 
 		ret.precomputeInferences(InferenceType.CLASS_HIERARCHY);
 
 		long wallClockTimeEnd = (new Date()).getTime();
+
+		if (this.timeOutMode) {
+			monitor.interrupt();
+		}
 
 		if (this.verboseMode) {
 			this.verboseModeOutput.println(msgPartOperationTime
@@ -579,8 +596,15 @@ public class ConsoleStarter {
 					} else if (argument.startsWith(optLogLevel)) {
 						logLevel = Level.parse(argument.substring(optLogLevel
 								.length()));
+
+					} else if (argument.startsWith(optTimeOut)) {
+						this.timeOutMode = true;
+						this.timeOut = Long.parseLong(argument
+								.substring(optTimeOut.length()));
+
 					} else if (argument.startsWith(optVerbose)) {
 						this.verboseMode = true;
+
 					}
 				}
 
@@ -607,46 +631,62 @@ public class ConsoleStarter {
 				logger.setLevel(logLevel);
 				logger.addHandler(new OutputStreamHandler(System.out));
 
-				if (this.verboseMode) {
-					this.verboseModeOutput.println(msgPartStarted
-							+ renderMode(operation) + msgPartOn
-							+ ontologyFile.getAbsolutePath());
-				}
+				try {
 
-				if (operation == Mode.CLASSIFICATION) {
-
-					computeClassification(ontologyFile, outputFile, renderer);
-
-				} else if (operation == Mode.SATISFIABILITY) {
-
-					storeInFile("" + classIRI.toString() + ", "
-							+ checkSatisfiability(ontologyFile, classIRI),
-							outputFile);
-
-				} else if (operation == Mode.CONSISTENCY) {
-
-					storeInFile("" + checkConsistency(ontologyFile), outputFile);
-
-				} else if (operation == Mode.QUERY) {
-					throw new UnsupportedOperationException(
-							"Operation is not supported yet.");
-
-				} else if (operation == Mode.ENTAILMENT) {
-					if (conclusionFile == null) {
-						throw new IllegalArgumentException(
-								"No conclusion file has been defined.");
+					if (this.verboseMode) {
+						this.verboseModeOutput.println(msgPartStarted
+								+ renderMode(operation) + msgPartOn
+								+ ontologyFile.getAbsolutePath());
 					}
 
-					storeInFile(
-							"" + checkEntailment(ontologyFile, conclusionFile),
-							outputFile);
+					if (operation == Mode.CLASSIFICATION) {
 
-				}
+						computeClassification(ontologyFile, outputFile,
+								renderer);
 
-				if (this.verboseMode) {
-					this.verboseModeOutput.println(msgPartCompleted
-							+ renderMode(operation) + msgPartOn
-							+ ontologyFile.getAbsolutePath());
+					} else if (operation == Mode.SATISFIABILITY) {
+
+						storeInFile("" + classIRI.toString() + ", "
+								+ checkSatisfiability(ontologyFile, classIRI),
+								outputFile);
+
+					} else if (operation == Mode.CONSISTENCY) {
+
+						storeInFile("" + checkConsistency(ontologyFile),
+								outputFile);
+
+					} else if (operation == Mode.QUERY) {
+						throw new UnsupportedOperationException(
+								"Operation is not supported yet.");
+
+					} else if (operation == Mode.ENTAILMENT) {
+						if (conclusionFile == null) {
+							throw new IllegalArgumentException(
+									"No conclusion file has been defined.");
+						}
+
+						storeInFile(
+								""
+										+ checkEntailment(ontologyFile,
+												conclusionFile), outputFile);
+
+					}
+
+					if (this.verboseMode) {
+						this.verboseModeOutput.println(msgPartCompleted
+								+ renderMode(operation) + msgPartOn
+								+ ontologyFile.getAbsolutePath());
+					}
+
+				} catch (RuntimeException e) {
+
+					// TODO change the way the exception is displayed
+					BufferedWriter output = new BufferedWriter(new FileWriter(
+							outputFile.getAbsoluteFile() + errorSuffix, true));
+					output.write(e.toString());
+					output.flush();
+					output.close();
+
 				}
 
 			} else {
