@@ -52,7 +52,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -88,7 +90,7 @@ import de.uulm.ecs.ai.owlapi.krssrenderer.KRSSSyntaxRenderer;
 public class ConsoleStarter {
 
 	public enum Mode {
-		CLASSIFICATION, CONSISTENCY, ENTAILMENT, NOTHING, QUERY, SAT
+		CLASSIFICATION, CONSISTENCY, ENTAILMENT, NOTHING, QUERY, SATISFIABILITY
 	}
 
 	public static final String cmdClassification = "classification";
@@ -96,6 +98,7 @@ public class ConsoleStarter {
 	public static final String cmdEntailment = "entailment";
 	public static final String cmdQuery = "query";
 	public static final String cmdSat = "sat";
+	public static final String cmdSatisfiability = "satisfiability ";
 
 	public static final String licenseInfo = ""
 			+ "Copyright (C) 2009-2013 Julian Mendez"
@@ -107,7 +110,12 @@ public class ConsoleStarter {
 			+ "\n";
 
 	private static final Logger logger = Logger
-			.getLogger("de.tudresden.inf.lat.jcel");;
+			.getLogger("de.tudresden.inf.lat.jcel");
+
+	private static final String msgPartCompleted = "Completed ";
+	private static final String msgPartOn = " on ";
+	private static final String msgPartOperationTime = "Operation time: ";
+	private static final String msgPartStarted = "Started ";
 
 	public static final String optClassURI = "--classuri=";
 	public static final String optConclusion = "--conclusion=";
@@ -117,8 +125,9 @@ public class ConsoleStarter {
 	public static final String optOperation = "--operation=";
 	public static final String optOutput = "--output=";
 	public static final String optRenderer = "--renderer=";
+	public static final String optTimeout = "--timeout=";
+	public static final String optVerbose = "--verbose";
 	public static final String optVersion = "--version";
-
 	public static final String rendererFunctional = "functional";
 	public static final String rendererKRSS = "krss";
 	public static final String rendererKRSS2 = "krss2";
@@ -127,6 +136,7 @@ public class ConsoleStarter {
 	public static final String rendererManchester = "manchester";
 	public static final String rendererTutorial = "tutorial";
 	public static final String rendererXML = "xml";
+
 	public static final String versionInfo = VersionInfo.reasonerName + " "
 			+ VersionInfo.reasonerVersion;
 
@@ -181,8 +191,14 @@ public class ConsoleStarter {
 			+ optRenderer
 			+ "RENDERER       renderer for the class hierarchy computed by the classification operation"
 			+ "\n   "
+			+ optTimeout
+			+ "MILLISECONDS    force a timeout after the given number of milliseconds"
+			+ "\n   "
 			+ optLogLevel
 			+ "LEVEL          log level"
+			+ "\n   "
+			+ optVerbose
+			+ "                 run verbose mode"
 			+ "\n   "
 			+ optHelp
 			+ "                    display this help"
@@ -206,8 +222,8 @@ public class ConsoleStarter {
 			+ cmdSat
 			+ ") URI of the class to check satisfiability"
 			+ "\n\nthe types are:"
-			+ "\n   CLASS_URI                 class URI, e.g.: http://www.w3.org/2002/07/owl#Thing"
-			+ "\n   FILE                      file name, e.g.: /tmp/inputOntology.owl"
+			+ "\n   CLASS_URI                 a class URI, e.g.: http://www.w3.org/2002/07/owl#Thing"
+			+ "\n   FILE                      a file name, e.g.: /tmp/inputOntology.owl"
 			+ "\n   LEVEL                     a "
 			+ (Level.class).getName()
 			+ " number or string, e.g. "
@@ -231,6 +247,7 @@ public class ConsoleStarter {
 			+ Level.FINEST.getName()
 			+ " | "
 			+ Level.ALL.getName()
+			+ "\n   MILLISECONDS              a natural number, e.g.: 300000"
 			+ "\n   OPERATION                 "
 			+ cmdConsistency
 			+ " | "
@@ -253,6 +270,9 @@ public class ConsoleStarter {
 			+ rendererManchester
 			+ " | "
 			+ rendererTutorial + " | " + rendererXML + "\n\n\n\n";
+
+	private boolean verboseMode = false;
+	private final PrintStream verboseModeOutput = System.out;
 
 	public ConsoleStarter() {
 	}
@@ -414,10 +434,21 @@ public class ConsoleStarter {
 				.loadOntologyFromOntologyDocument(ontologyFile);
 
 		logger.fine("starting reasoner ...");
+
+		long wallClockTimeBeginning = (new Date()).getTime();
+
 		JcelReasoner ret = new JcelReasoner(ontology, false);
 
 		logger.fine("precomputing inferences ...");
+
 		ret.precomputeInferences(InferenceType.CLASS_HIERARCHY);
+
+		long wallClockTimeEnd = (new Date()).getTime();
+
+		if (this.verboseMode) {
+			this.verboseModeOutput.println(msgPartOperationTime
+					+ (wallClockTimeEnd - wallClockTimeBeginning));
+		}
 
 		return ret;
 	}
@@ -432,8 +463,9 @@ public class ConsoleStarter {
 			mode = Mode.CLASSIFICATION;
 		} else if (argument.equals(cmdConsistency)) {
 			mode = Mode.CONSISTENCY;
-		} else if (argument.equals(cmdSat)) {
-			mode = Mode.SAT;
+		} else if (argument.equals(cmdSatisfiability)
+				|| argument.equals(cmdSat)) {
+			mode = Mode.SATISFIABILITY;
 		} else if (argument.equals(cmdQuery)) {
 			mode = Mode.QUERY;
 		} else if (argument.equals(cmdEntailment)) {
@@ -469,6 +501,30 @@ public class ConsoleStarter {
 			ret = new OWLXMLRenderer();
 		}
 
+		return ret;
+	}
+
+	public String renderMode(Mode mode) {
+		if (mode == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		String ret = "";
+		if (mode.equals(Mode.CLASSIFICATION)) {
+			ret = cmdClassification;
+		} else if (mode.equals(Mode.CONSISTENCY)) {
+			ret = cmdConsistency;
+		} else if (mode.equals(Mode.SATISFIABILITY)) {
+			ret = cmdSat;
+		} else if (mode.equals(Mode.QUERY)) {
+			ret = cmdQuery;
+		} else if (mode.equals(Mode.ENTAILMENT)) {
+			ret = cmdEntailment;
+		} else if (mode.equals(Mode.NOTHING)) {
+			ret = "";
+		} else {
+			throw new IllegalStateException("Unrecognized mode: '" + mode + "'");
+		}
 		return ret;
 	}
 
@@ -523,6 +579,8 @@ public class ConsoleStarter {
 					} else if (argument.startsWith(optLogLevel)) {
 						logLevel = Level.parse(argument.substring(optLogLevel
 								.length()));
+					} else if (argument.startsWith(optVerbose)) {
+						this.verboseMode = true;
 					}
 				}
 
@@ -535,7 +593,7 @@ public class ConsoleStarter {
 				if (outputFile == null) {
 					outputFile = new File(arguments.get(2));
 				}
-				if ((classIRI == null) && operation.equals(Mode.SAT)) {
+				if ((classIRI == null) && operation.equals(Mode.SATISFIABILITY)) {
 					classIRI = IRI.create(arguments.get(3));
 				}
 				if (renderer == null) {
@@ -549,11 +607,17 @@ public class ConsoleStarter {
 				logger.setLevel(logLevel);
 				logger.addHandler(new OutputStreamHandler(System.out));
 
+				if (this.verboseMode) {
+					this.verboseModeOutput.println(msgPartStarted
+							+ renderMode(operation) + msgPartOn
+							+ ontologyFile.getAbsolutePath());
+				}
+
 				if (operation == Mode.CLASSIFICATION) {
 
 					computeClassification(ontologyFile, outputFile, renderer);
 
-				} else if (operation == Mode.SAT) {
+				} else if (operation == Mode.SATISFIABILITY) {
 
 					storeInFile("" + classIRI.getFragment() + ", "
 							+ checkSatisfiability(ontologyFile, classIRI),
@@ -578,6 +642,13 @@ public class ConsoleStarter {
 							outputFile);
 
 				}
+
+				if (this.verboseMode) {
+					this.verboseModeOutput.println(msgPartCompleted
+							+ renderMode(operation) + msgPartOn
+							+ ontologyFile.getAbsolutePath());
+				}
+
 			} else {
 				System.out.println(this.minihelp);
 			}
@@ -586,7 +657,8 @@ public class ConsoleStarter {
 	}
 
 	private void storeInFile(String output, File outputFile) throws IOException {
-		BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile,
+				true));
 		writer.write(output);
 		writer.newLine();
 		writer.flush();
