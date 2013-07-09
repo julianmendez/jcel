@@ -113,11 +113,12 @@ public class ConsoleStarter {
 
 	private static final Logger logger = Logger
 			.getLogger("de.tudresden.inf.lat.jcel");
+
 	private static final String msgPartCompleted = "Completed ";
 	private static final String msgPartOn = " on ";
 	private static final String msgPartOperationTime = "Operation time: ";
-
 	private static final String msgPartStarted = "Started ";
+
 	public static final String optClassURI = "--classuri=";
 	public static final String optConclusion = "--conclusion=";
 	public static final String optHelp = "--help";
@@ -136,9 +137,7 @@ public class ConsoleStarter {
 	public static final String rendererLatex = "latex";
 	public static final String rendererManchester = "manchester";
 	public static final String rendererTutorial = "tutorial";
-
 	public static final String rendererXML = "xml";
-
 	public static final String versionInfo = VersionInfo.reasonerName + " "
 			+ VersionInfo.reasonerVersion;
 
@@ -684,6 +683,7 @@ public class ConsoleStarter {
 					BufferedWriter output = new BufferedWriter(new FileWriter(
 							outputFile.getAbsoluteFile() + errorSuffix, true));
 					output.write(e.toString());
+					output.newLine();
 					output.flush();
 					output.close();
 
