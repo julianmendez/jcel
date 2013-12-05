@@ -61,7 +61,6 @@
 
 	The following version properties should be defined at this point : 
 	  * project.version : has the version number of the form major.minor.patch 
-	  * build.number : has the build number
 	  * dependencies : has a space-separated list of the jars required to compile the project and run the test cases
 	  * javadocsrc : has a colon-separated list of source directories for the javadoc
 
@@ -93,7 +92,6 @@
 	<property name="_srclib.directory" value="${project.build.directory}" />
 	<property name="project.build.testOutputDirectory" value="${project.build.directory}/test-classes" />
 	<property name="_test.report.directory" value="${project.build.directory}/report" />
-	<property name="_zipfile.directory" value="${basedir}/../${project.groupId}-${project.artifactId}-${project.version}.${build.number}.zip" />
 	<property name="_debuglevel" value="lines,vars,source" />
 
 	<path id="libs.directory">

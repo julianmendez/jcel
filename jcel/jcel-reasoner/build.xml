@@ -51,17 +51,15 @@
 	For more information about this file, see http://ant.apache.org 
 	-->
 
-	<property name="project.groupId" value="jcel" />
-	<property name="project.artifactId" value="jcel-reasoner" />
+	<!-- Imports project.groupId, project.artifactId, and project.version properties. -->
+	<xmlproperty file="pom.xml" />
 
-	<!-- Imports version properties. -->
+	<!-- Imports dependencies. -->
 	<property file="version.properties" />
 
 	<!-- 
 
 	The following version properties should be defined at this point : 
-	  * project.version : has the version number of the form major.minor.patch 
-	  * build.number : has the build number
 	  * dependencies : has a space-separated list of the jars required to compile the project and run the test cases
 	  * javadocsrc : has a colon-separated list of source directories for the javadoc
 
@@ -81,7 +79,6 @@
 			<property name="project.groupId" value="${project.groupId}" />
 			<property name="project.artifactId" value="${project.artifactId}" />
 			<property name="project.version" value="${project.version}" />
-			<property name="build.number" value="${build.number}" />
 			<property name="dependencies" value="${dependencies}" />
 		</subant>
 	</target>

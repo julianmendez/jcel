@@ -51,10 +51,10 @@
 	For more information about this file, see http://ant.apache.org 
 	-->
 
-	<property name="project.groupId" value="jcel" />
-	<property name="project.artifactId" value="build-standalone" />
+	<!-- Imports project.groupId, project.artifactId, and project.version properties. -->
+	<xmlproperty file="pom.xml" />
 
-	<!-- Imports version properties. -->
+	<!-- Imports dependencies. -->
 	<property file="version.properties" />
 
 	<property name="project.build.directory" value="${basedir}/target" />
