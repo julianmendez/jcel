@@ -66,7 +66,6 @@ public interface SaturationRule {
 	 * @return the set of normalized axioms after the application of the
 	 *         saturation rule
 	 */
-	public Set<NormalizedIntegerAxiom> apply(
-			Set<NormalizedIntegerAxiom> originalSet);
+	Set<NormalizedIntegerAxiom> apply(Set<NormalizedIntegerAxiom> originalSet);
 
 }

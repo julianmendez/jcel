@@ -59,13 +59,13 @@ public interface VNodeObjectSomeValuesFrom {
 	 * 
 	 * @return the class identifier
 	 */
-	public int getClassId();
+	int getClassId();
 
 	/**
 	 * Returns the object property identifier.
 	 * 
 	 * @return the object property identifier
 	 */
-	public int getObjectPropertyId();
+	int getObjectPropertyId();
 
 }

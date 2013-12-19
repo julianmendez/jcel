@@ -62,7 +62,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(FunctObjectPropAxiom axiom);
+	T visit(FunctObjectPropAxiom axiom);
 
 	/**
 	 * Visits a GCI-0 axiom.
@@ -71,7 +71,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(GCI0Axiom axiom);
+	T visit(GCI0Axiom axiom);
 
 	/**
 	 * Visits a GCI-1 axiom.
@@ -80,7 +80,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(GCI1Axiom axiom);
+	T visit(GCI1Axiom axiom);
 
 	/**
 	 * Visits a GCI-2 axiom.
@@ -89,7 +89,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(GCI2Axiom axiom);
+	T visit(GCI2Axiom axiom);
 
 	/**
 	 * Visits a GCI-3 axiom.
@@ -98,7 +98,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(GCI3Axiom axiom);
+	T visit(GCI3Axiom axiom);
 
 	/**
 	 * Visits a nominal axiom.
@@ -107,7 +107,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(NominalAxiom axiom);
+	T visit(NominalAxiom axiom);
 
 	/**
 	 * Visits a range axiom.
@@ -116,7 +116,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(RangeAxiom axiom);
+	T visit(RangeAxiom axiom);
 
 	/**
 	 * Visits an RI-1 axiom.
@@ -125,7 +125,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(RI1Axiom axiom);
+	T visit(RI1Axiom axiom);
 
 	/**
 	 * Visits an RI-2 axiom.
@@ -134,7 +134,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(RI2Axiom axiom);
+	T visit(RI2Axiom axiom);
 
 	/**
 	 * Visits an RI-3 axiom.
@@ -143,6 +143,6 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(RI3Axiom axiom);
+	T visit(RI3Axiom axiom);
 
 }

@@ -59,31 +59,31 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
 
 public interface ComplexIntegerAxiomConstant {
 
-	public static final String ClassAssertion = "ClassAssertion";
-	public static final String ClassDeclaration = "Class";
-	public static final String closePar = IntegerClassExpressionWord.closePar;
-	public static final String DataPropertyAssertion = "DataPropertyAssertion";
-	public static final String DataPropertyDeclaration = "DataProperty";
-	public static final String Declaration = "Declaration";
-	public static final String DifferentIndividuals = "DifferentIndividuals";
-	public static final String DisjointClasses = "DisjointClasses";
-	public static final String EquivalentClasses = "EquivalentClasses";
-	public static final String EquivalentProperties = "EquivalentProperties";
-	public static final String FunctionalObjectProperty = "FunctionalObjectProperty";
-	public static final String InverseFunctionalObjectProperty = "InverseFunctionalObjectProperty";
-	public static final String InverseObjectProperties = "InverseObjectProperties";
-	public static final String NamedIndividualDeclaration = "NamedIndividual";
-	public static final String NegativeObjectPropertyAssertion = "NegativeObjectPropertyAssertion";
-	public static final String ObjectPropertyAssertion = "ObjectPropertyAssertion";
-	public static final String ObjectPropertyChain = "ObjectPropertyChain";
-	public static final String ObjectPropertyDeclaration = "ObjectProperty";
-	public static final String openPar = IntegerClassExpressionWord.openPar;
-	public static final String RangeAxiom = "RangeAxiom";
-	public static final String ReflexiveObjectProperty = "ReflexiveObjectProperty";
-	public static final String SameIndividual = "SameIndividual";
-	public static final String sp = IntegerClassExpressionWord.sp;
-	public static final String SubClassOf = "SubClassOf";
-	public static final String SubObjectPropertyOf = "SubObjectPropertyOf";
-	public static final String TransitiveObjectProperty = "TransitiveObjectProperty";
+	String ClassAssertion = "ClassAssertion";
+	String ClassDeclaration = "Class";
+	String closePar = IntegerClassExpressionWord.closePar;
+	String DataPropertyAssertion = "DataPropertyAssertion";
+	String DataPropertyDeclaration = "DataProperty";
+	String Declaration = "Declaration";
+	String DifferentIndividuals = "DifferentIndividuals";
+	String DisjointClasses = "DisjointClasses";
+	String EquivalentClasses = "EquivalentClasses";
+	String EquivalentProperties = "EquivalentProperties";
+	String FunctionalObjectProperty = "FunctionalObjectProperty";
+	String InverseFunctionalObjectProperty = "InverseFunctionalObjectProperty";
+	String InverseObjectProperties = "InverseObjectProperties";
+	String NamedIndividualDeclaration = "NamedIndividual";
+	String NegativeObjectPropertyAssertion = "NegativeObjectPropertyAssertion";
+	String ObjectPropertyAssertion = "ObjectPropertyAssertion";
+	String ObjectPropertyChain = "ObjectPropertyChain";
+	String ObjectPropertyDeclaration = "ObjectProperty";
+	String openPar = IntegerClassExpressionWord.openPar;
+	String RangeAxiom = "RangeAxiom";
+	String ReflexiveObjectProperty = "ReflexiveObjectProperty";
+	String SameIndividual = "SameIndividual";
+	String sp = IntegerClassExpressionWord.sp;
+	String SubClassOf = "SubClassOf";
+	String SubObjectPropertyOf = "SubObjectPropertyOf";
+	String TransitiveObjectProperty = "TransitiveObjectProperty";
 
 }

@@ -67,6 +67,6 @@ public interface NormalizationRule {
 	 * @return the set of axioms after the application of the normalization
 	 *         rule, or the empty set if the rule is not applicable
 	 */
-	public Set<IntegerAxiom> apply(IntegerAxiom axiom);
+	Set<IntegerAxiom> apply(IntegerAxiom axiom);
 
 }

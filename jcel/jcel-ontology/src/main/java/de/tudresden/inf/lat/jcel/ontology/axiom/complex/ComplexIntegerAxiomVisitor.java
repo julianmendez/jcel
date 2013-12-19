@@ -62,7 +62,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerClassAssertionAxiom axiom);
+	T visit(IntegerClassAssertionAxiom axiom);
 
 	/**
 	 * Visits a class declaration axiom.
@@ -71,7 +71,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerClassDeclarationAxiom axiom);
+	T visit(IntegerClassDeclarationAxiom axiom);
 
 	/**
 	 * Visits a data property assertion axiom.
@@ -80,7 +80,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerDataPropertyAssertionAxiom axiom);
+	T visit(IntegerDataPropertyAssertionAxiom axiom);
 
 	/**
 	 * Visits a data property declaration axiom.
@@ -89,7 +89,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerDataPropertyDeclarationAxiom axiom);
+	T visit(IntegerDataPropertyDeclarationAxiom axiom);
 
 	/**
 	 * Visits a different individuals axiom.
@@ -98,7 +98,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerDifferentIndividualsAxiom axiom);
+	T visit(IntegerDifferentIndividualsAxiom axiom);
 
 	/**
 	 * Visits a disjoint classes axiom.
@@ -107,7 +107,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerDisjointClassesAxiom axiom);
+	T visit(IntegerDisjointClassesAxiom axiom);
 
 	/**
 	 * Visits an equivalent classes axiom.
@@ -116,7 +116,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerEquivalentClassesAxiom axiom);
+	T visit(IntegerEquivalentClassesAxiom axiom);
 
 	/**
 	 * Visits an equivalent object properties axiom.
@@ -125,7 +125,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerEquivalentObjectPropertiesAxiom axiom);
+	T visit(IntegerEquivalentObjectPropertiesAxiom axiom);
 
 	/**
 	 * Visits a functional object property axiom.
@@ -134,7 +134,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerFunctionalObjectPropertyAxiom axiom);
+	T visit(IntegerFunctionalObjectPropertyAxiom axiom);
 
 	/**
 	 * Visits an inverse functional object property axiom.
@@ -143,7 +143,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerInverseFunctionalObjectPropertyAxiom axiom);
+	T visit(IntegerInverseFunctionalObjectPropertyAxiom axiom);
 
 	/**
 	 * Visits an inverse object property axiom.
@@ -152,7 +152,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerInverseObjectPropertiesAxiom axiom);
+	T visit(IntegerInverseObjectPropertiesAxiom axiom);
 
 	/**
 	 * Visits a named individual declaration axiom.
@@ -161,7 +161,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerNamedIndividualDeclarationAxiom axiom);
+	T visit(IntegerNamedIndividualDeclarationAxiom axiom);
 
 	/**
 	 * Visits a negative object property assertion axiom.
@@ -170,7 +170,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerNegativeObjectPropertyAssertionAxiom axiom);
+	T visit(IntegerNegativeObjectPropertyAssertionAxiom axiom);
 
 	/**
 	 * Visits an object property assertion axiom.
@@ -179,7 +179,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerObjectPropertyAssertionAxiom axiom);
+	T visit(IntegerObjectPropertyAssertionAxiom axiom);
 
 	/**
 	 * Visits an object property declaration axiom.
@@ -188,7 +188,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerObjectPropertyDeclarationAxiom axiom);
+	T visit(IntegerObjectPropertyDeclarationAxiom axiom);
 
 	/**
 	 * Visits property range axiom.
@@ -197,7 +197,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerPropertyRangeAxiom axiom);
+	T visit(IntegerPropertyRangeAxiom axiom);
 
 	/**
 	 * Visits a reflexive object property declaration axiom.
@@ -206,7 +206,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerReflexiveObjectPropertyAxiom axiom);
+	T visit(IntegerReflexiveObjectPropertyAxiom axiom);
 
 	/**
 	 * Visits a same individual axiom.
@@ -215,7 +215,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerSameIndividualAxiom axiom);
+	T visit(IntegerSameIndividualAxiom axiom);
 
 	/**
 	 * Visits a subclass axiom.
@@ -224,7 +224,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerSubClassOfAxiom axiom);
+	T visit(IntegerSubClassOfAxiom axiom);
 
 	/**
 	 * Visits a sub object property axiom.
@@ -233,7 +233,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerSubObjectPropertyOfAxiom axiom);
+	T visit(IntegerSubObjectPropertyOfAxiom axiom);
 
 	/**
 	 * Visits a sub object property chain axiom.
@@ -242,7 +242,7 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerSubPropertyChainOfAxiom axiom);
+	T visit(IntegerSubPropertyChainOfAxiom axiom);
 
 	/**
 	 * Visits a transitive object property axiom.
@@ -251,6 +251,6 @@ public interface ComplexIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	public T visit(IntegerTransitiveObjectPropertyAxiom axiom);
+	T visit(IntegerTransitiveObjectPropertyAxiom axiom);
 
 }

@@ -67,7 +67,7 @@ public interface Processor {
 	 * @throws UnclassifiedOntologyException
 	 *             if the classification has not finished yet
 	 */
-	public IntegerHierarchicalGraph getClassHierarchy()
+	IntegerHierarchicalGraph getClassHierarchy()
 			throws UnclassifiedOntologyException;
 
 	/**
@@ -78,7 +78,7 @@ public interface Processor {
 	 * @throws UnclassifiedOntologyException
 	 *             if the classification has not finished yet
 	 */
-	public IntegerHierarchicalGraph getDataPropertyHierarchy()
+	IntegerHierarchicalGraph getDataPropertyHierarchy()
 			throws UnclassifiedOntologyException;
 
 	/**
@@ -88,7 +88,7 @@ public interface Processor {
 	 * @throws UnclassifiedOntologyException
 	 *             if the classification has not finished yet
 	 */
-	public Map<Integer, Set<Integer>> getDirectTypes()
+	Map<Integer, Set<Integer>> getDirectTypes()
 			throws UnclassifiedOntologyException;
 
 	/**
@@ -99,7 +99,7 @@ public interface Processor {
 	 * @throws UnclassifiedOntologyException
 	 *             if the classification has not finished yet
 	 */
-	public IntegerHierarchicalGraph getObjectPropertyHierarchy()
+	IntegerHierarchicalGraph getObjectPropertyHierarchy()
 			throws UnclassifiedOntologyException;
 
 	/**
@@ -110,7 +110,7 @@ public interface Processor {
 	 * @throws UnclassifiedOntologyException
 	 *             if the classification has not finished yet
 	 */
-	public Map<Integer, Set<Integer>> getSameIndividualMap()
+	Map<Integer, Set<Integer>> getSameIndividualMap()
 			throws UnclassifiedOntologyException;
 
 	/**
@@ -120,7 +120,7 @@ public interface Processor {
 	 * @return <code>true</code> is it has finished, or <code>false</code>
 	 *         otherwise.
 	 */
-	public boolean isReady();
+	boolean isReady();
 
 	/**
 	 * Makes one step in the process of classification. Depending on the type of
@@ -129,6 +129,6 @@ public interface Processor {
 	 * @return <code>true</code> if it should be called again in order to finish
 	 *         the processing, and <code>false</code> otherwise.
 	 */
-	public boolean process();
+	boolean process();
 
 }

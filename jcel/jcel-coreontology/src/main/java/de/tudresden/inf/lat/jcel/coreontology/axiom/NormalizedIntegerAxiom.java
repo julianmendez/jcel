@@ -65,6 +65,6 @@ public interface NormalizedIntegerAxiom extends IntegerAxiom {
 	 *            visitor
 	 * @return the visit result
 	 */
-	public <T> T accept(NormalizedIntegerAxiomVisitor<T> visitor);
+	<T> T accept(NormalizedIntegerAxiomVisitor<T> visitor);
 
 }

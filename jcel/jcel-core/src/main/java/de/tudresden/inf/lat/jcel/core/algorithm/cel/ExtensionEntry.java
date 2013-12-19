@@ -60,7 +60,7 @@ public interface ExtensionEntry {
 	 * @return <code>this</code> if this is an existential entry, or
 	 *         <code>null</code> if not
 	 */
-	public ExistentialEntry asExistential();
+	ExistentialEntry asExistential();
 
 	/**
 	 * Returns this entry as an implication entry.
@@ -68,20 +68,20 @@ public interface ExtensionEntry {
 	 * @return <code>this</code> if this is an implication entry, or
 	 *         <code>null</code> if not
 	 */
-	public ImplicationEntry asImplication();
+	ImplicationEntry asImplication();
 
 	/**
 	 * Tell whether or not this is an existential entry.
 	 * 
 	 * @return <code>true</code> if and only if this is an existential entry
 	 */
-	public boolean isExistential();
+	boolean isExistential();
 
 	/**
 	 * Tell whether or not this is an implication entry.
 	 * 
 	 * @return <code>true</code> if and only if this is an implication entry
 	 */
-	public boolean isImplication();
+	boolean isImplication();
 
 }

@@ -55,14 +55,14 @@ package de.tudresden.inf.lat.jcel.coreontology.datatype;
  */
 public interface IntegerClassExpressionWord {
 
-	public static final String closePar = ")";
-	public static final String DataHasValue = "DataHasValue";
-	public static final String DataSomeValuesFrom = "DataSomeValuesFrom";
-	public static final String ObjectIntersectionOf = "ObjectIntersectionOf";
-	public static final String ObjectInverseOf = "ObjectInverseOf";
-	public static final String ObjectOneOf = "ObjectOneOf";
-	public static final String ObjectSomeValuesFrom = "ObjectSomeValuesFrom";
-	public static final String openPar = "(";
-	public static final String sp = " ";
+	String closePar = ")";
+	String DataHasValue = "DataHasValue";
+	String DataSomeValuesFrom = "DataSomeValuesFrom";
+	String ObjectIntersectionOf = "ObjectIntersectionOf";
+	String ObjectInverseOf = "ObjectInverseOf";
+	String ObjectOneOf = "ObjectOneOf";
+	String ObjectSomeValuesFrom = "ObjectSomeValuesFrom";
+	String openPar = "(";
+	String sp = " ";
 
 }

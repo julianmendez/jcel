@@ -58,6 +58,6 @@ public interface IntegerDeclarationAxiom extends ComplexIntegerAxiom {
 	 * 
 	 * @return the entity declared by this axioms.
 	 */
-	public Integer getEntity();
+	Integer getEntity();
 
 }

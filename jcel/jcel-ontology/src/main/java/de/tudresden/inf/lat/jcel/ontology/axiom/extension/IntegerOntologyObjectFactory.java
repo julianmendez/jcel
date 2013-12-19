@@ -64,27 +64,27 @@ public interface IntegerOntologyObjectFactory {
 	 * 
 	 * @return the complex axiom factory
 	 */
-	public ComplexIntegerAxiomFactory getComplexAxiomFactory();
+	ComplexIntegerAxiomFactory getComplexAxiomFactory();
 
 	/**
 	 * Returns the data type factory.
 	 * 
 	 * @return the data type factory
 	 */
-	public IntegerDataTypeFactory getDataTypeFactory();
+	IntegerDataTypeFactory getDataTypeFactory();
 
 	/**
 	 * Returns the identifier generator.
 	 * 
 	 * @return the identifier generator
 	 */
-	public IntegerEntityManager getEntityManager();
+	IntegerEntityManager getEntityManager();
 
 	/**
 	 * Returns the normalized axiom factory.
 	 * 
 	 * @return the normalized axiom factory
 	 */
-	public NormalizedIntegerAxiomFactory getNormalizedAxiomFactory();
+	NormalizedIntegerAxiomFactory getNormalizedAxiomFactory();
 
 }

@@ -58,7 +58,7 @@ public interface OntologyExpressivity {
 	 * @return <code>true</code> if and only if the ontology analyzer has found
 	 *         class bottom
 	 */
-	public boolean hasBottom();
+	boolean hasBottom();
 
 	/**
 	 * Tells whether the ontology analyzer has found data types.
@@ -66,7 +66,7 @@ public interface OntologyExpressivity {
 	 * @return <code>true</code> if and only if the ontology analyzer has found
 	 *         data types
 	 */
-	public boolean hasDatatype();
+	boolean hasDatatype();
 
 	/**
 	 * Tells whether the ontology analyzer has found functional object
@@ -75,7 +75,7 @@ public interface OntologyExpressivity {
 	 * @return <code>true</code> if and only if the ontology analyzer has found
 	 *         functional object properties
 	 */
-	public boolean hasFunctionalObjectProperty();
+	boolean hasFunctionalObjectProperty();
 
 	/**
 	 * Tells whether the ontology analyzer has found individuals.
@@ -83,7 +83,7 @@ public interface OntologyExpressivity {
 	 * @return <code>true</code> if and only if the ontology analyzer has found
 	 *         individuals
 	 */
-	public boolean hasIndividual();
+	boolean hasIndividual();
 
 	/**
 	 * Tells whether the ontology analyzer has found inverse object properties.
@@ -91,7 +91,7 @@ public interface OntologyExpressivity {
 	 * @return <code>true</code> if and only if the ontology analyzer has found
 	 *         inverse object properties
 	 */
-	public boolean hasInverseObjectProperty();
+	boolean hasInverseObjectProperty();
 
 	/**
 	 * Tells whether the ontology analyzer has found nominals.
@@ -99,7 +99,7 @@ public interface OntologyExpressivity {
 	 * @return <code>true</code> if and only if the ontology analyzer has found
 	 *         nominals
 	 */
-	public boolean hasNominal();
+	boolean hasNominal();
 
 	/**
 	 * Tells whether the ontology analyzer has found reflexive object
@@ -108,7 +108,7 @@ public interface OntologyExpressivity {
 	 * @return <code>true</code> if and only if the ontology analyzer has found
 	 *         reflexive object properties
 	 */
-	public boolean hasReflexiveObjectProperty();
+	boolean hasReflexiveObjectProperty();
 
 	/**
 	 * Tells whether the ontology analyzer has found sub object properties.
@@ -116,7 +116,7 @@ public interface OntologyExpressivity {
 	 * @return <code>true</code> if and only if the ontology analyzer has found
 	 *         sub object properties
 	 */
-	public boolean hasSubObjectPropertyOf();
+	boolean hasSubObjectPropertyOf();
 
 	/**
 	 * Tells whether the ontology analyzer has found sub object property chains.
@@ -124,7 +124,7 @@ public interface OntologyExpressivity {
 	 * @return <code>true</code> if and only if the ontology analyzer has found
 	 *         sub object property chains
 	 */
-	public boolean hasSubPropertyChainOf();
+	boolean hasSubPropertyChainOf();
 
 	/**
 	 * Tells whether the ontology analyzer has found transitive object
@@ -133,6 +133,6 @@ public interface OntologyExpressivity {
 	 * @return <code>true</code> if and only if the ontology analyzer has found
 	 *         transitive object properties
 	 */
-	public boolean hasTransitiveObjectProperty();
+	boolean hasTransitiveObjectProperty();
 
 }

@@ -63,7 +63,7 @@ public interface IntegerRelationMap {
 	 *            relation id
 	 * @return true if and only if the binary relation belongs to this map
 	 */
-	public boolean contains(int relationId);
+	boolean contains(int relationId);
 
 	/**
 	 * Tells whether a binary relation contains a give pair.
@@ -76,14 +76,14 @@ public interface IntegerRelationMap {
 	 *            second component
 	 * @return true if and only if the pair belongs to the given relation
 	 */
-	public boolean contains(int relationId, int first, int second);
+	boolean contains(int relationId, int first, int second);
 
 	/**
 	 * @param relationId
 	 *            relation id
 	 * @return the binary relation with the given relation id
 	 */
-	public IntegerBinaryRelation get(int relationId);
+	IntegerBinaryRelation get(int relationId);
 
 	/**
 	 * Returns the elements connecting from a particular element in the first
@@ -94,7 +94,7 @@ public interface IntegerRelationMap {
 	 * @return the collection of elements connecting from a first component, or
 	 *         an empty set if the first component is not defined.
 	 */
-	public Collection<Integer> getByFirst(int relation, int first);
+	Collection<Integer> getByFirst(int relation, int first);
 
 	/**
 	 * Returns the elements connecting to a particular element in the second
@@ -105,12 +105,12 @@ public interface IntegerRelationMap {
 	 * @return the collection of elements connecting to a second component, or
 	 *         an empty set if the second component is not defined
 	 */
-	public Collection<Integer> getBySecond(int relation, int second);
+	Collection<Integer> getBySecond(int relation, int second);
 
 	/**
 	 * @return the set of binary relations that have been added to this set.
 	 */
-	public Set<Integer> getElements();
+	Set<Integer> getElements();
 
 	/**
 	 * Returns the relations which use a particular element in the first
@@ -121,7 +121,7 @@ public interface IntegerRelationMap {
 	 * @return the collection of relations which use a particular first
 	 *         component, or an empty set if there are none.
 	 */
-	public Collection<Integer> getRelationsByFirst(int first);
+	Collection<Integer> getRelationsByFirst(int first);
 
 	/**
 	 * Returns the relations which use a particular element in the second
@@ -132,6 +132,6 @@ public interface IntegerRelationMap {
 	 * @return the collection of relations which use a particular second
 	 *         component, or an empty set if there are none.
 	 */
-	public Collection<Integer> getRelationsBySecond(int second);
+	Collection<Integer> getRelationsBySecond(int second);
 
 }

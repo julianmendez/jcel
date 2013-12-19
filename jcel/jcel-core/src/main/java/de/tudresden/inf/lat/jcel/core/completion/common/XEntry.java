@@ -62,13 +62,13 @@ public interface XEntry {
 	 * 
 	 * @return <code>true</code> if and only if this is a relation entry
 	 */
-	public boolean isREntry();
+	boolean isREntry();
 
 	/**
 	 * Tells whether this entry is a subsumer entry.
 	 * 
 	 * @return <code>true</code> if and only if this is a subsumer entry
 	 */
-	public boolean isSEntry();
+	boolean isSEntry();
 
 }

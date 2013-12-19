@@ -67,6 +67,6 @@ public interface SObserverRule {
 	 *            super class to be applied
 	 * @return <code>true</code> if and only if the rule was applied
 	 */
-	public boolean apply(ClassifierStatus status, int subClass, int superClass);
+	boolean apply(ClassifierStatus status, int subClass, int superClass);
 
 }

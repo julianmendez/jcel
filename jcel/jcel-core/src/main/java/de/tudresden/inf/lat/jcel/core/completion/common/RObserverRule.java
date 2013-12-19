@@ -69,7 +69,7 @@ public interface RObserverRule {
 	 *            right class to be applied
 	 * @return <code>true</code> if and only if the rule was applied
 	 */
-	public boolean apply(ClassifierStatus status, int property, int leftClass,
+	boolean apply(ClassifierStatus status, int property, int leftClass,
 			int rightClass);
 
 }

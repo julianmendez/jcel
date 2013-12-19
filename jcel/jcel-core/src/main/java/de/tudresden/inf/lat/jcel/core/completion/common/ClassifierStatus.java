@@ -71,8 +71,7 @@ public interface ClassifierStatus {
 	 *            right class id
 	 * @return <code>true</code> if and only if the entry was added
 	 */
-	public boolean addNewREntry(int propertyId, int leftClassId,
-			int rightClassId);
+	boolean addNewREntry(int propertyId, int leftClassId, int rightClassId);
 
 	/**
 	 * Adds a new S-entry to the set of entries to be processed.
@@ -83,7 +82,7 @@ public interface ClassifierStatus {
 	 *            superclass id
 	 * @return <code>true</code> if and only if the entry was added
 	 */
-	public boolean addNewSEntry(int subClassId, int superClassId);
+	boolean addNewSEntry(int subClassId, int superClassId);
 
 	/**
 	 * Returns whether a particular node belongs to the set V.
@@ -92,7 +91,7 @@ public interface ClassifierStatus {
 	 *            node to test membership
 	 * @return <tt>true</tt> if and only if the node belongs to the set V
 	 */
-	public boolean contains(VNode node);
+	boolean contains(VNode node);
 
 	/**
 	 * Gets the identifier of a node, or creates a new one.
@@ -101,21 +100,21 @@ public interface ClassifierStatus {
 	 *            node to get the identifier
 	 * @return the identifier of the given node
 	 */
-	public int createOrGetNodeId(VNode node);
+	int createOrGetNodeId(VNode node);
 
 	/**
 	 * Returns the monitor of set S.
 	 * 
 	 * @return the monitor of set S
 	 */
-	public Object getClassGraphMonitor();
+	Object getClassGraphMonitor();
 
 	/**
 	 * Return an ontology with convenience methods to get its axioms.
 	 * 
 	 * @return an ontology with convenience methods to get its axioms
 	 */
-	public ExtendedOntology getExtendedOntology();
+	ExtendedOntology getExtendedOntology();
 
 	/**
 	 * Returns all the classes that are related to a certain class using a
@@ -127,8 +126,7 @@ public interface ClassifierStatus {
 	 *            the class that is on right part in the relation
 	 * @return all the related classes
 	 */
-	public Collection<Integer> getFirstBySecond(int objectProperty,
-			int rightClass);
+	Collection<Integer> getFirstBySecond(int objectProperty, int rightClass);
 
 	/**
 	 * Returns the inverse object property of a particular object property.
@@ -138,7 +136,7 @@ public interface ClassifierStatus {
 	 *            object property
 	 * @return the inverse object property of the given object property
 	 */
-	public int getInverseObjectPropertyOf(int propertyId);
+	int getInverseObjectPropertyOf(int propertyId);
 
 	/**
 	 * Returns the node for a given node identifier.
@@ -147,7 +145,7 @@ public interface ClassifierStatus {
 	 *            node identifier
 	 * @return the node for the given node identifier
 	 */
-	public VNode getNode(int nodeId);
+	VNode getNode(int nodeId);
 
 	/**
 	 * Returns the set of object properties related with a certain class as a
@@ -157,7 +155,7 @@ public interface ClassifierStatus {
 	 *            the class name
 	 * @return the set of properties used by a certain class
 	 */
-	public Collection<Integer> getObjectPropertiesByFirst(int className);
+	Collection<Integer> getObjectPropertiesByFirst(int className);
 
 	/**
 	 * Returns the set of object properties related with a certain class as a
@@ -167,7 +165,7 @@ public interface ClassifierStatus {
 	 *            the class name
 	 * @return the set of properties used by a certain class
 	 */
-	public Collection<Integer> getObjectPropertiesBySecond(int className);
+	Collection<Integer> getObjectPropertiesBySecond(int className);
 
 	/**
 	 * Returns all the functional object properties that have a common
@@ -180,15 +178,14 @@ public interface ClassifierStatus {
 	 *         functional object property ancestor of the specified object
 	 *         property
 	 */
-	public Set<Integer> getObjectPropertiesWithFunctionalAncestor(
-			int objectProperty);
+	Set<Integer> getObjectPropertiesWithFunctionalAncestor(int objectProperty);
 
 	/**
 	 * Returns the monitor of set R.
 	 * 
 	 * @return the monitor of set R
 	 */
-	public Object getRelationSetMonitor();
+	Object getRelationSetMonitor();
 
 	/**
 	 * Returns all the classes that are related from a certain class using a
@@ -200,8 +197,7 @@ public interface ClassifierStatus {
 	 *            the class that is on left part in the relation
 	 * @return all the related classes
 	 */
-	public Collection<Integer> getSecondByFirst(int objectProperty,
-			int leftClass);
+	Collection<Integer> getSecondByFirst(int objectProperty, int leftClass);
 
 	/**
 	 * Returns all the sub object properties of an object property.
@@ -210,7 +206,7 @@ public interface ClassifierStatus {
 	 *            object property
 	 * @return all the sub object properties of an object property
 	 */
-	public Collection<Integer> getSubObjectProperties(int objectProperty);
+	Collection<Integer> getSubObjectProperties(int objectProperty);
 
 	/**
 	 * Returns all the super classes (subsumers) of a class.
@@ -219,7 +215,7 @@ public interface ClassifierStatus {
 	 *            class to get the subsumers
 	 * @return all the subsumers
 	 */
-	public Collection<Integer> getSubsumers(int subClass);
+	Collection<Integer> getSubsumers(int subClass);
 
 	/**
 	 * Returns all the super object properties of an object property.
@@ -228,6 +224,6 @@ public interface ClassifierStatus {
 	 *            object property
 	 * @return all the super object properties of an object property
 	 */
-	public Collection<Integer> getSuperObjectProperties(int objectProperty);
+	Collection<Integer> getSuperObjectProperties(int objectProperty);
 
 }

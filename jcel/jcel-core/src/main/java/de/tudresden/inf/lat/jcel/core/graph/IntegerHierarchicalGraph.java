@@ -69,14 +69,14 @@ public interface IntegerHierarchicalGraph {
 	 *            starting vertex
 	 * @return all predecessors of the given vertex
 	 */
-	public Set<Integer> getAncestors(Integer vertex);
+	Set<Integer> getAncestors(Integer vertex);
 
 	/**
 	 * Returns the bottom element.
 	 * 
 	 * @return the bottom element
 	 */
-	public Integer getBottomElement();
+	Integer getBottomElement();
 
 	/**
 	 * Returns all direct successors of a particular given vertex.
@@ -85,7 +85,7 @@ public interface IntegerHierarchicalGraph {
 	 *            starting vertex
 	 * @return all direct successors of the given vertex
 	 */
-	public Set<Integer> getChildren(Integer vertex);
+	Set<Integer> getChildren(Integer vertex);
 
 	/**
 	 * Returns all successors of a particular given vertex.
@@ -94,14 +94,14 @@ public interface IntegerHierarchicalGraph {
 	 *            starting vertex
 	 * @return all successors of the given vertex
 	 */
-	public Set<Integer> getDescendants(Integer vertex);
+	Set<Integer> getDescendants(Integer vertex);
 
 	/**
 	 * Returns all the vertices in the graph.
 	 * 
 	 * @return all the vertices in the graph
 	 */
-	public Set<Integer> getElements();
+	Set<Integer> getElements();
 
 	/**
 	 * Returns all vertices that are in a cycle for a given vertex and the
@@ -112,7 +112,7 @@ public interface IntegerHierarchicalGraph {
 	 * @return all vertices that are in a cycle for the given vertex and the
 	 *         vertex itself
 	 */
-	public Set<Integer> getEquivalents(Integer vertex);
+	Set<Integer> getEquivalents(Integer vertex);
 
 	/**
 	 * Returns all direct predecessors of a particular given vertex.
@@ -121,13 +121,13 @@ public interface IntegerHierarchicalGraph {
 	 *            starting vertex
 	 * @return all direct predecessors of the given vertex
 	 */
-	public Set<Integer> getParents(Integer vertex);
+	Set<Integer> getParents(Integer vertex);
 
 	/**
 	 * Returns the top element.
 	 * 
 	 * @return the top element
 	 */
-	public Integer getTopElement();
+	Integer getTopElement();
 
 }

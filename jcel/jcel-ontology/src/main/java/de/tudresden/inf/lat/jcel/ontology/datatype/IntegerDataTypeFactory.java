@@ -62,7 +62,7 @@ public interface IntegerDataTypeFactory {
 	 *            class identifier
 	 * @return a class
 	 */
-	public IntegerClass createClass(int classId);
+	IntegerClass createClass(int classId);
 
 	/**
 	 * Creates a has-value class expression.
@@ -73,7 +73,7 @@ public interface IntegerDataTypeFactory {
 	 *            value
 	 * @return a has-value class expression
 	 */
-	public IntegerDataHasValue createDataHasValue(int dataPropertyId, int val);
+	IntegerDataHasValue createDataHasValue(int dataPropertyId, int val);
 
 	/**
 	 * Creates a data property.
@@ -82,7 +82,7 @@ public interface IntegerDataTypeFactory {
 	 *            data property identifier
 	 * @return a data property
 	 */
-	public IntegerDataProperty createDataProperty(int dataPropertyId);
+	IntegerDataProperty createDataProperty(int dataPropertyId);
 
 	/**
 	 * Creates an existential restriction.
@@ -91,8 +91,8 @@ public interface IntegerDataTypeFactory {
 	 * @param classExpression
 	 * @return an existential restriction
 	 */
-	public IntegerDataSomeValuesFrom createDataSomeValuesFrom(
-			int dataPropertyId, IntegerClassExpression classExpression);
+	IntegerDataSomeValuesFrom createDataSomeValuesFrom(int dataPropertyId,
+			IntegerClassExpression classExpression);
 
 	/**
 	 * Creates a named individual.
@@ -101,7 +101,7 @@ public interface IntegerDataTypeFactory {
 	 *            named individual identifier
 	 * @return a named individual
 	 */
-	public IntegerNamedIndividual createNamedIndividual(int individualId);
+	IntegerNamedIndividual createNamedIndividual(int individualId);
 
 	/**
 	 * Creates an intersection of class expressions.
@@ -110,7 +110,7 @@ public interface IntegerDataTypeFactory {
 	 *            set of class expressions
 	 * @return an intersection of class expressions
 	 */
-	public IntegerObjectIntersectionOf createObjectIntersectionOf(
+	IntegerObjectIntersectionOf createObjectIntersectionOf(
 			Set<IntegerClassExpression> operands);
 
 	/**
@@ -120,7 +120,7 @@ public interface IntegerDataTypeFactory {
 	 *            object property to create the inverse
 	 * @return an inverse object property
 	 */
-	public IntegerObjectInverseOf createObjectInverseOf(
+	IntegerObjectInverseOf createObjectInverseOf(
 			IntegerObjectProperty objectPropertyId);
 
 	/**
@@ -130,7 +130,7 @@ public interface IntegerDataTypeFactory {
 	 *            individual identifier
 	 * @return a nominal expression
 	 */
-	public IntegerObjectOneOf createObjectOneOf(int individualId);
+	IntegerObjectOneOf createObjectOneOf(int individualId);
 
 	/**
 	 * Creates an object property.
@@ -139,7 +139,7 @@ public interface IntegerDataTypeFactory {
 	 *            object property identifier
 	 * @return an object property
 	 */
-	public IntegerObjectProperty createObjectProperty(int objectPropertyId);
+	IntegerObjectProperty createObjectProperty(int objectPropertyId);
 
 	/**
 	 * Creates an existential restriction.
@@ -150,7 +150,7 @@ public interface IntegerDataTypeFactory {
 	 *            class expression
 	 * @return an existential restriction
 	 */
-	public IntegerObjectSomeValuesFrom createObjectSomeValuesFrom(
+	IntegerObjectSomeValuesFrom createObjectSomeValuesFrom(
 			IntegerObjectPropertyExpression propertyExpression,
 			IntegerClassExpression classExpression);
 
@@ -159,41 +159,41 @@ public interface IntegerDataTypeFactory {
 	 * 
 	 * @return the bottom class
 	 */
-	public IntegerClass getBottomClass();
+	IntegerClass getBottomClass();
 
 	/**
 	 * Returns the bottom data property.
 	 * 
 	 * @return the bottom data property
 	 */
-	public IntegerDataProperty getBottomDataProperty();
+	IntegerDataProperty getBottomDataProperty();
 
 	/**
 	 * Returns the bottom object property.
 	 * 
 	 * @return the bottom object property
 	 */
-	public IntegerObjectProperty getBottomObjectProperty();
+	IntegerObjectProperty getBottomObjectProperty();
 
 	/**
 	 * Returns the top class.
 	 * 
 	 * @return the top class
 	 */
-	public IntegerClass getTopClass();
+	IntegerClass getTopClass();
 
 	/**
 	 * Returns the top data property.
 	 * 
 	 * @return the top data property
 	 */
-	public IntegerDataProperty getTopDataProperty();
+	IntegerDataProperty getTopDataProperty();
 
 	/**
 	 * Returns the top object property.
 	 * 
 	 * @return the top object property
 	 */
-	public IntegerObjectProperty getTopObjectProperty();
+	IntegerObjectProperty getTopObjectProperty();
 
 }

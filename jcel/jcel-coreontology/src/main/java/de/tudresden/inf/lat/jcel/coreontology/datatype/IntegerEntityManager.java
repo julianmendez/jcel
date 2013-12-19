@@ -56,13 +56,13 @@ import java.util.Set;
  */
 public interface IntegerEntityManager {
 
-	public static final Integer bottomClassId = 0;
-	public static final Integer bottomDataPropertyId = 4;
-	public static final Integer bottomObjectPropertyId = 2;
-	public static final Integer firstUsableIdentifier = 6;
-	public static final Integer topClassId = 1;
-	public static final Integer topDataPropertyId = 5;
-	public static final Integer topObjectPropertyId = 3;
+	Integer bottomClassId = 0;
+	Integer bottomDataPropertyId = 4;
+	Integer bottomObjectPropertyId = 2;
+	Integer firstUsableIdentifier = 6;
+	Integer topClassId = 1;
+	Integer topDataPropertyId = 5;
+	Integer topObjectPropertyId = 3;
 
 	/**
 	 * Creates a new entity of a certain type.
@@ -74,8 +74,7 @@ public interface IntegerEntityManager {
 	 *            auxiliary entity
 	 * @return a new auxiliary entity of a certain type
 	 */
-	public Integer createAnonymousEntity(IntegerEntityType type,
-			boolean auxiliary);
+	Integer createAnonymousEntity(IntegerEntityType type, boolean auxiliary);
 
 	/**
 	 * Creates a new entity of a certain type.
@@ -89,7 +88,7 @@ public interface IntegerEntityManager {
 	 *            name for this entity
 	 * @return a new auxiliary entity of a certain type
 	 */
-	public Integer createNamedEntity(IntegerEntityType type, String name,
+	Integer createNamedEntity(IntegerEntityType type, String name,
 			boolean auxiliary);
 
 	/**
@@ -100,7 +99,7 @@ public interface IntegerEntityManager {
 	 *            individual to get the class
 	 * @return the class identifier for the given individual
 	 */
-	public Integer createOrGetClassIdForIndividual(Integer individual);
+	Integer createOrGetClassIdForIndividual(Integer individual);
 
 	/**
 	 * Returns the inverse object property of the given object property. If this
@@ -113,7 +112,7 @@ public interface IntegerEntityManager {
 	 *             if the property identifier is greater than the last auxiliary
 	 *             property created
 	 */
-	public Integer createOrGetInverseObjectPropertyOf(Integer propertyId)
+	Integer createOrGetInverseObjectPropertyOf(Integer propertyId)
 			throws IndexOutOfBoundsException;
 
 	/**
@@ -121,7 +120,7 @@ public interface IntegerEntityManager {
 	 * 
 	 * @return the auxiliary inverse object properties
 	 */
-	public Set<Integer> getAuxiliaryInverseObjectProperties();
+	Set<Integer> getAuxiliaryInverseObjectProperties();
 
 	/**
 	 * This method gives the auxiliary nominal related to a specific individual.
@@ -131,14 +130,14 @@ public interface IntegerEntityManager {
 	 * @return the requested class or <code>null</code> if the individual does
 	 *         not have any related auxiliary nominal.
 	 */
-	public Integer getAuxiliaryNominal(Integer individual);
+	Integer getAuxiliaryNominal(Integer individual);
 
 	/**
 	 * Returns the set of auxiliary nominals.
 	 * 
 	 * @return the set of auxiliary nominals
 	 */
-	public Set<Integer> getAuxiliaryNominals();
+	Set<Integer> getAuxiliaryNominals();
 
 	/**
 	 * Returns the set of identifiers of auxiliary entities of a certain type.
@@ -150,7 +149,7 @@ public interface IntegerEntityManager {
 	 *            for non-auxiliary entities
 	 * @return the set of identifiers of auxiliary entities of a certain type
 	 */
-	public Set<Integer> getEntities(IntegerEntityType type, boolean auxiliary);
+	Set<Integer> getEntities(IntegerEntityType type, boolean auxiliary);
 
 	/**
 	 * This method gives the individual related to a specific auxiliary nominal.
@@ -160,14 +159,14 @@ public interface IntegerEntityManager {
 	 * @return the requested individual or <code>null</code> if the auxiliary
 	 *         nominal does not have any related individual.
 	 */
-	public Integer getIndividual(Integer auxNominal);
+	Integer getIndividual(Integer auxNominal);
 
 	/**
 	 * Returns the set of individuals.
 	 * 
 	 * @return the set of individuals
 	 */
-	public Set<Integer> getIndividuals();
+	Set<Integer> getIndividuals();
 
 	/**
 	 * Returns the name defined for a certain entity.
@@ -176,7 +175,7 @@ public interface IntegerEntityManager {
 	 *            entity to get the name
 	 * @return the name defined for a certain entity
 	 */
-	public String getName(Integer identifier);
+	String getName(Integer identifier);
 
 	/**
 	 * Returns the entity type for the given identifier
@@ -185,7 +184,7 @@ public interface IntegerEntityManager {
 	 *            entity identifier
 	 * @return the entity type for the given identifier
 	 */
-	public IntegerEntityType getType(Integer identifier);
+	IntegerEntityType getType(Integer identifier);
 
 	/**
 	 * Tells whether the given identifier corresponds to an auxiliary entity.
@@ -193,7 +192,7 @@ public interface IntegerEntityManager {
 	 * @return <code>true</code> if and only if the given identifier corresponds
 	 *         to an auxiliary entity
 	 */
-	public boolean isAuxiliary(Integer identifier);
+	boolean isAuxiliary(Integer identifier);
 
 	/**
 	 * Proposes the association of an object property to another object property
@@ -207,7 +206,7 @@ public interface IntegerEntityManager {
 	 *            an object property
 	 * @return <code>true</code> if and only if the proposal was accepted
 	 */
-	public boolean proposeInverseObjectPropertyOf(Integer firstProperty,
+	boolean proposeInverseObjectPropertyOf(Integer firstProperty,
 			Integer secondProperty) throws IndexOutOfBoundsException;
 
 	/**
@@ -217,6 +216,6 @@ public interface IntegerEntityManager {
 	 * @return the number of created entities, either auxiliary or
 	 *         non-auxiliary.
 	 */
-	public int size();
+	int size();
 
 }

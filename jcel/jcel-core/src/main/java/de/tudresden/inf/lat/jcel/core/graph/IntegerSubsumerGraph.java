@@ -68,21 +68,21 @@ public interface IntegerSubsumerGraph {
 	 * @return <code>true</code> if and only if this subsumer graph contains the
 	 *         given pair
 	 */
-	public boolean containsPair(int subsumee, int subsumer);
+	boolean containsPair(int subsumee, int subsumer);
 
 	/**
 	 * Returns the bottom element.
 	 * 
 	 * @return the bottom element
 	 */
-	public int getBottomElement();
+	int getBottomElement();
 
 	/**
 	 * Returns the collection of vertices in the graph.
 	 * 
 	 * @return the collection of vertices in the graph
 	 */
-	public Collection<Integer> getElements();
+	Collection<Integer> getElements();
 
 	/**
 	 * Returns the collection of subsumers of a given vertex.
@@ -91,13 +91,13 @@ public interface IntegerSubsumerGraph {
 	 *            to get the collection of subsumers
 	 * @return the collection of subsumers of the given vertex
 	 */
-	public Collection<Integer> getSubsumers(int vertex);
+	Collection<Integer> getSubsumers(int vertex);
 
 	/**
 	 * Returns the top element.
 	 * 
 	 * @return the top element
 	 */
-	public int getTopElement();
+	int getTopElement();
 
 }

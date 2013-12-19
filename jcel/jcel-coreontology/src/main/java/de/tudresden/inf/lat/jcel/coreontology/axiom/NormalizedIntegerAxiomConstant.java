@@ -59,19 +59,19 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
 
 public interface NormalizedIntegerAxiomConstant {
 
-	public static final String closePar = IntegerClassExpressionWord.closePar;
-	public static final String emptyProp = "()";
-	public static final String FunctionalObjectProperty = "FunctionalObjectProperty*";
-	public static final String GCI0 = "SubClassOf*";
-	public static final String GCI1 = "SubClassOf*";
-	public static final String GCI2 = "SubClassOf*";
-	public static final String GCI3 = "SubClassOf*";
-	public static final String NominalAxiom = "NominalAxiom*";
-	public static final String NormalizedRangeAxiom = "RangeAxiom*";
-	public static final String openPar = IntegerClassExpressionWord.openPar;
-	public static final String RI1 = "SubObjectPropertyOf*";
-	public static final String RI2 = "SubObjectPropertyOf*";
-	public static final String RI3 = "SubObjectPropertyOf*";
-	public static final String sp = IntegerClassExpressionWord.sp;
+	String closePar = IntegerClassExpressionWord.closePar;
+	String emptyProp = "()";
+	String FunctionalObjectProperty = "FunctionalObjectProperty*";
+	String GCI0 = "SubClassOf*";
+	String GCI1 = "SubClassOf*";
+	String GCI2 = "SubClassOf*";
+	String GCI3 = "SubClassOf*";
+	String NominalAxiom = "NominalAxiom*";
+	String NormalizedRangeAxiom = "RangeAxiom*";
+	String openPar = IntegerClassExpressionWord.openPar;
+	String RI1 = "SubObjectPropertyOf*";
+	String RI2 = "SubObjectPropertyOf*";
+	String RI3 = "SubObjectPropertyOf*";
+	String sp = IntegerClassExpressionWord.sp;
 
 }

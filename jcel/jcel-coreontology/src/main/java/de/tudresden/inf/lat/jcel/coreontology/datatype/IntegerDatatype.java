@@ -61,34 +61,34 @@ public interface IntegerDatatype {
 	 * 
 	 * @return the classes in the signature.
 	 */
-	public Set<Integer> getClassesInSignature();
+	Set<Integer> getClassesInSignature();
 
 	/**
 	 * Returns the data properties in the signature.
 	 * 
 	 * @return the data properties in the signature.
 	 */
-	public Set<Integer> getDataPropertiesInSignature();
+	Set<Integer> getDataPropertiesInSignature();
 
 	/**
 	 * Returns the data types in the signature.
 	 * 
 	 * @return the data types in the signature.
 	 */
-	public Set<Integer> getDatatypesInSignature();
+	Set<Integer> getDatatypesInSignature();
 
 	/**
 	 * Returns the individuals in the signature.
 	 * 
 	 * @return the individuals in the signature.
 	 */
-	public Set<Integer> getIndividualsInSignature();
+	Set<Integer> getIndividualsInSignature();
 
 	/**
 	 * Returns the object properties in the signature.
 	 * 
 	 * @return the object properties in the signature.
 	 */
-	public Set<Integer> getObjectPropertiesInSignature();
+	Set<Integer> getObjectPropertiesInSignature();
 
 }

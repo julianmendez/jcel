@@ -56,7 +56,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerDatatype;
  */
 public interface IntegerClassExpression extends IntegerDatatype {
 
-	public <T> T accept(IntegerClassExpressionVisitor<T> visitor);
+	<T> T accept(IntegerClassExpressionVisitor<T> visitor);
 
 	/**
 	 * Tells whether or not this class expression contains a bottom.
@@ -64,7 +64,7 @@ public interface IntegerClassExpression extends IntegerDatatype {
 	 * @return <code>true</code> if and only if this class expression contains a
 	 *         bottom
 	 */
-	public boolean containsBottom();
+	boolean containsBottom();
 
 	/**
 	 * Tells whether or not this class expression contains only one class in its
@@ -73,7 +73,7 @@ public interface IntegerClassExpression extends IntegerDatatype {
 	 * @return <code>true</code> if and only if this class expression contains
 	 *         only literals
 	 */
-	public boolean hasOnlyClasses();
+	boolean hasOnlyClasses();
 
 	/**
 	 * Tells whether or not this class expression is a literal.
@@ -81,6 +81,6 @@ public interface IntegerClassExpression extends IntegerDatatype {
 	 * @return <code>true</code> if and only if this class expression is a
 	 *         literal
 	 */
-	public boolean isLiteral();
+	boolean isLiteral();
 
 }

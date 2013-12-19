@@ -60,7 +60,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @param prop
 	 *            object property
 	 */
-	public FunctObjectPropAxiom createFunctObjectPropAxiom(int prop);
+	FunctObjectPropAxiom createFunctObjectPropAxiom(int prop);
 
 	/**
 	 * Constructs a new GCI-0 axiom.
@@ -70,7 +70,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @param superCl
 	 *            superclass identifier
 	 */
-	public GCI0Axiom createGCI0Axiom(int subCl, int superCl);
+	GCI0Axiom createGCI0Axiom(int subCl, int superCl);
 
 	/**
 	 * Constructs a new GCI-1 axiom.
@@ -82,7 +82,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @param superCl
 	 *            superclass in the axiom
 	 */
-	public GCI1Axiom createGCI1Axiom(int leftSubCl, int rightSubCl, int superCl);
+	GCI1Axiom createGCI1Axiom(int leftSubCl, int rightSubCl, int superCl);
 
 	/**
 	 * Constructs a new GCI-2 axiom.
@@ -94,7 +94,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @param rightCl
 	 *            class identifier for the right-hand part
 	 */
-	public GCI2Axiom createGCI2Axiom(int leftCl, int rightProp, int rightCl);
+	GCI2Axiom createGCI2Axiom(int leftCl, int rightProp, int rightCl);
 
 	/**
 	 * Constructs a new GCI-3 axiom.
@@ -106,7 +106,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @param rightCl
 	 *            superclass identifier
 	 */
-	public GCI3Axiom createGCI3Axiom(int leftProp, int leftCl, int rightCl);
+	GCI3Axiom createGCI3Axiom(int leftProp, int leftCl, int rightCl);
 
 	/**
 	 * Constructs a new nominal axiom.
@@ -116,7 +116,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @param individualId
 	 *            individual identifier in the axiom
 	 */
-	public NominalAxiom createNominalAxiom(int classId, int individualId);
+	NominalAxiom createNominalAxiom(int classId, int individualId);
 
 	/**
 	 * Constructs a new range axiom.
@@ -126,7 +126,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @param cl
 	 *            class identifier
 	 */
-	public RangeAxiom createRangeAxiom(int prop, int cl);
+	RangeAxiom createRangeAxiom(int prop, int cl);
 
 	/**
 	 * Constructs a new axiom RI-1.
@@ -134,7 +134,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @param prop
 	 *            object property identifier
 	 */
-	public RI1Axiom createRI1Axiom(int prop);
+	RI1Axiom createRI1Axiom(int prop);
 
 	/**
 	 * Constructs a new axiom RI-2.
@@ -145,7 +145,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 *            object property identifier for the right-hand part of the
 	 *            axiom
 	 */
-	public RI2Axiom createRI2Axiom(int leftProp, int rightProp);
+	RI2Axiom createRI2Axiom(int leftProp, int rightProp);
 
 	/**
 	 * Constructs a new RI-3 axiom
@@ -159,7 +159,6 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @param rightProp
 	 *            object property identifier for super object property
 	 */
-	public RI3Axiom createRI3Axiom(int leftLeftProp, int leftRightProp,
-			int rightProp);
+	RI3Axiom createRI3Axiom(int leftLeftProp, int leftRightProp, int rightProp);
 
 }

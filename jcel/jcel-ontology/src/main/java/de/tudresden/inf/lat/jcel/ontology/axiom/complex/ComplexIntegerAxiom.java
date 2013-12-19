@@ -65,6 +65,6 @@ public interface ComplexIntegerAxiom extends IntegerAxiom {
 	 *            visitor
 	 * @return the visit result
 	 */
-	public <T> T accept(ComplexIntegerAxiomVisitor<T> visitor);
+	<T> T accept(ComplexIntegerAxiomVisitor<T> visitor);
 
 }

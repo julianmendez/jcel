@@ -65,7 +65,7 @@ public interface IntegerClassExpressionVisitor<T> {
 	 *            class expression
 	 * @return the visit result
 	 */
-	public T visit(IntegerClass classExpression);
+	T visit(IntegerClass classExpression);
 
 	/**
 	 * Visits a has-value class expression.
@@ -74,7 +74,7 @@ public interface IntegerClassExpressionVisitor<T> {
 	 *            class expression
 	 * @return the visit result
 	 */
-	public T visit(IntegerDataHasValue classExpression);
+	T visit(IntegerDataHasValue classExpression);
 
 	/**
 	 * Visits an existential restriction with data properties.
@@ -83,7 +83,7 @@ public interface IntegerClassExpressionVisitor<T> {
 	 *            class expression
 	 * @return the visit result
 	 */
-	public T visit(IntegerDataSomeValuesFrom classExpression);
+	T visit(IntegerDataSomeValuesFrom classExpression);
 
 	/**
 	 * Visits a named individual.
@@ -92,7 +92,7 @@ public interface IntegerClassExpressionVisitor<T> {
 	 *            named individual
 	 * @return the visit result
 	 */
-	public T visit(IntegerNamedIndividual namedIndividual);
+	T visit(IntegerNamedIndividual namedIndividual);
 
 	/**
 	 * Visits an intersection of several class expressions.
@@ -101,7 +101,7 @@ public interface IntegerClassExpressionVisitor<T> {
 	 *            class expression
 	 * @return the visit result
 	 */
-	public T visit(IntegerObjectIntersectionOf classExpression);
+	T visit(IntegerObjectIntersectionOf classExpression);
 
 	/**
 	 * Visits a nominal constructor.
@@ -110,7 +110,7 @@ public interface IntegerClassExpressionVisitor<T> {
 	 *            class expression
 	 * @return the visit result
 	 */
-	public T visit(IntegerObjectOneOf classExpression);
+	T visit(IntegerObjectOneOf classExpression);
 
 	/**
 	 * Visits an existential restriction with object properties.
@@ -119,6 +119,6 @@ public interface IntegerClassExpressionVisitor<T> {
 	 *            class expression
 	 * @return the visit result
 	 */
-	public T visit(IntegerObjectSomeValuesFrom classExpression);
+	T visit(IntegerObjectSomeValuesFrom classExpression);
 
 }

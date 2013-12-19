@@ -58,8 +58,8 @@ package de.tudresden.inf.lat.jcel.ontology.datatype;
  */
 public interface IntegerObjectPropertyExpressionVisitor<T> {
 
-	public T visit(IntegerObjectInverseOf objectPropertyExpression);
+	T visit(IntegerObjectInverseOf objectPropertyExpression);
 
-	public T visit(IntegerObjectProperty objectPropertyExpression);
+	T visit(IntegerObjectProperty objectPropertyExpression);
 
 }

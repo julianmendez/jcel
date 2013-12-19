@@ -56,7 +56,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerDatatype;
  */
 public interface IntegerObjectPropertyExpression extends IntegerDatatype {
 
-	public <T> T accept(IntegerObjectPropertyExpressionVisitor<T> visitor);
+	<T> T accept(IntegerObjectPropertyExpressionVisitor<T> visitor);
 
 	/**
 	 * Tells whether or not this property expression is a literal.
@@ -64,6 +64,6 @@ public interface IntegerObjectPropertyExpression extends IntegerDatatype {
 	 * @return <code>true</code> if and only if this class expression is a
 	 *         literal
 	 */
-	public boolean isLiteral();
+	boolean isLiteral();
 
 }

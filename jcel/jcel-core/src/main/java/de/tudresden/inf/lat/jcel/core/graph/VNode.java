@@ -66,21 +66,21 @@ public interface VNode {
 	 * @return <code>true</code> if and only if the node contains the given
 	 *         existential entry
 	 */
-	public boolean containsExistential(int objectPropertyId, int classId);
+	boolean containsExistential(int objectPropertyId, int classId);
 
 	/**
 	 * Returns the class identifier for this node.
 	 * 
 	 * @return the class identifier for this node
 	 */
-	public int getClassId();
+	int getClassId();
 
 	/**
 	 * Returns a collection containing the existential expressions.
 	 * 
 	 * @return a collection containing the existential expressions
 	 */
-	public Collection<VNodeObjectSomeValuesFrom> getExistentialEntries();
+	Collection<VNodeObjectSomeValuesFrom> getExistentialEntries();
 
 	/**
 	 * Tell whether a node has an empty set of existential expressions.
@@ -88,6 +88,6 @@ public interface VNode {
 	 * @return <code>true</code> if and only if this node contains an empty set
 	 *         of existential expressions
 	 */
-	public boolean isEmpty();
+	boolean isEmpty();
 
 }
