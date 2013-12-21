@@ -56,7 +56,7 @@
 
 	<!-- Imports 'project.groupId', 'project.artifactId', and 'project.version' properties. -->
 	<xmlproperty file="${basedir}/pom.xml" />
-	
+
 	<!-- Imports version properties. -->
 	<property file="version.properties" />
 
@@ -84,13 +84,9 @@
 	<property name="_src.javadoc.directory" value="${_src.directory}/main/javadoc" />
 	<property name="project.build.sourceDirectory" value="${_src.directory}/main/java" />
 	<property name="project.build.testSourceDirectory" value="${_src.directory}/test/java" />
-	<property name="_src.appdata.directory" value="${_src.directory}/data" />
 	<property name="_jars.directory" value="${basedir}/.." />
-	<property name="_app.directory" value="${project.build.directory}/app" />
 	<property name="_javadoc.directory" value="${project.build.directory}/site/apidocs" />
 	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
-	<property name="_prjlib.directory" value="${project.build.directory}" />
-	<property name="_srclib.directory" value="${project.build.directory}" />
 	<property name="project.build.testOutputDirectory" value="${project.build.directory}/test-classes" />
 	<property name="project.reporting.outputDirectory" value="${project.build.directory}/test-reports" />
 	<property name="_debuglevel" value="lines,vars,source" />
@@ -114,8 +110,8 @@
 
 	<!-- Creates a jar with the source code. -->
 	<target name="source" depends="clean">
-		<mkdir dir="${_srclib.directory}" />
-		<jar destfile="${_srclib.directory}/${project.artifactId}-${project.version}-sources.jar" basedir="${basedir}">
+		<mkdir dir="${project.build.directory}" />
+		<jar destfile="${project.build.directory}/${project.artifactId}-${project.version}-sources.jar" basedir="${basedir}">
 			<manifest>
 				<attribute name="Implementation-Title" value="${project.groupId}-${project.artifactId}" />
 				<attribute name="Implementation-Version" value="${project.version}" />
@@ -160,8 +156,8 @@
 
 	<!-- Creates a jar with the binaries. -->
 	<target name="jar" depends="compile">
-		<mkdir dir="${_prjlib.directory}" />
-		<jar destfile="${_prjlib.directory}/${project.artifactId}-${project.version}.jar" basedir="${project.build.outputDirectory}">
+		<mkdir dir="${project.build.directory}" />
+		<jar destfile="${project.build.directory}/${project.artifactId}-${project.version}.jar" basedir="${project.build.outputDirectory}">
 			<manifest>
 				<attribute name="Implementation-Title" value="${project.groupId}-${project.artifactId}" />
 				<attribute name="Implementation-Version" value="${project.version}" />
