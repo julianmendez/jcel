@@ -47,23 +47,17 @@
  *
 -->
 
-	<!-- 
+	<!--
 	For more information about this file, see http://ant.apache.org 
 	-->
 
 	<!-- Imports project.groupId, project.artifactId, and project.version properties. -->
 	<xmlproperty file="pom.xml" />
 
-	<!-- Imports dependencies. -->
+	<!-- Imports javadocsrc. -->
 	<property file="version.properties" />
 
-	<!-- 
-
-	The following version properties should be defined at this point : 
-	  * dependencies : has a space-separated list of the jars required to compile the project and run the test cases
-	  * javadocsrc : has a colon-separated list of source directories for the javadoc
-
-	-->
+	<fail unless="javadocsrc">Error: 'javadocsrc' is undefined. This property should have a colon-separated list of source directories for the javadoc.</fail>
 
 	<property name="parent.directory" value="../jcel-build" />
 	<property name="project.build.directory" value="${basedir}/target" />
@@ -79,7 +73,7 @@
 			<property name="project.groupId" value="${project.groupId}" />
 			<property name="project.artifactId" value="${project.artifactId}" />
 			<property name="project.version" value="${project.version}" />
-			<property name="dependencies" value="${dependencies}" />
+			<property name="javadocsrc" value="${javadocsrc}" />
 		</subant>
 	</target>
 

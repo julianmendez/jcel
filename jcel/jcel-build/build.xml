@@ -55,7 +55,7 @@
 	<property name="project.artifactId" value="build" />
 
 	<!-- Imports version properties. -->
-	<property file="version.properties" />
+	<xmlproperty file="pom.xml" />
 
 	<property name="project.build.directory" value="${basedir}/target" />
 	<property name="src.directory" value="src" />

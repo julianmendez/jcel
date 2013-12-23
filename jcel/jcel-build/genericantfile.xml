@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="parent" default="dist" basedir=".">
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="parent" default="dist" basedir=".">
 
 	<!--
  *
@@ -47,61 +47,69 @@
  *
 -->
 
-	<!-- 
-	For more information about this file, see http://ant.apache.org 
-	-->
+	<!-- For more information about this file, see http://ant.apache.org -->
 
-	<property name="project.groupId" value="jcel" />
-	<property name="project.artifactId" value="parent" />
+	<!-- Project-specific properties. -->
+	<fail unless="project.groupId">Error: 'project.groupId' is undefined. This property should have the group identifier.</fail>
+	<fail unless="project.artifactId">Error: 'project.artifactId' is undefined. This property should have the artifact identifier.</fail>
+	<fail unless="project.version">Error: 'project.version' is undefined. This property should have the version number in the form major.minor.patch.</fail>
+	<fail unless="javadocsrc">Error: 'javadocsrc' is undefined. This property should have a colon-separated list of source directories for the javadoc.</fail>
 
-	<!-- Imports 'project.groupId', 'project.artifactId', and 'project.version' properties. -->
-	<xmlproperty file="${basedir}/pom.xml" />
-
-	<!-- Imports version properties. -->
-	<property file="version.properties" />
-
-	<!-- 
-
-	The following version properties should be defined at this point : 
-	  * dependencies : has a space-separated list of the jars required to compile the project and run the test cases
-	  * javadocsrc : has a colon-separated list of source directories for the javadoc
-
-	Source directories: (src)
-	  * src/main/javadoc : text for the javadoc
-	  * src/main/java : source code of the main part
-	  * src/test/java : source code of the unit tests
-
-	Generated directories: (target)
-	  * target/classes : compiled classes
-	  * target/site/apidocs : generated javadoc
-	  * target/test-classes : compiled unit test classes
-	  * target/test-reports : generated reports of unit tests
-
-	-->
-
+	<!-- General properties. -->
 	<property name="project.build.directory" value="${basedir}/target" />
 	<property name="_src.directory" value="${basedir}/src" />
 	<property name="_src.javadoc.directory" value="${_src.directory}/main/javadoc" />
 	<property name="project.build.sourceDirectory" value="${_src.directory}/main/java" />
 	<property name="project.build.testSourceDirectory" value="${_src.directory}/test/java" />
-	<property name="_jars.directory" value="${basedir}/.." />
 	<property name="_javadoc.directory" value="${project.build.directory}/site/apidocs" />
 	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
 	<property name="project.build.testOutputDirectory" value="${project.build.directory}/test-classes" />
 	<property name="project.reporting.outputDirectory" value="${project.build.directory}/test-reports" />
 	<property name="_debuglevel" value="lines,vars,source" />
 
-	<path id="libs.directory">
-		<fileset dir="${_jars.directory}" includes="${dependencies}" />
-	</path>
+	<!-- Beginning of snippet for Ivy. -->
 
-	<patternset id="javadoc.patternset">
-		<include name="${_javadoc.directory}/**" />
-	</patternset>
+	<!-- Properties for Ivy. -->
+	<property name="project.build.ivyReportDirectory" location="${project.build.directory}/ivy-reports" />
+	<property name="maven.repository" value="http://repo.maven.apache.org/maven2" />
+	<property name="ivy.install.version" value="2.3.0" />
+	<condition property="ivy.home" value="${env.IVY_HOME}">
+		<isset property="env.IVY_HOME" />
+	</condition>
+	<property name="ivy.home" value="${user.home}/.ant" />
+	<property name="ivy.jar.directory" value="${ivy.home}/lib/org/apache/ivy/ivy/${ivy.install.version}" />
+	<property name="ivy.jar.file" value="${ivy.jar.directory}/ivy-${ivy.install.version}.jar" />
 
-	<patternset id="testclasses.patternset">
-		<include name="**/*Test.java" />
-	</patternset>
+	<!-- Downloads Ivy. -->
+	<target name="downloadivy" unless="offline">
+		<mkdir dir="${ivy.jar.directory}" />
+		<get src="${maven.repository}/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" dest="${ivy.jar.file}" usetimestamp="true" />
+	</target>
+
+	<!-- Initializes Ivy. -->
+	<target name="initializeivy" depends="downloadivy">
+		<path id="ivy.lib.path">
+			<fileset dir="${ivy.jar.directory}" includes="*.jar" />
+		</path>
+		<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path" />
+	</target>
+
+	<!-- Initializes Ivy paths. -->
+	<target name="initialize" depends="initializeivy">
+		<ivy:resolve />
+		<ivy:report todir='${project.build.ivyReportDirectory}' graph='false' xml='false' />
+		<ivy:cachepath pathid="compile.path" conf="compile" />
+		<ivy:cachepath pathid="runtime.path" conf="runtime" />
+		<ivy:cachepath pathid="test.path" conf="test" />
+	</target>
+
+	<!-- Retrieves dependencies with Ivy. -->
+	<target name="retrieve" depends="initialize">
+		<ivy:retrieve pattern="${ivy.settings.dir}/jars/lib/[orgPath]/[module]/[revision]/[artifact]-[revision].[ext]" type="jar,bundle" />
+		<ivy:retrieve pattern="${ivy.settings.dir}/jars/lib/[orgPath]/[module]/[revision]/[artifact]-[revision]-[type].[ext]" type="javadoc,source" />
+	</target>
+
+	<!-- End of snippet for Ivy. -->
 
 	<!-- Cleans compiled files. -->
 	<target name="clean">
@@ -122,7 +130,11 @@
 	<!-- Compiles the project. -->
 	<target name="compile">
 		<mkdir dir="${project.build.outputDirectory}" />
-		<javac srcdir="${project.build.sourceDirectory}" destdir="${project.build.outputDirectory}" classpathref="libs.directory" debug="true" debuglevel="${_debuglevel}" includeantruntime="false" />
+		<javac srcdir="${project.build.sourceDirectory}" destdir="${project.build.outputDirectory}" debug="true" debuglevel="${_debuglevel}" includeantruntime="false">
+			<classpath>
+				<path refid="compile.path" />
+			</classpath>
+		</javac>
 	</target>
 
 	<!-- Checks availability of unit tests. -->
@@ -133,7 +145,12 @@
 	<!-- Compiles the tests. -->
 	<target name="compiletests" depends="compile, checktestsources" if="testSourceDirectory.available">
 		<mkdir dir="${project.build.testOutputDirectory}" />
-		<javac srcdir="${project.build.testSourceDirectory}" destdir="${project.build.testOutputDirectory}" classpath="${project.build.outputDirectory}" classpathref="libs.directory" debug="true" debuglevel="${_debuglevel}" includeantruntime="false" />
+		<javac srcdir="${project.build.testSourceDirectory}" destdir="${project.build.testOutputDirectory}" classpath="${project.build.outputDirectory}" debug="true" debuglevel="${_debuglevel}" includeantruntime="false">
+			<classpath>
+				<path refid="test.path" />
+				<pathelement path="${project.build.directory}" />
+			</classpath>
+		</javac>
 	</target>
 
 	<!-- Performs the unit tests. -->
@@ -141,14 +158,14 @@
 		<mkdir dir="${project.reporting.outputDirectory}" />
 		<junit printsummary="on" haltonfailure="yes" fork="yes" dir="${basedir}">
 			<classpath>
+				<path refid="test.path" />
 				<pathelement path="${project.build.outputDirectory}" />
 				<pathelement path="${project.build.testOutputDirectory}" />
-				<fileset dir="${_jars.directory}" includes="${dependencies}" />
 			</classpath>
 			<formatter type="plain" usefile="on" />
 			<batchtest fork="yes" todir="${project.reporting.outputDirectory}">
 				<fileset dir="${project.build.testSourceDirectory}">
-					<patternset refid="testclasses.patternset" />
+					<include name="**/*Test*.java" />
 				</fileset>
 			</batchtest>
 		</junit>
@@ -168,11 +185,11 @@
 	<!-- Creates the javadoc. -->
 	<target name="javadoc">
 		<mkdir dir="${_javadoc.directory}" />
-		<javadoc packagenames="*" sourcepath="${javadocsrc}" destdir="${_javadoc.directory}" version="true" use="true" windowtitle="${project.groupId}-${project.artifactId}" overview="${_src.javadoc.directory}/overview.html" classpathref="libs.directory" access="package" useexternalfile="true" />
+		<javadoc packagenames="*" sourcepath="${javadocsrc}" destdir="${_javadoc.directory}" version="true" use="true" windowtitle="${project.groupId}-${project.artifactId}" overview="${_src.javadoc.directory}/overview.html" access="package" useexternalfile="true" />
 	</target>
 
 	<!-- Executes all the tasks. -->
-	<target name="dist" depends="clean, source, compile, checktestsources, compiletests, test, jar, javadoc" />
+	<target name="dist" depends="clean, retrieve, source, compile, checktestsources, compiletests, test, jar, javadoc" />
 
 </project>
 

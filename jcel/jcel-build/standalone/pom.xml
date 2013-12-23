@@ -115,7 +115,7 @@
 							@../../jcel-reasoner/target/jcel-reasoner-${project.version}.jar,
 							@../../jcel-owlapi/target/jcel-owlapi-${project.version}.jar,
 							@../../jcel-protege/target/jcel-protege-${project.version}.jar,
-							@../jars/lib/net/sourceforge/owlapi/owlapi/3.4.4/owlapi-3.4.4.jar
+							@../jars/lib/net/sourceforge/owlapi/owlapi-distribution/3.4.4/owlapi-distribution-3.4.4.jar
 						</Include-Resource>
 					</instructions>
 				</configuration>
