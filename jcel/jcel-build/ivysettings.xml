@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivysettings>
-	<settings defaultResolver="central" />
+	<settings defaultResolver="chain" />
 	<resolvers>
-		<ibiblio name="central" m2compatible="true" />
-		<filesystem name="local">
-			<artifact pattern="${ivy.settings.dir}/jars/lib/[orgPath]/[module]/[revision]/[artifact]-[revision].[ext]" />
-			<artifact pattern="${ivy.settings.dir}/../[artifact]/target/[artifact]-[revision].[ext]" />
-		</filesystem>
+		<chain name="chain" returnFirst="true">
+			<filesystem name="local">
+				<artifact pattern="${ivy.settings.dir}/jars/lib/[orgPath]/[module]/[revision]/[artifact]-[revision].[ext]" />
+				<artifact pattern="${ivy.settings.dir}/../[artifact]/target/[artifact]-[revision].[ext]" />
+			</filesystem>
+			<ibiblio name="central" m2compatible="true" />
+		</chain>
 	</resolvers>
 	<modules>
 		<module organisation="de.tudresden.inf.lat" name="jcel-coreontology" resolver="local"/>
