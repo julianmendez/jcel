@@ -83,7 +83,7 @@
 						</goals>
 						<configuration>
 							<files>
-								<file>version.properties</file>
+								<file>build.properties</file>
 							</files>
 						</configuration>
 					</execution>
