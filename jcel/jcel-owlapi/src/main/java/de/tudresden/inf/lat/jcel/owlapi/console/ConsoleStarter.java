@@ -74,7 +74,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxRenderer;
-import uk.ac.manchester.owl.owlapi.tutorialowled2011.OWLTutorialSyntaxRenderer;
 import de.tudresden.inf.lat.jcel.owlapi.main.JcelReasoner;
 import de.tudresden.inf.lat.jcel.reasoner.main.VersionInfo;
 import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2OWLSyntaxRenderer;
@@ -136,7 +135,6 @@ public class ConsoleStarter {
 	public static final String rendererKRSS2OWL = "krss2owl";
 	public static final String rendererLatex = "latex";
 	public static final String rendererManchester = "manchester";
-	public static final String rendererTutorial = "tutorial";
 	public static final String rendererXML = "xml";
 	public static final String versionInfo = VersionInfo.reasonerName + " "
 			+ VersionInfo.reasonerVersion;
@@ -270,7 +268,7 @@ public class ConsoleStarter {
 			+ " | "
 			+ rendererManchester
 			+ " | "
-			+ rendererTutorial + " | " + rendererXML + "\n\n\n\n";
+			+ rendererXML + "\n\n\n\n";
 	private long timeOut = 0;
 	private boolean timeOutMode = false;
 	private boolean verboseMode = false;
@@ -511,8 +509,6 @@ public class ConsoleStarter {
 			ret = new ManchesterOWLSyntaxRenderer();
 		} else if (argument.equals(rendererFunctional)) {
 			ret = new OWLFunctionalSyntaxRenderer();
-		} else if (argument.equals(rendererTutorial)) {
-			ret = new OWLTutorialSyntaxRenderer();
 		} else if (argument.equals(rendererXML)) {
 			ret = new OWLXMLRenderer();
 		}

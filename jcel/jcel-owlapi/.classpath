@@ -3,11 +3,11 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/jcel-build/jars/lib/net/sourceforge/owlapi/owlapi/3.4.4/owlapi-3.4.4.jar" sourcepath="/jcel-build/jars/lib/net/sourceforge/owlapi/owlapi/3.4.4/owlapi-3.4.4-sources.jar"/>
 	<classpathentry kind="lib" path="/jcel-build/jars/lib/junit/junit/4.11/junit-4.11.jar" sourcepath="/jcel-build/jars/lib/junit/junit/4.11/junit-4.11-sources.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jcel-coreontology"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jcel-core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jcel-ontology"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jcel-reasoner"/>
+	<classpathentry kind="lib" path="/jcel-build/jars/lib/net/sourceforge/owlapi/owlapi-distribution/3.4.9/owlapi-distribution-3.4.9.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
