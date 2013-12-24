@@ -54,6 +54,6 @@ package de.tudresden.inf.lat.jcel.reasoner.main;
 public interface VersionInfo {
 
 	String reasonerName = "jcel";
-	String reasonerVersion = "0.19.1";
+	String reasonerVersion = "0.20.0";
 
 }
