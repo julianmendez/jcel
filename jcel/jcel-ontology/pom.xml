@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 
 	<!--
@@ -56,28 +54,6 @@
 	<version>0.20.0</version>
 	<packaging>jar</packaging>
 
-	<name>jcel ontology</name>
-
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-
-
-	<licenses>
-
-		<license>
-			<name>GNU Lesser General Public License version 3</name>
-			<url>http://www.gnu.org/licenses/lgpl.txt</url>
-		</license>
-
-		<license>
-			<name>Apache License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-		</license>
-
-	</licenses>
-
 	<dependencies>
 
 		<dependency>
@@ -95,14 +71,36 @@
 
 	</dependencies>
 
-	<repositories>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
+	<name>jcel ontology</name>
+
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License version 3</name>
+			<url>http://www.gnu.org/licenses/lgpl.txt</url>
+		</license>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Julian Mendez</name>
+			<email>mendez@tcs.inf.tu-dresden.de</email>
+		</developer>
+	</developers>
+
+	<repositories>
 		<repository>
 			<id>localrepo</id>
-			<name>local maven repository</name>
+			<name>local Maven repository</name>
 			<url>file:../jcel-build/jars/lib</url>
 		</repository>
-
 	</repositories>
 
 </project>
