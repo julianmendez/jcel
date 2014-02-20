@@ -56,8 +56,9 @@
 	<!-- Note: 'javadocsrc' is an optional property, which is a colon-separated list of source directories for the javadoc. The javadoc is only generated when this property is set. -->
 
 	<!-- General properties. -->
-	<property name="project.build.directory" value="${basedir}/target" />
-	<property name="_src.directory" value="${basedir}/src" />
+	<property name="_project.directory" value="${basedir}" />
+	<property name="project.build.directory" value="${_project.directory}/target" />
+	<property name="_src.directory" value="${_project.directory}/src" />
 	<property name="_src.javadoc.directory" value="${_src.directory}/main/javadoc" />
 	<property name="project.build.sourceDirectory" value="${_src.directory}/main/java" />
 	<property name="project.build.testSourceDirectory" value="${_src.directory}/test/java" />
@@ -65,6 +66,7 @@
 	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
 	<property name="project.build.testOutputDirectory" value="${project.build.directory}/test-classes" />
 	<property name="project.reporting.outputDirectory" value="${project.build.directory}/test-reports" />
+	<property name="_jars.subdirectory" value="jars/lib" />
 	<property name="_debuglevel" value="lines,vars,source" />
 
 	<!-- Beginning of snippet for Ivy. -->
@@ -105,9 +107,9 @@
 
 	<!-- Retrieves dependencies with Ivy. -->
 	<target name="retrieve" depends="initialize">
-		<ivy:retrieve pattern="${ivy.settings.dir}/jars/lib/[orgPath]/[module]/[revision]/[artifact]-[revision].[ext]" type="jar,bundle" />
-		<ivy:retrieve pattern="${ivy.settings.dir}/jars/lib/[orgPath]/[module]/[revision]/[artifact]-[revision]-sources.[ext]" type="source" />
-		<ivy:retrieve pattern="${ivy.settings.dir}/jars/lib/[orgPath]/[module]/[revision]/[artifact]-[revision]-[type].[ext]" type="javadoc" />
+		<ivy:retrieve pattern="${ivy.settings.dir}/${_jars.subdirectory}/[orgPath]/[module]/[revision]/[artifact]-[revision].[ext]" type="jar,bundle" />
+		<ivy:retrieve pattern="${ivy.settings.dir}/${_jars.subdirectory}/[orgPath]/[module]/[revision]/[artifact]-[revision]-sources.[ext]" type="source" />
+		<ivy:retrieve pattern="${ivy.settings.dir}/${_jars.subdirectory}/[orgPath]/[module]/[revision]/[artifact]-[revision]-[type].[ext]" type="javadoc" />
 	</target>
 
 	<!-- End of snippet for Ivy. -->
@@ -120,7 +122,7 @@
 	<!-- Creates a jar with the source code. -->
 	<target name="source" depends="clean">
 		<mkdir dir="${project.build.directory}" />
-		<jar destfile="${project.build.directory}/${project.artifactId}-${project.version}-sources.jar" basedir="${basedir}">
+		<jar destfile="${project.build.directory}/${project.artifactId}-${project.version}-sources.jar" basedir="${_project.directory}">
 			<manifest>
 				<attribute name="Implementation-Title" value="${project.groupId}-${project.artifactId}" />
 				<attribute name="Implementation-Version" value="${project.version}" />
@@ -157,7 +159,7 @@
 	<!-- Performs the unit tests. -->
 	<target name="test" depends="compiletests" if="testSourceDirectory.available">
 		<mkdir dir="${project.reporting.outputDirectory}" />
-		<junit printsummary="on" haltonfailure="yes" fork="yes" dir="${basedir}">
+		<junit printsummary="on" haltonfailure="yes" fork="yes" dir="${_project.directory}">
 			<classpath>
 				<path refid="test.path" />
 				<pathelement path="${project.build.outputDirectory}" />
