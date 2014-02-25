@@ -11,12 +11,12 @@
 		</chain>
 	</resolvers>
 	<modules>
-		<module organisation="de.tudresden.inf.lat" name="jcel-coreontology" resolver="local"/>
-		<module organisation="de.tudresden.inf.lat" name="jcel-core" resolver="local"/>
-		<module organisation="de.tudresden.inf.lat" name="jcel-ontology" resolver="local"/>
-		<module organisation="de.tudresden.inf.lat" name="jcel-reasoner" resolver="local"/>
-		<module organisation="de.tudresden.inf.lat" name="jcel-owlapi" resolver="local"/>
-		<module organisation="de.tudresden.inf.lat" name="jcel-protege" resolver="local"/>
+		<module organisation="de.tudresden.inf.lat.jcel" name="jcel-coreontology" resolver="local"/>
+		<module organisation="de.tudresden.inf.lat.jcel" name="jcel-core" resolver="local"/>
+		<module organisation="de.tudresden.inf.lat.jcel" name="jcel-ontology" resolver="local"/>
+		<module organisation="de.tudresden.inf.lat.jcel" name="jcel-reasoner" resolver="local"/>
+		<module organisation="de.tudresden.inf.lat.jcel" name="jcel-owlapi" resolver="local"/>
+		<module organisation="de.tudresden.inf.lat.jcel" name="jcel-protege" resolver="local"/>
 	</modules>
 </ivysettings>
 
