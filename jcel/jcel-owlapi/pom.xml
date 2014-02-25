@@ -51,7 +51,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>jcel</groupId>
+	<groupId>de.tudresden.inf.lat.jcel</groupId>
 	<artifactId>jcel-owlapi</artifactId>
 	<version>0.20.0</version>
 	<packaging>jar</packaging>
@@ -59,25 +59,25 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>jcel</groupId>
+			<groupId>de.tudresden.inf.lat.jcel</groupId>
 			<artifactId>jcel-coreontology</artifactId>
 			<version>0.20.0</version>
 		</dependency>
 
 		<dependency>
-			<groupId>jcel</groupId>
+			<groupId>de.tudresden.inf.lat.jcel</groupId>
 			<artifactId>jcel-core</artifactId>
 			<version>0.20.0</version>
 		</dependency>
 
 		<dependency>
-			<groupId>jcel</groupId>
+			<groupId>de.tudresden.inf.lat.jcel</groupId>
 			<artifactId>jcel-ontology</artifactId>
 			<version>0.20.0</version>
 		</dependency>
 
 		<dependency>
-			<groupId>jcel</groupId>
+			<groupId>de.tudresden.inf.lat.jcel</groupId>
 			<artifactId>jcel-reasoner</artifactId>
 			<version>0.20.0</version>
 		</dependency>

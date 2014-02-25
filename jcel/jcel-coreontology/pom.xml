@@ -51,7 +51,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>jcel</groupId>
+	<groupId>de.tudresden.inf.lat.jcel</groupId>
 	<artifactId>jcel-coreontology</artifactId>
 	<version>0.20.0</version>
 	<packaging>jar</packaging>

@@ -51,7 +51,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>jcel</groupId>
+	<groupId>de.tudresden.inf.lat.jcel</groupId>
 	<artifactId>jcel-protege</artifactId>
 	<version>0.20.0</version>
 	<packaging>jar</packaging>
@@ -59,7 +59,7 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>jcel</groupId>
+			<groupId>de.tudresden.inf.lat.jcel</groupId>
 			<artifactId>jcel-owlapi</artifactId>
 			<version>0.20.0</version>
 		</dependency>
