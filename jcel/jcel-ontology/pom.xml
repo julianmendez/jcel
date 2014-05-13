@@ -56,9 +56,9 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>de.tudresden.inf.lat.jcel</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>jcel-coreontology</artifactId>
-			<version>0.20.0</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
