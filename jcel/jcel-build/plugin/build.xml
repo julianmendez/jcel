@@ -49,8 +49,12 @@
 
 	<!-- For more information about this file, see http://ant.apache.org -->
 
+	<property name="parent.directory" value=".." />
+	<property name="project.build.directory" value="${basedir}/target" />
+
 	<!-- Imports 'project.groupId', 'project.artifactId', and 'project.version' properties. -->
 	<xmlproperty file="pom.xml" />
+	<xmlproperty file="${parent.directory}/pom.xml" />
 
 	<!-- Imports 'bundlejars', 'bundlelicenses', and 'bundle.classpath' properties. -->
 	<property file="build.properties" />
@@ -63,7 +67,6 @@
 	<fail unless="bundlelicenses">Error: 'bundlelicenses' is undefined.</fail>
 	<fail unless="bundle.classpath">Error: 'bundle.classpath' is undefined.</fail>
 
-	<property name="project.build.directory" value="${basedir}/target" />
 	<property name="src.directory" value="src" />
 
 	<property name="_root.directory" value="../.." />
