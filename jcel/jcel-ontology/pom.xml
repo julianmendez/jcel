@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 
@@ -51,9 +50,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.tudresden.inf.lat.jcel</groupId>
 	<artifactId>jcel-ontology</artifactId>
-	<version>0.20.0</version>
 	<packaging>jar</packaging>
 
 	<dependencies>
@@ -72,6 +69,13 @@
 		</dependency>
 
 	</dependencies>
+
+	<parent>
+		<groupId>de.tudresden.inf.lat.jcel</groupId>
+		<artifactId>jcel-parent</artifactId>
+		<version>0.20.0</version>
+		<relativePath>../jcel-build/pom.xml</relativePath>
+	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -109,13 +113,5 @@
 			<email>mendez@tcs.inf.tu-dresden.de</email>
 		</developer>
 	</developers>
-
-	<repositories>
-		<repository>
-			<id>localrepo</id>
-			<name>local Maven repository</name>
-			<url>file:../jcel-build/jars/lib</url>
-		</repository>
-	</repositories>
 
 </project>
