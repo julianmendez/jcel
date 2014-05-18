@@ -115,7 +115,7 @@
 		</antcall>
 	</target>
 
-	<!-- Copies the release file. -->
+	<!-- Copies the release. -->
 	<target name="release">
 		<mkdir dir="${project.build.directory}" />
 		<copy todir="${project.build.directory}">
