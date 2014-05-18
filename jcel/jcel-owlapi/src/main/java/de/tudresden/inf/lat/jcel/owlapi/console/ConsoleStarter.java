@@ -102,7 +102,7 @@ public class ConsoleStarter {
 	private static final String errorSuffix = "_err";
 
 	public static final String licenseInfo = ""
-			+ "Copyright (C) 2009-2013 Julian Mendez"
+			+ "Copyright (C) 2009-2014 Julian Mendez"
 			+ "\nLicenses:"
 			+ "\n  GNU Lesser General Public License version 3 <http://www.gnu.org/licenses/lgpl.txt>"
 			+ "\n  Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0.txt>"
@@ -161,13 +161,13 @@ public class ConsoleStarter {
 	}
 
 	/** A very small help about how to start a new instance. */
-	private final String minihelp = "\nusage: java -jar jcel.jar <Operation> <OntologyFile> <Output> [<ClassURI>] [Options]..."
-			+ "\n\n\n<Operation>:" + "\n   "
+	private final String minihelp = "\nusage: java -jar jcel.jar <operation> <ontologyFile> <output> [<classURI>] [options]..."
+			+ "\n\n\n<operation>:" + "\n   "
 			+ cmdConsistency
 			+ "               determine whether the given ontology is consistent"
 			+ "\n   "
 			+ cmdSat
-			+ "                       determine whether the given class (<ClassURI>) is satisfiable with respect to the given ontology"
+			+ "                       determine whether the given class (<classURI>) is satisfiable with respect to the given ontology"
 			+ "\n   "
 			+ cmdClassification
 			+ "            compute the class hierarchy and the object property hierarchy of the given ontology"
@@ -175,11 +175,11 @@ public class ConsoleStarter {
 			+ cmdEntailment
 			+ "                determine whether the given ontology entails the given conclusion"
 			+ "\n\n"
-			+ "<OntologyFile>               ontology to be classified (or premise ontology)"
+			+ "<ontologyFile>               ontology to be classified (or premise ontology)"
 			+ "\n\n"
-			+ "<Output>                     output with the inferred data"
+			+ "<output>                     output with the inferred data"
 			+ "\n\n"
-			+ "<ClassURI>                   (only for "
+			+ "<classURI>                   (only for "
 			+ cmdSat
 			+ ") URI of the class to check satisfiability"
 			+ "\n\n\nthe available options are:"
