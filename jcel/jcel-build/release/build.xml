@@ -60,11 +60,13 @@
 	<fail unless="project.groupId">Error: 'project.groupId' is undefined. This property should have the group identifier.</fail>
 	<fail unless="project.artifactId">Error: 'project.artifactId' is undefined. This property should have the artifact identifier.</fail>
 	<fail unless="project.version">Error: 'project.version' is undefined. This property should have the version number in the form major.minor.patch.</fail>
-	
+
 	<property name="src.directory" value="src" />
 
 	<property name="_root.directory" value="../../" />
-	<property name="_release.directory" value="${project.build.directory}/release/${project.groupId}-${project.version}" />
+
+	<property name="_release.name" value="jcel-${project.version}" />
+	<property name="_release.directory" value="${project.build.directory}/release/${_release.name}" />
 
 	<property name="module.0.name" value="jcel-coreontology" />
 	<property name="module.1.name" value="jcel-core" />
@@ -131,12 +133,12 @@
 			<fileset dir="../${build.2.name}/target" includes="${build.2.filename}.jar" />
 		</copy>
 
-		<zip destfile="${_release.directory}/doc/${project.groupId}-${project.version}-javadoc.zip">
+		<zip destfile="${_release.directory}/doc/${_release.name}-javadoc.zip">
 			<fileset dir="${_root.directory}/${lastmodule.name}/target/site" includes="apidocs/**" />
 		</zip>
 
-		<zip destfile="${project.build.directory}/${project.groupId}-${project.version}.zip">
-			<fileset dir="${_release.directory}/.." includes="${project.groupId}-${project.version}/**" />
+		<zip destfile="${project.build.directory}/${_release.name}.zip">
+			<fileset dir="${_release.directory}/.." includes="${_release.name}/**" />
 		</zip>
 	</target>
 
