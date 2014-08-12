@@ -65,7 +65,7 @@
 		<module>library</module>
 		<module>plugin</module>
 		<module>standalone</module>
-		<!-- <module>release</module> -->
+		<module>release</module>
 	</modules>
 
 	<properties>
