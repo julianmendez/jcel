@@ -53,6 +53,16 @@
 	<artifactId>library</artifactId>
 	<packaging>bundle</packaging>
 
+	<dependencies>
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>jcel-protege</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	
+	</dependencies>
+
 	<parent>
 		<groupId>de.tudresden.inf.lat.jcel</groupId>
 		<artifactId>jcel-parent</artifactId>
@@ -108,12 +118,12 @@
 						<Main-Class>${mainclass}</Main-Class>
 						<Include-Resource>
 							{maven-resources}, {maven-dependencies},
-							@../../jcel-coreontology/target/jcel-coreontology-${project.version}.jar,
-							@../../jcel-core/target/jcel-core-${project.version}.jar,
-							@../../jcel-ontology/target/jcel-ontology-${project.version}.jar,
-							@../../jcel-reasoner/target/jcel-reasoner-${project.version}.jar,
-							@../../jcel-owlapi/target/jcel-owlapi-${project.version}.jar,
-							@../../jcel-protege/target/jcel-protege-${project.version}.jar
+							@jcel-coreontology-${project.version}.jar,
+							@jcel-core-${project.version}.jar,
+							@jcel-ontology-${project.version}.jar,
+							@jcel-reasoner-${project.version}.jar,
+							@jcel-owlapi-${project.version}.jar,
+							@jcel-protege-${project.version}.jar
 						</Include-Resource>
 					</instructions>
 				</configuration>
