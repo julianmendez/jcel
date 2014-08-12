@@ -46,6 +46,8 @@
 
 package de.tudresden.inf.lat.jcel.core.algorithm.rulebased;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -505,7 +507,6 @@ public class RuleBasedProcessor implements Processor {
 		removeAuxiliaryObjectProperties();
 		this.objectPropertyHierarchy = new IntegerHierarchicalGraphImpl(
 				getObjectPropertyGraph());
-		this.status.deleteObjectPropertyGraph();
 
 		removeAuxiliaryClassesExceptNominals();
 		IntegerHierarchicalGraph hierarchicalGraph = new IntegerHierarchicalGraphImpl(
@@ -517,7 +518,6 @@ public class RuleBasedProcessor implements Processor {
 		removeAuxiliaryNominals();
 		this.classHierarchy = new IntegerHierarchicalGraphImpl(
 				this.status.getClassGraph());
-		this.status.deleteClassGraph();
 	};
 
 	/**
@@ -807,6 +807,14 @@ public class RuleBasedProcessor implements Processor {
 			sbuf.append(" ");
 		}
 		return sbuf.toString();
+	}
+
+	public void outputSetS(Writer writer) throws IOException {
+		this.status.outputSetS(writer);
+	}
+
+	public void outputSetR(Writer writer) throws IOException {
+		this.status.outputSetR(writer);
 	}
 
 }

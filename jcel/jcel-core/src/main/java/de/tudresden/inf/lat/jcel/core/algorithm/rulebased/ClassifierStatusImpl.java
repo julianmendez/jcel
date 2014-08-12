@@ -46,6 +46,9 @@
 
 package de.tudresden.inf.lat.jcel.core.algorithm.rulebased;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -75,6 +78,8 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
  */
 public class ClassifierStatusImpl implements ClassifierStatus {
 
+	private static final String COMMA_SEPARATOR = ",";
+
 	private static final int bottomClassId = IntegerEntityManager.bottomClassId;
 	private static final int bottomObjectPropertyId = IntegerEntityManager.bottomObjectPropertyId;
 	private static final int topClassId = IntegerEntityManager.topClassId;
@@ -83,7 +88,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	private IntegerSubsumerGraphImpl classGraph = null;
 	private final Map<Integer, Set<Integer>> cognateFunctPropMap = new HashMap<Integer, Set<Integer>>();
 	private final ExtendedOntology extendedOntology;
-	private IntegerEntityManager idGenerator = null;
+	private IntegerEntityManager entityManager = null;
 	private final Map<VNodeImpl, Integer> invNodeSet = new HashMap<VNodeImpl, Integer>();
 	private final Object monitorClassGraph = new Object();
 	private final Object monitorRelationSet = new Object();
@@ -112,7 +117,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		this.idGenerator = generator;
+		this.entityManager = generator;
 		this.extendedOntology = ontology;
 
 		createClassGraph();
@@ -222,7 +227,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 				bottomObjectPropertyId, topObjectPropertyId);
 		for (int index : this.extendedOntology.getObjectPropertySet()) {
 			this.objectPropertyGraph.addAncestor(index, topObjectPropertyId);
-			int inverseProp = this.idGenerator
+			int inverseProp = this.entityManager
 					.createOrGetInverseObjectPropertyOf(index);
 			this.objectPropertyGraph.addAncestor(inverseProp,
 					topObjectPropertyId);
@@ -365,12 +370,13 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 * @return the identifier generator
 	 */
 	protected IntegerEntityManager getIdGenerator() {
-		return this.idGenerator;
+		return this.entityManager;
 	}
 
 	@Override
 	public int getInverseObjectPropertyOf(int propertyId) {
-		return this.idGenerator.createOrGetInverseObjectPropertyOf(propertyId);
+		return this.entityManager
+				.createOrGetInverseObjectPropertyOf(propertyId);
 	}
 
 	@Override
@@ -559,6 +565,44 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 			this.setQsubS.remove(ret);
 		}
 		return ret;
+	}
+
+	public void outputSetS(Writer output) throws IOException {
+		BufferedWriter writer = new BufferedWriter(output);
+		Collection<Integer> concepts = this.classGraph.getElements();
+		for (Integer concept : concepts) {
+			Collection<Integer> subsumers = this.classGraph
+					.getSubsumers(concept);
+			for (Integer subsumer : subsumers) {
+				writer.write(this.entityManager.getName(concept));
+				writer.write(COMMA_SEPARATOR);
+				writer.write(this.entityManager.getName(subsumer));
+				writer.newLine();
+			}
+		}
+		writer.flush();
+	}
+
+	public void outputSetR(Writer output) throws IOException {
+		BufferedWriter writer = new BufferedWriter(output);
+		Collection<Integer> concepts = this.classGraph.getElements();
+		for (Integer concept : concepts) {
+			Collection<Integer> relations = this.relationSet
+					.getRelationsByFirst(concept);
+			for (Integer relation : relations) {
+				Collection<Integer> otherConcepts = this.relationSet
+						.getByFirst(relation, concept);
+				for (Integer otherConcept : otherConcepts) {
+					writer.write(this.entityManager.getName(concept));
+					writer.write(COMMA_SEPARATOR);
+					writer.write(this.entityManager.getName(relation));
+					writer.write(COMMA_SEPARATOR);
+					writer.write(this.entityManager.getName(otherConcept));
+					writer.newLine();
+				}
+			}
+		}
+		writer.flush();
 	}
 
 }
