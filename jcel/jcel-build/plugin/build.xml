@@ -73,9 +73,8 @@
 	<property name="_lib.directory" value="${project.build.directory}/lib" />
 	<property name="_targetlib.directory" value="target" />
 	<property name="groupId.directory" value="jcel" />
-	<property name="repository.directory" value="../jars/lib" />
+	<property name="repository.directory" value="../target/jars/lib" />
 	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
-	<property name="_jars.directory" value="${basedir}/.." />
 	<property name="_bundle.directory" value="${project.build.directory}" />
 	<property name="_bundlejars.directory" value="${project.build.directory}" />
 	<property name="_bundleresources.directory" value="${basedir}/src/main/resources" />
