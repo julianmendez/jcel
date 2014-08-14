@@ -92,13 +92,5 @@
 		</developer>
 	</developers>
 
-	<repositories>
-		<repository>
-			<id>localrepo</id>
-			<name>local Maven repository</name>
-			<url>file:../jcel-build/jars/lib</url>
-		</repository>
-	</repositories>
-
 </project>
 
