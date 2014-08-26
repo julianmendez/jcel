@@ -20,7 +20,7 @@
 	<fileSets>
 
 		<fileSet>
-			<directory>${basedir}/../../jcel-protege/target/site/apidocs/</directory>
+			<directory>${basedir}/../../jcel-protege/target/apidocs/</directory>
 			<outputDirectory>.</outputDirectory>
 			<includes>
 				<include>**</include>
