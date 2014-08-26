@@ -74,7 +74,6 @@
 	<property name="module.3.name" value="jcel-reasoner" />
 	<property name="module.4.name" value="jcel-owlapi" />
 	<property name="module.5.name" value="jcel-protege" />
-	<property name="lastmodule.name" value="${module.5.name}" />
 	<property name="build.0.name" value="library" />
 	<property name="build.0.filename" value="jcel-${project.version}" />
 	<property name="build.1.name" value="plugin" />
@@ -90,18 +89,14 @@
 
 	<!-- Prepares the jars for the release. -->
 	<target name="preparejars">
-		<copy todir="${_release.directory}/lib">
+		<copy todir="${_release.directory}/modules">
 			<fileset dir="${_root.directory}/${module.name}/target" includes="${module.name}-${project.version}.jar" />
-		</copy>
-		<copy todir="${_release.directory}/src">
 			<fileset dir="${_root.directory}/${module.name}/target" includes="${module.name}-${project.version}-sources.jar" />
 		</copy>
 	</target>
 
 	<!-- Creates the release. -->
 	<target name="release">
-		<mkdir dir="${_release.directory}/doc" />
-
 		<antcall target="preparejars">
 			<param name="module.name" value="${module.0.name}" />
 		</antcall>
@@ -123,6 +118,8 @@
 
 		<copy todir="${_release.directory}/${build.0.name}">
 			<fileset dir="../${build.0.name}/target" includes="${build.0.filename}.jar" />
+			<fileset dir="../${build.0.name}/target" includes="${build.0.filename}-sources.jar" />
+			<fileset dir="../${build.0.name}/target" includes="${build.0.filename}-javadoc.jar" />
 		</copy>
 
 		<copy todir="${_release.directory}/${build.1.name}">
@@ -132,10 +129,6 @@
 		<copy todir="${_release.directory}/${build.2.name}">
 			<fileset dir="../${build.2.name}/target" includes="${build.2.filename}.jar" />
 		</copy>
-
-		<zip destfile="${_release.directory}/doc/${_release.name}-javadoc.zip">
-			<fileset dir="${_root.directory}/${lastmodule.name}/target/site" includes="apidocs/**" />
-		</zip>
 
 		<zip destfile="${project.build.directory}/${_release.name}.zip">
 			<fileset dir="${_release.directory}/.." includes="${_release.name}/**" />

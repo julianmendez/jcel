@@ -1,0 +1,117 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+
+
+	<!--
+ *
+ * @author Julian Mendez
+ *
+-->
+
+	<id>sources</id>
+
+	<baseDirectory>.</baseDirectory>
+
+	<fileSets>
+
+		<fileSet>
+			<directory>${basedir}/../../jcel-coreontology/src/main/java/</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+
+		<fileSet>
+			<directory>${basedir}/../../jcel-coreontology/src/main/resources/</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+
+		<fileSet>
+			<directory>${basedir}/../../jcel-core/src/main/java/</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+
+		<fileSet>
+			<directory>${basedir}/../../jcel-core/src/main/resources/</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+
+		<fileSet>
+			<directory>${basedir}/../../jcel-ontology/src/main/java/</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+
+		<fileSet>
+			<directory>${basedir}/../../jcel-ontology/src/main/resources/</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+
+		<fileSet>
+			<directory>${basedir}/../../jcel-reasoner/src/main/java/</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+
+		<fileSet>
+			<directory>${basedir}/../../jcel-reasoner/src/main/resources/</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+
+		<fileSet>
+			<directory>${basedir}/../../jcel-owlapi/src/main/java/</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+
+		<fileSet>
+			<directory>${basedir}/../../jcel-owlapi/src/main/resources/</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+
+		<fileSet>
+			<directory>${basedir}/../../jcel-protege/src/main/java/</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+
+		<fileSet>
+			<directory>${basedir}/../../jcel-protege/src/main/resources/</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+
+	</fileSets>
+
+</assembly>
+

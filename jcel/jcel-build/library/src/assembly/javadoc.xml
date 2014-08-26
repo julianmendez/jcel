@@ -12,7 +12,7 @@
 	<id>javadoc</id>
 
 	<formats>
-		<format>zip</format>
+		<format>jar</format>
 	</formats>
 
 	<baseDirectory>javadoc</baseDirectory>

@@ -80,6 +80,45 @@
 		<plugins>
 
 			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+
+					<execution>
+						<id>create-library-sources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<finalName>jcel-${project.version}</finalName>
+							<formats>
+								<format>jar</format>
+							</formats>
+							<descriptors>
+								<descriptor>${basedir}/src/assembly/sources.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>create-library-javadoc</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<finalName>jcel-${project.version}</finalName>
+							<descriptors>
+								<descriptor>${basedir}/src/assembly/javadoc.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+
+				</executions>
+			</plugin>
+
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>properties-maven-plugin</artifactId>
 				<version>1.0-alpha-2</version>

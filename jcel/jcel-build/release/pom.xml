@@ -73,22 +73,8 @@
 				<executions>
 
 					<execution>
-						<id>create-javadoc-zip</id>
-						<phase>install</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<finalName>jcel-${project.version}</finalName>
-							<descriptors>
-								<descriptor>${basedir}/src/main/assembly/javadoc.xml</descriptor>
-							</descriptors>
-						</configuration>
-					</execution>
-
-					<execution>
 						<id>create-release</id>
-						<phase>install</phase>
+						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
 						</goals>
@@ -96,7 +82,7 @@
 							<finalName>jcel-${project.version}</finalName>
 							<appendAssemblyId>false</appendAssemblyId>
 							<descriptors>
-								<descriptor>${basedir}/src/main/assembly/release.xml</descriptor>
+								<descriptor>${basedir}/src/assembly/release.xml</descriptor>
 							</descriptors>
 						</configuration>
 					</execution>
