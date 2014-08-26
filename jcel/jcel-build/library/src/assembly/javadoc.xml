@@ -15,12 +15,13 @@
 		<format>jar</format>
 	</formats>
 
-	<baseDirectory>javadoc</baseDirectory>
+	<baseDirectory>.</baseDirectory>
 
 	<fileSets>
 
 		<fileSet>
-			<directory>${basedir}/../../jcel-protege/target/site/</directory>
+			<directory>${basedir}/../../jcel-protege/target/site/apidocs/</directory>
+			<outputDirectory>.</outputDirectory>
 			<includes>
 				<include>**</include>
 			</includes>
