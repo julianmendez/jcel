@@ -84,7 +84,7 @@
 	<property name="ivy.home" value="${user.home}/.ant" />
 	<property name="ivy.jar.directory" value="${ivy.home}/lib/org/apache/ivy/ivy/${ivy.install.version}" />
 	<property name="ivy.jar.file" value="${ivy.jar.directory}/ivy-${ivy.install.version}.jar" />
-	<property name="jars.outputDirectory" value="${ivy.settings.dir}/target/jars/lib" />
+	<property name="jars.directory" value="${ivy.settings.dir}/target/jars/lib" />
 
 	<!-- Downloads Ivy. -->
 	<target name="downloadivy" unless="offline">
@@ -111,9 +111,9 @@
 
 	<!-- Retrieves dependencies with Ivy. -->
 	<target name="retrieve" depends="initialize">
-		<ivy:retrieve pattern="${jars.outputDirectory}/[orgPath]/[module]/[revision]/[artifact]-[revision].[ext]" type="jar,bundle" />
-		<ivy:retrieve pattern="${jars.outputDirectory}/[orgPath]/[module]/[revision]/[artifact]-[revision]-sources.[ext]" type="source" />
-		<ivy:retrieve pattern="${jars.outputDirectory}/[orgPath]/[module]/[revision]/[artifact]-[revision]-[type].[ext]" type="javadoc" />
+		<ivy:retrieve pattern="${jars.directory}/[orgPath]/[module]/[revision]/[artifact]-[revision].[ext]" type="jar,bundle" />
+		<ivy:retrieve pattern="${jars.directory}/[orgPath]/[module]/[revision]/[artifact]-[revision]-sources.[ext]" type="source" />
+		<ivy:retrieve pattern="${jars.directory}/[orgPath]/[module]/[revision]/[artifact]-[revision]-[type].[ext]" type="javadoc" />
 	</target>
 
 	<!-- End of snippet for Ivy. -->
