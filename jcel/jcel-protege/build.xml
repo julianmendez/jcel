@@ -75,6 +75,7 @@
 			<property name="project.artifactId" value="${project.artifactId}" />
 			<property name="project.version" value="${project.version}" />
 			<property name="javadoc.sourcepath" value="${javadoc.sourcepath}" />
+			<property name="ivy.settings.dir" value="${parent.directory}" />
 		</subant>
 	</target>
 
