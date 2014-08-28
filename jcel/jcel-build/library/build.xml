@@ -162,7 +162,7 @@
 			</manifest>
 		</jar>
 		<jar destfile="${_bundle.directory}/${_bundle.name}-javadoc.jar">
-			<fileset dir="${_root.directory}/${lastmodule.name}/target/site/apidocs" />
+			<fileset dir="${_root.directory}/${lastmodule.name}/target/apidocs" />
 		</jar>
 	</target>
 
