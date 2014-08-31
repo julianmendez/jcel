@@ -92,6 +92,7 @@
 		<copy todir="${_release.directory}/modules">
 			<fileset dir="${_root.directory}/${module.name}/target" includes="${module.name}-${project.version}.jar" />
 			<fileset dir="${_root.directory}/${module.name}/target" includes="${module.name}-${project.version}-sources.jar" />
+			<fileset dir="${_root.directory}/${module.name}/target" includes="${module.name}-${project.version}-javadoc.jar" />
 		</copy>
 	</target>
 
