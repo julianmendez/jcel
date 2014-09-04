@@ -46,7 +46,7 @@
 
 /**
  * Provides interfaces and classes with the data types used in
- * the normalized axioms of the classification algorithm. <br />
+ * the normalized axioms of the classification algorithm. <br>
  * This package is independent.
  */
 package de.tudresden.inf.lat.jcel.coreontology.datatype;

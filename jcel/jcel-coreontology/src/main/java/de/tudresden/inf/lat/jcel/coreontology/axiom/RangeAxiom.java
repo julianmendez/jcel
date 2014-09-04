@@ -52,7 +52,7 @@ import java.util.Set;
 /**
  * Axiom of the form:
  * <ul>
- * <li>range(r) &sqsube; A</li>
+ * <li>range(r) \u2291 A</li>
  * </ul>
  * 
  * @author Julian Mendez

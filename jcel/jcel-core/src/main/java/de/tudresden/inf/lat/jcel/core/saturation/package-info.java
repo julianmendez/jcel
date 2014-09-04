@@ -45,7 +45,7 @@
  */
 
 /**
- * Provides interfaces and classes needed to perform the saturation. <br />
+ * Provides interfaces and classes needed to perform the saturation. <br>
  * It uses the following packages:
  * <ul>
  * <li>{@link de.tudresden.inf.lat.jcel.coreontology.datatype

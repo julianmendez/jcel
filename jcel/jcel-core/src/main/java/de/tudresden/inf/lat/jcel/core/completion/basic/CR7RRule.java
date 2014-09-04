@@ -51,17 +51,17 @@ import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
 /**
- * <p>
+ * 
  * <ul>
- * <li>CR-7 : <b>if</b> <u>(r, x, y) &isin; R</u>, (y, &perp;) &isin; S <br />
+ * <li>CR-7 : <b>if</b> <u>(r, x, y) &isin; R</u>, (y, &perp;) &isin; S <br>
  * <b>then</b> S := S &cup; {(x, &perp;)}</li>
  * </ul>
- * </p>
+ * <br>
  * 
  * Previous form:
  * <ul>
  * <li>CR4 : <b>if</b> (X, Y) &isin; R(r) <b>and</b> &perp; &isin; S(Y)
- * <b>and</b> &perp; &notin; S(X) <br />
+ * <b>and</b> &perp; &notin; S(X) <br>
  * <b>then</b> S(X) := S(X) &cup; {&perp;}</li>
  * </ul>
  * 

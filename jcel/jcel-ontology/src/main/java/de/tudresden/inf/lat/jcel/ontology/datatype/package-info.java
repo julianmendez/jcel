@@ -46,7 +46,7 @@
 
 /**
  *  Provides interfaces and classes with the data types used in
- * the axioms of the classification algorithm. <br />
+ * the axioms of the classification algorithm. <br>
  * This package is independent.
  */
 package de.tudresden.inf.lat.jcel.ontology.datatype;

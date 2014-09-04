@@ -52,7 +52,7 @@ import java.util.Set;
 /**
  * Axiom of the form:
  * <ul>
- * <li>&varepsilon; &sqsube; r</li>
+ * <li>\u03B5 \u2291 r</li>
  * </ul>
  * 
  * @author Julian Mendez

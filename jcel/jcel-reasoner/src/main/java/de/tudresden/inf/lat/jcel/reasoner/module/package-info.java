@@ -46,7 +46,7 @@
 
 /**
  * Provides interfaces and classes to run the classification
- * algorithm using module extraction. <br />
+ * algorithm using module extraction. <br>
  * It uses the following packages:
  * <ul>
  * <li>{@link de.tudresden.inf.lat.jcel.ontology.datatype

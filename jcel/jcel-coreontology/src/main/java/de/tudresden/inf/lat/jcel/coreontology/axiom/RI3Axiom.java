@@ -53,7 +53,7 @@ import java.util.Set;
 /**
  * Axiom of the form:
  * <ul>
- * <li>r &compfn; s &sqsube; t</li>
+ * <li>r \u2218 s \u2291 t</li>
  * </ul>
  * 
  * @author Julian Mendez

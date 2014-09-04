@@ -54,7 +54,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 
 /**
  * This class models an axiom stating that one object property is the inverse of
- * another object property. <br />
+ * another object property. <br>
  * This means r &equiv; s<sup>-</sup> .
  * 
  * @author Julian Mendez

@@ -46,7 +46,7 @@
 
 /**
  * Provides interfaces and classes used to represent the data
- * during the classification process. <br />
+ * during the classification process. <br>
  * This package is independent.
  */
 package de.tudresden.inf.lat.jcel.core.graph;

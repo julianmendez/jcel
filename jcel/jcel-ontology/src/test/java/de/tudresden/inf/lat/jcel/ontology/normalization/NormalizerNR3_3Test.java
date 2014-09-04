@@ -67,20 +67,20 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 public class NormalizerNR3_3Test extends TestCase {
 
 	/**
-	 * D<sub>1</sub> &sqcap; &exist; r <i>.</i> (D<sub>2</sub> &sqcap;
-	 * D<sub>3</sub>) &sqsube; D<sub>2</sub> &sqcap; C<sub>1</sub> &sqcap;
-	 * &exist; s<sub>1</sub> <i>.</i> (D<sub>4</sub> &sqcap; D<sub>5</sub>)
-	 * &sqcap; &exist; s<sub>2</sub> <i>.</i> D<sub>6</sub> &rarrw;
+	 * D<sub>1</sub> \u2293 &exist; r <i>.</i> (D<sub>2</sub> \u2293
+	 * D<sub>3</sub>) \u2291 D<sub>2</sub> \u2293 C<sub>1</sub> \u2293
+	 * &exist; s<sub>1</sub> <i>.</i> (D<sub>4</sub> \u2293 D<sub>5</sub>)
+	 * \u2293 &exist; s<sub>2</sub> <i>.</i> D<sub>6</sub> \u219D
 	 * <ul>
-	 * <li>D<sub>1</sub> &sqcap; &exist; r <i>.</i> (D<sub>2</sub> &sqcap;
-	 * D<sub>3</sub>) &sqsube; D<sub>2</sub></li>
-	 * <li>D<sub>1</sub> &sqcap; &exist; r <i>.</i> (D<sub>2</sub> &sqcap;
-	 * D<sub>3</sub>) &sqsube; C<sub>1</sub></li>
-	 * <li>D<sub>1</sub> &sqcap; &exist; r <i>.</i> (D<sub>2</sub> &sqcap;
-	 * D<sub>3</sub>) &sqsube; &exist; s<sub>1</sub> <i>.</i> (D<sub>4</sub>
-	 * &sqcap; D<sub>5</sub>)</li>
-	 * <li>D<sub>1</sub> &sqcap; &exist; r <i>.</i> (D<sub>2</sub> &sqcap;
-	 * D<sub>3</sub>) &sqsube; &exist; s<sub>2</sub> <i>.</i> D<sub>6</sub></li>
+	 * <li>D<sub>1</sub> \u2293 &exist; r <i>.</i> (D<sub>2</sub> \u2293
+	 * D<sub>3</sub>) \u2291 D<sub>2</sub></li>
+	 * <li>D<sub>1</sub> \u2293 &exist; r <i>.</i> (D<sub>2</sub> \u2293
+	 * D<sub>3</sub>) \u2291 C<sub>1</sub></li>
+	 * <li>D<sub>1</sub> \u2293 &exist; r <i>.</i> (D<sub>2</sub> \u2293
+	 * D<sub>3</sub>) \u2291 &exist; s<sub>1</sub> <i>.</i> (D<sub>4</sub>
+	 * \u2293 D<sub>5</sub>)</li>
+	 * <li>D<sub>1</sub> \u2293 &exist; r <i>.</i> (D<sub>2</sub> \u2293
+	 * D<sub>3</sub>) \u2291 &exist; s<sub>2</sub> <i>.</i> D<sub>6</sub></li>
 	 * </ul>
 	 */
 	public void testRule() {

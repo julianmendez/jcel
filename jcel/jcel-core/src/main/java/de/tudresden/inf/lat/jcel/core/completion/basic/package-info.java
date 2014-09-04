@@ -46,7 +46,7 @@
 
 /**      
  * Provides interfaces and classes of the basic 
- * rules for the classification algorithm. <br />
+ * rules for the classification algorithm. <br>
  *  It uses the following packages:
  *  <ul>
  *  <li>{@link de.tudresden.inf.lat.jcel.coreontology.axiom

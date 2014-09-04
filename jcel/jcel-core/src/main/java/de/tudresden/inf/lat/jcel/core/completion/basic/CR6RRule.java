@@ -51,18 +51,18 @@ import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
 
 /**
- * <p>
+ * 
  * <ul>
- * <li>CR-6 : <b>if</b> r &compfn; s &sqsube; t &isin; <i>T</i>, <u>(r, x, y)
- * &isin; R</u>, <u>(s, y, z) &isin; R</u> <br />
+ * <li>CR-6 : <b>if</b> r \u2218 s \u2291 t &isin; <i>T</i>, <u>(r, x, y)
+ * &isin; R</u>, <u>(s, y, z) &isin; R</u> <br>
  * <b>then</b> R := R &cup; {(t, x, z)}</li>
  * </ul>
- * </p>
+ * <br>
  * 
  * Previous form:
  * <ul>
  * <li>CR6 : <b>if</b> (X, Y) &isin; R(r) <b>and</b> (Y,Z) &isin; R(s)
- * <b>and</b> r &compfn; s &sqsube; t &isin; O <b>and</b> (X,Z) &notin; R(t) <br />
+ * <b>and</b> r \u2218 s \u2291 t &isin; O <b>and</b> (X,Z) &notin; R(t) <br>
  * <b>then</b> R(t) := R(t) &cup; {(X, Z)}</li>
  * </ul>
  * 

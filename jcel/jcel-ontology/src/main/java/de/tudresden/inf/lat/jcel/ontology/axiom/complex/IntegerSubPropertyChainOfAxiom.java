@@ -55,8 +55,8 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 
 /**
  * This class models an axiom stating that the contained properties form a
- * subsumption chain. This is: r<sub>1</sub> &compfn; r<sub>2</sub>
- * &compfn;&hellip; &compfn; r<sub>n</sub> &sqsube; s
+ * subsumption chain. This is: r<sub>1</sub> \u2218 r<sub>2</sub>
+ * \u2218&hellip; \u2218 r<sub>n</sub> \u2291 s
  * 
  * @author Julian Mendez
  */

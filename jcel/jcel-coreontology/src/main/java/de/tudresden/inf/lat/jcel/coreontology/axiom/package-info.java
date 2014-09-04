@@ -47,7 +47,7 @@
 /**
  * Provides interfaces and classes that model normalized axioms.
  * They are used in the internal representation of the
- * classification algorithm.<br />
+ * classification algorithm.<br>
  * These axioms are implemented to use a small amount of memory.
  * It uses the following packages:
  * <ul>

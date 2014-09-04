@@ -54,8 +54,8 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 
 /**
  * This class models an axiom stating that one object property is a subproperty
- * of another one. <br />
- * This is : r &sqsube; s
+ * of another one. <br>
+ * This is : r \u2291 s
  * 
  * @author Julian Mendez
  */

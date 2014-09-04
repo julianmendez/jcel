@@ -54,7 +54,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 
 /**
  * This class models an assertion that negatively relates an object property and
- * a pair of individuals. <br />
+ * a pair of individuals. <br>
  * This is: &not;r(a,b)
  * 
  * @author Julian Mendez

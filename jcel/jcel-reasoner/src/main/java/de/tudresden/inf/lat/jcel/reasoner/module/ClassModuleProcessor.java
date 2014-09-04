@@ -72,7 +72,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  * An object of this class classifies an ontology. It divides a set of axioms in
  * subsets such that they have disjoint sets of classes. These subsets are
  * called modules. If two classes share at least one axiom, they are in the same
- * module. Axioms without classes are in all the modules. <br />
+ * module. Axioms without classes are in all the modules. <br>
  * After classifying each module, the processor creates a set of axioms which is
  * the result of the classification. After classifying all modules, it
  * classifies the accumulated set of axioms.

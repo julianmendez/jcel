@@ -57,11 +57,11 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
- * <p>
+ * 
  * <ul>
- * <li>NR-1.2 : range(r) &sqsube; C &rarrw; range(r) &sqsube; A, A &sqsube; C</li>
+ * <li>NR-1.2 : range(r) \u2291 C \u219D range(r) \u2291 A, A \u2291 C</li>
  * </ul>
- * </p>
+ * <br>
  * 
  * @author Julian Mendez
  */

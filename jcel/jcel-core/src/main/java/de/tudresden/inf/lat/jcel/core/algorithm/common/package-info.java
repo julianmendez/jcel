@@ -46,7 +46,7 @@
 
 /**
  * Provides common interfaces and classes to run the 
- * classification algorithm. <br />
+ * classification algorithm. <br>
  * It uses the following packages:
  * <ul>
  * <li>{@link de.tudresden.inf.lat.jcel.core.graph

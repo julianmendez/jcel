@@ -52,7 +52,7 @@ import java.util.Set;
 
 /**
  * This class models an assertion that relates a data property and a pair of
- * individuals. <br />
+ * individuals. <br>
  * This is: r(a,b)
  * 
  * @author Julian Mendez

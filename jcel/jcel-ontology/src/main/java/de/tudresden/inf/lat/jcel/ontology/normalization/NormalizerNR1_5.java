@@ -57,11 +57,11 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 
 /**
- * <p>
+ * 
  * <ul>
- * <li>NR-1.5 : C &equiv; D &rarrw; C &sqsube; D, D &sqsube; C</li>
+ * <li>NR-1.5 : C &equiv; D \u219D C \u2291 D, D \u2291 C</li>
  * </ul>
- * </p>
+ * <br>
  * 
  * @author Julian Mendez
  */

@@ -47,7 +47,7 @@
 /**
  * Provides interfaces and classes that model complex axioms.
  * They must be normalized before running the classification
- * algorithm. <br />
+ * algorithm. <br>
  * It uses the following packages:
  * <ul>
  * <li>{@link de.tudresden.inf.lat.jcel.coreontology.datatype

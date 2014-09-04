@@ -59,12 +59,12 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
 
 /**
- * <p>
+ * 
  * <ul>
- * <li>NR-2.4 : B &sqcap; C' &sqsube; D &rarrw; C' &sqsube; A, B &sqcap; A
- * &sqsube; D</li>
+ * <li>NR-2.4 : B \u2293 C' \u2291 D \u219D C' \u2291 A, B \u2293 A
+ * \u2291 D</li>
  * </ul>
- * </p>
+ * <br>
  * 
  * @author Julian Mendez
  */

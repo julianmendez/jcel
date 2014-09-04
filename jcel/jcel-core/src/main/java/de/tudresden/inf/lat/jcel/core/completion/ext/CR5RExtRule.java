@@ -50,15 +50,15 @@ import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 
 /**
- * <p>
+ * 
  * <ul>
- * <li>CR-5 : <b>if</b> s &compfn; s &sqsube; s &isin; <i>T</i> ,
+ * <li>CR-5 : <b>if</b> s \u2218 s \u2291 s &isin; <i>T</i> ,
  * <u>(r<sub>1</sub>, x, y) &isin; R</u>, <u>(r<sub>2</sub>, y, z) &isin; R</u>,
- * r<sub>1</sub> &sqsube;<sub><i>T</i></sub> s, r<sub>2</sub>
- * &sqsube;<sub><i>T</i></sub> s <br />
+ * r<sub>1</sub> \u2291<sub><i>T</i></sub> s, r<sub>2</sub>
+ * \u2291<sub><i>T</i></sub> s <br>
  * <b>then</b> R := R &cup; {(s, x, z)}</li>
  * </ul>
- * </p>
+ * <br>
  * 
  * @author Julian Mendez
  */

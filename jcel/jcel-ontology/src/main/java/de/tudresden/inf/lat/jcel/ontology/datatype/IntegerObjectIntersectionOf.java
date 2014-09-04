@@ -55,7 +55,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
 
 /**
  * This class models an intersection of several class expressions, this is:
- * C<sub>1</sub> &sqcap; &hellip; &sqcap; C<sub>n</sub>
+ * C<sub>1</sub> \u2293 &hellip; \u2293 C<sub>n</sub>
  * 
  * @author Julian Mendez
  * 

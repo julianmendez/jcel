@@ -54,8 +54,8 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 
 /**
  * This class models an axiom stating that one class is a subclass of another
- * one. <br />
- * This is : A &sqsube; B
+ * one. <br>
+ * This is : A \u2291 B
  * 
  * @author Julian Mendez
  */

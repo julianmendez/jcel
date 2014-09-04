@@ -59,17 +59,17 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
 
 /**
- * <p>
+ * 
  * <ul>
- * <li>NR-3.1 : C' &sqsube; &exist; r <i>.</i> D &rarrw; C' &sqsube; A, A
- * &sqsube; &exist; r <i>.</i> D</li>
+ * <li>NR-3.1 : C' \u2291 &exist; r <i>.</i> D \u219D C' \u2291 A, A
+ * \u2291 &exist; r <i>.</i> D</li>
  * </ul>
- * </p>
+ * <br>
  * 
  * This is a modified version of NR3-1 since the original rule is:
  * 
  * <ul>
- * <li>NR-3.1 : C' &sqsube; D' &rarrw; C' &sqsube; A, A &sqsube; D'</li>
+ * <li>NR-3.1 : C' \u2291 D' \u219D C' \u2291 A, A \u2291 D'</li>
  * </ul>
  * 
  * @author Julian Mendez

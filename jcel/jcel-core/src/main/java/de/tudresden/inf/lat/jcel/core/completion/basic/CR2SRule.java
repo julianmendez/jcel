@@ -53,29 +53,29 @@ import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
 
 /**
- * <p>
+ * 
  * <ul>
- * <li>CR-2 : <b>if</b> A<sub>1</sub> &sqcap; A<sub>2</sub> &sqsube; B &isin;
+ * <li>CR-2 : <b>if</b> A<sub>1</sub> \u2293 A<sub>2</sub> \u2291 B &isin;
  * <i>T</i>, <u>(x, A<sub>1</sub>) &isin; S</u>, <u>(x, A<sub>2</sub>) &isin;
- * S</u> <br />
+ * S</u> <br>
  * <b>then</b> S := S &cup; {(x, B)}</li>
  * </ul>
- * </p>
+ * <br>
  * 
  * Previous forms:
  * 
  * <ul>
- * <li>CR-2 : <b>if</b> A<sub>1</sub> &sqcap; &hellip; &sqcap; A<sub>i</sub>
- * &sqcap; &hellip; &sqcap; A<sub>n</sub> &sqsube; B &isin; <i>T</i>, (x,
+ * <li>CR-2 : <b>if</b> A<sub>1</sub> \u2293 &hellip; \u2293 A<sub>i</sub>
+ * \u2293 &hellip; \u2293 A<sub>n</sub> \u2291 B &isin; <i>T</i>, (x,
  * A<sub>1</sub>) &isin; S, &hellip; <u>(x, A<sub>i</sub>) &isin; S</u>,
- * &hellip; , (x, A<sub>n</sub>) &isin; S <br />
+ * &hellip; , (x, A<sub>n</sub>) &isin; S <br>
  * <b>then</b> S := S &cup; {(x, B)}</li>
  * </ul>
  * 
  * <ul>
  * <li>CR1 : <b>if</b> A<sub>1</sub>, &hellip; , A<sub>n</sub> &isin; S(X)
- * <b>and</b> A<sub>1</sub> &sqcap; &hellip; &sqcap; A<sub>n</sub> &sqsube; B
- * &isin; O <b>and</b> B &notin; S(X) <br />
+ * <b>and</b> A<sub>1</sub> \u2293 &hellip; \u2293 A<sub>n</sub> \u2291 B
+ * &isin; O <b>and</b> B &notin; S(X) <br>
  * <b>then</b> S(X) := S(X) &cup; {B}</li>
  * </ul>
  * 

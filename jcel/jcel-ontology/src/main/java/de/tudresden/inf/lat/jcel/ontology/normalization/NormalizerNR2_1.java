@@ -59,15 +59,15 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
- * <p>
- * <ul>
- * <li>NR 2-1 : r<sub>1</sub> &compfn; &hellip; &compfn; r<sub>k</sub> &sqsube;
- * s &rarrw; r<sub>1</sub> &compfn; &hellip; &compfn; r<sub>k-1</sub> &sqsube;
- * u, u &compfn; r<sub>k</sub> &sqsube; s</li>
- * </ul>
- * </p>
  * 
- * This rule was slightly modified to return only normalized axioms. <br />
+ * <ul>
+ * <li>NR 2-1 : r<sub>1</sub> \u2218 &hellip; \u2218 r<sub>k</sub> \u2291
+ * s \u219D r<sub>1</sub> \u2218 &hellip; \u2218 r<sub>k-1</sub> \u2291
+ * u, u \u2218 r<sub>k</sub> \u2291 s</li>
+ * </ul>
+ * <br>
+ * 
+ * This rule was slightly modified to return only normalized axioms. <br>
  * 
  * @author Julian Mendez
  */

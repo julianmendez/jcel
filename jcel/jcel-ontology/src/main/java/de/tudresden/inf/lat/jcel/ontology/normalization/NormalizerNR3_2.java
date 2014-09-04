@@ -60,12 +60,12 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
 
 /**
- * <p>
+ * 
  * <ul>
- * <li>NR-3.2 : B &sqsube; &exist; r <i>.</i> C' &rarrw; B &sqsube; &exist; r
- * <i>.</i> A, A &sqsube; C'</li>
+ * <li>NR-3.2 : B \u2291 &exist; r <i>.</i> C' \u219D B \u2291 &exist; r
+ * <i>.</i> A, A \u2291 C'</li>
  * </ul>
- * </p>
+ * <br>
  * 
  * @author Julian Mendez
  */

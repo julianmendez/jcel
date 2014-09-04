@@ -85,16 +85,16 @@ public class OntologyEntailmentCheckerTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &sqsube; &exist; r <i>.</i> B ,</li>
-	 * <li>&exist; r <i>.</i> C &sqsube; D ,</li>
-	 * <li>B &sqsube; C</li>
+	 * <li>A \u2291 &exist; r <i>.</i> B ,</li>
+	 * <li>&exist; r <i>.</i> C \u2291 D ,</li>
+	 * <li>B \u2291 C</li>
 	 * </ol>
 	 * &vDash;
 	 * <ul>
-	 * <li>A &sqsube; &exist; r <i>.</i> B ,</li>
-	 * <li>&exist; r <i>.</i> C &sqsube; D ,</li>
-	 * <li>B &sqsube; C ,</li>
-	 * <li>A &sqsube; D</li>
+	 * <li>A \u2291 &exist; r <i>.</i> B ,</li>
+	 * <li>&exist; r <i>.</i> C \u2291 D ,</li>
+	 * <li>B \u2291 C ,</li>
+	 * <li>A \u2291 D</li>
 	 * </ul>
 	 */
 	public void testOntology0() {

@@ -51,18 +51,18 @@ import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
 
 /**
- * <p>
+ * 
  * <ul>
- * <li>CR-3 : <b>if</b> A &sqsube; &exist; r <i>.</i> B &isin; <i>T</i>, <u>(x,
- * A) &isin; S</u> <br />
+ * <li>CR-3 : <b>if</b> A \u2291 &exist; r <i>.</i> B &isin; <i>T</i>, <u>(x,
+ * A) &isin; S</u> <br>
  * <b>then</b> R := R &cup;{(r, x, B)}</li>
  * </ul>
- * </p>
+ * <br>
  * 
  * Previous form:
  * <ul>
- * <li>CR2 : <b>if</b> A &isin; S(X) <b>and</b> A &sqsube; &exist; r <i>.</i> B
- * &isin; O <b>and</b> (X, B) &notin; R(r) <br />
+ * <li>CR2 : <b>if</b> A &isin; S(X) <b>and</b> A \u2291 &exist; r <i>.</i> B
+ * &isin; O <b>and</b> (X, B) &notin; R(r) <br>
  * <b>then</b> R(r) := R(r) &cup;{(X, B)}</li>
  * </ul>
  * 

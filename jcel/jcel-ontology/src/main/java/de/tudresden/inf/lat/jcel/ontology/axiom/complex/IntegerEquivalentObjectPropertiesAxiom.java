@@ -54,7 +54,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 
 /**
  * This class models an axiom stating that the contained properties are
- * equivalent. <br/>
+ * equivalent. <br>
  * This is: r<sub>1</sub> &equiv; r<sub>2</sub>, r<sub>2</sub> &equiv;
  * r<sub>3</sub>, &hellip; , r<sub>n-1</sub> &equiv; r<sub>n</sub>
  * 

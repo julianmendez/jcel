@@ -100,12 +100,12 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &sqsube; B,</li>
-	 * <li>B &sqsube; C</li>
+	 * <li>A \u2291 B,</li>
+	 * <li>B \u2291 C</li>
 	 * </ol>
 	 * &vDash;
 	 * <ul>
-	 * <li>A &sqsube; C</li>
+	 * <li>A \u2291 C</li>
 	 * </ul>
 	 * 
 	 * @throws OWLOntologyCreationException
@@ -141,13 +141,13 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &sqsube; &exist; r <i>.</i> A ,</li>
-	 * <li>A &sqsube; B ,</li>
-	 * <li>&exist; r <i>.</i> B &sqsube; C</li>
+	 * <li>A \u2291 &exist; r <i>.</i> A ,</li>
+	 * <li>A \u2291 B ,</li>
+	 * <li>&exist; r <i>.</i> B \u2291 C</li>
 	 * </ol>
 	 * &vDash;
 	 * <ul>
-	 * <li>A &sqsube; C</li>
+	 * <li>A \u2291 C</li>
 	 * </ul>
 	 * 
 	 * @throws OWLOntologyCreationException
@@ -189,8 +189,8 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &sqsube; B ,</li>
-	 * <li>B &sqsube; A ,</li>
+	 * <li>A \u2291 B ,</li>
+	 * <li>B \u2291 A ,</li>
 	 * </ol>
 	 * &vDash;
 	 * <ul>
@@ -230,13 +230,13 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>&top; &sqsube; A ,</li>
-	 * <li>A &sqsube; B</li>
+	 * <li>\u22A4 \u2291 A ,</li>
+	 * <li>A \u2291 B</li>
 	 * </ol>
 	 * &vDash;
 	 * <ul>
 	 * <li>A &equiv; B</li>
-	 * <li>B &equiv; &top;</li>
+	 * <li>B &equiv; \u22A4</li>
 	 * </ul>
 	 * 
 	 * @throws OWLOntologyCreationException
@@ -277,8 +277,8 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &sqsube; &perp; ,</li>
-	 * <li>B &sqsube; A</li>
+	 * <li>A \u2291 &perp; ,</li>
+	 * <li>B \u2291 A</li>
 	 * </ol>
 	 * &vDash;
 	 * <ul>
@@ -324,10 +324,10 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>C &equiv; A<sub>1</sub> &sqcap; A<sub>2</sub> &sqcap; A<sub>3</sub>,</li>
-	 * <li>D &equiv; A<sub>2</sub> &sqcap; A<sub>3</sub> &sqcap; A<sub>4</sub>,</li>
-	 * <li>A<sub>1</sub> &equiv; &top;</li>
-	 * <li>A<sub>4</sub> &equiv; &top;</li>
+	 * <li>C &equiv; A<sub>1</sub> \u2293 A<sub>2</sub> \u2293 A<sub>3</sub>,</li>
+	 * <li>D &equiv; A<sub>2</sub> \u2293 A<sub>3</sub> \u2293 A<sub>4</sub>,</li>
+	 * <li>A<sub>1</sub> &equiv; \u22A4</li>
+	 * <li>A<sub>4</sub> &equiv; \u22A4</li>
 	 * </ol>
 	 * &vDash;
 	 * <ul>
@@ -413,8 +413,8 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &sqsube; &exist; r <i>.</i> B</li>
-	 * <li>B &sqsube; &exist; s <i>.</i> &perp;</li>
+	 * <li>A \u2291 &exist; r <i>.</i> B</li>
+	 * <li>B \u2291 &exist; s <i>.</i> &perp;</li>
 	 * </ol>
 	 * &vDash;
 	 * <ul>
@@ -466,11 +466,11 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>A &sqsube; &exist; r <i>.</i> B</li>
-	 * <li>B &sqsube; &exist; r <i>.</i> C</li>
-	 * <li>C &sqsube; &exist; s <i>.</i> D</li>
-	 * <li>D &sqsube; &exist; s <i>.</i> E</li>
-	 * <li>E &sqsube; &exist; s <i>.</i> &perp;</li>
+	 * <li>A \u2291 &exist; r <i>.</i> B</li>
+	 * <li>B \u2291 &exist; r <i>.</i> C</li>
+	 * <li>C \u2291 &exist; s <i>.</i> D</li>
+	 * <li>D \u2291 &exist; s <i>.</i> E</li>
+	 * <li>E \u2291 &exist; s <i>.</i> &perp;</li>
 	 * </ol>
 	 * &vDash;
 	 * <ul>

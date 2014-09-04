@@ -52,7 +52,7 @@ import java.util.Set;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 
 /**
- * This class models an assertion axiom that relates a class with an individual. <br />
+ * This class models an assertion axiom that relates a class with an individual. <br>
  * This is: A(b)
  * 
  * @author Julian Mendez

@@ -46,7 +46,7 @@
 
 /**
  * Provides interfaces and classes to execute the reasoner from
- * the console. <br />
+ * the console. <br>
  * It uses the following packages:
  * <ul>
  * <li>{@link de.tudresden.inf.lat.jcel.owlapi.main

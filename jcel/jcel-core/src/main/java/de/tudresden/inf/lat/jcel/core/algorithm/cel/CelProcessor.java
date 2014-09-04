@@ -76,19 +76,19 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
  * 
  * <ul>
  * <li>CR1 : <b>if</b> A<sub>1</sub>, &hellip; , A<sub>n</sub> &isin; S(X)
- * <b>and</b> A<sub>1</sub> &sqcap; &hellip; &sqcap; A<sub>n</sub> &sqsube; B
+ * <b>and</b> A<sub>1</sub> \u2293 &hellip; \u2293 A<sub>n</sub> \u2291 B
  * &isin; O <b>and</b> B &notin; S(X) <b>then</b> S(X) := S(X) &cup; {B}</li>
- * <li>CR2 : <b>if</b> A &isin; S(X) <b>and</b> A &sqsube; &exist; r <i>.</i> B
+ * <li>CR2 : <b>if</b> A &isin; S(X) <b>and</b> A \u2291 &exist; r <i>.</i> B
  * &isin; O <b>and</b> (X,B) &notin; R(r) <b>then</b> R(r) := R(r) &cup;{(X,B)}</li>
  * <li>CR3 : <b>if</b> (X,Y) &isin; R(r) <b>and</b> A &isin; S(Y) <b>and</b>
- * &exist; r <i>.</i> A &sqsube; B &isin; O <b>and</b> B &notin; S(X)
+ * &exist; r <i>.</i> A \u2291 B &isin; O <b>and</b> B &notin; S(X)
  * <b>then</b> S(X) := S(X) &cup; {B}</li>
  * <li>CR4 : <b>if</b> (X,Y) &isin; R(r) <b>and</b> &perp; &isin; S(Y)
  * <b>and</b> &perp; &notin; S(X) <b>then</b> S(X) := S(X) &cup; {&perp;}</li>
- * <li>CR5 : <b>if</b> (X,Y) &isin; R(r) <b>and</b> r &sqsube; s &isin; O
+ * <li>CR5 : <b>if</b> (X,Y) &isin; R(r) <b>and</b> r \u2291 s &isin; O
  * <b>and</b> (X,Y) &notin; R(s) <b>then</b> R(s) := R(s) &cup; {(X,Y)}</li>
  * <li>CR6 : <b>if</b> (X,Y) &isin; R(r) <b>and</b> (Y,Z) &isin; R(s) <b>and</b>
- * r &compfn; s &sqsube; t &isin; O <b>and</b> (X,Z) &notin; R(t) <b>then</b>
+ * r \u2218 s \u2291 t &isin; O <b>and</b> (X,Z) &notin; R(t) <b>then</b>
  * R(t) := R(t) &cup; {(X,Z)}</li>
  * </ul>
  * 

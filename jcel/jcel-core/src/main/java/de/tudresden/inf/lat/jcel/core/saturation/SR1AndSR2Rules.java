@@ -58,8 +58,8 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
 /**
  * <ul>
- * <li>SR-1 : r &sqsube; s &rarrw; r<sup>-</sup> &sqsube; s<sup>-</sup></li>
- * <li>SR-2 : r &sqsube; s, s &sqsube; t &rarrw; r &sqsube; t</li>
+ * <li>SR-1 : r \u2291 s \u219D r<sup>-</sup> \u2291 s<sup>-</sup></li>
+ * <li>SR-2 : r \u2291 s, s \u2291 t \u219D r \u2291 t</li>
  * </ul>
  * 
  * @author Julian Mendez

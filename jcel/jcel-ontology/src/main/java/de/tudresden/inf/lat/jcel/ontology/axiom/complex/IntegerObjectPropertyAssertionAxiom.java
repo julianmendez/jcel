@@ -54,7 +54,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 
 /**
  * This class models an assertion that relates an object property and a pair of
- * individuals. <br />
+ * individuals. <br>
  * This is: r(a,b)
  * 
  * @author Julian Mendez

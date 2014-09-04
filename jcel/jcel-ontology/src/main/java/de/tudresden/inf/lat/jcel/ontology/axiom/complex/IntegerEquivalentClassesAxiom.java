@@ -53,7 +53,7 @@ import java.util.Set;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 
 /**
- * This class models an axiom stating that the contained classes are equivalent. <br />
+ * This class models an axiom stating that the contained classes are equivalent. <br>
  * This is: A<sub>1</sub> &equiv; A<sub>2</sub>, A<sub>2</sub> &equiv;
  * A<sub>3</sub>, &hellip; , A<sub>n-1</sub> &equiv; A<sub>n</sub>
  * 

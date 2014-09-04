@@ -47,7 +47,7 @@
 /**
  * Provides interfaces and classes used for the connection with
  * the <a href="http://owlapi.sourceforge.net/">OWL
- * API</a>. <br />
+ * API</a>. <br>
  * It uses the following packages:
  * <ul>
  * <li>{@link de.tudresden.inf.lat.jcel.ontology.axiom.complex

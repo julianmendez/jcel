@@ -53,11 +53,11 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
 
 /**
- * <p>
+ * 
  * <ul>
- * <li>NR-1.6 : C<sup>&perp;</sup> &sqsube; D &rarrw;</li>
+ * <li>NR-1.6 : C<sup>&perp;</sup> \u2291 D \u219D</li>
  * </ul>
- * </p>
+ * <br>
  * 
  * @author Julian Mendez
  */

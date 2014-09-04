@@ -47,7 +47,7 @@
 /**
  *
  * Provides interfaces and classes used for the reasoner.
- * <br />
+ * <br>
  * It uses the following packages:
  * <ul>
  * <li>{@link de.tudresden.inf.lat.jcel.coreontology.datatype

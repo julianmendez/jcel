@@ -53,22 +53,22 @@ import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
 
 /**
- * <p>
+ * 
  * <ul>
- * <li>CR-7 : <b>if</b> &exist; s<sup>-</sup> <i>.</i> A &sqsube; B &isin;
+ * <li>CR-7 : <b>if</b> &exist; s<sup>-</sup> <i>.</i> A \u2291 B &isin;
  * <i>T</i> , <u>(r<sub>2</sub>, x, y) &isin; R</u>, x = (A', &phi;) , y = (B',
- * &psi;), <br />
- * r &compfn; r &sqsube; r &isin; <i>T</i>, r<sub>1</sub>
- * &sqsube;<sub><i>T</i></sub> r, r<sub>2</sub> &sqsube;<sub><i>T</i></sub> r,
+ * &psi;), <br>
+ * r \u2218 r \u2291 r &isin; <i>T</i>, r<sub>1</sub>
+ * \u2291<sub><i>T</i></sub> r, r<sub>2</sub> \u2291<sub><i>T</i></sub> r,
  * &exist; r<sub>1</sub><sup>-</sup> <i>.</i> A &isin; &phi;, r
- * &sqsube;<sub><i>T</i></sub> s <br />
- * <b>then</b> v := (B', &psi; &cup; {&exist; r<sup>-</sup> <i>.</i> A}) <br />
+ * \u2291<sub><i>T</i></sub> s <br>
+ * <b>then</b> v := (B', &psi; &cup; {&exist; r<sup>-</sup> <i>.</i> A}) <br>
  * &nbsp;&nbsp;&nbsp;&nbsp; <b>if</b> v &notin; V <b>then</b> V := V &cup; {v} ,
- * S := S &cup; {(v, k) | (y, k) &isin; S} <br />
- * &nbsp;&nbsp;&nbsp;&nbsp; S := S &cup; {(v, B)} <br />
+ * S := S &cup; {(v, k) | (y, k) &isin; S} <br>
+ * &nbsp;&nbsp;&nbsp;&nbsp; S := S &cup; {(v, B)} <br>
  * &nbsp;&nbsp;&nbsp;&nbsp; R := R &cup; {(r<sub>2</sub>, x, v)}</li>
  * </ul>
- * </p>
+ * <br>
  * 
  * @author Julian Mendez
  */

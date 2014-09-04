@@ -59,13 +59,13 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
 
 /**
- * <p>
+ * 
  * <ul>
- * <li>NR-2.2 : C<sub>1</sub> &sqcap; &hellip; &sqcap; C' &sqcap; &hellip;
- * &sqcap; C<sub>n</sub> &sqsube; D &rarrw; C' &sqsube; A, C<sub>1</sub> &sqcap;
- * &hellip; &sqcap; A &sqcap; &hellip; &sqcap; C<sub>n</sub> &sqsube; D</li>
+ * <li>NR-2.2 : C<sub>1</sub> \u2293 &hellip; \u2293 C' \u2293 &hellip;
+ * \u2293 C<sub>n</sub> \u2291 D \u219D C' \u2291 A, C<sub>1</sub> \u2293
+ * &hellip; \u2293 A \u2293 &hellip; \u2293 C<sub>n</sub> \u2291 D</li>
  * </ul>
- * </p>
+ * <br>
  * 
  * This rule is applied to all non atomic concepts, which is slightly different
  * from the original rule that applies to one concept each time.

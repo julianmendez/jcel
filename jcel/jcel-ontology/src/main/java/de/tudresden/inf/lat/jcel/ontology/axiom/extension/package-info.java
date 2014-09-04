@@ -45,7 +45,7 @@
  */
 
 /**
- * Provides interfaces and classes that extend a set of axioms. <br />
+ * Provides interfaces and classes that extend a set of axioms. <br>
  * It uses the following packages:
  * <ul>
  * <li>{@link de.tudresden.inf.lat.jcel.ontology.datatype

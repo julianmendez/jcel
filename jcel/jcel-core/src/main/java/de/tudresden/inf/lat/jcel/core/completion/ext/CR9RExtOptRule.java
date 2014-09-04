@@ -55,24 +55,24 @@ import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
 /**
- * <p>
+ * 
  * <ul>
  * <li>CR-9 (optimized) : <b>if</b> <u>(r<sub>1</sub>, x, y<sub>1</sub>) &isin;
  * R</u>, (r<sub>2</sub>, x, y<sub>2</sub>) &isin; R, &hellip;, (r<sub>n</sub>,
- * x, y<sub>n</sub>) &isin; R, <br />
- * r<sub>1</sub> &sqsube;<sub><i>T</i></sub> s, r<sub>2</sub>
- * &sqsube;<sub><i>T</i></sub> s, &hellip;, r<sub>n</sub>
- * &sqsube;<sub><i>T</i></sub> s, y<sub>i</sub> = (&top; , &psi;<sub>i</sub>)
- * for 1 &le; i &le; n, y<sub>i</sub> &ne; y<sub>j</sub> for 1 &le; i < j &le;
- * n, f(s) <br />
- * <b>then</b> v := (&top; , &psi;<sub>1</sub> &cup; &hellip; &cup
- * &psi;<sub>n</sub>) <br />
- * &nbsp;&nbsp;&nbsp;&nbsp; <b>if</b> v &notin; V <b>then</b> V := V &cup; {v} <br />
+ * x, y<sub>n</sub>) &isin; R, <br>
+ * r<sub>1</sub> \u2291<sub><i>T</i></sub> s, r<sub>2</sub>
+ * \u2291<sub><i>T</i></sub> s, &hellip;, r<sub>n</sub>
+ * \u2291<sub><i>T</i></sub> s, y<sub>i</sub> = (\u22A4 , &psi;<sub>i</sub>)
+ * for 1 &le; i &le; n, y<sub>i</sub> &ne; y<sub>j</sub> for 1 &le; i &lt; j &le;
+ * n, f(s) <br>
+ * <b>then</b> v := (\u22A4 , &psi;<sub>1</sub> &cup; &hellip; &cup;
+ * &psi;<sub>n</sub>) <br>
+ * &nbsp;&nbsp;&nbsp;&nbsp; <b>if</b> v &notin; V <b>then</b> V := V &cup; {v} <br>
  * &nbsp;&nbsp;&nbsp;&nbsp; S := S &cup; {(v, k) | (y<sub>1</sub>, k) &isin; S}
- * &cup; &hellip; &cup; {(v, k) | (y<sub>n</sub>, k) &isin; S} <br />
+ * &cup; &hellip; &cup; {(v, k) | (y<sub>n</sub>, k) &isin; S} <br>
  * &nbsp;&nbsp;&nbsp;&nbsp; R := R &cup; {(r<sub>1</sub>, x, v)}</li>
  * </ul>
- * </p>
+ * <br>
  * 
  * @author Julian Mendez
  */

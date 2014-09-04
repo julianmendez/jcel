@@ -46,7 +46,7 @@
 
 /**
  Provides interfaces and classes to run a classification
- algorithm based on completion rules. <br />
+ algorithm based on completion rules. <br>
  It uses the following packages:
  <ul>
  <li>{@link de.tudresden.inf.lat.jcel.coreontology.datatype

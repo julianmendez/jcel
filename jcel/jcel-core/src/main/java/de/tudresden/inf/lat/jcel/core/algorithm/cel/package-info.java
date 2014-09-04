@@ -46,7 +46,7 @@
 
 /**
  * Provides interfaces and classes to run the classification
- * algorithm of CEL. <br />
+ * algorithm of CEL. <br>
  * They use data structures based on integer numbers.
  * It uses the following packages:
  * <ul>

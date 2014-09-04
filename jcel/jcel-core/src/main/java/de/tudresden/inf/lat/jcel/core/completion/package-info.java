@@ -46,7 +46,7 @@
 
 /**
  * Provides interfaces and classes of the completion 
- * rules for the classification algorithm. <br />
+ * rules for the classification algorithm. <br>
  */
 package de.tudresden.inf.lat.jcel.core.completion;
 

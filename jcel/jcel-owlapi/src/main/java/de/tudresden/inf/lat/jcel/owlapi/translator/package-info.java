@@ -47,7 +47,7 @@
 /**
  * Provides interfaces and classes used in the translation
  * between OWL API objects and integer numbers (the internal
- * representation). <br />
+ * representation). <br>
  * It uses the following packages:
  * <ul>
  * <li>{@link de.tudresden.inf.lat.jcel.coreontology.datatype

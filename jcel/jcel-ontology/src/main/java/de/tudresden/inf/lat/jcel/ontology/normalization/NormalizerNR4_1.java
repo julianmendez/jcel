@@ -58,11 +58,11 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectOneOf;
 
 /**
- * <p>
+ * 
  * <ul>
- * <li>NR-4.1 : B &sqsube; {a} &rarrw; B &sqsube; A , A &equiv; {a}</li>
+ * <li>NR-4.1 : B \u2291 {a} \u219D B \u2291 A , A &equiv; {a}</li>
  * </ul>
- * </p>
+ * <br>
  * 
  * This rule is not part of the original set of rules.
  * 
