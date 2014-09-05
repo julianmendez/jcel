@@ -55,7 +55,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class implements a binary relation. Its elements are integer numbers.
- * 
+ *
  * @author Julian Mendez
  */
 public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
@@ -73,8 +73,10 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	 * Adds an element to this binary relation. Although there is not any pair
 	 * associated to the particular element, the element is belongs to the set
 	 * of elements.
-	 * 
+	 *
 	 * @param elem
+	 *            element
+	 * @return <code>true</code> if and only if the element was added
 	 */
 	public boolean add(int elem) {
 		boolean ret = false;
@@ -85,9 +87,12 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 
 	/**
 	 * Adds a pair to this binary relation.
-	 * 
+	 *
 	 * @param first
+	 *            first element
 	 * @param second
+	 *            second element
+	 * @return <code>true</code> if and only if the pair was added
 	 */
 	public boolean add(int first, int second) {
 		boolean ret = false;
@@ -169,7 +174,7 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	 * Returns the number of elements in the internal maps that are referred by
 	 * the keys, without counting the keys themselves. This method recalculates
 	 * the value every time it is called.
-	 * 
+	 *
 	 * @return the number of elements in the internal maps that are referred by
 	 *         the keys, without counting the keys themselves
 	 */

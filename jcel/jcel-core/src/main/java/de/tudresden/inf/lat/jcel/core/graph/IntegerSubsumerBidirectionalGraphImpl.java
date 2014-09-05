@@ -53,18 +53,18 @@ import java.util.Iterator;
  * This class implements a subsumer invGraph. This implementation keeps a set of
  * subsumers for each vertex. It also considers bottom and its equivalents as
  * special cases.
- * 
+ *
  * @author Julian Mendez
  */
 public class IntegerSubsumerBidirectionalGraphImpl implements
-		IntegerSubsumerBidirectionalGraph {
+IntegerSubsumerBidirectionalGraph {
 
 	private final IntegerSubsumerGraphImpl graph;
 	private final IntegerSubsumerGraphImpl invGraph;
 
 	/**
 	 * Constructs an empty subsumer bidirectional graph.
-	 * 
+	 *
 	 * @param bottom
 	 *            bottom class identifier
 	 * @param top
@@ -77,8 +77,9 @@ public class IntegerSubsumerBidirectionalGraphImpl implements
 
 	/**
 	 * Adds a new vertex to the invGraph.
-	 * 
+	 *
 	 * @param vertex
+	 *            vertex
 	 */
 	public void add(int vertex) {
 		this.graph.add(vertex);
@@ -88,7 +89,7 @@ public class IntegerSubsumerBidirectionalGraphImpl implements
 	/**
 	 * Defines that one vertex is a subsumee of another vertex. If one or both
 	 * elements do not belong to the vertex collection, they are added anyway.
-	 * 
+	 *
 	 * @param subId
 	 *            the subsumee
 	 * @param superId
@@ -157,7 +158,7 @@ public class IntegerSubsumerBidirectionalGraphImpl implements
 
 	/**
 	 * Retains only the elements contained in the collection.
-	 * 
+	 *
 	 * @param collection
 	 *            collection of elements to be retained
 	 */

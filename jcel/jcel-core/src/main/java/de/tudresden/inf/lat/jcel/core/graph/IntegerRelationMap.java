@@ -51,30 +51,32 @@ import java.util.Set;
 
 /**
  * This interface models a map of binary relations.
- * 
+ *
  * @author Julian Mendez
  */
 public interface IntegerRelationMap {
 
 	/**
 	 * Tells whether a binary relation belongs to this map.
-	 * 
+	 *
 	 * @param relationId
 	 *            relation id
-	 * @return true if and only if the binary relation belongs to this map
+	 * @return <code>true</code> if and only if the binary relation belongs to
+	 *         this map
 	 */
 	boolean contains(int relationId);
 
 	/**
 	 * Tells whether a binary relation contains a give pair.
-	 * 
+	 *
 	 * @param relationId
 	 *            relation id
 	 * @param first
 	 *            first component
 	 * @param second
 	 *            second component
-	 * @return true if and only if the pair belongs to the given relation
+	 * @return <code>true</code> if and only if the pair belongs to the given
+	 *         relation
 	 */
 	boolean contains(int relationId, int first, int second);
 
@@ -88,7 +90,9 @@ public interface IntegerRelationMap {
 	/**
 	 * Returns the elements connecting from a particular element in the first
 	 * component.
-	 * 
+	 *
+	 * @param relation
+	 *            relation id
 	 * @param first
 	 *            first component
 	 * @return the collection of elements connecting from a first component, or
@@ -99,7 +103,9 @@ public interface IntegerRelationMap {
 	/**
 	 * Returns the elements connecting to a particular element in the second
 	 * component.
-	 * 
+	 *
+	 * @param relation
+	 *            relation id
 	 * @param second
 	 *            second component
 	 * @return the collection of elements connecting to a second component, or
@@ -115,7 +121,7 @@ public interface IntegerRelationMap {
 	/**
 	 * Returns the relations which use a particular element in the first
 	 * component.
-	 * 
+	 *
 	 * @param first
 	 *            first component
 	 * @return the collection of relations which use a particular first
@@ -126,7 +132,7 @@ public interface IntegerRelationMap {
 	/**
 	 * Returns the relations which use a particular element in the second
 	 * component.
-	 * 
+	 *
 	 * @param second
 	 *            second component
 	 * @return the collection of relations which use a particular second

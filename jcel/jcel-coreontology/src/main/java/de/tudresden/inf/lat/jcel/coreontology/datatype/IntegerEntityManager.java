@@ -51,7 +51,7 @@ import java.util.Set;
 /**
  * An object implementing this interface manages entities and creates new
  * identification numbers for auxiliary entities.
- * 
+ *
  * @author Julian Mendez
  */
 public interface IntegerEntityManager {
@@ -66,7 +66,7 @@ public interface IntegerEntityManager {
 
 	/**
 	 * Creates a new entity of a certain type.
-	 * 
+	 *
 	 * @param type
 	 *            type of the entity
 	 * @param auxiliary
@@ -78,7 +78,7 @@ public interface IntegerEntityManager {
 
 	/**
 	 * Creates a new entity of a certain type.
-	 * 
+	 *
 	 * @param type
 	 *            type of the entity
 	 * @param auxiliary
@@ -94,7 +94,7 @@ public interface IntegerEntityManager {
 	/**
 	 * Returns the class identifier corresponding to the given individual. If
 	 * that class does not exist, it creates a new auxiliary class.
-	 * 
+	 *
 	 * @param individual
 	 *            individual to get the class
 	 * @return the class identifier for the given individual
@@ -104,7 +104,7 @@ public interface IntegerEntityManager {
 	/**
 	 * Returns the inverse object property of the given object property. If this
 	 * property does not exist, it creates a new auxiliary object property.
-	 * 
+	 *
 	 * @param propertyId
 	 *            property identifier to create an inverse object property
 	 * @return the inverse object property of the given object property
@@ -117,14 +117,14 @@ public interface IntegerEntityManager {
 
 	/**
 	 * Returns the auxiliary inverse object properties.
-	 * 
+	 *
 	 * @return the auxiliary inverse object properties
 	 */
 	Set<Integer> getAuxiliaryInverseObjectProperties();
 
 	/**
 	 * This method gives the auxiliary nominal related to a specific individual.
-	 * 
+	 *
 	 * @param individual
 	 *            the individual
 	 * @return the requested class or <code>null</code> if the individual does
@@ -134,14 +134,14 @@ public interface IntegerEntityManager {
 
 	/**
 	 * Returns the set of auxiliary nominals.
-	 * 
+	 *
 	 * @return the set of auxiliary nominals
 	 */
 	Set<Integer> getAuxiliaryNominals();
 
 	/**
 	 * Returns the set of identifiers of auxiliary entities of a certain type.
-	 * 
+	 *
 	 * @param type
 	 *            type of the entity
 	 * @param auxiliary
@@ -153,7 +153,7 @@ public interface IntegerEntityManager {
 
 	/**
 	 * This method gives the individual related to a specific auxiliary nominal.
-	 * 
+	 *
 	 * @param auxNominal
 	 *            the auxiliary nominal
 	 * @return the requested individual or <code>null</code> if the auxiliary
@@ -163,14 +163,14 @@ public interface IntegerEntityManager {
 
 	/**
 	 * Returns the set of individuals.
-	 * 
+	 *
 	 * @return the set of individuals
 	 */
 	Set<Integer> getIndividuals();
 
 	/**
 	 * Returns the name defined for a certain entity.
-	 * 
+	 *
 	 * @param identifier
 	 *            entity to get the name
 	 * @return the name defined for a certain entity
@@ -179,7 +179,7 @@ public interface IntegerEntityManager {
 
 	/**
 	 * Returns the entity type for the given identifier
-	 * 
+	 *
 	 * @param identifier
 	 *            entity identifier
 	 * @return the entity type for the given identifier
@@ -188,7 +188,9 @@ public interface IntegerEntityManager {
 
 	/**
 	 * Tells whether the given identifier corresponds to an auxiliary entity.
-	 * 
+	 *
+	 * @param identifier
+	 *            entity identifier
 	 * @return <code>true</code> if and only if the given identifier corresponds
 	 *         to an auxiliary entity
 	 */
@@ -199,7 +201,7 @@ public interface IntegerEntityManager {
 	 * as one the inverse object property of the other one. This association is
 	 * accepted if and only if none of both object properties has already
 	 * another inverse object property.
-	 * 
+	 *
 	 * @param firstProperty
 	 *            an object property
 	 * @param secondProperty
@@ -212,7 +214,7 @@ public interface IntegerEntityManager {
 	/**
 	 * Returns the number of created entities, either auxiliary or
 	 * non-auxiliary.
-	 * 
+	 *
 	 * @return the number of created entities, either auxiliary or
 	 *         non-auxiliary.
 	 */

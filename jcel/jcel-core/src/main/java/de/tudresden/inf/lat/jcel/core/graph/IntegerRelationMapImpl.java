@@ -55,7 +55,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class implements a map of binary relations.
- * 
+ *
  * @author Julian Mendez
  */
 public class IntegerRelationMapImpl implements IntegerRelationMap {
@@ -72,9 +72,11 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 
 	/**
 	 * Adds an empty binary relation.
-	 * 
+	 *
 	 * @param relationId
 	 *            relation identifier
+	 * @return <code>true</code> if and only if the relation identifier was
+	 *         added
 	 */
 	public boolean add(int relationId) {
 		boolean ret = false;
@@ -87,13 +89,14 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 
 	/**
 	 * Adds a pair to a binary relation.
-	 * 
+	 *
 	 * @param relationId
 	 *            relation id
 	 * @param first
 	 *            first component
 	 * @param second
 	 *            second component
+	 * @return <code>true</code> if and only if the pair was added
 	 */
 	public boolean add(int relationId, int first, int second) {
 		boolean ret = false;
@@ -183,7 +186,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	 * Returns the number of elements in the internal maps that are referred by
 	 * the keys, without counting the keys themselves. This method recalculates
 	 * the value every time it is called.
-	 * 
+	 *
 	 * @return the number of elements in the internal maps that are referred by
 	 *         the keys, without counting the keys themselves
 	 */

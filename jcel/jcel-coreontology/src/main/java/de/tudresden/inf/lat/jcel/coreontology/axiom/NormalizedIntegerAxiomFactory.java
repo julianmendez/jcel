@@ -49,107 +49,116 @@ package de.tudresden.inf.lat.jcel.coreontology.axiom;
 /**
  * An object implementing this interface is a factory to create normalized
  * axioms.
- * 
+ *
  * @author Julian Mendez
  */
 public interface NormalizedIntegerAxiomFactory {
 
 	/**
 	 * Constructs a new functional object property axiom.
-	 * 
+	 *
 	 * @param prop
 	 *            object property
+	 * @return a new functional object property axiom
 	 */
 	FunctObjectPropAxiom createFunctObjectPropAxiom(int prop);
 
 	/**
 	 * Constructs a new GCI-0 axiom.
-	 * 
+	 *
 	 * @param subCl
 	 *            subclass identifier
 	 * @param superCl
 	 *            superclass identifier
+	 * @return a new GCI-0 axiom
 	 */
 	GCI0Axiom createGCI0Axiom(int subCl, int superCl);
 
 	/**
 	 * Constructs a new GCI-1 axiom.
-	 * 
+	 *
 	 * @param leftSubCl
 	 *            left subclass in the axiom
 	 * @param rightSubCl
 	 *            right subclass in the axiom
 	 * @param superCl
 	 *            superclass in the axiom
+	 * @return a new GCI-1 axiom
 	 */
 	GCI1Axiom createGCI1Axiom(int leftSubCl, int rightSubCl, int superCl);
 
 	/**
 	 * Constructs a new GCI-2 axiom.
-	 * 
+	 *
 	 * @param leftCl
 	 *            subclass identifier
 	 * @param rightProp
 	 *            object property identifier
 	 * @param rightCl
 	 *            class identifier for the right-hand part
+	 * @return a new GCI-2 axiom
 	 */
 	GCI2Axiom createGCI2Axiom(int leftCl, int rightProp, int rightCl);
 
 	/**
 	 * Constructs a new GCI-3 axiom.
-	 * 
+	 *
 	 * @param leftProp
 	 *            object property identifier for the left-hand part
 	 * @param leftCl
 	 *            class identifier for the left-hand part
 	 * @param rightCl
 	 *            superclass identifier
+	 * @return a new GCI-3 axiom
 	 */
 	GCI3Axiom createGCI3Axiom(int leftProp, int leftCl, int rightCl);
 
 	/**
 	 * Constructs a new nominal axiom.
-	 * 
+	 *
 	 * @param classId
 	 *            class identifier in the axiom
 	 * @param individualId
 	 *            individual identifier in the axiom
+	 * @return a new nominal axiom
 	 */
 	NominalAxiom createNominalAxiom(int classId, int individualId);
 
 	/**
 	 * Constructs a new range axiom.
-	 * 
+	 *
 	 * @param prop
 	 *            object property identifier
 	 * @param cl
 	 *            class identifier
+	 * @return a new range axiom
 	 */
 	RangeAxiom createRangeAxiom(int prop, int cl);
 
 	/**
 	 * Constructs a new axiom RI-1.
-	 * 
+	 *
 	 * @param prop
 	 *            object property identifier
+	 * @return a new axiom RI-1
 	 */
 	RI1Axiom createRI1Axiom(int prop);
 
 	/**
 	 * Constructs a new axiom RI-2.
-	 * 
+	 *
 	 * @param leftProp
 	 *            object property identifier for the left-hand part of the axiom
 	 * @param rightProp
 	 *            object property identifier for the right-hand part of the
 	 *            axiom
+	 * @return a new axiom RI-2
 	 */
 	RI2Axiom createRI2Axiom(int leftProp, int rightProp);
 
 	/**
-	 * Constructs a new RI-3 axiom
-	 * 
+	 * Constructs a new RI-3 axiom.
+	 *
 	 * @param leftLeftProp
 	 *            object property identifier for the left-hand object property
 	 *            on the composition
@@ -158,6 +167,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 *            on the composition
 	 * @param rightProp
 	 *            object property identifier for super object property
+	 * @return a new RI-3 axiom
 	 */
 	RI3Axiom createRI3Axiom(int leftLeftProp, int leftRightProp, int rightProp);
 
