@@ -61,7 +61,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
  * <li>SR-1 : r \u2291 s \u219D r<sup>-</sup> \u2291 s<sup>-</sup></li>
  * <li>SR-2 : r \u2291 s, s \u2291 t \u219D r \u2291 t</li>
  * </ul>
- * 
+ *
  * @author Julian Mendez
  */
 public class SR1AndSR2Rules implements SaturationRule {
@@ -72,20 +72,22 @@ public class SR1AndSR2Rules implements SaturationRule {
 
 	/**
 	 * Constructs a new composite rule of SR-1 and SR-2.
-	 * 
+	 *
 	 * @param factory
 	 *            factory
+	 * @param entityManager
+	 *            entity manager
 	 */
 	public SR1AndSR2Rules(NormalizedIntegerAxiomFactory factory,
-			IntegerEntityManager generator) {
+			IntegerEntityManager entityManager) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		if (generator == null) {
+		if (entityManager == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 		this.factory = factory;
-		this.idGenerator = generator;
+		this.idGenerator = entityManager;
 	}
 
 	@Override

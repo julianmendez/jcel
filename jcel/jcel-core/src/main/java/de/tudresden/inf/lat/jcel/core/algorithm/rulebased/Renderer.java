@@ -63,7 +63,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 /**
  * An object of this class renders the important data structures used in the
  * classification.
- * 
+ *
  * @author Julian Mendez
  */
 public class Renderer {
@@ -118,7 +118,7 @@ public class Renderer {
 
 	/**
 	 * Renders set R using Turtle syntax.
-	 * 
+	 *
 	 * @param output
 	 *            writer
 	 * @param entityManager
@@ -127,6 +127,7 @@ public class Renderer {
 	 *            set R
 	 * @return <code>true</code> if and only if it renders at least one triple
 	 * @throws IOException
+	 *             if an I/O error occurs
 	 */
 	public boolean renderWithNames(Writer output,
 			IntegerEntityManager entityManager, IntegerRelationMap setR)
@@ -168,7 +169,7 @@ public class Renderer {
 
 	/**
 	 * Renders set S using Turtle syntax.
-	 * 
+	 *
 	 * @param output
 	 *            writer
 	 * @param entityManager
@@ -177,6 +178,7 @@ public class Renderer {
 	 *            set S
 	 * @return <code>true</code> if and only if it renders at least one triple
 	 * @throws IOException
+	 *             if an I/O error occurs
 	 */
 	public boolean renderWithNames(Writer output,
 			IntegerEntityManager entityManager, IntegerSubsumerGraph setS)

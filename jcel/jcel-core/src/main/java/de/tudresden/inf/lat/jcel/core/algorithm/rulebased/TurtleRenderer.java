@@ -58,7 +58,7 @@ import java.util.TreeMap;
 /**
  * An object of this class creates a stream in a particular case of Turtle
  * (Terse RDF Triple Language).
- * 
+ *
  * @author Julian Mendez
  */
 public class TurtleRenderer {
@@ -80,7 +80,7 @@ public class TurtleRenderer {
 
 	/**
 	 * Constructs a Turtle renderer.
-	 * 
+	 *
 	 * @param writer
 	 *            writer
 	 */
@@ -141,7 +141,7 @@ public class TurtleRenderer {
 
 	/**
 	 * Loads a set of names and gets the prefixes from these names.
-	 * 
+	 *
 	 * @param identifiers
 	 *            names
 	 * @return <code>true</code> if and only if at least one prefix has been
@@ -167,8 +167,9 @@ public class TurtleRenderer {
 
 	/**
 	 * Renders the prefixes with their abbreviations.
-	 * 
+	 *
 	 * @throws IOException
+	 *             if an I/O error occurs
 	 */
 	public void renderPrefixes() throws IOException {
 		for (String prefix : this.mapOfPrefixes.keySet()) {
@@ -192,7 +193,14 @@ public class TurtleRenderer {
 	/**
 	 * Renders a triple trying to replace prefixes by their abbreviations.
 	 * 
+	 * @param predicate
+	 *            predicate
+	 * @param subject
+	 *            subject
+	 * @param object
+	 *            object
 	 * @throws IOException
+	 *             if an I/O error occurs
 	 */
 	public void renderTriple(String predicate, String subject, String object)
 			throws IOException {

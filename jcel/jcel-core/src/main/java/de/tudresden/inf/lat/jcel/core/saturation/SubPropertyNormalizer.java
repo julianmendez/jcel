@@ -55,19 +55,19 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
 /**
  * This class models a normalizer that saturates an ontology with object
- * property inclusions. The saturation adds an axiom r \u2291 r for each
- * object property r, and then applies the following rules:
- * 
+ * property inclusions. The saturation adds an axiom r \u2291 r for each object
+ * property r, and then applies the following rules:
+ *
  * <ul>
  * <li>SR-1 : r \u2291 s \u219D r<sup>-</sup> \u2291 s<sup>-</sup></li>
  * <li>SR-2 : r \u2291 s, s \u2291 t \u219D r \u2291 t</li>
- * <li>SR-3 : r \u2218 s \u2291 t \u219D s<sup>-</sup> \u2218
- * r<sup>-</sup> \u2291 t<sup>-</sup></li>
+ * <li>SR-3 : r \u2218 s \u2291 t \u219D s<sup>-</sup> \u2218 r<sup>-</sup>
+ * \u2291 t<sup>-</sup></li>
  * <li>SR-4 : r \u2291 s, f(s) \u219D f(r)</li>
  * </ul>
- * 
+ *
  * @author Julian Mendez
- * 
+ *
  */
 public class SubPropertyNormalizer implements SaturationRule {
 
@@ -78,9 +78,11 @@ public class SubPropertyNormalizer implements SaturationRule {
 
 	/**
 	 * Constructs a new normalizer of sub object properties.
-	 * 
+	 *
 	 * @param factory
 	 *            factory
+	 * @param entityManager
+	 *            entity manager
 	 */
 	public SubPropertyNormalizer(NormalizedIntegerAxiomFactory factory,
 			IntegerEntityManager entityManager) {
@@ -97,7 +99,7 @@ public class SubPropertyNormalizer implements SaturationRule {
 	/**
 	 * Saturates a set of normalized axioms by applying rules SR-1, SR-2, SR-3,
 	 * SR-4 and SR-5.
-	 * 
+	 *
 	 * @param originalSet
 	 *            set of normalized axioms to be saturated
 	 * @return the saturated set of normalized axioms

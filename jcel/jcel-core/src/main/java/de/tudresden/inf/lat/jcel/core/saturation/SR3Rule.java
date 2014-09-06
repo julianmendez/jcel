@@ -57,10 +57,10 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
 /**
  * <ul>
- * <li>SR-3 : r \u2218 s \u2291 t \u219D s<sup>-</sup> \u2218
- * r<sup>-</sup> \u2291 t<sup>-</sup></li>
+ * <li>SR-3 : r \u2218 s \u2291 t \u219D s<sup>-</sup> \u2218 r<sup>-</sup>
+ * \u2291 t<sup>-</sup></li>
  * </ul>
- * 
+ *
  * @author Julian Mendez
  */
 public class SR3Rule implements SaturationRule {
@@ -70,17 +70,22 @@ public class SR3Rule implements SaturationRule {
 
 	/**
 	 * Constructs a new SR-3 rule.
+	 * 
+	 * @param factory
+	 *            factory
+	 * @param entityManager
+	 *            entity manager
 	 */
 	public SR3Rule(NormalizedIntegerAxiomFactory factory,
-			IntegerEntityManager generator) {
+			IntegerEntityManager entityManager) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		if (generator == null) {
+		if (entityManager == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 		this.factory = factory;
-		this.idGenerator = generator;
+		this.idGenerator = entityManager;
 	}
 
 	@Override

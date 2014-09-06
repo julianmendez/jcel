@@ -55,7 +55,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
 /**
  * This class models an existential restriction with data properties, this is:
  * &exist; p <i>.</i> C, where p is a data property and C is a class expression.
- * 
+ *
  * @author Julian Mendez
  */
 public class IntegerDataSomeValuesFrom implements IntegerClassExpression {
@@ -67,9 +67,11 @@ public class IntegerDataSomeValuesFrom implements IntegerClassExpression {
 
 	/**
 	 * Constructs an existential restriction.
-	 * 
+	 *
 	 * @param propertyId
+	 *            property identifier
 	 * @param classExpression
+	 *            class expression
 	 */
 	protected IntegerDataSomeValuesFrom(int propertyId,
 			IntegerClassExpression classExpression) {
@@ -130,7 +132,7 @@ public class IntegerDataSomeValuesFrom implements IntegerClassExpression {
 
 	/**
 	 * Returns the class expression in this class expression.
-	 * 
+	 *
 	 * @return the class expression in this class expression
 	 */
 	public IntegerClassExpression getFiller() {
@@ -151,7 +153,7 @@ public class IntegerDataSomeValuesFrom implements IntegerClassExpression {
 
 	/**
 	 * Returns the data property in this class expression.
-	 * 
+	 *
 	 * @return the data property in this class expression.
 	 */
 	public int getProperty() {

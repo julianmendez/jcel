@@ -59,7 +59,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactor
  * <ul>
  * <li>SR-4 : r \u2291 s, f(s) \u219D f(r)</li>
  * </ul>
- * 
+ *
  * @author Julian Mendez
  */
 public class SR4Rule implements SaturationRule {
@@ -69,6 +69,9 @@ public class SR4Rule implements SaturationRule {
 
 	/**
 	 * Constructs a new SR-4 rule.
+	 *
+	 * @param factory
+	 *            factory
 	 */
 	public SR4Rule(NormalizedIntegerAxiomFactory factory) {
 		if (factory == null) {

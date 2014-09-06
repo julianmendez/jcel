@@ -58,7 +58,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * This class implements a subsumer graph. This implementation keeps a set of
  * subsumers for each vertex. It also considers bottom and its equivalents as
  * special cases.
- * 
+ *
  * @author Julian Mendez
  */
 public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
@@ -72,7 +72,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 
 	/**
 	 * Constructs an empty subsumer graph.
-	 * 
+	 *
 	 * @param bottom
 	 *            bottom class identifier
 	 * @param top
@@ -89,8 +89,10 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 
 	/**
 	 * Adds a new vertex to the graph.
-	 * 
+	 *
 	 * @param vertex
+	 *            vertex
+	 * @return <code>true</code> if and only if the vertex was added
 	 */
 	public boolean add(int vertex) {
 		boolean ret = false;
@@ -105,11 +107,12 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	/**
 	 * Defines that one vertex is a subsumee of another vertex. If one or both
 	 * elements do not belong to the vertex collection, they are added anyway.
-	 * 
+	 *
 	 * @param subId
 	 *            the subsumee
 	 * @param superId
 	 *            the subsumer
+	 * @return <code>true</code> if and only if the relation was added
 	 */
 	public boolean addAncestor(int subId, int superId) {
 		boolean ret = false;
@@ -162,7 +165,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	 * Returns the number of elements in the internal maps that are referred by
 	 * the keys, without counting the keys themselves. This method recalculates
 	 * the value every time it is called.
-	 * 
+	 *
 	 * @return the number of elements in the internal maps that are referred by
 	 *         the keys, without counting the keys themselves
 	 */
@@ -207,7 +210,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 
 	/**
 	 * Retains only the elements contained in the collection.
-	 * 
+	 *
 	 * @param collection
 	 *            collection of elements to be retained
 	 */

@@ -83,11 +83,14 @@ import de.uulm.ecs.ai.owlapi.krssrenderer.KRSSSyntaxRenderer;
 /**
  * This class makes possible to start a classifier instance from the command
  * line.
- * 
+ *
  * @author Julian Mendez
  */
 public class ConsoleStarter {
 
+	/**
+	 * Mode of execution.
+	 */
 	public enum Mode {
 		CLASSIFICATION, CONSISTENCY, ENTAILMENT, NOTHING, QUERY, SATISFIABILITY
 	}
@@ -141,15 +144,19 @@ public class ConsoleStarter {
 
 	/**
 	 * Starts a classifier instance from the command line.
-	 * 
+	 *
 	 * @param args
 	 *            a list containing the command line parameters, they are first
 	 *            parameter: input file (required), second parameter: output
 	 *            file (required), third parameter: log level (optional)
 	 * @throws IOException
+	 *             if an I/O error occurs
 	 * @throws SecurityException
+	 *             if a security error occurs
 	 * @throws OWLOntologyCreationException
+	 *             if the ontology could not be created
 	 * @throws OWLRendererException
+	 *             if a renderer error occurs
 	 */
 	public static void main(String[] args) throws OWLRendererException,
 			OWLOntologyCreationException, SecurityException, IOException {
@@ -280,10 +287,12 @@ public class ConsoleStarter {
 
 	/**
 	 * Checks the consistency of a given ontology.
-	 * 
+	 *
 	 * @param ontologyFile
 	 *            ontology file to be checked
 	 * @throws OWLOntologyCreationException
+	 *             if the ontology could not be created
+	 * @return <code>true</code> if and only if the given ontology is consistent
 	 */
 	public boolean checkConsistency(File ontologyFile)
 			throws OWLOntologyCreationException {
@@ -302,14 +311,19 @@ public class ConsoleStarter {
 	/**
 	 * Classifies a given ontology and checks whether another ontology is
 	 * entailed by the former.
-	 * 
+	 *
 	 * @param premiseFile
 	 *            ontology file to be classified and used as premise
 	 * @param conclusionFile
 	 *            file with the conclusion
 	 * @throws FileNotFoundException
+	 *             if the file was not found
 	 * @throws OWLOntologyCreationException
+	 *             if the ontology could not be created
 	 * @throws OWLRendererException
+	 *             if a renderer error occurs
+	 * @return <code>true</code> if and only if the premise ontology entails the
+	 *         conclusion ontology
 	 */
 	public boolean checkEntailment(File premiseFile, File conclusionFile)
 			throws OWLOntologyCreationException, OWLRendererException,
@@ -350,12 +364,15 @@ public class ConsoleStarter {
 
 	/**
 	 * Checks satisfiability of a given concept with respect to an ontology.
-	 * 
+	 *
 	 * @param ontologyFile
 	 *            ontology file to be checked
 	 * @param conceptIRI
 	 *            concept IRI
 	 * @throws OWLOntologyCreationException
+	 *             if the ontology could not be created
+	 * @return <code>true</code> if and only if the given concept is satisfiable
+	 *         with respect to the given ontology
 	 */
 	public boolean checkSatisfiability(File ontologyFile, IRI conceptIRI)
 			throws OWLOntologyCreationException {
@@ -378,14 +395,19 @@ public class ConsoleStarter {
 	/**
 	 * Classifies a given ontology and computes the class hierarchy and the
 	 * object property hierarchy.
-	 * 
+	 *
 	 * @param ontologyFile
 	 *            ontology file to be classified
 	 * @param inferredFile
 	 *            file to write the inferred data
+	 * @param renderer
+	 *            renderer
 	 * @throws FileNotFoundException
+	 *             if the file was not found
 	 * @throws OWLOntologyCreationException
+	 *             if the ontology could not be created
 	 * @throws OWLRendererException
+	 *             if a renderer error occurs
 	 */
 	public void computeClassification(File ontologyFile, File inferredFile,
 			AbstractOWLRenderer renderer) throws OWLOntologyCreationException,
@@ -414,11 +436,12 @@ public class ConsoleStarter {
 
 	/**
 	 * Creates an instance of jcel reasoner using the given ontology file.
-	 * 
+	 *
 	 * @param ontologyFile
 	 *            ontology file
 	 * @return an instance of jcel reasoner
 	 * @throws OWLOntologyCreationException
+	 *             if the ontology could not be created
 	 */
 	public JcelReasoner createReasoner(File ontologyFile)
 			throws OWLOntologyCreationException {
@@ -467,6 +490,13 @@ public class ConsoleStarter {
 		return ret;
 	}
 
+	/**
+	 * Returns the mode of execution that corresponds to the given identifier.
+	 *
+	 * @param argument
+	 *            mode identifier
+	 * @return the mode of execution that corresponds to the given identifier
+	 */
 	public Mode parseMode(String argument) {
 		if (argument == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -491,6 +521,13 @@ public class ConsoleStarter {
 		return mode;
 	}
 
+	/**
+	 * Creates a new abstract OWL renderer.
+	 *
+	 * @param argument
+	 *            renderer identifier
+	 * @return a new abstract OWL renderer
+	 */
 	public AbstractOWLRenderer parseRenderer(String argument) {
 		if (argument == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -516,6 +553,14 @@ public class ConsoleStarter {
 		return ret;
 	}
 
+	/**
+	 * Returns a string that identifies the mode of execution (e.g.
+	 * classification, consistency, ...).
+	 *
+	 * @param mode
+	 *            mode
+	 * @return a string that identifies the mode of execution
+	 */
 	public String renderMode(Mode mode) {
 		if (mode == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -540,6 +585,20 @@ public class ConsoleStarter {
 		return ret;
 	}
 
+	/**
+	 * Starts the application.
+	 *
+	 * @param args
+	 *            console parameter
+	 * @throws OWLRendererException
+	 *             if a renderer error occurs
+	 * @throws OWLOntologyCreationException
+	 *             if the ontology could not be created
+	 * @throws SecurityException
+	 *             if a security error occurs
+	 * @throws IOException
+	 *             if an I/O error occurs
+	 */
 	public void start(String[] args) throws OWLRendererException,
 			OWLOntologyCreationException, SecurityException, IOException {
 

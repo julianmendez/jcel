@@ -73,25 +73,25 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 
 /**
  * Classifies an ontology using the CEL algorithm. The rules are:
- * 
+ *
  * <ul>
  * <li>CR1 : <b>if</b> A<sub>1</sub>, &hellip; , A<sub>n</sub> &isin; S(X)
- * <b>and</b> A<sub>1</sub> \u2293 &hellip; \u2293 A<sub>n</sub> \u2291 B
- * &isin; O <b>and</b> B &notin; S(X) <b>then</b> S(X) := S(X) &cup; {B}</li>
+ * <b>and</b> A<sub>1</sub> \u2293 &hellip; \u2293 A<sub>n</sub> \u2291 B &isin;
+ * O <b>and</b> B &notin; S(X) <b>then</b> S(X) := S(X) &cup; {B}</li>
  * <li>CR2 : <b>if</b> A &isin; S(X) <b>and</b> A \u2291 &exist; r <i>.</i> B
  * &isin; O <b>and</b> (X,B) &notin; R(r) <b>then</b> R(r) := R(r) &cup;{(X,B)}</li>
  * <li>CR3 : <b>if</b> (X,Y) &isin; R(r) <b>and</b> A &isin; S(Y) <b>and</b>
- * &exist; r <i>.</i> A \u2291 B &isin; O <b>and</b> B &notin; S(X)
- * <b>then</b> S(X) := S(X) &cup; {B}</li>
+ * &exist; r <i>.</i> A \u2291 B &isin; O <b>and</b> B &notin; S(X) <b>then</b>
+ * S(X) := S(X) &cup; {B}</li>
  * <li>CR4 : <b>if</b> (X,Y) &isin; R(r) <b>and</b> &perp; &isin; S(Y)
  * <b>and</b> &perp; &notin; S(X) <b>then</b> S(X) := S(X) &cup; {&perp;}</li>
  * <li>CR5 : <b>if</b> (X,Y) &isin; R(r) <b>and</b> r \u2291 s &isin; O
  * <b>and</b> (X,Y) &notin; R(s) <b>then</b> R(s) := R(s) &cup; {(X,Y)}</li>
  * <li>CR6 : <b>if</b> (X,Y) &isin; R(r) <b>and</b> (Y,Z) &isin; R(s) <b>and</b>
- * r \u2218 s \u2291 t &isin; O <b>and</b> (X,Z) &notin; R(t) <b>then</b>
- * R(t) := R(t) &cup; {(X,Z)}</li>
+ * r \u2218 s \u2291 t &isin; O <b>and</b> (X,Z) &notin; R(t) <b>then</b> R(t)
+ * := R(t) &cup; {(X,Z)}</li>
  * </ul>
- * 
+ *
  * @author Julian Mendez
  */
 public class CelProcessor implements Processor {
@@ -122,14 +122,23 @@ public class CelProcessor implements Processor {
 
 	/**
 	 * Constructs a new CEL processor.
-	 * 
+	 *
+	 * @param originalObjectProperties
+	 *            set of object properties
+	 * @param originalClasses
+	 *            set of classes
 	 * @param normalizedAxiomSet
 	 *            set of axioms
+	 * @param factory
+	 *            factory
+	 * @param entityManager
+	 *            entity manager
 	 */
 	public CelProcessor(Set<Integer> originalObjectProperties,
 			Set<Integer> originalClasses,
 			Set<NormalizedIntegerAxiom> normalizedAxiomSet,
-			NormalizedIntegerAxiomFactory factory, IntegerEntityManager manager) {
+			NormalizedIntegerAxiomFactory factory,
+			IntegerEntityManager entityManager) {
 		if (originalObjectProperties == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -142,12 +151,12 @@ public class CelProcessor implements Processor {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		if (manager == null) {
+		if (entityManager == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		this.axiomFactory = factory;
-		this.entityManager = manager;
+		this.entityManager = entityManager;
 		preProcess(originalObjectProperties, originalClasses,
 				normalizedAxiomSet);
 	}
@@ -284,7 +293,7 @@ public class CelProcessor implements Processor {
 
 	/**
 	 * Returns the class graph.
-	 * 
+	 *
 	 * @return the class graph.
 	 */
 	protected IntegerSubsumerGraph getClassGraph() {
@@ -310,7 +319,7 @@ public class CelProcessor implements Processor {
 
 	/**
 	 * Computes the descendants using only a hierarchical graph.
-	 * 
+	 *
 	 * @param hierarchicalGraph
 	 *            a hierarchical graph containing parents and children
 	 * @param vertex
@@ -344,7 +353,7 @@ public class CelProcessor implements Processor {
 
 	/**
 	 * Returns the id generator.
-	 * 
+	 *
 	 * @return the id generator.
 	 */
 	protected IntegerEntityManager getEntityManager() {
@@ -378,7 +387,7 @@ public class CelProcessor implements Processor {
 	/**
 	 * Returns the binary relation for a given id, or and empty relation if the
 	 * id is unknown.
-	 * 
+	 *
 	 * @param relationId
 	 *            relation id
 	 * @return the binary relation for the given id, or an empty relation if no
@@ -394,7 +403,7 @@ public class CelProcessor implements Processor {
 
 	/**
 	 * Returns a set containing all relation ids.
-	 * 
+	 *
 	 * @return the set of all relation ids
 	 */
 	protected Set<Integer> getRelationIdSet() {
@@ -413,7 +422,7 @@ public class CelProcessor implements Processor {
 	 * This is a graph reachability algorithm that tests whether an element d is
 	 * reachable from an element c using a path where each segment is from any
 	 * of the properties in R.
-	 * 
+	 *
 	 * @param c
 	 *            first element in the path
 	 * @param d
@@ -513,9 +522,14 @@ public class CelProcessor implements Processor {
 	 * <li>creates the property hierarchy</li>
 	 * <li>prepares all the queues to run the algorithm</li>
 	 * </ul>
-	 * 
+	 *
+	 * @param originalObjectProperties
+	 *            set of object properties
+	 * @param originalClasses
+	 *            set of classes
 	 * @param normalizedAxiomSet
 	 *            set of axioms, i.e. the ontology
+	 *
 	 */
 	protected void preProcess(Set<Integer> originalObjectProperties,
 			Set<Integer> originalClasses,
@@ -559,7 +573,7 @@ public class CelProcessor implements Processor {
 
 		logger.finer("auxiliary classes created (including nominals) : "
 				+ getEntityManager().getEntities(IntegerEntityType.CLASS, true)
-						.size());
+				.size());
 		logger.finer("auxiliary classes created for nominals : "
 				+ (getEntityManager().getIndividuals().size()));
 		logger.finer("auxiliary object properties created : "
@@ -735,7 +749,7 @@ public class CelProcessor implements Processor {
 	/**
 	 * Processes the nominals after the execution of the classification
 	 * algorithm. It requires a hierarchical graph to get the descendants.
-	 * 
+	 *
 	 * @param hierarchicalGraph
 	 *            the hierarchical graph
 	 */

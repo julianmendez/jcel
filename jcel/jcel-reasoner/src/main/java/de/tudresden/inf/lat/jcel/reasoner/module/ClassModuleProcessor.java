@@ -76,9 +76,9 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  * After classifying each module, the processor creates a set of axioms which is
  * the result of the classification. After classifying all modules, it
  * classifies the accumulated set of axioms.
- * 
+ *
  * @author Julian Mendez
- * 
+ *
  */
 public class ClassModuleProcessor implements Processor {
 
@@ -107,9 +107,11 @@ public class ClassModuleProcessor implements Processor {
 	/**
 	 * Constructs a class module processor. It uses an auxiliary processor to
 	 * classify each module.
-	 * 
+	 *
 	 * @param axiomSet
 	 *            set of axioms
+	 * @param axFactory
+	 *            ontology object factory
 	 * @param procFactory
 	 *            factory to create the auxiliary processor
 	 */
@@ -168,8 +170,8 @@ public class ClassModuleProcessor implements Processor {
 				ret.add(getAxiomFactory().createSubObjectPropertyOfAxiom(
 						getDataTypeFactory().createObjectProperty(
 								subObjectProperty),
-						getDataTypeFactory().createObjectProperty(
-								superObjectProperty)));
+								getDataTypeFactory().createObjectProperty(
+										superObjectProperty)));
 			}
 
 			Set<Integer> equivSet = objectPropertyGraph
@@ -177,7 +179,7 @@ public class ClassModuleProcessor implements Processor {
 			Set<IntegerObjectPropertyExpression> propExprSet = new HashSet<IntegerObjectPropertyExpression>();
 			for (Integer elem : equivSet) {
 				propExprSet
-						.add(getDataTypeFactory().createObjectProperty(elem));
+				.add(getDataTypeFactory().createObjectProperty(elem));
 			}
 			ret.add(getAxiomFactory().createEquivalentObjectPropertiesAxiom(
 					propExprSet));
@@ -387,11 +389,11 @@ public class ClassModuleProcessor implements Processor {
 					this.sameIndividualMap.putAll(this.processor
 							.getSameIndividualMap());
 					this.accumulatedAxiomSet
-							.addAll(convertClassHierarchyToAxioms(this.processor
-									.getClassHierarchy()));
+					.addAll(convertClassHierarchyToAxioms(this.processor
+							.getClassHierarchy()));
 					this.accumulatedAxiomSet
-							.addAll(convertObjectPropertyHierarchyToAxioms(this.processor
-									.getObjectPropertyHierarchy()));
+					.addAll(convertObjectPropertyHierarchyToAxioms(this.processor
+							.getObjectPropertyHierarchy()));
 					this.processor = null;
 					logger.fine("module " + this.moduleIndex
 							+ " has been classified.");

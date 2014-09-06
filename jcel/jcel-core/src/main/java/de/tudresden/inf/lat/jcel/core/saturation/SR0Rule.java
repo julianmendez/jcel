@@ -55,7 +55,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactor
 
 /**
  * For each object property r, this rule adds r \u2291 r.
- * 
+ *
  * @author Julian Mendez
  */
 public class SR0Rule implements SaturationRule {
@@ -64,6 +64,9 @@ public class SR0Rule implements SaturationRule {
 
 	/**
 	 * Constructs a new SR-0 rule.
+	 * 
+	 * @param factory
+	 *            factory
 	 */
 	public SR0Rule(NormalizedIntegerAxiomFactory factory) {
 		if (factory == null) {

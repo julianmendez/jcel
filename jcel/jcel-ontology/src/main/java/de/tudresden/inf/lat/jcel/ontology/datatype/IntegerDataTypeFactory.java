@@ -50,14 +50,14 @@ import java.util.Set;
 
 /**
  * An object implementing this interface can create basic ontology objects.
- * 
+ *
  * @author Julian Mendez
  */
 public interface IntegerDataTypeFactory {
 
 	/**
 	 * Creates a class.
-	 * 
+	 *
 	 * @param classId
 	 *            class identifier
 	 * @return a class
@@ -66,7 +66,7 @@ public interface IntegerDataTypeFactory {
 
 	/**
 	 * Creates a has-value class expression.
-	 * 
+	 *
 	 * @param dataPropertyId
 	 *            data property expression
 	 * @param val
@@ -77,7 +77,7 @@ public interface IntegerDataTypeFactory {
 
 	/**
 	 * Creates a data property.
-	 * 
+	 *
 	 * @param dataPropertyId
 	 *            data property identifier
 	 * @return a data property
@@ -86,9 +86,11 @@ public interface IntegerDataTypeFactory {
 
 	/**
 	 * Creates an existential restriction.
-	 * 
+	 *
 	 * @param dataPropertyId
+	 *            data property identifier
 	 * @param classExpression
+	 *            class expression
 	 * @return an existential restriction
 	 */
 	IntegerDataSomeValuesFrom createDataSomeValuesFrom(int dataPropertyId,
@@ -96,7 +98,7 @@ public interface IntegerDataTypeFactory {
 
 	/**
 	 * Creates a named individual.
-	 * 
+	 *
 	 * @param individualId
 	 *            named individual identifier
 	 * @return a named individual
@@ -105,7 +107,7 @@ public interface IntegerDataTypeFactory {
 
 	/**
 	 * Creates an intersection of class expressions.
-	 * 
+	 *
 	 * @param operands
 	 *            set of class expressions
 	 * @return an intersection of class expressions
@@ -115,7 +117,7 @@ public interface IntegerDataTypeFactory {
 
 	/**
 	 * Creates an inverse object property.
-	 * 
+	 *
 	 * @param objectPropertyId
 	 *            object property to create the inverse
 	 * @return an inverse object property
@@ -125,7 +127,7 @@ public interface IntegerDataTypeFactory {
 
 	/**
 	 * Creates a nominal expression.
-	 * 
+	 *
 	 * @param individualId
 	 *            individual identifier
 	 * @return a nominal expression
@@ -134,7 +136,7 @@ public interface IntegerDataTypeFactory {
 
 	/**
 	 * Creates an object property.
-	 * 
+	 *
 	 * @param objectPropertyId
 	 *            object property identifier
 	 * @return an object property
@@ -143,7 +145,7 @@ public interface IntegerDataTypeFactory {
 
 	/**
 	 * Creates an existential restriction.
-	 * 
+	 *
 	 * @param propertyExpression
 	 *            property expression
 	 * @param classExpression
@@ -156,42 +158,42 @@ public interface IntegerDataTypeFactory {
 
 	/**
 	 * Returns the bottom class.
-	 * 
+	 *
 	 * @return the bottom class
 	 */
 	IntegerClass getBottomClass();
 
 	/**
 	 * Returns the bottom data property.
-	 * 
+	 *
 	 * @return the bottom data property
 	 */
 	IntegerDataProperty getBottomDataProperty();
 
 	/**
 	 * Returns the bottom object property.
-	 * 
+	 *
 	 * @return the bottom object property
 	 */
 	IntegerObjectProperty getBottomObjectProperty();
 
 	/**
 	 * Returns the top class.
-	 * 
+	 *
 	 * @return the top class
 	 */
 	IntegerClass getTopClass();
 
 	/**
 	 * Returns the top data property.
-	 * 
+	 *
 	 * @return the top data property
 	 */
 	IntegerDataProperty getTopDataProperty();
 
 	/**
 	 * Returns the top object property.
-	 * 
+	 *
 	 * @return the top object property
 	 */
 	IntegerObjectProperty getTopObjectProperty();
