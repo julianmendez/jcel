@@ -103,7 +103,6 @@
 		<groupId>de.tudresden.inf.lat.jcel</groupId>
 		<artifactId>jcel-parent</artifactId>
 		<version>0.21.0-SNAPSHOT</version>
-		<relativePath>..</relativePath>
 	</parent>
 
 	<properties>
