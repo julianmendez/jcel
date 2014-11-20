@@ -56,16 +56,16 @@
 	<version>0.21.0-SNAPSHOT</version>
 
 	<modules>
-		<module>../jcel-coreontology</module>
-		<module>../jcel-core</module>
-		<module>../jcel-ontology</module>
-		<module>../jcel-reasoner</module>
-		<module>../jcel-owlapi</module>
-		<module>../jcel-protege</module>
-		<module>library</module>
-		<module>plugin</module>
-		<module>standalone</module>
-		<module>release</module>
+		<module>jcel-coreontology</module>
+		<module>jcel-core</module>
+		<module>jcel-ontology</module>
+		<module>jcel-reasoner</module>
+		<module>jcel-owlapi</module>
+		<module>jcel-protege</module>
+		<module>jcel-build/library</module>
+		<module>jcel-build/plugin</module>
+		<module>jcel-build/standalone</module>
+		<module>jcel-build/release</module>
 	</modules>
 
 	<properties>
