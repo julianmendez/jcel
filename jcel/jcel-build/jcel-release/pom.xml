@@ -48,20 +48,11 @@
  *
 -->
 
+
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>standalone</artifactId>
-	<packaging>bundle</packaging>
-
-	<dependencies>
-
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>jcel-protege</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-	
-	</dependencies>
+	<artifactId>jcel-release</artifactId>
+	<packaging>pom</packaging>
 
 	<parent>
 		<groupId>de.tudresden.inf.lat.jcel</groupId>
@@ -75,66 +66,57 @@
 	</properties>
 
 	<build>
-
-		<finalName>jcel</finalName>
-
 		<plugins>
 
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>properties-maven-plugin</artifactId>
-				<version>1.0-alpha-2</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.3</version>
 				<executions>
 					<execution>
-						<phase>initialize</phase>
+						<id>create-release</id>
+						<phase>package</phase>
 						<goals>
-							<goal>read-project-properties</goal>
+							<goal>single</goal>
 						</goals>
 						<configuration>
-							<files>
-								<file>build.properties</file>
-							</files>
+							<finalName>jcel-${project.version}</finalName>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptors>
+								<descriptor>${basedir}/src/assembly/release.xml</descriptor>
+							</descriptors>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 
 			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.3.4</version>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<Bundle-SymbolicName>de.tudresden.inf.lat.jcel;singleton:=true</Bundle-SymbolicName>
-						<Bundle-Name>jcel</Bundle-Name>
-						<Bundle-Version>${project.version}</Bundle-Version>
-						<Bundle-Activator>org.protege.editor.core.plugin.DefaultPluginActivator</Bundle-Activator>
-						<Bundle-Category>protege</Bundle-Category>
-						<Bundle-Description>jcel standalone</Bundle-Description>
-						<Bundle-Vendor>Chair of Automata Theory - TU Dresden</Bundle-Vendor>
-						<Bundle-DocURL>http://lat.inf.tu-dresden.de</Bundle-DocURL>
-						<Bundle-ClassPath>${bundle.classpath}</Bundle-ClassPath>
-						<Import-Package>javax.accessibility, javax.swing, javax.swing.border, org.osgi.framework, org.protege.editor.core.ui.workspace, *</Import-Package>
-						<Main-Class>${mainclass}</Main-Class>
-						<Include-Resource>
-							{maven-resources}, {maven-dependencies},
-							@jcel-coreontology-${project.version}.jar,
-							@jcel-core-${project.version}.jar,
-							@jcel-ontology-${project.version}.jar,
-							@jcel-reasoner-${project.version}.jar,
-							@jcel-owlapi-${project.version}.jar,
-							@jcel-protege-${project.version}.jar,
-							@owlapi-distribution-3.5.0.jar
-						</Include-Resource>
-					</instructions>
-				</configuration>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/../target</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/target</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 
 		</plugins>
 	</build>
 
-	<name>jcel standalone</name>
+	<name>jcel release</name>
 
 </project>
 

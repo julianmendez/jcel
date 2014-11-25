@@ -62,10 +62,10 @@
 		<module>jcel-reasoner</module>
 		<module>jcel-owlapi</module>
 		<module>jcel-protege</module>
-		<module>jcel-build/library</module>
-		<module>jcel-build/plugin</module>
-		<module>jcel-build/standalone</module>
-		<module>jcel-build/release</module>
+		<module>jcel-build/jcel-library</module>
+		<module>jcel-build/jcel-plugin</module>
+		<module>jcel-build/jcel-standalone</module>
+		<module>jcel-build/jcel-release</module>
 	</modules>
 
 	<properties>

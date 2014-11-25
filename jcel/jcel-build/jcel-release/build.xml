@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="jcel-build-standalone" default="dist" basedir=".">
+<project name="jcel-release" default="dist" basedir=".">
 
 	<!--
  *
@@ -56,29 +56,17 @@
 	<xmlproperty file="pom.xml" />
 	<xmlproperty file="../../pom.xml" />
 
-	<!-- Imports 'mainclass', 'bundlejars', and	'bundlelicenses' properties. -->
-	<property file="build.properties" />
-
 	<!-- Project-specific properties. -->
 	<fail unless="project.groupId">Error: 'project.groupId' is undefined. This property should have the group identifier.</fail>
 	<fail unless="project.artifactId">Error: 'project.artifactId' is undefined. This property should have the artifact identifier.</fail>
 	<fail unless="project.version">Error: 'project.version' is undefined. This property should have the version number in the form major.minor.patch.</fail>
-	<fail unless="mainclass">Error: 'mainclass' is undefined.</fail>
-	<fail unless="bundlejars">Error: 'bundlejars' is undefined.</fail>
-	<fail unless="bundlelicenses">Error: 'bundlelicenses' is undefined.</fail>
 
 	<property name="src.directory" value="src" />
 
-	<property name="_root.directory" value="../.." />
-	<property name="_lib.directory" value="${project.build.directory}/lib" />
-	<property name="_targetlib.directory" value="target" />
-	<property name="_targetclasses.directory" value="${_targetlib.directory}/classes" />
-	<property name="groupId.directory" value="jcel" />
-	<property name="repository.directory" value="../target/jars/lib" />
-	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
-	<property name="_bundle.directory" value="${project.build.directory}" />
-	<property name="_bundlejars.directory" value="${project.build.directory}" />
-	<property name="_bundle.name" value="jcel" />
+	<property name="_root.directory" value="../../" />
+
+	<property name="_release.name" value="jcel-${project.version}" />
+	<property name="_release.directory" value="${project.build.directory}/release/${_release.name}" />
 
 	<property name="module.0.name" value="jcel-coreontology" />
 	<property name="module.1.name" value="jcel-core" />
@@ -86,86 +74,69 @@
 	<property name="module.3.name" value="jcel-reasoner" />
 	<property name="module.4.name" value="jcel-owlapi" />
 	<property name="module.5.name" value="jcel-protege" />
+	<property name="build.0.name" value="library" />
+	<property name="build.0.filename" value="jcel-${project.version}" />
+	<property name="build.1.name" value="plugin" />
+	<property name="build.1.filename" value="de.tudresden.inf.lat.jcel" />
+	<property name="build.2.name" value="standalone" />
+	<property name="build.2.filename" value="jcel" />
+
 
 	<!-- Cleans everything. -->
 	<target name="clean">
 		<delete dir="${project.build.directory}" />
 	</target>
 
-	<!-- Copies the compiled classes and the created jars. -->
-	<target name="getjar">
-		<mkdir dir="${_lib.directory}/${groupId.directory}/${module.name}/${project.version}" />
-		<copy todir="${project.build.outputDirectory}">
-			<fileset dir="${_root.directory}/${module.name}/${_targetclasses.directory}" />
-		</copy>
-
-		<mkdir dir="${_lib.directory}/${groupId.directory}/${module.name}/${project.version}" />
-		<copy todir="${_lib.directory}/${groupId.directory}/${module.name}/${project.version}">
-			<fileset dir="${_root.directory}/${module.name}/${_targetlib.directory}">
-				<include name="${module.name}-${project.version}.jar" />
-				<include name="${module.name}-${project.version}-sources.jar" />
-			</fileset>
-			<fileset dir="${_root.directory}/${module.name}">
-				<include name="copying.txt" />
-				<include name="copying-lesser.txt" />
-				<include name="license-2.0.txt" />
-			</fileset>
+	<!-- Prepares the jars for the release. -->
+	<target name="preparejars">
+		<copy todir="${_release.directory}/modules">
+			<fileset dir="${_root.directory}/${module.name}/target" includes="${module.name}-${project.version}.jar" />
+			<fileset dir="${_root.directory}/${module.name}/target" includes="${module.name}-${project.version}-sources.jar" />
+			<fileset dir="${_root.directory}/${module.name}/target" includes="${module.name}-${project.version}-javadoc.jar" />
 		</copy>
 	</target>
 
-	<!-- Compiles all modules and gets their jars. -->
-	<target name="getjars">
-		<antcall target="getjar">
+	<!-- Creates the release. -->
+	<target name="release">
+		<antcall target="preparejars">
 			<param name="module.name" value="${module.0.name}" />
 		</antcall>
-		<antcall target="getjar">
+		<antcall target="preparejars">
 			<param name="module.name" value="${module.1.name}" />
 		</antcall>
-		<antcall target="getjar">
+		<antcall target="preparejars">
 			<param name="module.name" value="${module.2.name}" />
 		</antcall>
-		<antcall target="getjar">
+		<antcall target="preparejars">
 			<param name="module.name" value="${module.3.name}" />
 		</antcall>
-		<antcall target="getjar">
+		<antcall target="preparejars">
 			<param name="module.name" value="${module.4.name}" />
 		</antcall>
-		<antcall target="getjar">
+		<antcall target="preparejars">
 			<param name="module.name" value="${module.5.name}" />
 		</antcall>
-	</target>
 
-	<!-- Prepares the local repository. -->
-	<target name="getrepository">
-		<mkdir dir="${_lib.directory}" />
-		<copy todir="${_lib.directory}">
-			<fileset dir="${repository.directory}" />
+		<copy todir="${_release.directory}/${build.0.name}">
+			<fileset dir="../${build.0.name}/target" includes="${build.0.filename}.jar" />
+			<fileset dir="../${build.0.name}/target" includes="${build.0.filename}-sources.jar" />
+			<fileset dir="../${build.0.name}/target" includes="${build.0.filename}-javadoc.jar" />
 		</copy>
+
+		<copy todir="${_release.directory}/${build.1.name}">
+			<fileset dir="../${build.1.name}/target" includes="${build.1.filename}.jar" />
+		</copy>
+
+		<copy todir="${_release.directory}/${build.2.name}">
+			<fileset dir="../${build.2.name}/target" includes="${build.2.filename}.jar" />
+		</copy>
+
+		<zip destfile="${project.build.directory}/${_release.name}.zip">
+			<fileset dir="${_release.directory}/.." includes="${_release.name}/**" />
+		</zip>
 	</target>
 
-	<!-- Decompresses the external jars. -->
-	<target name="unjar">
-		<mkdir dir="${_targetclasses.directory}" />
-		<unjar dest="${_targetclasses.directory}">
-			<fileset dir="${_bundlejars.directory}" includes="${bundlejars}" />
-		</unjar>
-	</target>
-
-	<!-- Creates the bundle. -->
-	<target name="bundle">
-		<mkdir dir="${_bundle.directory}" />
-		<jar destfile="${_bundle.directory}/${_bundle.name}.jar">
-			<fileset dir="${project.build.outputDirectory}" />
-			<fileset dir="${_bundlejars.directory}" includes="${bundlelicenses}" />
-			<manifest>
-				<attribute name="Implementation-Title" value="${project.groupId}" />
-				<attribute name="Implementation-Version" value="${project.version}" />
-				<attribute name="Main-Class" value="${mainclass}" />
-			</manifest>
-		</jar>
-	</target>
-
-	<target name="dist" depends="clean, getjars, getrepository, unjar, bundle" />
+	<target name="dist" depends="release" />
 
 </project>
 

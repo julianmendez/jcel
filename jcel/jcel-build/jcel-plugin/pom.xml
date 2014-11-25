@@ -48,9 +48,10 @@
  *
 -->
 
+
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>library</artifactId>
+	<artifactId>jcel-plugin</artifactId>
 	<packaging>bundle</packaging>
 
 	<dependencies>
@@ -76,49 +77,9 @@
 
 	<build>
 
-		<finalName>jcel-${project.version}</finalName>
+		<finalName>de.tudresden.inf.lat.jcel</finalName>
 
 		<plugins>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.3</version>
-				<executions>
-
-					<execution>
-						<id>create-library-sources</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<finalName>jcel-${project.version}</finalName>
-							<formats>
-								<format>jar</format>
-							</formats>
-							<descriptors>
-								<descriptor>${basedir}/src/assembly/sources.xml</descriptor>
-							</descriptors>
-						</configuration>
-					</execution>
-
-					<execution>
-						<id>create-library-javadoc</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<finalName>jcel-${project.version}</finalName>
-							<descriptors>
-								<descriptor>${basedir}/src/assembly/javadoc.xml</descriptor>
-							</descriptors>
-						</configuration>
-					</execution>
-
-				</executions>
-			</plugin>
 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -151,20 +112,29 @@
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Bundle-Activator>org.protege.editor.core.plugin.DefaultPluginActivator</Bundle-Activator>
 						<Bundle-Category>protege</Bundle-Category>
-						<Bundle-Description>jcel library</Bundle-Description>
+						<Bundle-Description>jcel plugin for Protege</Bundle-Description>
 						<Bundle-Vendor>Chair of Automata Theory - TU Dresden</Bundle-Vendor>
 						<Bundle-DocURL>http://lat.inf.tu-dresden.de</Bundle-DocURL>
 						<Bundle-ClassPath>${bundle.classpath}</Bundle-ClassPath>
 						<Import-Package>javax.accessibility, javax.swing, javax.swing.border, org.osgi.framework, org.protege.editor.core.ui.workspace, *</Import-Package>
-						<Main-Class>${mainclass}</Main-Class>
 						<Include-Resource>
-							{maven-resources}, {maven-dependencies},
-							@jcel-coreontology-${project.version}.jar,
-							@jcel-core-${project.version}.jar,
-							@jcel-ontology-${project.version}.jar,
-							@jcel-reasoner-${project.version}.jar,
-							@jcel-owlapi-${project.version}.jar,
-							@jcel-protege-${project.version}.jar
+	{maven-resources}, {maven-dependencies},
+	@jcel-protege-${project.version}.jar,
+	lib/jcel/jcel-coreontology/${project.version}/jcel-coreontology-${project.version}.jar=jcel-coreontology-${project.version}.jar,
+	lib/jcel/jcel-coreontology/${project.version}/copying.txt=../../jcel-coreontology/copying.txt,
+	lib/jcel/jcel-coreontology/${project.version}/copying-lesser.txt=../../jcel-coreontology/copying-lesser.txt,
+	lib/jcel/jcel-core/${project.version}/jcel-core-${project.version}.jar=jcel-core-${project.version}.jar,
+	lib/jcel/jcel-core/${project.version}/copying.txt=../../jcel-core/copying.txt,
+	lib/jcel/jcel-core/${project.version}/copying-lesser.txt=../../jcel-core/copying-lesser.txt,
+	lib/jcel/jcel-ontology/${project.version}/jcel-ontology-${project.version}.jar=jcel-ontology-${project.version}.jar,
+	lib/jcel/jcel-ontology/${project.version}/copying.txt=../../jcel-ontology/copying.txt,
+	lib/jcel/jcel-ontology/${project.version}/copying-lesser.txt=../../jcel-ontology/copying-lesser.txt,
+	lib/jcel/jcel-reasoner/${project.version}/jcel-reasoner-${project.version}.jar=jcel-reasoner-${project.version}.jar,
+	lib/jcel/jcel-reasoner/${project.version}/copying.txt=../../jcel-reasoner/copying.txt,
+	lib/jcel/jcel-reasoner/${project.version}/copying-lesser.txt=../../jcel-reasoner/copying-lesser.txt,
+	lib/jcel/jcel-owlapi/${project.version}/jcel-owlapi-${project.version}.jar=jcel-owlapi-${project.version}.jar,
+	lib/jcel/jcel-owlapi/${project.version}/copying.txt=../../jcel-owlapi/copying.txt,
+	lib/jcel/jcel-owlapi/${project.version}/copying-lesser.txt=../../jcel-owlapi/copying-lesser.txt
 						</Include-Resource>
 					</instructions>
 				</configuration>
@@ -173,7 +143,7 @@
 		</plugins>
 	</build>
 
-	<name>jcel library</name>
+	<name>jcel plugin</name>
 
 </project>
 
