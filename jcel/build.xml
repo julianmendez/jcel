@@ -49,7 +49,7 @@
 
 	<!-- For more information about this file, see http://ant.apache.org -->
 
-	<property name="mainbuild.directory" value="jcel-build" />
+	<property name="mainbuild.directory" value="${basedir}/jcel-build" />
 
 	<!-- Cleans compiled files. -->
 	<target name="clean">
