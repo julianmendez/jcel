@@ -57,6 +57,10 @@
 	</target>
 
 	<!-- Compiles all modules. -->
+	<target name="package" depends="dist" />
+
+	<target name="install" depends="dist" />
+
 	<target name="dist">
 		<subant buildpath="${mainbuild.directory}" target="dist" />
 	</target>
