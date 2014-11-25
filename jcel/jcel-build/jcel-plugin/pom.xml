@@ -121,20 +121,13 @@
 	{maven-resources}, {maven-dependencies},
 	@jcel-protege-${project.version}.jar,
 	lib/jcel/jcel-coreontology/${project.version}/jcel-coreontology-${project.version}.jar=jcel-coreontology-${project.version}.jar,
-	lib/jcel/jcel-coreontology/${project.version}/copying.txt=../../jcel-coreontology/copying.txt,
-	lib/jcel/jcel-coreontology/${project.version}/copying-lesser.txt=../../jcel-coreontology/copying-lesser.txt,
+	lib/jcel/copying.txt=../../jcel-build/copying.txt,
+	lib/jcel/copying-lesser.txt=../../jcel-build/copying-lesser.txt,
+	lib/jcel/license-2.0.txt=../../jcel-build/license-2.0.txt,
 	lib/jcel/jcel-core/${project.version}/jcel-core-${project.version}.jar=jcel-core-${project.version}.jar,
-	lib/jcel/jcel-core/${project.version}/copying.txt=../../jcel-core/copying.txt,
-	lib/jcel/jcel-core/${project.version}/copying-lesser.txt=../../jcel-core/copying-lesser.txt,
 	lib/jcel/jcel-ontology/${project.version}/jcel-ontology-${project.version}.jar=jcel-ontology-${project.version}.jar,
-	lib/jcel/jcel-ontology/${project.version}/copying.txt=../../jcel-ontology/copying.txt,
-	lib/jcel/jcel-ontology/${project.version}/copying-lesser.txt=../../jcel-ontology/copying-lesser.txt,
 	lib/jcel/jcel-reasoner/${project.version}/jcel-reasoner-${project.version}.jar=jcel-reasoner-${project.version}.jar,
-	lib/jcel/jcel-reasoner/${project.version}/copying.txt=../../jcel-reasoner/copying.txt,
-	lib/jcel/jcel-reasoner/${project.version}/copying-lesser.txt=../../jcel-reasoner/copying-lesser.txt,
-	lib/jcel/jcel-owlapi/${project.version}/jcel-owlapi-${project.version}.jar=jcel-owlapi-${project.version}.jar,
-	lib/jcel/jcel-owlapi/${project.version}/copying.txt=../../jcel-owlapi/copying.txt,
-	lib/jcel/jcel-owlapi/${project.version}/copying-lesser.txt=../../jcel-owlapi/copying-lesser.txt
+	lib/jcel/jcel-owlapi/${project.version}/jcel-owlapi-${project.version}.jar=jcel-owlapi-${project.version}.jar
 						</Include-Resource>
 					</instructions>
 				</configuration>
