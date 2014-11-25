@@ -54,7 +54,7 @@
 
 	<!-- Imports 'project.groupId', 'project.artifactId', and 'project.version' properties. -->
 	<xmlproperty file="pom.xml" />
-	<xmlproperty file="${parent.directory}/pom.xml" />
+	<xmlproperty file="../../pom.xml" />
 
 	<!-- Imports 'mainclass', and 'bundlelicenses' properties. -->
 	<property file="build.properties" />

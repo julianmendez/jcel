@@ -54,7 +54,7 @@
 
 	<!-- Imports 'project.groupId', 'project.artifactId', and 'project.version' properties. -->
 	<xmlproperty file="pom.xml" />
-	<xmlproperty file="${parent.directory}/pom.xml" />
+	<xmlproperty file="../pom.xml" />
 
 	<!-- Project-specific properties. -->
 	<fail unless="project.groupId">Error: 'project.groupId' is undefined. This property is the group identifier.</fail>
