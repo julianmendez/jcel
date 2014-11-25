@@ -74,11 +74,11 @@
 	<property name="module.3.name" value="jcel-reasoner" />
 	<property name="module.4.name" value="jcel-owlapi" />
 	<property name="module.5.name" value="jcel-protege" />
-	<property name="build.0.name" value="library" />
+	<property name="build.0.name" value="jcel-library" />
 	<property name="build.0.filename" value="jcel-${project.version}" />
-	<property name="build.1.name" value="plugin" />
+	<property name="build.1.name" value="jcel-plugin" />
 	<property name="build.1.filename" value="de.tudresden.inf.lat.jcel" />
-	<property name="build.2.name" value="standalone" />
+	<property name="build.2.name" value="jcel-standalone" />
 	<property name="build.2.filename" value="jcel" />
 
 

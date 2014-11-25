@@ -57,9 +57,6 @@
 
 	<property name="_root.directory" value=".." />
 
-	<property name="_release.name" value="jcel-${project.version}" />
-	<property name="_release.directory" value="release/target" />
-
 	<property name="module.0.name" value="jcel-coreontology" />
 	<property name="module.1.name" value="jcel-core" />
 	<property name="module.2.name" value="jcel-ontology" />
@@ -70,6 +67,9 @@
 	<property name="build.1.name" value="jcel-plugin" />
 	<property name="build.2.name" value="jcel-standalone" />
 	<property name="build.3.name" value="jcel-release" />
+
+	<property name="_release.name" value="jcel-${project.version}" />
+	<property name="_release.directory" value="${build.3.name}/target" />
 
 
 	<!-- Calls subprojects. -->
