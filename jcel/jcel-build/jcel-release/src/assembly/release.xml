@@ -18,27 +18,27 @@
 	<files>
 
 		<file>
-			<source>${basedir}/../library/target/jcel-${project.version}.jar</source>
+			<source>${basedir}/../jcel-library/target/jcel-${project.version}.jar</source>
 			<outputDirectory>library</outputDirectory>
 		</file>
 
 		<file>
-			<source>${basedir}/../library/target/jcel-${project.version}-sources.jar</source>
+			<source>${basedir}/../jcel-library/target/jcel-${project.version}-sources.jar</source>
 			<outputDirectory>library</outputDirectory>
 		</file>
 
 		<file>
-			<source>${basedir}/../library/target/jcel-${project.version}-javadoc.jar</source>
+			<source>${basedir}/../jcel-library/target/jcel-${project.version}-javadoc.jar</source>
 			<outputDirectory>library</outputDirectory>
 		</file>
 
 		<file>
-			<source>${basedir}/../plugin/target/de.tudresden.inf.lat.jcel.jar</source>
+			<source>${basedir}/../jcel-plugin/target/de.tudresden.inf.lat.jcel.jar</source>
 			<outputDirectory>plugin</outputDirectory>
 		</file>
 
 		<file>
-			<source>${basedir}/../standalone/target/jcel.jar</source>
+			<source>${basedir}/../jcel-standalone/target/jcel.jar</source>
 			<outputDirectory>standalone</outputDirectory>
 		</file>
 
