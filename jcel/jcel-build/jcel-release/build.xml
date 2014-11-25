@@ -65,9 +65,6 @@
 
 	<property name="_root.directory" value="../../" />
 
-	<property name="_release.name" value="jcel-${project.version}" />
-	<property name="_release.directory" value="${project.build.directory}/release/${_release.name}" />
-
 	<property name="module.0.name" value="jcel-coreontology" />
 	<property name="module.1.name" value="jcel-core" />
 	<property name="module.2.name" value="jcel-ontology" />
@@ -75,11 +72,17 @@
 	<property name="module.4.name" value="jcel-owlapi" />
 	<property name="module.5.name" value="jcel-protege" />
 	<property name="build.0.name" value="jcel-library" />
+	<property name="build.0.output.name" value="library" />
 	<property name="build.0.filename" value="jcel-${project.version}" />
 	<property name="build.1.name" value="jcel-plugin" />
+	<property name="build.1.output.name" value="plugin" />
 	<property name="build.1.filename" value="de.tudresden.inf.lat.jcel" />
 	<property name="build.2.name" value="jcel-standalone" />
+	<property name="build.2.output.name" value="standalone" />
 	<property name="build.2.filename" value="jcel" />
+
+	<property name="_release.name" value="jcel-${project.version}" />
+	<property name="_release.directory" value="${project.build.directory}/release/${_release.name}" />
 
 
 	<!-- Cleans everything. -->
@@ -117,17 +120,17 @@
 			<param name="module.name" value="${module.5.name}" />
 		</antcall>
 
-		<copy todir="${_release.directory}/${build.0.name}">
+		<copy todir="${_release.directory}/${build.0.output.name}">
 			<fileset dir="../${build.0.name}/target" includes="${build.0.filename}.jar" />
 			<fileset dir="../${build.0.name}/target" includes="${build.0.filename}-sources.jar" />
 			<fileset dir="../${build.0.name}/target" includes="${build.0.filename}-javadoc.jar" />
 		</copy>
 
-		<copy todir="${_release.directory}/${build.1.name}">
+		<copy todir="${_release.directory}/${build.1.output.name}">
 			<fileset dir="../${build.1.name}/target" includes="${build.1.filename}.jar" />
 		</copy>
 
-		<copy todir="${_release.directory}/${build.2.name}">
+		<copy todir="${_release.directory}/${build.2.output.name}">
 			<fileset dir="../${build.2.name}/target" includes="${build.2.filename}.jar" />
 		</copy>
 
