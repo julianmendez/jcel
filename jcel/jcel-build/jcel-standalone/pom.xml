@@ -73,8 +73,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<mainClass>de.tudresden.inf.lat.jcel.owlapi.console.ConsoleStarter</mainClass>
-		<options>--version</options>
+		<mainClass>${project.groupId}.owlapi.console.ConsoleStarter</mainClass>
 	</properties>
 
 	<build>
@@ -140,12 +139,7 @@
 				<version>1.2.1</version>
 				<configuration>
 					<executable>java</executable>
-					<arguments>
-						<argument>-classpath</argument>
-						<classpath />
-						<argument>${mainClass}</argument>
-						<argument>${options}</argument>
-					</arguments>
+					<mainClass>${mainClass}</mainClass>
 				</configuration>
 			</plugin>
 
