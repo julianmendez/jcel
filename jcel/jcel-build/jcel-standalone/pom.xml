@@ -72,6 +72,9 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<mainClass>de.tudresden.inf.lat.jcel.owlapi.console.ConsoleStarter</mainClass>
+		<options>--version</options>
 	</properties>
 
 	<build>
@@ -128,6 +131,21 @@
 							@owlapi-distribution-3.5.0.jar
 						</Include-Resource>
 					</instructions>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<configuration>
+					<executable>java</executable>
+					<arguments>
+						<argument>-classpath</argument>
+						<classpath />
+						<argument>${mainClass}</argument>
+						<argument>${options}</argument>
+					</arguments>
 				</configuration>
 			</plugin>
 

@@ -56,7 +56,7 @@
 	<xmlproperty file="pom.xml" />
 	<xmlproperty file="../../pom.xml" />
 
-	<!-- Imports 'mainclass', 'bundlejars', and	'bundlelicenses' properties. -->
+	<!-- Imports 'mainclass', 'bundlejars', and 'bundlelicenses' properties. -->
 	<property file="build.properties" />
 
 	<!-- Project-specific properties. -->
