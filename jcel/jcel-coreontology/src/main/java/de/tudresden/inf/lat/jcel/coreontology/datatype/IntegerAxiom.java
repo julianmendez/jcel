@@ -46,7 +46,7 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.datatype;
 
-import java.util.List;
+import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 
@@ -63,6 +63,6 @@ public interface IntegerAxiom extends IntegerDatatype {
 	 * 
 	 * @return the annotations of this axiom
 	 */
-	List<Annotation> getAnnotations();
+	Set<Annotation> getAnnotations();
 
 }

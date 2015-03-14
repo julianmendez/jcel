@@ -47,7 +47,6 @@
 package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
@@ -60,7 +59,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 public class IntegerClassDeclarationAxiom implements IntegerDeclarationAxiom {
 
 	private final int entity;
-	private final List<Annotation> annotations;
+	private final Set<Annotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -72,7 +71,7 @@ public class IntegerClassDeclarationAxiom implements IntegerDeclarationAxiom {
 	 *            annotations
 	 */
 	IntegerClassDeclarationAxiom(int declaredEntity,
-			List<Annotation> annotations) {
+			Set<Annotation> annotations) {
 		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -133,8 +132,8 @@ public class IntegerClassDeclarationAxiom implements IntegerDeclarationAxiom {
 	}
 
 	@Override
-	public List<Annotation> getAnnotations() {
-		return Collections.unmodifiableList(this.annotations);
+	public Set<Annotation> getAnnotations() {
+		return Collections.unmodifiableSet(this.annotations);
 	}
 
 	@Override

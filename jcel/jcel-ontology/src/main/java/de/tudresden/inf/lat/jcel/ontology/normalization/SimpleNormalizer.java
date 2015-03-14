@@ -176,7 +176,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		List<Annotation> annotations = Collections.emptyList();
+		Set<Annotation> annotations = Collections.emptySet();
 		Set<NormalizedIntegerAxiom> ret = new HashSet<NormalizedIntegerAxiom>();
 		{
 			Integer inverseSecondProperty = getIdGenerator()

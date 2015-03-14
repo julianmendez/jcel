@@ -48,7 +48,6 @@ package de.tudresden.inf.lat.jcel.ontology.normalization;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
@@ -125,7 +124,7 @@ class NormalizerNR2_2 implements NormalizationRule {
 	}
 
 	private Set<IntegerAxiom> applyRule(Set<IntegerClassExpression> operands,
-			IntegerClassExpression superClass, List<Annotation> annotations) {
+			IntegerClassExpression superClass, Set<Annotation> annotations) {
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
 		Set<IntegerClassExpression> newOperands = new HashSet<IntegerClassExpression>();
 		boolean applied = false;

@@ -46,11 +46,10 @@
 
 package de.tudresden.inf.lat.jcel.core.saturation;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
@@ -136,7 +135,7 @@ public class SR1AndSR2Rules implements SaturationRule {
 		for (RI2Axiom axiom0 : axiomSet) {
 			for (RI2Axiom axiom1 : axiomSet) {
 				if (axiom0.getSuperProperty() == axiom1.getSubProperty()) {
-					List<Annotation> annotations = new ArrayList<Annotation>();
+					Set<Annotation> annotations = new TreeSet<Annotation>();
 					annotations.addAll(axiom0.getAnnotations());
 					annotations.addAll(axiom1.getAnnotations());
 					ret.add(this.factory.createRI2Axiom(

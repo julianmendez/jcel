@@ -46,9 +46,7 @@
 
 package de.tudresden.inf.lat.jcel.reasoner.main;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -110,7 +108,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology0() {
-		List<Annotation> annotations = new ArrayList<Annotation>();
+		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
@@ -152,7 +150,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology1() {
-		List<Annotation> annotations = new ArrayList<Annotation>();
+		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
@@ -200,7 +198,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology2() {
-		List<Annotation> annotations = new ArrayList<Annotation>();
+		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
@@ -239,7 +237,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology3() {
-		List<Annotation> annotations = new ArrayList<Annotation>();
+		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
@@ -285,7 +283,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology4() {
-		List<Annotation> annotations = new ArrayList<Annotation>();
+		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
@@ -332,7 +330,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology5() {
-		List<Annotation> annotations = new ArrayList<Annotation>();
+		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();

@@ -46,10 +46,9 @@
 
 package de.tudresden.inf.lat.jcel.ontology.normalization;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import junit.framework.TestCase;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
@@ -91,7 +90,7 @@ public class OntologyNormalizerTest extends TestCase {
 	}
 
 	public void testGCI3InverseObjectProperties() {
-		List<Annotation> annotations = new ArrayList<Annotation>();
+		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		IntegerClass a = createNewClass(factory, "A");
@@ -120,7 +119,7 @@ public class OntologyNormalizerTest extends TestCase {
 	}
 
 	public void testGCI3ObjectInverseOf() {
-		List<Annotation> annotations = new ArrayList<Annotation>();
+		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		IntegerClass a = createNewClass(factory, "A");

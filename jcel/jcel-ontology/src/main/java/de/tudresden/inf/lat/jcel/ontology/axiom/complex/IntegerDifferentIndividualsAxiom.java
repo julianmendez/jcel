@@ -47,7 +47,6 @@
 package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
@@ -61,7 +60,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 
 	private final Set<Integer> individuals;
-	private final List<Annotation> annotations;
+	private final Set<Annotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -73,7 +72,7 @@ public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 	 *            annotations
 	 */
 	IntegerDifferentIndividualsAxiom(Set<Integer> individualSet,
-			List<Annotation> annotations) {
+			Set<Annotation> annotations) {
 		if (individualSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -142,8 +141,8 @@ public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public List<Annotation> getAnnotations() {
-		return Collections.unmodifiableList(this.annotations);
+	public Set<Annotation> getAnnotations() {
+		return Collections.unmodifiableSet(this.annotations);
 	}
 
 	@Override

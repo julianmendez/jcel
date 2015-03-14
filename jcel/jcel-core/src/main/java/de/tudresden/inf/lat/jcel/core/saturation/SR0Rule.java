@@ -48,7 +48,6 @@ package de.tudresden.inf.lat.jcel.core.saturation;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
@@ -92,7 +91,7 @@ public class SR0Rule implements SaturationRule {
 			objectPropertySet.addAll(axiom.getObjectPropertiesInSignature());
 		}
 
-		List<Annotation> annotations = Collections.emptyList();
+		Set<Annotation> annotations = Collections.emptySet();
 		for (Integer objectProperty : objectPropertySet) {
 			ret.add(this.factory.createRI2Axiom(objectProperty, objectProperty,
 					annotations));

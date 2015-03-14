@@ -47,7 +47,6 @@
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -61,7 +60,7 @@ import java.util.Set;
 public class RI1Axiom implements NormalizedIntegerAxiom {
 
 	private final int superProperty;
-	private final List<Annotation> annotations;
+	private final Set<Annotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -72,7 +71,7 @@ public class RI1Axiom implements NormalizedIntegerAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	RI1Axiom(int propertyId, List<Annotation> annotations) {
+	RI1Axiom(int propertyId, Set<Annotation> annotations) {
 		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -137,8 +136,8 @@ public class RI1Axiom implements NormalizedIntegerAxiom {
 	}
 
 	@Override
-	public List<Annotation> getAnnotations() {
-		return Collections.unmodifiableList(this.annotations);
+	public Set<Annotation> getAnnotations() {
+		return Collections.unmodifiableSet(this.annotations);
 	}
 
 	@Override

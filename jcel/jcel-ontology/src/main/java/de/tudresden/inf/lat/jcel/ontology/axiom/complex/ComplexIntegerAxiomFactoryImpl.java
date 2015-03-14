@@ -70,68 +70,68 @@ public class ComplexIntegerAxiomFactoryImpl implements
 	@Override
 	public IntegerClassAssertionAxiom createClassAssertionAxiom(
 			IntegerClassExpression classExpr, int individualId,
-			List<Annotation> annotations) {
+			Set<Annotation> annotations) {
 		return new IntegerClassAssertionAxiom(classExpr, individualId,
 				annotations);
 	}
 
 	@Override
 	public IntegerClassDeclarationAxiom createClassDeclarationAxiom(
-			int declaredEntity, List<Annotation> annotations) {
+			int declaredEntity, Set<Annotation> annotations) {
 		return new IntegerClassDeclarationAxiom(declaredEntity, annotations);
 	}
 
 	@Override
 	public IntegerDataPropertyAssertionAxiom createDataPropertyAssertionAxiom(
 			int objectProp, int subjectInd, int objectInd,
-			List<Annotation> annotations) {
+			Set<Annotation> annotations) {
 		return new IntegerDataPropertyAssertionAxiom(objectProp, subjectInd,
 				objectInd, annotations);
 	}
 
 	@Override
 	public IntegerDataPropertyDeclarationAxiom createDataPropertyDeclarationAxiom(
-			int declaredEntity, List<Annotation> annotations) {
+			int declaredEntity, Set<Annotation> annotations) {
 		return new IntegerDataPropertyDeclarationAxiom(declaredEntity,
 				annotations);
 	}
 
 	@Override
 	public IntegerDifferentIndividualsAxiom createDifferentIndividualsAxiom(
-			Set<Integer> individualSet, List<Annotation> annotations) {
+			Set<Integer> individualSet, Set<Annotation> annotations) {
 		return new IntegerDifferentIndividualsAxiom(individualSet, annotations);
 	}
 
 	@Override
 	public IntegerDisjointClassesAxiom createDisjointClassesAxiom(
-			Set<IntegerClassExpression> descSet, List<Annotation> annotations) {
+			Set<IntegerClassExpression> descSet, Set<Annotation> annotations) {
 		return new IntegerDisjointClassesAxiom(descSet, annotations);
 	}
 
 	@Override
 	public IntegerEquivalentClassesAxiom createEquivalentClassesAxiom(
-			Set<IntegerClassExpression> descSet, List<Annotation> annotations) {
+			Set<IntegerClassExpression> descSet, Set<Annotation> annotations) {
 		return new IntegerEquivalentClassesAxiom(descSet, annotations);
 	}
 
 	@Override
 	public IntegerEquivalentObjectPropertiesAxiom createEquivalentObjectPropertiesAxiom(
 			Set<IntegerObjectPropertyExpression> propSet,
-			List<Annotation> annotations) {
+			Set<Annotation> annotations) {
 		return new IntegerEquivalentObjectPropertiesAxiom(propSet, annotations);
 	}
 
 	@Override
 	public IntegerFunctionalObjectPropertyAxiom createFunctionalObjectPropertyAxiom(
 			IntegerObjectPropertyExpression property,
-			List<Annotation> annotations) {
+			Set<Annotation> annotations) {
 		return new IntegerFunctionalObjectPropertyAxiom(property, annotations);
 	}
 
 	@Override
 	public IntegerInverseFunctionalObjectPropertyAxiom createInverseFunctionalObjectPropertyAxiom(
 			IntegerObjectPropertyExpression property,
-			List<Annotation> annotations) {
+			Set<Annotation> annotations) {
 		return new IntegerInverseFunctionalObjectPropertyAxiom(property,
 				annotations);
 	}
@@ -139,14 +139,14 @@ public class ComplexIntegerAxiomFactoryImpl implements
 	@Override
 	public IntegerInverseObjectPropertiesAxiom createInverseObjectPropertiesAxiom(
 			IntegerObjectPropertyExpression first,
-			IntegerObjectPropertyExpression second, List<Annotation> annotations) {
+			IntegerObjectPropertyExpression second, Set<Annotation> annotations) {
 		return new IntegerInverseObjectPropertiesAxiom(first, second,
 				annotations);
 	}
 
 	@Override
 	public IntegerNamedIndividualDeclarationAxiom createNamedIndividualDeclarationAxiom(
-			int declaredEntity, List<Annotation> annotations) {
+			int declaredEntity, Set<Annotation> annotations) {
 		return new IntegerNamedIndividualDeclarationAxiom(declaredEntity,
 				annotations);
 	}
@@ -154,7 +154,7 @@ public class ComplexIntegerAxiomFactoryImpl implements
 	@Override
 	public IntegerNegativeObjectPropertyAssertionAxiom createNegativeObjectPropertyAssertionAxiom(
 			IntegerObjectPropertyExpression objectProp, int subjectInd,
-			int objectInd, List<Annotation> annotations) {
+			int objectInd, Set<Annotation> annotations) {
 		return new IntegerNegativeObjectPropertyAssertionAxiom(objectProp,
 				subjectInd, objectInd, annotations);
 	}
@@ -162,14 +162,14 @@ public class ComplexIntegerAxiomFactoryImpl implements
 	@Override
 	public IntegerObjectPropertyAssertionAxiom createObjectPropertyAssertionAxiom(
 			IntegerObjectPropertyExpression objectProp, int subjectInd,
-			int objectInd, List<Annotation> annotations) {
+			int objectInd, Set<Annotation> annotations) {
 		return new IntegerObjectPropertyAssertionAxiom(objectProp, subjectInd,
 				objectInd, annotations);
 	}
 
 	@Override
 	public IntegerObjectPropertyDeclarationAxiom createObjectPropertyDeclarationAxiom(
-			int declaredEntity, List<Annotation> annotations) {
+			int declaredEntity, Set<Annotation> annotations) {
 		return new IntegerObjectPropertyDeclarationAxiom(declaredEntity,
 				annotations);
 	}
@@ -177,27 +177,27 @@ public class ComplexIntegerAxiomFactoryImpl implements
 	@Override
 	public IntegerPropertyRangeAxiom createPropertyRangeAxiom(
 			IntegerObjectPropertyExpression prop,
-			IntegerClassExpression clExpr, List<Annotation> annotations) {
+			IntegerClassExpression clExpr, Set<Annotation> annotations) {
 		return new IntegerPropertyRangeAxiom(prop, clExpr, annotations);
 	}
 
 	@Override
 	public IntegerReflexiveObjectPropertyAxiom createReflexiveObjectPropertyAxiom(
 			IntegerObjectPropertyExpression property,
-			List<Annotation> annotations) {
+			Set<Annotation> annotations) {
 		return new IntegerReflexiveObjectPropertyAxiom(property, annotations);
 	}
 
 	@Override
 	public IntegerSameIndividualAxiom createSameIndividualAxiom(
-			Set<Integer> individualSet, List<Annotation> annotations) {
+			Set<Integer> individualSet, Set<Annotation> annotations) {
 		return new IntegerSameIndividualAxiom(individualSet, annotations);
 	}
 
 	@Override
 	public IntegerSubClassOfAxiom createSubClassOfAxiom(
 			IntegerClassExpression subClExpr,
-			IntegerClassExpression superClExpr, List<Annotation> annotations) {
+			IntegerClassExpression superClExpr, Set<Annotation> annotations) {
 		return new IntegerSubClassOfAxiom(subClExpr, superClExpr, annotations);
 	}
 
@@ -205,7 +205,7 @@ public class ComplexIntegerAxiomFactoryImpl implements
 	public IntegerSubObjectPropertyOfAxiom createSubObjectPropertyOfAxiom(
 			IntegerObjectPropertyExpression subPropExpr,
 			IntegerObjectPropertyExpression superPropExpr,
-			List<Annotation> annotations) {
+			Set<Annotation> annotations) {
 		return new IntegerSubObjectPropertyOfAxiom(subPropExpr, superPropExpr,
 				annotations);
 	}
@@ -214,13 +214,13 @@ public class ComplexIntegerAxiomFactoryImpl implements
 	public IntegerSubPropertyChainOfAxiom createSubPropertyChainOfAxiom(
 			List<IntegerObjectPropertyExpression> chain,
 			IntegerObjectPropertyExpression superProp,
-			List<Annotation> annotations) {
+			Set<Annotation> annotations) {
 		return new IntegerSubPropertyChainOfAxiom(chain, superProp, annotations);
 	}
 
 	@Override
 	public IntegerTransitiveObjectPropertyAxiom createTransitiveObjectPropertyAxiom(
-			IntegerObjectPropertyExpression prop, List<Annotation> annotations) {
+			IntegerObjectPropertyExpression prop, Set<Annotation> annotations) {
 		return new IntegerTransitiveObjectPropertyAxiom(prop, annotations);
 	}
 

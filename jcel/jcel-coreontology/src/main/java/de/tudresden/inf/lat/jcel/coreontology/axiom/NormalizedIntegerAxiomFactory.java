@@ -46,7 +46,7 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * An object implementing this interface is a factory to create normalized
@@ -66,7 +66,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @return a new functional object property axiom
 	 */
 	FunctObjectPropAxiom createFunctObjectPropAxiom(int propertyId,
-			List<Annotation> annotations);
+			Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new GCI-0 axiom.
@@ -80,7 +80,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @return a new GCI-0 axiom
 	 */
 	GCI0Axiom createGCI0Axiom(int subClassId, int superClassId,
-			List<Annotation> annotations);
+			Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new GCI-1 axiom.
@@ -96,7 +96,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @return a new GCI-1 axiom
 	 */
 	GCI1Axiom createGCI1Axiom(int leftSubClassId, int rightSubClassId,
-			int superClassId, List<Annotation> annotations);
+			int superClassId, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new GCI-2 axiom.
@@ -112,7 +112,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @return a new GCI-2 axiom
 	 */
 	GCI2Axiom createGCI2Axiom(int leftClassId, int rightPropertyId,
-			int rightClassId, List<Annotation> annotations);
+			int rightClassId, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new GCI-3 axiom.
@@ -128,7 +128,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @return a new GCI-3 axiom
 	 */
 	GCI3Axiom createGCI3Axiom(int leftPropertyId, int leftClassId,
-			int rightClassId, List<Annotation> annotations);
+			int rightClassId, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new nominal axiom.
@@ -142,7 +142,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @return a new nominal axiom
 	 */
 	NominalAxiom createNominalAxiom(int classId, int individualId,
-			List<Annotation> annotations);
+			Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new range axiom.
@@ -156,7 +156,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @return a new range axiom
 	 */
 	RangeAxiom createRangeAxiom(int propertyId, int classId,
-			List<Annotation> annotations);
+			Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new axiom RI-1.
@@ -167,7 +167,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new axiom RI-1
 	 */
-	RI1Axiom createRI1Axiom(int propertyId, List<Annotation> annotations);
+	RI1Axiom createRI1Axiom(int propertyId, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new axiom RI-2.
@@ -182,7 +182,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @return a new axiom RI-2
 	 */
 	RI2Axiom createRI2Axiom(int leftPropertyId, int rightPropertyId,
-			List<Annotation> annotations);
+			Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new RI-3 axiom.
@@ -200,6 +200,6 @@ public interface NormalizedIntegerAxiomFactory {
 	 * @return a new RI-3 axiom
 	 */
 	RI3Axiom createRI3Axiom(int leftLeftPropertyId, int leftRightPropertyId,
-			int rightPropertyId, List<Annotation> annotations);
+			int rightPropertyId, Set<Annotation> annotations);
 
 }

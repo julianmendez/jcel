@@ -47,7 +47,6 @@
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -58,7 +57,7 @@ import java.util.Set;
 public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
 
 	private final int property;
-	private final List<Annotation> annotations;
+	private final Set<Annotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -69,7 +68,7 @@ public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	FunctObjectPropAxiom(int propertyId, List<Annotation> annotations) {
+	FunctObjectPropAxiom(int propertyId, Set<Annotation> annotations) {
 		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -134,8 +133,8 @@ public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
 	}
 
 	@Override
-	public List<Annotation> getAnnotations() {
-		return Collections.unmodifiableList(this.annotations);
+	public Set<Annotation> getAnnotations() {
+		return Collections.unmodifiableSet(this.annotations);
 	}
 
 	@Override

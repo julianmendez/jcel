@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import junit.framework.TestCase;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
@@ -77,7 +78,7 @@ public class NormalizerNR2_1Test extends TestCase {
 	 * u<sub>2</sub> \u2218 r<sub>4</sub> \u2291 s
 	 */
 	public void testRule() {
-		List<Annotation> annotations = new ArrayList<Annotation>();
+		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR2_1 normalizer = new NormalizerNR2_1(factory);
 

@@ -48,7 +48,6 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
@@ -68,7 +67,7 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 	private final Set<Integer> objectPropertiesInSignature;
 	private final IntegerObjectPropertyExpression property;
 	private final IntegerClassExpression range;
-	private final List<Annotation> annotations;
+	private final Set<Annotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -82,7 +81,7 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 	 *            annotations
 	 */
 	IntegerPropertyRangeAxiom(IntegerObjectPropertyExpression prop,
-			IntegerClassExpression clExpr, List<Annotation> annotations) {
+			IntegerClassExpression clExpr, Set<Annotation> annotations) {
 		if (prop == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -177,8 +176,8 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public List<Annotation> getAnnotations() {
-		return Collections.unmodifiableList(this.annotations);
+	public Set<Annotation> getAnnotations() {
+		return Collections.unmodifiableSet(this.annotations);
 	}
 
 	@Override

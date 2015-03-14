@@ -67,7 +67,7 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 	private final Set<Integer> objectPropertiesInSignature;
 	private final List<IntegerObjectPropertyExpression> propertyChain;
 	private final IntegerObjectPropertyExpression superProperty;
-	private final List<Annotation> annotations;
+	private final Set<Annotation> annotations;
 
 	/**
 	 * Constructs a new sub object property chain axiom.
@@ -81,7 +81,7 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 	 */
 	IntegerSubPropertyChainOfAxiom(List<IntegerObjectPropertyExpression> chain,
 			IntegerObjectPropertyExpression superProp,
-			List<Annotation> annotations) {
+			Set<Annotation> annotations) {
 		if (chain == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -171,8 +171,8 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public List<Annotation> getAnnotations() {
-		return Collections.unmodifiableList(this.annotations);
+	public Set<Annotation> getAnnotations() {
+		return Collections.unmodifiableSet(this.annotations);
 	}
 
 	@Override

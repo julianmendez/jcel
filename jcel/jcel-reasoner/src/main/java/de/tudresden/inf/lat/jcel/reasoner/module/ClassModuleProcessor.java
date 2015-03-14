@@ -138,7 +138,7 @@ public class ClassModuleProcessor implements Processor {
 	private Set<ComplexIntegerAxiom> convertClassHierarchyToAxioms(
 			IntegerHierarchicalGraph classGraph) {
 		Set<ComplexIntegerAxiom> ret = new HashSet<ComplexIntegerAxiom>();
-		List<Annotation> annotations = Collections.emptyList();
+		Set<Annotation> annotations = Collections.emptySet();
 		for (Integer subClass : classGraph.getElements()) {
 
 			Set<Integer> superSet = classGraph.getParents(subClass);
@@ -166,7 +166,7 @@ public class ClassModuleProcessor implements Processor {
 	private Set<ComplexIntegerAxiom> convertObjectPropertyHierarchyToAxioms(
 			IntegerHierarchicalGraph objectPropertyGraph) {
 		Set<ComplexIntegerAxiom> ret = new HashSet<ComplexIntegerAxiom>();
-		List<Annotation> annotations = Collections.emptyList();
+		Set<Annotation> annotations = Collections.emptySet();
 		for (Integer subObjectProperty : objectPropertyGraph.getElements()) {
 
 			Set<Integer> set = objectPropertyGraph

@@ -46,10 +46,9 @@
 
 package de.tudresden.inf.lat.jcel.reasoner.main;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import junit.framework.TestCase;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
@@ -101,7 +100,7 @@ public class OntologyEntailmentCheckerTest extends TestCase {
 	 * </ul>
 	 */
 	public void testOntology0() {
-		List<Annotation> annotations = new ArrayList<Annotation>();
+		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();

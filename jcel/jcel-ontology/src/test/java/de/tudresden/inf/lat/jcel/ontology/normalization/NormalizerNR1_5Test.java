@@ -46,10 +46,9 @@
 
 package de.tudresden.inf.lat.jcel.ontology.normalization;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import junit.framework.TestCase;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
@@ -74,7 +73,7 @@ public class NormalizerNR1_5Test extends TestCase {
 	 * C &equiv; D \u219D C \u2291 D, D \u2291 C
 	 */
 	public void testUsingClasses() {
-		List<Annotation> annotations = new ArrayList<Annotation>();
+		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR1_5 normalizer = new NormalizerNR1_5(factory);
 
@@ -108,7 +107,7 @@ public class NormalizerNR1_5Test extends TestCase {
 	 * \u2291 &exist; r <i>.</i> C<sub>1</sub>
 	 */
 	public void testUsingClassExpressions() {
-		List<Annotation> annotations = new ArrayList<Annotation>();
+		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR1_5 normalizer = new NormalizerNR1_5(factory);
 

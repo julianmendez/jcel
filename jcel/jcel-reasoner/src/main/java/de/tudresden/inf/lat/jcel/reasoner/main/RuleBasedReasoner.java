@@ -50,7 +50,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -186,7 +185,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 				argument.add(ce);
 
 				Set<ComplexIntegerAxiom> extendedOntology = new HashSet<ComplexIntegerAxiom>();
-				List<Annotation> annotations = Collections.emptyList();
+				Set<Annotation> annotations = Collections.emptySet();
 				extendedOntology.add(this.factory.getComplexAxiomFactory()
 						.createEquivalentClassesAxiom(argument, annotations));
 

@@ -48,7 +48,6 @@ package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -63,7 +62,7 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 
 	private final int subProperty;
 	private final int superProperty;
-	private final List<Annotation> annotations;
+	private final Set<Annotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -78,7 +77,7 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 	 *            annotations
 	 */
 	RI2Axiom(int leftPropertyId, int rightPropertyId,
-			List<Annotation> annotations) {
+			Set<Annotation> annotations) {
 		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -158,8 +157,8 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 	}
 
 	@Override
-	public List<Annotation> getAnnotations() {
-		return Collections.unmodifiableList(this.annotations);
+	public Set<Annotation> getAnnotations() {
+		return Collections.unmodifiableSet(this.annotations);
 	}
 
 	@Override

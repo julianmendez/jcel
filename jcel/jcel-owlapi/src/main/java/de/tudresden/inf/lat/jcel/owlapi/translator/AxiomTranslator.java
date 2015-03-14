@@ -51,6 +51,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -184,9 +185,9 @@ public class AxiomTranslator implements
 		return ret;
 	}
 
-	public List<Annotation> translateAnnotations(
+	public Set<Annotation> translateAnnotations(
 			Set<OWLAnnotation> owlAnnotations) {
-		List<Annotation> ret = new ArrayList<Annotation>();
+		Set<Annotation> ret = new TreeSet<Annotation>();
 		for (OWLAnnotation owlAnnotation : owlAnnotations) {
 			ret.add(translateAnnotation(owlAnnotation));
 		}
