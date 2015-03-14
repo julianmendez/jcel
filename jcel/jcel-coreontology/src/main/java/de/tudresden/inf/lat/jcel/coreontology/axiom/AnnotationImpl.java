@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2009-2013 Julian Mendez
+ * Copyright 2009-2015 Julian Mendez
  *
  *
  * This file is part of jcel.
@@ -44,61 +44,72 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.core.saturation;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
+package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 /**
- * For each object property r, this rule adds r \u2291 r.
- *
+ * An object of this class is an annotation.
+ * 
  * @author Julian Mendez
+ * 
  */
-public class SR0Rule implements SaturationRule {
+public class AnnotationImpl implements Annotation {
 
-	private final NormalizedIntegerAxiomFactory factory;
+	private final String annotationProperty;
+	private final String annotationValue;
 
 	/**
-	 * Constructs a new SR-0 rule.
+	 * Constructs a new default implementation of annotation.
 	 * 
-	 * @param factory
-	 *            factory
+	 * @param annotationProperty
+	 *            annotation property
+	 * @param annotationValue
+	 *            annotation value
 	 */
-	public SR0Rule(NormalizedIntegerAxiomFactory factory) {
-		if (factory == null) {
+	public AnnotationImpl(String annotationProperty, String annotationValue) {
+		if (annotationProperty == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		this.factory = factory;
+		if (annotationValue == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		this.annotationProperty = annotationProperty;
+		this.annotationValue = annotationValue;
 	}
 
 	@Override
-	public Set<NormalizedIntegerAxiom> apply(
-			Set<NormalizedIntegerAxiom> originalSet) {
-		if (originalSet == null) {
-			throw new IllegalArgumentException("Null argument.");
+	public String getAnnotationProperty() {
+		return this.annotationProperty;
+	}
+
+	@Override
+	public String getAnnotationValue() {
+		return this.annotationValue;
+	}
+
+	@Override
+	public int hashCode() {
+		return this.annotationProperty.hashCode()
+				+ (0x1F * this.annotationValue.hashCode());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		} else if (!(obj instanceof Annotation)) {
+			return false;
+		} else {
+			Annotation other = (Annotation) obj;
+			return getAnnotationProperty()
+					.equals(other.getAnnotationProperty())
+					&& getAnnotationValue().equals(getAnnotationValue());
 		}
+	}
 
-		Set<NormalizedIntegerAxiom> ret = new HashSet<NormalizedIntegerAxiom>();
-		ret.addAll(originalSet);
-
-		Set<Integer> objectPropertySet = new HashSet<Integer>();
-		for (NormalizedIntegerAxiom axiom : originalSet) {
-			objectPropertySet.addAll(axiom.getObjectPropertiesInSignature());
-		}
-
-		List<Annotation> annotations = Collections.emptyList();
-		for (Integer objectProperty : objectPropertySet) {
-			ret.add(this.factory.createRI2Axiom(objectProperty, objectProperty,
-					annotations));
-		}
-
-		return Collections.unmodifiableSet(ret);
+	@Override
+	public String toString() {
+		return this.annotationProperty + " " + this.annotationValue;
 	}
 
 }

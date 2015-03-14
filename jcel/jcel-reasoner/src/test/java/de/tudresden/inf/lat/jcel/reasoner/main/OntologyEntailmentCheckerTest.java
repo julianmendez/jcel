@@ -46,10 +46,13 @@
 
 package de.tudresden.inf.lat.jcel.reasoner.main;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import junit.framework.TestCase;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
@@ -98,6 +101,7 @@ public class OntologyEntailmentCheckerTest extends TestCase {
 	 * </ul>
 	 */
 	public void testOntology0() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
@@ -111,17 +115,18 @@ public class OntologyEntailmentCheckerTest extends TestCase {
 				.createSubClassOfAxiom(
 						a,
 						factory.getDataTypeFactory()
-								.createObjectSomeValuesFrom(r, b));
+								.createObjectSomeValuesFrom(r, b), annotations);
 		ontology.add(axiom1);
 
 		ComplexIntegerAxiom axiom2 = factory.getComplexAxiomFactory()
 				.createSubClassOfAxiom(
 						factory.getDataTypeFactory()
-								.createObjectSomeValuesFrom(r, c), d);
+								.createObjectSomeValuesFrom(r, c), d,
+						annotations);
 		ontology.add(axiom2);
 
 		ComplexIntegerAxiom axiom3 = factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(b, c);
+				.createSubClassOfAxiom(b, c, annotations);
 		ontology.add(axiom3);
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
@@ -132,7 +137,8 @@ public class OntologyEntailmentCheckerTest extends TestCase {
 		assertTrue(reasoner.isEntailed(axiom3));
 
 		boolean isEntailed = reasoner.isEntailed(factory
-				.getComplexAxiomFactory().createSubClassOfAxiom(b, c));
+				.getComplexAxiomFactory().createSubClassOfAxiom(b, c,
+						annotations));
 
 		assertTrue(isEntailed);
 	}

@@ -47,7 +47,10 @@
 package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 
 /**
  * An object of this class is an axiom that declares an data property.
@@ -58,15 +61,26 @@ public class IntegerDataPropertyDeclarationAxiom implements
 		IntegerDeclarationAxiom {
 
 	private final int entity;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new data property declaration axiom.
 	 * 
 	 * @param declaredEntity
 	 *            data property
+	 * @param annotations
+	 *            annotations
 	 */
-	protected IntegerDataPropertyDeclarationAxiom(int declaredEntity) {
+	IntegerDataPropertyDeclarationAxiom(int declaredEntity,
+			List<Annotation> annotations) {
+		if (annotations == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
 		this.entity = declaredEntity;
+		this.annotations = annotations;
+		this.hashCode = this.entity + 0x1F * this.annotations.hashCode();
 	}
 
 	@Override
@@ -79,11 +93,12 @@ public class IntegerDataPropertyDeclarationAxiom implements
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof IntegerDataPropertyDeclarationAxiom)) {
-			IntegerDataPropertyDeclarationAxiom other = (IntegerDataPropertyDeclarationAxiom) o;
-			ret = getEntity().equals(other.getEntity());
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof IntegerDataPropertyDeclarationAxiom)) {
+			IntegerDataPropertyDeclarationAxiom other = (IntegerDataPropertyDeclarationAxiom) obj;
+			ret = getEntity().equals(other.getEntity())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}
@@ -119,8 +134,13 @@ public class IntegerDataPropertyDeclarationAxiom implements
 	}
 
 	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
+	}
+
+	@Override
 	public int hashCode() {
-		return this.entity;
+		return this.hashCode;
 	}
 
 	@Override

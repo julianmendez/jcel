@@ -46,6 +46,10 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.datatype;
 
+import java.util.List;
+
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
+
 /**
  * An <code>IntegerAxiom</code> is an axiom that is composed by integer numbers.
  * It should use a small amount of memory.
@@ -53,5 +57,12 @@ package de.tudresden.inf.lat.jcel.coreontology.datatype;
  * @author Julian Mendez
  */
 public interface IntegerAxiom extends IntegerDatatype {
+
+	/**
+	 * Returns the annotations of this axiom.
+	 * 
+	 * @return the annotations of this axiom
+	 */
+	List<Annotation> getAnnotations();
 
 }

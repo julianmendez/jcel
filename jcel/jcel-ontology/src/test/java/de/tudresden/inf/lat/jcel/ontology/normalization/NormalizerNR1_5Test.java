@@ -46,10 +46,13 @@
 
 package de.tudresden.inf.lat.jcel.ontology.normalization;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import junit.framework.TestCase;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerEquivalentClassesAxiom;
@@ -71,6 +74,7 @@ public class NormalizerNR1_5Test extends TestCase {
 	 * C &equiv; D \u219D C \u2291 D, D \u2291 C
 	 */
 	public void testUsingClasses() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR1_5 normalizer = new NormalizerNR1_5(factory);
 
@@ -85,14 +89,14 @@ public class NormalizerNR1_5Test extends TestCase {
 		set.add(c);
 		set.add(d);
 		IntegerEquivalentClassesAxiom axiom = factory.getComplexAxiomFactory()
-				.createEquivalentClassesAxiom(set);
+				.createEquivalentClassesAxiom(set, annotations);
 		Set<IntegerAxiom> normalizedAxioms = normalizer.apply(axiom);
 
 		Set<IntegerAxiom> expectedAxioms = new HashSet<IntegerAxiom>();
 		expectedAxioms.add(factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(c, d));
+				.createSubClassOfAxiom(c, d, annotations));
 		expectedAxioms.add(factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(d, c));
+				.createSubClassOfAxiom(d, c, annotations));
 
 		assertEquals(expectedAxioms, normalizedAxioms);
 	}
@@ -104,6 +108,7 @@ public class NormalizerNR1_5Test extends TestCase {
 	 * \u2291 &exist; r <i>.</i> C<sub>1</sub>
 	 */
 	public void testUsingClassExpressions() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR1_5 normalizer = new NormalizerNR1_5(factory);
 
@@ -133,14 +138,14 @@ public class NormalizerNR1_5Test extends TestCase {
 		set.add(c);
 		set.add(d);
 		IntegerEquivalentClassesAxiom axiom = factory.getComplexAxiomFactory()
-				.createEquivalentClassesAxiom(set);
+				.createEquivalentClassesAxiom(set, annotations);
 		Set<IntegerAxiom> normalizedAxioms = normalizer.apply(axiom);
 
 		Set<IntegerAxiom> expectedAxioms = new HashSet<IntegerAxiom>();
 		expectedAxioms.add(factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(c, d));
+				.createSubClassOfAxiom(c, d, annotations));
 		expectedAxioms.add(factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(d, c));
+				.createSubClassOfAxiom(d, c, annotations));
 
 		assertEquals(expectedAxioms, normalizedAxioms);
 	}

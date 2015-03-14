@@ -46,11 +46,13 @@
 
 package de.tudresden.inf.lat.jcel.core.saturation;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
@@ -124,28 +126,22 @@ public class SR1AndSR2Rules implements SaturationRule {
 					.createOrGetInverseObjectPropertyOf(axiom
 							.getSuperProperty());
 			ret.add(this.factory.createRI2Axiom(invSubProperty,
-					invSuperProperty));
+					invSuperProperty, axiom.getAnnotations()));
 		}
 		return ret;
 	}
 
 	private Set<RI2Axiom> applyRule2(Set<RI2Axiom> axiomSet) {
 		Set<RI2Axiom> ret = new HashSet<RI2Axiom>();
-		Map<Integer, Set<Integer>> mapBySubProp = this.helper
-				.getMapBySubObjectProperty(axiomSet);
-		for (Integer firstProp : mapBySubProp.keySet()) {
-			Set<Integer> secondPropSet = mapBySubProp.get(firstProp);
-			if (secondPropSet != null) {
-				for (Integer secondProp : secondPropSet) {
-					Set<Integer> thirdPropSet = mapBySubProp.get(secondProp);
-					if (thirdPropSet != null) {
-						for (Integer thirdProp : thirdPropSet) {
-							if (!secondPropSet.contains(thirdProp)) {
-								ret.add(this.factory.createRI2Axiom(firstProp,
-										thirdProp));
-							}
-						}
-					}
+		for (RI2Axiom axiom0 : axiomSet) {
+			for (RI2Axiom axiom1 : axiomSet) {
+				if (axiom0.getSuperProperty() == axiom1.getSubProperty()) {
+					List<Annotation> annotations = new ArrayList<Annotation>();
+					annotations.addAll(axiom0.getAnnotations());
+					annotations.addAll(axiom1.getAnnotations());
+					ret.add(this.factory.createRI2Axiom(
+							axiom0.getSubProperty(), axiom1.getSuperProperty(),
+							annotations));
 				}
 			}
 		}

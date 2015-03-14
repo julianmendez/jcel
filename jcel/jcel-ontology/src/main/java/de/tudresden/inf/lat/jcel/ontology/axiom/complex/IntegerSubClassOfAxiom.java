@@ -48,8 +48,10 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 
 /**
@@ -62,10 +64,11 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 public class IntegerSubClassOfAxiom implements ComplexIntegerAxiom {
 
 	private final Set<Integer> classesInSignature;
-	private final int hashCode;
 	private final Set<Integer> objectPropertiesInSignature;
 	private final IntegerClassExpression subClass;
 	private final IntegerClassExpression superClass;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new subclass axiom.
@@ -74,19 +77,23 @@ public class IntegerSubClassOfAxiom implements ComplexIntegerAxiom {
 	 *            subclass
 	 * @param superClExpr
 	 *            superclass
+	 * @param annotations
+	 *            annotations
 	 */
-	protected IntegerSubClassOfAxiom(IntegerClassExpression subClExpr,
-			IntegerClassExpression superClExpr) {
+	IntegerSubClassOfAxiom(IntegerClassExpression subClExpr,
+			IntegerClassExpression superClExpr, List<Annotation> annotations) {
 		if (subClExpr == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 		if (superClExpr == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
+		if (annotations == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
 
 		this.subClass = subClExpr;
 		this.superClass = superClExpr;
-		this.hashCode = subClExpr.hashCode() + (31 * superClExpr.hashCode());
 
 		Set<Integer> classesInSignature = new HashSet<Integer>();
 		classesInSignature.addAll(this.subClass.getClassesInSignature());
@@ -101,6 +108,11 @@ public class IntegerSubClassOfAxiom implements ComplexIntegerAxiom {
 				.getObjectPropertiesInSignature());
 		this.objectPropertiesInSignature = Collections
 				.unmodifiableSet(objectPropertiesInSignature);
+		this.annotations = annotations;
+		this.hashCode = this.subClass.hashCode()
+				+ 0x1F
+				* (this.superClass.hashCode() + 0x1F * this.annotations
+						.hashCode());
 	}
 
 	@Override
@@ -113,12 +125,13 @@ public class IntegerSubClassOfAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof IntegerSubClassOfAxiom)) {
-			IntegerSubClassOfAxiom other = (IntegerSubClassOfAxiom) o;
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof IntegerSubClassOfAxiom)) {
+			IntegerSubClassOfAxiom other = (IntegerSubClassOfAxiom) obj;
 			ret = getSubClass().equals(other.getSubClass())
-					&& getSuperClass().equals(other.getSuperClass());
+					&& getSuperClass().equals(other.getSuperClass())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}
@@ -164,6 +177,11 @@ public class IntegerSubClassOfAxiom implements ComplexIntegerAxiom {
 	 */
 	public IntegerClassExpression getSuperClass() {
 		return this.superClass;
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

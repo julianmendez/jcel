@@ -48,8 +48,10 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 
 /**
@@ -63,22 +65,28 @@ public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 
 	private final Set<Integer> classesInSignature;
 	private final Set<IntegerClassExpression> classExpressions;
-	private final int hashCode;
 	private final Set<Integer> objectPropertiesInSignature;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new equivalent classes axiom.
 	 * 
 	 * @param descSet
 	 *            set of classes declared to be equivalent
+	 * @param annotations
+	 *            annotations
 	 */
-	protected IntegerEquivalentClassesAxiom(Set<IntegerClassExpression> descSet) {
+	IntegerEquivalentClassesAxiom(Set<IntegerClassExpression> descSet,
+			List<Annotation> annotations) {
 		if (descSet == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		this.classExpressions = Collections.unmodifiableSet(descSet);
-		this.hashCode = descSet.hashCode();
 
 		Set<Integer> classesInSignature = new HashSet<Integer>();
 		for (IntegerClassExpression expression : this.classExpressions) {
@@ -94,6 +102,9 @@ public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 		}
 		this.objectPropertiesInSignature = Collections
 				.unmodifiableSet(objectPropertiesInSignature);
+		this.annotations = annotations;
+		this.hashCode = this.classExpressions.hashCode() + 0x1F
+				* this.annotations.hashCode();
 	}
 
 	@Override
@@ -106,11 +117,12 @@ public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof IntegerEquivalentClassesAxiom)) {
-			IntegerEquivalentClassesAxiom other = (IntegerEquivalentClassesAxiom) o;
-			ret = getClassExpressions().equals(other.getClassExpressions());
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof IntegerEquivalentClassesAxiom)) {
+			IntegerEquivalentClassesAxiom other = (IntegerEquivalentClassesAxiom) obj;
+			ret = getClassExpressions().equals(other.getClassExpressions())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}
@@ -147,6 +159,11 @@ public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
 		return Collections.unmodifiableSet(this.objectPropertiesInSignature);
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

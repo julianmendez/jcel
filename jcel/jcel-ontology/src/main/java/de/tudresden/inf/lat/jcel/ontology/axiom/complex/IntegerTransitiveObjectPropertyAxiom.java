@@ -47,8 +47,10 @@
 package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
@@ -61,23 +63,31 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 public class IntegerTransitiveObjectPropertyAxiom implements
 		ComplexIntegerAxiom {
 
-	private final int hashCode;
 	private final IntegerObjectPropertyExpression property;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new transitive object property axiom.
 	 * 
 	 * @param prop
 	 *            object property
+	 * @param annotations
+	 *            annotations
 	 */
-	protected IntegerTransitiveObjectPropertyAxiom(
-			IntegerObjectPropertyExpression prop) {
+	IntegerTransitiveObjectPropertyAxiom(IntegerObjectPropertyExpression prop,
+			List<Annotation> annotations) {
 		if (prop == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		this.property = prop;
-		this.hashCode = prop.hashCode();
+		this.annotations = annotations;
+		this.hashCode = this.property.hashCode() + 0x1F
+				* this.annotations.hashCode();
 	}
 
 	@Override
@@ -90,11 +100,12 @@ public class IntegerTransitiveObjectPropertyAxiom implements
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof IntegerTransitiveObjectPropertyAxiom)) {
-			IntegerTransitiveObjectPropertyAxiom other = (IntegerTransitiveObjectPropertyAxiom) o;
-			ret = getProperty().equals(other.getProperty());
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof IntegerTransitiveObjectPropertyAxiom)) {
+			IntegerTransitiveObjectPropertyAxiom other = (IntegerTransitiveObjectPropertyAxiom) obj;
+			ret = getProperty().equals(other.getProperty())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}
@@ -131,6 +142,11 @@ public class IntegerTransitiveObjectPropertyAxiom implements
 	 */
 	public IntegerObjectPropertyExpression getProperty() {
 		return this.property;
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

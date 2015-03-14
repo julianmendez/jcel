@@ -47,7 +47,10 @@
 package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 
 /**
  * This class models an axiom saying that two or more individuals are the same.
@@ -57,22 +60,31 @@ import java.util.Set;
  */
 public class IntegerSameIndividualAxiom implements ComplexIntegerAxiom {
 
-	private final int hashCode;
 	private final Set<Integer> individuals;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new same individual axiom.
 	 * 
 	 * @param individualSet
 	 *            set of individuals declared to be the same
+	 * @param annotations
+	 *            annotations
 	 */
-	protected IntegerSameIndividualAxiom(Set<Integer> individualSet) {
+	IntegerSameIndividualAxiom(Set<Integer> individualSet,
+			List<Annotation> annotations) {
 		if (individualSet == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		this.individuals = Collections.unmodifiableSet(individualSet);
-		this.hashCode = individualSet.hashCode();
+		this.annotations = annotations;
+		this.hashCode = this.individuals.hashCode() + 0x1F
+				* this.annotations.hashCode();
 	}
 
 	@Override
@@ -85,11 +97,12 @@ public class IntegerSameIndividualAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof IntegerSameIndividualAxiom)) {
-			IntegerSameIndividualAxiom other = (IntegerSameIndividualAxiom) o;
-			ret = getIndividuals().equals(other.getIndividuals());
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof IntegerSameIndividualAxiom)) {
+			IntegerSameIndividualAxiom other = (IntegerSameIndividualAxiom) obj;
+			ret = getIndividuals().equals(other.getIndividuals())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}
@@ -126,6 +139,11 @@ public class IntegerSameIndividualAxiom implements ComplexIntegerAxiom {
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
 		return Collections.emptySet();
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

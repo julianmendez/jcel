@@ -48,8 +48,10 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
@@ -63,24 +65,30 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 public class IntegerEquivalentObjectPropertiesAxiom implements
 		ComplexIntegerAxiom {
 
-	private final int hashCode;
 	private final Set<IntegerObjectPropertyExpression> objectProperties;
 	private final Set<Integer> objectPropertiesInSignature;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs an equivalent object properties axiom.
 	 * 
 	 * @param propSet
 	 *            set of object properties declared to be equivalent
+	 * @param annotations
+	 *            annotations
 	 */
-	protected IntegerEquivalentObjectPropertiesAxiom(
-			Set<IntegerObjectPropertyExpression> propSet) {
+	IntegerEquivalentObjectPropertiesAxiom(
+			Set<IntegerObjectPropertyExpression> propSet,
+			List<Annotation> annotations) {
 		if (propSet == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		this.objectProperties = Collections.unmodifiableSet(propSet);
-		this.hashCode = propSet.hashCode();
 
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
 		for (IntegerObjectPropertyExpression expression : this.objectProperties) {
@@ -89,6 +97,9 @@ public class IntegerEquivalentObjectPropertiesAxiom implements
 		}
 		this.objectPropertiesInSignature = Collections
 				.unmodifiableSet(objectPropertiesInSignature);
+		this.annotations = annotations;
+		this.hashCode = this.objectProperties.hashCode() + 0x1F
+				* this.annotations.hashCode();
 	}
 
 	@Override
@@ -101,11 +112,12 @@ public class IntegerEquivalentObjectPropertiesAxiom implements
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof IntegerEquivalentObjectPropertiesAxiom)) {
-			IntegerEquivalentObjectPropertiesAxiom other = (IntegerEquivalentObjectPropertiesAxiom) o;
-			ret = getProperties().equals(other.getProperties());
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof IntegerEquivalentObjectPropertiesAxiom)) {
+			IntegerEquivalentObjectPropertiesAxiom other = (IntegerEquivalentObjectPropertiesAxiom) obj;
+			ret = getProperties().equals(other.getProperties())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}
@@ -142,6 +154,11 @@ public class IntegerEquivalentObjectPropertiesAxiom implements
 	 */
 	public Set<IntegerObjectPropertyExpression> getProperties() {
 		return Collections.unmodifiableSet(this.objectProperties);
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

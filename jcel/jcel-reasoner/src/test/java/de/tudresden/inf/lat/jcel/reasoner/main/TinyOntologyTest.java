@@ -46,11 +46,14 @@
 
 package de.tudresden.inf.lat.jcel.reasoner.main;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 import junit.framework.TestCase;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
@@ -107,6 +110,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology0() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
@@ -116,11 +120,11 @@ public class TinyOntologyTest extends TestCase {
 
 		// 1
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
-				b));
+				b, annotations));
 
 		// 2
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(b,
-				c));
+				c, annotations));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
@@ -148,6 +152,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology1() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
@@ -158,16 +163,17 @@ public class TinyOntologyTest extends TestCase {
 
 		// 1
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
-				factory.getDataTypeFactory().createObjectSomeValuesFrom(r, a)));
+				factory.getDataTypeFactory().createObjectSomeValuesFrom(r, a),
+				annotations));
 
 		// 2
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
-				b));
+				b, annotations));
 
 		// 3
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
 				factory.getDataTypeFactory().createObjectSomeValuesFrom(r, b),
-				c));
+				c, annotations));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
@@ -194,6 +200,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology2() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
@@ -202,11 +209,11 @@ public class TinyOntologyTest extends TestCase {
 
 		// 1
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
-				b));
+				b, annotations));
 
 		// 2
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(b,
-				a));
+				a, annotations));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
@@ -232,6 +239,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology3() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
@@ -240,11 +248,11 @@ public class TinyOntologyTest extends TestCase {
 
 		// 1
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
-				factory.getDataTypeFactory().getTopClass(), a));
+				factory.getDataTypeFactory().getTopClass(), a, annotations));
 
 		// 2
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
-				b));
+				b, annotations));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
@@ -277,6 +285,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology4() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
@@ -285,11 +294,11 @@ public class TinyOntologyTest extends TestCase {
 
 		// 1
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
-				factory.getDataTypeFactory().getBottomClass()));
+				factory.getDataTypeFactory().getBottomClass(), annotations));
 
 		// 2
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(b,
-				a));
+				a, annotations));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
@@ -323,6 +332,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology5() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
@@ -346,7 +356,7 @@ public class TinyOntologyTest extends TestCase {
 
 			// 1
 			ontology.add(factory.getComplexAxiomFactory()
-					.createEquivalentClassesAxiom(equivClasses));
+					.createEquivalentClassesAxiom(equivClasses, annotations));
 		}
 
 		{
@@ -362,7 +372,7 @@ public class TinyOntologyTest extends TestCase {
 
 			// 2
 			ontology.add(factory.getComplexAxiomFactory()
-					.createEquivalentClassesAxiom(equivClasses));
+					.createEquivalentClassesAxiom(equivClasses, annotations));
 		}
 
 		{
@@ -373,7 +383,7 @@ public class TinyOntologyTest extends TestCase {
 
 			// 3
 			ontology.add(factory.getComplexAxiomFactory()
-					.createEquivalentClassesAxiom(equivClasses));
+					.createEquivalentClassesAxiom(equivClasses, annotations));
 		}
 
 		{
@@ -384,7 +394,7 @@ public class TinyOntologyTest extends TestCase {
 
 			// 4
 			ontology.add(factory.getComplexAxiomFactory()
-					.createEquivalentClassesAxiom(equivClasses));
+					.createEquivalentClassesAxiom(equivClasses, annotations));
 		}
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);

@@ -117,9 +117,10 @@ class NormalizerSubClassOf implements NormalizationRule {
 		IntegerClassExpression superClass = axiom.getSuperClass();
 
 		if (subClass.isLiteral() && superClass.isLiteral()) {
-			ret.add(getNormalizedAxiomFactory().createGCI0Axiom(
-					((IntegerClass) subClass).getId(),
-					((IntegerClass) superClass).getId()));
+			ret.add(getNormalizedAxiomFactory()
+					.createGCI0Axiom(((IntegerClass) subClass).getId(),
+							((IntegerClass) superClass).getId(),
+							axiom.getAnnotations()));
 
 		} else if (!subClass.isLiteral() && superClass.isLiteral()
 				&& (subClass instanceof IntegerObjectIntersectionOf)
@@ -130,12 +131,14 @@ class NormalizerSubClassOf implements NormalizationRule {
 			if (operands.size() == 0) {
 				ret.add(getNormalizedAxiomFactory().createGCI0Axiom(
 						IntegerEntityManager.topClassId,
-						((IntegerClass) superClass).getId()));
+						((IntegerClass) superClass).getId(),
+						axiom.getAnnotations()));
 
 			} else if (operands.size() == 1) {
 				ret.add(getNormalizedAxiomFactory().createGCI0Axiom(
 						((IntegerClass) operands.iterator().next()).getId(),
-						((IntegerClass) superClass).getId()));
+						((IntegerClass) superClass).getId(),
+						axiom.getAnnotations()));
 
 			} else if (operands.size() == 2) {
 				Iterator<IntegerClassExpression> it = operands.iterator();
@@ -143,7 +146,8 @@ class NormalizerSubClassOf implements NormalizationRule {
 				int rightSubClassId = ((IntegerClass) it.next()).getId();
 				int superClassId = ((IntegerClass) superClass).getId();
 				ret.add(getNormalizedAxiomFactory().createGCI1Axiom(
-						leftSubClassId, rightSubClassId, superClassId));
+						leftSubClassId, rightSubClassId, superClassId,
+						axiom.getAnnotations()));
 
 			}
 
@@ -154,9 +158,9 @@ class NormalizerSubClassOf implements NormalizationRule {
 			IntegerObjectSomeValuesFrom restriction = (IntegerObjectSomeValuesFrom) superClass;
 			IntegerClass filler = (IntegerClass) restriction.getFiller();
 			Integer property = getObjectPropertyId(restriction.getProperty());
-			ret.add(getNormalizedAxiomFactory()
-					.createGCI2Axiom(((IntegerClass) subClass).getId(),
-							property, filler.getId()));
+			ret.add(getNormalizedAxiomFactory().createGCI2Axiom(
+					((IntegerClass) subClass).getId(), property,
+					filler.getId(), axiom.getAnnotations()));
 
 		} else if (!subClass.isLiteral() && superClass.isLiteral()
 				&& (subClass instanceof IntegerObjectSomeValuesFrom)
@@ -166,7 +170,8 @@ class NormalizerSubClassOf implements NormalizationRule {
 			IntegerClass filler = (IntegerClass) restriction.getFiller();
 			Integer property = getObjectPropertyId(restriction.getProperty());
 			ret.add(getNormalizedAxiomFactory().createGCI3Axiom(property,
-					filler.getId(), ((IntegerClass) superClass).getId()));
+					filler.getId(), ((IntegerClass) superClass).getId(),
+					axiom.getAnnotations()));
 
 		}
 		return ret;

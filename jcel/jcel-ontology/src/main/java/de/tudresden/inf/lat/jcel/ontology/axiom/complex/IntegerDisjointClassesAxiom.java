@@ -48,17 +48,18 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 
 /**
  * This class models an axiom stating that the contained classes are pairwise
  * disjoint. <br>
  * This is: A<sub>1</sub> \u2293 A<sub>2</sub> \u2291 &perp;, A<sub>1</sub>
- * \u2293 A<sub>3</sub> \u2291 &perp;, A<sub>2</sub> \u2293 A<sub>3</sub>
- * \u2291 &perp;, &hellip; , A<sub>n-1</sub> \u2293 A<sub>n</sub> \u2291
- * &perp;
+ * \u2293 A<sub>3</sub> \u2291 &perp;, A<sub>2</sub> \u2293 A<sub>3</sub> \u2291
+ * &perp;, &hellip; , A<sub>n-1</sub> \u2293 A<sub>n</sub> \u2291 &perp;
  * 
  * @author Julian Mendez
  */
@@ -66,22 +67,28 @@ public class IntegerDisjointClassesAxiom implements ComplexIntegerAxiom {
 
 	private final Set<Integer> classesInSignature;
 	private final Set<IntegerClassExpression> classExpressions;
-	private final int hashCode;
 	private final Set<Integer> objectPropertiesInSignature;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new disjoint classes axiom.
 	 * 
 	 * @param descSet
 	 *            set of classes declared to be disjoint
+	 * @param annotations
+	 *            annotations
 	 */
-	protected IntegerDisjointClassesAxiom(Set<IntegerClassExpression> descSet) {
+	IntegerDisjointClassesAxiom(Set<IntegerClassExpression> descSet,
+			List<Annotation> annotations) {
 		if (descSet == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		this.classExpressions = Collections.unmodifiableSet(descSet);
-		this.hashCode = descSet.hashCode();
 
 		Set<Integer> classesInSignature = new HashSet<Integer>();
 		for (IntegerClassExpression expression : this.classExpressions) {
@@ -97,6 +104,9 @@ public class IntegerDisjointClassesAxiom implements ComplexIntegerAxiom {
 		}
 		this.objectPropertiesInSignature = Collections
 				.unmodifiableSet(objectPropertiesInSignature);
+		this.annotations = annotations;
+		this.hashCode = this.classExpressions.hashCode() + 0x1F
+				* this.annotations.hashCode();
 	}
 
 	@Override
@@ -109,11 +119,12 @@ public class IntegerDisjointClassesAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof IntegerDisjointClassesAxiom)) {
-			IntegerDisjointClassesAxiom other = (IntegerDisjointClassesAxiom) o;
-			ret = getClassExpressions().equals(other.getClassExpressions());
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof IntegerDisjointClassesAxiom)) {
+			IntegerDisjointClassesAxiom other = (IntegerDisjointClassesAxiom) obj;
+			ret = getClassExpressions().equals(other.getClassExpressions())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}
@@ -150,6 +161,11 @@ public class IntegerDisjointClassesAxiom implements ComplexIntegerAxiom {
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
 		return Collections.unmodifiableSet(this.objectPropertiesInSignature);
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

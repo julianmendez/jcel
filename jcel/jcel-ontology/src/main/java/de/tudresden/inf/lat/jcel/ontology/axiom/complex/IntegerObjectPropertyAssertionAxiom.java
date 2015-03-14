@@ -48,8 +48,10 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
@@ -61,11 +63,12 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  */
 public class IntegerObjectPropertyAssertionAxiom implements ComplexIntegerAxiom {
 
-	private final int hashCode;
 	private final Set<Integer> individualsInSignature;
 	private final int object;
 	private final IntegerObjectPropertyExpression property;
 	private final int subject;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new object property assertion axiom.
@@ -76,24 +79,33 @@ public class IntegerObjectPropertyAssertionAxiom implements ComplexIntegerAxiom 
 	 *            source individual
 	 * @param objectInd
 	 *            target individual
+	 * @param annotations
+	 *            annotations
 	 */
-	protected IntegerObjectPropertyAssertionAxiom(
+	IntegerObjectPropertyAssertionAxiom(
 			IntegerObjectPropertyExpression objectProp, int subjectInd,
-			int objectInd) {
+			int objectInd, List<Annotation> annotations) {
 		if (objectProp == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		this.property = objectProp;
 		this.subject = subjectInd;
 		this.object = objectInd;
-		this.hashCode = objectProp.hashCode() + (31 * subjectInd);
 
 		Set<Integer> individualsInSignature = new HashSet<Integer>();
 		individualsInSignature.add(this.subject);
 		individualsInSignature.add(this.object);
 		this.individualsInSignature = Collections
 				.unmodifiableSet(individualsInSignature);
+		this.annotations = annotations;
+		this.hashCode = this.property.hashCode()
+				+ 0x1F
+				* (this.subject + 0x1F * (this.object + 0x1F * this.annotations
+						.hashCode()));
 	}
 
 	@Override
@@ -106,13 +118,14 @@ public class IntegerObjectPropertyAssertionAxiom implements ComplexIntegerAxiom 
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof IntegerObjectPropertyAssertionAxiom)) {
-			IntegerObjectPropertyAssertionAxiom other = (IntegerObjectPropertyAssertionAxiom) o;
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof IntegerObjectPropertyAssertionAxiom)) {
+			IntegerObjectPropertyAssertionAxiom other = (IntegerObjectPropertyAssertionAxiom) obj;
 			ret = getProperty().equals(other.getProperty())
 					&& getSubject().equals(other.getSubject())
-					&& getObject().equals(other.getObject());
+					&& getObject().equals(other.getObject())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}
@@ -167,6 +180,11 @@ public class IntegerObjectPropertyAssertionAxiom implements ComplexIntegerAxiom 
 	 */
 	public Integer getSubject() {
 		return this.subject;
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

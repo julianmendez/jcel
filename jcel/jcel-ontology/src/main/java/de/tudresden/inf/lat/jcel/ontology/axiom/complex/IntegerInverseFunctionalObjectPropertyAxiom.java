@@ -47,8 +47,10 @@
 package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
@@ -60,23 +62,32 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 public class IntegerInverseFunctionalObjectPropertyAxiom implements
 		ComplexIntegerAxiom {
 
-	private final int hashCode;
 	private final IntegerObjectPropertyExpression objectProperty;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new inverse functional object property axiom.
 	 * 
 	 * @param property
 	 *            object property which inverse is declared functional
+	 * @param annotations
+	 *            annotations
 	 */
-	protected IntegerInverseFunctionalObjectPropertyAxiom(
-			IntegerObjectPropertyExpression property) {
+	IntegerInverseFunctionalObjectPropertyAxiom(
+			IntegerObjectPropertyExpression property,
+			List<Annotation> annotations) {
 		if (property == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		this.objectProperty = property;
-		this.hashCode = property.hashCode();
+		this.annotations = annotations;
+		this.hashCode = this.objectProperty.hashCode() + 0x1F
+				* this.annotations.hashCode();
 	}
 
 	@Override
@@ -88,11 +99,13 @@ public class IntegerInverseFunctionalObjectPropertyAxiom implements
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof IntegerInverseFunctionalObjectPropertyAxiom)) {
-			IntegerInverseFunctionalObjectPropertyAxiom other = (IntegerInverseFunctionalObjectPropertyAxiom) o;
-			ret = getProperty().equals(other.getProperty());
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret
+				&& (obj instanceof IntegerInverseFunctionalObjectPropertyAxiom)) {
+			IntegerInverseFunctionalObjectPropertyAxiom other = (IntegerInverseFunctionalObjectPropertyAxiom) obj;
+			ret = getProperty().equals(other.getProperty())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}
@@ -129,6 +142,11 @@ public class IntegerInverseFunctionalObjectPropertyAxiom implements
 	 */
 	public IntegerObjectPropertyExpression getProperty() {
 		return this.objectProperty;
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

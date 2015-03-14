@@ -61,9 +61,9 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 /**
  * 
  * <ul>
- * <li>NR 2-1 : r<sub>1</sub> \u2218 &hellip; \u2218 r<sub>k</sub> \u2291
- * s \u219D r<sub>1</sub> \u2218 &hellip; \u2218 r<sub>k-1</sub> \u2291
- * u, u \u2218 r<sub>k</sub> \u2291 s</li>
+ * <li>NR 2-1 : r<sub>1</sub> \u2218 &hellip; \u2218 r<sub>k</sub> \u2291 s
+ * \u219D r<sub>1</sub> \u2218 &hellip; \u2218 r<sub>k-1</sub> \u2291 u, u
+ * \u2218 r<sub>k</sub> \u2291 s</li>
  * </ul>
  * <br>
  * 
@@ -117,7 +117,7 @@ class NormalizerNR2_1 implements NormalizationRule {
 							IntegerEntityType.OBJECT_PROPERTY, true);
 			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
 					.createRI3Axiom(newPropertyName, lastPropertyName,
-							superProperty));
+							superProperty, propertyAxiom.getAnnotations()));
 			propertyList = propertyList.subList(0, lastPos);
 			superProperty = newPropertyName;
 		}
@@ -127,15 +127,18 @@ class NormalizerNR2_1 implements NormalizationRule {
 			Integer first = getObjectPropertyId(it.next());
 			Integer second = getObjectPropertyId(it.next());
 			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
-					.createRI3Axiom(first, second, superProperty));
+					.createRI3Axiom(first, second, superProperty,
+							propertyAxiom.getAnnotations()));
 		} else if (propertyList.size() == 1) {
 			Integer subProperty = getObjectPropertyId(propertyList.iterator()
 					.next());
 			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
-					.createRI2Axiom(subProperty, superProperty));
+					.createRI2Axiom(subProperty, superProperty,
+							propertyAxiom.getAnnotations()));
 		} else if (propertyList.size() == 0) {
 			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
-					.createRI1Axiom(superProperty));
+					.createRI1Axiom(superProperty,
+							propertyAxiom.getAnnotations()));
 		}
 		return ret;
 	}

@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
@@ -63,26 +64,37 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
 public class GCI2Axiom implements NormalizedIntegerAxiom {
 
 	private final int classInSuperClass;
-	private final int hashCode;
 	private final int propertyInSuperClass;
 	private final int subClass;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new GCI-2 axiom.
 	 * 
-	 * @param leftCl
+	 * @param leftClassId
 	 *            subclass identifier
-	 * @param rightProp
+	 * @param rightPropertyId
 	 *            object property identifier
-	 * @param rightCl
+	 * @param rightClassId
 	 *            class identifier for the right-hand part
+	 * @param annotations
+	 *            annotations
 	 */
-	protected GCI2Axiom(int leftCl, int rightProp, int rightCl) {
-		this.subClass = leftCl;
-		this.propertyInSuperClass = rightProp;
-		this.classInSuperClass = rightCl;
+	GCI2Axiom(int leftClassId, int rightPropertyId, int rightClassId,
+			List<Annotation> annotations) {
+		if (annotations == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		this.subClass = leftClassId;
+		this.propertyInSuperClass = rightPropertyId;
+		this.classInSuperClass = rightClassId;
+		this.annotations = annotations;
 		this.hashCode = this.subClass
-				+ (31 * (this.propertyInSuperClass + (31 * this.classInSuperClass)));
+				+ 0x1F
+				* (this.propertyInSuperClass + 0x1F * (this.classInSuperClass + 0x1F * this.annotations
+						.hashCode()));
 	}
 
 	@Override
@@ -95,13 +107,14 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof GCI2Axiom)) {
-			GCI2Axiom other = (GCI2Axiom) o;
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof GCI2Axiom)) {
+			GCI2Axiom other = (GCI2Axiom) obj;
 			ret = (this.subClass == other.subClass)
 					&& (this.classInSuperClass == other.classInSuperClass)
-					&& (this.propertyInSuperClass == other.propertyInSuperClass);
+					&& (this.propertyInSuperClass == other.propertyInSuperClass)
+					&& this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}
@@ -161,6 +174,11 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 	 */
 	public int getSubClass() {
 		return this.subClass;
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

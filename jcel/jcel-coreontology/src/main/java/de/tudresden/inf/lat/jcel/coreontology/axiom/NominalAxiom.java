@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -60,8 +61,9 @@ import java.util.Set;
 public class NominalAxiom implements NormalizedIntegerAxiom {
 
 	private final int classExpression;
-	private final int hashCode;
 	private final int individual;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new nominal axiom.
@@ -70,11 +72,19 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 	 *            class identifier in the axiom
 	 * @param individualId
 	 *            individual identifier in the axiom
+	 * @param annotations
+	 *            annotations
 	 */
-	protected NominalAxiom(int classId, int individualId) {
+	NominalAxiom(int classId, int individualId, List<Annotation> annotations) {
+		if (annotations == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
 		this.classExpression = classId;
 		this.individual = individualId;
-		this.hashCode = this.classExpression + (31 * this.individual);
+		this.annotations = annotations;
+		this.hashCode = this.classExpression + 0x1F
+				* (this.individual + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override
@@ -87,12 +97,13 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof NominalAxiom)) {
-			NominalAxiom other = (NominalAxiom) o;
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof NominalAxiom)) {
+			NominalAxiom other = (NominalAxiom) obj;
 			ret = (this.classExpression == other.classExpression)
-					&& (this.individual == other.individual);
+					&& (this.individual == other.individual)
+					&& this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}
@@ -128,6 +139,11 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
 		return Collections.emptySet();
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

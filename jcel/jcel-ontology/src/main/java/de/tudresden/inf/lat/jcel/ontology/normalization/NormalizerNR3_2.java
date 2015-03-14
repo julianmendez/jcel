@@ -120,9 +120,11 @@ class NormalizerNR3_2 implements NormalizationRule {
 						.getDataTypeFactory().createObjectSomeValuesFrom(
 								propertyExpression, newClass);
 				ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-						.createSubClassOfAxiom(subClass, newExistential));
+						.createSubClassOfAxiom(subClass, newExistential,
+								classAxiom.getAnnotations()));
 				ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-						.createSubClassOfAxiom(newClass, filler));
+						.createSubClassOfAxiom(newClass, filler,
+								classAxiom.getAnnotations()));
 			}
 		}
 		return ret;

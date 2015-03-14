@@ -47,8 +47,10 @@
 package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
@@ -58,23 +60,32 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  */
 public class IntegerReflexiveObjectPropertyAxiom implements ComplexIntegerAxiom {
 
-	private final int hashCode;
 	private final IntegerObjectPropertyExpression objectProperty;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new reflexive object property axiom.
 	 * 
 	 * @param property
 	 *            object property
+	 * @param annotations
+	 *            annotations
 	 */
-	protected IntegerReflexiveObjectPropertyAxiom(
-			IntegerObjectPropertyExpression property) {
+	IntegerReflexiveObjectPropertyAxiom(
+			IntegerObjectPropertyExpression property,
+			List<Annotation> annotations) {
 		if (property == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		this.objectProperty = property;
-		this.hashCode = property.hashCode();
+		this.annotations = annotations;
+		this.hashCode = this.objectProperty.hashCode() + 0x1F
+				* this.annotations.hashCode();
 	}
 
 	@Override
@@ -86,11 +97,12 @@ public class IntegerReflexiveObjectPropertyAxiom implements ComplexIntegerAxiom 
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof IntegerReflexiveObjectPropertyAxiom)) {
-			IntegerReflexiveObjectPropertyAxiom other = (IntegerReflexiveObjectPropertyAxiom) o;
-			ret = getProperty().equals(other.getProperty());
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof IntegerReflexiveObjectPropertyAxiom)) {
+			IntegerReflexiveObjectPropertyAxiom other = (IntegerReflexiveObjectPropertyAxiom) obj;
+			ret = getProperty().equals(other.getProperty())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}
@@ -127,6 +139,11 @@ public class IntegerReflexiveObjectPropertyAxiom implements ComplexIntegerAxiom 
 	 */
 	public IntegerObjectPropertyExpression getProperty() {
 		return this.objectProperty;
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

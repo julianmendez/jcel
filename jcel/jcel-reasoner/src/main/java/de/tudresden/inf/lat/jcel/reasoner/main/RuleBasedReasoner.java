@@ -50,6 +50,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -57,6 +58,7 @@ import java.util.logging.Logger;
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
 import de.tudresden.inf.lat.jcel.core.algorithm.rulebased.RuleBasedProcessor;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
@@ -184,8 +186,9 @@ public class RuleBasedReasoner implements IntegerReasoner {
 				argument.add(ce);
 
 				Set<ComplexIntegerAxiom> extendedOntology = new HashSet<ComplexIntegerAxiom>();
+				List<Annotation> annotations = Collections.emptyList();
 				extendedOntology.add(this.factory.getComplexAxiomFactory()
-						.createEquivalentClassesAxiom(argument));
+						.createEquivalentClassesAxiom(argument, annotations));
 
 				OntologyNormalizer axiomNormalizer = new OntologyNormalizer();
 				Set<NormalizedIntegerAxiom> extendedNormalizedAxiomSet = axiomNormalizer

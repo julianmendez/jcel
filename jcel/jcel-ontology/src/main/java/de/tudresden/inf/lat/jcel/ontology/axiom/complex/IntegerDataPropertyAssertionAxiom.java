@@ -48,7 +48,10 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 
 /**
  * This class models an assertion that relates a data property and a pair of
@@ -59,11 +62,12 @@ import java.util.Set;
  */
 public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 
-	private final int hashCode;
 	private final Set<Integer> individualsInSignature;
 	private final int object;
 	private final int property;
 	private final int subject;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new data property assertion axiom.
@@ -74,19 +78,29 @@ public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 	 *            source individual
 	 * @param objectInd
 	 *            target individual
+	 * @param annotations
+	 *            annotations
 	 */
-	protected IntegerDataPropertyAssertionAxiom(int objectProp, int subjectInd,
-			int objectInd) {
+	IntegerDataPropertyAssertionAxiom(int objectProp, int subjectInd,
+			int objectInd, List<Annotation> annotations) {
+		if (annotations == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
 		this.property = objectProp;
 		this.subject = subjectInd;
 		this.object = objectInd;
-		this.hashCode = objectProp + (31 * subjectInd);
 
 		Set<Integer> individualsInSignature = new HashSet<Integer>();
 		individualsInSignature.add(this.subject);
 		individualsInSignature.add(this.object);
 		this.individualsInSignature = Collections
 				.unmodifiableSet(individualsInSignature);
+		this.annotations = annotations;
+		this.hashCode = this.property
+				+ 0x1F
+				* (this.subject + 0x1F * (this.object + 0x1F * this.annotations
+						.hashCode()));
 	}
 
 	@Override
@@ -99,13 +113,14 @@ public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof IntegerDataPropertyAssertionAxiom)) {
-			IntegerDataPropertyAssertionAxiom other = (IntegerDataPropertyAssertionAxiom) o;
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof IntegerDataPropertyAssertionAxiom)) {
+			IntegerDataPropertyAssertionAxiom other = (IntegerDataPropertyAssertionAxiom) obj;
 			ret = getProperty().equals(other.getProperty())
 					&& getSubject().equals(other.getSubject())
-					&& getObject().equals(other.getObject());
+					&& getObject().equals(other.getObject())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}
@@ -160,6 +175,11 @@ public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 	 */
 	public Integer getSubject() {
 		return this.subject;
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

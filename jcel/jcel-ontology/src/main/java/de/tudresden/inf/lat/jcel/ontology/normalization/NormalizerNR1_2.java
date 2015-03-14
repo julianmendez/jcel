@@ -105,12 +105,12 @@ class NormalizerNR1_2 implements NormalizationRule {
 			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
 					.createRangeAxiom(
 							getObjectPropertyId(rangeAxiom.getProperty()),
-							newClassId));
+							newClassId, rangeAxiom.getAnnotations()));
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
 					.createSubClassOfAxiom(
 							getOntologyObjectFactory().getDataTypeFactory()
 									.createClass(newClassId),
-							rangeAxiom.getRange()));
+							rangeAxiom.getRange(), rangeAxiom.getAnnotations()));
 		}
 		return ret;
 	}

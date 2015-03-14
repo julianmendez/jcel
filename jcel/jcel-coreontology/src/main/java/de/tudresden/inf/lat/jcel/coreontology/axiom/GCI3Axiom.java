@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
@@ -63,26 +64,37 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
 public class GCI3Axiom implements NormalizedIntegerAxiom {
 
 	private final int classInSubClass;
-	private final int hashCode;
 	private final int propertyInSubClass;
 	private final int superClass;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new GCI-3 axiom.
 	 * 
-	 * @param leftProp
+	 * @param leftPropertyId
 	 *            object property identifier for the left-hand part
-	 * @param leftCl
+	 * @param leftClassId
 	 *            class identifier for the left-hand part
-	 * @param rightCl
+	 * @param rightClassId
 	 *            superclass identifier
+	 * @param annotations
+	 *            annotations
 	 */
-	protected GCI3Axiom(int leftProp, int leftCl, int rightCl) {
-		this.classInSubClass = leftCl;
-		this.propertyInSubClass = leftProp;
-		this.superClass = rightCl;
+	GCI3Axiom(int leftPropertyId, int leftClassId, int rightClassId,
+			List<Annotation> annotations) {
+		if (annotations == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		this.classInSubClass = leftClassId;
+		this.propertyInSubClass = leftPropertyId;
+		this.superClass = rightClassId;
+		this.annotations = annotations;
 		this.hashCode = this.classInSubClass
-				+ (31 * (this.propertyInSubClass + (31 * this.superClass)));
+				+ 0x1F
+				* (this.propertyInSubClass + 0x1F * (this.superClass + 0x1F * this.annotations
+						.hashCode()));
 	}
 
 	@Override
@@ -95,13 +107,14 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof GCI3Axiom)) {
-			GCI3Axiom other = (GCI3Axiom) o;
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof GCI3Axiom)) {
+			GCI3Axiom other = (GCI3Axiom) obj;
 			ret = (this.classInSubClass == other.classInSubClass)
 					&& (this.propertyInSubClass == other.propertyInSubClass)
-					&& (this.superClass == other.superClass);
+					&& (this.superClass == other.superClass)
+					&& this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}
@@ -159,6 +172,11 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 	 */
 	public int getSuperClass() {
 		return this.superClass;
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

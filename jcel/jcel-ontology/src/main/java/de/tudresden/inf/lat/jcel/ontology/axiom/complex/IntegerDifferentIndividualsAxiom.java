@@ -47,7 +47,10 @@
 package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 
 /**
  * This class models an axiom saying that two or more individuals are pairwise
@@ -57,22 +60,31 @@ import java.util.Set;
  */
 public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 
-	private final int hashCode;
 	private final Set<Integer> individuals;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new different individuals axiom
 	 * 
 	 * @param individualSet
 	 *            set of individuals declared to be different
+	 * @param annotations
+	 *            annotations
 	 */
-	protected IntegerDifferentIndividualsAxiom(Set<Integer> individualSet) {
+	IntegerDifferentIndividualsAxiom(Set<Integer> individualSet,
+			List<Annotation> annotations) {
 		if (individualSet == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		this.individuals = Collections.unmodifiableSet(individualSet);
-		this.hashCode = individualSet.hashCode();
+		this.annotations = annotations;
+		this.hashCode = this.individuals.hashCode() + 0x1F
+				* this.annotations.hashCode();
 	}
 
 	@Override
@@ -85,11 +97,12 @@ public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof IntegerDifferentIndividualsAxiom)) {
-			IntegerDifferentIndividualsAxiom other = (IntegerDifferentIndividualsAxiom) o;
-			ret = getIndividuals().equals(other.getIndividuals());
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof IntegerDifferentIndividualsAxiom)) {
+			IntegerDifferentIndividualsAxiom other = (IntegerDifferentIndividualsAxiom) obj;
+			ret = getIndividuals().equals(other.getIndividuals())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}
@@ -126,6 +139,11 @@ public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
 		return Collections.emptySet();
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

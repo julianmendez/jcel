@@ -47,8 +47,10 @@
 package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 
 /**
@@ -60,8 +62,9 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 
 	private final IntegerClassExpression classExpression;
-	private final int hashCode;
 	private final int individual;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new class assertion axiom.
@@ -70,16 +73,23 @@ public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 	 *            class expression of the assertion
 	 * @param individualId
 	 *            individual of the assertion
+	 * @param annotations
+	 *            annotations
 	 */
-	protected IntegerClassAssertionAxiom(IntegerClassExpression classExpr,
-			int individualId) {
+	IntegerClassAssertionAxiom(IntegerClassExpression classExpr,
+			int individualId, List<Annotation> annotations) {
 		if (classExpr == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		this.classExpression = classExpr;
 		this.individual = individualId;
-		this.hashCode = classExpr.hashCode() + (31 * individualId);
+		this.annotations = annotations;
+		this.hashCode = this.classExpression.hashCode() + 0x1F
+				* (this.individual + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override
@@ -92,12 +102,13 @@ public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof IntegerClassAssertionAxiom)) {
-			IntegerClassAssertionAxiom other = (IntegerClassAssertionAxiom) o;
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof IntegerClassAssertionAxiom)) {
+			IntegerClassAssertionAxiom other = (IntegerClassAssertionAxiom) obj;
 			ret = getClassExpression().equals(other.getClassExpression())
-					&& getIndividual().equals(other.getIndividual());
+					&& getIndividual().equals(other.getIndividual())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}
@@ -143,6 +154,11 @@ public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
 		return Collections.emptySet();
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

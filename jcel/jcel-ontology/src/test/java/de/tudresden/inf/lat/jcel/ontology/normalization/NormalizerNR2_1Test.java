@@ -52,6 +52,7 @@ import java.util.List;
 import java.util.Set;
 
 import junit.framework.TestCase;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
@@ -71,11 +72,12 @@ public class NormalizerNR2_1Test extends TestCase {
 
 	/**
 	 * r<sub>1</sub> \u2218 r<sub>2</sub> \u2218 r<sub>3</sub> \u2218
-	 * r<sub>4</sub> \u2291 s \u219D r<sub>1</sub> \u2218 r<sub>2</sub>
-	 * \u2291 u<sub>1</sub>, u<sub>1</sub> \u2218 r<sub>3</sub> \u2291
-	 * u<sub>2</sub>, u<sub>2</sub> \u2218 r<sub>4</sub> \u2291 s
+	 * r<sub>4</sub> \u2291 s \u219D r<sub>1</sub> \u2218 r<sub>2</sub> \u2291
+	 * u<sub>1</sub>, u<sub>1</sub> \u2218 r<sub>3</sub> \u2291 u<sub>2</sub>,
+	 * u<sub>2</sub> \u2218 r<sub>4</sub> \u2291 s
 	 */
 	public void testRule() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR2_1 normalizer = new NormalizerNR2_1(factory);
 
@@ -116,7 +118,7 @@ public class NormalizerNR2_1Test extends TestCase {
 			list.add(r3);
 			list.add(r4);
 			originalAxiom = factory.getComplexAxiomFactory()
-					.createSubPropertyChainOfAxiom(list, s);
+					.createSubPropertyChainOfAxiom(list, s, annotations);
 		}
 		Set<IntegerAxiom> normalizedAxioms = normalizer.apply(originalAxiom);
 
@@ -145,11 +147,11 @@ public class NormalizerNR2_1Test extends TestCase {
 
 		Set<IntegerAxiom> expectedAxioms = new HashSet<IntegerAxiom>();
 		expectedAxioms.add(factory.getNormalizedAxiomFactory().createRI3Axiom(
-				r1.getId(), r2.getId(), u1.getId()));
+				r1.getId(), r2.getId(), u1.getId(), annotations));
 		expectedAxioms.add(factory.getNormalizedAxiomFactory().createRI3Axiom(
-				u1.getId(), r3.getId(), u2.getId()));
+				u1.getId(), r3.getId(), u2.getId(), annotations));
 		expectedAxioms.add(factory.getNormalizedAxiomFactory().createRI3Axiom(
-				u2.getId(), r4.getId(), s.getId()));
+				u2.getId(), r4.getId(), s.getId(), annotations));
 
 		assertEquals(expectedAxioms, normalizedAxioms);
 	}

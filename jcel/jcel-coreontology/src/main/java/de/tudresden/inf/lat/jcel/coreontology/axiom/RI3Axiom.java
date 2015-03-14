@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -60,29 +61,40 @@ import java.util.Set;
  */
 public class RI3Axiom implements NormalizedIntegerAxiom {
 
-	private final int hashCode;
 	private final int leftSubProperty;
 	private final int rightSubProperty;
 	private final int superProperty;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new RI-3 axiom
 	 * 
-	 * @param leftLeftProp
+	 * @param leftLeftPropertyId
 	 *            object property identifier for the left-hand object property
 	 *            on the composition
-	 * @param leftRightProp
+	 * @param leftRightPropertyId
 	 *            object property identifier for the right-hand object property
 	 *            on the composition
-	 * @param rightProp
+	 * @param rightPropertyId
 	 *            object property identifier for super object property
+	 * @param annotations
+	 *            annotations
 	 */
-	protected RI3Axiom(int leftLeftProp, int leftRightProp, int rightProp) {
-		this.leftSubProperty = leftLeftProp;
-		this.rightSubProperty = leftRightProp;
-		this.superProperty = rightProp;
+	RI3Axiom(int leftLeftPropertyId, int leftRightPropertyId,
+			int rightPropertyId, List<Annotation> annotations) {
+		if (annotations == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		this.leftSubProperty = leftLeftPropertyId;
+		this.rightSubProperty = leftRightPropertyId;
+		this.superProperty = rightPropertyId;
+		this.annotations = annotations;
 		this.hashCode = this.leftSubProperty
-				+ (31 * (this.rightSubProperty + (31 * this.superProperty)));
+				+ 0x1F
+				* (this.rightSubProperty + 0x1F * (this.superProperty + 0x1F * this.annotations
+						.hashCode()));
 	}
 
 	@Override
@@ -95,13 +107,14 @@ public class RI3Axiom implements NormalizedIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof RI3Axiom)) {
-			RI3Axiom other = (RI3Axiom) o;
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof RI3Axiom)) {
+			RI3Axiom other = (RI3Axiom) obj;
 			ret = (this.leftSubProperty == other.leftSubProperty)
 					&& (this.rightSubProperty == other.rightSubProperty)
-					&& (this.superProperty == other.superProperty);
+					&& (this.superProperty == other.superProperty)
+					&& this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}
@@ -160,6 +173,11 @@ public class RI3Axiom implements NormalizedIntegerAxiom {
 	 */
 	public int getSuperProperty() {
 		return this.superProperty;
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

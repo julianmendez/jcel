@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -57,15 +58,25 @@ import java.util.Set;
 public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
 
 	private final int property;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new functional object property axiom.
 	 * 
-	 * @param prop
+	 * @param propertyId
 	 *            object property
+	 * @param annotations
+	 *            annotations
 	 */
-	protected FunctObjectPropAxiom(int prop) {
-		this.property = prop;
+	FunctObjectPropAxiom(int propertyId, List<Annotation> annotations) {
+		if (annotations == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		this.property = propertyId;
+		this.annotations = annotations;
+		this.hashCode = this.property + 0x1F * this.annotations.hashCode();
 	}
 
 	@Override
@@ -78,11 +89,12 @@ public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(Object obj) {
 		boolean ret = false;
-		if (o instanceof FunctObjectPropAxiom) {
-			FunctObjectPropAxiom other = (FunctObjectPropAxiom) o;
-			ret = (this.property == other.property);
+		if (obj instanceof FunctObjectPropAxiom) {
+			FunctObjectPropAxiom other = (FunctObjectPropAxiom) obj;
+			ret = (this.property == other.property)
+					&& this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}
@@ -122,8 +134,13 @@ public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
 	}
 
 	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
+	}
+
+	@Override
 	public int hashCode() {
-		return this.property;
+		return this.hashCode;
 	}
 
 	@Override

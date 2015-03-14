@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -60,15 +61,25 @@ import java.util.Set;
 public class RI1Axiom implements NormalizedIntegerAxiom {
 
 	private final int superProperty;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new axiom RI-1.
 	 * 
-	 * @param prop
+	 * @param propertyId
 	 *            object property identifier
+	 * @param annotations
+	 *            annotations
 	 */
-	protected RI1Axiom(int prop) {
-		this.superProperty = prop;
+	RI1Axiom(int propertyId, List<Annotation> annotations) {
+		if (annotations == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		this.superProperty = propertyId;
+		this.annotations = annotations;
+		this.hashCode = this.superProperty + 0x1F * this.annotations.hashCode();
 	}
 
 	@Override
@@ -81,11 +92,12 @@ public class RI1Axiom implements NormalizedIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof RI1Axiom)) {
-			RI1Axiom other = (RI1Axiom) o;
-			ret = (this.superProperty == other.superProperty);
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof RI1Axiom)) {
+			RI1Axiom other = (RI1Axiom) obj;
+			ret = (this.superProperty == other.superProperty)
+					&& this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}
@@ -125,8 +137,13 @@ public class RI1Axiom implements NormalizedIntegerAxiom {
 	}
 
 	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
+	}
+
+	@Override
 	public int hashCode() {
-		return this.superProperty;
+		return this.hashCode;
 	}
 
 	@Override

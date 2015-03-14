@@ -48,8 +48,10 @@ package de.tudresden.inf.lat.jcel.ontology.normalization;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
@@ -61,8 +63,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
 /**
  * 
  * <ul>
- * <li>NR-2.4 : B \u2293 C' \u2291 D \u219D C' \u2291 A, B \u2293 A
- * \u2291 D</li>
+ * <li>NR-2.4 : B \u2293 C' \u2291 D \u219D C' \u2291 A, B \u2293 A \u2291 D</li>
  * </ul>
  * <br>
  * 
@@ -109,7 +110,8 @@ class NormalizerNR2_4 implements NormalizationRule {
 				Set<IntegerClassExpression> operands = intersection
 						.getOperands();
 				if (operands.size() > 2) {
-					Set<IntegerAxiom> newSet = applyRule(operands, superClass);
+					Set<IntegerAxiom> newSet = applyRule(operands, superClass,
+							classAxiom.getAnnotations());
 					if (newSet.size() > 1) {
 						ret = newSet;
 					}
@@ -121,7 +123,7 @@ class NormalizerNR2_4 implements NormalizationRule {
 	}
 
 	private Set<IntegerAxiom> applyRule(Set<IntegerClassExpression> operands,
-			IntegerClassExpression superClass) {
+			IntegerClassExpression superClass, List<Annotation> annotations) {
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
 		IntegerClassExpression aLiteral = null;
 		for (IntegerClassExpression op : operands) {
@@ -143,7 +145,8 @@ class NormalizerNR2_4 implements NormalizationRule {
 					.getDataTypeFactory().createObjectIntersectionOf(
 							newOperands);
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-					.createSubClassOfAxiom(newIntersection, newClass));
+					.createSubClassOfAxiom(newIntersection, newClass,
+							annotations));
 
 			Set<IntegerClassExpression> pairOfLiterals = new HashSet<IntegerClassExpression>();
 			pairOfLiterals.add(aLiteral);
@@ -152,7 +155,8 @@ class NormalizerNR2_4 implements NormalizationRule {
 					.getDataTypeFactory().createObjectIntersectionOf(
 							pairOfLiterals);
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-					.createSubClassOfAxiom(intersectionOfLiterals, superClass));
+					.createSubClassOfAxiom(intersectionOfLiterals, superClass,
+							annotations));
 		}
 		return ret;
 	}

@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2009-2013 Julian Mendez
+ * Copyright 2009-2015 Julian Mendez
  *
  *
  * This file is part of jcel.
@@ -44,61 +44,28 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.core.saturation;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
+package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 /**
- * For each object property r, this rule adds r \u2291 r.
- *
+ * This interface models an annotation.
+ * 
  * @author Julian Mendez
+ * 
  */
-public class SR0Rule implements SaturationRule {
-
-	private final NormalizedIntegerAxiomFactory factory;
+public interface Annotation {
 
 	/**
-	 * Constructs a new SR-0 rule.
+	 * Returns the annotation property.
 	 * 
-	 * @param factory
-	 *            factory
+	 * @return the annotation property
 	 */
-	public SR0Rule(NormalizedIntegerAxiomFactory factory) {
-		if (factory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		this.factory = factory;
-	}
+	String getAnnotationProperty();
 
-	@Override
-	public Set<NormalizedIntegerAxiom> apply(
-			Set<NormalizedIntegerAxiom> originalSet) {
-		if (originalSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		Set<NormalizedIntegerAxiom> ret = new HashSet<NormalizedIntegerAxiom>();
-		ret.addAll(originalSet);
-
-		Set<Integer> objectPropertySet = new HashSet<Integer>();
-		for (NormalizedIntegerAxiom axiom : originalSet) {
-			objectPropertySet.addAll(axiom.getObjectPropertiesInSignature());
-		}
-
-		List<Annotation> annotations = Collections.emptyList();
-		for (Integer objectProperty : objectPropertySet) {
-			ret.add(this.factory.createRI2Axiom(objectProperty, objectProperty,
-					annotations));
-		}
-
-		return Collections.unmodifiableSet(ret);
-	}
+	/**
+	 * Returns the annotation value.
+	 * 
+	 * @return the annotation value
+	 */
+	String getAnnotationValue();
 
 }

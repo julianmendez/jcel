@@ -46,10 +46,13 @@
 
 package de.tudresden.inf.lat.jcel.reasoner.main;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import junit.framework.TestCase;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
@@ -129,6 +132,7 @@ public class RuleBasedReasonerTest extends TestCase {
 	 * </ul>
 	 */
 	public void testOntology0() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
@@ -147,44 +151,50 @@ public class RuleBasedReasonerTest extends TestCase {
 		IntegerObjectProperty sMinus = createNewObjectProperty(factory, "s-");
 		IntegerObjectProperty t = createNewObjectProperty(factory, "t");
 		ontology.add(factory.getComplexAxiomFactory()
-				.createInverseObjectPropertiesAxiom(sMinus, s));
+				.createInverseObjectPropertiesAxiom(sMinus, s, annotations));
 
 		// 1
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
 				l,
 				factory.getDataTypeFactory().createObjectSomeValuesFrom(s,
-						factory.getDataTypeFactory().getTopClass())));
+						factory.getDataTypeFactory().getTopClass()),
+				annotations));
 
 		// 2
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
 				factory.getDataTypeFactory().createObjectSomeValuesFrom(sMinus,
-						l), k));
+						l), k, annotations));
 
 		// 3
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
 				factory.getDataTypeFactory().createObjectSomeValuesFrom(s, k),
-				e));
+				e, annotations));
 
 		// 4
-		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
-				e,
-				factory.getDataTypeFactory().createObjectSomeValuesFrom(
-						t,
+		ontology.add(factory.getComplexAxiomFactory()
+				.createSubClassOfAxiom(
+						e,
 						factory.getDataTypeFactory()
-								.createObjectSomeValuesFrom(t, d))));
+								.createObjectSomeValuesFrom(
+										t,
+										factory.getDataTypeFactory()
+												.createObjectSomeValuesFrom(t,
+														d)), annotations));
 
 		// 5
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
 				factory.getDataTypeFactory().createObjectSomeValuesFrom(t, d),
-				c));
+				c, annotations));
 
 		// 6
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(c,
-				factory.getDataTypeFactory().createObjectSomeValuesFrom(r1, g)));
+				factory.getDataTypeFactory().createObjectSomeValuesFrom(r1, g),
+				annotations));
 
 		// 7
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(c,
-				factory.getDataTypeFactory().createObjectSomeValuesFrom(r2, h)));
+				factory.getDataTypeFactory().createObjectSomeValuesFrom(r2, h),
+				annotations));
 
 		// 8
 		Set<IntegerClassExpression> g_h = new HashSet<IntegerClassExpression>();
@@ -194,23 +204,24 @@ public class RuleBasedReasonerTest extends TestCase {
 				factory.getDataTypeFactory().createObjectSomeValuesFrom(
 						r,
 						factory.getDataTypeFactory()
-								.createObjectIntersectionOf(g_h)), j));
+								.createObjectIntersectionOf(g_h)), j,
+				annotations));
 
 		// 9
 		ontology.add(factory.getComplexAxiomFactory()
-				.createSubObjectPropertyOfAxiom(r1, r));
+				.createSubObjectPropertyOfAxiom(r1, r, annotations));
 
 		// 10
 		ontology.add(factory.getComplexAxiomFactory()
-				.createSubObjectPropertyOfAxiom(r2, r));
+				.createSubObjectPropertyOfAxiom(r2, r, annotations));
 
 		// 11
 		ontology.add(factory.getComplexAxiomFactory()
-				.createFunctionalObjectPropertyAxiom(r));
+				.createFunctionalObjectPropertyAxiom(r, annotations));
 
 		// 12
 		ontology.add(factory.getComplexAxiomFactory()
-				.createTransitiveObjectPropertyAxiom(t));
+				.createTransitiveObjectPropertyAxiom(t, annotations));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
@@ -232,6 +243,7 @@ public class RuleBasedReasonerTest extends TestCase {
 	 * </ul>
 	 */
 	public void testOntology1() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
@@ -242,21 +254,22 @@ public class RuleBasedReasonerTest extends TestCase {
 		IntegerObjectProperty r = createNewObjectProperty(factory, "r");
 		IntegerObjectProperty rMinus = createNewObjectProperty(factory, "r-");
 		ontology.add(factory.getComplexAxiomFactory()
-				.createInverseObjectPropertiesAxiom(rMinus, r));
+				.createInverseObjectPropertiesAxiom(rMinus, r, annotations));
 
 		// 1
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
-				factory.getDataTypeFactory().createObjectSomeValuesFrom(r, b)));
+				factory.getDataTypeFactory().createObjectSomeValuesFrom(r, b),
+				annotations));
 
 		// 2
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
 				factory.getDataTypeFactory().createObjectSomeValuesFrom(rMinus,
-						a), c));
+						a), c, annotations));
 
 		// 3
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
 				factory.getDataTypeFactory().createObjectSomeValuesFrom(r, c),
-				d));
+				d, annotations));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
@@ -280,6 +293,7 @@ public class RuleBasedReasonerTest extends TestCase {
 	 * </ul>
 	 */
 	public void testOntology2() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
@@ -293,39 +307,40 @@ public class RuleBasedReasonerTest extends TestCase {
 		IntegerObjectProperty s = createNewObjectProperty(factory, "s");
 		IntegerObjectProperty t = createNewObjectProperty(factory, "t");
 		ontology.add(factory.getComplexAxiomFactory()
-				.createInverseObjectPropertiesAxiom(rMinus, r));
+				.createInverseObjectPropertiesAxiom(rMinus, r, annotations));
 
 		// 1
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
-				factory.getDataTypeFactory().createObjectSomeValuesFrom(r, b)));
+				factory.getDataTypeFactory().createObjectSomeValuesFrom(r, b),
+				annotations));
 
 		// 2
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
 				d,
 				factory.getDataTypeFactory().createObjectSomeValuesFrom(rMinus,
-						e)));
+						e), annotations));
 
 		// 3
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
 				factory.getDataTypeFactory().createObjectSomeValuesFrom(rMinus,
-						a), d));
+						a), d, annotations));
 
 		// 4
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
 				factory.getDataTypeFactory().createObjectSomeValuesFrom(r, c),
-				d));
+				d, annotations));
 
 		// 5
 		ontology.add(factory.getComplexAxiomFactory()
-				.createFunctionalObjectPropertyAxiom(rMinus));
+				.createFunctionalObjectPropertyAxiom(rMinus, annotations));
 
 		// 6
 		ontology.add(factory.getComplexAxiomFactory()
-				.createFunctionalObjectPropertyAxiom(s));
+				.createFunctionalObjectPropertyAxiom(s, annotations));
 
 		// 7
 		ontology.add(factory.getComplexAxiomFactory()
-				.createTransitiveObjectPropertyAxiom(t));
+				.createTransitiveObjectPropertyAxiom(t, annotations));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
@@ -350,6 +365,7 @@ public class RuleBasedReasonerTest extends TestCase {
 	 * </ul>
 	 */
 	public void testOntology3() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
@@ -365,43 +381,45 @@ public class RuleBasedReasonerTest extends TestCase {
 		IntegerObjectProperty s = createNewObjectProperty(factory, "s");
 		IntegerObjectProperty sMinus = createNewObjectProperty(factory, "s-");
 		ontology.add(factory.getComplexAxiomFactory()
-				.createInverseObjectPropertiesAxiom(rMinus, r));
+				.createInverseObjectPropertiesAxiom(rMinus, r, annotations));
 		ontology.add(factory.getComplexAxiomFactory()
-				.createInverseObjectPropertiesAxiom(sMinus, s));
+				.createInverseObjectPropertiesAxiom(sMinus, s, annotations));
 
 		// 1
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
-				factory.getDataTypeFactory().createObjectSomeValuesFrom(r1, b)));
+				factory.getDataTypeFactory().createObjectSomeValuesFrom(r1, b),
+				annotations));
 
 		// 2
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(b,
-				factory.getDataTypeFactory().createObjectSomeValuesFrom(r2, c)));
+				factory.getDataTypeFactory().createObjectSomeValuesFrom(r2, c),
+				annotations));
 
 		// 3
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
 				factory.getDataTypeFactory().createObjectSomeValuesFrom(s, d),
-				e));
+				e, annotations));
 
 		// 4
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
 				factory.getDataTypeFactory().createObjectSomeValuesFrom(sMinus,
-						a), d));
+						a), d, annotations));
 
 		// 5
 		ontology.add(factory.getComplexAxiomFactory()
-				.createSubObjectPropertyOfAxiom(r, s));
+				.createSubObjectPropertyOfAxiom(r, s, annotations));
 
 		// 6
 		ontology.add(factory.getComplexAxiomFactory()
-				.createSubObjectPropertyOfAxiom(r1, r));
+				.createSubObjectPropertyOfAxiom(r1, r, annotations));
 
 		// 7
 		ontology.add(factory.getComplexAxiomFactory()
-				.createSubObjectPropertyOfAxiom(r2, r));
+				.createSubObjectPropertyOfAxiom(r2, r, annotations));
 
 		// 8
 		ontology.add(factory.getComplexAxiomFactory()
-				.createTransitiveObjectPropertyAxiom(r));
+				.createTransitiveObjectPropertyAxiom(r, annotations));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
@@ -434,6 +452,7 @@ public class RuleBasedReasonerTest extends TestCase {
 	 * </ul>
 	 */
 	public void testOntology4() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
@@ -454,38 +473,41 @@ public class RuleBasedReasonerTest extends TestCase {
 		IntegerObjectProperty sMinus = createNewObjectProperty(factory, "s-");
 		IntegerObjectProperty s2Minus = createNewObjectProperty(factory, "s2-");
 		ontology.add(factory.getComplexAxiomFactory()
-				.createInverseObjectPropertiesAxiom(sMinus, s));
+				.createInverseObjectPropertiesAxiom(sMinus, s, annotations));
 		ontology.add(factory.getComplexAxiomFactory()
-				.createInverseObjectPropertiesAxiom(s2Minus, s2));
+				.createInverseObjectPropertiesAxiom(s2Minus, s2, annotations));
 
 		// 1
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
-				factory.getDataTypeFactory().createObjectSomeValuesFrom(s1, b)));
+				factory.getDataTypeFactory().createObjectSomeValuesFrom(s1, b),
+				annotations));
 
 		// 2
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
 				b,
 				factory.getDataTypeFactory().createObjectSomeValuesFrom(
-						s2Minus, d)));
+						s2Minus, d), annotations));
 
 		// 3
 		ontology.add(factory.getComplexAxiomFactory()
 				.createSubClassOfAxiom(
 						d,
 						factory.getDataTypeFactory()
-								.createObjectSomeValuesFrom(r1, b1)));
+								.createObjectSomeValuesFrom(r1, b1),
+						annotations));
 
 		// 4
 		ontology.add(factory.getComplexAxiomFactory()
 				.createSubClassOfAxiom(
 						d,
 						factory.getDataTypeFactory()
-								.createObjectSomeValuesFrom(r2, b2)));
+								.createObjectSomeValuesFrom(r2, b2),
+						annotations));
 
 		// 5
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
 				factory.getDataTypeFactory().createObjectSomeValuesFrom(r, c),
-				e));
+				e, annotations));
 
 		// 6
 		Set<IntegerClassExpression> b1_b2 = new HashSet<IntegerClassExpression>();
@@ -493,43 +515,43 @@ public class RuleBasedReasonerTest extends TestCase {
 		b1_b2.add(b2);
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
 				factory.getDataTypeFactory().createObjectIntersectionOf(b1_b2),
-				c));
+				c, annotations));
 
 		// 7
 		ontology.add(factory.getComplexAxiomFactory()
-				.createSubObjectPropertyOfAxiom(r1, r));
+				.createSubObjectPropertyOfAxiom(r1, r, annotations));
 
 		// 8
 		ontology.add(factory.getComplexAxiomFactory()
-				.createSubObjectPropertyOfAxiom(r2, r));
+				.createSubObjectPropertyOfAxiom(r2, r, annotations));
 
 		// 9
 		ontology.add(factory.getComplexAxiomFactory()
-				.createSubObjectPropertyOfAxiom(s1, s));
+				.createSubObjectPropertyOfAxiom(s1, s, annotations));
 
 		// 10
 		ontology.add(factory.getComplexAxiomFactory()
-				.createSubObjectPropertyOfAxiom(s1, t));
+				.createSubObjectPropertyOfAxiom(s1, t, annotations));
 
 		// 11
 		ontology.add(factory.getComplexAxiomFactory()
-				.createSubObjectPropertyOfAxiom(s2, s));
+				.createSubObjectPropertyOfAxiom(s2, s, annotations));
 
 		// 12
 		ontology.add(factory.getComplexAxiomFactory()
-				.createSubObjectPropertyOfAxiom(s2Minus, t));
+				.createSubObjectPropertyOfAxiom(s2Minus, t, annotations));
 
 		// 13
 		ontology.add(factory.getComplexAxiomFactory()
-				.createFunctionalObjectPropertyAxiom(r));
+				.createFunctionalObjectPropertyAxiom(r, annotations));
 
 		// 14
 		ontology.add(factory.getComplexAxiomFactory()
-				.createFunctionalObjectPropertyAxiom(sMinus));
+				.createFunctionalObjectPropertyAxiom(sMinus, annotations));
 
 		// 15
 		ontology.add(factory.getComplexAxiomFactory()
-				.createTransitiveObjectPropertyAxiom(t));
+				.createTransitiveObjectPropertyAxiom(t, annotations));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();

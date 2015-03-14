@@ -110,7 +110,8 @@ public class SR3Rule implements SaturationRule {
 						.createOrGetInverseObjectPropertyOf(axiom
 								.getSuperProperty());
 				RI3Axiom newAxiom = this.factory.createRI3Axiom(
-						invRightSubProp, invLeftSubProp, invSuperProp);
+						invRightSubProp, invLeftSubProp, invSuperProp,
+						axiom.getAnnotations());
 				ret.add(newAxiom);
 			}
 		}

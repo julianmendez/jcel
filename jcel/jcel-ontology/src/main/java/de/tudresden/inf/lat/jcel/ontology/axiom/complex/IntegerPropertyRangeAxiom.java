@@ -48,8 +48,10 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
@@ -63,10 +65,11 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 
 	private final Set<Integer> classesInSignature;
-	private final int hashCode;
 	private final Set<Integer> objectPropertiesInSignature;
 	private final IntegerObjectPropertyExpression property;
 	private final IntegerClassExpression range;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new object property range axiom.
@@ -75,19 +78,23 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 	 *            object property
 	 * @param clExpr
 	 *            class expression
+	 * @param annotations
+	 *            annotations
 	 */
-	protected IntegerPropertyRangeAxiom(IntegerObjectPropertyExpression prop,
-			IntegerClassExpression clExpr) {
+	IntegerPropertyRangeAxiom(IntegerObjectPropertyExpression prop,
+			IntegerClassExpression clExpr, List<Annotation> annotations) {
 		if (prop == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 		if (clExpr == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
+		if (annotations == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
 
 		this.property = prop;
 		this.range = clExpr;
-		this.hashCode = prop.hashCode() + (31 * clExpr.hashCode());
 
 		Set<Integer> classesInSignature = new HashSet<Integer>();
 		classesInSignature.addAll(this.range.getClassesInSignature());
@@ -101,6 +108,9 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 				.getObjectPropertiesInSignature());
 		this.objectPropertiesInSignature = Collections
 				.unmodifiableSet(objectPropertiesInSignature);
+		this.annotations = annotations;
+		this.hashCode = this.property.hashCode() + 0x1F
+				* (this.range.hashCode() + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override
@@ -112,12 +122,13 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof IntegerPropertyRangeAxiom)) {
-			IntegerPropertyRangeAxiom other = (IntegerPropertyRangeAxiom) o;
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof IntegerPropertyRangeAxiom)) {
+			IntegerPropertyRangeAxiom other = (IntegerPropertyRangeAxiom) obj;
 			ret = getProperty().equals(other.getProperty())
-					&& getRange().equals(other.getRange());
+					&& getRange().equals(other.getRange())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}
@@ -163,6 +174,11 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 	 */
 	public IntegerClassExpression getRange() {
 		return this.range;
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

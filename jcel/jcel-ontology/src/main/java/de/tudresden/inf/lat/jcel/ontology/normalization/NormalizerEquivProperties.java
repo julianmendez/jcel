@@ -104,7 +104,8 @@ class NormalizerEquivProperties implements NormalizationRule {
 				Integer secondExpression = getObjectPropertyId(integerObjectPropertyExpression2);
 				RI2Axiom subPropertyAxiom = getOntologyObjectFactory()
 						.getNormalizedAxiomFactory().createRI2Axiom(
-								firstExpression, secondExpression);
+								firstExpression, secondExpression,
+								equivPropAxiom.getAnnotations());
 				ret.add(subPropertyAxiom);
 			}
 		}

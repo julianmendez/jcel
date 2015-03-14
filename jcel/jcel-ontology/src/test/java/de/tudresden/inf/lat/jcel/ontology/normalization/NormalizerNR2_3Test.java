@@ -46,10 +46,13 @@
 
 package de.tudresden.inf.lat.jcel.ontology.normalization;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import junit.framework.TestCase;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
@@ -69,11 +72,12 @@ public class NormalizerNR2_3Test extends TestCase {
 
 	/**
 	 * &exist; r <i>.</i> &exist; s<sub>1</sub> <i>.</i> C<sub>1</sub> \u2291
-	 * &exist; s<sub>2</sub> <i>.</i> C<sub>2</sub> \u219D &exist;
-	 * s<sub>1</sub> <i>.</i> C<sub>1</sub> \u2291 A, &exist; r <i>.</i> A
-	 * \u2291 &exist; s<sub>2</sub> <i>.</i> C<sub>2</sub>
+	 * &exist; s<sub>2</sub> <i>.</i> C<sub>2</sub> \u219D &exist; s<sub>1</sub>
+	 * <i>.</i> C<sub>1</sub> \u2291 A, &exist; r <i>.</i> A \u2291 &exist;
+	 * s<sub>2</sub> <i>.</i> C<sub>2</sub>
 	 */
 	public void testRule() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR2_3 normalizer = new NormalizerNR2_3(factory);
 
@@ -109,7 +113,7 @@ public class NormalizerNR2_3Test extends TestCase {
 		IntegerClassExpression d = factory.getDataTypeFactory()
 				.createObjectSomeValuesFrom(s2, c2);
 		IntegerSubClassOfAxiom axiom = factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(c, d);
+				.createSubClassOfAxiom(c, d, annotations);
 
 		Set<IntegerAxiom> normalizedAxioms = normalizer.apply(axiom);
 
@@ -133,12 +137,12 @@ public class NormalizerNR2_3Test extends TestCase {
 
 		Set<IntegerAxiom> expectedAxioms = new HashSet<IntegerAxiom>();
 		expectedAxioms.add(factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(cPrime, a));
+				.createSubClassOfAxiom(cPrime, a, annotations));
 
 		IntegerClassExpression newExpr = factory.getDataTypeFactory()
 				.createObjectSomeValuesFrom(r, a);
 		expectedAxioms.add(factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(newExpr, d));
+				.createSubClassOfAxiom(newExpr, d, annotations));
 
 		assertEquals(expectedAxioms, normalizedAxioms);
 	}

@@ -48,8 +48,10 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
@@ -62,11 +64,12 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 public class IntegerNegativeObjectPropertyAssertionAxiom implements
 		ComplexIntegerAxiom {
 
-	private final int hashCode;
 	private final Set<Integer> individuals;
 	private final int object;
 	private final IntegerObjectPropertyExpression property;
 	private final int subject;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new negative object property axiom.
@@ -77,10 +80,15 @@ public class IntegerNegativeObjectPropertyAssertionAxiom implements
 	 *            source individual
 	 * @param objectInd
 	 *            target individual
+	 * @param annotations
+	 *            annotations
 	 */
-	protected IntegerNegativeObjectPropertyAssertionAxiom(
+	IntegerNegativeObjectPropertyAssertionAxiom(
 			IntegerObjectPropertyExpression objectProp, int subjectInd,
-			int objectInd) {
+			int objectInd, List<Annotation> annotations) {
+		if (annotations == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
 		if (objectProp == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -88,12 +96,16 @@ public class IntegerNegativeObjectPropertyAssertionAxiom implements
 		this.property = objectProp;
 		this.subject = subjectInd;
 		this.object = objectInd;
-		this.hashCode = objectProp.hashCode() + (31 * subjectInd);
 
 		Set<Integer> individuals = new HashSet<Integer>();
 		individuals.add(this.subject);
 		individuals.add(this.object);
 		this.individuals = Collections.unmodifiableSet(individuals);
+		this.annotations = annotations;
+		this.hashCode = this.property.hashCode()
+				+ 0x1F
+				* (this.subject + 0x1F * (this.object + 0x1F * this.annotations
+						.hashCode()));
 	}
 
 	@Override
@@ -106,13 +118,15 @@ public class IntegerNegativeObjectPropertyAssertionAxiom implements
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof IntegerNegativeObjectPropertyAssertionAxiom)) {
-			IntegerNegativeObjectPropertyAssertionAxiom other = (IntegerNegativeObjectPropertyAssertionAxiom) o;
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret
+				&& (obj instanceof IntegerNegativeObjectPropertyAssertionAxiom)) {
+			IntegerNegativeObjectPropertyAssertionAxiom other = (IntegerNegativeObjectPropertyAssertionAxiom) obj;
 			ret = getProperty().equals(other.getProperty())
 					&& getSubject().equals(other.getSubject())
-					&& getObject().equals(other.getObject());
+					&& getObject().equals(other.getObject())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}
@@ -167,6 +181,11 @@ public class IntegerNegativeObjectPropertyAssertionAxiom implements
 	 */
 	public Integer getSubject() {
 		return this.subject;
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

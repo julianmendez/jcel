@@ -117,7 +117,7 @@ class NormalizerSubPropertyChainOf implements NormalizationRule {
 		if (propChain.size() == 0) {
 
 			ret.add(getNormalizedAxiomFactory().createRI1Axiom(
-					getObjectPropertyId(rightPart)));
+					getObjectPropertyId(rightPart), axiom.getAnnotations()));
 
 		} else if (propChain.size() == 1) {
 
@@ -125,7 +125,7 @@ class NormalizerSubPropertyChainOf implements NormalizationRule {
 			IntegerObjectPropertyExpression leftPropExpr = it.next();
 			ret.add(getNormalizedAxiomFactory().createRI2Axiom(
 					getObjectPropertyId(leftPropExpr),
-					getObjectPropertyId(rightPart)));
+					getObjectPropertyId(rightPart), axiom.getAnnotations()));
 
 		} else if (propChain.size() == 2) {
 
@@ -135,7 +135,7 @@ class NormalizerSubPropertyChainOf implements NormalizationRule {
 			ret.add(getNormalizedAxiomFactory().createRI3Axiom(
 					getObjectPropertyId(leftLeftProp),
 					getObjectPropertyId(leftRightProp),
-					getObjectPropertyId(rightPart)));
+					getObjectPropertyId(rightPart), axiom.getAnnotations()));
 
 		}
 		return ret;

@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -59,22 +60,31 @@ import java.util.Set;
  */
 public class RangeAxiom implements NormalizedIntegerAxiom {
 
-	private final int hashCode;
 	private final int property;
 	private final int range;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new range axiom.
 	 * 
-	 * @param prop
+	 * @param propertyId
 	 *            object property identifier
-	 * @param cl
+	 * @param classId
 	 *            class identifier
+	 * @param annotations
+	 *            annotations
 	 */
-	protected RangeAxiom(int prop, int cl) {
-		this.property = prop;
-		this.range = cl;
-		this.hashCode = this.property + (31 * this.range);
+	RangeAxiom(int propertyId, int classId, List<Annotation> annotations) {
+		if (annotations == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		this.property = propertyId;
+		this.range = classId;
+		this.annotations = annotations;
+		this.hashCode = this.property + 0x1F
+				* (this.range + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override
@@ -87,12 +97,13 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof RangeAxiom)) {
-			RangeAxiom other = (RangeAxiom) o;
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof RangeAxiom)) {
+			RangeAxiom other = (RangeAxiom) obj;
 			ret = (this.property == other.property)
-					&& (this.range == other.range);
+					&& (this.range == other.range)
+					&& this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}
@@ -138,6 +149,11 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 	 */
 	public int getRange() {
 		return this.range;
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

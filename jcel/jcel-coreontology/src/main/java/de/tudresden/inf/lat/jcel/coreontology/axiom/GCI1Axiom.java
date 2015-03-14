@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
@@ -62,27 +63,37 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
  */
 public class GCI1Axiom implements NormalizedIntegerAxiom {
 
-	private final int hashCode;
 	private final int leftSubClass;
 	private final int rightSubClass;
 	private final int superClass;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new GCI-1 axiom.
 	 * 
-	 * @param leftSubCl
+	 * @param leftSubClassId
 	 *            left subclass in the axiom
-	 * @param rightSubCl
+	 * @param rightSubClassId
 	 *            right subclass in the axiom
-	 * @param rightCl
+	 * @param rightClassId
 	 *            superclass in the axiom
+	 * @param annotations
+	 *            annotations
 	 */
-	protected GCI1Axiom(int leftSubCl, int rightSubCl, int rightCl) {
-		this.leftSubClass = leftSubCl;
-		this.rightSubClass = rightSubCl;
-		this.superClass = rightCl;
+	GCI1Axiom(int leftSubClassId, int rightSubClassId, int rightClassId,
+			List<Annotation> annotations) {
+		if (annotations == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		this.leftSubClass = leftSubClassId;
+		this.rightSubClass = rightSubClassId;
+		this.superClass = rightClassId;
+		this.annotations = annotations;
 		this.hashCode = this.leftSubClass
-				+ ((31 * this.rightSubClass) + (31 * this.superClass));
+				+ (0x1F * this.rightSubClass + (0x1F * this.superClass + (0x1F * this.annotations
+						.hashCode())));
 	}
 
 	@Override
@@ -95,13 +106,14 @@ public class GCI1Axiom implements NormalizedIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof GCI1Axiom)) {
-			GCI1Axiom other = (GCI1Axiom) o;
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof GCI1Axiom)) {
+			GCI1Axiom other = (GCI1Axiom) obj;
 			ret = (this.leftSubClass == other.leftSubClass)
 					&& (this.rightSubClass == other.rightSubClass)
-					&& (this.superClass == other.superClass);
+					&& (this.superClass == other.superClass)
+					&& this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}
@@ -160,6 +172,11 @@ public class GCI1Axiom implements NormalizedIntegerAxiom {
 	 */
 	public int getSuperClass() {
 		return this.superClass;
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -60,22 +61,31 @@ import java.util.Set;
  */
 public class GCI0Axiom implements NormalizedIntegerAxiom {
 
-	private final int hashCode;
 	private final int subClass;
 	private final int superClass;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new GCI-0 axiom.
 	 * 
-	 * @param subCl
+	 * @param subClassId
 	 *            subclass identifier
-	 * @param superCl
+	 * @param superClassId
 	 *            superclass identifier
+	 * @param annotations
+	 *            annotations
 	 */
-	protected GCI0Axiom(int subCl, int superCl) {
-		this.subClass = subCl;
-		this.superClass = superCl;
-		this.hashCode = this.subClass + (31 * this.superClass);
+	GCI0Axiom(int subClassId, int superClassId, List<Annotation> annotations) {
+		if (annotations == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		this.subClass = subClassId;
+		this.superClass = superClassId;
+		this.annotations = annotations;
+		this.hashCode = this.subClass + 0x1F
+				* (this.superClass + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override
@@ -88,12 +98,13 @@ public class GCI0Axiom implements NormalizedIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof GCI0Axiom)) {
-			GCI0Axiom other = (GCI0Axiom) o;
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof GCI0Axiom)) {
+			GCI0Axiom other = (GCI0Axiom) obj;
 			ret = (this.subClass == other.subClass)
-					&& (this.superClass == other.superClass);
+					&& (this.superClass == other.superClass)
+					&& this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}
@@ -142,6 +153,11 @@ public class GCI0Axiom implements NormalizedIntegerAxiom {
 	 */
 	public int getSuperClass() {
 		return this.superClass;
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

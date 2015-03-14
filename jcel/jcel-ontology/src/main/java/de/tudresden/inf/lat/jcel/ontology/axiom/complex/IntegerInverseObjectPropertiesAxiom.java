@@ -48,8 +48,10 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
@@ -62,9 +64,10 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom {
 
 	private final IntegerObjectPropertyExpression firstProperty;
-	private final int hashCode;
 	private final Set<Integer> objectPropertiesInSignature;
 	private final IntegerObjectPropertyExpression secondProperty;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new inverse object property axiom, declaring that one object
@@ -74,20 +77,23 @@ public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom 
 	 *            object property
 	 * @param second
 	 *            object property
+	 * @param annotations
+	 *            annotations
 	 */
-	protected IntegerInverseObjectPropertiesAxiom(
-			IntegerObjectPropertyExpression first,
-			IntegerObjectPropertyExpression second) {
+	IntegerInverseObjectPropertiesAxiom(IntegerObjectPropertyExpression first,
+			IntegerObjectPropertyExpression second, List<Annotation> annotations) {
 		if (first == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 		if (second == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
+		if (annotations == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
 
 		this.firstProperty = first;
 		this.secondProperty = second;
-		this.hashCode = first.hashCode() + (31 * second.hashCode());
 
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
 		objectPropertiesInSignature.addAll(this.firstProperty
@@ -96,6 +102,11 @@ public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom 
 				.getObjectPropertiesInSignature());
 		this.objectPropertiesInSignature = Collections
 				.unmodifiableSet(objectPropertiesInSignature);
+		this.annotations = annotations;
+		this.hashCode = this.firstProperty.hashCode()
+				+ 0x1F
+				* (this.secondProperty.hashCode() + 0x1F * this.annotations
+						.hashCode());
 	}
 
 	@Override
@@ -107,12 +118,13 @@ public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom 
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof IntegerInverseObjectPropertiesAxiom)) {
-			IntegerInverseObjectPropertiesAxiom other = (IntegerInverseObjectPropertiesAxiom) o;
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof IntegerInverseObjectPropertiesAxiom)) {
+			IntegerInverseObjectPropertiesAxiom other = (IntegerInverseObjectPropertiesAxiom) obj;
 			ret = getFirstProperty().equals(other.getFirstProperty())
-					&& getSecondProperty().equals(other.getSecondProperty());
+					&& getSecondProperty().equals(other.getSecondProperty())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}
@@ -158,6 +170,11 @@ public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom 
 	 */
 	public IntegerObjectPropertyExpression getSecondProperty() {
 		return this.secondProperty;
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

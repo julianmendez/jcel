@@ -46,6 +46,8 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
+import java.util.List;
+
 /**
  * An object of this class is a factory to create any normalized axiom.
  * 
@@ -61,54 +63,72 @@ public class NormalizedIntegerAxiomFactoryImpl implements
 	}
 
 	@Override
-	public FunctObjectPropAxiom createFunctObjectPropAxiom(int prop) {
-		return new FunctObjectPropAxiom(prop);
+	public FunctObjectPropAxiom createFunctObjectPropAxiom(int propertyId,
+			List<Annotation> annotations) {
+		return new FunctObjectPropAxiom(propertyId, annotations);
 	}
 
 	@Override
-	public GCI0Axiom createGCI0Axiom(int subCl, int superCl) {
-		return new GCI0Axiom(subCl, superCl);
+	public GCI0Axiom createGCI0Axiom(int subCl, int superCl,
+			List<Annotation> annotations) {
+		return new GCI0Axiom(subCl, superCl, annotations);
 	}
 
 	@Override
-	public GCI1Axiom createGCI1Axiom(int leftCl, int rightCl, int superCl) {
-		return new GCI1Axiom(leftCl, rightCl, superCl);
+	public GCI1Axiom createGCI1Axiom(int leftCl, int rightCl, int superCl,
+			List<Annotation> annotations) {
+		return new GCI1Axiom(leftCl, rightCl, superCl, annotations);
 	}
 
 	@Override
-	public GCI2Axiom createGCI2Axiom(int leftCl, int rightProp, int rightCl) {
-		return new GCI2Axiom(leftCl, rightProp, rightCl);
+	public GCI2Axiom createGCI2Axiom(int leftCl, int rightProp, int rightCl,
+			List<Annotation> annotations) {
+		return new GCI2Axiom(leftCl, rightProp, rightCl, annotations);
 	}
 
 	@Override
-	public GCI3Axiom createGCI3Axiom(int leftProp, int leftCl, int rightCl) {
-		return new GCI3Axiom(leftProp, leftCl, rightCl);
+	public GCI3Axiom createGCI3Axiom(int leftProp, int leftCl, int rightCl,
+			List<Annotation> annotations) {
+		return new GCI3Axiom(leftProp, leftCl, rightCl, annotations);
 	}
 
 	@Override
-	public NominalAxiom createNominalAxiom(int classId, int individualId) {
-		return new NominalAxiom(classId, individualId);
+	public NominalAxiom createNominalAxiom(int classId, int individualId,
+			List<Annotation> annotations) {
+		return new NominalAxiom(classId, individualId, annotations);
 	}
 
 	@Override
-	public RangeAxiom createRangeAxiom(int prop, int cl) {
-		return new RangeAxiom(prop, cl);
+	public RangeAxiom createRangeAxiom(int prop, int cl,
+			List<Annotation> annotations) {
+		return new RangeAxiom(prop, cl, annotations);
 	}
 
 	@Override
-	public RI1Axiom createRI1Axiom(int prop) {
-		return new RI1Axiom(prop);
+	public RI1Axiom createRI1Axiom(int prop, List<Annotation> annotations) {
+		return new RI1Axiom(prop, annotations);
 	}
 
 	@Override
-	public RI2Axiom createRI2Axiom(int leftProp, int rightProp) {
-		return new RI2Axiom(leftProp, rightProp);
+	public RI2Axiom createRI2Axiom(int leftProp, int rightProp,
+			List<Annotation> annotations) {
+		return new RI2Axiom(leftProp, rightProp, annotations);
 	}
 
 	@Override
 	public RI3Axiom createRI3Axiom(int leftLeftProp, int leftRightProp,
-			int rightProp) {
-		return new RI3Axiom(leftLeftProp, leftRightProp, rightProp);
+			int rightProp, List<Annotation> annotations) {
+		return new RI3Axiom(leftLeftProp, leftRightProp, rightProp, annotations);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return (obj instanceof NormalizedIntegerAxiomFactoryImpl);
+	}
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
 	}
 
 }

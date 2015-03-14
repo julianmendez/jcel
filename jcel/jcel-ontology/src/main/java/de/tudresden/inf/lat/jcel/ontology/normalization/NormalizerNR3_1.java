@@ -61,8 +61,8 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
 /**
  * 
  * <ul>
- * <li>NR-3.1 : C' \u2291 &exist; r <i>.</i> D \u219D C' \u2291 A, A
- * \u2291 &exist; r <i>.</i> D</li>
+ * <li>NR-3.1 : C' \u2291 &exist; r <i>.</i> D \u219D C' \u2291 A, A \u2291
+ * &exist; r <i>.</i> D</li>
  * </ul>
  * <br>
  * 
@@ -117,9 +117,11 @@ class NormalizerNR3_1 implements NormalizationRule {
 									.createAnonymousEntity(
 											IntegerEntityType.CLASS, true));
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-					.createSubClassOfAxiom(subClass, newClass));
+					.createSubClassOfAxiom(subClass, newClass,
+							classAxiom.getAnnotations()));
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-					.createSubClassOfAxiom(newClass, superClass));
+					.createSubClassOfAxiom(newClass, superClass,
+							classAxiom.getAnnotations()));
 		}
 		return ret;
 	}

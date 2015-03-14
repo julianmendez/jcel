@@ -104,9 +104,10 @@ class NormalizerNR1_5 implements NormalizationRule {
 			for (IntegerClassExpression secondClassExpression : classExpressionSet) {
 				if (!firstClassExpression.equals(secondClassExpression)) {
 					IntegerSubClassOfAxiom subClassAxiom = getOntologyObjectFactory()
-							.getComplexAxiomFactory()
-							.createSubClassOfAxiom(firstClassExpression,
-									secondClassExpression);
+							.getComplexAxiomFactory().createSubClassOfAxiom(
+									firstClassExpression,
+									secondClassExpression,
+									equivalentAxiom.getAnnotations());
 					ret.add(subClassAxiom);
 				}
 			}

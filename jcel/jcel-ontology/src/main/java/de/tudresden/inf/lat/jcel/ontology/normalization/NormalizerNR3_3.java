@@ -112,7 +112,8 @@ class NormalizerNR3_3 implements NormalizationRule {
 			Set<IntegerClassExpression> operands = intersection.getOperands();
 			for (IntegerClassExpression operand : operands) {
 				ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-						.createSubClassOfAxiom(subClass, operand));
+						.createSubClassOfAxiom(subClass, operand,
+								classAxiom.getAnnotations()));
 			}
 		}
 		return ret;

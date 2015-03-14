@@ -51,12 +51,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
  * This class models an axiom stating that the contained properties form a
- * subsumption chain. This is: r<sub>1</sub> \u2218 r<sub>2</sub>
- * \u2218&hellip; \u2218 r<sub>n</sub> \u2291 s
+ * subsumption chain. This is: r<sub>1</sub> \u2218 r<sub>2</sub> \u2218&hellip;
+ * \u2218 r<sub>n</sub> \u2291 s
  * 
  * @author Julian Mendez
  */
@@ -66,6 +67,7 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 	private final Set<Integer> objectPropertiesInSignature;
 	private final List<IntegerObjectPropertyExpression> propertyChain;
 	private final IntegerObjectPropertyExpression superProperty;
+	private final List<Annotation> annotations;
 
 	/**
 	 * Constructs a new sub object property chain axiom.
@@ -74,20 +76,24 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 	 *            list of object property expressions in the chain
 	 * @param superProp
 	 *            super object property expression
+	 * @param annotations
+	 *            annotations
 	 */
-	protected IntegerSubPropertyChainOfAxiom(
-			List<IntegerObjectPropertyExpression> chain,
-			IntegerObjectPropertyExpression superProp) {
+	IntegerSubPropertyChainOfAxiom(List<IntegerObjectPropertyExpression> chain,
+			IntegerObjectPropertyExpression superProp,
+			List<Annotation> annotations) {
 		if (chain == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 		if (superProp == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
+		if (annotations == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
 
 		this.propertyChain = chain;
 		this.superProperty = superProp;
-		this.hashCode = superProp.hashCode() + (31 * chain.hashCode());
 
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
 		for (IntegerObjectPropertyExpression propertyExpr : getPropertyChain()) {
@@ -98,6 +104,11 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 				.getObjectPropertiesInSignature());
 		this.objectPropertiesInSignature = Collections
 				.unmodifiableSet(objectPropertiesInSignature);
+		this.annotations = annotations;
+		this.hashCode = this.propertyChain.hashCode()
+				+ 0x1F
+				* (this.superProperty.hashCode() + 0x1F * this.annotations
+						.hashCode());
 	}
 
 	@Override
@@ -110,12 +121,13 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof IntegerSubPropertyChainOfAxiom)) {
-			IntegerSubPropertyChainOfAxiom other = (IntegerSubPropertyChainOfAxiom) o;
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof IntegerSubPropertyChainOfAxiom)) {
+			IntegerSubPropertyChainOfAxiom other = (IntegerSubPropertyChainOfAxiom) obj;
 			ret = getPropertyChain().equals(other.getPropertyChain())
-					&& getSuperProperty().equals(other.getSuperProperty());
+					&& getSuperProperty().equals(other.getSuperProperty())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}
@@ -156,6 +168,11 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 	 */
 	public IntegerObjectPropertyExpression getSuperProperty() {
 		return this.superProperty;
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

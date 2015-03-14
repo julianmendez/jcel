@@ -110,10 +110,11 @@ class NormalizerNR4_1 implements NormalizationRule {
 					.getEntityManager().createOrGetClassIdForIndividual(
 							individual);
 			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
-					.createNominalAxiom(auxiliaryClass, individual));
+					.createNominalAxiom(auxiliaryClass, individual,
+							classAxiom.getAnnotations()));
 			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
 					.createGCI0Axiom(((IntegerClass) subClass).getId(),
-							auxiliaryClass));
+							auxiliaryClass, classAxiom.getAnnotations()));
 		}
 		return ret;
 	}

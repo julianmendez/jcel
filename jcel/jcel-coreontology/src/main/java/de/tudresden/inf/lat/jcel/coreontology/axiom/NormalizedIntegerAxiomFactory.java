@@ -46,6 +46,8 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
+import java.util.List;
+
 /**
  * An object implementing this interface is a factory to create normalized
  * axioms.
@@ -57,61 +59,76 @@ public interface NormalizedIntegerAxiomFactory {
 	/**
 	 * Constructs a new functional object property axiom.
 	 *
-	 * @param prop
-	 *            object property
+	 * @param propertyId
+	 *            object property identifier
+	 * @param annotations
+	 *            annotations
 	 * @return a new functional object property axiom
 	 */
-	FunctObjectPropAxiom createFunctObjectPropAxiom(int prop);
+	FunctObjectPropAxiom createFunctObjectPropAxiom(int propertyId,
+			List<Annotation> annotations);
 
 	/**
 	 * Constructs a new GCI-0 axiom.
 	 *
-	 * @param subCl
+	 * @param subClassId
 	 *            subclass identifier
-	 * @param superCl
+	 * @param superClassId
 	 *            superclass identifier
+	 * @param annotations
+	 *            annotations
 	 * @return a new GCI-0 axiom
 	 */
-	GCI0Axiom createGCI0Axiom(int subCl, int superCl);
+	GCI0Axiom createGCI0Axiom(int subClassId, int superClassId,
+			List<Annotation> annotations);
 
 	/**
 	 * Constructs a new GCI-1 axiom.
 	 *
-	 * @param leftSubCl
+	 * @param leftSubClassId
 	 *            left subclass in the axiom
-	 * @param rightSubCl
+	 * @param rightSubClassId
 	 *            right subclass in the axiom
-	 * @param superCl
+	 * @param superClassId
 	 *            superclass in the axiom
+	 * @param annotations
+	 *            annotations
 	 * @return a new GCI-1 axiom
 	 */
-	GCI1Axiom createGCI1Axiom(int leftSubCl, int rightSubCl, int superCl);
+	GCI1Axiom createGCI1Axiom(int leftSubClassId, int rightSubClassId,
+			int superClassId, List<Annotation> annotations);
 
 	/**
 	 * Constructs a new GCI-2 axiom.
 	 *
-	 * @param leftCl
+	 * @param leftClassId
 	 *            subclass identifier
-	 * @param rightProp
+	 * @param rightPropertyId
 	 *            object property identifier
-	 * @param rightCl
+	 * @param rightClassId
 	 *            class identifier for the right-hand part
+	 * @param annotations
+	 *            annotations
 	 * @return a new GCI-2 axiom
 	 */
-	GCI2Axiom createGCI2Axiom(int leftCl, int rightProp, int rightCl);
+	GCI2Axiom createGCI2Axiom(int leftClassId, int rightPropertyId,
+			int rightClassId, List<Annotation> annotations);
 
 	/**
 	 * Constructs a new GCI-3 axiom.
 	 *
-	 * @param leftProp
+	 * @param leftPropertyId
 	 *            object property identifier for the left-hand part
-	 * @param leftCl
+	 * @param leftClassId
 	 *            class identifier for the left-hand part
-	 * @param rightCl
+	 * @param rightClassId
 	 *            superclass identifier
+	 * @param annotations
+	 *            annotations
 	 * @return a new GCI-3 axiom
 	 */
-	GCI3Axiom createGCI3Axiom(int leftProp, int leftCl, int rightCl);
+	GCI3Axiom createGCI3Axiom(int leftPropertyId, int leftClassId,
+			int rightClassId, List<Annotation> annotations);
 
 	/**
 	 * Constructs a new nominal axiom.
@@ -120,55 +137,69 @@ public interface NormalizedIntegerAxiomFactory {
 	 *            class identifier in the axiom
 	 * @param individualId
 	 *            individual identifier in the axiom
+	 * @param annotations
+	 *            annotations
 	 * @return a new nominal axiom
 	 */
-	NominalAxiom createNominalAxiom(int classId, int individualId);
+	NominalAxiom createNominalAxiom(int classId, int individualId,
+			List<Annotation> annotations);
 
 	/**
 	 * Constructs a new range axiom.
 	 *
-	 * @param prop
+	 * @param propertyId
 	 *            object property identifier
-	 * @param cl
+	 * @param classId
 	 *            class identifier
+	 * @param annotations
+	 *            annotations
 	 * @return a new range axiom
 	 */
-	RangeAxiom createRangeAxiom(int prop, int cl);
+	RangeAxiom createRangeAxiom(int propertyId, int classId,
+			List<Annotation> annotations);
 
 	/**
 	 * Constructs a new axiom RI-1.
 	 *
-	 * @param prop
+	 * @param propertyId
 	 *            object property identifier
+	 * @param annotations
+	 *            annotations
 	 * @return a new axiom RI-1
 	 */
-	RI1Axiom createRI1Axiom(int prop);
+	RI1Axiom createRI1Axiom(int propertyId, List<Annotation> annotations);
 
 	/**
 	 * Constructs a new axiom RI-2.
 	 *
-	 * @param leftProp
+	 * @param leftPropertyId
 	 *            object property identifier for the left-hand part of the axiom
-	 * @param rightProp
+	 * @param rightPropertyId
 	 *            object property identifier for the right-hand part of the
 	 *            axiom
+	 * @param annotations
+	 *            annotations
 	 * @return a new axiom RI-2
 	 */
-	RI2Axiom createRI2Axiom(int leftProp, int rightProp);
+	RI2Axiom createRI2Axiom(int leftPropertyId, int rightPropertyId,
+			List<Annotation> annotations);
 
 	/**
 	 * Constructs a new RI-3 axiom.
 	 *
-	 * @param leftLeftProp
+	 * @param leftLeftPropertyId
 	 *            object property identifier for the left-hand object property
 	 *            on the composition
-	 * @param leftRightProp
+	 * @param leftRightPropertyId
 	 *            object property identifier for the right-hand object property
 	 *            on the composition
-	 * @param rightProp
+	 * @param rightPropertyId
 	 *            object property identifier for super object property
+	 * @param annotations
+	 *            annotations
 	 * @return a new RI-3 axiom
 	 */
-	RI3Axiom createRI3Axiom(int leftLeftProp, int leftRightProp, int rightProp);
+	RI3Axiom createRI3Axiom(int leftLeftPropertyId, int leftRightPropertyId,
+			int rightPropertyId, List<Annotation> annotations);
 
 }

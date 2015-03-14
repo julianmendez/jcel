@@ -48,8 +48,10 @@ package de.tudresden.inf.lat.jcel.ontology.normalization;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
@@ -61,9 +63,9 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
 /**
  * 
  * <ul>
- * <li>NR-2.2 : C<sub>1</sub> \u2293 &hellip; \u2293 C' \u2293 &hellip;
- * \u2293 C<sub>n</sub> \u2291 D \u219D C' \u2291 A, C<sub>1</sub> \u2293
- * &hellip; \u2293 A \u2293 &hellip; \u2293 C<sub>n</sub> \u2291 D</li>
+ * <li>NR-2.2 : C<sub>1</sub> \u2293 &hellip; \u2293 C' \u2293 &hellip; \u2293
+ * C<sub>n</sub> \u2291 D \u219D C' \u2291 A, C<sub>1</sub> \u2293 &hellip;
+ * \u2293 A \u2293 &hellip; \u2293 C<sub>n</sub> \u2291 D</li>
  * </ul>
  * <br>
  * 
@@ -112,7 +114,8 @@ class NormalizerNR2_2 implements NormalizationRule {
 				IntegerObjectIntersectionOf intersection = (IntegerObjectIntersectionOf) subClass;
 				Set<IntegerClassExpression> operands = intersection
 						.getOperands();
-				Set<IntegerAxiom> newSet = applyRule(operands, superClass);
+				Set<IntegerAxiom> newSet = applyRule(operands, superClass,
+						classAxiom.getAnnotations());
 				if (newSet.size() > 1) {
 					ret = newSet;
 				}
@@ -122,7 +125,7 @@ class NormalizerNR2_2 implements NormalizationRule {
 	}
 
 	private Set<IntegerAxiom> applyRule(Set<IntegerClassExpression> operands,
-			IntegerClassExpression superClass) {
+			IntegerClassExpression superClass, List<Annotation> annotations) {
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
 		Set<IntegerClassExpression> newOperands = new HashSet<IntegerClassExpression>();
 		boolean applied = false;
@@ -137,7 +140,8 @@ class NormalizerNR2_2 implements NormalizationRule {
 										.createAnonymousEntity(
 												IntegerEntityType.CLASS, true));
 				ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-						.createSubClassOfAxiom(classExpression, newClass));
+						.createSubClassOfAxiom(classExpression, newClass,
+								annotations));
 				newOperands.add(newClass);
 			}
 		}
@@ -146,7 +150,8 @@ class NormalizerNR2_2 implements NormalizationRule {
 					.getDataTypeFactory().createObjectIntersectionOf(
 							newOperands);
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-					.createSubClassOfAxiom(newIntersection, superClass));
+					.createSubClassOfAxiom(newIntersection, superClass,
+							annotations));
 		}
 		return ret;
 	}

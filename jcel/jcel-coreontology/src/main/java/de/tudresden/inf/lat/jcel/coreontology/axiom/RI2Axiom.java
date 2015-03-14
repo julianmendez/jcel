@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -60,23 +61,33 @@ import java.util.Set;
  */
 public class RI2Axiom implements NormalizedIntegerAxiom {
 
-	private final int hashCode;
 	private final int subProperty;
 	private final int superProperty;
+	private final List<Annotation> annotations;
+	private final int hashCode;
 
 	/**
 	 * Constructs a new axiom RI-2.
 	 * 
-	 * @param leftProp
+	 * @param leftPropertyId
 	 *            object property identifier for the left-hand part of the axiom
-	 * @param rightProp
+	 * @param rightPropertyId
 	 *            object property identifier for the right-hand part of the
 	 *            axiom
+	 * @param annotations
+	 *            annotations
 	 */
-	protected RI2Axiom(int leftProp, int rightProp) {
-		this.subProperty = leftProp;
-		this.superProperty = rightProp;
-		this.hashCode = this.subProperty + (31 * this.superProperty);
+	RI2Axiom(int leftPropertyId, int rightPropertyId,
+			List<Annotation> annotations) {
+		if (annotations == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		this.subProperty = leftPropertyId;
+		this.superProperty = rightPropertyId;
+		this.annotations = annotations;
+		this.hashCode = this.subProperty + 0x1F
+				* (this.superProperty + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override
@@ -89,12 +100,13 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		boolean ret = (this == o);
-		if (!ret && (o instanceof RI2Axiom)) {
-			RI2Axiom other = (RI2Axiom) o;
+	public boolean equals(Object obj) {
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof RI2Axiom)) {
+			RI2Axiom other = (RI2Axiom) obj;
 			ret = (this.subProperty == other.subProperty)
-					&& (this.superProperty == other.superProperty);
+					&& (this.superProperty == other.superProperty)
+					&& this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}
@@ -143,6 +155,11 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 	 */
 	public int getSuperProperty() {
 		return this.superProperty;
+	}
+
+	@Override
+	public List<Annotation> getAnnotations() {
+		return Collections.unmodifiableList(this.annotations);
 	}
 
 	@Override

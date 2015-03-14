@@ -100,8 +100,8 @@ public class SR4Rule implements SaturationRule {
 				Set<Integer> newFunctionalPropertySet = this.helper
 						.getReachable(functionalProperty, mapBySuperProp);
 				for (Integer newFunctionalProperty : newFunctionalPropertySet) {
-					ret.add(this.factory
-							.createFunctObjectPropAxiom(newFunctionalProperty));
+					ret.add(this.factory.createFunctObjectPropAxiom(
+							newFunctionalProperty, axiom.getAnnotations()));
 				}
 			}
 		}

@@ -46,13 +46,16 @@
 
 package de.tudresden.inf.lat.jcel.core;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import junit.framework.TestCase;
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
 import de.tudresden.inf.lat.jcel.core.algorithm.rulebased.RuleBasedProcessor;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactoryImpl;
@@ -121,7 +124,8 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology0() {
-		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
+		List<Annotation> annotations = new ArrayList<Annotation>();
+		NormalizedIntegerAxiomFactoryImpl factory = new NormalizedIntegerAxiomFactoryImpl();
 		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
 		Integer a = createNewClass(entityManager, "A");
@@ -129,10 +133,10 @@ public class TinyOntologyTest extends TestCase {
 		Integer c = createNewClass(entityManager, "C");
 
 		// 1
-		ontology.add(factory.createGCI0Axiom(a, b));
+		ontology.add(factory.createGCI0Axiom(a, b, annotations));
 
 		// 2
-		ontology.add(factory.createGCI0Axiom(b, c));
+		ontology.add(factory.createGCI0Axiom(b, c, annotations));
 
 		Processor processor = createProcessor(ontology, entityManager, factory);
 		classify(processor);
@@ -164,6 +168,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology1() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
 		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
@@ -173,13 +178,13 @@ public class TinyOntologyTest extends TestCase {
 		Integer c = createNewClass(entityManager, "C");
 
 		// 1
-		ontology.add(factory.createGCI2Axiom(a, r, a));
+		ontology.add(factory.createGCI2Axiom(a, r, a, annotations));
 
 		// 2
-		ontology.add(factory.createGCI0Axiom(a, b));
+		ontology.add(factory.createGCI0Axiom(a, b, annotations));
 
 		// 3
-		ontology.add(factory.createGCI3Axiom(r, b, c));
+		ontology.add(factory.createGCI3Axiom(r, b, c, annotations));
 
 		Processor processor = createProcessor(ontology, entityManager, factory);
 		classify(processor);
@@ -210,6 +215,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology2() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
 		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
@@ -217,10 +223,10 @@ public class TinyOntologyTest extends TestCase {
 		Integer b = createNewClass(entityManager, "B");
 
 		// 1
-		ontology.add(factory.createGCI0Axiom(a, b));
+		ontology.add(factory.createGCI0Axiom(a, b, annotations));
 
 		// 2
-		ontology.add(factory.createGCI0Axiom(b, a));
+		ontology.add(factory.createGCI0Axiom(b, a, annotations));
 
 		Processor processor = createProcessor(ontology, entityManager, factory);
 		classify(processor);
@@ -251,6 +257,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology3() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
 		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
@@ -259,10 +266,10 @@ public class TinyOntologyTest extends TestCase {
 		Integer b = createNewClass(entityManager, "B");
 
 		// 1
-		ontology.add(factory.createGCI0Axiom(top, a));
+		ontology.add(factory.createGCI0Axiom(top, a, annotations));
 
 		// 2
-		ontology.add(factory.createGCI0Axiom(a, b));
+		ontology.add(factory.createGCI0Axiom(a, b, annotations));
 
 		Processor processor = createProcessor(ontology, entityManager, factory);
 		classify(processor);
@@ -316,6 +323,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology4() {
+		List<Annotation> annotations = new ArrayList<Annotation>();
 		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
 		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
@@ -324,10 +332,10 @@ public class TinyOntologyTest extends TestCase {
 		Integer b = createNewClass(entityManager, "B");
 
 		// 1
-		ontology.add(factory.createGCI0Axiom(a, bottom));
+		ontology.add(factory.createGCI0Axiom(a, bottom, annotations));
 
 		// 2
-		ontology.add(factory.createGCI0Axiom(b, a));
+		ontology.add(factory.createGCI0Axiom(b, a, annotations));
 
 		Processor processor = createProcessor(ontology, entityManager, factory);
 		classify(processor);
