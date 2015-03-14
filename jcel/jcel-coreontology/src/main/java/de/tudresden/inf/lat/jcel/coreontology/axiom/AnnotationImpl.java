@@ -52,7 +52,7 @@ package de.tudresden.inf.lat.jcel.coreontology.axiom;
  * @author Julian Mendez
  * 
  */
-public class AnnotationImpl implements Annotation {
+public class AnnotationImpl implements Annotation, Comparable<Annotation> {
 
 	private final String annotationProperty;
 	private final String annotationValue;
@@ -110,6 +110,21 @@ public class AnnotationImpl implements Annotation {
 	@Override
 	public String toString() {
 		return this.annotationProperty + " " + this.annotationValue;
+	}
+
+	@Override
+	public int compareTo(Annotation other) {
+		if (other == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		int ret = getAnnotationProperty().compareTo(
+				other.getAnnotationProperty());
+		if (ret == 0) {
+			return getAnnotationValue().compareTo(other.getAnnotationValue());
+		} else {
+			return ret;
+		}
 	}
 
 }
