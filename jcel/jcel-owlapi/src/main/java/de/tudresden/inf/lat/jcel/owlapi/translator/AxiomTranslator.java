@@ -46,6 +46,7 @@
 
 package de.tudresden.inf.lat.jcel.owlapi.translator;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -181,7 +182,7 @@ public class AxiomTranslator implements
 	}
 
 	public Annotation translateAnnotation(OWLAnnotation owlAnnotation) {
-		String property = owlAnnotation.getProperty().toString();
+		URI property = owlAnnotation.getProperty().getIRI().toURI();
 		String value = owlAnnotation.getValue().toString();
 		Annotation ret = new AnnotationImpl(property, value);
 		return ret;

@@ -46,6 +46,8 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
+import java.net.URI;
+
 /**
  * This interface models an annotation.
  * 
@@ -59,7 +61,7 @@ public interface Annotation {
 	 * 
 	 * @return the annotation property
 	 */
-	String getAnnotationProperty();
+	URI getAnnotationProperty();
 
 	/**
 	 * Returns the annotation value.
