@@ -121,8 +121,8 @@ public class ClassExpressionTranslator implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return getObjectPropertyExpressionTranslator()
-				.getTranslationRepository().getId(owlDataProperty);
+		getTranslationRepository().addDataProperty(owlDataProperty);
+		return getTranslationRepository().getId(owlDataProperty);
 	}
 
 	public Integer translateIndividual(OWLIndividual owlIndividual)
@@ -131,6 +131,8 @@ public class ClassExpressionTranslator implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		getTranslationRepository().addNamedIndividual(
+				owlIndividual.asOWLNamedIndividual());
 		return getTranslationRepository().getId(owlIndividual);
 	}
 
@@ -140,17 +142,19 @@ public class ClassExpressionTranslator implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		getTranslationRepository().addLiteral(owlLiteral);
 		return getTranslationRepository().getId(owlLiteral);
 	}
 
 	@Override
-	public IntegerClassExpression visit(OWLClass ce) {
-		if (ce == null) {
+	public IntegerClassExpression visit(OWLClass owlClassExpression) {
+		if (owlClassExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		getTranslationRepository().addClass(owlClassExpression);
 		return getDataTypeFactory().createClass(
-				getTranslationRepository().getId(ce));
+				getTranslationRepository().getId(owlClassExpression));
 	}
 
 	@Override

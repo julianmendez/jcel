@@ -129,13 +129,15 @@ public class ObjectPropertyExpressionTranslator implements
 	}
 
 	@Override
-	public IntegerObjectPropertyExpression visit(OWLObjectProperty property) {
-		if (property == null) {
+	public IntegerObjectPropertyExpression visit(
+			OWLObjectProperty owlObjectProperty) {
+		if (owlObjectProperty == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
+		getTranslationRepository().addObjectProperty(owlObjectProperty);
 		return getDataTypeFactory().createObjectProperty(
-				getTranslationRepository().getId(property));
+				getTranslationRepository().getId(owlObjectProperty));
 	}
 
 }
