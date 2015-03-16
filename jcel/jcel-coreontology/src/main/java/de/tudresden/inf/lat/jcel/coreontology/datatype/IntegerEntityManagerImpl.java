@@ -278,6 +278,15 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	}
 
 	@Override
+	public boolean isEntity(Integer identifier) {
+		if (identifier == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		return this.entityTypeMap.containsKey(identifier);
+	}
+
+	@Override
 	public boolean proposeInverseObjectPropertyOf(Integer firstProperty,
 			Integer secondProperty) throws IndexOutOfBoundsException {
 		if (firstProperty == null) {

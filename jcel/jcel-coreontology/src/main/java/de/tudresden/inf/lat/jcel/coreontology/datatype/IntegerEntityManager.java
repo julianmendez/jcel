@@ -220,4 +220,14 @@ public interface IntegerEntityManager {
 	 */
 	int size();
 
+	/**
+	 * Tell whether the given identifier corresponds to a registered entity
+	 * 
+	 * @param identifier
+	 *            entity identifier
+	 * @return <code>true</code>if and only if the given identifier corresponds
+	 *         to a registered entity
+	 */
+	boolean isEntity(Integer identifier);
+
 }
