@@ -50,7 +50,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.TreeSet;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 
@@ -66,62 +65,6 @@ public class ModuleExtractor {
 	 * Constructs a new module extractor.
 	 */
 	public ModuleExtractor() {
-	}
-
-	/**
-	 * Returns the class identifiers found on the left-hand side of the given
-	 * axiom.
-	 * 
-	 * @param axiom
-	 *            axiom
-	 * @return the class identifiers found on the left-hand side of the given
-	 *         axiom
-	 */
-	Set<Integer> getClassesOnTheLeft(NormalizedIntegerAxiom axiom) {
-		// FIXME
-		return new TreeSet<Integer>();
-	}
-
-	/**
-	 * Returns the class identifiers found on the right-hand side of the given
-	 * axiom.
-	 * 
-	 * @param axiom
-	 *            axiom
-	 * @return the class identifiers found on the right-hand side of the given
-	 *         axiom
-	 */
-	Set<Integer> getClassesOnTheRight(NormalizedIntegerAxiom axiom) {
-		// FIXME
-		return new TreeSet<Integer>();
-	}
-
-	/**
-	 * Returns the object property identifiers found on the left-hand side of
-	 * the given axiom.
-	 * 
-	 * @param axiom
-	 *            axiom
-	 * @return the object property identifiers found on the left-hand side of
-	 *         the given axiom
-	 */
-	Set<Integer> getObjectPropertiesOnTheLeft(NormalizedIntegerAxiom axiom) {
-		// FIXME
-		return new TreeSet<Integer>();
-	}
-
-	/**
-	 * Returns the object property found on the right-hand side of the given
-	 * axiom.
-	 * 
-	 * @param axiom
-	 *            axiom
-	 * @return the object property identifiers found on the right-hand side of
-	 *         the given axiom
-	 */
-	Set<Integer> getObjectPropertiesOnTheRight(NormalizedIntegerAxiom axiom) {
-		// FIXME
-		return new TreeSet<Integer>();
 	}
 
 	/**
@@ -169,16 +112,22 @@ public class ModuleExtractor {
 		while (found) {
 			found = false;
 			for (NormalizedIntegerAxiom axiom : setOfAxioms) {
-				Set<Integer> classesOnTheLeft = getClassesOnTheLeft(axiom);
-				Set<Integer> objectPropertiesOnTheLeft = getObjectPropertiesOnTheLeft(axiom);
 
-				if (nonEmptyIntersection(classesOnTheLeft, classes)
-						|| (classesOnTheLeft.isEmpty() && nonEmptyIntersection(
-								objectPropertiesOnTheLeft, objectProperties))) {
+				IdentifierCollector c = new IdentifierCollector(axiom);
+				Set<Integer> classesOnTheLeft = c.getClassesOnTheLeft();
+				Set<Integer> objectPropertiesOnTheLeft = c
+						.getObjectPropertiesOnTheLeft();
+
+				boolean case0 = nonEmptyIntersection(classesOnTheLeft, classes);
+				boolean case1 = (classesOnTheLeft.isEmpty() && nonEmptyIntersection(
+						objectPropertiesOnTheLeft, objectProperties));
+				boolean case2 = (classesOnTheLeft.isEmpty() && objectPropertiesOnTheLeft
+						.isEmpty());
+
+				if (case0 || case1 || case2) {
 					found = true;
-					classes.addAll(getClassesOnTheRight(axiom));
-					objectProperties
-							.addAll(getObjectPropertiesOnTheRight(axiom));
+					classes.addAll(c.getClassesOnTheRight());
+					objectProperties.addAll(c.getObjectPropertiesOnTheRight());
 					ret.add(axiom);
 				}
 
