@@ -47,8 +47,8 @@
 package de.tudresden.inf.lat.jcel.core.algorithm.module;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
@@ -65,25 +65,6 @@ public class ModuleExtractor {
 	 * Constructs a new module extractor.
 	 */
 	public ModuleExtractor() {
-	}
-
-	/**
-	 * Tells whether the given sets have an element in common.
-	 * 
-	 * @param set0
-	 *            set (expected to be smaller)
-	 * @param set1
-	 *            set (expected to be larger)
-	 * @return <code>true</code> if and only if the given set have an element in
-	 *         common
-	 */
-	boolean nonEmptyIntersection(Set<Integer> set0, Set<Integer> set1) {
-		boolean ret = false;
-		Iterator<Integer> it = set0.iterator();
-		while (!ret && it.hasNext()) {
-			ret |= set1.contains(it.hasNext());
-		}
-		return ret;
 	}
 
 	/**
@@ -123,17 +104,17 @@ public class ModuleExtractor {
 				Set<Integer> objectPropertiesOnTheLeft = c
 						.getObjectPropertiesOnTheLeft();
 
-				boolean case0 = nonEmptyIntersection(classesOnTheLeft, classes);
-				boolean case1 = (classesOnTheLeft.isEmpty() && nonEmptyIntersection(
-						objectPropertiesOnTheLeft, objectProperties));
+				boolean case0 = !Collections
+						.disjoint(classesOnTheLeft, classes);
+				boolean case1 = (classesOnTheLeft.isEmpty() && !Collections
+						.disjoint(objectPropertiesOnTheLeft, objectProperties));
 				boolean case2 = (classesOnTheLeft.isEmpty() && objectPropertiesOnTheLeft
 						.isEmpty());
 
 				if (case0 || case1 || case2) {
-					found = true;
 					classes.addAll(c.getClassesOnTheRight());
 					objectProperties.addAll(c.getObjectPropertiesOnTheRight());
-					ret.add(axiom);
+					found = ret.add(axiom);
 				}
 
 			}
