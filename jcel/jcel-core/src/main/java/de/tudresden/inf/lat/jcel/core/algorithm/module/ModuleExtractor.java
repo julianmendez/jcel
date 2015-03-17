@@ -108,10 +108,15 @@ public class ModuleExtractor {
 		Set<Integer> objectProperties = new HashSet<Integer>();
 		objectProperties.addAll(setOfObjectProperties);
 
+		Set<NormalizedIntegerAxiom> remainingAxioms = new HashSet<NormalizedIntegerAxiom>();
+		remainingAxioms.addAll(setOfAxioms);
+
 		boolean found = true;
 		while (found) {
 			found = false;
-			for (NormalizedIntegerAxiom axiom : setOfAxioms) {
+			remainingAxioms.removeAll(ret);
+
+			for (NormalizedIntegerAxiom axiom : remainingAxioms) {
 
 				IdentifierCollector c = new IdentifierCollector(axiom);
 				Set<Integer> classesOnTheLeft = c.getClassesOnTheLeft();
