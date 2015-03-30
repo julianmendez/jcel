@@ -51,6 +51,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * An object of this class generates new identification numbers for object
@@ -188,6 +189,23 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	@Override
 	public Set<Integer> getAuxiliaryNominals() {
 		return Collections.unmodifiableSet(this.auxNominalInvMap.keySet());
+	}
+
+	@Override
+	public Set<Integer> getEntities(IntegerEntityType type) {
+		if (type == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		Set<Integer> ret = new TreeSet<Integer>();
+		if (this.nonAuxEntityMap.get(type) != null) {
+			ret.addAll(this.nonAuxEntityMap.get(type));
+		}
+		if (this.auxEntityMap.get(type) != null) {
+			ret.addAll(this.auxEntityMap.get(type));
+		}
+		ret = Collections.unmodifiableSet(ret);
+		return ret;
 	}
 
 	@Override

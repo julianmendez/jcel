@@ -140,14 +140,26 @@ public interface IntegerEntityManager {
 	Set<Integer> getAuxiliaryNominals();
 
 	/**
-	 * Returns the set of identifiers of auxiliary entities of a certain type.
+	 * Returns the set of identifiers of entities of a certain type.
+	 *
+	 * @param type
+	 *            type of the entity
+	 * 
+	 * @return the set of identifiers of entities of a certain type
+	 */
+	Set<Integer> getEntities(IntegerEntityType type);
+
+	/**
+	 * Returns either the set of identifiers of auxiliary entities or the set of
+	 * identifiers of non-auxiliary entities.
 	 *
 	 * @param type
 	 *            type of the entity
 	 * @param auxiliary
-	 *            <code>true</code> for auxiliary entities, <code>false</code>
-	 *            for non-auxiliary entities
-	 * @return the set of identifiers of auxiliary entities of a certain type
+	 *            <code>true</code> for auxiliary entities only,
+	 *            <code>false</code> for non-auxiliary entities only
+	 * @return either the set of identifiers of auxiliary entities or the set of
+	 *         identifiers of non-auxiliary entities
 	 */
 	Set<Integer> getEntities(IntegerEntityType type, boolean auxiliary);
 
