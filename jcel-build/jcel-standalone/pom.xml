@@ -1,7 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-
 	<!--
  *
  * Copyright 2009-2013 Julian Mendez
@@ -60,7 +59,7 @@
 			<artifactId>jcel-protege</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-	
+
 	</dependencies>
 
 	<parent>
@@ -73,7 +72,10 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<mainClass>${project.groupId}.owlapi.console.ConsoleStarter</mainClass>
+		<mainClass>de.tudresden.inf.lat.jcel.owlapi.console.ConsoleStarter</mainClass>
+
+		<bundle.jars>lib/net/sourceforge/owlapi/owlapi-distribution/3.5.0/owlapi-distribution-3.5.0.jar</bundle.jars>
+		<bundle.licenses>lib/jcel/jcel-coreontology/0.21.0/*.txt lib/jcel/jcel-core/0.21.0/*.txt lib/jcel/jcel-ontology/0.21.0/*.txt lib/jcel/jcel-reasoner/0.21.0/*.txt lib/jcel/jcel-owlapi/0.21.0/*.txt lib/net/sourceforge/owlapi/owlapi/3.5.0/*.txt</bundle.licenses>
 	</properties>
 
 	<build>
@@ -89,7 +91,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Bundle-SymbolicName>de.tudresden.inf.lat.jcel;singleton:=true</Bundle-SymbolicName>
+						<Bundle-SymbolicName>${project.groupId};singleton:=true</Bundle-SymbolicName>
 						<Bundle-Name>jcel</Bundle-Name>
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Bundle-Activator>org.protege.editor.core.plugin.DefaultPluginActivator</Bundle-Activator>
@@ -98,7 +100,9 @@
 						<Bundle-Vendor>Chair of Automata Theory - TU Dresden</Bundle-Vendor>
 						<Bundle-DocURL>http://lat.inf.tu-dresden.de</Bundle-DocURL>
 						<Bundle-ClassPath>${bundle.classpath}</Bundle-ClassPath>
-						<Import-Package>javax.accessibility, javax.swing, javax.swing.border, org.osgi.framework, org.protege.editor.core.ui.workspace, *</Import-Package>
+						<Import-Package>javax.accessibility, javax.swing,
+							javax.swing.border, org.osgi.framework,
+							org.protege.editor.core.ui.workspace, *</Import-Package>
 						<Main-Class>${mainClass}</Main-Class>
 						<Include-Resource>
 							{maven-resources}, {maven-dependencies},
