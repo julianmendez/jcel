@@ -143,7 +143,7 @@
 			<fileset dir="${_bundle.jars.directory}" includes="${project.properties.bundle.licenses}" />
 			<manifest>
 				<attribute name="Bundle-ManifestVersion" value="2" />
-				<attribute name="Bundle-SymbolicName" value="de.tudresden.inf.lat.jcel;singleton:=true" />
+				<attribute name="Bundle-SymbolicName" value="${project.groupId};singleton:=true" />
 				<attribute name="Bundle-Name" value="jcel" />
 				<attribute name="Bundle-Version" value="${project.version}" />
 				<attribute name="Bundle-Activator" value="org.protege.editor.core.plugin.DefaultPluginActivator" />
