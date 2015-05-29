@@ -52,19 +52,17 @@
 	<property name="parent.directory" value=".." />
 	<property name="project.build.directory" value="${basedir}/target" />
 
-	<!-- Imports 'project.groupId', 'project.artifactId', and 'project.version' properties. -->
+	<!-- Imports 'project.groupId', 'project.artifactId', 'project.version', 
+	'project.properties.mainClass', and 'project.properties.bundlelicenses' properties. -->
 	<xmlproperty file="pom.xml" />
 	<xmlproperty file="../../pom.xml" />
-
-	<!-- Imports 'mainclass', and 'bundlelicenses' properties. -->
-	<property file="build.properties" />
 
 	<!-- Project-specific properties. -->
 	<fail unless="project.groupId">Error: 'project.groupId' is undefined. This property should have the group identifier.</fail>
 	<fail unless="project.artifactId">Error: 'project.artifactId' is undefined. This property should have the artifact identifier.</fail>
 	<fail unless="project.version">Error: 'project.version' is undefined. This property should have the version number in the form major.minor.patch.</fail>
-	<fail unless="mainclass">Error: 'mainclass' is undefined.</fail>
-	<fail unless="bundlelicenses">Error: 'bundlelicenses' is undefined.</fail>
+	<fail unless="project.properties.mainClass">Error: 'project.properties.mainClass' is undefined.</fail>
+	<fail unless="project.properties.bundle.licenses">Error: 'project.properties.bundle.licenses' is undefined.</fail>
 
 	<property name="src.directory" value="src" />
 
@@ -146,16 +144,16 @@
 		<mkdir dir="${_bundle.directory}" />
 		<jar destfile="${_bundle.directory}/${_bundle.name}.jar">
 			<fileset dir="${project.build.outputDirectory.classes}" />
-			<fileset dir="." includes="${bundlelicenses}" />
+			<fileset dir="." includes="${project.properties.bundle.licenses}" />
 			<manifest>
 				<attribute name="Implementation-Title" value="${project.groupId}" />
 				<attribute name="Implementation-Version" value="${project.version}" />
-				<attribute name="Main-Class" value="${mainclass}" />
+				<attribute name="Main-Class" value="${project.properties.mainClass}" />
 			</manifest>
 		</jar>
 		<jar destfile="${_bundle.directory}/${_bundle.name}-sources.jar">
 			<fileset dir="${project.build.outputDirectory.sources}" />
-			<fileset dir="." includes="${bundlelicenses}" />
+			<fileset dir="." includes="${project.properties.bundle.licenses}" />
 			<manifest>
 				<attribute name="Implementation-Title" value="${project.groupId}" />
 				<attribute name="Implementation-Version" value="${project.version}" />
