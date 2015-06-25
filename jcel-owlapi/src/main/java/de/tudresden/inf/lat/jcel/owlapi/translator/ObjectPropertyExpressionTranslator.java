@@ -46,6 +46,7 @@
 
 package de.tudresden.inf.lat.jcel.owlapi.translator;
 
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -138,6 +139,13 @@ public class ObjectPropertyExpressionTranslator implements
 		getTranslationRepository().addObjectProperty(owlObjectProperty);
 		return getDataTypeFactory().createObjectProperty(
 				getTranslationRepository().getId(owlObjectProperty));
+	}
+
+	@Override
+	public IntegerObjectPropertyExpression visit(
+			OWLAnnotationProperty owlAnnotationProperty) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

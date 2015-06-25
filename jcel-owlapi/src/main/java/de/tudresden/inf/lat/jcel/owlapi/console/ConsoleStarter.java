@@ -59,26 +59,26 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxRenderer;
-import org.coode.owlapi.latex.LatexRenderer;
-import org.coode.owlapi.owlxml.renderer.OWLXMLRenderer;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.functional.renderer.OWLFunctionalSyntaxRenderer;
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
+import org.semanticweb.owlapi.krss2.renderer.KRSS2OWLSyntaxRenderer;
+import org.semanticweb.owlapi.krss2.renderer.KRSS2SyntaxRenderer;
+import org.semanticweb.owlapi.krss2.renderer.KRSSSyntaxRenderer;
+import org.semanticweb.owlapi.latex.renderer.LatexRenderer;
+import org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxRenderer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.owlxml.renderer.OWLXMLRenderer;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxRenderer;
 import de.tudresden.inf.lat.jcel.owlapi.main.JcelReasoner;
 import de.tudresden.inf.lat.jcel.reasoner.main.VersionInfo;
-import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2OWLSyntaxRenderer;
-import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2SyntaxRenderer;
-import de.uulm.ecs.ai.owlapi.krssrenderer.KRSSSyntaxRenderer;
 
 /**
  * This class makes possible to start a classifier instance from the command

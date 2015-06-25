@@ -74,8 +74,8 @@
 
 		<mainClass>de.tudresden.inf.lat.jcel.owlapi.console.ConsoleStarter</mainClass>
 
-		<bundle.jars>lib/net/sourceforge/owlapi/owlapi-distribution/3.5.0/owlapi-distribution-3.5.0.jar</bundle.jars>
-		<bundle.licenses>lib/jcel/jcel-coreontology/0.22.0-SNAPSHOT/*.txt lib/jcel/jcel-core/0.22.0-SNAPSHOT/*.txt lib/jcel/jcel-ontology/0.22.0-SNAPSHOT/*.txt lib/jcel/jcel-reasoner/0.22.0-SNAPSHOT/*.txt lib/jcel/jcel-owlapi/0.22.0-SNAPSHOT/*.txt lib/net/sourceforge/owlapi/owlapi/3.5.0/*.txt</bundle.licenses>
+		<bundle.jars>lib/net/sourceforge/owlapi/owlapi-distribution/4.0.2/owlapi-distribution-4.0.2.jar</bundle.jars>
+		<bundle.licenses>lib/jcel/jcel-coreontology/0.22.0-SNAPSHOT/*.txt lib/jcel/jcel-core/0.22.0-SNAPSHOT/*.txt lib/jcel/jcel-ontology/0.22.0-SNAPSHOT/*.txt lib/jcel/jcel-reasoner/0.22.0-SNAPSHOT/*.txt lib/jcel/jcel-owlapi/0.22.0-SNAPSHOT/*.txt lib/net/sourceforge/owlapi/owlapi/4.0.2/*.txt</bundle.licenses>
 	</properties>
 
 	<build>
@@ -112,7 +112,7 @@
 							@jcel-reasoner-${project.version}.jar,
 							@jcel-owlapi-${project.version}.jar,
 							@jcel-protege-${project.version}.jar,
-							@owlapi-distribution-3.5.0.jar
+							@owlapi-distribution-4.0.2.jar
 						</Include-Resource>
 					</instructions>
 				</configuration>

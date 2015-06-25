@@ -18,7 +18,7 @@
 		<dependency name="jcel-reasoner" rev="latest.integration" />
 		<dependency name="jcel-owlapi" rev="latest.integration" />
 		<dependency org="junit" name="junit" rev="4.11" />
-		<dependency org="net.sourceforge.owlapi" name="owlapi-distribution" rev="3.5.0" conf="javadoc->javadoc;sources->sources;compile->default" />
+		<dependency org="net.sourceforge.owlapi" name="owlapi-distribution" rev="4.0.2" conf="javadoc->javadoc;sources->sources;compile->default" />
 		<dependency org="edu.stanford.protege" name="org.protege.editor.owl" rev="4.3.0" conf="javadoc->javadoc;sources->sources;compile->default" />
 		<dependency org="edu.stanford.protege" name="org.protege.editor.core.application" rev="4.3.0" conf="javadoc->javadoc;sources->sources;compile->default" />
 	</dependencies>
