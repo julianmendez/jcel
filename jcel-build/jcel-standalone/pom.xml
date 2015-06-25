@@ -65,7 +65,7 @@
 	<parent>
 		<groupId>de.tudresden.inf.lat.jcel</groupId>
 		<artifactId>jcel-parent</artifactId>
-		<version>0.21.0</version>
+		<version>0.22.0-SNAPSHOT</version>
 		<relativePath>../..</relativePath>
 	</parent>
 
@@ -75,7 +75,7 @@
 		<mainClass>de.tudresden.inf.lat.jcel.owlapi.console.ConsoleStarter</mainClass>
 
 		<bundle.jars>lib/net/sourceforge/owlapi/owlapi-distribution/3.5.0/owlapi-distribution-3.5.0.jar</bundle.jars>
-		<bundle.licenses>lib/jcel/jcel-coreontology/0.21.0/*.txt lib/jcel/jcel-core/0.21.0/*.txt lib/jcel/jcel-ontology/0.21.0/*.txt lib/jcel/jcel-reasoner/0.21.0/*.txt lib/jcel/jcel-owlapi/0.21.0/*.txt lib/net/sourceforge/owlapi/owlapi/3.5.0/*.txt</bundle.licenses>
+		<bundle.licenses>lib/jcel/jcel-coreontology/0.22.0-SNAPSHOT/*.txt lib/jcel/jcel-core/0.22.0-SNAPSHOT/*.txt lib/jcel/jcel-ontology/0.22.0-SNAPSHOT/*.txt lib/jcel/jcel-reasoner/0.22.0-SNAPSHOT/*.txt lib/jcel/jcel-owlapi/0.22.0-SNAPSHOT/*.txt lib/net/sourceforge/owlapi/owlapi/3.5.0/*.txt</bundle.licenses>
 	</properties>
 
 	<build>

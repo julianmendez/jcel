@@ -65,16 +65,16 @@
 	<parent>
 		<groupId>de.tudresden.inf.lat.jcel</groupId>
 		<artifactId>jcel-parent</artifactId>
-		<version>0.21.0</version>
+		<version>0.22.0-SNAPSHOT</version>
 		<relativePath>../..</relativePath>
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<bundle.jars>lib/jcel/jcel-coreontology/0.21.0/jcel-coreontology-0.21.0.jar lib/jcel/jcel-core/0.21.0/jcel-core-0.21.0.jar lib/jcel/jcel-ontology/0.21.0/jcel-ontology-0.21.0.jar lib/jcel/jcel-reasoner/0.21.0/jcel-reasoner-0.21.0.jar lib/jcel/jcel-owlapi/0.21.0/jcel-owlapi-0.21.0.jar</bundle.jars>
-		<bundle.licenses>lib/jcel/jcel-coreontology/0.21.0/*.txt lib/jcel/jcel-core/0.21.0/*.txt lib/jcel/jcel-ontology/0.21.0/*.txt lib/jcel/jcel-reasoner/0.21.0/*.txt lib/jcel/jcel-owlapi/0.21.0/*.txt</bundle.licenses>
-		<bundle.classpath>.,lib/jcel/jcel-coreontology/0.21.0/jcel-coreontology-0.21.0.jar,lib/jcel/jcel-core/0.21.0/jcel-core-0.21.0.jar,lib/jcel/jcel-ontology/0.21.0/jcel-ontology-0.21.0.jar, lib/jcel/jcel-reasoner/0.21.0/jcel-reasoner-0.21.0.jar,lib/jcel/jcel-owlapi/0.21.0/jcel-owlapi-0.21.0.jar</bundle.classpath>
+		<bundle.jars>lib/jcel/jcel-coreontology/0.22.0-SNAPSHOT/jcel-coreontology-0.22.0-SNAPSHOT.jar lib/jcel/jcel-core/0.22.0-SNAPSHOT/jcel-core-0.22.0-SNAPSHOT.jar lib/jcel/jcel-ontology/0.22.0-SNAPSHOT/jcel-ontology-0.22.0-SNAPSHOT.jar lib/jcel/jcel-reasoner/0.22.0-SNAPSHOT/jcel-reasoner-0.22.0-SNAPSHOT.jar lib/jcel/jcel-owlapi/0.22.0-SNAPSHOT/jcel-owlapi-0.22.0-SNAPSHOT.jar</bundle.jars>
+		<bundle.licenses>lib/jcel/jcel-coreontology/0.22.0-SNAPSHOT/*.txt lib/jcel/jcel-core/0.22.0-SNAPSHOT/*.txt lib/jcel/jcel-ontology/0.22.0-SNAPSHOT/*.txt lib/jcel/jcel-reasoner/0.22.0-SNAPSHOT/*.txt lib/jcel/jcel-owlapi/0.22.0-SNAPSHOT/*.txt</bundle.licenses>
+		<bundle.classpath>.,lib/jcel/jcel-coreontology/0.22.0-SNAPSHOT/jcel-coreontology-0.22.0-SNAPSHOT.jar,lib/jcel/jcel-core/0.22.0-SNAPSHOT/jcel-core-0.22.0-SNAPSHOT.jar,lib/jcel/jcel-ontology/0.22.0-SNAPSHOT/jcel-ontology-0.22.0-SNAPSHOT.jar, lib/jcel/jcel-reasoner/0.22.0-SNAPSHOT/jcel-reasoner-0.22.0-SNAPSHOT.jar,lib/jcel/jcel-owlapi/0.22.0-SNAPSHOT/jcel-owlapi-0.22.0-SNAPSHOT.jar</bundle.classpath>
 	</properties>
 
 	<build>
