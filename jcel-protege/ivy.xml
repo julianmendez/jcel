@@ -18,9 +18,83 @@
 		<dependency name="jcel-reasoner" rev="latest.integration" />
 		<dependency name="jcel-owlapi" rev="latest.integration" />
 		<dependency org="junit" name="junit" rev="4.11" />
-		<dependency org="net.sourceforge.owlapi" name="owlapi-distribution" rev="4.0.2" conf="javadoc->javadoc;sources->sources;compile->default" />
-		<dependency org="edu.stanford.protege" name="org.protege.editor.owl" rev="4.3.0" conf="javadoc->javadoc;sources->sources;compile->default" />
-		<dependency org="edu.stanford.protege" name="org.protege.editor.core.application" rev="4.3.0" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+				<dependency org="net.sourceforge.owlapi" name="owlapi-distribution"
+			rev="4.0.2" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="edu.stanford.protege" name="org.protege.editor.owl"
+			rev="4.3.0" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="edu.stanford.protege" name="org.protege.editor.core.application"
+			rev="4.3.0" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="com.google.guava" name="guava" rev="18.0"
+			conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="com.google.inject" name="guice" rev="4.0-beta"
+			conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="com.google.inject.extensions" name="guice-multibindings"
+			rev="4.0-beta" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="com.google.inject.extensions" name="guice-assistedinject"
+			rev="4.0-beta" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="javax.inject" name="javax.inject" rev="1"
+			conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.7"
+			conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="aopalliance" name="aopalliance" rev="1.0"
+			conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="commons-io" name="commons-io" rev="2.4"
+			conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="org.openrdf.sesame" name="sesame-model"
+			rev="2.7.12" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="org.openrdf.sesame" name="sesame-util"
+			rev="2.7.12" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="org.openrdf.sesame" name="sesame-rio-api"
+			rev="2.7.12" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="org.openrdf.sesame" name="sesame-rio-binary"
+			rev="2.7.12" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="org.openrdf.sesame" name="sesame-rio-datatypes"
+			rev="2.7.12" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="org.openrdf.sesame" name="sesame-rio-languages"
+			rev="2.7.12" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="org.openrdf.sesame" name="sesame-rio-n3"
+			rev="2.7.12" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="org.openrdf.sesame" name="sesame-rio-nquads"
+			rev="2.7.12" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="org.openrdf.sesame" name="sesame-rio-ntriples"
+			rev="2.7.12" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="org.openrdf.sesame" name="sesame-rio-rdfjson"
+			rev="2.7.12" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="org.openrdf.sesame" name="sesame-rio-rdfxml"
+			rev="2.7.12" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="org.openrdf.sesame" name="sesame-rio-trig"
+			rev="2.7.12" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="org.openrdf.sesame" name="sesame-rio-trix"
+			rev="2.7.12" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		<dependency org="org.openrdf.sesame" name="sesame-rio-turtle"
+			rev="2.7.12" conf="javadoc->javadoc;sources->sources;compile->default" />
+
+		
 	</dependencies>
 
 </ivy-module>
