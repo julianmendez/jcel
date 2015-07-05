@@ -17,9 +17,10 @@
 		<dependency name="jcel-ontology" rev="latest.integration" />
 		<dependency name="jcel-reasoner" rev="latest.integration" />
 		<dependency name="jcel-owlapi" rev="latest.integration" />
+
 		<dependency org="junit" name="junit" rev="4.11" />
 
-				<dependency org="net.sourceforge.owlapi" name="owlapi-distribution"
+		<dependency org="net.sourceforge.owlapi" name="owlapi-distribution"
 			rev="4.0.2" conf="javadoc->javadoc;sources->sources;compile->default" />
 
 		<dependency org="edu.stanford.protege" name="org.protege.editor.owl"
@@ -94,7 +95,6 @@
 		<dependency org="org.openrdf.sesame" name="sesame-rio-turtle"
 			rev="2.7.12" conf="javadoc->javadoc;sources->sources;compile->default" />
 
-		
 	</dependencies>
 
 </ivy-module>
