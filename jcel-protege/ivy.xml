@@ -24,10 +24,10 @@
 			rev="4.0.2" conf="javadoc->javadoc;sources->sources;compile->default" />
 
 		<dependency org="edu.stanford.protege" name="org.protege.editor.owl"
-			rev="4.3.0" conf="javadoc->javadoc;sources->sources;compile->default" />
+			rev="5.0.0-beta-17" conf="javadoc->javadoc;sources->sources;compile->default" />
 
 		<dependency org="edu.stanford.protege" name="org.protege.editor.core.application"
-			rev="4.3.0" conf="javadoc->javadoc;sources->sources;compile->default" />
+			rev="5.0.0-beta-17" conf="javadoc->javadoc;sources->sources;compile->default" />
 
 		<dependency org="com.google.guava" name="guava" rev="18.0"
 			conf="javadoc->javadoc;sources->sources;compile->default" />
