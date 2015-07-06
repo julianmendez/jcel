@@ -60,6 +60,12 @@
 			<version>${project.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>net.sourceforge.owlapi</groupId>
+			<artifactId>owlapi-distribution</artifactId>
+			<version>3.5.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<parent>
@@ -101,7 +107,9 @@
 						<Bundle-ClassPath>${bundle.classpath}</Bundle-ClassPath>
 						<Import-Package>javax.accessibility, javax.swing,
 							javax.swing.border, org.osgi.framework,
-							org.protege.editor.core.ui.workspace, *</Import-Package>
+							org.protege.editor.core.ui.workspace,
+							org.semanticweb.*;resolution:=optional,
+							*</Import-Package>
 						<Include-Resource>
 							{maven-resources}, {maven-dependencies},
 							@jcel-protege-${project.version}.jar,
