@@ -64,6 +64,8 @@
 	<fail unless="project.properties.bundle.jars">Error: 'project.properties.bundle.jars' is undefined.</fail>
 	<fail unless="project.properties.bundle.licenses">Error: 'project.properties.bundle.licenses' is undefined.</fail>
 	<fail unless="project.properties.bundle.classpath">Error: 'project.properties.bundle.classpath' is undefined.</fail>
+	<fail unless="project.properties.import.package">Error: 'project.properties.import.package' is undefined.</fail>
+	<fail unless="project.properties.require.bundle">Error: 'project.properties.require.bundle' is undefined.</fail>
 
 	<property name="src.directory" value="src" />
 
@@ -152,8 +154,8 @@
 				<attribute name="Bundle-Vendor" value="Chair of Automata Theory - TU Dresden" />
 				<attribute name="Bundle-DocURL" value="http://lat.inf.tu-dresden.de" />
 				<attribute name="Bundle-ClassPath" value="${project.properties.bundle.classpath}" />
-				<attribute name="Import-Package" value="org.osgi.framework" />
-				<attribute name="Require-Bundle" value="org.eclipse.equinox.registry, org.eclipse.equinox.common, org.protege.editor.core.application, org.protege.editor.owl, org.semanticweb.owl.owlapi" />
+				<attribute name="Import-Package" value="${project.properties.import.package}" />
+				<attribute name="Require-Bundle" value="${project.properties.require.bundle}" />
 			</manifest>
 		</jar>
 	</target>
