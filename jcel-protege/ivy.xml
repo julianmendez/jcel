@@ -95,6 +95,9 @@
 		<dependency org="org.openrdf.sesame" name="sesame-rio-turtle"
 			rev="2.7.12" conf="javadoc->javadoc;sources->sources;compile->default" />
 
+		<dependency org="net.sf.trove4j" name="trove4j"
+			rev="3.0.3" conf="javadoc->javadoc;sources->sources;compile->default" />
+
 	</dependencies>
 
 </ivy-module>
