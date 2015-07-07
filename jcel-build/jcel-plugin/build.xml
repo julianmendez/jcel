@@ -61,6 +61,8 @@
 	<fail unless="project.groupId">Error: 'project.groupId' is undefined. This property should have the group identifier.</fail>
 	<fail unless="project.artifactId">Error: 'project.artifactId' is undefined. This property should have the artifact identifier.</fail>
 	<fail unless="project.version">Error: 'project.version' is undefined. This property should have the version number in the form major.minor.patch.</fail>
+	<fail unless="project.properties.bundle.version">Error: 'project.properties.bundle.version' is undefined.</fail>
+	<fail unless="project.properties.bundle.activator">Error: 'project.properties.bundle.activator' is undefined.</fail>
 	<fail unless="project.properties.bundle.jars">Error: 'project.properties.bundle.jars' is undefined.</fail>
 	<fail unless="project.properties.bundle.licenses">Error: 'project.properties.bundle.licenses' is undefined.</fail>
 	<fail unless="project.properties.bundle.classpath">Error: 'project.properties.bundle.classpath' is undefined.</fail>
@@ -147,8 +149,8 @@
 				<attribute name="Bundle-ManifestVersion" value="2" />
 				<attribute name="Bundle-SymbolicName" value="${project.groupId};singleton:=true" />
 				<attribute name="Bundle-Name" value="jcel" />
-				<attribute name="Bundle-Version" value="${project.version}" />
-				<attribute name="Bundle-Activator" value="org.protege.editor.core.plugin.DefaultPluginActivator" />
+				<attribute name="Bundle-Version" value="${project.properties.bundle.version}" />
+				<attribute name="Bundle-Activator" value="${project.properties.bundle.activator}" />
 				<attribute name="Bundle-Category" value="protege" />
 				<attribute name="Bundle-Description" value="jcel plugin for Protege" />
 				<attribute name="Bundle-Vendor" value="Chair of Automata Theory - TU Dresden" />
