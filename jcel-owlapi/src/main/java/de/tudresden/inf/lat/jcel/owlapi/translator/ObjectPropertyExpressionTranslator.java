@@ -141,7 +141,7 @@ public class ObjectPropertyExpressionTranslator implements
 				getTranslationRepository().getId(owlObjectProperty));
 	}
 
-	@Override
+	// @Override
 	public IntegerObjectPropertyExpression visit(
 			OWLAnnotationProperty owlAnnotationProperty) {
 		// TODO Auto-generated method stub

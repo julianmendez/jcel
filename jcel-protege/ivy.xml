@@ -21,7 +21,7 @@
 		<dependency org="junit" name="junit" rev="4.11" />
 
 		<dependency org="net.sourceforge.owlapi" name="owlapi-distribution"
-			rev="4.0.2" conf="javadoc->javadoc;sources->sources;compile->default" />
+			rev="3.5.1" conf="javadoc->javadoc;sources->sources;compile->default" />
 
 		<dependency org="edu.stanford.protege" name="org.protege.editor.owl"
 			rev="5.0.0-beta-17" conf="javadoc->javadoc;sources->sources;compile->default" />
