@@ -124,7 +124,57 @@ Eclipse 4.4.0 (or higher)</li>
 
 <p>The library, its sources and its javadoc will be in jcel-build/jcel-library/target, the plug-in will be in jcel-build/jcel-plugin/target, the standalone will be in jcel-build/jcel-standalone/target, and the release ZIP file will be in jcel-build/target.</p>
 
-<p><a href="http://jcel.sourceforge.net/oldversions.html">Older versions</a> may use different directories.</p>
+<h2>
+<a id="older-versions" class="anchor" href="#older-versions" aria-hidden="true"><span class="octicon octicon-link"></span></a>older versions</h2>
+
+<h3>
+<a id="old-versions-using-ant" class="anchor" href="#old-versions-using-ant" aria-hidden="true"><span class="octicon octicon-link"></span></a>old versions using Ant</h3>
+
+<ul>
+<li><p>version
+commands
+[location of bundle]</p></li>
+<li><p>v0.5.0
+cd de.tudresden.inf.lat.jcel
+ant
+[de.tudresden.inf.lat.jcel/dist/bundle/de.tudresden.inf.lat.jcel.jar]</p></li>
+<li><p>v0.6.0
+cd de.tudresden.inf.lat.jcel.protege
+ant
+[de.tudresden.inf.lat.jcel.protege/dist/bundle/de.tudresden.inf.lat.jcel.jar]</p></li>
+<li><p>v0.7.0 — v0.13.0
+cd jcel-jars
+ant
+[de.tudresden.inf.lat.jcel.protege/dist/bundle/de.tudresden.inf.lat.jcel.jar]</p></li>
+<li><p>v0.14.0
+cd jcel/protege
+ant -buildfile build-bundle.xml
+[jcel/protege/target/de.tudresden.inf.lat.jcel.jar]</p></li>
+<li><p>v0.15.0 — v0.16.1
+cd jcel/jcel.protege
+ant -buildfile build-bundle.xml
+[jcel/jcel.protege/target/de.tudresden.inf.lat.jcel.jar]</p></li>
+<li><p>v0.17.0 — v0.17.1
+cd jcel/jcel.distribution
+ant
+[jcel/jcel.bundle/target/de.tudresden.inf.lat.jcel.jar]</p></li>
+<li><p>v0.18.0 — v0.18.2
+cd jcel/jcel.build
+ant
+[jcel/jcel.build/plugin/target/de.tudresden.inf.lat.jcel.jar]</p></li>
+<li><p>v0.19.0 — v0.20.0
+cd jcel/jcel-build
+ant
+[jcel/jcel-build/plugin/target/de.tudresden.inf.lat.jcel.jar]</p></li>
+<li><p>v0.21.0
+cd jcel/jcel-build
+ant
+[jcel/jcel-build/jcel-plugin/target/de.tudresden.inf.lat.jcel.jar]</p></li>
+<li><p>v0.22.0 — master (trunk)
+cd jcel-build
+ant
+[jcel-build/jcel-plugin/target/de.tudresden.inf.lat.jcel.jar]</p></li>
+</ul>
 
 <h2>
 <a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>documentation</h2>
