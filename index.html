@@ -134,55 +134,107 @@ Eclipse 4.4.0 (or higher)</li>
 <li><p>version
 commands
 [location of bundle]</p></li>
-<li><p>v0.5.0
-cd de.tudresden.inf.lat.jcel
+<li>
+<p>v0.5.0</p>
+
+<pre><code>cd de.tudresden.inf.lat.jcel
 ant
-[de.tudresden.inf.lat.jcel/dist/bundle/de.tudresden.inf.lat.jcel.jar]</p></li>
-<li><p>v0.6.0
-cd de.tudresden.inf.lat.jcel.protege
+</code></pre>
+
+<p>[de.tudresden.inf.lat.jcel/dist/bundle/de.tudresden.inf.lat.jcel.jar]</p>
+</li>
+<li>
+<p>v0.6.0</p>
+
+<pre><code>cd de.tudresden.inf.lat.jcel.protege
 ant
-[de.tudresden.inf.lat.jcel.protege/dist/bundle/de.tudresden.inf.lat.jcel.jar]</p></li>
-<li><p>v0.7.0 — v0.13.0
-cd jcel-jars
+</code></pre>
+
+<p>[de.tudresden.inf.lat.jcel.protege/dist/bundle/de.tudresden.inf.lat.jcel.jar]</p>
+</li>
+<li>
+<p>v0.7.0 — v0.13.0</p>
+
+<pre><code>cd jcel-jars
 ant
-[de.tudresden.inf.lat.jcel.protege/dist/bundle/de.tudresden.inf.lat.jcel.jar]</p></li>
-<li><p>v0.14.0
-cd jcel/protege
+</code></pre>
+
+<p>[de.tudresden.inf.lat.jcel.protege/dist/bundle/de.tudresden.inf.lat.jcel.jar]</p>
+</li>
+<li>
+<p>v0.14.0</p>
+
+<pre><code>cd jcel/protege
 ant -buildfile build-bundle.xml
-[jcel/protege/target/de.tudresden.inf.lat.jcel.jar]</p></li>
-<li><p>v0.15.0 — v0.16.1
-cd jcel/jcel.protege
+</code></pre>
+
+<p>[jcel/protege/target/de.tudresden.inf.lat.jcel.jar]</p>
+</li>
+<li>
+<p>v0.15.0 — v0.16.1</p>
+
+<pre><code>cd jcel/jcel.protege
 ant -buildfile build-bundle.xml
-[jcel/jcel.protege/target/de.tudresden.inf.lat.jcel.jar]</p></li>
-<li><p>v0.17.0 — v0.17.1
-cd jcel/jcel.distribution
+</code></pre>
+
+<p>[jcel/jcel.protege/target/de.tudresden.inf.lat.jcel.jar]</p>
+</li>
+<li>
+<p>v0.17.0 — v0.17.1</p>
+
+<pre><code>cd jcel/jcel.distribution
 ant
-[jcel/jcel.bundle/target/de.tudresden.inf.lat.jcel.jar]</p></li>
-<li><p>v0.18.0 — v0.18.2
-cd jcel/jcel.build
+</code></pre>
+
+<p>[jcel/jcel.bundle/target/de.tudresden.inf.lat.jcel.jar]</p>
+</li>
+<li>
+<p>v0.18.0 — v0.18.2</p>
+
+<pre><code>cd jcel/jcel.build
 ant
-[jcel/jcel.build/plugin/target/de.tudresden.inf.lat.jcel.jar]</p></li>
-<li><p>v0.19.0 — v0.20.0
-cd jcel/jcel-build
+</code></pre>
+
+<p>[jcel/jcel.build/plugin/target/de.tudresden.inf.lat.jcel.jar]</p>
+</li>
+<li>
+<p>v0.19.0 — v0.20.0</p>
+
+<pre><code>cd jcel/jcel-build
 ant
-[jcel/jcel-build/plugin/target/de.tudresden.inf.lat.jcel.jar]</p></li>
-<li><p>v0.21.0
-cd jcel/jcel-build
+</code></pre>
+
+<p>[jcel/jcel-build/plugin/target/de.tudresden.inf.lat.jcel.jar]</p>
+</li>
+<li>
+<p>v0.21.0</p>
+
+<pre><code>cd jcel/jcel-build
 ant
-[jcel/jcel-build/jcel-plugin/target/de.tudresden.inf.lat.jcel.jar]</p></li>
-<li><p>v0.22.0 — master (trunk)
-cd jcel-build
+</code></pre>
+
+<p>[jcel/jcel-build/jcel-plugin/target/de.tudresden.inf.lat.jcel.jar]</p>
+</li>
+<li>
+<p>v0.22.0 — master (trunk)</p>
+
+<pre><code>cd jcel-build
 ant
-[jcel-build/jcel-plugin/target/de.tudresden.inf.lat.jcel.jar]</p></li>
+</code></pre>
+
+<p>[jcel-build/jcel-plugin/target/de.tudresden.inf.lat.jcel.jar]</p>
+</li>
 </ul>
 
 <h2>
 <a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>documentation</h2>
 
-<p>The javadoc is available online for the version in the trunk.</p>
+<p>The Javadoc is available online for the version in the trunk.</p>
 
-<p>frequently asked questions
-The frequently asked questions reponds to the most common questions about what jcel is.</p>
+<h2>
+<a id="frequently-asked-questions" class="anchor" href="#frequently-asked-questions" aria-hidden="true"><span class="octicon octicon-link"></span></a>frequently asked questions</h2>
+
+<p>The <a href="http://jcel.sourceforge.net/questions.html">frequently asked questions</a> responds to the most common questions about what jcel is.</p>
 
 <h2>
 <a id="modules" class="anchor" href="#modules" aria-hidden="true"><span class="octicon octicon-link"></span></a>modules</h2>
@@ -201,11 +253,15 @@ The frequently asked questions reponds to the most common questions about what j
 <p>It also has the following module used to build the release:</p>
 
 <ul>
-<li>jcel-build : module to produce the release, which includes javadoc, sources, the plug-in, the library, and the standalone application, including the following submodules:</li>
-<li>jcel-build / jcel-library : submodule to create the library, its sources and its javadoc</li>
-<li>jcel-build / jcel-plugin : submodule to create the jar for Protégé</li>
-<li>jcel-build / jcel-standalone : submodule to create the standalone application</li>
-<li>jcel-build / jcel-release : submodule to create the release, a single ZIP file</li>
+<li>jcel-build : module to produce the release, which includes javadoc, sources, the plug-in, the library, and the standalone application, including the following submodules:
+
+<ul>
+<li>jcel-library : submodule to create the library, its sources and its javadoc</li>
+<li>jcel-plugin : submodule to create the jar for Protégé</li>
+<li>jcel-standalone : submodule to create the standalone application</li>
+<li>jcel-release : submodule to create the release, a single ZIP file</li>
+</ul>
+</li>
 </ul>
 
 <h2>
@@ -220,9 +276,12 @@ The frequently asked questions reponds to the most common questions about what j
 
 <ul>
 <li>Theoretical foundation:
-<a href="http://lat.inf.tu-dresden.de/research/mas/Men-Mas-11.pdf">Master's thesis by J. A. Mendez</a>
-<a href="http://lat.inf.tu-dresden.de/research/mas/Vu-Mas-08.pdf">Master's thesis by Q. H. Vu</a>
-<a href="http://lat.inf.tu-dresden.de/research/phd/Sun-PhD-09.pdf">Ph.D. thesis by B. Suntisrivaraporn</a>
+
+<ul>
+<li><a href="http://lat.inf.tu-dresden.de/research/mas/Men-Mas-11.pdf">Master's thesis by J. A. Mendez</a></li>
+<li><a href="http://lat.inf.tu-dresden.de/research/mas/Vu-Mas-08.pdf">Master's thesis by Q. H. Vu</a></li>
+<li><a href="http://lat.inf.tu-dresden.de/research/phd/Sun-PhD-09.pdf">Ph.D. thesis by B. Suntisrivaraporn</a></li>
+</ul>
 </li>
 <li>CEL: <a href="http://lat.inf.tu-dresden.de/systems/cel">main page</a> — <a href="https://github.com/julianmendez/cel">source code</a>
 </li>
