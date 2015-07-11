@@ -5,7 +5,7 @@ jcel
 
 **jcel** is a reasoner for the description logic EL+. It uses the [OWL API](http://owlcs.github.io/owlapi/) and can be used as a plug-in for [Protege](http://protege.stanford.edu/).
 
-Documentation: [jcel home page](http://jcel.sourceforge.net/)
+Documentation: [jcel home page](http://julianmendez.github.io/jcel/)
 
 API documentation: [jcel Javadoc](http://jcel.sourceforge.net/javadoc/)
 
