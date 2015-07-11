@@ -22,7 +22,7 @@
       <h1>
 <a id="jcel" class="anchor" href="#jcel" aria-hidden="true"><span class="octicon octicon-link"></span></a>jcel</h1>
 
-<p>jcel is a reasoner for the <a href="http://dl.kr.org">description logic</a> EL+.
+<p><strong>jcel</strong> is a reasoner for the <a href="http://dl.kr.org">description logic</a> EL+.
 Main features:</p>
 
 <ul>
@@ -59,11 +59,6 @@ Main features:</p>
 <li>download the <a href="http://sourceforge.net/projects/owlapi/files/">OWL API</a>
 </li>
 </ul>
-
-<h2>
-<a id="release-notes" class="anchor" href="#release-notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>release notes</h2>
-
-<p>You may also have a look at the <a href="http://jcel.sourceforge.net/releasenotes.html">release notes</a>.</p>
 
 <h2>
 <a id="source-code" class="anchor" href="#source-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>source code</h2>
@@ -125,106 +120,103 @@ Eclipse 4.4.0 (or higher)</li>
 <p>The library, its sources and its javadoc will be in jcel-build/jcel-library/target, the plug-in will be in jcel-build/jcel-plugin/target, the standalone will be in jcel-build/jcel-standalone/target, and the release ZIP file will be in jcel-build/target.</p>
 
 <h2>
-<a id="older-versions" class="anchor" href="#older-versions" aria-hidden="true"><span class="octicon octicon-link"></span></a>older versions</h2>
+<a id="old-versions-using-ant" class="anchor" href="#old-versions-using-ant" aria-hidden="true"><span class="octicon octicon-link"></span></a>old versions using Ant</h2>
 
 <h3>
-<a id="old-versions-using-ant" class="anchor" href="#old-versions-using-ant" aria-hidden="true"><span class="octicon octicon-link"></span></a>old versions using Ant</h3>
+<a id="version" class="anchor" href="#version" aria-hidden="true"><span class="octicon octicon-link"></span></a>version</h3>
 
-<ul>
-<li><p>version
-commands
-[location of bundle]</p></li>
-<li>
-<p>v0.5.0</p>
+<p>commands
+  [location of bundle]</p>
 
-<pre><code>cd de.tudresden.inf.lat.jcel
-ant
+<h3>
+<a id="v050" class="anchor" href="#v050" aria-hidden="true"><span class="octicon octicon-link"></span></a>v0.5.0</h3>
+
+<pre><code>  cd de.tudresden.inf.lat.jcel
+  ant
 </code></pre>
 
 <p>[de.tudresden.inf.lat.jcel/dist/bundle/de.tudresden.inf.lat.jcel.jar]</p>
-</li>
-<li>
-<p>v0.6.0</p>
 
-<pre><code>cd de.tudresden.inf.lat.jcel.protege
-ant
+<h3>
+<a id="v060" class="anchor" href="#v060" aria-hidden="true"><span class="octicon octicon-link"></span></a>v0.6.0</h3>
+
+<pre><code>  cd de.tudresden.inf.lat.jcel.protege
+  ant
 </code></pre>
 
 <p>[de.tudresden.inf.lat.jcel.protege/dist/bundle/de.tudresden.inf.lat.jcel.jar]</p>
-</li>
-<li>
-<p>v0.7.0 — v0.13.0</p>
 
-<pre><code>cd jcel-jars
-ant
+<h3>
+<a id="v070--v0130" class="anchor" href="#v070--v0130" aria-hidden="true"><span class="octicon octicon-link"></span></a>v0.7.0 — v0.13.0</h3>
+
+<pre><code>  cd jcel-jars
+  ant
 </code></pre>
 
 <p>[de.tudresden.inf.lat.jcel.protege/dist/bundle/de.tudresden.inf.lat.jcel.jar]</p>
-</li>
-<li>
-<p>v0.14.0</p>
 
-<pre><code>cd jcel/protege
-ant -buildfile build-bundle.xml
+<h3>
+<a id="v0140" class="anchor" href="#v0140" aria-hidden="true"><span class="octicon octicon-link"></span></a>v0.14.0</h3>
+
+<pre><code>  cd jcel/protege
+  ant -buildfile build-bundle.xml
 </code></pre>
 
 <p>[jcel/protege/target/de.tudresden.inf.lat.jcel.jar]</p>
-</li>
-<li>
-<p>v0.15.0 — v0.16.1</p>
 
-<pre><code>cd jcel/jcel.protege
-ant -buildfile build-bundle.xml
+<h3>
+<a id="v0150--v0161" class="anchor" href="#v0150--v0161" aria-hidden="true"><span class="octicon octicon-link"></span></a>v0.15.0 — v0.16.1</h3>
+
+<pre><code>  cd jcel/jcel.protege
+  ant -buildfile build-bundle.xml
 </code></pre>
 
 <p>[jcel/jcel.protege/target/de.tudresden.inf.lat.jcel.jar]</p>
-</li>
-<li>
-<p>v0.17.0 — v0.17.1</p>
 
-<pre><code>cd jcel/jcel.distribution
-ant
+<h3>
+<a id="v0170--v0171" class="anchor" href="#v0170--v0171" aria-hidden="true"><span class="octicon octicon-link"></span></a>v0.17.0 — v0.17.1</h3>
+
+<pre><code>  cd jcel/jcel.distribution
+  ant
 </code></pre>
 
 <p>[jcel/jcel.bundle/target/de.tudresden.inf.lat.jcel.jar]</p>
-</li>
-<li>
-<p>v0.18.0 — v0.18.2</p>
 
-<pre><code>cd jcel/jcel.build
-ant
+<h3>
+<a id="v0180--v0182" class="anchor" href="#v0180--v0182" aria-hidden="true"><span class="octicon octicon-link"></span></a>v0.18.0 — v0.18.2</h3>
+
+<pre><code>  cd jcel/jcel.build
+  ant
 </code></pre>
 
 <p>[jcel/jcel.build/plugin/target/de.tudresden.inf.lat.jcel.jar]</p>
-</li>
-<li>
-<p>v0.19.0 — v0.20.0</p>
 
-<pre><code>cd jcel/jcel-build
-ant
+<h3>
+<a id="v0190--v0200" class="anchor" href="#v0190--v0200" aria-hidden="true"><span class="octicon octicon-link"></span></a>v0.19.0 — v0.20.0</h3>
+
+<pre><code>  cd jcel/jcel-build
+  ant
 </code></pre>
 
 <p>[jcel/jcel-build/plugin/target/de.tudresden.inf.lat.jcel.jar]</p>
-</li>
-<li>
-<p>v0.21.0</p>
 
-<pre><code>cd jcel/jcel-build
-ant
+<h3>
+<a id="v0210" class="anchor" href="#v0210" aria-hidden="true"><span class="octicon octicon-link"></span></a>v0.21.0</h3>
+
+<pre><code>  cd jcel/jcel-build
+  ant
 </code></pre>
 
 <p>[jcel/jcel-build/jcel-plugin/target/de.tudresden.inf.lat.jcel.jar]</p>
-</li>
-<li>
-<p>v0.22.0 — master (trunk)</p>
 
-<pre><code>cd jcel-build
-ant
+<h3>
+<a id="v0220--master-trunk" class="anchor" href="#v0220--master-trunk" aria-hidden="true"><span class="octicon octicon-link"></span></a>v0.22.0 — master (trunk)</h3>
+
+<pre><code>  cd jcel-build
+  ant
 </code></pre>
 
 <p>[jcel-build/jcel-plugin/target/de.tudresden.inf.lat.jcel.jar]</p>
-</li>
-</ul>
 
 <h2>
 <a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>documentation</h2>
@@ -307,7 +299,7 @@ ant
 <p>The future releases are described <a href="http://jcel.sourceforge.net/futurereleases.html">here</a>.</p>
 
 <h2>
-<a id="release-notes-1" class="anchor" href="#release-notes-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>release notes</h2>
+<a id="release-notes" class="anchor" href="#release-notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>release notes</h2>
 
 <h3>
 <a id="v0210-2015-04-13" class="anchor" href="#v0210-2015-04-13" aria-hidden="true"><span class="octicon octicon-link"></span></a>v0.21.0 (2015-04-13)</h3>
