@@ -1,0 +1,28 @@
+#!/bin/bash
+
+
+#
+# This script is an example of how to start jcel.
+#
+# This requires the following parameters (in the defined order):
+#  1. ontology : file name of the file containing the ontology
+#  2. inferreddata : file name of the file containing the inferred ontology
+#  3. logfile : file name of the log file 
+#  4. options : parameters sent to the Java virtual machine, for example "-Xmx1g"
+#
+
+
+cd `dirname $0`
+
+
+ontology=$1
+inferreddata=$2
+logfile=$3
+options=$4
+
+jcelstandalone="../jcel/jcel-build/standalone/target/jcel.jar"
+
+
+java ${options} -jar ${jcelstandalone} --ontology=${ontology} --output=${inferreddata} --loglevel=FINE >> ${logfile}
+
+
