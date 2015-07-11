@@ -17,10 +17,18 @@
 	<fileSets>
 
 		<fileSet>
-			<directory>${basedir}/../../jcel-protege/target/apidocs/</directory>
+			<directory>${basedir}/../../jcel-protege/target</directory>
 			<outputDirectory>.</outputDirectory>
 			<includes>
-				<include>**</include>
+				<include>**/apidocs/**</include>
+			</includes>
+		</fileSet>
+
+		<fileSet>
+			<directory>${basedir}/../..</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>README.md</include>
 			</includes>
 		</fileSet>
 
