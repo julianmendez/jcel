@@ -1,7 +1,9 @@
 jcel
 ====
 
-jcel is a reasoner for the description logic EL+. It uses the [OWL API](http://owlcs.github.io/owlapi/) and can be used as a plug-in for [Protege](http://protege.stanford.edu/).
+[![Build Status](https://travis-ci.org/julianmendez/jcel.png?branch=master)](https://travis-ci.org/julianmendez/jcel)
+
+**jcel** is a reasoner for the description logic EL+. It uses the [OWL API](http://owlcs.github.io/owlapi/) and can be used as a plug-in for [Protege](http://protege.stanford.edu/).
 
 Documentation: [jcel home page](http://jcel.sourceforge.net/)
 
