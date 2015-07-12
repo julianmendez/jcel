@@ -95,27 +95,21 @@ $ mvn clean install
 
 <p>This project can be compiled using <a href="http://maven.apache.org/">Apache Maven</a> or <a href="http://ant.apache.org/ivy/">Apache Ant + Apache Ivy</a>. The required jars will be retrieved from the <a href="http://search.maven.org/#browse">Central Maven Repository</a>. After downloading the source code, execute:</p>
 
+<p>To compile with Apache Maven:</p>
+
 <pre><code>$ mvn clean package
 </code></pre>
 
-<p>if you are using Apache Maven to compile</p>
+<p>To compile with Apache Maven to be used offline:</p>
 
 <pre><code>$ mvn dependency:go-offline
+$ mvn --offline clean package
 </code></pre>
 
-<p>if you plan to use Apache Maven offline</p>
-
-<pre><code>$ mvn --offline clean package
-</code></pre>
-
-<p>if you are using Apache Maven to compile offline</p>
-
-<p>or execute:</p>
+<p>To compile with Apache Ant:</p>
 
 <pre><code>$ ant
 </code></pre>
-
-<p>if you are using Apache Ant to compile</p>
 
 <p>The library, its sources and its javadoc will be in jcel-build/jcel-library/target, the plug-in will be in jcel-build/jcel-plugin/target, the standalone will be in jcel-build/jcel-standalone/target, and the release ZIP file will be in jcel-build/target.</p>
 
