@@ -20,22 +20,22 @@
 
     <section class="main-content">
       <h1>
-<a id="jcel" class="anchor" href="#jcel" aria-hidden="true"><span class="octicon octicon-link"></span></a>jcel</h1>
+<a id="jcel" class="anchor" href="#jcel" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://julianmendez.github.io/jcel/">jcel</a>
+</h1>
 
 <p><a href="https://travis-ci.org/julianmendez/jcel"><img src="https://travis-ci.org/julianmendez/jcel.png?branch=master" alt="Build Status"></a></p>
 
-<p><strong>jcel</strong> is a reasoner for the description logic EL+. It uses the <a href="http://owlcs.github.io/owlapi/">OWL API</a> and can be used as a plug-in for <a href="http://protege.stanford.edu/">Protege</a>.</p>
-
-<p>Documentation: <a href="http://julianmendez.github.io/jcel/">jcel home page</a></p>
-
-<p>API documentation: <a href="http://jcel.sourceforge.net/javadoc/">jcel Javadoc</a></p>
+<p><strong>jcel</strong> is a reasoner for the <a href="http://dl.kr.org">description logic</a> EL+. It uses the <a href="http://owlcs.github.io/owlapi/">OWL API</a> and can be used as a plug-in for <a href="http://protege.stanford.edu/">Protege</a>.</p>
 
 <p>Author: <a href="http://lat.inf.tu-dresden.de/%7Emendez/">Julian Mendez</a></p>
 
 <p>Licenses: <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a>, <a href="http://www.gnu.org/licenses/lgpl-3.0.txt">LGPL 3.0</a></p>
 
-<p><strong>jcel</strong> is a reasoner for the <a href="http://dl.kr.org">description logic</a> EL+.
-Main features:</p>
+<h2>
+<a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://lat.inf.tu-dresden.de/projects/jcel/files/jcel/0.21.0/zip/jcel-0.21.0.zip">download</a>
+</h2>
+
+<p>Main features of jcel:</p>
 
 <ul>
 <li>is an OWL 2 EL reasoner (albeit currently with some limitations)</li>
@@ -45,100 +45,49 @@ Main features:</p>
 </li>
 <li>is free software and is licensed under <a href="http://www.gnu.org/licenses/lgpl.txt">GNU Lesser General Public License version 3</a> and <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>
 </li>
-<li>is fully implemented in <a href="http://www.oracle.com/us/technologies/java/standard-edition/overview/index.html">Java</a> and therefore runs on any operating system</li>
+<li>is fully implemented in <a href="http://www.oracle.com/us/technologies/java/standard-edition/overview/index.html">Java</a>
+</li>
 <li>evaluated by the <a href="http://www.seals-project.eu/news/storage-and-reasoning-systems-news">SEALS Community</a> having the lowest Average Reasoning Time in 2010</li>
 </ul>
 
 <h2>
-<a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>download</h2>
-
-<p>jcel can be used as a Protégé plug-in or as a library with the OWL API</p>
-
-<h3>
-<a id="jcel-as-a-protégé-plug-in" class="anchor" href="#jcel-as-a-prot%C3%A9g%C3%A9-plug-in" aria-hidden="true"><span class="octicon octicon-link"></span></a>jcel as a Protégé plug-in</h3>
+<a id="suggested-technologies" class="anchor" href="#suggested-technologies" aria-hidden="true"><span class="octicon octicon-link"></span></a>suggested technologies</h2>
 
 <ul>
-<li>download the jar</li>
-<li>copy the jar into the directory protege/plugins where "protege" is the directory where Protégé is.</li>
-</ul>
-
-<h3>
-<a id="jcel-library-with-the-owl-api" class="anchor" href="#jcel-library-with-the-owl-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>jcel library with the OWL API</h3>
-
-<ul>
-<li>browse the <a href="http://sourceforge.net/projects/jcel/files/">file directory</a> and look for the directory zip.</li>
-<li>download the zip containing jcel library (directory library)</li>
-<li>download the <a href="http://sourceforge.net/projects/owlapi/files/">OWL API</a>
-</li>
+<li>
+<a href="http://java.sun.com/">Java Development Kit 8</a> (or higher)</li>
+<li>
+<a href="http://maven.apache.org/">Apache Maven 3.0.3</a> (or higher)</li>
+<li>
+<a href="http://www.eclipse.org/">Eclipse Luna</a> (or higher)</li>
 </ul>
 
 <h2>
 <a id="source-code" class="anchor" href="#source-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>source code</h2>
 
-<p>To checkout and compile the project, use:</p>
+<p>The project is hosted on <a href="https://github.com/julianmendez/jcel">GitHub</a>. To checkout and compile the project, use:</p>
 
 <pre><code>$ git clone https://github.com/julianmendez/jcel.git
 $ cd jcel
 $ mvn clean install
 </code></pre>
 
-<h2>
-<a id="suggested-technologies" class="anchor" href="#suggested-technologies" aria-hidden="true"><span class="octicon octicon-link"></span></a>suggested technologies</h2>
-
-<p>In order to compile this project, the following technologies are suggested:</p>
-
-<ul>
-<li>Compiler :
-<a href="http://java.sun.com/">Java Development Kit 8</a> (or higher)</li>
-<li>Build tools (only one is needed):
-<a href="http://maven.apache.org/">Apache Maven 3.0.3</a> (or higher)
-<a href="http://ant.apache.org/">Apache Ant 1.8.3</a> (or higher)</li>
-<li>Development environment:
-<a href="http://www.eclipse.org/">Eclipse Luna</a> (or higher)</li>
-</ul>
-
-<h3>
-<a id="compiling-with-eclipse" class="anchor" href="#compiling-with-eclipse" aria-hidden="true"><span class="octicon octicon-link"></span></a>compiling with Eclipse</h3>
-
-<p>The projects can be directly imported from <a href="http://www.eclipse.org/">Eclipse</a>, since they have the corresponding project files. The <a href="https://www.eclipse.org/m2e-wtp/">m2e</a> plug-in needs to be installed. To generate the jars, it is necessary to use Apache Ant or Apache Maven.</p>
-
-<h3>
-<a id="compiling-the-trunk" class="anchor" href="#compiling-the-trunk" aria-hidden="true"><span class="octicon octicon-link"></span></a>compiling the trunk</h3>
-
-<p>This project can be compiled using <a href="http://maven.apache.org/">Apache Maven</a> or <a href="http://ant.apache.org/ivy/">Apache Ant + Apache Ivy</a>. The required jars will be retrieved from the <a href="http://search.maven.org/#browse">Central Maven Repository</a>. After downloading the source code, execute:</p>
-
-<p>To compile with Apache Maven:</p>
-
-<pre><code>$ mvn clean package
-</code></pre>
-
-<p>To compile with Apache Maven to be used offline:</p>
+<p>To compile with <a href="http://maven.apache.org/">Apache Maven</a> to be used offline:</p>
 
 <pre><code>$ mvn dependency:go-offline
 $ mvn --offline clean package
 </code></pre>
 
-<p>To compile with Apache Ant:</p>
+<p>To compile with <a href="http://ant.apache.org/ivy/">Apache Ant + Apache Ivy</a>:</p>
 
 <pre><code>$ ant
 </code></pre>
 
-<p>The library, its sources and its javadoc will be in jcel-build/jcel-library/target, the plug-in will be in jcel-build/jcel-plugin/target, the standalone will be in jcel-build/jcel-standalone/target, and the release ZIP file will be in jcel-build/target.</p>
+<p>The library, its sources and its Javadoc will be in jcel-build/jcel-library/target, the plug-in will be in jcel-build/jcel-plugin/target, the standalone will be in jcel-build/jcel-standalone/target, and the release ZIP file will be in jcel-build/target.</p>
 
 <h2>
-<a id="old-versions" class="anchor" href="#old-versions" aria-hidden="true"><span class="octicon octicon-link"></span></a>old versions</h2>
-
-<p>See <a href="http://julianmendez.github.io/jcel/data/oldversions.md">old versions</a>.</p>
-
-<h2>
-<a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>documentation</h2>
-
-<p>The Javadoc is available online for the version in the trunk.</p>
-
-<h2>
-<a id="frequently-asked-questions" class="anchor" href="#frequently-asked-questions" aria-hidden="true"><span class="octicon octicon-link"></span></a>frequently asked questions</h2>
-
-<p>The <a href="http://julianmendez.github.io/jcel/data/faq.md">frequently asked questions</a> responds to the most common questions about what jcel is.</p>
+<a id="frequently-asked-questions" class="anchor" href="#frequently-asked-questions" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://julianmendez.github.io/jcel/data/faq.md">frequently asked questions</a>
+</h2>
 
 <h2>
 <a id="modules" class="anchor" href="#modules" aria-hidden="true"><span class="octicon octicon-link"></span></a>modules</h2>
@@ -214,50 +163,35 @@ $ mvn --offline clean package
 </ul>
 
 <h2>
-<a id="develop" class="anchor" href="#develop" aria-hidden="true"><span class="octicon octicon-link"></span></a>develop</h2>
-
-<p>jcel is hosted on <a href="https://github.com/julianmendez/jcel">GitHub</a>.</p>
-
-<h2>
-<a id="release-notes" class="anchor" href="#release-notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>release notes</h2>
-
-<p>See <a href="http://julianmendez.github.io/jcel/data/releasenotes.md">release notes</a>.</p>
+<a id="release-notes" class="anchor" href="#release-notes" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://julianmendez.github.io/jcel/data/releasenotes.md">release notes</a>
+</h2>
 
 <h2>
-<a id="old-revisions" class="anchor" href="#old-revisions" aria-hidden="true"><span class="octicon octicon-link"></span></a>old revisions</h2>
+<a id="old-versions" class="anchor" href="#old-versions" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://julianmendez.github.io/jcel/data/oldversions.md">old versions</a>
+</h2>
 
-<ul>
-<li><a href="http://julianmendez.github.io/jcel/data/svnrev.txt">SVN revision</a></li>
-<li><a href="http://julianmendez.github.io/jcel/data/gitsha.txt">Git SHA</a></li>
-</ul>
+<h2>
+<a id="older-releases" class="anchor" href="#older-releases" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://sourceforge.net/projects/jcel/files/">older releases</a>
+</h2>
+
+<h2>
+<a id="git-sha" class="anchor" href="#git-sha" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://julianmendez.github.io/jcel/data/gitsha.txt">Git SHA</a>
+</h2>
+
+<h2>
+<a id="old-svn-revision" class="anchor" href="#old-svn-revision" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://julianmendez.github.io/jcel/data/svnrev.txt">old SVN revision</a>
+</h2>
 
 <h2>
 <a id="support" class="anchor" href="#support" aria-hidden="true"><span class="octicon octicon-link"></span></a>support</h2>
 
-<p>Any bug, or unexpected behavior can be reported to the e-mail addresses at this <a href="http://lat.inf.tu-dresden.de/%7Emendez">web page</a>.</p>
-
-<p>Questions and suggestions are also very welcome.</p>
+<p>Any bug, or unexpected behavior can be reported to the e-mail addresses at this <a href="http://lat.inf.tu-dresden.de/%7Emendez">web page</a>. Questions and suggestions are also very welcome.</p>
 
 <h2>
-<a id="news" class="anchor" href="#news" aria-hidden="true"><span class="octicon octicon-link"></span></a>news</h2>
+<a id="news-jcelreasoner" class="anchor" href="#news-jcelreasoner" aria-hidden="true"><span class="octicon octicon-link"></span></a>news <a href="http://twitter.com/jcelreasoner">@jcelreasoner</a>
+</h2>
 
-<p>The e-mail group and the Twitter user inform about new releases.</p>
-
-<ul>
-<li>e-mail group: <a href="https://groups.google.com/group/jcel?lnk=">jcel</a> google group (<a href="https://groups.google.com/group/jcel/subscribe?note=1">join</a>).</li>
-<li>microblogging: follow <a href="http://twitter.com/jcelreasoner">@jcelreasoner</a> on <a href="http://twitter.com/">Twitter</a>
-</li>
-</ul>
-
-<h2>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>license</h2>
-
-<p>This software is distributed under the Apache License Version 2.0 and the GNU Lesser General Public License 3 .</p>
-
-<h2>
-<a id="contact" class="anchor" href="#contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>contact</h2>
-
-<p>In case you need more information, please contact <a href="https://github.com/julianmendez" class="user-mention">@julianmendez</a> .</p>
+<p>(e-mail group: <a href="https://groups.google.com/group/jcel?lnk=">jcel</a> google group (<a href="https://groups.google.com/group/jcel/subscribe?note=1">join</a>))</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/julianmendez/jcel">jcel</a> is maintained by <a href="https://github.com/julianmendez">julianmendez</a>.</span>
