@@ -1,30 +1,21 @@
-jcel
-====
+# [jcel](http://julianmendez.github.io/jcel/)
 
 [![Build Status](https://travis-ci.org/julianmendez/jcel.png?branch=master)](https://travis-ci.org/julianmendez/jcel)
 
-**jcel** is a reasoner for the description logic EL+. It uses the [OWL API](http://owlcs.github.io/owlapi/) and can be used as a plug-in for [Protege](http://protege.stanford.edu/).
-
-Documentation: [jcel home page](http://julianmendez.github.io/jcel/)
-
-API documentation: [jcel Javadoc](http://jcel.sourceforge.net/javadoc/)
+**jcel** is a reasoner for the [description logic](http://dl.kr.org) EL+. It uses the [OWL API](http://owlcs.github.io/owlapi/) and can be used as a plug-in for [Protege](http://protege.stanford.edu/).
 
 Author: [Julian Mendez](http://lat.inf.tu-dresden.de/~mendez/)
 
 Licenses: [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt), [LGPL 3.0](http://www.gnu.org/licenses/lgpl-3.0.txt)
 
 
-
-
-
-**jcel** is a reasoner for the [description logic](http://dl.kr.org) EL+.
-Main features:
+Main features of jcel:
 
 * is an OWL 2 EL reasoner (albeit currently with some limitations)
 * uses the [OWL API](http://owlapi.sourceforge.net)
 * can be used in [Protégé](http://protege.stanford.edu)
 * is free software and is licensed under [GNU Lesser General Public License version 3](http://www.gnu.org/licenses/lgpl.txt) and [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
-* is fully implemented in [Java](http://www.oracle.com/us/technologies/java/standard-edition/overview/index.html) and therefore runs on any operating system
+* is fully implemented in [Java](http://www.oracle.com/us/technologies/java/standard-edition/overview/index.html)
 * evaluated by the [SEALS Community](http://www.seals-project.eu/news/storage-and-reasoning-systems-news) having the lowest Average Reasoning Time in 2010
 
 
@@ -61,9 +52,8 @@ In order to compile this project, the following technologies are suggested:
 
 * Compiler :
    [Java Development Kit 8](http://java.sun.com/) (or higher)
-* Build tools (only one is needed):
+* Build tool:
    [Apache Maven 3.0.3](http://maven.apache.org/) (or higher)
-   [Apache Ant 1.8.3](http://ant.apache.org/) (or higher)
 * Development environment:
    [Eclipse Luna](http://www.eclipse.org/) (or higher)
 
@@ -89,22 +79,10 @@ To compile with Apache Ant:
 $ ant
 ```
 
-The library, its sources and its javadoc will be in jcel-build/jcel-library/target, the plug-in will be in jcel-build/jcel-plugin/target, the standalone will be in jcel-build/jcel-standalone/target, and the release ZIP file will be in jcel-build/target.
+The library, its sources and its Javadoc will be in jcel-build/jcel-library/target, the plug-in will be in jcel-build/jcel-plugin/target, the standalone will be in jcel-build/jcel-standalone/target, and the release ZIP file will be in jcel-build/target.
 
 
-## old versions
-
-See [old versions](http://julianmendez.github.io/jcel/data/oldversions.md).
-
-
-## documentation
-
-The Javadoc is available online for the version in the trunk.
-
-
-## frequently asked questions
-
-The [frequently asked questions](http://julianmendez.github.io/jcel/data/faq.md) responds to the most common questions about what jcel is.
+## [frequently asked questions](http://julianmendez.github.io/jcel/data/faq.md).
 
 
 ## modules
@@ -158,9 +136,10 @@ Ontologies:
 jcel is hosted on [GitHub](https://github.com/julianmendez/jcel).
 
 
-## release notes
+## [release notes](http://julianmendez.github.io/jcel/data/releasenotes.md).
 
-See [release notes](http://julianmendez.github.io/jcel/data/releasenotes.md).
+
+## [old versions](http://julianmendez.github.io/jcel/data/oldversions.md).
 
 
 ## old revisions 
@@ -171,9 +150,7 @@ See [release notes](http://julianmendez.github.io/jcel/data/releasenotes.md).
 
 ## support
 
-Any bug, or unexpected behavior can be reported to the e-mail addresses at this [web page](http://lat.inf.tu-dresden.de/~mendez).
-
-Questions and suggestions are also very welcome.
+Any bug, or unexpected behavior can be reported to the e-mail addresses at this [web page](http://lat.inf.tu-dresden.de/~mendez). Questions and suggestions are also very welcome.
 
 
 ## news
@@ -182,14 +159,4 @@ The e-mail group and the Twitter user inform about new releases.
 
 * e-mail group: [jcel](https://groups.google.com/group/jcel?lnk=) google group ([join](https://groups.google.com/group/jcel/subscribe?note=1)).
 * microblogging: follow [@jcelreasoner](http://twitter.com/jcelreasoner) on [Twitter](http://twitter.com/)
-
-
-## license
-
-This software is distributed under the Apache License Version 2.0 and the GNU Lesser General Public License 3 .
-
-
-## contact
-
-In case you need more information, please contact @julianmendez .
 
