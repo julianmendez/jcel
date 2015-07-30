@@ -12,7 +12,7 @@ Licenses: [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt), [LGPL 3.
 ## [download](http://lat.inf.tu-dresden.de/projects/jcel/files/jcel/0.21.0/zip/jcel-0.21.0.zip)
 
 
-Main features of jcel:
+## main features
 
 * is an OWL 2 EL reasoner (albeit currently with some limitations)
 * uses the [OWL API](http://owlapi.sourceforge.net)
@@ -50,30 +50,27 @@ To compile with [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/):
 $ ant
 ```
 
-The library, its sources and its Javadoc will be in jcel-build/jcel-library/target, the plug-in will be in jcel-build/jcel-plugin/target, the standalone will be in jcel-build/jcel-standalone/target, and the release ZIP file will be in jcel-build/target.
-
-
-## [frequently asked questions](http://julianmendez.github.io/jcel/data/faq.md)
+The library, its sources and its Javadoc will be in `jcel-build/jcel-library/target`, the plug-in will be in `jcel-build/jcel-plugin/target`, the standalone will be in `jcel-build/jcel-standalone/target`, and the release ZIP file will be in `jcel-build/target`.
 
 
 ## modules
 
 The version under development has the following modules:
 
-* jcel-coreontology : set of normalized axioms
-* jcel-core : classification algorithms using only normalized axioms
-* jcel-ontology : set of all possible axioms and a procedure to normalize them
-* jcel-reasoner : reasoner that can classify an ontology and can compute entailment
-* jcel-owlapi : OWL API interface, performs the translation between the OWL API axioms and jcel axioms
-* jcel-protege : module to connect to Protégé
+* **jcel-coreontology** : set of normalized axioms
+* **jcel-core** : classification algorithms using only normalized axioms
+* **jcel-ontology** : set of all possible axioms and a procedure to normalize them
+* **jcel-reasoner** : reasoner that can classify an ontology and can compute entailment
+* **jcel-owlapi** : OWL API interface, performs the translation between the OWL API axioms and jcel axioms
+* **jcel-protege** : module to connect to Protégé
 
 It also has the following module used to build the release:
 
-* jcel-build : module to produce the release, which includes javadoc, sources, the plug-in, the library, and the standalone application, including the following submodules:
- * jcel-library : submodule to create the library, its sources and its javadoc
- * jcel-plugin : submodule to create the jar for Protégé
- * jcel-standalone : submodule to create the standalone application
- * jcel-release : submodule to create the release, a single ZIP file
+* **jcel-build** : module to produce the release, which includes javadoc, sources, the plug-in, the library, and the standalone application, including the following submodules:
+ * **jcel-library** : submodule to create the library, its sources and its javadoc
+ * **jcel-plugin** : submodule to create the jar for Protégé
+ * **jcel-standalone** : submodule to create the standalone application
+ * **jcel-release** : submodule to create the release, a single ZIP file
 
 
 ## example
@@ -115,6 +112,9 @@ Ontologies:
 
 
 ## [old SVN revision](http://julianmendez.github.io/jcel/data/svnrev.txt)
+
+
+## [frequently asked questions](http://julianmendez.github.io/jcel/data/faq.md)
 
 
 ## support
