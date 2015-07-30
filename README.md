@@ -12,9 +12,6 @@ Licenses: [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt), [LGPL 3.
 ## [download](http://lat.inf.tu-dresden.de/projects/jcel/files/jcel/0.21.0/zip/jcel-0.21.0.zip)
 
 
-## [older releases](http://sourceforge.net/projects/jcel/files/)
-
-
 Main features of jcel:
 
 * is an OWL 2 EL reasoner (albeit currently with some limitations)
@@ -56,7 +53,7 @@ $ ant
 The library, its sources and its Javadoc will be in jcel-build/jcel-library/target, the plug-in will be in jcel-build/jcel-plugin/target, the standalone will be in jcel-build/jcel-standalone/target, and the release ZIP file will be in jcel-build/target.
 
 
-## [frequently asked questions](http://julianmendez.github.io/jcel/data/faq.md).
+## [frequently asked questions](http://julianmendez.github.io/jcel/data/faq.md)
 
 
 ## modules
@@ -111,10 +108,13 @@ Ontologies:
 ## [old versions](http://julianmendez.github.io/jcel/data/oldversions.md)
 
 
-## old revisions 
+## [older releases](http://sourceforge.net/projects/jcel/files/)
 
-* [SVN revision](http://julianmendez.github.io/jcel/data/svnrev.txt)
-* [Git SHA](http://julianmendez.github.io/jcel/data/gitsha.txt)
+
+## [Git SHA](http://julianmendez.github.io/jcel/data/gitsha.txt) 
+
+
+## [old SVN revision](http://julianmendez.github.io/jcel/data/svnrev.txt)
 
 
 ## support
