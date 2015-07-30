@@ -9,6 +9,12 @@ Author: [Julian Mendez](http://lat.inf.tu-dresden.de/~mendez/)
 Licenses: [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt), [LGPL 3.0](http://www.gnu.org/licenses/lgpl-3.0.txt)
 
 
+## [download](http://lat.inf.tu-dresden.de/projects/jcel/files/jcel/0.21.0/zip/jcel-0.21.0.zip)
+
+
+## [older releases](http://sourceforge.net/projects/jcel/files/)
+
+
 Main features of jcel:
 
 * is an OWL 2 EL reasoner (albeit currently with some limitations)
@@ -19,27 +25,16 @@ Main features of jcel:
 * evaluated by the [SEALS Community](http://www.seals-project.eu/news/storage-and-reasoning-systems-news) having the lowest Average Reasoning Time in 2010
 
 
-## download
+## suggested technologies
 
-jcel can be used as a Protégé plug-in or as a library with the OWL API
-
-
-### jcel as a Protégé plug-in
-
-* download the jar
-* copy the jar into the directory protege/plugins where "protege" is the directory where Protégé is.
-
-
-### jcel library with the OWL API
-
-* browse the [file directory](http://sourceforge.net/projects/jcel/files/) and look for the directory zip.
-* download the zip containing jcel library (directory library)
-* download the [OWL API](http://sourceforge.net/projects/owlapi/files/)
+* [Java Development Kit 8](http://java.sun.com/) (or higher)
+* [Apache Maven 3.0.3](http://maven.apache.org/) (or higher)
+* [Eclipse Luna](http://www.eclipse.org/) (or higher)
 
 
 ## source code
 
-To checkout and compile the project, use:
+The project is hosted on [GitHub](https://github.com/julianmendez/jcel). To checkout and compile the project, use:
 
 ```
 $ git clone https://github.com/julianmendez/jcel.git
@@ -47,34 +42,13 @@ $ cd jcel
 $ mvn clean install
 ```
 
-## suggested technologies
-In order to compile this project, the following technologies are suggested:
-
-* Compiler :
-   [Java Development Kit 8](http://java.sun.com/) (or higher)
-* Build tool:
-   [Apache Maven 3.0.3](http://maven.apache.org/) (or higher)
-* Development environment:
-   [Eclipse Luna](http://www.eclipse.org/) (or higher)
-
-### compiling with Eclipse
-The projects can be directly imported from [Eclipse](http://www.eclipse.org/), since they have the corresponding project files. The [m2e](https://www.eclipse.org/m2e-wtp/) plug-in needs to be installed. To generate the jars, it is necessary to use Apache Ant or Apache Maven.
-
-### compiling the trunk
-This project can be compiled using [Apache Maven](http://maven.apache.org/) or [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/). The required jars will be retrieved from the [Central Maven Repository](http://search.maven.org/#browse). After downloading the source code, execute:
-
-To compile with Apache Maven:
-```
-$ mvn clean package
-```
-
-To compile with Apache Maven to be used offline:
+To compile with [Apache Maven](http://maven.apache.org/) to be used offline:
 ```
 $ mvn dependency:go-offline
 $ mvn --offline clean package
 ```
 
-To compile with Apache Ant:
+To compile with [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/):
 ```
 $ ant
 ```
@@ -131,15 +105,10 @@ Ontologies:
 * OWL 2: [OWL Working Group](http://www.w3.org/2007/OWL/wiki/OWL_Working_Group)
 
 
-## develop
-
-jcel is hosted on [GitHub](https://github.com/julianmendez/jcel).
+## [release notes](http://julianmendez.github.io/jcel/data/releasenotes.md)
 
 
-## [release notes](http://julianmendez.github.io/jcel/data/releasenotes.md).
-
-
-## [old versions](http://julianmendez.github.io/jcel/data/oldversions.md).
+## [old versions](http://julianmendez.github.io/jcel/data/oldversions.md)
 
 
 ## old revisions 
@@ -153,10 +122,7 @@ jcel is hosted on [GitHub](https://github.com/julianmendez/jcel).
 Any bug, or unexpected behavior can be reported to the e-mail addresses at this [web page](http://lat.inf.tu-dresden.de/~mendez). Questions and suggestions are also very welcome.
 
 
-## news
+## news [@jcelreasoner](http://twitter.com/jcelreasoner)
 
-The e-mail group and the Twitter user inform about new releases.
-
-* e-mail group: [jcel](https://groups.google.com/group/jcel?lnk=) google group ([join](https://groups.google.com/group/jcel/subscribe?note=1)).
-* microblogging: follow [@jcelreasoner](http://twitter.com/jcelreasoner) on [Twitter](http://twitter.com/)
+(e-mail group: [jcel](https://groups.google.com/group/jcel?lnk=) google group ([join](https://groups.google.com/group/jcel/subscribe?note=1)))
 
