@@ -56,7 +56,7 @@
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>jcel-protege</artifactId>
+			<artifactId>jcel-owlapi</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
@@ -144,8 +144,7 @@
 							@jcel-core-${project.version}.jar,
 							@jcel-ontology-${project.version}.jar,
 							@jcel-reasoner-${project.version}.jar,
-							@jcel-owlapi-${project.version}.jar,
-							@jcel-protege-${project.version}.jar
+							@jcel-owlapi-${project.version}.jar
 						</Include-Resource>
 					</instructions>
 				</configuration>

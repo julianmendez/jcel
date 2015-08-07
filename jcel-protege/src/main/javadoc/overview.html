@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<!--
+  <!--
  *
  * Copyright 2009 Julian Mendez
  *
@@ -25,61 +24,42 @@
  *
  *
 -->
-
-<head>
-  <meta http-equiv="content-type" content="application/xhtml+xml; charset=us-ascii" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
-  <meta name="author" content="Julian Mendez" />
-  <meta name="robots" content="index,follow" />
-  <meta name="language" content="en" />
-  <meta name="description" content="jcel" />
-  <meta name="keywords" content="jcel" />
-
-  <title>jcel</title>
-</head>
-
-<body>
-  <div>
-    <h2>Overview</h2>
-
-    <p>This program is a semantic reasoner that classifies <a href=
-    "http://dl.kr.org/">descriptions logics</a> of the EL family. The description logic
-    EL<sup>++</sup> has been adopted for the <a href=
-    "http://www.w3.org/2007/OWL/wiki/OWL_Working_Group">OWL 2 EL</a> profile.</p>This
-    program uses the <a href="http://owlapi.sourceforge.net">OWL API</a>. The algorithm:
-
-    <ul>
-      <li>translates OWL API axioms into jcel axioms, which are composed by integer
-      numbers;</li>
-
-      <li>detects the expressivity used in the axioms;</li>
-
-      <li>applies normalization rules to the set of axioms, producing a set of normalized
-      axioms and auxiliary entities if necessary;</li>
-
-      <li>saturates the set of normalized axioms with deduced object property
-      axioms;</li>
-
-      <li>creates an extended ontonlogy based on the set of normalized axioms;</li>
-
-      <li>applies the completion rules while there is some change in the affected
-      sets;</li>
-
-      <li>removes the auxiliary entities;</li>
-
-      <li>builds a graph containing direct subsumers (parents), direct subsumees
-      (children) and equivalents;</li>
-
-      <li>creates OWL API data structures based on the jcel's integer
-      representation.</li>
-    </ul>For more details, visit the <a href="http://jcel.sourceforge.net">web site</a>.
-
-    <h2>Package dependencies</h2>
-
-    <p>If we consider each package as a node, and each dependency between two packages as
-    a directed edge, the structure of package dependency should be a directed acyclic
-    graph (DAG). The packages should only make public those classes that are or could be
-    used by another package preserving the DAG structure.</p>
-  </div>
-</body>
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for Linux/x86 (vers 11 February 2007), see www.w3.org" />
+    <meta http-equiv="content-type" content=
+    "application/xhtml+xml; charset=us-ascii" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta name="author" content="Julian Mendez" />
+    <meta name="robots" content="index,follow" />
+    <meta name="language" content="en" />
+    <meta name="description" content="jcel" />
+    <meta name="keywords" content="jcel" />
+    <title>
+      jcel-protege
+    </title>
+  </head>
+  <body>
+    <div>
+      <h2>
+        Overview
+      </h2>
+      <p>
+        This is a subproject of <b>jcel</b> and contains the
+        interface to be used as a <a href=
+        "http://protege.stanford.edu/">Prot&eacute;g&eacute;</a> plug-in.
+      </p>
+      <h2>
+        Package dependencies
+      </h2>
+      <p>
+        If we consider each package as a node, and each dependency
+        between two packages as a directed edge, the structure of
+        package dependency should be a directed acyclic graph
+        (DAG). The packages should only make public those classes
+        that are or could be used by another package preserving the
+        DAG structure.
+      </p>
+    </div>
+  </body>
 </html>

@@ -105,6 +105,33 @@
 		<relativePath>../jar-pom.xml</relativePath>
 	</parent>
 
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<configuration>
+					<includeDependencySources>true</includeDependencySources>
+					<dependencySourceIncludes>
+						<dependencySourceInclude>${project.groupId}</dependencySourceInclude>
+					</dependencySourceIncludes>
+				</configuration>
+				<executions>
+					<execution>
+						<id>javadoc-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
 	<name>jcel Protege plug-in</name>
 
 </project>

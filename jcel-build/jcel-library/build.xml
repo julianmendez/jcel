@@ -84,8 +84,7 @@
 	<property name="module.2.name" value="jcel-ontology" />
 	<property name="module.3.name" value="jcel-reasoner" />
 	<property name="module.4.name" value="jcel-owlapi" />
-	<property name="module.5.name" value="jcel-protege" />
-	<property name="lastmodule.name" value="${module.5.name}" />
+	<property name="lastmodule.name" value="${module.4.name}" />
 
 	<!-- Cleans everything. -->
 	<target name="clean">
@@ -125,9 +124,6 @@
 		</antcall>
 		<antcall target="getjar">
 			<param name="module.name" value="${module.4.name}" />
-		</antcall>
-		<antcall target="getjar">
-			<param name="module.name" value="${module.5.name}" />
 		</antcall>
 	</target>
 
