@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2009-2013 Julian Mendez
+ * Copyright (C) 2009-2015 Julian Mendez
  *
  *
  * This file is part of jcel.
