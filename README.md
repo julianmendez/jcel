@@ -14,9 +14,9 @@ Licenses: [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt), [LGPL 3.
 
 ## main features
 
-* is an OWL 2 EL reasoner (albeit currently with some limitations)
+* is an [OWL 2 EL](http://www.w3.org/2007/OWL/wiki/OWL_Working_Group) reasoner (albeit currently with some limitations)
 * uses the [OWL API](http://owlapi.sourceforge.net)
-* can be used in [Protégé](http://protege.stanford.edu)
+* can be used in [Prot&eacute;g&eacute;](http://protege.stanford.edu)
 * is free software and is licensed under [GNU Lesser General Public License version 3](http://www.gnu.org/licenses/lgpl.txt) and [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 * is fully implemented in [Java](http://www.oracle.com/us/technologies/java/standard-edition/overview/index.html)
 * evaluated by the [SEALS Community](http://www.seals-project.eu/news/storage-and-reasoning-systems-news) having the lowest Average Reasoning Time in 2010
@@ -88,14 +88,40 @@ Ontologies:
 * [SNOMED CT](http://www.ihtsdo.org/our-standards/)
 
 
+## algorithm
+
+* translates OWL API axioms into jcel axioms, which are composed by integer numbers;
+
+* detects the expressivity used in the axioms;
+
+* applies normalization rules to the set of axioms, producing a set of normalized axioms and auxiliary entities if necessary;
+
+* saturates the set of normalized axioms with deduced object property axioms;
+
+* creates an extended ontonlogy based on the set of normalized axioms;
+
+* applies the completion rules while there is some change in the affected sets;
+
+* removes the auxiliary entities;
+
+* builds a graph containing direct subsumers (parents), direct subsumees (children) and equivalents;</li>
+
+* creates OWL API data structures based on the jcel's integer representation.
+
+
+## package dependencies
+
+If we consider each package as a node, and each dependency between two packages as a directed edge, the structure of package dependency should be a directed acyclic graph (DAG). The packages should only make public those classes that are or could be used by another package preserving the DAG structure.
+
+
 ## references
 
 * Theoretical foundation:
  * [Master's thesis by J. A. Mendez](http://lat.inf.tu-dresden.de/research/mas/Men-Mas-11.pdf)
  * [Master's thesis by Q. H. Vu](http://lat.inf.tu-dresden.de/research/mas/Vu-Mas-08.pdf)
  * [Ph.D. thesis by B. Suntisrivaraporn](http://lat.inf.tu-dresden.de/research/phd/Sun-PhD-09.pdf)
-* CEL: [main page](http://lat.inf.tu-dresden.de/systems/cel) — [source code](https://github.com/julianmendez/cel)
-* OWL API: [main page](http://owlapi.sourceforge.net/) — [examples](http://owlapi.sourceforge.net/documentation.html) — [javadoc](http://owlapi.sourceforge.net/javadoc)
+* CEL: [main page](http://lat.inf.tu-dresden.de/systems/cel) - [source code](https://github.com/julianmendez/cel)
+* OWL API: [main page](http://owlapi.sourceforge.net/) - [examples](http://owlapi.sourceforge.net/documentation.html) — [javadoc](http://owlapi.sourceforge.net/javadoc)
 * OWL 2: [OWL Working Group](http://www.w3.org/2007/OWL/wiki/OWL_Working_Group)
 
 
@@ -125,4 +151,6 @@ Any bug, or unexpected behavior can be reported to the e-mail addresses at this 
 ## news [@jcelreasoner](http://twitter.com/jcelreasoner)
 
 (e-mail group: [jcel](https://groups.google.com/group/jcel?lnk=) google group ([join](https://groups.google.com/group/jcel/subscribe?note=1)))
+
+
 
