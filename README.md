@@ -89,24 +89,15 @@ Ontologies:
 
 
 ## algorithm
-
-* translates OWL API axioms into jcel axioms, which are composed by integer numbers;
-
-* detects the expressivity used in the axioms;
-
-* applies normalization rules to the set of axioms, producing a set of normalized axioms and auxiliary entities if necessary;
-
-* saturates the set of normalized axioms with deduced object property axioms;
-
-* creates an extended ontonlogy based on the set of normalized axioms;
-
-* applies the completion rules while there is some change in the affected sets;
-
-* removes the auxiliary entities;
-
-* builds a graph containing direct subsumers (parents), direct subsumees (children) and equivalents;</li>
-
-* creates OWL API data structures based on the jcel's integer representation.
+* translate OWL API axioms into jcel axioms, which are composed by integer numbers
+* detect the expressivity used in the axioms
+* apply normalization rules to the set of axioms, producing a set of normalized axioms and auxiliary entities if necessary
+* saturate the set of normalized axioms with deduced object property axioms
+* create an extended ontonlogy based on the set of normalized axioms
+* apply the completion rules while there is some change in the affected sets
+* remove the auxiliary entities
+* build a graph containing direct subsumers (parents), direct subsumees (children) and equivalents
+* create OWL API data structures based on the jcel's integer representation
 
 
 ## package dependencies
