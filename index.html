@@ -5,7 +5,7 @@
     <title>jcel by julianmendez</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
@@ -39,7 +39,7 @@
 <a id="main-features" class="anchor" href="#main-features" aria-hidden="true"><span class="octicon octicon-link"></span></a>main features</h2>
 
 <ul>
-<li>is an OWL 2 EL reasoner (albeit currently with some limitations)</li>
+<li>is an <a href="http://www.w3.org/2007/OWL/wiki/OWL_Working_Group">OWL 2 EL</a> reasoner (albeit currently with some limitations)</li>
 <li>uses the <a href="http://owlapi.sourceforge.net">OWL API</a>
 </li>
 <li>can be used in <a href="http://protege.stanford.edu">Protégé</a>
@@ -151,6 +151,26 @@ $ mvn --offline clean package
 </ul>
 
 <h2>
+<a id="algorithm" class="anchor" href="#algorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>algorithm</h2>
+
+<ul>
+<li>translate OWL API axioms into jcel axioms, which are composed by integer numbers</li>
+<li>detect the expressivity used in the axioms</li>
+<li>apply normalization rules to the set of axioms, producing a set of normalized axioms and auxiliary entities if necessary</li>
+<li>saturate the set of normalized axioms with deduced object property axioms</li>
+<li>create an extended ontonlogy based on the set of normalized axioms</li>
+<li>apply the completion rules while there is some change in the affected sets</li>
+<li>remove the auxiliary entities</li>
+<li>build a graph containing direct subsumers (parents), direct subsumees (children) and equivalents</li>
+<li>create OWL API data structures based on the jcel's integer representation</li>
+</ul>
+
+<h2>
+<a id="package-dependencies" class="anchor" href="#package-dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>package dependencies</h2>
+
+<p>If we consider each package as a node, and each dependency between two packages as a directed edge, the structure of package dependency should be a directed acyclic graph (DAG). The packages should only make public those classes that are or could be used by another package preserving the DAG structure.</p>
+
+<h2>
 <a id="references" class="anchor" href="#references" aria-hidden="true"><span class="octicon octicon-link"></span></a>references</h2>
 
 <ul>
@@ -162,9 +182,9 @@ $ mvn --offline clean package
 <li><a href="http://lat.inf.tu-dresden.de/research/phd/Sun-PhD-09.pdf">Ph.D. thesis by B. Suntisrivaraporn</a></li>
 </ul>
 </li>
-<li>CEL: <a href="http://lat.inf.tu-dresden.de/systems/cel">main page</a> — <a href="https://github.com/julianmendez/cel">source code</a>
+<li>CEL: <a href="http://lat.inf.tu-dresden.de/systems/cel">main page</a> - <a href="https://github.com/julianmendez/cel">source code</a>
 </li>
-<li>OWL API: <a href="http://owlapi.sourceforge.net/">main page</a> — <a href="http://owlapi.sourceforge.net/documentation.html">examples</a> — <a href="http://owlapi.sourceforge.net/javadoc">javadoc</a>
+<li>OWL API: <a href="http://owlapi.sourceforge.net/">main page</a> - <a href="http://owlapi.sourceforge.net/documentation.html">examples</a> — <a href="http://owlapi.sourceforge.net/javadoc">javadoc</a>
 </li>
 <li>OWL 2: <a href="http://www.w3.org/2007/OWL/wiki/OWL_Working_Group">OWL Working Group</a>
 </li>
@@ -216,4 +236,3 @@ $ mvn --offline clean package
   
   </body>
 </html>
-
