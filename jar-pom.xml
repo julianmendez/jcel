@@ -49,27 +49,73 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>jcel-core</artifactId>
-	<packaging>jar</packaging>
-
-	<dependencies>
-
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>jcel-coreontology</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-	</dependencies>
+	<artifactId>jcel-jar-parent</artifactId>
+	<packaging>pom</packaging>
 
 	<parent>
 		<groupId>de.tudresden.inf.lat.jcel</groupId>
-		<artifactId>jcel-jar-parent</artifactId>
+		<artifactId>jcel-parent</artifactId>
 		<version>0.22.0</version>
-		<relativePath>../jar-pom.xml</relativePath>
+		<relativePath>pom.xml</relativePath>
 	</parent>
 
-	<name>jcel core</name>
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<id>sources-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<executions>
+					<execution>
+						<id>javadoc-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<name>jcel jar parent</name>
 
 </project>
 
