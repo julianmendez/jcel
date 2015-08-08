@@ -64,10 +64,35 @@
 
 	<parent>
 		<groupId>de.tudresden.inf.lat.jcel</groupId>
-		<artifactId>jcel-jar-parent</artifactId>
+		<artifactId>jcel-parent</artifactId>
 		<version>0.22.0</version>
-		<relativePath>../jar-pom.xml</relativePath>
 	</parent>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+	</build>
 
 	<name>jcel ontology</name>
 
