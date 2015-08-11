@@ -92,6 +92,22 @@
 			</includes>
 		</fileSet>
 
+		<fileSet>
+			<directory>${basedir}/../../jcel-protege/src/main/java/</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+
+		<fileSet>
+			<directory>${basedir}/../../jcel-protege/src/main/resources/</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+
 	</fileSets>
 
 </assembly>
