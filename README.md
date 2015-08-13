@@ -66,11 +66,11 @@ The version under development has the following modules:
 
 It also has the following module used to build the release:
 
-* **jcel-build** : module to produce the release, which includes javadoc, sources, the plug-in, the library, and the standalone application, including the following submodules:
- * **jcel-library** : submodule to create the library, its sources and its javadoc
- * **jcel-plugin** : submodule to create the jar for Protégé
- * **jcel-standalone** : submodule to create the standalone application
- * **jcel-release** : submodule to create the release, a single ZIP file
+* **jcel-build** : module to produce the release using Apache Ant
+* **jcel-build-library** : module to create the library, its sources and its javadoc
+* **jcel-build-plugin** : module to create the jar for Protégé
+* **jcel-build-standalone** : module to create the standalone application
+* **jcel-build-release** : module to create the release, a single ZIP file
 
 
 ## example
