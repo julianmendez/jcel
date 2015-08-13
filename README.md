@@ -39,7 +39,7 @@ $ cd jcel
 $ mvn clean install
 ```
 
-To compile with [Apache Maven](http://maven.apache.org/) to be used offline:
+To compile it with [Apache Maven](http://maven.apache.org/) to be used offline:
 ```
 $ mvn dependency:go-offline
 ```
@@ -48,7 +48,7 @@ to download the dependencies and then:
 $ mvn --offline clean install
 ```
 
-To compile with [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/):
+To compile it with [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/):
 ```
 $ ant
 ```
