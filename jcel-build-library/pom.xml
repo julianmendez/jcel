@@ -49,21 +49,15 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>jcel-plugin</artifactId>
+	<artifactId>jcel-build-library</artifactId>
 	<packaging>bundle</packaging>
 
 	<dependencies>
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>jcel-protege</artifactId>
+			<artifactId>jcel-owlapi</artifactId>
 			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>net.sourceforge.owlapi</groupId>
-			<artifactId>owlapi-distribution</artifactId>
-			<version>3.5.1</version>
 		</dependency>
 
 	</dependencies>
@@ -72,24 +66,19 @@
 		<groupId>de.tudresden.inf.lat.jcel</groupId>
 		<artifactId>jcel-parent</artifactId>
 		<version>0.22.0</version>
-		<relativePath>../..</relativePath>
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<bundle.version>0.22.0.SNAPSHOT</bundle.version>
-		<bundle.activator>org.protege.editor.core.plugin.DefaultPluginActivator</bundle.activator>
-		<bundle.jars>lib/jcel/jcel-coreontology/0.22.0/jcel-coreontology-0.22.0.jar,lib/jcel/jcel-core/0.22.0/jcel-core-0.22.0.jar,lib/jcel/jcel-ontology/0.22.0/jcel-ontology-0.22.0.jar,lib/jcel/jcel-reasoner/0.22.0/jcel-reasoner-0.22.0.jar,lib/jcel/jcel-owlapi/0.22.0/jcel-owlapi-0.22.0.jar</bundle.jars>
-		<bundle.licenses>lib/jcel/jcel-coreontology/0.22.0/*.txt,lib/jcel/jcel-core/0.22.0/*.txt,lib/jcel/jcel-ontology/0.22.0/*.txt,lib/jcel/jcel-reasoner/0.22.0/*.txt,lib/jcel/jcel-owlapi/0.22.0/*.txt</bundle.licenses>
-		<bundle.classpath>.,lib/jcel/jcel-coreontology/0.22.0/jcel-coreontology-0.22.0.jar,lib/jcel/jcel-core/0.22.0/jcel-core-0.22.0.jar,lib/jcel/jcel-ontology/0.22.0/jcel-ontology-0.22.0.jar,lib/jcel/jcel-reasoner/0.22.0/jcel-reasoner-0.22.0.jar,lib/jcel/jcel-owlapi/0.22.0/jcel-owlapi-0.22.0.jar</bundle.classpath>
-		<import.package>javax.accessibility,javax.swing,javax.swing.border,org.osgi.framework,org.protege.editor.core.ui.workspace,org.semanticweb.*;resolution:=optional,*</import.package>
-		<require.bundle>org.eclipse.equinox.registry,org.eclipse.equinox.common,org.protege.editor.core.application,org.protege.editor.owl,org.semanticweb.owl.owlapi</require.bundle>
+		<mainClass>de.tudresden.inf.lat.jcel.owlapi.console.ConsoleStarter</mainClass>
+
+		<bundle.licenses>copying-lesser.txt,copying.txt</bundle.licenses>
 	</properties>
 
 	<build>
 
-		<finalName>${project.groupId}</finalName>
+		<finalName>jcel-${project.version}</finalName>
 
 		<plugins>
 
@@ -106,7 +95,7 @@
 							<goal>single</goal>
 						</goals>
 						<configuration>
-							<finalName>${project.groupId}</finalName>
+							<finalName>jcel-${project.version}</finalName>
 							<formats>
 								<format>jar</format>
 							</formats>
@@ -123,7 +112,7 @@
 							<goal>single</goal>
 						</goals>
 						<configuration>
-							<finalName>${project.groupId}</finalName>
+							<finalName>jcel-${project.version}</finalName>
 							<descriptors>
 								<descriptor>${basedir}/src/assembly/javadoc.xml</descriptor>
 							</descriptors>
@@ -143,25 +132,18 @@
 						<Bundle-SymbolicName>${project.groupId};singleton:=true</Bundle-SymbolicName>
 						<Bundle-Name>jcel</Bundle-Name>
 						<Bundle-Version>${project.version}</Bundle-Version>
-						<Bundle-Activator>${bundle.activator}</Bundle-Activator>
 						<Bundle-Category>protege</Bundle-Category>
-						<Bundle-Description>jcel plugin for Protege</Bundle-Description>
+						<Bundle-Description>jcel library</Bundle-Description>
 						<Bundle-Vendor>Chair of Automata Theory - TU Dresden</Bundle-Vendor>
 						<Bundle-DocURL>http://lat.inf.tu-dresden.de</Bundle-DocURL>
-						<Bundle-ClassPath>${bundle.classpath}</Bundle-ClassPath>
-						<Import-Package>${import.package}</Import-Package>
-						<Require-Bundle>${require.bundle}</Require-Bundle>
+						<Main-Class>${mainClass}</Main-Class>
 						<Include-Resource>
 							{maven-resources}, {maven-dependencies},
-							@jcel-protege-${project.version}.jar,
-							lib/jcel/jcel-coreontology/${project.version}/jcel-coreontology-${project.version}.jar=jcel-coreontology-${project.version}.jar,
-							lib/jcel/copying.txt=../../jcel-build/copying.txt,
-							lib/jcel/copying-lesser.txt=../../jcel-build/copying-lesser.txt,
-							lib/jcel/license-2.0.txt=../../jcel-build/license-2.0.txt,
-							lib/jcel/jcel-core/${project.version}/jcel-core-${project.version}.jar=jcel-core-${project.version}.jar,
-							lib/jcel/jcel-ontology/${project.version}/jcel-ontology-${project.version}.jar=jcel-ontology-${project.version}.jar,
-							lib/jcel/jcel-reasoner/${project.version}/jcel-reasoner-${project.version}.jar=jcel-reasoner-${project.version}.jar,
-							lib/jcel/jcel-owlapi/${project.version}/jcel-owlapi-${project.version}.jar=jcel-owlapi-${project.version}.jar
+							@jcel-coreontology-${project.version}.jar,
+							@jcel-core-${project.version}.jar,
+							@jcel-ontology-${project.version}.jar,
+							@jcel-reasoner-${project.version}.jar,
+							@jcel-owlapi-${project.version}.jar
 						</Include-Resource>
 					</instructions>
 				</configuration>
@@ -170,7 +152,7 @@
 		</plugins>
 	</build>
 
-	<name>jcel plugin</name>
+	<name>jcel build library</name>
 
 </project>
 

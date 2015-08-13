@@ -49,7 +49,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>jcel-standalone</artifactId>
+	<artifactId>jcel-build-standalone</artifactId>
 	<packaging>bundle</packaging>
 
 	<dependencies>
@@ -210,7 +210,6 @@
 		<groupId>de.tudresden.inf.lat.jcel</groupId>
 		<artifactId>jcel-parent</artifactId>
 		<version>0.22.0</version>
-		<relativePath>../..</relativePath>
 	</parent>
 
 	<properties>
@@ -296,7 +295,7 @@
 		</plugins>
 	</build>
 
-	<name>jcel standalone</name>
+	<name>jcel build standalone</name>
 
 </project>
 

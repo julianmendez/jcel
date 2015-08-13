@@ -17,7 +17,7 @@
 	<fileSets>
 
 		<fileSet>
-			<directory>${basedir}/../../jcel-owlapi/target</directory>
+			<directory>${basedir}/../jcel-protege/target</directory>
 			<outputDirectory>.</outputDirectory>
 			<includes>
 				<include>apidocs/**</include>
@@ -25,7 +25,7 @@
 		</fileSet>
 
 		<fileSet>
-			<directory>${basedir}/../..</directory>
+			<directory>${basedir}/..</directory>
 			<outputDirectory>.</outputDirectory>
 			<includes>
 				<include>README.md</include>

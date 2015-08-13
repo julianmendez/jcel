@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="jcel-library" default="dist" basedir=".">
+<project name="jcel-build-plugin" default="dist" basedir=".">
 
 	<!--
  *
@@ -52,59 +52,58 @@
 	<property name="parent.directory" value=".." />
 	<property name="project.build.directory" value="${basedir}/target" />
 
-	<!-- Imports 'project.groupId', 'project.artifactId', 'project.version', 
-	'project.properties.mainClass', and 'project.properties.bundlelicenses' properties. -->
+	<!-- Imports 'project.groupId', 'project.artifactId', 'project.version',
+	'project.properties.bundle.jars', 'project.properties.bundle.licenses', and 'project.properties.bundle.classpath' properties. -->
 	<xmlproperty file="pom.xml" />
-	<xmlproperty file="../../pom.xml" />
+	<xmlproperty file="../pom.xml" />
 
 	<!-- Project-specific properties. -->
 	<fail unless="project.groupId">Error: 'project.groupId' is undefined. This property should have the group identifier.</fail>
 	<fail unless="project.artifactId">Error: 'project.artifactId' is undefined. This property should have the artifact identifier.</fail>
 	<fail unless="project.version">Error: 'project.version' is undefined. This property should have the version number in the form major.minor.patch.</fail>
-	<fail unless="project.properties.mainClass">Error: 'project.properties.mainClass' is undefined.</fail>
+	<fail unless="project.properties.bundle.version">Error: 'project.properties.bundle.version' is undefined.</fail>
+	<fail unless="project.properties.bundle.activator">Error: 'project.properties.bundle.activator' is undefined.</fail>
+	<fail unless="project.properties.bundle.jars">Error: 'project.properties.bundle.jars' is undefined.</fail>
 	<fail unless="project.properties.bundle.licenses">Error: 'project.properties.bundle.licenses' is undefined.</fail>
+	<fail unless="project.properties.bundle.classpath">Error: 'project.properties.bundle.classpath' is undefined.</fail>
+	<fail unless="project.properties.import.package">Error: 'project.properties.import.package' is undefined.</fail>
+	<fail unless="project.properties.require.bundle">Error: 'project.properties.require.bundle' is undefined.</fail>
 
 	<property name="src.directory" value="src" />
 
-	<property name="_root.directory" value="../.." />
+	<property name="_root.directory" value=".." />
 	<property name="_lib.directory" value="${project.build.directory}/lib" />
 	<property name="_targetlib.directory" value="target" />
-	<property name="_targetclasses.directory" value="${_targetlib.directory}/classes" />
-	<property name="_sources.directory" value="${src.directory}/main/java" />
-	<property name="_resources.directory" value="${src.directory}/main/resources" />
 	<property name="groupId.directory" value="jcel" />
-	<property name="repository.directory" value="../target/jars/lib" />
-	<property name="project.build.outputDirectory.classes" value="${project.build.directory}/classes" />
-	<property name="project.build.outputDirectory.sources" value="${project.build.directory}/sources" />
+	<property name="repository.directory" value="../jcel-build/target/jars/lib" />
+	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
 	<property name="_bundle.directory" value="${project.build.directory}" />
-	<property name="_bundle.name" value="jcel-${project.version}" />
+	<property name="_bundle.jars.directory" value="${project.build.directory}" />
+	<property name="_bundle.resources.directory" value="${basedir}/src/main/resources" />
+	<property name="_bundle.name" value="de.tudresden.inf.lat.jcel" />
 
 	<property name="module.0.name" value="jcel-coreontology" />
 	<property name="module.1.name" value="jcel-core" />
 	<property name="module.2.name" value="jcel-ontology" />
 	<property name="module.3.name" value="jcel-reasoner" />
 	<property name="module.4.name" value="jcel-owlapi" />
-	<property name="lastmodule.name" value="${module.4.name}" />
+	<property name="module.5.name" value="jcel-protege" />
+	<property name="lastmodule.name" value="${module.5.name}" />
+	<property name="_bundle.classes.directory" value="${_root.directory}/${lastmodule.name}/target/classes" />
 
 	<!-- Cleans everything. -->
 	<target name="clean">
 		<delete dir="${project.build.directory}" />
 	</target>
 
-	<!-- Copies the compiled classes and the created jars. -->
+	<!-- Copies the created jars. -->
 	<target name="getjar">
 		<mkdir dir="${_lib.directory}/${groupId.directory}/${module.name}/${project.version}" />
-		<copy todir="${project.build.outputDirectory.classes}">
-			<fileset dir="${_root.directory}/${module.name}/${_targetclasses.directory}" />
-		</copy>
-		<copy todir="${project.build.outputDirectory.classes}" failonerror="false">
-			<fileset dir="${_root.directory}/${module.name}/${_resources.directory}" />
-		</copy>
-		<copy todir="${project.build.outputDirectory.sources}">
-			<fileset dir="${_root.directory}/${module.name}/${_sources.directory}" />
-		</copy>
-		<copy todir="${project.build.outputDirectory.sources}" failonerror="false">
-			<fileset dir="${_root.directory}/${module.name}/${_resources.directory}" />
+		<copy todir="${_lib.directory}/${groupId.directory}/${module.name}/${project.version}">
+			<fileset dir="${_root.directory}/${module.name}/${_targetlib.directory}">
+				<include name="${module.name}-${project.version}.jar" />
+				<include name="${module.name}-${project.version}-sources.jar" />
+			</fileset>
 		</copy>
 	</target>
 
@@ -125,6 +124,9 @@
 		<antcall target="getjar">
 			<param name="module.name" value="${module.4.name}" />
 		</antcall>
+		<antcall target="getjar">
+			<param name="module.name" value="${module.5.name}" />
+		</antcall>
 	</target>
 
 	<!-- Prepares the local repository. -->
@@ -135,32 +137,32 @@
 		</copy>
 	</target>
 
-	<!-- Creates the jars. -->
-	<target name="jars">
+	<!-- Creates the bundle. -->
+	<target name="bundle">
 		<mkdir dir="${_bundle.directory}" />
 		<jar destfile="${_bundle.directory}/${_bundle.name}.jar">
-			<fileset dir="${project.build.outputDirectory.classes}" />
-			<fileset dir="." includes="${project.properties.bundle.licenses}" />
+			<fileset dir="${_bundle.resources.directory}" />
+			<fileset dir="${_bundle.classes.directory}" />
+			<fileset dir="${_bundle.jars.directory}" includes="${project.properties.bundle.jars}" />
+			<fileset dir="${_bundle.jars.directory}" includes="${project.properties.bundle.licenses}" />
 			<manifest>
-				<attribute name="Implementation-Title" value="${project.groupId}" />
-				<attribute name="Implementation-Version" value="${project.version}" />
-				<attribute name="Main-Class" value="${project.properties.mainClass}" />
+				<attribute name="Bundle-ManifestVersion" value="2" />
+				<attribute name="Bundle-SymbolicName" value="${project.groupId};singleton:=true" />
+				<attribute name="Bundle-Name" value="jcel" />
+				<attribute name="Bundle-Version" value="${project.properties.bundle.version}" />
+				<attribute name="Bundle-Activator" value="${project.properties.bundle.activator}" />
+				<attribute name="Bundle-Category" value="protege" />
+				<attribute name="Bundle-Description" value="jcel plugin for Protege" />
+				<attribute name="Bundle-Vendor" value="Chair of Automata Theory - TU Dresden" />
+				<attribute name="Bundle-DocURL" value="http://lat.inf.tu-dresden.de" />
+				<attribute name="Bundle-ClassPath" value="${project.properties.bundle.classpath}" />
+				<attribute name="Import-Package" value="${project.properties.import.package}" />
+				<attribute name="Require-Bundle" value="${project.properties.require.bundle}" />
 			</manifest>
-		</jar>
-		<jar destfile="${_bundle.directory}/${_bundle.name}-sources.jar">
-			<fileset dir="${project.build.outputDirectory.sources}" />
-			<fileset dir="." includes="${project.properties.bundle.licenses}" />
-			<manifest>
-				<attribute name="Implementation-Title" value="${project.groupId}" />
-				<attribute name="Implementation-Version" value="${project.version}" />
-			</manifest>
-		</jar>
-		<jar destfile="${_bundle.directory}/${_bundle.name}-javadoc.jar">
-			<fileset dir="${_root.directory}/${lastmodule.name}/target/apidocs" />
 		</jar>
 	</target>
 
-	<target name="dist" depends="clean, getjars, getrepository, jars" />
+	<target name="dist" depends="clean, getjars, getrepository, bundle" />
 
 </project>
 
