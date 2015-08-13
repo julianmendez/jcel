@@ -42,7 +42,10 @@ $ mvn clean install
 To compile with [Apache Maven](http://maven.apache.org/) to be used offline:
 ```
 $ mvn dependency:go-offline
-$ mvn --offline clean package
+```
+to download the dependencies and then:
+```
+$ mvn --offline clean install
 ```
 
 To compile with [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/):
@@ -50,7 +53,7 @@ To compile with [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/):
 $ ant
 ```
 
-The library, its sources and its Javadoc will be in `jcel-build/jcel-library/target`, the plug-in will be in `jcel-build/jcel-plugin/target`, the standalone will be in `jcel-build/jcel-standalone/target`, and the release ZIP file will be in `jcel-build/target`.
+The library, its sources and its Javadoc will be in `jcel-build-library/target`, the plug-in will be in `jcel-build-plugin/target`, the standalone will be in `jcel-build-standalone/target`, and the release ZIP file will be in `target`.
 
 
 ## modules
