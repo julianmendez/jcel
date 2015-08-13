@@ -7,12 +7,11 @@
   [location of bundle]
 
 
-### v0.22.0 — master (trunk)
+### v0.22.0 - master (trunk)
   ```
-  cd jcel-build
   ant
   ```
-  [jcel-build/jcel-plugin/target/de.tudresden.inf.lat.jcel.jar]
+  [jcel-build-plugin/target/de.tudresden.inf.lat.jcel.jar]
 
 
 ### v0.21.0
@@ -23,7 +22,7 @@
   [jcel/jcel-build/jcel-plugin/target/de.tudresden.inf.lat.jcel.jar]
 
 
-### v0.19.0 — v0.20.0
+### v0.19.0 - v0.20.0
   ```
   cd jcel/jcel-build
   ant
@@ -31,7 +30,7 @@
   [jcel/jcel-build/plugin/target/de.tudresden.inf.lat.jcel.jar]
 
 
-### v0.18.0 — v0.18.2
+### v0.18.0 - v0.18.2
   ```
   cd jcel/jcel.build
   ant
@@ -39,7 +38,7 @@
   [jcel/jcel.build/plugin/target/de.tudresden.inf.lat.jcel.jar]
 
 
-### v0.17.0 — v0.17.1
+### v0.17.0 - v0.17.1
   ```
   cd jcel/jcel.distribution
   ant
@@ -47,7 +46,7 @@
   [jcel/jcel.bundle/target/de.tudresden.inf.lat.jcel.jar]
 
 
-### v0.15.0 — v0.16.1
+### v0.15.0 - v0.16.1
   ```
   cd jcel/jcel.protege
   ant -buildfile build-bundle.xml
@@ -63,7 +62,7 @@
   [jcel/protege/target/de.tudresden.inf.lat.jcel.jar]
 
 
-### v0.7.0 — v0.13.0
+### v0.7.0 - v0.13.0
   ```
   cd jcel-jars
   ant
