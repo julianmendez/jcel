@@ -73,18 +73,22 @@ $ cd jcel
 $ mvn clean install
 </code></pre>
 
-<p>To compile with <a href="http://maven.apache.org/">Apache Maven</a> to be used offline:</p>
+<p>To compile it with <a href="http://maven.apache.org/">Apache Maven</a> to be used offline:</p>
 
 <pre><code>$ mvn dependency:go-offline
-$ mvn --offline clean package
 </code></pre>
 
-<p>To compile with <a href="http://ant.apache.org/ivy/">Apache Ant + Apache Ivy</a>:</p>
+<p>to download the dependencies and then:</p>
+
+<pre><code>$ mvn --offline clean install
+</code></pre>
+
+<p>To compile it with <a href="http://ant.apache.org/ivy/">Apache Ant + Apache Ivy</a>:</p>
 
 <pre><code>$ ant
 </code></pre>
 
-<p>The library, its sources and its Javadoc will be in <code>jcel-build/jcel-library/target</code>, the plug-in will be in <code>jcel-build/jcel-plugin/target</code>, the standalone will be in <code>jcel-build/jcel-standalone/target</code>, and the release ZIP file will be in <code>jcel-build/target</code>.</p>
+<p>The library, its sources and its Javadoc will be in <code>jcel-build-library/target</code>, the plug-in will be in <code>jcel-build-plugin/target</code>, the standalone will be in <code>jcel-build-standalone/target</code>, and the release ZIP file will be in <code>target</code>.</p>
 
 <h2>
 <a id="modules" class="anchor" href="#modules" aria-hidden="true"><span class="octicon octicon-link"></span></a>modules</h2>
@@ -110,19 +114,15 @@ $ mvn --offline clean package
 
 <ul>
 <li>
-<strong>jcel-build</strong> : module to produce the release, which includes javadoc, sources, the plug-in, the library, and the standalone application, including the following submodules:
-
-<ul>
+<strong>jcel-build</strong> : module to produce the release using Apache Ant</li>
 <li>
-<strong>jcel-library</strong> : submodule to create the library, its sources and its javadoc</li>
+<strong>jcel-build-library</strong> : module to create the library, its sources and its javadoc</li>
 <li>
-<strong>jcel-plugin</strong> : submodule to create the jar for Protégé</li>
+<strong>jcel-build-plugin</strong> : module to create the jar for Protégé</li>
 <li>
-<strong>jcel-standalone</strong> : submodule to create the standalone application</li>
+<strong>jcel-build-standalone</strong> : module to create the standalone application</li>
 <li>
-<strong>jcel-release</strong> : submodule to create the release, a single ZIP file</li>
-</ul>
-</li>
+<strong>jcel-build-release</strong> : module to create the release, a single ZIP file</li>
 </ul>
 
 <h2>
