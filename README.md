@@ -119,7 +119,7 @@ If we consider each package as a node, and each dependency between two packages 
 * OWL 2: [OWL Working Group](http://www.w3.org/2007/OWL/wiki/OWL_Working_Group)
 
 
-## [release notes](http://julianmendez.github.io/jcel/data/releasenotes.md)
+## [release notes](http://github.com/julianmendez/jcel/blob/master/RELEASE-NOTES.md)
 
 
 ## [old versions](http://julianmendez.github.io/jcel/data/oldversions.md)
