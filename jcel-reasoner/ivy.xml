@@ -15,7 +15,7 @@
 		<dependency name="jcel-coreontology" rev="latest.integration" />
 		<dependency name="jcel-core" rev="latest.integration" />
 		<dependency name="jcel-ontology" rev="latest.integration" />
-		<dependency org="junit" name="junit" rev="4.11" />
+		<dependency org="junit" name="junit" rev="4.12" />
 	</dependencies>
 
 </ivy-module>
