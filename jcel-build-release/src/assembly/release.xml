@@ -58,7 +58,7 @@
 		</fileSet>
 
 		<fileSet>
-			<directory>${basedir}/../../jcel-ontology/target</directory>
+			<directory>${basedir}/../jcel-ontology/target</directory>
 			<includes>
 				<include>jcel-ontology-${project.version}.jar</include>
 				<include>jcel-ontology-${project.version}-sources.jar</include>
