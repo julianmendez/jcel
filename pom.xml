@@ -94,10 +94,6 @@
 		<module>jcel-reasoner</module>
 		<module>jcel-owlapi</module>
 		<module>jcel-protege</module>
-		<module>jcel-build-library</module>
-		<module>jcel-build-plugin</module>
-		<module>jcel-build-standalone</module>
-		<module>jcel-build-release</module>
 	</modules>
 
 	<properties>
@@ -235,6 +231,56 @@
 		<connection>scm:git:https://github.com/julianmendez/jcel.git</connection>
 		<developerConnection>scm:git:https://github.com/julianmendez/jcel.git</developerConnection>
 	</scm>
+
+	<profiles>
+
+		<profile>
+			<id>release</id>
+
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+
+			<modules>
+				<module>jcel-build-library</module>
+				<module>jcel-build-plugin</module>
+				<module>jcel-build-standalone</module>
+				<module>jcel-build-release</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>distribution</id>
+
+			<build>
+				<plugins>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+
+			<modules>
+				<module>jcel-build-library</module>
+				<module>jcel-build-plugin</module>
+				<module>jcel-build-release</module>
+			</modules>
+		</profile>
+
+	</profiles>
 
 </project>
 
