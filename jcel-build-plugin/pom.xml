@@ -65,6 +65,16 @@
 			<artifactId>owlapi-distribution</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>edu.stanford.protege</groupId>
+			<artifactId>org.protege.editor.owl</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>edu.stanford.protege</groupId>
+			<artifactId>org.protege.editor.core.application</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<parent>

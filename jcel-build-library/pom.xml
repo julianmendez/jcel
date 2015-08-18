@@ -60,6 +60,11 @@
 			<version>${project.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>net.sourceforge.owlapi</groupId>
+			<artifactId>owlapi-distribution</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<parent>
