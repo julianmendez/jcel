@@ -118,6 +118,11 @@
 
 		<profile>
 			<id>release</id>
+
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+
 			<properties>
 				<descriptor>${basedir}/src/assembly/release.xml</descriptor>
 			</properties>
