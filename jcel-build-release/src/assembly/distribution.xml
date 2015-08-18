@@ -142,6 +142,16 @@
 			<outputDirectory>jcel-parent/${project.version}</outputDirectory>
 		</fileSet>
 
+
+		<!-- the following configuration is for a release containing the standalone -->
+		<fileSet>
+			<directory>${basedir}/../jcel-build-standalone/target</directory>
+			<includes>
+				<include>jcel.jar</include>
+			</includes>
+			<outputDirectory>jcel-standalone/${project.version}</outputDirectory>
+		</fileSet>
+
 	</fileSets>
 
 </assembly>
