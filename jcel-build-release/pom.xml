@@ -80,7 +80,7 @@
 							<finalName>jcel-${project.version}</finalName>
 							<appendAssemblyId>false</appendAssemblyId>
 							<descriptors>
-								<descriptor>${descriptor}</descriptor>
+								<descriptor>${basedir}/src/assembly/release.xml</descriptor>
 							</descriptors>
 						</configuration>
 					</execution>
@@ -114,29 +114,5 @@
 
 	<name>jcel build release</name>
 
-	<profiles>
-
-		<profile>
-			<id>release</id>
-
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-
-			<properties>
-				<descriptor>${basedir}/src/assembly/release.xml</descriptor>
-			</properties>
-		</profile>
-
-		<profile>
-			<id>distribution</id>
-			<properties>
-				<descriptor>${basedir}/src/assembly/distribution.xml</descriptor>
-			</properties>
-		</profile>
-
-	</profiles>
-
 </project>
-
 

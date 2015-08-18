@@ -5,25 +5,11 @@
 
 	<!-- @author Julian Mendez -->
 
-	<id>release</id>
+	<id>distribution</id>
 
 	<formats>
 		<format>zip</format>
 	</formats>
-
-	<files>
-
-		<file>
-			<source>${basedir}/../jcel-build-plugin/target/de.tudresden.inf.lat.jcel.jar</source>
-			<outputDirectory>plugin</outputDirectory>
-		</file>
-
-		<file>
-			<source>${basedir}/../jcel-build-standalone/target/jcel.jar</source>
-			<outputDirectory>standalone</outputDirectory>
-		</file>
-
-	</files>
 
 	<fileSets>
 
@@ -33,8 +19,28 @@
 				<include>jcel-${project.version}.jar</include>
 				<include>jcel-${project.version}-sources.jar</include>
 				<include>jcel-${project.version}-javadoc.jar</include>
+				<include>jcel-${project.version}.pom</include>
+				<include>jcel-${project.version}.jar.asc</include>
+				<include>jcel-${project.version}-sources.jar.asc</include>
+				<include>jcel-${project.version}-javadoc.jar.asc</include>
+				<include>jcel-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>library</outputDirectory>
+			<outputDirectory>jcel/${project.version}</outputDirectory>
+		</fileSet>
+
+		<fileSet>
+			<directory>${basedir}/../jcel-build-plugin/target</directory>
+			<includes>
+				<include>${project.groupId}-${project.version}.jar</include>
+				<include>${project.groupId}-${project.version}-sources.jar</include>
+				<include>${project.groupId}-${project.version}-javadoc.jar</include>
+				<include>${project.groupId}-${project.version}.pom</include>
+				<include>${project.groupId}-${project.version}.jar.asc</include>
+				<include>${project.groupId}-${project.version}-sources.jar.asc</include>
+				<include>${project.groupId}-${project.version}-javadoc.jar.asc</include>
+				<include>${project.groupId}-${project.version}.pom.asc</include>
+			</includes>
+			<outputDirectory>${project.groupId}/${project.version}</outputDirectory>
 		</fileSet>
 
 		<fileSet>
@@ -43,8 +49,13 @@
 				<include>jcel-coreontology-${project.version}.jar</include>
 				<include>jcel-coreontology-${project.version}-sources.jar</include>
 				<include>jcel-coreontology-${project.version}-javadoc.jar</include>
+				<include>jcel-coreontology-${project.version}.pom</include>
+				<include>jcel-coreontology-${project.version}.jar.asc</include>
+				<include>jcel-coreontology-${project.version}-sources.jar.asc</include>
+				<include>jcel-coreontology-${project.version}-javadoc.jar.asc</include>
+				<include>jcel-coreontology-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>modules</outputDirectory>
+			<outputDirectory>jcel-coreontology/${project.version}</outputDirectory>
 		</fileSet>
 
 		<fileSet>
@@ -53,8 +64,13 @@
 				<include>jcel-core-${project.version}.jar</include>
 				<include>jcel-core-${project.version}-sources.jar</include>
 				<include>jcel-core-${project.version}-javadoc.jar</include>
+				<include>jcel-core-${project.version}.pom</include>
+				<include>jcel-core-${project.version}.jar.asc</include>
+				<include>jcel-core-${project.version}-sources.jar.asc</include>
+				<include>jcel-core-${project.version}-javadoc.jar.asc</include>
+				<include>jcel-core-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>modules</outputDirectory>
+			<outputDirectory>jcel-core/${project.version}</outputDirectory>
 		</fileSet>
 
 		<fileSet>
@@ -63,8 +79,13 @@
 				<include>jcel-ontology-${project.version}.jar</include>
 				<include>jcel-ontology-${project.version}-sources.jar</include>
 				<include>jcel-ontology-${project.version}-javadoc.jar</include>
+				<include>jcel-ontology-${project.version}.pom</include>
+				<include>jcel-ontology-${project.version}.jar.asc</include>
+				<include>jcel-ontology-${project.version}-sources.jar.asc</include>
+				<include>jcel-ontology-${project.version}-javadoc.jar.asc</include>
+				<include>jcel-ontology-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>modules</outputDirectory>
+			<outputDirectory>jcel-ontology/${project.version}</outputDirectory>
 		</fileSet>
 
 		<fileSet>
@@ -73,8 +94,13 @@
 				<include>jcel-reasoner-${project.version}.jar</include>
 				<include>jcel-reasoner-${project.version}-sources.jar</include>
 				<include>jcel-reasoner-${project.version}-javadoc.jar</include>
+				<include>jcel-reasoner-${project.version}.pom</include>
+				<include>jcel-reasoner-${project.version}.jar.asc</include>
+				<include>jcel-reasoner-${project.version}-sources.jar.asc</include>
+				<include>jcel-reasoner-${project.version}-javadoc.jar.asc</include>
+				<include>jcel-reasoner-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>modules</outputDirectory>
+			<outputDirectory>jcel-reasoner/${project.version}</outputDirectory>
 		</fileSet>
 
 		<fileSet>
@@ -83,8 +109,13 @@
 				<include>jcel-owlapi-${project.version}.jar</include>
 				<include>jcel-owlapi-${project.version}-sources.jar</include>
 				<include>jcel-owlapi-${project.version}-javadoc.jar</include>
+				<include>jcel-owlapi-${project.version}.pom</include>
+				<include>jcel-owlapi-${project.version}.jar.asc</include>
+				<include>jcel-owlapi-${project.version}-sources.jar.asc</include>
+				<include>jcel-owlapi-${project.version}-javadoc.jar.asc</include>
+				<include>jcel-owlapi-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>modules</outputDirectory>
+			<outputDirectory>jcel-owlapi/${project.version}</outputDirectory>
 		</fileSet>
 
 		<fileSet>
@@ -93,8 +124,32 @@
 				<include>jcel-protege-${project.version}.jar</include>
 				<include>jcel-protege-${project.version}-sources.jar</include>
 				<include>jcel-protege-${project.version}-javadoc.jar</include>
+				<include>jcel-protege-${project.version}.pom</include>
+				<include>jcel-protege-${project.version}.jar.asc</include>
+				<include>jcel-protege-${project.version}-sources.jar.asc</include>
+				<include>jcel-protege-${project.version}-javadoc.jar.asc</include>
+				<include>jcel-protege-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>modules</outputDirectory>
+			<outputDirectory>jcel-protege/${project.version}</outputDirectory>
+		</fileSet>
+
+		<fileSet>
+			<directory>${basedir}/../target</directory>
+			<includes>
+				<include>jcel-parent-${project.version}.pom</include>
+				<include>jcel-parent-${project.version}.pom.asc</include>
+			</includes>
+			<outputDirectory>jcel-parent/${project.version}</outputDirectory>
+		</fileSet>
+
+
+		<!-- the following configuration is for a release containing the standalone -->
+		<fileSet>
+			<directory>${basedir}/../jcel-build-standalone/target</directory>
+			<includes>
+				<include>jcel.jar</include>
+			</includes>
+			<outputDirectory>jcel-standalone/${project.version}</outputDirectory>
 		</fileSet>
 
 	</fileSets>
