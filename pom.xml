@@ -235,7 +235,7 @@
 	<profiles>
 
 		<profile>
-			<id>release</id>
+			<id>default</id>
 
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -250,7 +250,7 @@
 		</profile>
 
 		<profile>
-			<id>distribution</id>
+			<id>release</id>
 
 			<build>
 				<plugins>
