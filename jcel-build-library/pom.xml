@@ -76,7 +76,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<mainClass>de.tudresden.inf.lat.jcel.owlapi.console.ConsoleStarter</mainClass>
+		<mainClass>${project.groupId}.owlapi.console.ConsoleStarter</mainClass>
 
 		<bundle.licenses>copying-lesser.txt,copying.txt</bundle.licenses>
 	</properties>
