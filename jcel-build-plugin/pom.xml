@@ -162,7 +162,7 @@
 							@jcel-protege-${project.version}.jar,
 							lib/jcel/copying.txt=../copying.txt,
 							lib/jcel/copying-lesser.txt=../copying-lesser.txt,
-							lib/jcel/license-2.0.txt=../license-2.0.txt,
+							lib/jcel/LICENSE.txt=../LICENSE.txt,
 							lib/jcel/jcel-coreontology/${project.version}/jcel-coreontology-${project.version}.jar=jcel-coreontology-${project.version}.jar,
 							lib/jcel/jcel-core/${project.version}/jcel-core-${project.version}.jar=jcel-core-${project.version}.jar,
 							lib/jcel/jcel-ontology/${project.version}/jcel-ontology-${project.version}.jar=jcel-ontology-${project.version}.jar,
