@@ -14,33 +14,12 @@
 	<fileSets>
 
 		<fileSet>
-			<directory>${basedir}/../jcel-build-library/target</directory>
+			<directory>${basedir}/../target</directory>
 			<includes>
-				<include>jcel-${project.version}.jar</include>
-				<include>jcel-${project.version}-sources.jar</include>
-				<include>jcel-${project.version}-javadoc.jar</include>
-				<include>jcel-${project.version}.pom</include>
-				<include>jcel-${project.version}.jar.asc</include>
-				<include>jcel-${project.version}-sources.jar.asc</include>
-				<include>jcel-${project.version}-javadoc.jar.asc</include>
-				<include>jcel-${project.version}.pom.asc</include>
+				<include>jcel-parent-${project.version}.pom</include>
+				<include>jcel-parent-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>library</outputDirectory>
-		</fileSet>
-
-		<fileSet>
-			<directory>${basedir}/../jcel-build-plugin/target</directory>
-			<includes>
-				<include>${project.groupId}-${project.version}.jar</include>
-				<include>${project.groupId}-${project.version}-sources.jar</include>
-				<include>${project.groupId}-${project.version}-javadoc.jar</include>
-				<include>${project.groupId}-${project.version}.pom</include>
-				<include>${project.groupId}-${project.version}.jar.asc</include>
-				<include>${project.groupId}-${project.version}-sources.jar.asc</include>
-				<include>${project.groupId}-${project.version}-javadoc.jar.asc</include>
-				<include>${project.groupId}-${project.version}.pom.asc</include>
-			</includes>
-			<outputDirectory>plugin</outputDirectory>
+			<outputDirectory>modules/jcel-parent</outputDirectory>
 		</fileSet>
 
 		<fileSet>
@@ -134,14 +113,34 @@
 		</fileSet>
 
 		<fileSet>
-			<directory>${basedir}/../target</directory>
+			<directory>${basedir}/../jcel-build-library/target</directory>
 			<includes>
-				<include>jcel-parent-${project.version}.pom</include>
-				<include>jcel-parent-${project.version}.pom.asc</include>
+				<include>jcel-${project.version}.jar</include>
+				<include>jcel-${project.version}-sources.jar</include>
+				<include>jcel-${project.version}-javadoc.jar</include>
+				<include>jcel-${project.version}.pom</include>
+				<include>jcel-${project.version}.jar.asc</include>
+				<include>jcel-${project.version}-sources.jar.asc</include>
+				<include>jcel-${project.version}-javadoc.jar.asc</include>
+				<include>jcel-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>modules/jcel-parent</outputDirectory>
+			<outputDirectory>library</outputDirectory>
 		</fileSet>
 
+		<fileSet>
+			<directory>${basedir}/../jcel-build-plugin/target</directory>
+			<includes>
+				<include>${project.groupId}-${project.version}.jar</include>
+				<include>${project.groupId}-${project.version}-sources.jar</include>
+				<include>${project.groupId}-${project.version}-javadoc.jar</include>
+				<include>${project.groupId}-${project.version}.pom</include>
+				<include>${project.groupId}-${project.version}.jar.asc</include>
+				<include>${project.groupId}-${project.version}-sources.jar.asc</include>
+				<include>${project.groupId}-${project.version}-javadoc.jar.asc</include>
+				<include>${project.groupId}-${project.version}.pom.asc</include>
+			</includes>
+			<outputDirectory>plugin</outputDirectory>
+		</fileSet>
 
 		<!-- The following configuration is for a release containing the standalone. -->
 		<fileSet>
