@@ -86,6 +86,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+		<mainClass>de.tudresden.inf.lat.jcel.owlapi.console.ConsoleStarter</mainClass>
+
 		<bundle.version>0.22.0.SNAPSHOT</bundle.version>
 		<bundle.activator>org.protege.editor.core.plugin.DefaultPluginActivator</bundle.activator>
 		<bundle.jars>lib/jcel/jcel-coreontology/0.22.0/jcel-coreontology-0.22.0.jar,lib/jcel/jcel-core/0.22.0/jcel-core-0.22.0.jar,lib/jcel/jcel-ontology/0.22.0/jcel-ontology-0.22.0.jar,lib/jcel/jcel-reasoner/0.22.0/jcel-reasoner-0.22.0.jar,lib/jcel/jcel-owlapi/0.22.0/jcel-owlapi-0.22.0.jar</bundle.jars>
