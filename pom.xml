@@ -94,6 +94,10 @@
 		<module>jcel-reasoner</module>
 		<module>jcel-owlapi</module>
 		<module>jcel-protege</module>
+		<module>jcel-build-library</module>
+		<module>jcel-build-plugin</module>
+		<module>jcel-build-standalone</module>
+		<module>jcel-build-release</module>
 	</modules>
 
 	<properties>
@@ -235,22 +239,14 @@
 	<profiles>
 
 		<profile>
-			<id>default</id>
+			<id>release-sign-artifacts</id>
 
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
 			</activation>
-
-			<modules>
-				<module>jcel-build-library</module>
-				<module>jcel-build-plugin</module>
-				<module>jcel-build-standalone</module>
-				<module>jcel-build-release</module>
-			</modules>
-		</profile>
-
-		<profile>
-			<id>release</id>
 
 			<build>
 				<plugins>
@@ -272,12 +268,6 @@
 
 				</plugins>
 			</build>
-
-			<modules>
-				<module>jcel-build-library</module>
-				<module>jcel-build-plugin</module>
-				<module>jcel-build-release</module>
-			</modules>
 		</profile>
 
 	</profiles>
