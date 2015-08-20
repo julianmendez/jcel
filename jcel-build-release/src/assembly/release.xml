@@ -25,7 +25,7 @@
 				<include>jcel-${project.version}-javadoc.jar.asc</include>
 				<include>jcel-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>jcel/${project.version}</outputDirectory>
+			<outputDirectory>library</outputDirectory>
 		</fileSet>
 
 		<fileSet>
@@ -40,7 +40,7 @@
 				<include>${project.groupId}-${project.version}-javadoc.jar.asc</include>
 				<include>${project.groupId}-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>${project.groupId}/${project.version}</outputDirectory>
+			<outputDirectory>plugin</outputDirectory>
 		</fileSet>
 
 		<fileSet>
@@ -55,7 +55,7 @@
 				<include>jcel-coreontology-${project.version}-javadoc.jar.asc</include>
 				<include>jcel-coreontology-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>jcel-coreontology/${project.version}</outputDirectory>
+			<outputDirectory>modules/jcel-coreontology</outputDirectory>
 		</fileSet>
 
 		<fileSet>
@@ -70,7 +70,7 @@
 				<include>jcel-core-${project.version}-javadoc.jar.asc</include>
 				<include>jcel-core-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>jcel-core/${project.version}</outputDirectory>
+			<outputDirectory>modules/jcel-core</outputDirectory>
 		</fileSet>
 
 		<fileSet>
@@ -85,7 +85,7 @@
 				<include>jcel-ontology-${project.version}-javadoc.jar.asc</include>
 				<include>jcel-ontology-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>jcel-ontology/${project.version}</outputDirectory>
+			<outputDirectory>modules/jcel-ontology</outputDirectory>
 		</fileSet>
 
 		<fileSet>
@@ -100,7 +100,7 @@
 				<include>jcel-reasoner-${project.version}-javadoc.jar.asc</include>
 				<include>jcel-reasoner-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>jcel-reasoner/${project.version}</outputDirectory>
+			<outputDirectory>modules/jcel-reasoner</outputDirectory>
 		</fileSet>
 
 		<fileSet>
@@ -115,7 +115,7 @@
 				<include>jcel-owlapi-${project.version}-javadoc.jar.asc</include>
 				<include>jcel-owlapi-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>jcel-owlapi/${project.version}</outputDirectory>
+			<outputDirectory>modules/jcel-owlapi</outputDirectory>
 		</fileSet>
 
 		<fileSet>
@@ -130,7 +130,7 @@
 				<include>jcel-protege-${project.version}-javadoc.jar.asc</include>
 				<include>jcel-protege-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>jcel-protege/${project.version}</outputDirectory>
+			<outputDirectory>modules/jcel-protege</outputDirectory>
 		</fileSet>
 
 		<fileSet>
@@ -139,7 +139,7 @@
 				<include>jcel-parent-${project.version}.pom</include>
 				<include>jcel-parent-${project.version}.pom.asc</include>
 			</includes>
-			<outputDirectory>jcel-parent/${project.version}</outputDirectory>
+			<outputDirectory>modules/jcel-parent</outputDirectory>
 		</fileSet>
 
 
@@ -149,7 +149,7 @@
 			<includes>
 				<include>jcel.jar</include>
 			</includes>
-			<outputDirectory>standalone/${project.version}</outputDirectory>
+			<outputDirectory>standalone</outputDirectory>
 		</fileSet>
 
 	</fileSets>
