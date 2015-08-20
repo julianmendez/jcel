@@ -5,7 +5,7 @@
 
 	<!-- @author Julian Mendez -->
 
-	<id>distribution</id>
+	<id>release</id>
 
 	<formats>
 		<format>zip</format>
