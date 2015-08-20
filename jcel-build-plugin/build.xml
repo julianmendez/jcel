@@ -74,9 +74,13 @@
 	<property name="_root.directory" value=".." />
 	<property name="_lib.directory" value="${project.build.directory}/lib" />
 	<property name="_targetlib.directory" value="target" />
+	<property name="_targetclasses.directory" value="${_targetlib.directory}/classes" />
+	<property name="_sources.directory" value="${src.directory}/main/java" />
+	<property name="_resources.directory" value="${src.directory}/main/resources" />
 	<property name="groupId.directory" value="jcel" />
 	<property name="repository.directory" value="../jcel-build/target/jars/lib" />
-	<property name="project.build.outputDirectory" value="${project.build.directory}/classes" />
+	<property name="project.build.outputDirectory.classes" value="${project.build.directory}/classes" />
+	<property name="project.build.outputDirectory.sources" value="${project.build.directory}/sources" />
 	<property name="_bundle.directory" value="${project.build.directory}" />
 	<property name="_bundle.jars.directory" value="${project.build.directory}" />
 	<property name="_bundle.name" value="${project.groupId}-${project.version}" />
@@ -104,6 +108,15 @@
 				<include name="${module.name}-${project.version}.jar" />
 				<include name="${module.name}-${project.version}-sources.jar" />
 			</fileset>
+		</copy>
+		<copy todir="${project.build.outputDirectory.classes}" failonerror="false">
+			<fileset dir="${_root.directory}/${module.name}/${_resources.directory}" />
+		</copy>
+		<copy todir="${project.build.outputDirectory.sources}">
+			<fileset dir="${_root.directory}/${module.name}/${_sources.directory}" />
+		</copy>
+		<copy todir="${project.build.outputDirectory.sources}" failonerror="false">
+			<fileset dir="${_root.directory}/${module.name}/${_resources.directory}" />
 		</copy>
 	</target>
 
@@ -159,6 +172,17 @@
 				<attribute name="Import-Package" value="${project.properties.import.package}" />
 				<attribute name="Require-Bundle" value="${project.properties.require.bundle}" />
 			</manifest>
+		</jar>
+		<jar destfile="${_bundle.directory}/${_bundle.name}-sources.jar">
+			<fileset dir="${project.build.outputDirectory.sources}" />
+			<fileset dir="." includes="${project.properties.bundle.licenses}" />
+			<manifest>
+				<attribute name="Implementation-Title" value="${project.groupId}" />
+				<attribute name="Implementation-Version" value="${project.version}" />
+			</manifest>
+		</jar>
+		<jar destfile="${_bundle.directory}/${_bundle.name}-javadoc.jar">
+			<fileset dir="${_root.directory}/${lastmodule.name}/target/apidocs" />
 		</jar>
 	</target>
 
