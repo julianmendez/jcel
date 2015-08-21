@@ -171,6 +171,7 @@
 				<attribute name="Bundle-ClassPath" value="${project.properties.bundle.classpath}" />
 				<attribute name="Import-Package" value="${project.properties.import.package}" />
 				<attribute name="Require-Bundle" value="${project.properties.require.bundle}" />
+				<attribute name="Main-Class" value="${project.properties.mainClass}" />
 			</manifest>
 		</jar>
 		<jar destfile="${_bundle.directory}/${_bundle.name}-sources.jar">
