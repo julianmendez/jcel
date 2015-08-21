@@ -63,11 +63,11 @@
 	<property name="module.3.name" value="jcel-reasoner" />
 	<property name="module.4.name" value="jcel-owlapi" />
 	<property name="module.5.name" value="jcel-protege" />
-	<property name="build.0.name" value="jcel-build-library" />
-	<property name="build.1.name" value="jcel-build-plugin" />
-	<property name="build.2.name" value="jcel-build-standalone" />
-	<property name="build.3.name" value="jcel-build-release" />
-	<property name="releasebuild.name" value="jcel-build-release" />
+	<property name="build.0.name" value="jcel-library" />
+	<property name="build.1.name" value="jcel-plugin" />
+	<property name="build.2.name" value="jcel-standalone" />
+	<property name="build.3.name" value="jcel-distribution" />
+	<property name="releasebuild.name" value="jcel-distribution" />
 
 	<property name="_release.name" value="jcel-${project.version}" />
 	<property name="_release.directory" value="${releasebuild.name}/target" />
