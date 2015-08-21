@@ -274,7 +274,10 @@
 							@sesame-rio-trix-2.7.12.jar,
 							@sesame-rio-turtle-2.7.12.jar,
 							@sesame-util-2.7.12.jar,
-							@trove4j-3.0.3.jar
+							@trove4j-3.0.3.jar,
+							LICENSE.txt=../LICENSE.txt,
+							copying.txt=../copying.txt,
+							copying-lesser.txt=../copying-lesser.txt
 						</Include-Resource>
 					</instructions>
 				</configuration>

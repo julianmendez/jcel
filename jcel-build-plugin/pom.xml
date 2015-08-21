@@ -160,14 +160,14 @@
 						<Include-Resource>
 							{maven-resources}, {maven-dependencies},
 							@jcel-protege-${project.version}.jar,
-							lib/jcel/copying.txt=../copying.txt,
-							lib/jcel/copying-lesser.txt=../copying-lesser.txt,
-							lib/jcel/LICENSE.txt=../LICENSE.txt,
 							lib/jcel/jcel-coreontology/${project.version}/jcel-coreontology-${project.version}.jar=jcel-coreontology-${project.version}.jar,
 							lib/jcel/jcel-core/${project.version}/jcel-core-${project.version}.jar=jcel-core-${project.version}.jar,
 							lib/jcel/jcel-ontology/${project.version}/jcel-ontology-${project.version}.jar=jcel-ontology-${project.version}.jar,
 							lib/jcel/jcel-reasoner/${project.version}/jcel-reasoner-${project.version}.jar=jcel-reasoner-${project.version}.jar,
-							lib/jcel/jcel-owlapi/${project.version}/jcel-owlapi-${project.version}.jar=jcel-owlapi-${project.version}.jar
+							lib/jcel/jcel-owlapi/${project.version}/jcel-owlapi-${project.version}.jar=jcel-owlapi-${project.version}.jar,
+							lib/jcel/LICENSE.txt=../LICENSE.txt,
+							lib/jcel/copying.txt=../copying.txt,
+							lib/jcel/copying-lesser.txt=../copying-lesser.txt
 						</Include-Resource>
 					</instructions>
 				</configuration>
