@@ -53,7 +53,7 @@ To compile it with [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/):
 $ ant
 ```
 
-The library, its sources and its Javadoc will be in `jcel-build-library/target`, the plug-in will be in `jcel-build-plugin/target`, the standalone will be in `jcel-build-standalone/target`, and the release ZIP file will be in `target`.
+The library, its sources and its Javadoc will be in `jcel-library/target`, the plug-in will be in `jcel-plugin/target`, the standalone will be in `jcel-standalone/target`, and the release ZIP file will be in `target`.
 
 
 ## modules
@@ -70,10 +70,10 @@ The version under development has the following modules:
 It also has the following module used to build the release:
 
 * **jcel-build** : module to produce the release using Apache Ant
-* **jcel-build-library** : module to create the library, its sources and its javadoc
-* **jcel-build-plugin** : module to create the jar for Protégé
-* **jcel-build-standalone** : module to create the standalone application
-* **jcel-build-release** : module to create the release, a single ZIP file
+* **jcel-library** : module to create the library, its sources and its javadoc
+* **jcel-plugin** : module to create the jar for Protégé
+* **jcel-standalone** : module to create the standalone application
+* **jcel-distribution** : module to create the release, a single ZIP file
 
 
 ## example

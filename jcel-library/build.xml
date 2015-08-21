@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="jcel-build-library" default="dist" basedir=".">
+<project name="jcel-library" default="dist" basedir=".">
 
 	<!--
  *

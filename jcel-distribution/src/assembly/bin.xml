@@ -113,7 +113,7 @@
 		</fileSet>
 
 		<fileSet>
-			<directory>${basedir}/../jcel-build-library/target</directory>
+			<directory>${basedir}/../jcel-library/target</directory>
 			<includes>
 				<include>jcel-${project.version}.jar</include>
 				<include>jcel-${project.version}-sources.jar</include>
@@ -128,7 +128,7 @@
 		</fileSet>
 
 		<fileSet>
-			<directory>${basedir}/../jcel-build-plugin/target</directory>
+			<directory>${basedir}/../jcel-plugin/target</directory>
 			<includes>
 				<include>${project.groupId}-${project.version}.jar</include>
 				<include>${project.groupId}-${project.version}-sources.jar</include>
@@ -144,7 +144,7 @@
 
 		<!-- The following configuration is for a release containing the standalone. -->
 		<fileSet>
-			<directory>${basedir}/../jcel-build-standalone/target</directory>
+			<directory>${basedir}/../jcel-standalone/target</directory>
 			<includes>
 				<include>jcel.jar</include>
 				<include>jcel.jar.asc</include>

@@ -50,7 +50,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>jcel-build-release</artifactId>
+	<artifactId>jcel-distribution</artifactId>
 	<packaging>pom</packaging>
 
 	<parent>
