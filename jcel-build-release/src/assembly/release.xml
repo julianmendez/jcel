@@ -147,6 +147,9 @@
 			<directory>${basedir}/../jcel-build-standalone/target</directory>
 			<includes>
 				<include>jcel.jar</include>
+				<include>jcel.jar.asc</include>
+				<include>jcel.pom</include>
+				<include>jcel.pom.asc</include>
 			</includes>
 			<outputDirectory>standalone</outputDirectory>
 		</fileSet>
