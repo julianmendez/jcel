@@ -31,21 +31,25 @@ Licenses: [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt), [LGPL 3.
 
 ## source code
 
-The project is hosted on [GitHub](https://github.com/julianmendez/jcel). To checkout and compile the project, use:
-
+The project is hosted on [GitHub](https://github.com/julianmendez/jcel). To checkout and compile the project with [Apache Maven](http://maven.apache.org/):
 ```
 $ git clone https://github.com/julianmendez/jcel.git
 $ cd jcel
 $ mvn clean install
 ```
 
-To compile it with [Apache Maven](http://maven.apache.org/) to be used offline:
+To compile it to be used offline, first download the dependencies:
 ```
 $ mvn dependency:go-offline
 ```
-to download the dependencies and then:
+and then you can compile the project offline with:
 ```
 $ mvn --offline clean install
+```
+
+The bundles uploaded to [Sonatype](https://oss.sonatype.org/) are created with:
+```
+$ mvn clean install repository:bundle-create -DperformRelease=true
 ```
 
 To compile it with [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/):
