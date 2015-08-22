@@ -66,21 +66,26 @@
 <h2>
 <a id="source-code" class="anchor" href="#source-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>source code</h2>
 
-<p>The project is hosted on <a href="https://github.com/julianmendez/jcel">GitHub</a>. To checkout and compile the project, use:</p>
+<p>The project is hosted on <a href="https://github.com/julianmendez/jcel">GitHub</a>. To checkout and compile the project with <a href="http://maven.apache.org/">Apache Maven</a>:</p>
 
 <pre><code>$ git clone https://github.com/julianmendez/jcel.git
 $ cd jcel
 $ mvn clean install
 </code></pre>
 
-<p>To compile it with <a href="http://maven.apache.org/">Apache Maven</a> to be used offline:</p>
+<p>To compile it to be used offline, first download the dependencies:</p>
 
 <pre><code>$ mvn dependency:go-offline
 </code></pre>
 
-<p>to download the dependencies and then:</p>
+<p>and then you can compile the project offline with:</p>
 
 <pre><code>$ mvn --offline clean install
+</code></pre>
+
+<p>The bundles uploaded to <a href="https://oss.sonatype.org/">Sonatype</a> are created with:</p>
+
+<pre><code>$ mvn clean install repository:bundle-create -DperformRelease=true
 </code></pre>
 
 <p>To compile it with <a href="http://ant.apache.org/ivy/">Apache Ant + Apache Ivy</a>:</p>
@@ -88,7 +93,7 @@ $ mvn clean install
 <pre><code>$ ant
 </code></pre>
 
-<p>The library, its sources and its Javadoc will be in <code>jcel-build-library/target</code>, the plug-in will be in <code>jcel-build-plugin/target</code>, the standalone will be in <code>jcel-build-standalone/target</code>, and the release ZIP file will be in <code>target</code>.</p>
+<p>The library, its sources and its Javadoc will be in <code>jcel-library/target</code>, the plug-in will be in <code>jcel-plugin/target</code>, the standalone will be in <code>jcel-standalone/target</code>, and the release ZIP file will be in <code>target</code>.</p>
 
 <h2>
 <a id="modules" class="anchor" href="#modules" aria-hidden="true"><span class="octicon octicon-link"></span></a>modules</h2>
@@ -116,13 +121,13 @@ $ mvn clean install
 <li>
 <strong>jcel-build</strong> : module to produce the release using Apache Ant</li>
 <li>
-<strong>jcel-build-library</strong> : module to create the library, its sources and its javadoc</li>
+<strong>jcel-library</strong> : module to create the library, its sources and its javadoc</li>
 <li>
-<strong>jcel-build-plugin</strong> : module to create the jar for Protégé</li>
+<strong>jcel-plugin</strong> : module to create the jar for Protégé</li>
 <li>
-<strong>jcel-build-standalone</strong> : module to create the standalone application</li>
+<strong>jcel-standalone</strong> : module to create the standalone application</li>
 <li>
-<strong>jcel-build-release</strong> : module to create the release, a single ZIP file</li>
+<strong>jcel-distribution</strong> : module to create the release, a single ZIP file</li>
 </ul>
 
 <h2>
