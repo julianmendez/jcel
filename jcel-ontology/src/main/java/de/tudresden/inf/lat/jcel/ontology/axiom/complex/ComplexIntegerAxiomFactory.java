@@ -69,8 +69,6 @@ public interface ComplexIntegerAxiomFactory {
 	 *            individual of the assertion
 	 * @param annotations
 	 *            annotations
-	 * @param annotations
-	 *            annotations
 	 * @return a new class assertion axiom
 	 */
 	public IntegerClassAssertionAxiom createClassAssertionAxiom(
