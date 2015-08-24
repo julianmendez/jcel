@@ -86,7 +86,13 @@ $ mvn clean install
 
 <p>The bundles uploaded to <a href="https://oss.sonatype.org/">Sonatype</a> are created with:</p>
 
-<pre><code>$ mvn clean install repository:bundle-create -DperformRelease=true
+<pre><code>$ mvn clean install -DperformRelease=true
+</code></pre>
+
+<p>and then on each module:</p>
+
+<pre><code>$ cd target
+$ jar -cf bundle.jar jcel-*
 </code></pre>
 
 <p>To compile it with <a href="http://ant.apache.org/ivy/">Apache Ant + Apache Ivy</a>:</p>
