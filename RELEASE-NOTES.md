@@ -11,6 +11,7 @@
  * `jcel-plugin` : creates the plug-in for Protégé
  * `jcel-standalone` : creates a standlone application
  * `jcel-distribution` : creates the release 
+* it uses the OWL API 3.5.1, and produces a plug-in for Protégé 5.0.0 .
 
 
 ### v0.21.0
@@ -20,7 +21,7 @@
 
 ### v0.20.0
 *(2014-05-18)*
-* uses Apache Ivy to compile the project
+* uses [Apache Ivy](http://ant.apache.org/ivy/) to compile the project
 
 
 ### v0.19.1
@@ -109,7 +110,7 @@ and the following modules are used to build the release:
 ### v0.14.0
 *(2011-04-01)*
 * is identical to v0.13.0 in the Java source code, but is created using a different repository structure.
-* can be compiled using Apache Maven.
+* can be compiled using [Apache Maven](http://maven.apache.org/).
 
 
 ### v0.13.0
