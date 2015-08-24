@@ -86,7 +86,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<mainClass>${project.groupId}.owlapi.console.ConsoleStarter</mainClass>
+		<mainClass>de.tudresden.inf.lat.jcel.owlapi.console.ConsoleStarter</mainClass>
 
 		<bundle.version>0.22.0.SNAPSHOT</bundle.version>
 		<bundle.activator>org.protege.editor.core.plugin.DefaultPluginActivator</bundle.activator>
