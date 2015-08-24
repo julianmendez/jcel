@@ -97,7 +97,7 @@
 	</dependencies>
 
 	<parent>
-		<groupId>de.tudresden.inf.lat.jcel</groupId>
+		<groupId>de.tu-dresden.inf.lat.jcel</groupId>
 		<artifactId>jcel-parent</artifactId>
 		<version>0.22.0</version>
 	</parent>
