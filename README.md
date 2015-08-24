@@ -50,7 +50,12 @@ $ mvn --offline clean install
 
 The bundles uploaded to [Sonatype](https://oss.sonatype.org/) are created with:
 ```
-$ mvn clean install repository:bundle-create -DperformRelease=true
+$ mvn clean install -DperformRelease=true
+```
+and then on each module:
+```
+$ cd target
+$ jar -cf bundle.jar jcel-*
 ```
 
 To compile it with [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/):
