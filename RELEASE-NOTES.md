@@ -30,8 +30,8 @@
 
 ### v0.19.0
 *(2013-06-25)*
-* is dual-licensed, i.e. released under two different licenses: GNU Lesser General Public License version 3 and Apache License, Version 2.0
-* has subprojects with a different name convention: they use hyphen ("jcel-") instead of dot ("jcel.")
+* is dual-licensed, i.e. released under two different licenses: [GNU Lesser General Public License version 3](http://www.gnu.org/licenses/lgpl-3.0.txt) and [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
+* has subprojects with a different name convention: they use hyphen ("`jcel-`") instead of dot ("`jcel.`")
 * shows a progress monitor when executed in Protégé
 * includes new parameters in the console mode, including consistency, sat, classification, and entailment
 * uses OWL API 3.4.4 and JUnit 4.11
@@ -53,34 +53,34 @@
 * classifies faster and using less memory
 * fixes a bug in entailment of subclasses
 * uses a more efficient way of processing the S-entries and R-entries
-* has a single subproject for the build process, jcel.build, which includes the following subdirectories:
- * jars : contains the external jars needed by the build
- * library : creates the library
- * plugin : creates the plug-in for Protégé
- * standalone : creates a standlone application
+* has a single subproject for the build process, `jcel.build`, which includes the following subdirectories:
+ * `jars` : contains the external jars needed by the build
+ * `library` : creates the library
+ * `plugin` : creates the plug-in for Protégé
+ * `standalone` : creates a standlone application
 
 
 ### v0.17.1
 *(2012-05-04)*
 * corrects the retrieval of equivalent classes
 * excludes the original class when computing ancestors and descendants
-* includes new unit tests in jcel.reasoner and jcel.core
+* includes new unit tests in `jcel.reasoner` and `jcel.core`
 
 
 ### v0.17.0
 *(2012-04-16)*
 * has a more efficient use of memory
 * has the following modules:
- * jcel.coreontology : set of normalized axioms
- * jcel.core : classification algorithms using only normalized axioms
- * jcel.ontology : set of all possible axioms and a procedure to normalize them
- * jcel.reasoner : reasoner that can classify an ontology and can compute entailment
- * jcel.owlapi : OWL API 3.2.4 interface, performs the translation between the OWL API axioms and jcel axioms
- * jcel.protege : module to connect to Protégé
+ * `jcel.coreontology` : set of normalized axioms
+ * `jcel.core` : classification algorithms using only normalized axioms
+ * `jcel.ontology` : set of all possible axioms and a procedure to normalize them
+ * `jcel.reasoner` : reasoner that can classify an ontology and can compute entailment
+ * `jcel.owlapi` : OWL API 3.2.4 interface, performs the translation between the OWL API axioms and jcel axioms
+ * `jcel.protege` : module to connect to Protégé
 and the following modules are used to build the release:
- * jcel.jars : local repository of required jars
- * jcel.bundle : module to create the bundle, i.e., the jar for Protégé
- * jcel.distribution : module to produce the release, which includes libs, javadoc, sources, and the bundle
+ * `jcel.jars` : local repository of required jars
+ * `jcel.bundle` : module to create the bundle, i.e., the jar for Protégé
+ * `jcel.distribution` : module to produce the release, which includes libs, javadoc, sources, and the bundle
 
 
 ### v0.16.1
@@ -91,7 +91,7 @@ and the following modules are used to build the release:
 ### v0.16.0
 *(2011-10-31)*
 * can answer complex queries
-* has a new package in jcel.core (reasoner) to answer the queries, changing the interface between jcel.owlapi and jcel.core
+* has a new package in `jcel.core` (reasoner) to answer the queries, changing the interface between `jcel.owlapi` and `jcel.core`
 * has unique identifiers in the core managed by a factory, making extension and debugging easier
 
 
@@ -99,11 +99,11 @@ and the following modules are used to build the release:
 *(2011-07-11)*
 * breaks the backwards compatibility with OWL API 2.2.0
 * cannot be used in Protégé 4.0.2
-* uses a new module called jcel.ontology which contains the axioms extracted from the core, therefore the modules are:
- * jcel.ontology: interfaces and classes to manage an internal representation of axioms and ontologies
- * jcel.core: interfaces and classes implementing the algorithms used by the reasoner
- * jcel.owlapi: interfaces and classes connecting with the OWL API 3.2.3
- * jcel.protege: interfaces and classes connecting with Protege 4.1 (build 235)
+* uses a new module called `jcel.ontology` which contains the axioms extracted from the core, therefore the modules are:
+ * `jcel.ontology`: interfaces and classes to manage an internal representation of axioms and ontologies
+ * `jcel.core`: interfaces and classes implementing the algorithms used by the reasoner
+ * `jcel.owlapi`: interfaces and classes connecting with the OWL API 3.2.3
+ * `jcel.protege`: interfaces and classes connecting with Protege 4.1 (build 235)
 
 
 ### v0.14.0
@@ -166,10 +166,10 @@ and the following modules are used to build the release:
 * can be used in Protégé 4.0.2
 * has improvements in the core to reduce classification times
 * has the following modules:
- * jcel-core : core, module that makes the classification
- * jcel-owlapi : an OWL API 3 interface, transforms data between the OWL API and the internal representation used by the core
- * jcel-adapter : adapter to transform an OWL API 3 into an OWL API 2, it is an independent module
- * jcel-protege : module to make jcel a plug-in for Protégé 4.0.2
+ * `jcel-core` : core, module that makes the classification
+ * `jcel-owlapi` : an OWL API 3 interface, transforms data between the OWL API and the internal representation used by the core
+ * `jcel-adapter` : adapter to transform an OWL API 3 into an OWL API 2, it is an independent module
+ * `jcel-protege` : module to make jcel a plug-in for Protégé 4.0.2
 
 
 ### v0.5.0
@@ -178,8 +178,8 @@ and the following modules are used to build the release:
 * can be used in Protégé 4.0.2
 * uses the OWL API 2.2.0
 * has the following modules:
- * jcel-core : core
- * jcel-protege : module to make jcel a plug-in for Protégé 4.0.2
+ * `jcel-core` : core
+ * `jcel-protege` : module to make jcel a plug-in for Protégé 4.0.2
 
 
 
