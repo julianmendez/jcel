@@ -38,11 +38,11 @@ $ cd jcel
 $ mvn clean install
 ```
 
-To compile it to be used offline, first download the dependencies:
+To compile the project offline, first download the dependencies:
 ```
 $ mvn dependency:go-offline
 ```
-and then you can compile the project offline with:
+and once offline, use:
 ```
 $ mvn --offline clean install
 ```
