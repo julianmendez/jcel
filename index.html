@@ -23,7 +23,8 @@
 <a id="jcel" class="anchor" href="#jcel" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://julianmendez.github.io/jcel/">jcel</a>
 </h1>
 
-<p><a href="https://travis-ci.org/julianmendez/jcel"><img src="https://travis-ci.org/julianmendez/jcel.png?branch=master" alt="Build Status"></a></p>
+<p><a href="https://travis-ci.org/julianmendez/jcel"><img src="https://travis-ci.org/julianmendez/jcel.png?branch=master" alt="Build Status"></a>
+<a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22de.tu-dresden.inf.lat.jcel%22"><img src="https://maven-badges.herokuapp.com/maven-central/de.tu-dresden.inf.lat.jcel/jcel/badge.svg" alt="Maven Central"></a></p>
 
 <p><strong>jcel</strong> is a reasoner for the <a href="http://dl.kr.org">description logic</a> EL+. It uses the <a href="http://owlcs.github.io/owlapi/">OWL API</a> and can be used as a plug-in for <a href="http://protege.stanford.edu/">Protege</a>.</p>
 
@@ -73,12 +74,12 @@ $ cd jcel
 $ mvn clean install
 </code></pre>
 
-<p>To compile it to be used offline, first download the dependencies:</p>
+<p>To compile the project offline, first download the dependencies:</p>
 
 <pre><code>$ mvn dependency:go-offline
 </code></pre>
 
-<p>and then you can compile the project offline with:</p>
+<p>and once offline, use:</p>
 
 <pre><code>$ mvn --offline clean install
 </code></pre>
