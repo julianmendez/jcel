@@ -154,7 +154,5 @@ Any bug, or unexpected behavior can be reported to the e-mail addresses at this 
 
 ## news [@jcelreasoner](http://twitter.com/jcelreasoner)
 
-(e-mail group: [jcel](https://groups.google.com/group/jcel?lnk=) google group ([join](https://groups.google.com/group/jcel/subscribe?note=1)))
-
 
 
