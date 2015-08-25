@@ -10,7 +10,7 @@ Author: [Julian Mendez](http://lat.inf.tu-dresden.de/~mendez/)
 Licenses: [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt), [LGPL 3.0](http://www.gnu.org/licenses/lgpl-3.0.txt)
 
 
-## [download](http://lat.inf.tu-dresden.de/projects/jcel/files/jcel/0.21.0/zip/jcel-0.21.0.zip)
+## [download](http://sourceforge.net/projects/jcel/files/jcel/0.22.0/zip/jcel-0.22.0.zip/download)
 
 
 ## main features
@@ -132,7 +132,7 @@ If we consider each package as a node, and each dependency between two packages 
 ## [release notes](http://github.com/julianmendez/jcel/blob/master/RELEASE-NOTES.md)
 
 
-## [old versions](http://julianmendez.github.io/jcel/data/oldversions.md)
+## [older versions](http://julianmendez.github.io/jcel/data/oldversions.md)
 
 
 ## [older releases](http://sourceforge.net/projects/jcel/files/)
