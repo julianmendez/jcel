@@ -4,7 +4,7 @@
 
 ### v0.22.0
 *(2015-08-24)*
-* POM files changed: the new `groupId` is `de.tu-dresden.inf.lat.jsexp`
+* POM files changed: the new `groupId` is `de.tu-dresden.inf.lat.jcel`
 * includes Maven POM files to be deployed in [Sonatype](https://oss.sonatype.org/)
 * module `jcel-build` contains only [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/) configuration files, and its submodules became modules:
  * `jcel-library` : creates the library
