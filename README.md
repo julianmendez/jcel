@@ -1,7 +1,7 @@
 # [jcel](http://julianmendez.github.io/jcel/)
 
 [![Build Status](https://travis-ci.org/julianmendez/jcel.png?branch=master)](https://travis-ci.org/julianmendez/jcel)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.tu-dresden.inf.lat.jcel/jcel/badge.svg)](http://search.maven.org/#search|ga|1|g%3A%22de.tu-dresden.inf.lat.jcel%22)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.tu-dresden.inf.lat.jcel/jcel-parent/badge.svg)](http://search.maven.org/#search|ga|1|g%3A%22de.tu-dresden.inf.lat.jcel%22)
 
 **jcel** is a reasoner for the [description logic](http://dl.kr.org) EL+. It uses the [OWL API](http://owlcs.github.io/owlapi/) and can be used as a plug-in for [Protege](http://protege.stanford.edu/).
 
