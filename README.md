@@ -152,12 +152,7 @@ If we consider each package as a node, and each dependency between two packages 
 Any bug, or unexpected behavior can be reported to the e-mail addresses at this [web page](http://lat.inf.tu-dresden.de/~mendez). Questions and suggestions are also very welcome.
 
 
-## news [@jcelreasoner](http://twitter.com/jcelreasoner)
-
-
-<a class="twitter-timeline" href="https://twitter.com/jcelreasoner" data-widget-id="636204923491889152">Tweets by @jcelreasoner</a>
-
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+## news [@jcelreasoner](https://twitter.com/jcelreasoner)
 
 
 
