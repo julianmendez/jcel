@@ -58,11 +58,6 @@ $ cd target
 $ jar -cf bundle.jar jcel-*
 ```
 
-To compile it with [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/):
-```
-$ ant
-```
-
 The library, its sources and its Javadoc will be in `jcel-library/target`, the plug-in will be in `jcel-plugin/target`, the standalone will be in `jcel-standalone/target`, and the release ZIP file will be in `target`.
 
 
