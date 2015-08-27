@@ -5,10 +5,6 @@
 
 **jcel** is a reasoner for the [description logic](http://dl.kr.org) EL+. It uses the [OWL API](http://owlcs.github.io/owlapi/) and can be used as a plug-in for [Protege](http://protege.stanford.edu/).
 
-Author: [Julian Mendez](http://lat.inf.tu-dresden.de/~mendez/)
-
-Licenses: [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt), [LGPL 3.0](http://www.gnu.org/licenses/lgpl-3.0.txt)
-
 
 ## download
 * [all-in-one ZIP file](http://sourceforge.net/projects/jcel/files/jcel/0.22.0/zip/jcel-0.22.0.zip/download)
@@ -22,6 +18,15 @@ Licenses: [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt), [LGPL 3.
   <version>0.22.0</version>
 </dependency>
 ```
+
+
+## author
+[Julian Mendez](http://lat.inf.tu-dresden.de/~mendez/)
+
+
+## licenses
+[Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt), [LGPL 3.0](http://www.gnu.org/licenses/lgpl-3.0.txt)
+
 
 ## main features
 
@@ -133,19 +138,19 @@ If we consider each package as a node, and each dependency between two packages 
 * OWL 2: [OWL Working Group](http://www.w3.org/2007/OWL/wiki/OWL_Working_Group)
 
 
-## [release notes](http://github.com/julianmendez/jcel/blob/master/RELEASE-NOTES.md)
+## release notes
+See [release notes](http://github.com/julianmendez/jcel/blob/master/RELEASE-NOTES.md)
 
 
-## [older versions](http://julianmendez.github.io/jcel/data/oldversions.md)
+## older versions
+* [build instructions](http://julianmendez.github.io/jcel/data/oldversions.md)
+* [Git SHA](http://julianmendez.github.io/jcel/data/gitsha.txt) 
+* [old SVN revision](http://julianmendez.github.io/jcel/data/svnrev.txt)
+* [releases](http://sourceforge.net/projects/jcel/files/)
 
 
-## [Git SHA](http://julianmendez.github.io/jcel/data/gitsha.txt) 
-
-
-## [old SVN revision](http://julianmendez.github.io/jcel/data/svnrev.txt)
-
-
-## [frequently asked questions](http://julianmendez.github.io/jcel/data/faq.md)
+## more information
+* [Frequently Asked Questions](http://julianmendez.github.io/jcel/data/faq.md)
 
 
 ## support
@@ -153,7 +158,8 @@ If we consider each package as a node, and each dependency between two packages 
 Any bug, or unexpected behavior can be reported to the e-mail addresses at this [web page](http://lat.inf.tu-dresden.de/~mendez). Questions and suggestions are also very welcome.
 
 
-## news [@jcelreasoner](https://twitter.com/jcelreasoner)
+## news
+[@jcelreasoner](https://twitter.com/jcelreasoner)
 
 
 
