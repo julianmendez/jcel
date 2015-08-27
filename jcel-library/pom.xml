@@ -78,7 +78,7 @@
 
 		<mainClass>de.tudresden.inf.lat.jcel.owlapi.console.ConsoleStarter</mainClass>
 
-		<bundle.licenses>copying-lesser.txt,copying.txt</bundle.licenses>
+		<bundle.licenses>COPYING-LESSER.txt,COPYING.txt</bundle.licenses>
 	</properties>
 
 	<build>
@@ -148,8 +148,8 @@
 							@jcel-reasoner-${project.version}.jar,
 							@jcel-owlapi-${project.version}.jar,
 							LICENSE.txt=../LICENSE.txt,
-							copying.txt=../copying.txt,
-							copying-lesser.txt=../copying-lesser.txt
+							COPYING.txt=../COPYING.txt,
+							COPYING-LESSER.txt=../COPYING-LESSER.txt
 						</Include-Resource>
 					</instructions>
 				</configuration>

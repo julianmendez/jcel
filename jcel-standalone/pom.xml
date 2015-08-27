@@ -276,8 +276,8 @@
 							@sesame-util-2.7.12.jar,
 							@trove4j-3.0.3.jar,
 							LICENSE.txt=../LICENSE.txt,
-							copying.txt=../copying.txt,
-							copying-lesser.txt=../copying-lesser.txt
+							COPYING.txt=../COPYING.txt,
+							COPYING-LESSER.txt=../COPYING-LESSER.txt
 						</Include-Resource>
 					</instructions>
 				</configuration>
