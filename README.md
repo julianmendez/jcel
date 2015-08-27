@@ -10,8 +10,18 @@ Author: [Julian Mendez](http://lat.inf.tu-dresden.de/~mendez/)
 Licenses: [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt), [LGPL 3.0](http://www.gnu.org/licenses/lgpl-3.0.txt)
 
 
-## [download](http://sourceforge.net/projects/jcel/files/jcel/0.22.0/zip/jcel-0.22.0.zip/download)
-
+## download
+* [all-in-one ZIP file](http://sourceforge.net/projects/jcel/files/jcel/0.22.0/zip/jcel-0.22.0.zip/download)
+* [The Central Repository](https://repo1.maven.org/maven2/de/tu-dresden/inf/lat/jcel/)
+* [older releases](http://sourceforge.net/projects/jcel/files/)
+* as dependency:
+```
+<dependency>
+  <groupId>de.tu-dresden.inf.lat.jcel</groupId>
+  <artifactId>jcel-owlapi</artifactId>
+  <version>0.22.0</version>
+</dependency>
+```
 
 ## main features
 
@@ -127,9 +137,6 @@ If we consider each package as a node, and each dependency between two packages 
 
 
 ## [older versions](http://julianmendez.github.io/jcel/data/oldversions.md)
-
-
-## [older releases](http://sourceforge.net/projects/jcel/files/)
 
 
 ## [Git SHA](http://julianmendez.github.io/jcel/data/gitsha.txt) 
