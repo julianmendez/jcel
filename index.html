@@ -33,8 +33,20 @@
 <p>Licenses: <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a>, <a href="http://www.gnu.org/licenses/lgpl-3.0.txt">LGPL 3.0</a></p>
 
 <h2>
-<a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://sourceforge.net/projects/jcel/files/jcel/0.22.0/zip/jcel-0.22.0.zip/download">download</a>
-</h2>
+<a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>download</h2>
+
+<ul>
+<li><a href="http://sourceforge.net/projects/jcel/files/jcel/0.22.0/zip/jcel-0.22.0.zip/download">all-in-one ZIP file</a></li>
+<li><a href="https://repo1.maven.org/maven2/de/tu-dresden/inf/lat/jcel/">The Central Repository</a></li>
+<li><a href="http://sourceforge.net/projects/jcel/files/">older releases</a></li>
+<li>as dependency:</li>
+</ul>
+
+<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">dependency</span>&gt;
+  &lt;<span class="pl-ent">groupId</span>&gt;de.tu-dresden.inf.lat.jcel&lt;/<span class="pl-ent">groupId</span>&gt;
+  &lt;<span class="pl-ent">artifactId</span>&gt;jcel-owlapi&lt;/<span class="pl-ent">artifactId</span>&gt;
+  &lt;<span class="pl-ent">version</span>&gt;0.22.0&lt;/<span class="pl-ent">version</span>&gt;
+&lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
 
 <h2>
 <a id="main-features" class="anchor" href="#main-features" aria-hidden="true"><span class="octicon octicon-link"></span></a>main features</h2>
@@ -95,11 +107,6 @@ $ mvn clean install
 $ jar -cf bundle.jar jcel-*
 </code></pre>
 
-<p>To compile it with <a href="http://ant.apache.org/ivy/">Apache Ant + Apache Ivy</a>:</p>
-
-<pre><code>$ ant
-</code></pre>
-
 <p>The library, its sources and its Javadoc will be in <code>jcel-library/target</code>, the plug-in will be in <code>jcel-plugin/target</code>, the standalone will be in <code>jcel-standalone/target</code>, and the release ZIP file will be in <code>target</code>.</p>
 
 <h2>
@@ -125,8 +132,6 @@ $ jar -cf bundle.jar jcel-*
 <p>It also has the following module used to build the release:</p>
 
 <ul>
-<li>
-<strong>jcel-build</strong> : module to produce the release using Apache Ant</li>
 <li>
 <strong>jcel-library</strong> : module to create the library, its sources and its javadoc</li>
 <li>
@@ -208,10 +213,6 @@ $ jar -cf bundle.jar jcel-*
 
 <h2>
 <a id="older-versions" class="anchor" href="#older-versions" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://julianmendez.github.io/jcel/data/oldversions.md">older versions</a>
-</h2>
-
-<h2>
-<a id="older-releases" class="anchor" href="#older-releases" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://sourceforge.net/projects/jcel/files/">older releases</a>
 </h2>
 
 <h2>
