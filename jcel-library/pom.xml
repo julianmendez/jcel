@@ -77,8 +77,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<mainClass>de.tudresden.inf.lat.jcel.owlapi.console.ConsoleStarter</mainClass>
-
-		<bundle.licenses>COPYING-LESSER.txt,COPYING.txt</bundle.licenses>
 	</properties>
 
 	<build>

@@ -88,10 +88,7 @@
 
 		<mainClass>de.tudresden.inf.lat.jcel.owlapi.console.ConsoleStarter</mainClass>
 
-		<bundle.version>0.23.0-SNAPSHOT.SNAPSHOT</bundle.version>
 		<bundle.activator>org.protege.editor.core.plugin.DefaultPluginActivator</bundle.activator>
-		<bundle.jars>lib/jcel/jcel-coreontology/0.23.0-SNAPSHOT/jcel-coreontology-0.23.0-SNAPSHOT.jar,lib/jcel/jcel-core/0.23.0-SNAPSHOT/jcel-core-0.23.0-SNAPSHOT.jar,lib/jcel/jcel-ontology/0.23.0-SNAPSHOT/jcel-ontology-0.23.0-SNAPSHOT.jar,lib/jcel/jcel-reasoner/0.23.0-SNAPSHOT/jcel-reasoner-0.23.0-SNAPSHOT.jar,lib/jcel/jcel-owlapi/0.23.0-SNAPSHOT/jcel-owlapi-0.23.0-SNAPSHOT.jar</bundle.jars>
-		<bundle.licenses>lib/jcel/jcel-coreontology/0.23.0-SNAPSHOT/*.txt,lib/jcel/jcel-core/0.23.0-SNAPSHOT/*.txt,lib/jcel/jcel-ontology/0.23.0-SNAPSHOT/*.txt,lib/jcel/jcel-reasoner/0.23.0-SNAPSHOT/*.txt,lib/jcel/jcel-owlapi/0.23.0-SNAPSHOT/*.txt</bundle.licenses>
 		<bundle.classpath>.,lib/jcel/jcel-coreontology/0.23.0-SNAPSHOT/jcel-coreontology-0.23.0-SNAPSHOT.jar,lib/jcel/jcel-core/0.23.0-SNAPSHOT/jcel-core-0.23.0-SNAPSHOT.jar,lib/jcel/jcel-ontology/0.23.0-SNAPSHOT/jcel-ontology-0.23.0-SNAPSHOT.jar,lib/jcel/jcel-reasoner/0.23.0-SNAPSHOT/jcel-reasoner-0.23.0-SNAPSHOT.jar,lib/jcel/jcel-owlapi/0.23.0-SNAPSHOT/jcel-owlapi-0.23.0-SNAPSHOT.jar</bundle.classpath>
 		<import.package>javax.accessibility,javax.swing,javax.swing.border,org.osgi.framework,org.protege.editor.core.ui.workspace,org.semanticweb.*;resolution:=optional,*</import.package>
 		<require.bundle>org.eclipse.equinox.registry,org.eclipse.equinox.common,org.protege.editor.core.application,org.protege.editor.owl,org.semanticweb.owl.owlapi</require.bundle>
