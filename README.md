@@ -15,7 +15,7 @@ Licenses: [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt), [LGPL 3.
 * [The Central Repository](https://repo1.maven.org/maven2/de/tu-dresden/inf/lat/jcel/)
 * [older releases](http://sourceforge.net/projects/jcel/files/)
 * as dependency:
-```
+```xml
 <dependency>
   <groupId>de.tu-dresden.inf.lat.jcel</groupId>
   <artifactId>jcel-owlapi</artifactId>
