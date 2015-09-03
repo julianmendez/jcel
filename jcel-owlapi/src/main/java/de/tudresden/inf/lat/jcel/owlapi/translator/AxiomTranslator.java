@@ -168,7 +168,7 @@ public class AxiomTranslator implements
 		return this.classExpressionTranslator;
 	}
 
-	private IntegerDataTypeFactory getDataTypeFactory() {
+	public IntegerDataTypeFactory getDataTypeFactory() {
 		return this.factory.getDataTypeFactory();
 	}
 
