@@ -360,11 +360,11 @@ public class CelProcessor implements Processor {
 		return this.entityManager;
 	}
 
-	private CelExtendedOntology getExtendedOntology() {
+	protected CelExtendedOntology getExtendedOntology() {
 		return this.extendedOntology;
 	}
 
-	private IntegerSubsumerGraph getObjectPropertyGraph() {
+	protected IntegerSubsumerGraph getObjectPropertyGraph() {
 		return this.objectPropertyGraph;
 	}
 
@@ -573,7 +573,7 @@ public class CelProcessor implements Processor {
 
 		logger.finer("auxiliary classes created (including nominals) : "
 				+ getEntityManager().getEntities(IntegerEntityType.CLASS, true)
-				.size());
+						.size());
 		logger.finer("auxiliary classes created for nominals : "
 				+ (getEntityManager().getIndividuals().size()));
 		logger.finer("auxiliary object properties created : "

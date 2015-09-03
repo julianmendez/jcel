@@ -418,11 +418,11 @@ public class RuleBasedProcessor implements Processor {
 		return Collections.unmodifiableMap(this.directTypes);
 	}
 
-	private IntegerEntityManager getEntityManager() {
+	protected IntegerEntityManager getEntityManager() {
 		return this.entityManager;
 	}
 
-	private IntegerSubsumerGraph getObjectPropertyGraph() {
+	protected IntegerSubsumerGraph getObjectPropertyGraph() {
 		return this.status.getObjectPropertyGraph();
 	}
 
