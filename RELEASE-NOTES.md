@@ -128,7 +128,8 @@ $ ant
 $ cd jcel/jcel.build
 $ ant
 ```
-* release: `jcel/jcel.build/plugin/target/de.tudresden.inf.lat.jcel.jar`
+* release: `jcel/jcel.build/target/jcel-0.18.1.zip`
+* plug-in: `jcel/jcel.build/plugin/target/de.tudresden.inf.lat.jcel.jar`
 
 
 ### v0.18.0
@@ -146,7 +147,8 @@ $ ant
 $ cd jcel/jcel.build
 $ ant
 ```
-* release: `jcel/jcel.build/plugin/target/de.tudresden.inf.lat.jcel.jar`
+* release: `jcel/jcel.build/target/jcel-0.18.0.zip`
+* plug-in: `jcel/jcel.build/plugin/target/de.tudresden.inf.lat.jcel.jar`
 
 
 ### v0.17.1
@@ -159,7 +161,8 @@ $ ant
 $ cd jcel/jcel.distribution
 $ ant
 ```
-* release: `jcel/jcel.bundle/target/de.tudresden.inf.lat.jcel.jar`
+* release: `jcel/jcel.distribution/target/jcel-0.17.1.zip`
+* plug-in: `jcel/jcel.bundle/target/de.tudresden.inf.lat.jcel.jar`
 
 
 ### v0.17.0
@@ -181,7 +184,8 @@ and the following modules are used to build the release:
 $ cd jcel/jcel.distribution
 $ ant
 ```
-* release: `jcel/jcel.bundle/target/de.tudresden.inf.lat.jcel.jar`
+* release: `jcel/jcel.distribution/target/jcel-0.17.0.zip`
+* plug-in: `jcel/jcel.bundle/target/de.tudresden.inf.lat.jcel.jar`
 
 
 ### v0.16.1
