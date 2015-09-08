@@ -39,7 +39,7 @@
 $ mvn clean install
 ```
 * release: `target/jcel-0.23.0.zip`
-* plug-in: `jcel-plugin/target/de.tudresden.inf.lat.jcel-0.23.0.jar`
+* plug-in: `jcel-plugin/target/de.tu-dresden.inf.lat.jcel-0.23.0.jar`
 
 
 ### v0.22.0
@@ -58,13 +58,13 @@ $ mvn clean install
 $ mvn clean install
 ```
 * release: `target/jcel-0.22.0.zip`
-* plug-in: `jcel-plugin/target/de.tudresden.inf.lat.jcel-0.22.0.jar`
+* plug-in: `jcel-plugin/target/de.tu-dresden.inf.lat.jcel-0.22.0.jar`
 * or
 ```
 $ ant
 ```
 * release: `jcel-build/target/jcel-0.22.0.zip`
-* plug-in: `jcel-plugin/target/de.tudresden.inf.lat.jcel-0.22.0.jar`
+* plug-in: `jcel-plugin/target/de.tu-dresden.inf.lat.jcel-0.22.0.jar`
 
 
 ### v0.21.0
