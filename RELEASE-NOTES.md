@@ -34,8 +34,12 @@
 * does not longer have [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/) build files
 * module `jcel-build` has been removed
 * plug-in for Protégé can be used as a library
-plug-in: `jcel-plugin/target/de.tudresden.inf.lat.jcel-0.23.0.jar`
-release: `target/jcel-0.23.0.zip`
+* build commands:
+```
+$ mvn clean install
+```
+* release: `target/jcel-0.23.0.zip`
+* plug-in: `jcel-plugin/target/de.tudresden.inf.lat.jcel-0.23.0.jar`
 
 
 ### v0.22.0
@@ -57,7 +61,8 @@ $ mvn clean install
 ```
 $ ant
 ```
-* release: `jcel-plugin/target/de.tudresden.inf.lat.jcel.jar`
+* release: `target/jcel-0.22.0.zip`
+* plug-in: `jcel-plugin/target/de.tudresden.inf.lat.jcel-0.22.0.jar`
 
 
 ### v0.21.0
@@ -68,6 +73,7 @@ $ ant
 $ cd jcel/jcel-build
 $ ant
 ```
+* release: `jcel/jcel-build/target/jcel-0.21.0.zip`
 * plug-in: `jcel/jcel-build/jcel-plugin/target/de.tudresden.inf.lat.jcel.jar`
 
 
@@ -79,7 +85,8 @@ $ ant
 $ cd jcel/jcel-build
 $ ant
 ```
-* release: `jcel/jcel-build/plugin/target/de.tudresden.inf.lat.jcel.jar`
+* release: `jcel/jcel-build/target/jcel-0.20.0.zip`
+* plug-in: `jcel/jcel-build/plugin/target/de.tudresden.inf.lat.jcel.jar`
 
 
 ### v0.19.1
@@ -90,7 +97,8 @@ $ ant
 $ cd jcel/jcel-build
 $ ant
 ```
-* release: `jcel/jcel-build/plugin/target/de.tudresden.inf.lat.jcel.jar`
+* release: `jcel/jcel-build/target/jcel-0.19.0.zip`
+* plug-in: `jcel/jcel-build/plugin/target/de.tudresden.inf.lat.jcel.jar`
 
 
 ### v0.19.0
@@ -105,7 +113,8 @@ $ ant
 $ cd jcel/jcel-build
 $ ant
 ```
-* release: `jcel/jcel-build/plugin/target/de.tudresden.inf.lat.jcel.jar`
+* release: `jcel/jcel-build/target/jcel-0.19.0.zip`
+* plug-in: `jcel/jcel-build/plugin/target/de.tudresden.inf.lat.jcel.jar`
 
 
 ### v0.18.2
@@ -117,7 +126,8 @@ $ ant
 $ cd jcel/jcel.build
 $ ant
 ```
-* release: `jcel/jcel.build/plugin/target/de.tudresden.inf.lat.jcel.jar`
+* release: `jcel/jcel.build/target/jcel-0.18.2.zip`
+* plug-in: `jcel/jcel.build/plugin/target/de.tudresden.inf.lat.jcel.jar`
 
 
 ### v0.18.1
