@@ -34,6 +34,8 @@
 * does not longer have [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/) build files
 * module `jcel-build` has been removed
 * plug-in for Protégé can be used as a library
+plug-in: `jcel-plugin/target/de.tudresden.inf.lat.jcel-0.23.0.jar`
+release: `target/jcel-0.23.0.zip`
 
 
 ### v0.22.0
@@ -47,11 +49,23 @@
  * `jcel-standalone` : creates a standlone application
  * `jcel-distribution` : creates the release 
 * uses the OWL API 3.5.1, and produces a plug-in for Protégé 5.0.0 .
+* build commands:
+```
+$ mvn clean install
+```
+plug-in: `jcel-plugin/target/de.tudresden.inf.lat.jcel-0.22.0.jar`
+release: `target/jcel-0.22.0.zip`
 
 
 ### v0.21.0
 *(2015-04-13)*
 * normalizes the ontology propagating the annotations
+* build commands:
+```
+$ cd jcel/jcel-build
+$ ant
+```
+plug-in: `jcel/jcel-build/jcel-plugin/target/de.tudresden.inf.lat.jcel.jar`
 
 
 ### v0.20.0
