@@ -143,7 +143,6 @@ See [release notes](http://github.com/julianmendez/jcel/blob/master/RELEASE-NOTE
 
 
 ## older versions
-* [build instructions](http://github.com/julianmendez/jcel/blob/gh-pages/data/oldversions.md)
 * [Git SHA](http://julianmendez.github.io/jcel/data/gitsha.txt) 
 * [old SVN revision](http://julianmendez.github.io/jcel/data/svnrev.txt)
 * [releases](http://sourceforge.net/projects/jcel/files/)
