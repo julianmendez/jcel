@@ -70,7 +70,12 @@ $ ant
 * normalizes the ontology propagating the annotations
 * build commands:
 ```
-$ cd jcel/jcel-build
+$ cd jcel
+$ mvn clean install
+```
+* or
+```
+$ cd jcel
 $ ant
 ```
 * release: `jcel/jcel-build/target/jcel-0.21.0.zip`
