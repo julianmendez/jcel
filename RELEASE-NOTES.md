@@ -58,6 +58,7 @@ $ mvn clean install
 $ mvn clean install
 ```
 * release: `target/jcel-0.22.0.zip`
+* plug-in: `jcel-plugin/target/de.tudresden.inf.lat.jcel-0.22.0.jar`
 * or
 ```
 $ ant
