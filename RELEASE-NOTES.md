@@ -97,7 +97,7 @@ $ ant
 $ cd jcel/jcel-build
 $ ant
 ```
-* release: `jcel/jcel-build/target/jcel-0.19.0.zip`
+* release: `jcel/jcel-build/target/jcel-0.19.1.zip`
 * plug-in: `jcel/jcel-build/plugin/target/de.tudresden.inf.lat.jcel.jar`
 
 
