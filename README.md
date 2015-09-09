@@ -54,6 +54,8 @@ $ cd jcel
 $ mvn clean install
 ```
 
+The library, its sources and its Javadoc will be in `jcel-library/target`, the plug-in will be in `jcel-plugin/target`, the standalone will be in `jcel-standalone/target`, and the release ZIP file will be in `target`.
+
 To compile the project offline, first download the dependencies:
 ```
 $ mvn dependency:go-offline
@@ -72,8 +74,11 @@ and then on each module:
 $ cd target
 $ jar -cf bundle.jar jcel-*
 ```
-
-The library, its sources and its Javadoc will be in `jcel-library/target`, the plug-in will be in `jcel-plugin/target`, the standalone will be in `jcel-standalone/target`, and the release ZIP file will be in `target`.
+and then on the main directory:
+```
+$ cd target
+$ jar -cf bundle.jar jcel-parent-*
+```
 
 
 ## modules
