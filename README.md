@@ -74,7 +74,7 @@ and then on each module:
 $ cd target
 $ jar -cf bundle.jar jcel-*
 ```
-and then on the main directory:
+and on the main directory:
 ```
 $ cd target
 $ jar -cf bundle.jar jcel-parent-*
