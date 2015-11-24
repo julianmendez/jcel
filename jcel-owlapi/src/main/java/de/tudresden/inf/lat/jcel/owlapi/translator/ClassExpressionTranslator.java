@@ -184,7 +184,7 @@ public class ClassExpressionTranslator implements
 		Integer dataPropertyId = getObjectPropertyExpressionTranslator()
 				.getTranslationRepository().getId(
 						ce.getProperty().asOWLDataProperty());
-		Integer literalId = getTranslationRepository().getId(ce.getValue());
+		Integer literalId = getTranslationRepository().getId(ce.getFiller());
 		return getDataTypeFactory().createDataHasValue(dataPropertyId,
 				literalId);
 	}
