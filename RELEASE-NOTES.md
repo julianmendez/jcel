@@ -32,9 +32,10 @@
 ### v0.23.0
 *(2015-11-27)*
 * does not longer have [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/) build files
-* module `jcel-build` has been removed
-* plug-in for Protégé can be used as a library
-* uses the OWL API 4.1.3, and can be used as a plug-in for Protégé 5.0.0 .
+* uses the OWL API 4.1.3
+* can be used as a plug-in for Protégé 5.0.0
+* the plug-in for Protégé can be used as a library
+* the module `jcel-build` has been removed
 * build commands:
 ```
 $ mvn clean install
