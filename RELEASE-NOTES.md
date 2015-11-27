@@ -3,7 +3,7 @@
 
 | version | release date | Java | OWL API       | Protégé       |
 |:--------|:-------------|:----:|:--------------|:--------------|
-| v0.23.0 | *unreleased* | 7    | 4.1.3         | 5.0.0         |
+| v0.23.0 | 2015-11-27   | 7    | 4.1.3         | 5.0.0         |
 | v0.22.0 | 2015-08-24   | 7    | 3.5.1         | 5.0.0-beta-17 |
 | v0.21.0 | 2015-04-13   | 7    | 3.5.0         | 4.3.0         |
 | v0.20.0 | 2014-05-18   | 7    | 3.5.0         | 4.3.0         |
@@ -30,11 +30,11 @@
 
 
 ### v0.23.0
-*(unreleased)*
+*(2015-11-27)*
 * does not longer have [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/) build files
 * module `jcel-build` has been removed
 * plug-in for Protégé can be used as a library
-* uses the OWL API 4.1.3, and produces a plug-in for Protégé 5.0.0 .
+* uses the OWL API 4.1.3, and can be used as a plug-in for Protégé 5.0.0 .
 * build commands:
 ```
 $ mvn clean install
@@ -53,7 +53,7 @@ $ mvn clean install
  * `jcel-plugin` : creates the plug-in for Protégé
  * `jcel-standalone` : creates a standlone application
  * `jcel-distribution` : creates the release 
-* uses the OWL API 3.5.1, and produces a plug-in for Protégé 5.0.0-beta-17 .
+* uses the OWL API 3.5.1, and can be used as a plug-in for Protégé 5.0.0-beta-17 .
 * build commands:
 ```
 $ mvn clean install
