@@ -3,7 +3,7 @@
 
 | version | release date | Java | OWL API       | Protégé       |
 |:--------|:-------------|:----:|:--------------|:--------------|
-| v0.23.0 | 2015-11-27   | 7    | 4.1.3         | 5.0.0         |
+| v0.23.0 | 2015-11-30   | 7    | 4.1.3         | 5.0.0         |
 | v0.22.0 | 2015-08-24   | 7    | 3.5.1         | 5.0.0-beta-17 |
 | v0.21.0 | 2015-04-13   | 7    | 3.5.0         | 4.3.0         |
 | v0.20.0 | 2014-05-18   | 7    | 3.5.0         | 4.3.0         |
@@ -30,7 +30,7 @@
 
 
 ### v0.23.0
-*(2015-11-27)*
+*(2015-11-30)*
 * does not longer have [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/) build files
 * uses the OWL API 4.1.3
 * can be used as a plug-in for Protégé 5.0.0
