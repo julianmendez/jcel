@@ -86,15 +86,15 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	private static final int topObjectPropertyId = IntegerEntityManager.topObjectPropertyId;
 
 	private IntegerSubsumerGraphImpl classGraph = null;
-	private final Map<Integer, Set<Integer>> cognateFunctPropMap = new HashMap<Integer, Set<Integer>>();
+	private final Map<Integer, Set<Integer>> cognateFunctPropMap = new HashMap<>();
 	private final ExtendedOntology extendedOntology;
 	private IntegerEntityManager entityManager = null;
-	private final Map<VNodeImpl, Integer> invNodeSet = new HashMap<VNodeImpl, Integer>();
+	private final Map<VNodeImpl, Integer> invNodeSet = new HashMap<>();
 	private final Object monitorClassGraph = new Object();
 	private final Object monitorRelationSet = new Object();
 	private final Object monitorSetQsubR = new Object();
 	private final Object monitorSetQsubS = new Object();
-	private final Map<Integer, VNodeImpl> nodeSet = new HashMap<Integer, VNodeImpl>();
+	private final Map<Integer, VNodeImpl> nodeSet = new HashMap<>();
 	private IntegerSubsumerBidirectionalGraphImpl objectPropertyGraph = null;
 	private IntegerRelationMapImpl relationSet = null;
 	private final Set<REntry> setQsubR = new TreeSet<REntry>();
@@ -210,7 +210,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 			for (int r : cognates) {
 				Set<Integer> currentSet = this.cognateFunctPropMap.get(r);
 				if (currentSet == null) {
-					currentSet = new HashSet<Integer>();
+					currentSet = new HashSet<>();
 					this.cognateFunctPropMap.put(r, currentSet);
 				}
 				currentSet.addAll(cognates);
@@ -348,7 +348,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	@Override
 	public Collection<Integer> getFirstBySecond(int propertyId, int classId) {
-		Collection<Integer> ret = new TreeSet<Integer>();
+		Collection<Integer> ret = new TreeSet<>();
 		synchronized (this.monitorRelationSet) {
 			ret.addAll(this.relationSet.getBySecond(propertyId, classId));
 		}
@@ -403,7 +403,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	@Override
 	public Collection<Integer> getObjectPropertiesByFirst(int cA) {
-		Collection<Integer> ret = new TreeSet<Integer>();
+		Collection<Integer> ret = new TreeSet<>();
 		synchronized (this.monitorRelationSet) {
 			ret.addAll(this.relationSet.getRelationsByFirst(cA));
 		}
@@ -412,7 +412,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	@Override
 	public Collection<Integer> getObjectPropertiesBySecond(int cA) {
-		Collection<Integer> ret = new TreeSet<Integer>();
+		Collection<Integer> ret = new TreeSet<>();
 		synchronized (this.monitorRelationSet) {
 			ret.addAll(this.relationSet.getRelationsBySecond(cA));
 		}
@@ -455,7 +455,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	@Override
 	public Collection<Integer> getSecondByFirst(int propertyId, int classId) {
-		Collection<Integer> ret = new TreeSet<Integer>();
+		Collection<Integer> ret = new TreeSet<>();
 		synchronized (this.monitorRelationSet) {
 			ret.addAll(this.relationSet.getByFirst(propertyId, classId));
 		}
@@ -496,7 +496,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 			hasChanged = false;
 			for (int elem : graph.getElements()) {
 				Collection<Integer> subsumerSet = graph.getSubsumers(elem);
-				Set<Integer> allSubsumers = new HashSet<Integer>();
+				Set<Integer> allSubsumers = new HashSet<>();
 				allSubsumers.add(elem);
 				for (int otherElem : subsumerSet) {
 					allSubsumers.addAll(graph.getSubsumers(otherElem));

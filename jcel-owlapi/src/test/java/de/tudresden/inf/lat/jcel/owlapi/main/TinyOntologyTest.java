@@ -109,7 +109,7 @@ public class TinyOntologyTest extends TestCase {
 	public void testTinyOntology0() throws OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		OWLDataFactory factory = manager.getOWLDataFactory();
-		Set<OWLAxiom> axiomSet = new HashSet<OWLAxiom>();
+		Set<OWLAxiom> axiomSet = new HashSet<>();
 		OWLClass a = createNewClass(factory, "A");
 		OWLClass b = createNewClass(factory, "B");
 		OWLClass c = createNewClass(factory, "C");
@@ -150,7 +150,7 @@ public class TinyOntologyTest extends TestCase {
 	public void testTinyOntology1() throws OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		OWLDataFactory factory = manager.getOWLDataFactory();
-		Set<OWLAxiom> axiomSet = new HashSet<OWLAxiom>();
+		Set<OWLAxiom> axiomSet = new HashSet<>();
 		OWLClass a = createNewClass(factory, "A");
 		OWLClass b = createNewClass(factory, "B");
 		OWLClass c = createNewClass(factory, "C");
@@ -194,7 +194,7 @@ public class TinyOntologyTest extends TestCase {
 	public void testTinyOntology2() throws OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		OWLDataFactory factory = manager.getOWLDataFactory();
-		Set<OWLAxiom> axiomSet = new HashSet<OWLAxiom>();
+		Set<OWLAxiom> axiomSet = new HashSet<>();
 		OWLClass a = createNewClass(factory, "A");
 		OWLClass b = createNewClass(factory, "B");
 
@@ -234,7 +234,7 @@ public class TinyOntologyTest extends TestCase {
 	public void testTinyOntology3() throws OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		OWLDataFactory factory = manager.getOWLDataFactory();
-		Set<OWLAxiom> axiomSet = new HashSet<OWLAxiom>();
+		Set<OWLAxiom> axiomSet = new HashSet<>();
 		OWLClass a = createNewClass(factory, "A");
 		OWLClass b = createNewClass(factory, "B");
 
@@ -278,7 +278,7 @@ public class TinyOntologyTest extends TestCase {
 	public void testTinyOntology4() throws OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		OWLDataFactory factory = manager.getOWLDataFactory();
-		Set<OWLAxiom> axiomSet = new HashSet<OWLAxiom>();
+		Set<OWLAxiom> axiomSet = new HashSet<>();
 		OWLClass a = createNewClass(factory, "A");
 		OWLClass b = createNewClass(factory, "B");
 
@@ -325,7 +325,7 @@ public class TinyOntologyTest extends TestCase {
 	public void testTinyOntology5() throws OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		OWLDataFactory factory = manager.getOWLDataFactory();
-		Set<OWLAxiom> axiomSet = new HashSet<OWLAxiom>();
+		Set<OWLAxiom> axiomSet = new HashSet<>();
 		OWLClass a1 = createNewClass(factory, "A1");
 		OWLClass a2 = createNewClass(factory, "A2");
 		OWLClass a3 = createNewClass(factory, "A3");
@@ -334,12 +334,12 @@ public class TinyOntologyTest extends TestCase {
 		OWLClass d = createNewClass(factory, "D");
 
 		{
-			Set<OWLClassExpression> conjunction = new HashSet<OWLClassExpression>();
+			Set<OWLClassExpression> conjunction = new HashSet<>();
 			conjunction.add(a1);
 			conjunction.add(a2);
 			conjunction.add(a3);
 			OWLClassExpression defOfC = factory.getOWLObjectIntersectionOf(conjunction);
-			Set<OWLClassExpression> equivClasses = new HashSet<OWLClassExpression>();
+			Set<OWLClassExpression> equivClasses = new HashSet<>();
 			equivClasses.add(c);
 			equivClasses.add(defOfC);
 
@@ -348,12 +348,12 @@ public class TinyOntologyTest extends TestCase {
 		}
 
 		{
-			Set<OWLClassExpression> conjunction = new HashSet<OWLClassExpression>();
+			Set<OWLClassExpression> conjunction = new HashSet<>();
 			conjunction.add(a2);
 			conjunction.add(a3);
 			conjunction.add(a4);
 			OWLClassExpression defOfD = factory.getOWLObjectIntersectionOf(conjunction);
-			Set<OWLClassExpression> equivClasses = new HashSet<OWLClassExpression>();
+			Set<OWLClassExpression> equivClasses = new HashSet<>();
 			equivClasses.add(d);
 			equivClasses.add(defOfD);
 
@@ -363,7 +363,7 @@ public class TinyOntologyTest extends TestCase {
 
 		{
 
-			Set<OWLClassExpression> equivClasses = new HashSet<OWLClassExpression>();
+			Set<OWLClassExpression> equivClasses = new HashSet<>();
 			equivClasses.add(a1);
 			equivClasses.add(factory.getOWLThing());
 
@@ -373,7 +373,7 @@ public class TinyOntologyTest extends TestCase {
 
 		{
 
-			Set<OWLClassExpression> equivClasses = new HashSet<OWLClassExpression>();
+			Set<OWLClassExpression> equivClasses = new HashSet<>();
 			equivClasses.add(a4);
 			equivClasses.add(factory.getOWLThing());
 
@@ -411,7 +411,7 @@ public class TinyOntologyTest extends TestCase {
 	public void testTinyOntology6() throws OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		OWLDataFactory factory = manager.getOWLDataFactory();
-		Set<OWLAxiom> axiomSet = new HashSet<OWLAxiom>();
+		Set<OWLAxiom> axiomSet = new HashSet<>();
 		OWLClass a = createNewClass(factory, "A");
 		OWLClass b = createNewClass(factory, "B");
 		OWLObjectProperty r = createNewObjectProperty(factory, "r");
@@ -465,7 +465,7 @@ public class TinyOntologyTest extends TestCase {
 	public void testTinyOntology7() throws OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		OWLDataFactory factory = manager.getOWLDataFactory();
-		Set<OWLAxiom> axiomSet = new HashSet<OWLAxiom>();
+		Set<OWLAxiom> axiomSet = new HashSet<>();
 		OWLClass a = createNewClass(factory, "A");
 		OWLClass b = createNewClass(factory, "B");
 		OWLClass c = createNewClass(factory, "C");

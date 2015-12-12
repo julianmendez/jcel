@@ -64,16 +64,16 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	public static final String anonymousEntity = "AnonymousEntity";
 	public static final String auxiliaryEntity = "AuxiliaryEntity";
 
-	private final Map<IntegerEntityType, Set<Integer>> auxEntityMap = new HashMap<IntegerEntityType, Set<Integer>>();
-	private final Set<Integer> auxEntitySet = new HashSet<Integer>();
-	private final Set<Integer> auxInverseObjectPropertySet = new HashSet<Integer>();
-	private final Map<Integer, Integer> auxNominalInvMap = new HashMap<Integer, Integer>();
-	private final Map<Integer, Integer> auxNominalMap = new HashMap<Integer, Integer>();
+	private final Map<IntegerEntityType, Set<Integer>> auxEntityMap = new HashMap<>();
+	private final Set<Integer> auxEntitySet = new HashSet<>();
+	private final Set<Integer> auxInverseObjectPropertySet = new HashSet<>();
+	private final Map<Integer, Integer> auxNominalInvMap = new HashMap<>();
+	private final Map<Integer, Integer> auxNominalMap = new HashMap<>();
 	private int entityCounter = firstUsableIdentifier;
-	private final Map<Integer, IntegerEntityType> entityTypeMap = new HashMap<Integer, IntegerEntityType>();
-	private final Map<Integer, Integer> inverseObjectPropertyMap = new HashMap<Integer, Integer>();
-	private final Map<Integer, String> nameMap = new HashMap<Integer, String>();
-	private final Map<IntegerEntityType, Set<Integer>> nonAuxEntityMap = new HashMap<IntegerEntityType, Set<Integer>>();
+	private final Map<Integer, IntegerEntityType> entityTypeMap = new HashMap<>();
+	private final Map<Integer, Integer> inverseObjectPropertyMap = new HashMap<>();
+	private final Map<Integer, String> nameMap = new HashMap<>();
+	private final Map<IntegerEntityType, Set<Integer>> nonAuxEntityMap = new HashMap<>();
 
 	/**
 	 * Constructs a new identifier generator.
@@ -187,7 +187,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<Integer> ret = new TreeSet<Integer>();
+		Set<Integer> ret = new TreeSet<>();
 		if (this.nonAuxEntityMap.get(type) != null) {
 			ret.addAll(this.nonAuxEntityMap.get(type));
 		}
@@ -317,14 +317,14 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 			this.auxEntitySet.add(identifier);
 			Set<Integer> set = this.auxEntityMap.get(type);
 			if (set == null) {
-				set = new HashSet<Integer>();
+				set = new HashSet<>();
 				this.auxEntityMap.put(type, set);
 			}
 			set.add(identifier);
 		} else {
 			Set<Integer> set = this.nonAuxEntityMap.get(type);
 			if (set == null) {
-				set = new HashSet<Integer>();
+				set = new HashSet<>();
 				this.nonAuxEntityMap.put(type, set);
 			}
 			set.add(identifier);

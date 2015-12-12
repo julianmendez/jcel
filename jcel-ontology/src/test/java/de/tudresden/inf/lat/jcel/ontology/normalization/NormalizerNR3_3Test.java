@@ -111,18 +111,18 @@ public class NormalizerNR3_3Test extends TestCase {
 		IntegerClass d6 = factory.getDataTypeFactory()
 				.createClass(factory.getEntityManager().createNamedEntity(IntegerEntityType.CLASS, "D6", false));
 
-		Set<IntegerClassExpression> set1 = new HashSet<IntegerClassExpression>();
+		Set<IntegerClassExpression> set1 = new HashSet<>();
 		set1.add(d2);
 		set1.add(d3);
 		IntegerClassExpression dPrime0 = factory.getDataTypeFactory().createObjectIntersectionOf(set1);
 		IntegerClassExpression dPrime1 = factory.getDataTypeFactory().createObjectSomeValuesFrom(r, dPrime0);
 
-		Set<IntegerClassExpression> set2 = new HashSet<IntegerClassExpression>();
+		Set<IntegerClassExpression> set2 = new HashSet<>();
 		set2.add(d1);
 		set2.add(dPrime1);
 		IntegerClassExpression d = factory.getDataTypeFactory().createObjectIntersectionOf(set2);
 
-		Set<IntegerClassExpression> set3 = new HashSet<IntegerClassExpression>();
+		Set<IntegerClassExpression> set3 = new HashSet<>();
 		set3.add(d4);
 		set3.add(d5);
 		IntegerClassExpression dPrime2 = factory.getDataTypeFactory().createObjectIntersectionOf(set3);
@@ -130,7 +130,7 @@ public class NormalizerNR3_3Test extends TestCase {
 
 		IntegerClassExpression c3 = factory.getDataTypeFactory().createObjectSomeValuesFrom(s2, d6);
 
-		Set<IntegerClassExpression> set4 = new HashSet<IntegerClassExpression>();
+		Set<IntegerClassExpression> set4 = new HashSet<>();
 		set4.add(d2);
 		set4.add(c1);
 		set4.add(c2);
@@ -141,7 +141,7 @@ public class NormalizerNR3_3Test extends TestCase {
 
 		Set<IntegerAxiom> normalizedAxioms = normalizer.apply(axiom);
 
-		Set<IntegerAxiom> expectedAxioms = new HashSet<IntegerAxiom>();
+		Set<IntegerAxiom> expectedAxioms = new HashSet<>();
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(d, d2, annotations));
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(d, c1, annotations));
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(d, c2, annotations));

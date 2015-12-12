@@ -122,7 +122,7 @@ class NormalizerNR2_4 implements NormalizationRule {
 
 	private Set<IntegerAxiom> applyRule(Set<IntegerClassExpression> operands, IntegerClassExpression superClass,
 			Set<Annotation> annotations) {
-		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
+		Set<IntegerAxiom> ret = new HashSet<>();
 		IntegerClassExpression aLiteral = null;
 		for (IntegerClassExpression op : operands) {
 			if (op.isLiteral()) {
@@ -133,7 +133,7 @@ class NormalizerNR2_4 implements NormalizationRule {
 			IntegerClass newClass = getOntologyObjectFactory().getDataTypeFactory().createClass(
 					getOntologyObjectFactory().getEntityManager().createAnonymousEntity(IntegerEntityType.CLASS, true));
 
-			Set<IntegerClassExpression> newOperands = new HashSet<IntegerClassExpression>();
+			Set<IntegerClassExpression> newOperands = new HashSet<>();
 			newOperands.addAll(operands);
 			newOperands.remove(aLiteral);
 			IntegerObjectIntersectionOf newIntersection = getOntologyObjectFactory().getDataTypeFactory()
@@ -141,7 +141,7 @@ class NormalizerNR2_4 implements NormalizationRule {
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory().createSubClassOfAxiom(newIntersection, newClass,
 					annotations));
 
-			Set<IntegerClassExpression> pairOfLiterals = new HashSet<IntegerClassExpression>();
+			Set<IntegerClassExpression> pairOfLiterals = new HashSet<>();
 			pairOfLiterals.add(aLiteral);
 			pairOfLiterals.add(newClass);
 			IntegerObjectIntersectionOf intersectionOfLiterals = getOntologyObjectFactory().getDataTypeFactory()

@@ -259,7 +259,7 @@ public class ClassExpressionTranslator implements OWLClassExpressionVisitorEx<In
 		}
 
 		Set<OWLClassExpression> operands = ce.getOperands();
-		Set<IntegerClassExpression> classExpressionList = new HashSet<IntegerClassExpression>();
+		Set<IntegerClassExpression> classExpressionList = new HashSet<>();
 		for (OWLClassExpression elem : operands) {
 			classExpressionList.add(elem.accept(this));
 		}

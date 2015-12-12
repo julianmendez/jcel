@@ -104,7 +104,7 @@ class NormalizerNR4_1 implements NormalizationRule {
 		IntegerClassExpression superClass = classAxiom.getSuperClass();
 		if (subClass.isLiteral() && (superClass instanceof IntegerObjectOneOf)) {
 			IntegerObjectOneOf oneOf = (IntegerObjectOneOf) superClass;
-			ret = new HashSet<IntegerAxiom>();
+			ret = new HashSet<>();
 			Integer individual = oneOf.getIndividual();
 			Integer auxiliaryClass = getOntologyObjectFactory().getEntityManager()
 					.createOrGetClassIdForIndividual(individual);

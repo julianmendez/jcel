@@ -108,7 +108,7 @@ public class GCI0Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public Set<Integer> getClassesInSignature() {
-		Set<Integer> ret = new HashSet<Integer>();
+		Set<Integer> ret = new HashSet<>();
 		ret.add(this.subClass);
 		ret.add(this.superClass);
 		return Collections.unmodifiableSet(ret);

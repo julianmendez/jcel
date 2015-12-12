@@ -110,14 +110,14 @@ public class IntegerDataSomeValuesFrom implements IntegerClassExpression {
 
 	@Override
 	public Set<Integer> getClassesInSignature() {
-		Set<Integer> ret = new HashSet<Integer>();
+		Set<Integer> ret = new HashSet<>();
 		ret.addAll(getFiller().getClassesInSignature());
 		return Collections.unmodifiableSet(ret);
 	}
 
 	@Override
 	public Set<Integer> getDataPropertiesInSignature() {
-		Set<Integer> ret = new HashSet<Integer>();
+		Set<Integer> ret = new HashSet<>();
 		ret.addAll(getFiller().getDataPropertiesInSignature());
 		ret.add(getProperty());
 		return Collections.unmodifiableSet(ret);
@@ -144,7 +144,7 @@ public class IntegerDataSomeValuesFrom implements IntegerClassExpression {
 
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		Set<Integer> ret = new HashSet<Integer>();
+		Set<Integer> ret = new HashSet<>();
 		ret.addAll(getFiller().getObjectPropertiesInSignature());
 		return Collections.unmodifiableSet(ret);
 	}

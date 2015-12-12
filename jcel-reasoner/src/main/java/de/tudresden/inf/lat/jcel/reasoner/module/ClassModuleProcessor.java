@@ -91,8 +91,8 @@ public class ClassModuleProcessor implements Processor {
 	private Set<ComplexIntegerAxiom> accumulatedAxiomSet = null;
 	private final IntegerOntologyObjectFactory axiomFactory;
 	private IntegerHierarchicalGraph classHierarchy = null;
-	private final Map<Integer, Set<ComplexIntegerAxiom>> classToAxiom = new HashMap<Integer, Set<ComplexIntegerAxiom>>();
-	private final Map<Integer, Set<Integer>> classToClass = new HashMap<Integer, Set<Integer>>();
+	private final Map<Integer, Set<ComplexIntegerAxiom>> classToAxiom = new HashMap<>();
+	private final Map<Integer, Set<Integer>> classToClass = new HashMap<>();
 	private IntegerHierarchicalGraphImpl dataPropertyHierarchy = null;
 	private Map<Integer, Set<Integer>> directTypes = null;
 	private boolean finalClassification = false;
@@ -103,7 +103,7 @@ public class ClassModuleProcessor implements Processor {
 	private Processor processor = null;
 	private final ModuleProcessorFactory processorFactory;
 	private Map<Integer, Set<Integer>> sameIndividualMap = null;
-	private final Set<ComplexIntegerAxiom> sharedAxioms = new HashSet<ComplexIntegerAxiom>();
+	private final Set<ComplexIntegerAxiom> sharedAxioms = new HashSet<>();
 
 	/**
 	 * Constructs a class module processor. It uses an auxiliary processor to
@@ -134,7 +134,7 @@ public class ClassModuleProcessor implements Processor {
 	}
 
 	private Set<ComplexIntegerAxiom> convertClassHierarchyToAxioms(IntegerHierarchicalGraph classGraph) {
-		Set<ComplexIntegerAxiom> ret = new HashSet<ComplexIntegerAxiom>();
+		Set<ComplexIntegerAxiom> ret = new HashSet<>();
 		Set<Annotation> annotations = Collections.emptySet();
 		for (Integer subClass : classGraph.getElements()) {
 
@@ -145,7 +145,7 @@ public class ClassModuleProcessor implements Processor {
 			}
 
 			Set<Integer> equivSet = classGraph.getEquivalents(subClass);
-			Set<IntegerClassExpression> equivalentClassSet = new HashSet<IntegerClassExpression>();
+			Set<IntegerClassExpression> equivalentClassSet = new HashSet<>();
 			for (Integer equivalentClass : equivSet) {
 				equivalentClassSet.add(getDataTypeFactory().createClass(equivalentClass));
 			}
@@ -158,7 +158,7 @@ public class ClassModuleProcessor implements Processor {
 
 	private Set<ComplexIntegerAxiom> convertObjectPropertyHierarchyToAxioms(
 			IntegerHierarchicalGraph objectPropertyGraph) {
-		Set<ComplexIntegerAxiom> ret = new HashSet<ComplexIntegerAxiom>();
+		Set<ComplexIntegerAxiom> ret = new HashSet<>();
 		Set<Annotation> annotations = Collections.emptySet();
 		for (Integer subObjectProperty : objectPropertyGraph.getElements()) {
 
@@ -170,7 +170,7 @@ public class ClassModuleProcessor implements Processor {
 			}
 
 			Set<Integer> equivSet = objectPropertyGraph.getEquivalents(subObjectProperty);
-			Set<IntegerObjectPropertyExpression> propExprSet = new HashSet<IntegerObjectPropertyExpression>();
+			Set<IntegerObjectPropertyExpression> propExprSet = new HashSet<>();
 			for (Integer elem : equivSet) {
 				propExprSet.add(getDataTypeFactory().createObjectProperty(elem));
 			}
@@ -195,14 +195,14 @@ public class ClassModuleProcessor implements Processor {
 
 					Set<ComplexIntegerAxiom> complexAxioms = this.classToAxiom.get(classId);
 					if (complexAxioms == null) {
-						complexAxioms = new HashSet<ComplexIntegerAxiom>();
+						complexAxioms = new HashSet<>();
 						this.classToAxiom.put(classId, complexAxioms);
 					}
 					complexAxioms.add(axiom);
 
 					Set<Integer> otherClasses = this.classToClass.get(classId);
 					if (otherClasses == null) {
-						otherClasses = new HashSet<Integer>();
+						otherClasses = new HashSet<>();
 						this.classToClass.put(classId, otherClasses);
 					}
 					otherClasses.addAll(classSet);
@@ -217,10 +217,10 @@ public class ClassModuleProcessor implements Processor {
 
 		createMaps(axiomSet);
 
-		List<Set<ComplexIntegerAxiom>> ret = new ArrayList<Set<ComplexIntegerAxiom>>();
+		List<Set<ComplexIntegerAxiom>> ret = new ArrayList<>();
 		List<Set<Integer>> clustersOfClasses = getClustersOfClasses(axiomSet);
 		for (Set<Integer> classSet : clustersOfClasses) {
-			Set<ComplexIntegerAxiom> currentModule = new HashSet<ComplexIntegerAxiom>();
+			Set<ComplexIntegerAxiom> currentModule = new HashSet<>();
 			for (Integer classId : classSet) {
 				Set<ComplexIntegerAxiom> reachable = this.classToAxiom.get(classId);
 				if (reachable != null) {
@@ -248,9 +248,9 @@ public class ClassModuleProcessor implements Processor {
 
 	private List<Set<Integer>> getClustersOfClasses(Set<ComplexIntegerAxiom> axiomSet) {
 
-		List<Set<Integer>> ret = new ArrayList<Set<Integer>>();
+		List<Set<Integer>> ret = new ArrayList<>();
 
-		Set<Integer> allClasses = new TreeSet<Integer>();
+		Set<Integer> allClasses = new TreeSet<>();
 		for (ComplexIntegerAxiom axiom : axiomSet) {
 			allClasses.addAll(axiom.getClassesInSignature());
 		}
@@ -297,8 +297,8 @@ public class ClassModuleProcessor implements Processor {
 	}
 
 	private Set<Integer> getReachableClasses(Integer firstClassId, Set<ComplexIntegerAxiom> axiomSet) {
-		Set<Integer> ret = new HashSet<Integer>();
-		Set<Integer> toVisit = new HashSet<Integer>();
+		Set<Integer> ret = new HashSet<>();
+		Set<Integer> toVisit = new HashSet<>();
 		toVisit.add(firstClassId);
 		while (!toVisit.isEmpty()) {
 			Integer classId = toVisit.iterator().next();
@@ -342,9 +342,9 @@ public class ClassModuleProcessor implements Processor {
 		}
 
 		this.moduleIndex = 0;
-		this.accumulatedAxiomSet = new HashSet<ComplexIntegerAxiom>();
-		this.directTypes = new HashMap<Integer, Set<Integer>>();
-		this.sameIndividualMap = new HashMap<Integer, Set<Integer>>();
+		this.accumulatedAxiomSet = new HashSet<>();
+		this.directTypes = new HashMap<>();
+		this.sameIndividualMap = new HashMap<>();
 
 		logger.fine("");
 		logger.fine("");

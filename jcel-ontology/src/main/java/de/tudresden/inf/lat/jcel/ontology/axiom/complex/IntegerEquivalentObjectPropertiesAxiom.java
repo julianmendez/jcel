@@ -86,7 +86,7 @@ public class IntegerEquivalentObjectPropertiesAxiom implements ComplexIntegerAxi
 
 		this.objectProperties = Collections.unmodifiableSet(propSet);
 
-		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
+		Set<Integer> objectPropertiesInSignature = new HashSet<>();
 		this.objectProperties
 				.forEach(expression -> objectPropertiesInSignature.addAll(expression.getObjectPropertiesInSignature()));
 		this.objectPropertiesInSignature = Collections.unmodifiableSet(objectPropertiesInSignature);

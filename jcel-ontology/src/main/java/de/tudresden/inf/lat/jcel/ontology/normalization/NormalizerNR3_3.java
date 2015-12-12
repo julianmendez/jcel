@@ -108,7 +108,7 @@ class NormalizerNR3_3 implements NormalizationRule {
 		IntegerClassExpression superClass = classAxiom.getSuperClass();
 		if (superClass instanceof IntegerObjectIntersectionOf) {
 			IntegerObjectIntersectionOf intersection = (IntegerObjectIntersectionOf) superClass;
-			ret = new HashSet<IntegerAxiom>();
+			ret = new HashSet<>();
 			Set<IntegerClassExpression> operands = intersection.getOperands();
 			for (IntegerClassExpression operand : operands) {
 				ret.add(getOntologyObjectFactory().getComplexAxiomFactory().createSubClassOfAxiom(subClass, operand,

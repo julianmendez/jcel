@@ -94,7 +94,7 @@ public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom 
 		this.firstProperty = first;
 		this.secondProperty = second;
 
-		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
+		Set<Integer> objectPropertiesInSignature = new HashSet<>();
 		objectPropertiesInSignature.addAll(this.firstProperty.getObjectPropertiesInSignature());
 		objectPropertiesInSignature.addAll(this.secondProperty.getObjectPropertiesInSignature());
 		this.objectPropertiesInSignature = Collections.unmodifiableSet(objectPropertiesInSignature);

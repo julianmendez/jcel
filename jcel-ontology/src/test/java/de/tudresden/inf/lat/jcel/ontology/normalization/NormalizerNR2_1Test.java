@@ -99,7 +99,7 @@ public class NormalizerNR2_1Test extends TestCase {
 
 		IntegerSubPropertyChainOfAxiom originalAxiom = null;
 		{
-			List<IntegerObjectPropertyExpression> list = new ArrayList<IntegerObjectPropertyExpression>();
+			List<IntegerObjectPropertyExpression> list = new ArrayList<>();
 			list.add(r1);
 			list.add(r2);
 			list.add(r3);
@@ -127,7 +127,7 @@ public class NormalizerNR2_1Test extends TestCase {
 
 		}
 
-		Set<IntegerAxiom> expectedAxioms = new HashSet<IntegerAxiom>();
+		Set<IntegerAxiom> expectedAxioms = new HashSet<>();
 		expectedAxioms.add(
 				factory.getNormalizedAxiomFactory().createRI3Axiom(r1.getId(), r2.getId(), u1.getId(), annotations));
 		expectedAxioms.add(

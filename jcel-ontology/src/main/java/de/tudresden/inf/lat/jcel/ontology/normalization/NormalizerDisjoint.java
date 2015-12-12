@@ -96,11 +96,11 @@ class NormalizerDisjoint implements NormalizationRule {
 
 	private Set<IntegerAxiom> applyRule(IntegerDisjointClassesAxiom disjointAxiom) {
 		Set<IntegerClassExpression> classExpressionSet = disjointAxiom.getClassExpressions();
-		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
+		Set<IntegerAxiom> ret = new HashSet<>();
 		classExpressionSet.forEach(firstClassExpression -> {
 			classExpressionSet.forEach(secondClassExpression-> {
 				if (!firstClassExpression.equals(secondClassExpression)) {
-					Set<IntegerClassExpression> pair = new HashSet<IntegerClassExpression>();
+					Set<IntegerClassExpression> pair = new HashSet<>();
 					pair.add(firstClassExpression);
 					pair.add(secondClassExpression);
 					IntegerObjectIntersectionOf intersection = getOntologyObjectFactory().getDataTypeFactory()

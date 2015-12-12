@@ -108,7 +108,7 @@ class NormalizerNR3_2 implements NormalizationRule {
 			IntegerObjectPropertyExpression propertyExpression = restriction.getProperty();
 			IntegerClassExpression filler = restriction.getFiller();
 			if (!filler.isLiteral()) {
-				ret = new HashSet<IntegerAxiom>();
+				ret = new HashSet<>();
 				IntegerClass newClass = getOntologyObjectFactory().getDataTypeFactory()
 						.createClass(getOntologyObjectFactory().getEntityManager()
 								.createAnonymousEntity(IntegerEntityType.CLASS, true));

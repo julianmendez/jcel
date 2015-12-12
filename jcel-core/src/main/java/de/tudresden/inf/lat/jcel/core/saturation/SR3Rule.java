@@ -93,7 +93,7 @@ public class SR3Rule implements SaturationRule {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<NormalizedIntegerAxiom> ret = new HashSet<NormalizedIntegerAxiom>();
+		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
 		ret.addAll(originalSet);
 		for (NormalizedIntegerAxiom normalizedAxiom : originalSet) {
 			if (normalizedAxiom instanceof RI3Axiom) {

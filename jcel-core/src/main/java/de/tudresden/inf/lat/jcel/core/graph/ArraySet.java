@@ -203,7 +203,7 @@ public class ArraySet implements Set<Integer> {
 	}
 
 	private synchronized ArrayList<Integer> toArrayList() {
-		ArrayList<Integer> ret = new ArrayList<Integer>();
+		ArrayList<Integer> ret = new ArrayList<>();
 		for (int index = 0; index < this.size; index++) {
 			ret.add(this.array[index]);
 		}

@@ -62,7 +62,7 @@ import java.util.Set;
 public class VNodeImpl implements VNode {
 
 	private final int classIdentifier;
-	private final Set<VNodeObjectSomeValuesFrom> existentialSet = new HashSet<VNodeObjectSomeValuesFrom>();
+	private final Set<VNodeObjectSomeValuesFrom> existentialSet = new HashSet<>();
 
 	/**
 	 * Constructs a new node.

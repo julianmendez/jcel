@@ -82,14 +82,14 @@ public class NormalizerNR1_5Test extends TestCase {
 		IntegerClass d = factory.getDataTypeFactory()
 				.createClass(factory.getEntityManager().createNamedEntity(IntegerEntityType.CLASS, "D", false));
 
-		Set<IntegerClassExpression> set = new HashSet<IntegerClassExpression>();
+		Set<IntegerClassExpression> set = new HashSet<>();
 		set.add(c);
 		set.add(d);
 		IntegerEquivalentClassesAxiom axiom = factory.getComplexAxiomFactory().createEquivalentClassesAxiom(set,
 				annotations);
 		Set<IntegerAxiom> normalizedAxioms = normalizer.apply(axiom);
 
-		Set<IntegerAxiom> expectedAxioms = new HashSet<IntegerAxiom>();
+		Set<IntegerAxiom> expectedAxioms = new HashSet<>();
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(c, d, annotations));
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(d, c, annotations));
 
@@ -117,19 +117,19 @@ public class NormalizerNR1_5Test extends TestCase {
 				.createClass(factory.getEntityManager().createNamedEntity(IntegerEntityType.CLASS, "C3", false));
 
 		IntegerClassExpression c = factory.getDataTypeFactory().createObjectSomeValuesFrom(r, c1);
-		Set<IntegerClassExpression> parameter = new HashSet<IntegerClassExpression>();
+		Set<IntegerClassExpression> parameter = new HashSet<>();
 		parameter.add(c2);
 		parameter.add(c3);
 		IntegerClassExpression d = factory.getDataTypeFactory().createObjectIntersectionOf(parameter);
 
-		Set<IntegerClassExpression> set = new HashSet<IntegerClassExpression>();
+		Set<IntegerClassExpression> set = new HashSet<>();
 		set.add(c);
 		set.add(d);
 		IntegerEquivalentClassesAxiom axiom = factory.getComplexAxiomFactory().createEquivalentClassesAxiom(set,
 				annotations);
 		Set<IntegerAxiom> normalizedAxioms = normalizer.apply(axiom);
 
-		Set<IntegerAxiom> expectedAxioms = new HashSet<IntegerAxiom>();
+		Set<IntegerAxiom> expectedAxioms = new HashSet<>();
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(c, d, annotations));
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(d, c, annotations));
 

@@ -82,8 +82,8 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
  */
 public class CompletionRuleChainSelector {
 
-	private RChain chainR = new RChain(new ArrayList<RObserverRule>());
-	private SChain chainS = new SChain(new ArrayList<SObserverRule>());
+	private RChain chainR = new RChain(new ArrayList<>());
+	private SChain chainS = new SChain(new ArrayList<>());
 	private final OntologyExpressivity expressivity;
 
 	/**
@@ -116,19 +116,19 @@ public class CompletionRuleChainSelector {
 	}
 
 	private void activateBottomRules() {
-		List<SObserverRule> listS = new ArrayList<SObserverRule>();
+		List<SObserverRule> listS = new ArrayList<>();
 		listS.addAll(this.chainS.getList());
 		listS.add(new CR7SRule());
 		this.chainS = new SChain(listS);
 
-		List<RObserverRule> listR = new ArrayList<RObserverRule>();
+		List<RObserverRule> listR = new ArrayList<>();
 		listR.addAll(this.chainR.getList());
 		listR.add(new CR7RRule());
 		this.chainR = new RChain(listR);
 	}
 
 	private void activateExtendedRules() {
-		List<SObserverRule> listS = new ArrayList<SObserverRule>();
+		List<SObserverRule> listS = new ArrayList<>();
 		listS.addAll(this.chainS.getList());
 		listS.add(new CR1SRule());
 		listS.add(new CR2SRule());
@@ -138,7 +138,7 @@ public class CompletionRuleChainSelector {
 		listS.add(new CR8SExtRule());
 		this.chainS = new SChain(listS);
 
-		List<RObserverRule> listR = new ArrayList<RObserverRule>();
+		List<RObserverRule> listR = new ArrayList<>();
 		listR.addAll(this.chainR.getList());
 		listR.add(new CR4RExtRule());
 		listR.add(new CR5RExtRule());
@@ -154,14 +154,14 @@ public class CompletionRuleChainSelector {
 	 */
 	public void activateProfiler() {
 		List<SObserverRule> listS = this.chainS.getList();
-		List<SObserverRule> listSWithProfiler = new ArrayList<SObserverRule>();
+		List<SObserverRule> listSWithProfiler = new ArrayList<>();
 		for (SObserverRule current : listS) {
 			listSWithProfiler.add(new RuleProfiler(current));
 		}
 		this.chainS = new SChain(listSWithProfiler);
 
 		List<RObserverRule> listR = this.chainR.getList();
-		List<RObserverRule> listRWithProfiler = new ArrayList<RObserverRule>();
+		List<RObserverRule> listRWithProfiler = new ArrayList<>();
 		for (RObserverRule current : listR) {
 			listRWithProfiler.add(new RuleProfiler(current));
 		}
@@ -169,14 +169,14 @@ public class CompletionRuleChainSelector {
 	}
 
 	private void activatePropertyChainRules() {
-		List<RObserverRule> listR = new ArrayList<RObserverRule>();
+		List<RObserverRule> listR = new ArrayList<>();
 		listR.addAll(this.chainR.getList());
 		listR.add(new CR6RRule());
 		this.chainR = new RChain(listR);
 	}
 
 	private void activateSimpleRules() {
-		List<SObserverRule> listS = new ArrayList<SObserverRule>();
+		List<SObserverRule> listS = new ArrayList<>();
 		listS.addAll(this.chainS.getList());
 		listS.add(new CR1SRule());
 		listS.add(new CR2SRule());
@@ -184,7 +184,7 @@ public class CompletionRuleChainSelector {
 		listS.add(new CR4SRule());
 		this.chainS = new SChain(listS);
 
-		List<RObserverRule> listR = new ArrayList<RObserverRule>();
+		List<RObserverRule> listR = new ArrayList<>();
 		listR.addAll(this.chainR.getList());
 		listR.add(new CR4RRule());
 		listR.add(new CR5RRule());
@@ -192,7 +192,7 @@ public class CompletionRuleChainSelector {
 	}
 
 	private void activateTransitivePropertyRules() {
-		List<RObserverRule> listR = new ArrayList<RObserverRule>();
+		List<RObserverRule> listR = new ArrayList<>();
 		listR.addAll(this.chainR.getList());
 		listR.add(new CR6RTrRule());
 		this.chainR = new RChain(listR);

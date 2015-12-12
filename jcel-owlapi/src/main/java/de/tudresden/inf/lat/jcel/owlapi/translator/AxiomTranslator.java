@@ -348,7 +348,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 		}
 
 		Set<OWLIndividual> individualSet = axiom.getIndividuals();
-		Set<Integer> individualIdSet = new HashSet<Integer>();
+		Set<Integer> individualIdSet = new HashSet<>();
 		for (OWLIndividual individual : individualSet) {
 			individualIdSet.add(getClassExpressionTranslator().getTranslationRepository().getId(individual));
 		}
@@ -364,7 +364,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 		}
 
 		Set<OWLClassExpression> classExpressionSet = axiom.getClassExpressions();
-		Set<IntegerClassExpression> classIdSet = new HashSet<IntegerClassExpression>();
+		Set<IntegerClassExpression> classIdSet = new HashSet<>();
 		for (OWLClassExpression classExpression : classExpressionSet) {
 			classIdSet.add(translate(classExpression));
 		}
@@ -407,7 +407,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 		}
 
 		Set<OWLClassExpression> classExpressionSet = axiom.getClassExpressions();
-		Set<IntegerClassExpression> classIdSet = new HashSet<IntegerClassExpression>();
+		Set<IntegerClassExpression> classIdSet = new HashSet<>();
 		for (OWLClassExpression classExpression : classExpressionSet) {
 			classIdSet.add(translate(classExpression));
 		}
@@ -432,7 +432,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 		}
 
 		Set<OWLObjectPropertyExpression> propertySet = axiom.getProperties();
-		Set<IntegerObjectPropertyExpression> propertyExprSet = new HashSet<IntegerObjectPropertyExpression>();
+		Set<IntegerObjectPropertyExpression> propertyExprSet = new HashSet<>();
 		for (OWLObjectPropertyExpression propertyExpr : propertySet) {
 			if (propertyExpr instanceof OWLObjectProperty) {
 				propertyExprSet.add(getDataTypeFactory()
@@ -612,7 +612,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 		}
 
 		Set<OWLIndividual> individualSet = axiom.getIndividuals();
-		Set<Integer> individualIdSet = new HashSet<Integer>();
+		Set<Integer> individualIdSet = new HashSet<>();
 		for (OWLIndividual individual : individualSet) {
 			individualIdSet.add(getClassExpressionTranslator().getTranslationRepository().getId(individual));
 		}
@@ -676,7 +676,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 		List<OWLObjectPropertyExpression> propChain = axiom.getPropertyChain();
 		OWLObjectPropertyExpression superProperty = axiom.getSuperProperty();
-		List<IntegerObjectPropertyExpression> chain = new ArrayList<IntegerObjectPropertyExpression>();
+		List<IntegerObjectPropertyExpression> chain = new ArrayList<>();
 		for (OWLObjectPropertyExpression property : propChain) {
 			chain.add(translateObjectPropertyExpression(property));
 		}

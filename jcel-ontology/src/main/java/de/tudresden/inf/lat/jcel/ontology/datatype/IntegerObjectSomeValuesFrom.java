@@ -115,7 +115,7 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 
 	@Override
 	public Set<Integer> getClassesInSignature() {
-		Set<Integer> ret = new HashSet<Integer>();
+		Set<Integer> ret = new HashSet<>();
 		ret.addAll(getFiller().getClassesInSignature());
 		return Collections.unmodifiableSet(ret);
 	}
@@ -146,7 +146,7 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		Set<Integer> ret = new HashSet<Integer>();
+		Set<Integer> ret = new HashSet<>();
 		ret.addAll(getFiller().getObjectPropertiesInSignature());
 		ret.addAll(getProperty().getObjectPropertiesInSignature());
 		return Collections.unmodifiableSet(ret);

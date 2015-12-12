@@ -291,7 +291,7 @@ public class HashArraySet implements Set<Integer> {
 	}
 
 	private synchronized ArrayList<Integer> toArrayList() {
-		ArrayList<Integer> ret = new ArrayList<Integer>();
+		ArrayList<Integer> ret = new ArrayList<>();
 		for (int element : this.array) {
 			if (element != EMPTY) {
 				ret.add(element);

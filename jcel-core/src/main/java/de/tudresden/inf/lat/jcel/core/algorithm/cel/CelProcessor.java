@@ -171,7 +171,7 @@ public class CelProcessor implements Processor {
 	 * @return a map with all the direct types for each individual.
 	 */
 	private Map<Integer, Set<Integer>> computeDirectTypes(IntegerHierarchicalGraph hierarchicalGraph) {
-		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
+		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		Set<Integer> individuals = getEntityManager().getEntities(IntegerEntityType.INDIVIDUAL, false);
 		for (Integer indiv : individuals) {
 			Set<Integer> subsumers = hierarchicalGraph.getParents(getEntityManager().getAuxiliaryNominal(indiv));
@@ -186,12 +186,12 @@ public class CelProcessor implements Processor {
 	}
 
 	private Map<Integer, Set<Integer>> computeSameIndividualMap(IntegerHierarchicalGraph hierarchicalGraph) {
-		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
+		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		Set<Integer> individuals = getEntityManager().getEntities(IntegerEntityType.INDIVIDUAL, false);
 		for (Integer indiv : individuals) {
 			Set<Integer> equivalentClasses = hierarchicalGraph
 					.getEquivalents(getEntityManager().getAuxiliaryNominal(indiv));
-			Set<Integer> equivalents = new HashSet<Integer>();
+			Set<Integer> equivalents = new HashSet<>();
 			for (Integer elem : equivalentClasses) {
 				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
 					equivalents.add(getEntityManager().getIndividual(elem));
@@ -205,7 +205,7 @@ public class CelProcessor implements Processor {
 	private IntegerSubsumerGraphImpl createClassGraph(Set<Integer> originalClassSet,
 			Set<NormalizedIntegerAxiom> axiomSet) {
 
-		Set<Integer> classIdSet = new HashSet<Integer>();
+		Set<Integer> classIdSet = new HashSet<>();
 		classIdSet.addAll(originalClassSet);
 		for (NormalizedIntegerAxiom axiom : axiomSet) {
 			classIdSet.addAll(axiom.getClassesInSignature());
@@ -221,7 +221,7 @@ public class CelProcessor implements Processor {
 	private IntegerSubsumerGraphImpl createObjectPropertyGraph(Set<Integer> originalPropertySet,
 			Set<NormalizedIntegerAxiom> axiomSet) {
 		IntegerSubsumerGraphImpl ret = new IntegerSubsumerGraphImpl(bottomObjectPropertyId, topObjectPropertyId);
-		Set<Integer> propertyIdSet = new HashSet<Integer>();
+		Set<Integer> propertyIdSet = new HashSet<>();
 		propertyIdSet.addAll(originalPropertySet);
 		for (NormalizedIntegerAxiom axiom : axiomSet) {
 			propertyIdSet.addAll(axiom.getObjectPropertiesInSignature());
@@ -240,9 +240,9 @@ public class CelProcessor implements Processor {
 	}
 
 	private Map<Integer, Set<Integer>> createPropertyUseMap() {
-		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
+		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		for (Integer cA : getClassGraph().getElements()) {
-			Set<Integer> propertySet = new HashSet<Integer>();
+			Set<Integer> propertySet = new HashSet<>();
 			for (Integer r : getObjectPropertyGraph().getElements()) {
 				if (!(this.relationSet.getBySecond(r, cA).isEmpty())) {
 					propertySet.add(r);
@@ -262,9 +262,9 @@ public class CelProcessor implements Processor {
 	}
 
 	private Map<Integer, Set<Integer>> createTransitiveSubsumed() {
-		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
+		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		for (Integer r : getObjectPropertyGraph().getElements()) {
-			Set<Integer> related = new HashSet<Integer>();
+			Set<Integer> related = new HashSet<>();
 			for (Integer s : getObjectPropertyGraph().getElements()) {
 				if (isReflexiveTransitiveSubsumed(r, s)) {
 					related.add(s);
@@ -310,14 +310,14 @@ public class CelProcessor implements Processor {
 	 * @return the descendants according the graph
 	 */
 	private Set<Integer> getDescendants(IntegerHierarchicalGraph hierarchicalGraph, Integer vertex) {
-		Set<Integer> visited = new HashSet<Integer>();
-		Set<Integer> queue = new HashSet<Integer>();
+		Set<Integer> visited = new HashSet<>();
+		Set<Integer> queue = new HashSet<>();
 		queue.add(vertex);
 		while (!queue.isEmpty()) {
 			Integer elem = queue.iterator().next();
 			queue.remove(elem);
 			visited.add(elem);
-			Set<Integer> children = new HashSet<Integer>();
+			Set<Integer> children = new HashSet<>();
 			children.addAll(hierarchicalGraph.getChildren(elem));
 			children.removeAll(visited);
 			queue.addAll(children);
@@ -413,14 +413,14 @@ public class CelProcessor implements Processor {
 	 *         possible segment, <code>false</code> otherwise
 	 */
 	private boolean isConnectedTo(Integer c, Integer d) {
-		Set<Integer> visited = new HashSet<Integer>();
-		Set<Integer> toVisit = new HashSet<Integer>();
+		Set<Integer> visited = new HashSet<>();
+		Set<Integer> toVisit = new HashSet<>();
 		toVisit.add(c);
 		while (!toVisit.isEmpty()) {
 			Integer elem = toVisit.iterator().next();
 			toVisit.remove(elem);
 			visited.add(elem);
-			Set<Integer> newToVisit = new HashSet<Integer>();
+			Set<Integer> newToVisit = new HashSet<>();
 			for (Integer r : getPropertyUsedByClass(elem)) {
 				IntegerBinaryRelation relation = this.relationSet.get(r);
 				newToVisit.addAll(relation.getByFirst(elem));
@@ -447,7 +447,7 @@ public class CelProcessor implements Processor {
 			hasChanged = false;
 			for (Integer elem : graph.getElements()) {
 				Collection<Integer> subsumerSet = graph.getSubsumers(elem);
-				Set<Integer> allSubsumers = new HashSet<Integer>();
+				Set<Integer> allSubsumers = new HashSet<>();
 				allSubsumers.add(elem);
 				for (Integer otherElem : subsumerSet) {
 					allSubsumers.addAll(graph.getSubsumers(otherElem));
@@ -483,7 +483,7 @@ public class CelProcessor implements Processor {
 	}
 
 	private void prepareQueue(CelExtendedOntology ontology) {
-		Set<Integer> classNameSet = new HashSet<Integer>();
+		Set<Integer> classNameSet = new HashSet<>();
 		classNameSet.addAll(ontology.getClassSet());
 		for (Integer className : classNameSet) {
 			addToQueue(className, ontology.getClassEntries(className));
@@ -532,18 +532,18 @@ public class CelProcessor implements Processor {
 
 		// These sets include the declared entities that are not present in the
 		// normalized axioms.
-		Set<Integer> originalClassSet = new HashSet<Integer>();
+		Set<Integer> originalClassSet = new HashSet<>();
 		originalClassSet.addAll(originalClasses);
 		originalClassSet.add(bottomClassId);
 		originalClassSet.add(topClassId);
 
-		Set<Integer> originalObjectPropertySet = new HashSet<Integer>();
+		Set<Integer> originalObjectPropertySet = new HashSet<>();
 		originalObjectPropertySet.addAll(originalObjectProperties);
 		originalObjectPropertySet.add(bottomObjectPropertyId);
 		originalObjectPropertySet.add(topObjectPropertyId);
 
 		logger.finer("normalizing ontology ...");
-		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
+		Set<NormalizedIntegerAxiom> ontology = new HashSet<>();
 		ontology.addAll(normalizedAxiomSet);
 
 		logger.finer("auxiliary classes created (including nominals) : "
@@ -740,7 +740,7 @@ public class CelProcessor implements Processor {
 	}
 
 	private void removeAuxiliaryClassesExceptNominals() {
-		Set<Integer> reqClasses = new HashSet<Integer>();
+		Set<Integer> reqClasses = new HashSet<>();
 		for (Integer elem : getClassGraph().getElements()) {
 			if (!getEntityManager().isAuxiliary(elem)) {
 				reqClasses.add(elem);
@@ -751,14 +751,14 @@ public class CelProcessor implements Processor {
 	}
 
 	private void removeAuxiliaryNominals() {
-		Set<Integer> reqClasses = new HashSet<Integer>();
+		Set<Integer> reqClasses = new HashSet<>();
 		reqClasses.addAll(getClassGraph().getElements());
 		reqClasses.removeAll(getEntityManager().getAuxiliaryNominals());
 		this.classGraph.retainAll(reqClasses);
 	}
 
 	private void removeAuxiliaryObjectProperties() {
-		Set<Integer> reqObjectProperties = new HashSet<Integer>();
+		Set<Integer> reqObjectProperties = new HashSet<>();
 		for (Integer elem : getObjectPropertyGraph().getElements()) {
 			if (!getEntityManager().isAuxiliary(elem)) {
 				reqObjectProperties.add(elem);

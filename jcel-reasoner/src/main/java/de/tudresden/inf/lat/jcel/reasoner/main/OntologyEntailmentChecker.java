@@ -170,7 +170,7 @@ public class OntologyEntailmentChecker implements ComplexIntegerAxiomVisitor<Boo
 		Set<IntegerClassExpression> set = axiom.getClassExpressions();
 		if (!set.isEmpty()) {
 			IntegerClass representative = getReasoner().flattenClassExpression(set.iterator().next());
-			Set<IntegerClass> classSet = new HashSet<IntegerClass>();
+			Set<IntegerClass> classSet = new HashSet<>();
 			for (IntegerClassExpression classExpr : set) {
 				classSet.add(getReasoner().flattenClassExpression(classExpr));
 			}

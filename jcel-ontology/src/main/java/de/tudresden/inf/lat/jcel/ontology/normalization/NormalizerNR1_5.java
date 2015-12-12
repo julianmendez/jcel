@@ -96,7 +96,7 @@ class NormalizerNR1_5 implements NormalizationRule {
 	}
 
 	private Set<IntegerAxiom> applyRule(IntegerEquivalentClassesAxiom equivalentAxiom) {
-		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
+		Set<IntegerAxiom> ret = new HashSet<>();
 		Set<IntegerClassExpression> classExpressionSet = equivalentAxiom.getClassExpressions();
 		classExpressionSet.forEach(firstClassExpression -> {
 			classExpressionSet.forEach(secondClassExpression -> {

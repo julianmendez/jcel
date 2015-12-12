@@ -64,7 +64,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 public class ObjectPropertyIdFinder implements IntegerObjectPropertyExpressionVisitor<Integer> {
 
 	private final IntegerEntityManager idGenerator;
-	private final Set<NormalizedIntegerAxiom> requiredAxioms = new HashSet<NormalizedIntegerAxiom>();
+	private final Set<NormalizedIntegerAxiom> requiredAxioms = new HashSet<>();
 
 	/**
 	 * Constructs a new normalizer for inverse object properties. During the

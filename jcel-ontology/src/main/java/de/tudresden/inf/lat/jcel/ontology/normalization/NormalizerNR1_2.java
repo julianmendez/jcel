@@ -99,7 +99,7 @@ class NormalizerNR1_2 implements NormalizationRule {
 	private Set<IntegerAxiom> applyRule(IntegerPropertyRangeAxiom rangeAxiom) {
 		Set<IntegerAxiom> ret = Collections.emptySet();
 		if (!rangeAxiom.getRange().isLiteral()) {
-			ret = new HashSet<IntegerAxiom>();
+			ret = new HashSet<>();
 			Integer newClassId = getOntologyObjectFactory().getEntityManager()
 					.createAnonymousEntity(IntegerEntityType.CLASS, true);
 			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory().createRangeAxiom(

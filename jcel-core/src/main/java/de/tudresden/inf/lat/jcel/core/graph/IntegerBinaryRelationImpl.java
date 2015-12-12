@@ -60,8 +60,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 
-	private final Map<Integer, Collection<Integer>> byFirstComp = new ConcurrentHashMap<Integer, Collection<Integer>>();
-	private final Map<Integer, Collection<Integer>> bySecondComp = new ConcurrentHashMap<Integer, Collection<Integer>>();
+	private final Map<Integer, Collection<Integer>> byFirstComp = new ConcurrentHashMap<>();
+	private final Map<Integer, Collection<Integer>> bySecondComp = new ConcurrentHashMap<>();
 
 	/**
 	 * Constructs an empty binary relation.

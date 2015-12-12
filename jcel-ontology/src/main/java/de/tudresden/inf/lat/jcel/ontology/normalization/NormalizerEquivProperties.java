@@ -95,7 +95,7 @@ class NormalizerEquivProperties implements NormalizationRule {
 
 	private Set<IntegerAxiom> applyRule(IntegerEquivalentObjectPropertiesAxiom equivPropAxiom) {
 		Set<IntegerObjectPropertyExpression> expressionSet = equivPropAxiom.getProperties();
-		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
+		Set<IntegerAxiom> ret = new HashSet<>();
 		expressionSet.forEach(integerObjectPropertyExpression -> {
 			Integer firstExpression = getObjectPropertyId(integerObjectPropertyExpression);
 			expressionSet.forEach(integerObjectPropertyExpression2 -> {

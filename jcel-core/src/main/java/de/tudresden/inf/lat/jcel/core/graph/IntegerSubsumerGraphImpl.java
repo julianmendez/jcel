@@ -65,8 +65,8 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 
 	private final int bottomElement;
 	private final Collection<Integer> emptyCollection = Collections.unmodifiableCollection(new ArraySet());
-	private final Set<Integer> equivToBottom = new HashSet<Integer>();
-	private final Map<Integer, Collection<Integer>> setS = new ConcurrentHashMap<Integer, Collection<Integer>>();
+	private final Set<Integer> equivToBottom = new HashSet<>();
+	private final Map<Integer, Collection<Integer>> setS = new ConcurrentHashMap<>();
 	private final int topElement;
 
 	/**
@@ -212,7 +212,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<Integer> keySet = new HashSet<Integer>();
+		Set<Integer> keySet = new HashSet<>();
 		keySet.addAll(this.setS.keySet());
 		for (Integer key : keySet) {
 			if (collection.contains(key)) {

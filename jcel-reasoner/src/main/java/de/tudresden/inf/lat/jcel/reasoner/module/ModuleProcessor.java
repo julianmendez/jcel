@@ -139,24 +139,24 @@ public class ModuleProcessor implements Processor {
 	 * @return the subsets with disjoint symbols
 	 */
 	private List<Set<ComplexIntegerAxiom>> findModules(Set<ComplexIntegerAxiom> axiomSet) {
-		List<Set<ComplexIntegerAxiom>> ret = new ArrayList<Set<ComplexIntegerAxiom>>();
-		Set<ComplexIntegerAxiom> toBeGrouped = new HashSet<ComplexIntegerAxiom>();
+		List<Set<ComplexIntegerAxiom>> ret = new ArrayList<>();
+		Set<ComplexIntegerAxiom> toBeGrouped = new HashSet<>();
 		toBeGrouped.addAll(axiomSet);
 		while (!toBeGrouped.isEmpty()) {
 			ComplexIntegerAxiom firstAxiom = toBeGrouped.iterator().next();
 			toBeGrouped.remove(firstAxiom);
-			Set<ComplexIntegerAxiom> group = new HashSet<ComplexIntegerAxiom>();
+			Set<ComplexIntegerAxiom> group = new HashSet<>();
 			group.add(firstAxiom);
 
-			Set<Integer> classSet = new HashSet<Integer>();
+			Set<Integer> classSet = new HashSet<>();
 			classSet.addAll(firstAxiom.getClassesInSignature());
-			Set<Integer> propertySet = new HashSet<Integer>();
+			Set<Integer> propertySet = new HashSet<>();
 			propertySet.addAll(firstAxiom.getObjectPropertiesInSignature());
 
 			boolean found = true;
 			while (found) {
 				found = false;
-				Set<ComplexIntegerAxiom> toVisit = new HashSet<ComplexIntegerAxiom>();
+				Set<ComplexIntegerAxiom> toVisit = new HashSet<>();
 				toVisit.addAll(toBeGrouped);
 				for (ComplexIntegerAxiom currentAxiom : toVisit) {
 					Set<Integer> classesInSignature = currentAxiom.getClassesInSignature();
@@ -246,8 +246,8 @@ public class ModuleProcessor implements Processor {
 				IntegerEntityManager.topClassId);
 		this.objectPropertyHierarchy = new IntegerHierarchicalGraphImpl(IntegerEntityManager.bottomObjectPropertyId,
 				IntegerEntityManager.topObjectPropertyId);
-		this.directTypes = new HashMap<Integer, Set<Integer>>();
-		this.sameIndividualMap = new HashMap<Integer, Set<Integer>>();
+		this.directTypes = new HashMap<>();
+		this.sameIndividualMap = new HashMap<>();
 
 		logger.fine("");
 		logger.fine("");

@@ -97,7 +97,7 @@ public class CR9RExtOptRule implements RObserverRule {
 		boolean ret = false;
 		if (status.getNode(y).getClassId() == IntegerEntityManager.topClassId) {
 
-			Set<Integer> valid = new HashSet<Integer>();
+			Set<Integer> valid = new HashSet<>();
 			valid.add(y);
 			for (int r2 : status.getObjectPropertiesWithFunctionalAncestor(r1)) {
 				for (int yi : status.getSecondByFirst(r2, x)) {

@@ -95,11 +95,11 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 		this.property = prop;
 		this.range = clExpr;
 
-		Set<Integer> classesInSignature = new HashSet<Integer>();
+		Set<Integer> classesInSignature = new HashSet<>();
 		classesInSignature.addAll(this.range.getClassesInSignature());
 		this.classesInSignature = Collections.unmodifiableSet(classesInSignature);
 
-		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
+		Set<Integer> objectPropertiesInSignature = new HashSet<>();
 		objectPropertiesInSignature.addAll(this.range.getObjectPropertiesInSignature());
 		objectPropertiesInSignature.addAll(this.property.getObjectPropertiesInSignature());
 		this.objectPropertiesInSignature = Collections.unmodifiableSet(objectPropertiesInSignature);

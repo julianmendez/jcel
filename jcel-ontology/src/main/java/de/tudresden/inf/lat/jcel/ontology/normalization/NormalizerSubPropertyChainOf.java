@@ -82,7 +82,7 @@ class NormalizerSubPropertyChainOf implements NormalizationRule {
 
 		Set<IntegerAxiom> ret = Collections.emptySet();
 		if (axiom instanceof IntegerSubPropertyChainOfAxiom) {
-			ret = new HashSet<IntegerAxiom>();
+			ret = new HashSet<>();
 			Collection<NormalizedIntegerAxiom> normalizedAxioms = simplify((IntegerSubPropertyChainOfAxiom) axiom);
 			for (NormalizedIntegerAxiom normalizedAxiom : normalizedAxioms) {
 				ret.add(normalizedAxiom);
@@ -108,7 +108,7 @@ class NormalizerSubPropertyChainOf implements NormalizationRule {
 	}
 
 	private Collection<NormalizedIntegerAxiom> simplify(IntegerSubPropertyChainOfAxiom axiom) {
-		Collection<NormalizedIntegerAxiom> ret = new ArrayList<NormalizedIntegerAxiom>();
+		Collection<NormalizedIntegerAxiom> ret = new ArrayList<>();
 		List<IntegerObjectPropertyExpression> propChain = axiom.getPropertyChain();
 		IntegerObjectPropertyExpression rightPart = axiom.getSuperProperty();
 

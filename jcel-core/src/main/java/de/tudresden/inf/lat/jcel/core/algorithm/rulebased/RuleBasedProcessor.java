@@ -208,7 +208,7 @@ public class RuleBasedProcessor implements Processor {
 	 * @return a map with all the direct types for each individual.
 	 */
 	private Map<Integer, Set<Integer>> computeDirectTypes(IntegerHierarchicalGraph hierarchicalGraph) {
-		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
+		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		Set<Integer> individuals = getEntityManager().getIndividuals();
 		for (Integer indiv : individuals) {
 			Set<Integer> subsumers = hierarchicalGraph.getParents(getEntityManager().getAuxiliaryNominal(indiv));
@@ -232,14 +232,14 @@ public class RuleBasedProcessor implements Processor {
 	 * @return the set of all nodes reachable from c using any possible segment
 	 */
 	private Set<Integer> computeReachability(Integer c) {
-		Set<Integer> ret = new HashSet<Integer>();
-		Set<Integer> toVisit = new HashSet<Integer>();
+		Set<Integer> ret = new HashSet<>();
+		Set<Integer> toVisit = new HashSet<>();
 		toVisit.add(c);
 		while (!toVisit.isEmpty()) {
 			Integer elem = toVisit.iterator().next();
 			toVisit.remove(elem);
 			ret.add(elem);
-			Set<Integer> newToVisit = new HashSet<Integer>();
+			Set<Integer> newToVisit = new HashSet<>();
 			for (Integer r : this.status.getObjectPropertiesByFirst(elem)) {
 				IntegerBinaryRelation relation = this.status.getRelationSet().get(r);
 				newToVisit.addAll(relation.getByFirst(elem));
@@ -260,12 +260,12 @@ public class RuleBasedProcessor implements Processor {
 	}
 
 	private Map<Integer, Set<Integer>> computeSameIndividualMap(IntegerHierarchicalGraph hierarchicalGraph) {
-		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
+		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		Set<Integer> individuals = getEntityManager().getIndividuals();
 		for (Integer indiv : individuals) {
 			Set<Integer> equivalentClasses = hierarchicalGraph
 					.getEquivalents(getEntityManager().getAuxiliaryNominal(indiv));
-			Set<Integer> equivalents = new HashSet<Integer>();
+			Set<Integer> equivalents = new HashSet<>();
 			for (Integer elem : equivalentClasses) {
 				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
 					equivalents.add(getEntityManager().getIndividual(elem));
@@ -329,7 +329,7 @@ public class RuleBasedProcessor implements Processor {
 	 * @return information about how the processor configuration
 	 */
 	public List<Map.Entry<String, String>> getConfigurationInfo() {
-		List<Map.Entry<String, String>> ret = new ArrayList<Map.Entry<String, String>>();
+		List<Map.Entry<String, String>> ret = new ArrayList<>();
 		ret.add(createEntry("processor", getClass().getSimpleName()));
 		ret.add(createEntry("iterations per log entry", "" + loggingFrequency));
 		ret.add(createEntry("classes read (including TOP and BOTTOM classes)",
@@ -364,14 +364,14 @@ public class RuleBasedProcessor implements Processor {
 	 * @return the descendants according the graph
 	 */
 	private Set<Integer> getDescendants(IntegerHierarchicalGraph hierarchicalGraph, Integer vertex) {
-		Set<Integer> visited = new HashSet<Integer>();
-		Set<Integer> queue = new HashSet<Integer>();
+		Set<Integer> visited = new HashSet<>();
+		Set<Integer> queue = new HashSet<>();
 		queue.add(vertex);
 		while (!queue.isEmpty()) {
 			Integer elem = queue.iterator().next();
 			queue.remove(elem);
 			visited.add(elem);
-			Set<Integer> children = new HashSet<Integer>();
+			Set<Integer> children = new HashSet<>();
 			children.addAll(hierarchicalGraph.getChildren(elem));
 			children.removeAll(visited);
 			queue.addAll(children);
@@ -452,7 +452,7 @@ public class RuleBasedProcessor implements Processor {
 	 * @return information about the processor status.
 	 */
 	public List<Map.Entry<String, String>> getStatusInfo() {
-		List<Map.Entry<String, String>> ret = new ArrayList<Map.Entry<String, String>>();
+		List<Map.Entry<String, String>> ret = new ArrayList<>();
 		ret.add(createEntry("iteration", "" + this.iteration));
 		ret.add(createEntry("Q_S", "" + this.status.getNumberOfSEntries()));
 		ret.add(createEntry("Q_R", "" + this.status.getNumberOfREntries()));
@@ -502,7 +502,7 @@ public class RuleBasedProcessor implements Processor {
 		this.status = new ClassifierStatusImpl(getEntityManager(), ontology);
 		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(new IntegerSubsumerGraphImpl(
 				IntegerEntityManager.bottomDataPropertyId, IntegerEntityManager.topDataPropertyId));
-		Set<Integer> classNameSet = new HashSet<Integer>();
+		Set<Integer> classNameSet = new HashSet<>();
 		classNameSet.addAll(this.status.getExtendedOntology().getClassSet());
 		for (Integer className : classNameSet) {
 			this.status.addNewSEntry(className, className);
@@ -616,7 +616,7 @@ public class RuleBasedProcessor implements Processor {
 	 *            the hierarchical graph
 	 */
 	private void processNominals(IntegerHierarchicalGraph hierarchicalGraph) {
-		Map<Integer, Set<Integer>> reachabilityCache = new HashMap<Integer, Set<Integer>>();
+		Map<Integer, Set<Integer>> reachabilityCache = new HashMap<>();
 		Set<Integer> nominals = getEntityManager().getAuxiliaryNominals();
 		for (Integer indiv : nominals) {
 			Set<Integer> descendants = getDescendants(hierarchicalGraph, indiv);
@@ -705,7 +705,7 @@ public class RuleBasedProcessor implements Processor {
 	}
 
 	private void removeAuxiliaryClassesExceptNominals() {
-		Set<Integer> reqClasses = new HashSet<Integer>();
+		Set<Integer> reqClasses = new HashSet<>();
 		for (Integer elem : getClassGraph().getElements()) {
 			if (!getEntityManager().isAuxiliary(elem)) {
 				reqClasses.add(elem);
@@ -716,7 +716,7 @@ public class RuleBasedProcessor implements Processor {
 	}
 
 	private void removeAuxiliaryNominals() {
-		Set<Integer> reqClasses = new HashSet<Integer>();
+		Set<Integer> reqClasses = new HashSet<>();
 		reqClasses.addAll(getClassGraph().getElements());
 		reqClasses.removeAll(getEntityManager().getAuxiliaryNominals());
 		this.status.getClassGraph().retainAll(reqClasses);
@@ -727,7 +727,7 @@ public class RuleBasedProcessor implements Processor {
 	 * generated as inverse of another one.
 	 */
 	private void removeAuxiliaryObjectProperties() {
-		Set<Integer> reqObjectProperties = new HashSet<Integer>();
+		Set<Integer> reqObjectProperties = new HashSet<>();
 		for (Integer elem : getObjectPropertyGraph().getElements()) {
 			if (!getEntityManager().isAuxiliary(elem)) {
 				reqObjectProperties.add(elem);

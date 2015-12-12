@@ -94,7 +94,7 @@ public class IntegerNegativeObjectPropertyAssertionAxiom implements ComplexInteg
 		this.subject = subjectInd;
 		this.object = objectInd;
 
-		Set<Integer> individuals = new HashSet<Integer>();
+		Set<Integer> individuals = new HashSet<>();
 		individuals.add(this.subject);
 		individuals.add(this.object);
 		this.individuals = Collections.unmodifiableSet(individuals);

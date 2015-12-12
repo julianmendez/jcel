@@ -75,10 +75,10 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
  */
 public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolean> {
 
-	private final Map<Integer, Set<ExtensionEntry>> ohatOfClass = new HashMap<Integer, Set<ExtensionEntry>>();
-	private final Map<Integer, Map<Integer, Set<ExtensionEntry>>> ohatOfExistential = new HashMap<Integer, Map<Integer, Set<ExtensionEntry>>>();
-	private final Map<Integer, Set<RI3Axiom>> subPropertyAxiomSetByLeft = new HashMap<Integer, Set<RI3Axiom>>();
-	private final Map<Integer, Set<RI3Axiom>> subPropertyAxiomSetByRight = new HashMap<Integer, Set<RI3Axiom>>();
+	private final Map<Integer, Set<ExtensionEntry>> ohatOfClass = new HashMap<>();
+	private final Map<Integer, Map<Integer, Set<ExtensionEntry>>> ohatOfExistential = new HashMap<>();
+	private final Map<Integer, Set<RI3Axiom>> subPropertyAxiomSetByLeft = new HashMap<>();
+	private final Map<Integer, Set<RI3Axiom>> subPropertyAxiomSetByRight = new HashMap<>();
 
 	/**
 	 * Constructs a new CEL extended ontology.
@@ -88,7 +88,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 
 	private void addClass(Integer classId) {
 		if (this.ohatOfClass.get(classId) == null) {
-			this.ohatOfClass.put(classId, new HashSet<ExtensionEntry>());
+			this.ohatOfClass.put(classId, new HashSet<>());
 		}
 	}
 
@@ -100,7 +100,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	private void addTo(Integer property, RI3Axiom axiom, Map<Integer, Set<RI3Axiom>> map) {
 		Set<RI3Axiom> axiomSet = map.get(property);
 		if (axiomSet == null) {
-			axiomSet = new HashSet<RI3Axiom>();
+			axiomSet = new HashSet<>();
 			map.put(property, axiomSet);
 		}
 		axiomSet.add(axiom);
@@ -266,7 +266,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		addClassEntry(axiom.getSubClass(), new ImplicationEntry(new HashSet<Integer>(), axiom.getSuperClass()));
+		addClassEntry(axiom.getSubClass(), new ImplicationEntry(new HashSet<>(), axiom.getSuperClass()));
 		return true;
 	}
 
@@ -277,11 +277,11 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 		}
 
 		Integer superClass = axiom.getSuperClass();
-		List<Integer> operandSet = new ArrayList<Integer>();
+		List<Integer> operandSet = new ArrayList<>();
 		operandSet.add(axiom.getLeftSubClass());
 		operandSet.add(axiom.getRightSubClass());
 		for (Integer currentOperand : operandSet) {
-			Set<Integer> currentSet = new HashSet<Integer>();
+			Set<Integer> currentSet = new HashSet<>();
 			currentSet.addAll(operandSet);
 			currentSet.remove(currentOperand);
 			addClassEntry(currentOperand, new ImplicationEntry(currentSet, superClass));
@@ -306,7 +306,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		ExtensionEntry entry = new ImplicationEntry(new HashSet<Integer>(), axiom.getSuperClass());
+		ExtensionEntry entry = new ImplicationEntry(new HashSet<>(), axiom.getSuperClass());
 		Integer propertyId = axiom.getPropertyInSubClass();
 		Integer classId = axiom.getClassInSubClass();
 		Map<Integer, Set<ExtensionEntry>> map = this.ohatOfExistential.get(propertyId);
@@ -316,7 +316,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 		}
 		Set<ExtensionEntry> set = map.get(classId);
 		if (set == null) {
-			set = new HashSet<ExtensionEntry>();
+			set = new HashSet<>();
 			map.put(classId, set);
 		}
 		set.add(entry);

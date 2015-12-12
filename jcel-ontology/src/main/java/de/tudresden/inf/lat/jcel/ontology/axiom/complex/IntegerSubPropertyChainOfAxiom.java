@@ -94,7 +94,7 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 		this.propertyChain = chain;
 		this.superProperty = superProp;
 
-		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
+		Set<Integer> objectPropertiesInSignature = new HashSet<>();
 		getPropertyChain().forEach(
 				propertyExpr -> objectPropertiesInSignature.addAll(propertyExpr.getObjectPropertiesInSignature()));
 		objectPropertiesInSignature.addAll(getSuperProperty().getObjectPropertiesInSignature());

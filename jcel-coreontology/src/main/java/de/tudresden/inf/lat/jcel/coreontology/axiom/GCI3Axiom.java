@@ -116,7 +116,7 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public Set<Integer> getClassesInSignature() {
-		Set<Integer> ret = new HashSet<Integer>();
+		Set<Integer> ret = new HashSet<>();
 		ret.add(this.classInSubClass);
 		ret.add(this.superClass);
 		return Collections.unmodifiableSet(ret);

@@ -187,7 +187,7 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<ComplexIntegerAxiom> ret = new HashSet<ComplexIntegerAxiom>();
+		Set<ComplexIntegerAxiom> ret = new HashSet<>();
 		for (OWLAxiom axiom : owlObject) {
 			ret.addAll(axiom.accept(axiomTranslator));
 		}
@@ -219,7 +219,7 @@ public class Translator {
 	}
 
 	public Set<IntegerNamedIndividual> translateSI(Node<OWLNamedIndividual> owlObject) {
-		Set<IntegerNamedIndividual> ret = new HashSet<IntegerNamedIndividual>();
+		Set<IntegerNamedIndividual> ret = new HashSet<>();
 		for (OWLNamedIndividual indiv : owlObject.getEntities()) {
 			ret.add(translateI(indiv));
 		}
@@ -231,7 +231,7 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<OWLNamedIndividual> set = new HashSet<OWLNamedIndividual>();
+		Set<OWLNamedIndividual> set = new HashSet<>();
 		for (IntegerNamedIndividual indiv : integerObject) {
 			set.add(translateI(indiv));
 		}
@@ -243,7 +243,7 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<IntegerObjectPropertyExpression> ret = new HashSet<IntegerObjectPropertyExpression>();
+		Set<IntegerObjectPropertyExpression> ret = new HashSet<>();
 		for (OWLObjectPropertyExpression prop : owlObject.getEntities()) {
 			ret.add(translateOPE(prop));
 		}
@@ -255,7 +255,7 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<OWLObjectPropertyExpression> set = new HashSet<OWLObjectPropertyExpression>();
+		Set<OWLObjectPropertyExpression> set = new HashSet<>();
 		for (IntegerObjectPropertyExpression prop : integerObject) {
 			set.add(translateOPE(prop));
 		}
@@ -267,7 +267,7 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<Set<IntegerClass>> ret = new HashSet<Set<IntegerClass>>();
+		Set<Set<IntegerClass>> ret = new HashSet<>();
 		for (Node<OWLClass> node : owlObject.getNodes()) {
 			ret.add(translateSC(node));
 		}
@@ -279,7 +279,7 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<Node<OWLClass>> setOfNodes = new HashSet<Node<OWLClass>>();
+		Set<Node<OWLClass>> setOfNodes = new HashSet<>();
 		for (Set<IntegerClass> intSet : integerObject) {
 			setOfNodes.add(translateSC(intSet));
 		}
@@ -291,7 +291,7 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<Set<IntegerNamedIndividual>> ret = new HashSet<Set<IntegerNamedIndividual>>();
+		Set<Set<IntegerNamedIndividual>> ret = new HashSet<>();
 		for (Node<OWLNamedIndividual> node : owlObject.getNodes()) {
 			ret.add(translateSI(node));
 		}
@@ -303,7 +303,7 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<Node<OWLNamedIndividual>> setOfNodes = new HashSet<Node<OWLNamedIndividual>>();
+		Set<Node<OWLNamedIndividual>> setOfNodes = new HashSet<>();
 		for (Set<IntegerNamedIndividual> intSet : integerObject) {
 			setOfNodes.add(translateSI(intSet));
 		}
@@ -315,7 +315,7 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<Set<IntegerObjectPropertyExpression>> ret = new HashSet<Set<IntegerObjectPropertyExpression>>();
+		Set<Set<IntegerObjectPropertyExpression>> ret = new HashSet<>();
 		for (Node<OWLObjectPropertyExpression> node : owlObject.getNodes()) {
 			ret.add(translateSOPE(node));
 		}
@@ -328,7 +328,7 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<Node<OWLObjectPropertyExpression>> setOfNodes = new HashSet<Node<OWLObjectPropertyExpression>>();
+		Set<Node<OWLObjectPropertyExpression>> setOfNodes = new HashSet<>();
 		for (Set<IntegerObjectPropertyExpression> intSet : integerObject) {
 			setOfNodes.add(translateSOPE(intSet));
 		}

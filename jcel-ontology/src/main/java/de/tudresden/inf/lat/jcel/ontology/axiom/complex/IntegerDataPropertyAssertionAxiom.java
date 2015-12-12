@@ -89,7 +89,7 @@ public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 		this.subject = subjectInd;
 		this.object = objectInd;
 
-		Set<Integer> individualsInSignature = new HashSet<Integer>();
+		Set<Integer> individualsInSignature = new HashSet<>();
 		individualsInSignature.add(this.subject);
 		individualsInSignature.add(this.object);
 		this.individualsInSignature = Collections.unmodifiableSet(individualsInSignature);

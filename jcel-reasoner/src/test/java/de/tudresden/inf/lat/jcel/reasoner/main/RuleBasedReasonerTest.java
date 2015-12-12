@@ -127,7 +127,7 @@ public class RuleBasedReasonerTest extends TestCase {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
-		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
+		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass c = createNewClass(factory, "C");
 		IntegerClass d = createNewClass(factory, "D");
 		IntegerClass e = createNewClass(factory, "E");
@@ -175,7 +175,7 @@ public class RuleBasedReasonerTest extends TestCase {
 				factory.getDataTypeFactory().createObjectSomeValuesFrom(r2, h), annotations));
 
 		// 8
-		Set<IntegerClassExpression> g_h = new HashSet<IntegerClassExpression>();
+		Set<IntegerClassExpression> g_h = new HashSet<>();
 		g_h.add(g);
 		g_h.add(h);
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(factory.getDataTypeFactory()
@@ -217,7 +217,7 @@ public class RuleBasedReasonerTest extends TestCase {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
-		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
+		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a = createNewClass(factory, "A");
 		IntegerClass b = createNewClass(factory, "B");
 		IntegerClass c = createNewClass(factory, "C");
@@ -263,7 +263,7 @@ public class RuleBasedReasonerTest extends TestCase {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
-		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
+		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a = createNewClass(factory, "A");
 		IntegerClass b = createNewClass(factory, "B");
 		IntegerClass c = createNewClass(factory, "C");
@@ -326,7 +326,7 @@ public class RuleBasedReasonerTest extends TestCase {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
-		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
+		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a = createNewClass(factory, "A");
 		IntegerClass b = createNewClass(factory, "B");
 		IntegerClass c = createNewClass(factory, "C");
@@ -403,7 +403,7 @@ public class RuleBasedReasonerTest extends TestCase {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
-		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
+		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a = createNewClass(factory, "A");
 		IntegerClass b = createNewClass(factory, "B");
 		IntegerClass b1 = createNewClass(factory, "B1");
@@ -444,7 +444,7 @@ public class RuleBasedReasonerTest extends TestCase {
 				.createSubClassOfAxiom(factory.getDataTypeFactory().createObjectSomeValuesFrom(r, c), e, annotations));
 
 		// 6
-		Set<IntegerClassExpression> b1_b2 = new HashSet<IntegerClassExpression>();
+		Set<IntegerClassExpression> b1_b2 = new HashSet<>();
 		b1_b2.add(b1);
 		b1_b2.add(b2);
 		ontology.add(factory.getComplexAxiomFactory()

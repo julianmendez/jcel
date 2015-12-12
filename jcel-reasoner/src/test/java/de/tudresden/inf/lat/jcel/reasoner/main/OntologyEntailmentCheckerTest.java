@@ -99,7 +99,7 @@ public class OntologyEntailmentCheckerTest extends TestCase {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
-		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
+		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a = createNewClass(factory, "A");
 		IntegerClass b = createNewClass(factory, "B");
 		IntegerClass c = createNewClass(factory, "C");

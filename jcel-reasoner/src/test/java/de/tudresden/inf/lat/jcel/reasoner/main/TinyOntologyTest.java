@@ -107,7 +107,7 @@ public class TinyOntologyTest extends TestCase {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
-		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
+		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a = createNewClass(factory, "A");
 		IntegerClass b = createNewClass(factory, "B");
 		IntegerClass c = createNewClass(factory, "C");
@@ -145,7 +145,7 @@ public class TinyOntologyTest extends TestCase {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
-		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
+		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a = createNewClass(factory, "A");
 		IntegerClass b = createNewClass(factory, "B");
 		IntegerClass c = createNewClass(factory, "C");
@@ -188,7 +188,7 @@ public class TinyOntologyTest extends TestCase {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
-		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
+		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a = createNewClass(factory, "A");
 		IntegerClass b = createNewClass(factory, "B");
 
@@ -225,7 +225,7 @@ public class TinyOntologyTest extends TestCase {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
-		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
+		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a = createNewClass(factory, "A");
 		IntegerClass b = createNewClass(factory, "B");
 
@@ -267,7 +267,7 @@ public class TinyOntologyTest extends TestCase {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
-		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
+		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a = createNewClass(factory, "A");
 		IntegerClass b = createNewClass(factory, "B");
 
@@ -313,7 +313,7 @@ public class TinyOntologyTest extends TestCase {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
-		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
+		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a1 = createNewClass(factory, "A1");
 		IntegerClass a2 = createNewClass(factory, "A2");
 		IntegerClass a3 = createNewClass(factory, "A3");
@@ -322,12 +322,12 @@ public class TinyOntologyTest extends TestCase {
 		IntegerClass d = createNewClass(factory, "D");
 
 		{
-			Set<IntegerClassExpression> conjunction = new HashSet<IntegerClassExpression>();
+			Set<IntegerClassExpression> conjunction = new HashSet<>();
 			conjunction.add(a1);
 			conjunction.add(a2);
 			conjunction.add(a3);
 			IntegerClassExpression defOfC = factory.getDataTypeFactory().createObjectIntersectionOf(conjunction);
-			Set<IntegerClassExpression> equivClasses = new HashSet<IntegerClassExpression>();
+			Set<IntegerClassExpression> equivClasses = new HashSet<>();
 			equivClasses.add(c);
 			equivClasses.add(defOfC);
 
@@ -336,12 +336,12 @@ public class TinyOntologyTest extends TestCase {
 		}
 
 		{
-			Set<IntegerClassExpression> conjunction = new HashSet<IntegerClassExpression>();
+			Set<IntegerClassExpression> conjunction = new HashSet<>();
 			conjunction.add(a2);
 			conjunction.add(a3);
 			conjunction.add(a4);
 			IntegerClassExpression defOfD = factory.getDataTypeFactory().createObjectIntersectionOf(conjunction);
-			Set<IntegerClassExpression> equivClasses = new HashSet<IntegerClassExpression>();
+			Set<IntegerClassExpression> equivClasses = new HashSet<>();
 			equivClasses.add(d);
 			equivClasses.add(defOfD);
 
@@ -351,7 +351,7 @@ public class TinyOntologyTest extends TestCase {
 
 		{
 
-			Set<IntegerClassExpression> equivClasses = new HashSet<IntegerClassExpression>();
+			Set<IntegerClassExpression> equivClasses = new HashSet<>();
 			equivClasses.add(a1);
 			equivClasses.add(factory.getDataTypeFactory().getTopClass());
 
@@ -361,7 +361,7 @@ public class TinyOntologyTest extends TestCase {
 
 		{
 
-			Set<IntegerClassExpression> equivClasses = new HashSet<IntegerClassExpression>();
+			Set<IntegerClassExpression> equivClasses = new HashSet<>();
 			equivClasses.add(a4);
 			equivClasses.add(factory.getDataTypeFactory().getTopClass());
 

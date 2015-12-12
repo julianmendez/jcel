@@ -96,15 +96,15 @@ public class SR1AndSR2Rules implements SaturationRule {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<NormalizedIntegerAxiom> ret = new HashSet<NormalizedIntegerAxiom>();
+		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
 		ret.addAll(originalSet);
 
-		Set<RI2Axiom> accumulatedSet = new HashSet<RI2Axiom>();
-		Set<RI2Axiom> currentSet = new HashSet<RI2Axiom>();
+		Set<RI2Axiom> accumulatedSet = new HashSet<>();
+		Set<RI2Axiom> currentSet = new HashSet<>();
 		currentSet.addAll(this.helper.getRI2Axioms(originalSet));
 		while (!currentSet.isEmpty()) {
 			accumulatedSet.addAll(currentSet);
-			currentSet = new HashSet<RI2Axiom>();
+			currentSet = new HashSet<>();
 			currentSet.addAll(applyRule1(accumulatedSet));
 			currentSet.addAll(applyRule2(accumulatedSet));
 			currentSet.removeAll(accumulatedSet);
@@ -115,7 +115,7 @@ public class SR1AndSR2Rules implements SaturationRule {
 	}
 
 	private Set<RI2Axiom> applyRule1(Set<RI2Axiom> axiomSet) {
-		Set<RI2Axiom> ret = new HashSet<RI2Axiom>();
+		Set<RI2Axiom> ret = new HashSet<>();
 		for (RI2Axiom axiom : axiomSet) {
 			Integer invSubProperty = this.idGenerator.createOrGetInverseObjectPropertyOf(axiom.getSubProperty());
 			Integer invSuperProperty = this.idGenerator.createOrGetInverseObjectPropertyOf(axiom.getSuperProperty());
@@ -125,7 +125,7 @@ public class SR1AndSR2Rules implements SaturationRule {
 	}
 
 	private Set<RI2Axiom> applyRule2(Set<RI2Axiom> axiomSet) {
-		Set<RI2Axiom> ret = new HashSet<RI2Axiom>();
+		Set<RI2Axiom> ret = new HashSet<>();
 		for (RI2Axiom axiom0 : axiomSet) {
 			for (RI2Axiom axiom1 : axiomSet) {
 				if (axiom0.getSuperProperty() == axiom1.getSubProperty()) {

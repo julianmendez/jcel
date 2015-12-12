@@ -82,10 +82,10 @@ public class SR0Rule implements SaturationRule {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<NormalizedIntegerAxiom> ret = new HashSet<NormalizedIntegerAxiom>();
+		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
 		ret.addAll(originalSet);
 
-		Set<Integer> objectPropertySet = new HashSet<Integer>();
+		Set<Integer> objectPropertySet = new HashSet<>();
 		for (NormalizedIntegerAxiom axiom : originalSet) {
 			objectPropertySet.addAll(axiom.getObjectPropertiesInSignature());
 		}

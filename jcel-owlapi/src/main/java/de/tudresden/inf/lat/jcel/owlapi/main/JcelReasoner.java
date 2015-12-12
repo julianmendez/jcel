@@ -106,9 +106,9 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	private final boolean buffering = false;
 	private RuleBasedReasoner jcelCore;
 	private final OWLOntologyChangeVisitorEx<Boolean> ontologyChangeVisitor = new JcelOntologyChangeVisitorEx(this);
-	private final Set<OWLAxiom> pendingAxiomAdditions = new HashSet<OWLAxiom>();
-	private final Set<OWLAxiom> pendingAxiomRemovals = new HashSet<OWLAxiom>();
-	private final List<OWLOntologyChange> pendingChanges = new ArrayList<OWLOntologyChange>();
+	private final Set<OWLAxiom> pendingAxiomAdditions = new HashSet<>();
+	private final Set<OWLAxiom> pendingAxiomRemovals = new HashSet<>();
+	private final List<OWLOntologyChange> pendingChanges = new ArrayList<>();
 	private OWLReasonerConfiguration reasonerConfiguration = null;
 	private final OWLOntology rootOntology;
 	private final Date start = new Date();
@@ -377,7 +377,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	}
 
 	private Set<ComplexIntegerAxiom> getIntegerOntology() {
-		Set<OWLAxiom> owlAxiomSet = new HashSet<OWLAxiom>();
+		Set<OWLAxiom> owlAxiomSet = new HashSet<>();
 		owlAxiomSet.addAll(this.rootOntology.getAxioms());
 		for (OWLOntology ont : this.rootOntology.getImportsClosure()) {
 			owlAxiomSet.addAll(ont.getAxioms());
@@ -476,7 +476,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public Set<InferenceType> getPrecomputableInferenceTypes() {
 		logger.finer("getPrecomputableInferenceTypes()");
-		Set<InferenceType> ret = new HashSet<InferenceType>();
+		Set<InferenceType> ret = new HashSet<>();
 		ret.add(InferenceType.CLASS_HIERARCHY);
 		ret.add(InferenceType.OBJECT_PROPERTY_HIERARCHY);
 		ret.add(InferenceType.CLASS_ASSERTIONS);
@@ -632,7 +632,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	}
 
 	private Set<AxiomType<?>> getSupportedTypes() {
-		Set<AxiomType<?>> ret = new HashSet<AxiomType<?>>();
+		Set<AxiomType<?>> ret = new HashSet<>();
 		ret.add(AxiomType.EQUIVALENT_CLASSES);
 		ret.add(AxiomType.SUBCLASS_OF);
 		ret.add(AxiomType.SUB_OBJECT_PROPERTY);
@@ -731,7 +731,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		}
 
 		logger.finer("isEntailed((Set<? extends OWLAxiom>) " + axiomSet + ")");
-		Set<OWLAxiom> set = new HashSet<OWLAxiom>();
+		Set<OWLAxiom> set = new HashSet<>();
 		for (OWLAxiom axiom : axiomSet) {
 			set.add(axiom);
 		}

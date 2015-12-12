@@ -116,7 +116,7 @@ public class TinyOntologyTest extends TestCase {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		NormalizedIntegerAxiomFactoryImpl factory = new NormalizedIntegerAxiomFactoryImpl();
 		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
-		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
+		Set<NormalizedIntegerAxiom> ontology = new HashSet<>();
 		Integer a = createNewClass(entityManager, "A");
 		Integer b = createNewClass(entityManager, "B");
 		Integer c = createNewClass(entityManager, "C");
@@ -136,7 +136,7 @@ public class TinyOntologyTest extends TestCase {
 		Set<Integer> subClassesOfC = processor.getClassHierarchy().getDescendants(c);
 		assertTrue(subClassesOfC.contains(a));
 
-		Set<Integer> intermediateSet = new HashSet<Integer>();
+		Set<Integer> intermediateSet = new HashSet<>();
 		intermediateSet.add(a);
 		intermediateSet.add(b);
 		intermediateSet.add(c);
@@ -158,7 +158,7 @@ public class TinyOntologyTest extends TestCase {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
 		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
-		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
+		Set<NormalizedIntegerAxiom> ontology = new HashSet<>();
 		Integer r = createNewObjectProperty(entityManager, "r");
 		Integer a = createNewClass(entityManager, "A");
 		Integer b = createNewClass(entityManager, "B");
@@ -182,7 +182,7 @@ public class TinyOntologyTest extends TestCase {
 		Set<Integer> subClassesOfC = processor.getClassHierarchy().getDescendants(c);
 		assertTrue(subClassesOfC.contains(a));
 
-		Set<Integer> intermediateSet = new HashSet<Integer>();
+		Set<Integer> intermediateSet = new HashSet<>();
 		intermediateSet.add(a);
 		intermediateSet.add(b);
 		intermediateSet.add(c);
@@ -203,7 +203,7 @@ public class TinyOntologyTest extends TestCase {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
 		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
-		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
+		Set<NormalizedIntegerAxiom> ontology = new HashSet<>();
 		Integer a = createNewClass(entityManager, "A");
 		Integer b = createNewClass(entityManager, "B");
 
@@ -222,7 +222,7 @@ public class TinyOntologyTest extends TestCase {
 		Set<Integer> equivalentsOfB = processor.getClassHierarchy().getEquivalents(b);
 		assertTrue(equivalentsOfB.contains(a));
 
-		Set<Integer> intermediateSet = new HashSet<Integer>();
+		Set<Integer> intermediateSet = new HashSet<>();
 		intermediateSet.add(a);
 		intermediateSet.add(b);
 		verifyOntology(processor, intermediateSet);
@@ -243,7 +243,7 @@ public class TinyOntologyTest extends TestCase {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
 		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
-		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
+		Set<NormalizedIntegerAxiom> ontology = new HashSet<>();
 		Integer top = IntegerEntityManager.topClassId;
 		Integer a = createNewClass(entityManager, "A");
 		Integer b = createNewClass(entityManager, "B");
@@ -267,7 +267,7 @@ public class TinyOntologyTest extends TestCase {
 		Set<Integer> equivalentsOfTop = processor.getClassHierarchy().getEquivalents(top);
 		assertTrue(equivalentsOfTop.contains(b));
 
-		Set<Integer> equivToTop = new HashSet<Integer>();
+		Set<Integer> equivToTop = new HashSet<>();
 		equivToTop.add(processor.getClassHierarchy().getTopElement());
 		equivToTop.add(a);
 		equivToTop.add(b);
@@ -275,7 +275,7 @@ public class TinyOntologyTest extends TestCase {
 		assertEquals(Collections.emptySet(),
 				processor.getClassHierarchy().getDescendants(processor.getClassHierarchy().getBottomElement()));
 
-		Set<Integer> descendantsOfTop = new HashSet<Integer>();
+		Set<Integer> descendantsOfTop = new HashSet<>();
 		descendantsOfTop.add(processor.getClassHierarchy().getBottomElement());
 		assertEquals(descendantsOfTop,
 				processor.getClassHierarchy().getDescendants(processor.getClassHierarchy().getTopElement()));
@@ -302,7 +302,7 @@ public class TinyOntologyTest extends TestCase {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
 		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
-		Set<NormalizedIntegerAxiom> ontology = new HashSet<NormalizedIntegerAxiom>();
+		Set<NormalizedIntegerAxiom> ontology = new HashSet<>();
 		Integer bottom = IntegerEntityManager.bottomClassId;
 		Integer a = createNewClass(entityManager, "A");
 		Integer b = createNewClass(entityManager, "B");
@@ -326,7 +326,7 @@ public class TinyOntologyTest extends TestCase {
 		Set<Integer> equivalentsOfBottom = processor.getClassHierarchy().getEquivalents(bottom);
 		assertTrue(equivalentsOfBottom.contains(b));
 
-		Set<Integer> equivToBottom = new HashSet<Integer>();
+		Set<Integer> equivToBottom = new HashSet<>();
 		equivToBottom.add(processor.getClassHierarchy().getBottomElement());
 		equivToBottom.add(a);
 		equivToBottom.add(b);
@@ -336,7 +336,7 @@ public class TinyOntologyTest extends TestCase {
 		assertEquals(equivToBottom,
 				processor.getClassHierarchy().getEquivalents(processor.getClassHierarchy().getBottomElement()));
 
-		Set<Integer> ancestorsOfBottom = new HashSet<Integer>();
+		Set<Integer> ancestorsOfBottom = new HashSet<>();
 		ancestorsOfBottom.add(processor.getClassHierarchy().getTopElement());
 		assertEquals(ancestorsOfBottom,
 				processor.getClassHierarchy().getAncestors(processor.getClassHierarchy().getBottomElement()));
@@ -354,21 +354,21 @@ public class TinyOntologyTest extends TestCase {
 				processor.getClassHierarchy().getAncestors(processor.getClassHierarchy().getTopElement()));
 
 		{
-			Set<Integer> equivToBottom = new HashSet<Integer>();
+			Set<Integer> equivToBottom = new HashSet<>();
 			equivToBottom.add(processor.getClassHierarchy().getBottomElement());
 			assertEquals(equivToBottom,
 					processor.getClassHierarchy().getEquivalents(processor.getClassHierarchy().getBottomElement()));
 		}
 
 		{
-			Set<Integer> ancestorsOfBottom = new HashSet<Integer>();
+			Set<Integer> ancestorsOfBottom = new HashSet<>();
 			ancestorsOfBottom.add(processor.getClassHierarchy().getTopElement());
 			ancestorsOfBottom.addAll(intermediateSet);
 			assertEquals(ancestorsOfBottom,
 					processor.getClassHierarchy().getAncestors(processor.getClassHierarchy().getBottomElement()));
 		}
 		{
-			Set<Integer> equivToTop = new HashSet<Integer>();
+			Set<Integer> equivToTop = new HashSet<>();
 			equivToTop.add(processor.getClassHierarchy().getTopElement());
 			assertEquals(equivToTop,
 					processor.getClassHierarchy().getEquivalents(processor.getClassHierarchy().getTopElement()));
@@ -376,7 +376,7 @@ public class TinyOntologyTest extends TestCase {
 		}
 
 		{
-			Set<Integer> descendantsOfTop = new HashSet<Integer>();
+			Set<Integer> descendantsOfTop = new HashSet<>();
 			descendantsOfTop.add(processor.getClassHierarchy().getBottomElement());
 			descendantsOfTop.addAll(intermediateSet);
 			assertEquals(descendantsOfTop,

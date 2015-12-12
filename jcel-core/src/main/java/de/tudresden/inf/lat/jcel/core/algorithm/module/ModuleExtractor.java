@@ -81,14 +81,14 @@ public class ModuleExtractor {
 	public Set<NormalizedIntegerAxiom> extractModule(Collection<NormalizedIntegerAxiom> setOfAxioms,
 			Set<Integer> setOfClasses, Set<Integer> setOfObjectProperties) {
 
-		Set<NormalizedIntegerAxiom> ret = new HashSet<NormalizedIntegerAxiom>();
+		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
 
-		Set<Integer> classes = new HashSet<Integer>();
+		Set<Integer> classes = new HashSet<>();
 		classes.addAll(setOfClasses);
-		Set<Integer> objectProperties = new HashSet<Integer>();
+		Set<Integer> objectProperties = new HashSet<>();
 		objectProperties.addAll(setOfObjectProperties);
 
-		Set<NormalizedIntegerAxiom> remainingAxioms = new HashSet<NormalizedIntegerAxiom>();
+		Set<NormalizedIntegerAxiom> remainingAxioms = new HashSet<>();
 		remainingAxioms.addAll(setOfAxioms);
 
 		boolean found = true;

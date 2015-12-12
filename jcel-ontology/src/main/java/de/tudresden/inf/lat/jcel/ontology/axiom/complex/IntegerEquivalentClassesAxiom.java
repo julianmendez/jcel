@@ -87,11 +87,11 @@ public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 
 		this.classExpressions = Collections.unmodifiableSet(descSet);
 
-		Set<Integer> classesInSignature = new HashSet<Integer>();
+		Set<Integer> classesInSignature = new HashSet<>();
 		this.classExpressions.forEach(expression -> classesInSignature.addAll(expression.getClassesInSignature()));
 		this.classesInSignature = Collections.unmodifiableSet(classesInSignature);
 
-		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
+		Set<Integer> objectPropertiesInSignature = new HashSet<>();
 		this.classExpressions
 				.forEach(expression -> objectPropertiesInSignature.addAll(expression.getObjectPropertiesInSignature()));
 		this.objectPropertiesInSignature = Collections.unmodifiableSet(objectPropertiesInSignature);

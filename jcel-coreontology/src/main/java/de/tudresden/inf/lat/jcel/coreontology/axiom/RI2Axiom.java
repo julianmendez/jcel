@@ -129,7 +129,7 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		Set<Integer> ret = new HashSet<Integer>();
+		Set<Integer> ret = new HashSet<>();
 		ret.add(this.subProperty);
 		ret.add(this.superProperty);
 		return Collections.unmodifiableSet(ret);

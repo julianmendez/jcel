@@ -59,23 +59,23 @@ import java.util.Set;
  */
 public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedIntegerAxiomVisitor<Boolean> {
 
-	private final Map<Integer, Set<GCI0Axiom>> mapOfGCI0 = new HashMap<Integer, Set<GCI0Axiom>>();
-	private final Map<Integer, Set<GCI1Axiom>> mapOfGCI1 = new HashMap<Integer, Set<GCI1Axiom>>();
-	private final Map<Integer, Set<GCI2Axiom>> mapOfGCI2 = new HashMap<Integer, Set<GCI2Axiom>>();
-	private final Map<Integer, Set<GCI3Axiom>> mapOfGCI3A = new HashMap<Integer, Set<GCI3Axiom>>();
-	private final Map<Integer, Set<GCI3Axiom>> mapOfGCI3r = new HashMap<Integer, Set<GCI3Axiom>>();
-	private final Map<Integer, Map<Integer, Set<GCI3Axiom>>> mapOfGCI3rA = new HashMap<Integer, Map<Integer, Set<GCI3Axiom>>>();
-	private final Map<Integer, Set<NominalAxiom>> mapOfNominalAxiom = new HashMap<Integer, Set<NominalAxiom>>();
-	private final Map<Integer, Set<RangeAxiom>> mapOfRangeAxiom = new HashMap<Integer, Set<RangeAxiom>>();
-	private final Map<Integer, Set<RI2Axiom>> mapOfRI2r = new HashMap<Integer, Set<RI2Axiom>>();
-	private final Map<Integer, Set<RI2Axiom>> mapOfRI2s = new HashMap<Integer, Set<RI2Axiom>>();
-	private final Map<Integer, Set<RI3Axiom>> mapOfRI3ByLeft = new HashMap<Integer, Set<RI3Axiom>>();
-	private final Map<Integer, Set<RI3Axiom>> mapOfRI3ByRight = new HashMap<Integer, Set<RI3Axiom>>();
-	private final Set<Integer> setOfAllObjectProperties = new HashSet<Integer>();
-	private final Set<Integer> setOfClasses = new HashSet<Integer>();
-	private final Set<Integer> setOfFunctionalObjectProperties = new HashSet<Integer>();
-	private final Set<Integer> setOfReflexiveObjectProperties = new HashSet<Integer>();
-	private final Set<Integer> setOfTransitiveObjectProperties = new HashSet<Integer>();
+	private final Map<Integer, Set<GCI0Axiom>> mapOfGCI0 = new HashMap<>();
+	private final Map<Integer, Set<GCI1Axiom>> mapOfGCI1 = new HashMap<>();
+	private final Map<Integer, Set<GCI2Axiom>> mapOfGCI2 = new HashMap<>();
+	private final Map<Integer, Set<GCI3Axiom>> mapOfGCI3A = new HashMap<>();
+	private final Map<Integer, Set<GCI3Axiom>> mapOfGCI3r = new HashMap<>();
+	private final Map<Integer, Map<Integer, Set<GCI3Axiom>>> mapOfGCI3rA = new HashMap<>();
+	private final Map<Integer, Set<NominalAxiom>> mapOfNominalAxiom = new HashMap<>();
+	private final Map<Integer, Set<RangeAxiom>> mapOfRangeAxiom = new HashMap<>();
+	private final Map<Integer, Set<RI2Axiom>> mapOfRI2r = new HashMap<>();
+	private final Map<Integer, Set<RI2Axiom>> mapOfRI2s = new HashMap<>();
+	private final Map<Integer, Set<RI3Axiom>> mapOfRI3ByLeft = new HashMap<>();
+	private final Map<Integer, Set<RI3Axiom>> mapOfRI3ByRight = new HashMap<>();
+	private final Set<Integer> setOfAllObjectProperties = new HashSet<>();
+	private final Set<Integer> setOfClasses = new HashSet<>();
+	private final Set<Integer> setOfFunctionalObjectProperties = new HashSet<>();
+	private final Set<Integer> setOfReflexiveObjectProperties = new HashSet<>();
+	private final Set<Integer> setOfTransitiveObjectProperties = new HashSet<>();
 
 	/**
 	 * Constructs an empty ontology.
@@ -95,21 +95,21 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 
 	private void addGCI0Axiom(int classId, GCI0Axiom axiom) {
 		if (this.mapOfGCI0.get(classId) == null) {
-			this.mapOfGCI0.put(classId, new HashSet<GCI0Axiom>());
+			this.mapOfGCI0.put(classId, new HashSet<>());
 		}
 		this.mapOfGCI0.get(classId).add(axiom);
 	}
 
 	private void addGCI1Axiom(int classId, GCI1Axiom axiom) {
 		if (this.mapOfGCI1.get(classId) == null) {
-			this.mapOfGCI1.put(classId, new HashSet<GCI1Axiom>());
+			this.mapOfGCI1.put(classId, new HashSet<>());
 		}
 		this.mapOfGCI1.get(classId).add(axiom);
 	}
 
 	private void addGCI2Axiom(int classId, GCI2Axiom axiom) {
 		if (this.mapOfGCI2.get(classId) == null) {
-			this.mapOfGCI2.put(classId, new HashSet<GCI2Axiom>());
+			this.mapOfGCI2.put(classId, new HashSet<>());
 		}
 		this.mapOfGCI2.get(classId).add(axiom);
 	}
@@ -117,29 +117,29 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	private void addGCI3Axiom(GCI3Axiom axiom, int objectPropertyId, int classId) {
 
 		if (this.mapOfGCI3r.get(objectPropertyId) == null) {
-			this.mapOfGCI3r.put(objectPropertyId, new HashSet<GCI3Axiom>());
+			this.mapOfGCI3r.put(objectPropertyId, new HashSet<>());
 		}
 		this.mapOfGCI3r.get(objectPropertyId).add(axiom);
 
 		if (this.mapOfGCI3A.get(classId) == null) {
-			this.mapOfGCI3A.put(classId, new HashSet<GCI3Axiom>());
+			this.mapOfGCI3A.put(classId, new HashSet<>());
 		}
 		this.mapOfGCI3A.get(classId).add(axiom);
 
 		Map<Integer, Set<GCI3Axiom>> map = this.mapOfGCI3rA.get(objectPropertyId);
 		if (map == null) {
-			map = new HashMap<Integer, Set<GCI3Axiom>>();
+			map = new HashMap<>();
 			this.mapOfGCI3rA.put(objectPropertyId, map);
 		}
 		if (map.get(classId) == null) {
-			map.put(classId, new HashSet<GCI3Axiom>());
+			map.put(classId, new HashSet<>());
 		}
 		map.get(classId).add(axiom);
 	}
 
 	private void addNominalAxiom(int individualId, NominalAxiom axiom) {
 		if (this.mapOfNominalAxiom.get(individualId) == null) {
-			this.mapOfNominalAxiom.put(individualId, new HashSet<NominalAxiom>());
+			this.mapOfNominalAxiom.put(individualId, new HashSet<>());
 		}
 		this.mapOfNominalAxiom.get(individualId).add(axiom);
 	}
@@ -151,7 +151,7 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 
 	private void addRangeAxiom(int propertyId, RangeAxiom axiom) {
 		if (this.mapOfRangeAxiom.get(propertyId) == null) {
-			this.mapOfRangeAxiom.put(propertyId, new HashSet<RangeAxiom>());
+			this.mapOfRangeAxiom.put(propertyId, new HashSet<>());
 		}
 		this.mapOfRangeAxiom.get(propertyId).add(axiom);
 	}
@@ -159,7 +159,7 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	private void addTo(int property, RI3Axiom axiom, Map<Integer, Set<RI3Axiom>> map) {
 		Set<RI3Axiom> axiomSet = map.get(property);
 		if (axiomSet == null) {
-			axiomSet = new HashSet<RI3Axiom>();
+			axiomSet = new HashSet<>();
 			map.put(property, axiomSet);
 		}
 		axiomSet.add(axiom);
@@ -422,13 +422,13 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 
 		Integer subProperty = axiom.getSubProperty();
 		if (this.mapOfRI2r.get(subProperty) == null) {
-			this.mapOfRI2r.put(subProperty, new HashSet<RI2Axiom>());
+			this.mapOfRI2r.put(subProperty, new HashSet<>());
 		}
 		this.mapOfRI2r.get(subProperty).add(axiom);
 
 		Integer superProperty = axiom.getSuperProperty();
 		if (this.mapOfRI2s.get(superProperty) == null) {
-			this.mapOfRI2s.put(superProperty, new HashSet<RI2Axiom>());
+			this.mapOfRI2s.put(superProperty, new HashSet<>());
 		}
 		this.mapOfRI2s.get(superProperty).add(axiom);
 

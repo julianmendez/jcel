@@ -94,12 +94,12 @@ public class IntegerSubClassOfAxiom implements ComplexIntegerAxiom {
 		this.subClass = subClExpr;
 		this.superClass = superClExpr;
 
-		Set<Integer> classesInSignature = new HashSet<Integer>();
+		Set<Integer> classesInSignature = new HashSet<>();
 		classesInSignature.addAll(this.subClass.getClassesInSignature());
 		classesInSignature.addAll(this.superClass.getClassesInSignature());
 		this.classesInSignature = Collections.unmodifiableSet(classesInSignature);
 
-		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
+		Set<Integer> objectPropertiesInSignature = new HashSet<>();
 		objectPropertiesInSignature.addAll(this.subClass.getObjectPropertiesInSignature());
 		objectPropertiesInSignature.addAll(this.superClass.getObjectPropertiesInSignature());
 		this.objectPropertiesInSignature = Collections.unmodifiableSet(objectPropertiesInSignature);

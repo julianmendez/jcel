@@ -102,7 +102,7 @@ class NormalizerNR2_1 implements NormalizationRule {
 	}
 
 	private Set<IntegerAxiom> applyRule(IntegerSubPropertyChainOfAxiom propertyAxiom) {
-		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
+		Set<IntegerAxiom> ret = new HashSet<>();
 		List<IntegerObjectPropertyExpression> propertyList = propertyAxiom.getPropertyChain();
 		Integer superProperty = getObjectPropertyId(propertyAxiom.getSuperProperty());
 		while (propertyList.size() > 2) {

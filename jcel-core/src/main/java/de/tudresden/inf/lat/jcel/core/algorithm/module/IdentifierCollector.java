@@ -71,10 +71,10 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
  */
 class IdentifierCollector {
 
-	private Set<Integer> classesOnTheLeft = new TreeSet<Integer>();
-	private Set<Integer> classesOnTheRight = new TreeSet<Integer>();
-	private Set<Integer> objectPropertiesOnTheLeft = new TreeSet<Integer>();
-	private Set<Integer> objectPropertiesOnTheRight = new TreeSet<Integer>();
+	private Set<Integer> classesOnTheLeft = new TreeSet<>();
+	private Set<Integer> classesOnTheRight = new TreeSet<>();
+	private Set<Integer> objectPropertiesOnTheLeft = new TreeSet<>();
+	private Set<Integer> objectPropertiesOnTheRight = new TreeSet<>();
 
 	/**
 	 * Constructs a new identifier collector.

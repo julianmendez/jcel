@@ -120,7 +120,7 @@ public class NormalizerNR2_3Test extends TestCase {
 		assertTrue(a != null);
 		assertTrue(a.isLiteral());
 
-		Set<IntegerAxiom> expectedAxioms = new HashSet<IntegerAxiom>();
+		Set<IntegerAxiom> expectedAxioms = new HashSet<>();
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(cPrime, a, annotations));
 
 		IntegerClassExpression newExpr = factory.getDataTypeFactory().createObjectSomeValuesFrom(r, a);

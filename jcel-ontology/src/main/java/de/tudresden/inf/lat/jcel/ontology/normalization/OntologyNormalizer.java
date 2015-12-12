@@ -110,10 +110,10 @@ public class OntologyNormalizer {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<NormalizedIntegerAxiom> ret = new HashSet<NormalizedIntegerAxiom>();
+		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
 		SimpleNormalizer normalizer = new SimpleNormalizer(factory);
-		Set<Integer> objectPropIdSet = new HashSet<Integer>();
-		Set<IntegerAxiom> currentAxiomSet = new HashSet<IntegerAxiom>();
+		Set<Integer> objectPropIdSet = new HashSet<>();
+		Set<IntegerAxiom> currentAxiomSet = new HashSet<>();
 
 		for (ComplexIntegerAxiom axiom : originalAxiomSet) {
 			objectPropIdSet.addAll(axiom.getObjectPropertiesInSignature());
@@ -131,7 +131,7 @@ public class OntologyNormalizer {
 		}
 
 		while (currentAxiomSet.size() > 0) {
-			Set<IntegerAxiom> nextAxiomSet = new HashSet<IntegerAxiom>();
+			Set<IntegerAxiom> nextAxiomSet = new HashSet<>();
 			for (IntegerAxiom axiom : currentAxiomSet) {
 				if (axiom instanceof NormalizedIntegerAxiom) {
 					ret.add((NormalizedIntegerAxiom) axiom);

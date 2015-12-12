@@ -335,7 +335,7 @@ class ComplexIntegerAxiomAnalyzer implements ComplexIntegerAxiomVisitor<Boolean>
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<IntegerClassExpression> set = new HashSet<IntegerClassExpression>();
+		Set<IntegerClassExpression> set = new HashSet<>();
 		set.add(axiom.getSubClass());
 		set.add(axiom.getSuperClass());
 		return this.expressionAnalyzer.visit(set);

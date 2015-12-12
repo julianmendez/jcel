@@ -116,7 +116,7 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public Set<Integer> getClassesInSignature() {
-		Set<Integer> ret = new HashSet<Integer>();
+		Set<Integer> ret = new HashSet<>();
 		ret.add(this.subClass);
 		ret.add(this.classInSuperClass);
 		return Collections.unmodifiableSet(ret);
@@ -148,7 +148,7 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		Set<Integer> ret = new HashSet<Integer>();
+		Set<Integer> ret = new HashSet<>();
 		ret.add(getPropertyInSuperClass());
 		return Collections.unmodifiableSet(ret);
 	}

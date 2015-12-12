@@ -88,7 +88,7 @@ public class SR4Rule implements SaturationRule {
 
 		Map<Integer, Set<Integer>> mapBySuperProp = this.helper
 				.getMapBySuperObjectProperty(this.helper.getRI2Axioms(originalSet));
-		Set<NormalizedIntegerAxiom> ret = new HashSet<NormalizedIntegerAxiom>();
+		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
 		ret.addAll(originalSet);
 
 		for (NormalizedIntegerAxiom normalizedAxiom : originalSet) {

@@ -82,11 +82,11 @@ class SaturationRuleHelper {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
+		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		for (RI2Axiom axiom : axiomSet) {
 			Set<Integer> relatedElemSet = ret.get(axiom.getSubProperty());
 			if (relatedElemSet == null) {
-				relatedElemSet = new HashSet<Integer>();
+				relatedElemSet = new HashSet<>();
 				ret.put(axiom.getSubProperty(), relatedElemSet);
 			}
 			relatedElemSet.add(axiom.getSuperProperty());
@@ -108,11 +108,11 @@ class SaturationRuleHelper {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
+		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		for (RI2Axiom axiom : axiomSet) {
 			Set<Integer> relatedElemSet = ret.get(axiom.getSuperProperty());
 			if (relatedElemSet == null) {
-				relatedElemSet = new HashSet<Integer>();
+				relatedElemSet = new HashSet<>();
 				ret.put(axiom.getSuperProperty(), relatedElemSet);
 			}
 			relatedElemSet.add(axiom.getSubProperty());
@@ -139,8 +139,8 @@ class SaturationRuleHelper {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<Integer> ret = new HashSet<Integer>();
-		Set<Integer> toVisit = new HashSet<Integer>();
+		Set<Integer> ret = new HashSet<>();
+		Set<Integer> toVisit = new HashSet<>();
 		toVisit.add(first);
 		while (!toVisit.isEmpty()) {
 			Integer elem = toVisit.iterator().next();
@@ -170,7 +170,7 @@ class SaturationRuleHelper {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<RI2Axiom> ret = new HashSet<RI2Axiom>();
+		Set<RI2Axiom> ret = new HashSet<>();
 		for (NormalizedIntegerAxiom axiom : originalSet) {
 			if (axiom instanceof RI2Axiom) {
 				ret.add((RI2Axiom) axiom);

@@ -74,8 +74,8 @@ public class HashArraySetTest extends TestCase {
 	public void testInsertion() {
 
 		HashArraySet arraySet = new HashArraySet();
-		ArrayList<Integer> arrayList = new ArrayList<Integer>();
-		Set<Integer> treeSet = new TreeSet<Integer>();
+		ArrayList<Integer> arrayList = new ArrayList<>();
+		Set<Integer> treeSet = new TreeSet<>();
 
 		for (int i = 0; i < 0x1000; i++) {
 			int element = i % 0xf0;
@@ -96,7 +96,7 @@ public class HashArraySetTest extends TestCase {
 	}
 
 	public void testIteration() {
-		Set<Integer> treeSet = new TreeSet<Integer>();
+		Set<Integer> treeSet = new TreeSet<>();
 		HashArraySet arraySet = new HashArraySet();
 
 		for (int i = 0; i < 0x1000; i++) {

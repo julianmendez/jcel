@@ -85,7 +85,7 @@ class NormalizerSubClassOf implements NormalizationRule {
 
 		Set<IntegerAxiom> ret = Collections.emptySet();
 		if (axiom instanceof IntegerSubClassOfAxiom) {
-			ret = new HashSet<IntegerAxiom>();
+			ret = new HashSet<>();
 			Collection<NormalizedIntegerAxiom> normalizedAxioms = simplify((IntegerSubClassOfAxiom) axiom);
 			for (NormalizedIntegerAxiom normalizedAxiom : normalizedAxioms) {
 				ret.add(normalizedAxiom);
@@ -111,7 +111,7 @@ class NormalizerSubClassOf implements NormalizationRule {
 	}
 
 	private Collection<NormalizedIntegerAxiom> simplify(IntegerSubClassOfAxiom axiom) {
-		Collection<NormalizedIntegerAxiom> ret = new ArrayList<NormalizedIntegerAxiom>();
+		Collection<NormalizedIntegerAxiom> ret = new ArrayList<>();
 		IntegerClassExpression subClass = axiom.getSubClass();
 		IntegerClassExpression superClass = axiom.getSuperClass();
 

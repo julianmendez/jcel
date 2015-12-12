@@ -144,7 +144,7 @@ public class RI3Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		Set<Integer> ret = new HashSet<Integer>();
+		Set<Integer> ret = new HashSet<>();
 		ret.add(this.leftSubProperty);
 		ret.add(this.rightSubProperty);
 		ret.add(this.superProperty);

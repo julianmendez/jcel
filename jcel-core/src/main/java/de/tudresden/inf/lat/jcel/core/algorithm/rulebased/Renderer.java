@@ -203,12 +203,12 @@ public class Renderer {
 	}
 
 	private List<Integer> sortByName(Collection<Integer> identifiers, IntegerEntityManager entityManager) {
-		List<PairIdName> list = new ArrayList<PairIdName>();
+		List<PairIdName> list = new ArrayList<>();
 		for (int id : identifiers) {
 			list.add(new PairIdName(id, entityManager.getName(id)));
 		}
 		Collections.sort(list);
-		List<Integer> ret = new ArrayList<Integer>();
+		List<Integer> ret = new ArrayList<>();
 		for (PairIdName pair : list) {
 			ret.add(pair.getId());
 		}

@@ -66,10 +66,10 @@ import java.util.TreeSet;
 public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 	private final Integer bottomElement;
-	private final Map<Integer, Set<Integer>> children = new TreeMap<Integer, Set<Integer>>();
-	private final Map<Integer, Set<Integer>> equivalents = new TreeMap<Integer, Set<Integer>>();
-	private final Map<Integer, Set<Integer>> parents = new TreeMap<Integer, Set<Integer>>();
-	private final Map<Integer, Integer> representative = new TreeMap<Integer, Integer>();
+	private final Map<Integer, Set<Integer>> children = new TreeMap<>();
+	private final Map<Integer, Set<Integer>> equivalents = new TreeMap<>();
+	private final Map<Integer, Set<Integer>> parents = new TreeMap<>();
+	private final Map<Integer, Integer> representative = new TreeMap<>();
 	private final Integer topElement;
 
 	/**
@@ -118,18 +118,18 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 	private void computeDag(IntegerSubsumerGraph setS) {
 		reset(setS.getElements());
-		Set<Integer> sCN = new TreeSet<Integer>();
+		Set<Integer> sCN = new TreeSet<>();
 		sCN.addAll(setS.getElements());
 		sCN.remove(getBottomElement());
 		sCN.remove(getTopElement());
 
-		Set<Integer> equivToTop = new TreeSet<Integer>();
+		Set<Integer> equivToTop = new TreeSet<>();
 		equivToTop.addAll(setS.getSubsumers(getTopElement()));
 		for (Integer elem : equivToTop) {
 			makeEquivalent(getTopElement(), elem);
 		}
 
-		Set<Integer> classified = new TreeSet<Integer>();
+		Set<Integer> classified = new TreeSet<>();
 		classified.addAll(equivToTop);
 
 		for (Integer cA : sCN) {
@@ -148,14 +148,14 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 	}
 
 	private void dagClassify(Integer cA, Set<Integer> classified, IntegerSubsumerGraph setS) {
-		Set<Integer> candidates = new TreeSet<Integer>();
+		Set<Integer> candidates = new TreeSet<>();
 		candidates.add(getTopElement());
-		Set<Integer> subsumersA = new TreeSet<Integer>();
+		Set<Integer> subsumersA = new TreeSet<>();
 		subsumersA.addAll(setS.getSubsumers(cA));
 		subsumersA.remove(cA);
 		subsumersA.remove(getTopElement());
 		for (Integer cB : subsumersA) {
-			Set<Integer> subsumersB = new TreeSet<Integer>();
+			Set<Integer> subsumersB = new TreeSet<>();
 			subsumersB.addAll(setS.getSubsumers(cB));
 			if (subsumersB.contains(cA)) {
 				classified.add(cB);
@@ -172,14 +172,14 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 	}
 
 	private void dagInsert(Integer cA, Set<Integer> candidates) {
-		Set<Integer> marked = new TreeSet<Integer>();
+		Set<Integer> marked = new TreeSet<>();
 		for (Integer cB : candidates) {
 			Set<Integer> parentSet = this.parents.get(cB);
 			for (Integer cX : parentSet) {
 				marked.add(cX);
 			}
 		}
-		Set<Integer> notMarkedCandidates = new TreeSet<Integer>();
+		Set<Integer> notMarkedCandidates = new TreeSet<>();
 		notMarkedCandidates.addAll(candidates);
 		notMarkedCandidates.removeAll(marked);
 		this.parents.put(cA, notMarkedCandidates);
@@ -202,7 +202,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 		if (getBottomElement().equals(otherGraph.getBottomElement())
 				&& getTopElement().equals(otherGraph.getTopElement())) {
-			Set<Integer> set = new HashSet<Integer>();
+			Set<Integer> set = new HashSet<>();
 			set.addAll(getElements());
 			set.remove(getBottomElement());
 			set.remove(getTopElement());
@@ -212,22 +212,22 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 				throw new IllegalArgumentException("Graphs are not disjoint.");
 			}
 
-			Set<Integer> otherSet = new HashSet<Integer>();
+			Set<Integer> otherSet = new HashSet<>();
 			otherSet.addAll(otherGraph.getElements());
 			for (Integer elem : otherSet) {
 
 				if (this.children.get(elem) == null) {
-					this.children.put(elem, new HashSet<Integer>());
+					this.children.put(elem, new HashSet<>());
 				}
 				this.children.get(elem).addAll(otherGraph.getChildren(elem));
 
 				if (this.parents.get(elem) == null) {
-					this.parents.put(elem, new HashSet<Integer>());
+					this.parents.put(elem, new HashSet<>());
 				}
 				this.parents.get(elem).addAll(otherGraph.getParents(elem));
 
 				if (this.equivalents.get(elem) == null) {
-					this.equivalents.put(elem, new HashSet<Integer>());
+					this.equivalents.put(elem, new HashSet<>());
 				}
 				if (this.representative.get(elem) == null) {
 					this.representative.put(elem, elem);
@@ -266,14 +266,14 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<Integer> ret = new HashSet<Integer>();
-		Set<Integer> toVisit = new HashSet<Integer>();
+		Set<Integer> ret = new HashSet<>();
+		Set<Integer> toVisit = new HashSet<>();
 		toVisit.addAll(this.parents.get(orig));
 		while (!toVisit.isEmpty()) {
 			Integer elem = toVisit.iterator().next();
 			toVisit.remove(elem);
 			ret.add(elem);
-			Set<Integer> related = new HashSet<Integer>();
+			Set<Integer> related = new HashSet<>();
 			related.addAll(this.parents.get(elem));
 			related.removeAll(ret);
 			toVisit.addAll(related);
@@ -301,14 +301,14 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<Integer> ret = new HashSet<Integer>();
-		Set<Integer> toVisit = new HashSet<Integer>();
+		Set<Integer> ret = new HashSet<>();
+		Set<Integer> toVisit = new HashSet<>();
 		toVisit.addAll(this.children.get(orig));
 		while (!toVisit.isEmpty()) {
 			Integer elem = toVisit.iterator().next();
 			toVisit.remove(elem);
 			ret.add(elem);
-			Set<Integer> related = new HashSet<Integer>();
+			Set<Integer> related = new HashSet<>();
 			related.addAll(this.children.get(elem));
 			related.removeAll(ret);
 			toVisit.addAll(related);
@@ -379,9 +379,9 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 		this.representative.clear();
 
 		for (Integer elem : elements) {
-			this.children.put(elem, new TreeSet<Integer>());
-			this.parents.put(elem, new TreeSet<Integer>());
-			Set<Integer> equiv = new TreeSet<Integer>();
+			this.children.put(elem, new TreeSet<>());
+			this.parents.put(elem, new TreeSet<>());
+			Set<Integer> equiv = new TreeSet<>();
 			equiv.add(elem);
 			this.equivalents.put(elem, equiv);
 			this.representative.put(elem, elem);
@@ -404,7 +404,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 	}
 
 	private void updateBottom() {
-		Set<Integer> parentsOfBottom = new HashSet<Integer>();
+		Set<Integer> parentsOfBottom = new HashSet<>();
 		for (Integer elem : getElements()) {
 			if (this.children.get(elem).isEmpty()) {
 				parentsOfBottom.add(elem);
@@ -425,7 +425,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 	private void updateChildren() {
 		for (Integer elem : getElements()) {
-			Set<Integer> elemChildren = new HashSet<Integer>();
+			Set<Integer> elemChildren = new HashSet<>();
 			for (Integer index : getEquivalents(elem)) {
 				for (Integer child : this.children.get(index)) {
 					elemChildren.addAll(getEquivalents(child));
@@ -439,7 +439,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 	private void updateParents() {
 		for (Integer elem : getElements()) {
-			Set<Integer> elemParents = new HashSet<Integer>();
+			Set<Integer> elemParents = new HashSet<>();
 			for (Integer index : getEquivalents(elem)) {
 				for (Integer parent : this.parents.get(index)) {
 					elemParents.addAll(getEquivalents(parent));

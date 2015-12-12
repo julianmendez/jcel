@@ -123,8 +123,8 @@ class NormalizerNR2_2 implements NormalizationRule {
 
 	private Set<IntegerAxiom> applyRule(Set<IntegerClassExpression> operands, IntegerClassExpression superClass,
 			Set<Annotation> annotations) {
-		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
-		Set<IntegerClassExpression> newOperands = new HashSet<IntegerClassExpression>();
+		Set<IntegerAxiom> ret = new HashSet<>();
+		Set<IntegerClassExpression> newOperands = new HashSet<>();
 		boolean applied = false;
 		for (IntegerClassExpression classExpression : operands) {
 			if (classExpression.isLiteral()) {
