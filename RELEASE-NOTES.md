@@ -30,6 +30,17 @@
 | v0.5.0  | 2010-02-26   | 6    | 2.2.0         | 4.0.2         |
 
 
+### v0.24.0
+*(unreleased)*
+* runs on Java 8
+* build commands:
+```
+$ mvn clean install
+```
+* release: `target/jcel-0.24.0.zip`
+* plug-in: `jcel-plugin/target/de.tu-dresden.inf.lat.jcel-0.24.0.jar`
+
+
 ### v0.23.0
 *(2015-11-30)*
 * does not longer have [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/) build files
