@@ -102,22 +102,17 @@ class NormalizerNR1_2 implements NormalizationRule {
 			ret = new HashSet<IntegerAxiom>();
 			Integer newClassId = getOntologyObjectFactory().getEntityManager()
 					.createAnonymousEntity(IntegerEntityType.CLASS, true);
-			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
-					.createRangeAxiom(
-							getObjectPropertyId(rangeAxiom.getProperty()),
-							newClassId, rangeAxiom.getAnnotations()));
-			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-					.createSubClassOfAxiom(
-							getOntologyObjectFactory().getDataTypeFactory()
-									.createClass(newClassId),
-							rangeAxiom.getRange(), rangeAxiom.getAnnotations()));
+			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory().createRangeAxiom(
+					getObjectPropertyId(rangeAxiom.getProperty()), newClassId, rangeAxiom.getAnnotations()));
+			ret.add(getOntologyObjectFactory().getComplexAxiomFactory().createSubClassOfAxiom(
+					getOntologyObjectFactory().getDataTypeFactory().createClass(newClassId), rangeAxiom.getRange(),
+					rangeAxiom.getAnnotations()));
 		}
 		return ret;
 	}
 
 	private Integer getObjectPropertyId(IntegerObjectPropertyExpression propExpr) {
-		return propExpr.accept(new ObjectPropertyIdFinder(
-				getOntologyObjectFactory().getEntityManager()));
+		return propExpr.accept(new ObjectPropertyIdFinder(getOntologyObjectFactory().getEntityManager()));
 	}
 
 	private IntegerOntologyObjectFactory getOntologyObjectFactory() {

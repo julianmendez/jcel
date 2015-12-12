@@ -75,18 +75,14 @@ public class OntologyNormalizerTest extends TestCase {
 	public OntologyNormalizerTest() {
 	}
 
-	private IntegerClass createNewClass(IntegerOntologyObjectFactory factory,
-			String name) {
-		return factory.getDataTypeFactory().createClass(
-				factory.getEntityManager().createNamedEntity(
-						IntegerEntityType.CLASS, name, false));
+	private IntegerClass createNewClass(IntegerOntologyObjectFactory factory, String name) {
+		return factory.getDataTypeFactory()
+				.createClass(factory.getEntityManager().createNamedEntity(IntegerEntityType.CLASS, name, false));
 	}
 
-	private IntegerObjectProperty createNewObjectProperty(
-			IntegerOntologyObjectFactory factory, String name) {
+	private IntegerObjectProperty createNewObjectProperty(IntegerOntologyObjectFactory factory, String name) {
 		return factory.getDataTypeFactory().createObjectProperty(
-				factory.getEntityManager().createNamedEntity(
-						IntegerEntityType.OBJECT_PROPERTY, name, false));
+				factory.getEntityManager().createNamedEntity(IntegerEntityType.OBJECT_PROPERTY, name, false));
 	}
 
 	public void testGCI3InverseObjectProperties() {
@@ -99,21 +95,18 @@ public class OntologyNormalizerTest extends TestCase {
 		IntegerObjectProperty rMinus = createNewObjectProperty(factory, "r-");
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
-		ontology.add(factory.getComplexAxiomFactory()
-				.createInverseObjectPropertiesAxiom(rMinus, r, annotations));
+		ontology.add(factory.getComplexAxiomFactory().createInverseObjectPropertiesAxiom(rMinus, r, annotations));
 
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
-				factory.getDataTypeFactory().createObjectSomeValuesFrom(rMinus,
-						a), b, annotations));
+				factory.getDataTypeFactory().createObjectSomeValuesFrom(rMinus, a), b, annotations));
 
 		OntologyNormalizer normalizer = new OntologyNormalizer();
 
-		Set<NormalizedIntegerAxiom> normalizedSet = normalizer.normalize(
-				ontology, factory);
+		Set<NormalizedIntegerAxiom> normalizedSet = normalizer.normalize(ontology, factory);
 
 		Set<NormalizedIntegerAxiom> expectedSet = new HashSet<NormalizedIntegerAxiom>();
-		expectedSet.add(factory.getNormalizedAxiomFactory().createGCI3Axiom(
-				rMinus.getId(), a.getId(), b.getId(), annotations));
+		expectedSet.add(
+				factory.getNormalizedAxiomFactory().createGCI3Axiom(rMinus.getId(), a.getId(), b.getId(), annotations));
 
 		assertEquals(expectedSet, normalizedSet);
 	}
@@ -127,20 +120,17 @@ public class OntologyNormalizerTest extends TestCase {
 		IntegerObjectProperty r = createNewObjectProperty(factory, "r");
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<ComplexIntegerAxiom>();
-		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
-				factory.getDataTypeFactory().createObjectSomeValuesFrom(
-						factory.getDataTypeFactory().createObjectInverseOf(r),
-						a), b, annotations));
+		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(factory.getDataTypeFactory()
+				.createObjectSomeValuesFrom(factory.getDataTypeFactory().createObjectInverseOf(r), a), b, annotations));
 
 		OntologyNormalizer normalizer = new OntologyNormalizer();
 
-		Set<NormalizedIntegerAxiom> normalizedSet = normalizer.normalize(
-				ontology, factory);
+		Set<NormalizedIntegerAxiom> normalizedSet = normalizer.normalize(ontology, factory);
 
 		Set<NormalizedIntegerAxiom> expectedSet = new HashSet<NormalizedIntegerAxiom>();
 		expectedSet.add(factory.getNormalizedAxiomFactory().createGCI3Axiom(
-				factory.getEntityManager().createOrGetInverseObjectPropertyOf(
-						r.getId()), a.getId(), b.getId(), annotations));
+				factory.getEntityManager().createOrGetInverseObjectPropertyOf(r.getId()), a.getId(), b.getId(),
+				annotations));
 
 		assertEquals(expectedSet, normalizedSet);
 	}

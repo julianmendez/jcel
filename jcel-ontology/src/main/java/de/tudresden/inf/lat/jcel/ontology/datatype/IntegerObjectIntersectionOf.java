@@ -54,8 +54,8 @@ import java.util.Set;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
 
 /**
- * This class models an intersection of several class expressions, this is:
- * C<sub>1</sub> \u2293 &hellip; \u2293 C<sub>n</sub>
+ * This class models an intersection of several class expressions, this is: C
+ * <sub>1</sub> \u2293 &hellip; \u2293 C<sub>n</sub>
  * 
  * @author Julian Mendez
  * 
@@ -113,8 +113,7 @@ public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 		boolean ret = (this == o);
 		if (!ret && (o instanceof IntegerObjectIntersectionOf)) {
 			IntegerObjectIntersectionOf other = (IntegerObjectIntersectionOf) o;
-			ret = getOperands().equals(other.getOperands())
-					&& (containsBottom() == other.containsBottom());
+			ret = getOperands().equals(other.getOperands()) && (containsBottom() == other.containsBottom());
 		}
 		return ret;
 	}
@@ -181,8 +180,7 @@ public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(IntegerClassExpressionWord.ObjectIntersectionOf);
 		sbuf.append(IntegerClassExpressionWord.openPar);
-		for (Iterator<IntegerClassExpression> it = getOperands().iterator(); it
-				.hasNext();) {
+		for (Iterator<IntegerClassExpression> it = getOperands().iterator(); it.hasNext();) {
 			IntegerClassExpression classExpression = it.next();
 			sbuf.append(classExpression.toString());
 			if (it.hasNext()) {

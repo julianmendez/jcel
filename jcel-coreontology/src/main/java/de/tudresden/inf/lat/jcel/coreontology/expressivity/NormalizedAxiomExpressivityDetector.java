@@ -57,8 +57,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
  * 
  * @author Julian Mendez
  */
-public class NormalizedAxiomExpressivityDetector implements
-		OntologyExpressivity {
+public class NormalizedAxiomExpressivityDetector implements OntologyExpressivity {
 
 	private final NormalizedIntegerAxiomAnalyzer axiomAnalyzer = new NormalizedIntegerAxiomAnalyzer();
 	private final String name;
@@ -69,8 +68,7 @@ public class NormalizedAxiomExpressivityDetector implements
 	 * @param axiomSet
 	 *            set of axioms to detect the expressivity
 	 */
-	public NormalizedAxiomExpressivityDetector(
-			Set<NormalizedIntegerAxiom> axiomSet) {
+	public NormalizedAxiomExpressivityDetector(Set<NormalizedIntegerAxiom> axiomSet) {
 		if (axiomSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

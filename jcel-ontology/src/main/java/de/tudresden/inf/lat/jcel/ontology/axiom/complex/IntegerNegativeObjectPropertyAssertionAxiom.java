@@ -60,8 +60,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  * 
  * @author Julian Mendez
  */
-public class IntegerNegativeObjectPropertyAssertionAxiom implements
-		ComplexIntegerAxiom {
+public class IntegerNegativeObjectPropertyAssertionAxiom implements ComplexIntegerAxiom {
 
 	private final Set<Integer> individuals;
 	private final int object;
@@ -82,8 +81,7 @@ public class IntegerNegativeObjectPropertyAssertionAxiom implements
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerNegativeObjectPropertyAssertionAxiom(
-			IntegerObjectPropertyExpression objectProp, int subjectInd,
+	IntegerNegativeObjectPropertyAssertionAxiom(IntegerObjectPropertyExpression objectProp, int subjectInd,
 			int objectInd, Set<Annotation> annotations) {
 		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -102,9 +100,7 @@ public class IntegerNegativeObjectPropertyAssertionAxiom implements
 		this.individuals = Collections.unmodifiableSet(individuals);
 		this.annotations = annotations;
 		this.hashCode = this.property.hashCode()
-				+ 0x1F
-				* (this.subject + 0x1F * (this.object + 0x1F * this.annotations
-						.hashCode()));
+				+ 0x1F * (this.subject + 0x1F * (this.object + 0x1F * this.annotations.hashCode()));
 	}
 
 	@Override
@@ -119,13 +115,10 @@ public class IntegerNegativeObjectPropertyAssertionAxiom implements
 	@Override
 	public boolean equals(Object obj) {
 		boolean ret = (this == obj);
-		if (!ret
-				&& (obj instanceof IntegerNegativeObjectPropertyAssertionAxiom)) {
+		if (!ret && (obj instanceof IntegerNegativeObjectPropertyAssertionAxiom)) {
 			IntegerNegativeObjectPropertyAssertionAxiom other = (IntegerNegativeObjectPropertyAssertionAxiom) obj;
-			ret = getProperty().equals(other.getProperty())
-					&& getSubject().equals(other.getSubject())
-					&& getObject().equals(other.getObject())
-					&& getAnnotations().equals(other.getAnnotations());
+			ret = getProperty().equals(other.getProperty()) && getSubject().equals(other.getSubject())
+					&& getObject().equals(other.getObject()) && getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}

@@ -79,8 +79,7 @@ public class SR1AndSR2Rules implements SaturationRule {
 	 * @param entityManager
 	 *            entity manager
 	 */
-	public SR1AndSR2Rules(NormalizedIntegerAxiomFactory factory,
-			IntegerEntityManager entityManager) {
+	public SR1AndSR2Rules(NormalizedIntegerAxiomFactory factory, IntegerEntityManager entityManager) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -92,8 +91,7 @@ public class SR1AndSR2Rules implements SaturationRule {
 	}
 
 	@Override
-	public Set<NormalizedIntegerAxiom> apply(
-			Set<NormalizedIntegerAxiom> originalSet) {
+	public Set<NormalizedIntegerAxiom> apply(Set<NormalizedIntegerAxiom> originalSet) {
 		if (originalSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -119,13 +117,9 @@ public class SR1AndSR2Rules implements SaturationRule {
 	private Set<RI2Axiom> applyRule1(Set<RI2Axiom> axiomSet) {
 		Set<RI2Axiom> ret = new HashSet<RI2Axiom>();
 		for (RI2Axiom axiom : axiomSet) {
-			Integer invSubProperty = this.idGenerator
-					.createOrGetInverseObjectPropertyOf(axiom.getSubProperty());
-			Integer invSuperProperty = this.idGenerator
-					.createOrGetInverseObjectPropertyOf(axiom
-							.getSuperProperty());
-			ret.add(this.factory.createRI2Axiom(invSubProperty,
-					invSuperProperty, axiom.getAnnotations()));
+			Integer invSubProperty = this.idGenerator.createOrGetInverseObjectPropertyOf(axiom.getSubProperty());
+			Integer invSuperProperty = this.idGenerator.createOrGetInverseObjectPropertyOf(axiom.getSuperProperty());
+			ret.add(this.factory.createRI2Axiom(invSubProperty, invSuperProperty, axiom.getAnnotations()));
 		}
 		return ret;
 	}
@@ -138,8 +132,7 @@ public class SR1AndSR2Rules implements SaturationRule {
 					Set<Annotation> annotations = new TreeSet<Annotation>();
 					annotations.addAll(axiom0.getAnnotations());
 					annotations.addAll(axiom1.getAnnotations());
-					ret.add(this.factory.createRI2Axiom(
-							axiom0.getSubProperty(), axiom1.getSuperProperty(),
+					ret.add(this.factory.createRI2Axiom(axiom0.getSubProperty(), axiom1.getSuperProperty(),
 							annotations));
 				}
 			}

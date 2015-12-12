@@ -54,9 +54,9 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
  * 
  * <ul>
  * <li>CR-8 : <b>if</b> A \u2291 &exist; r<sub>2</sub><sup>-</sup> <i>.</i> B
- * &isin; <i>T</i> , <u>(r<sub>1</sub>, x, y) &isin; R</u>, (y, A) &isin; S,
- * r<sub>1</sub> \u2291<sub><i>T</i></sub> s, r<sub>2</sub>
- * \u2291<sub><i>T</i></sub> s, f(s<sup>-</sup>) <br>
+ * &isin; <i>T</i> , <u>(r<sub>1</sub>, x, y) &isin; R</u>, (y, A) &isin; S, r
+ * <sub>1</sub> \u2291<sub><i>T</i></sub> s, r<sub>2</sub> \u2291
+ * <sub><i>T</i></sub> s, f(s<sup>-</sup>) <br>
  * <b>then</b> S := S &cup; {(x, B)}</li>
  * </ul>
  * <br>
@@ -72,8 +72,7 @@ public class CR8RExtRule implements RObserverRule {
 	}
 
 	@Override
-	public boolean apply(ClassifierStatus status, int property, int leftClass,
-			int rightClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass, int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -85,12 +84,10 @@ public class CR8RExtRule implements RObserverRule {
 		boolean ret = false;
 		for (int s : status.getSuperObjectProperties(r1)) {
 			int sMinus = status.getInverseObjectPropertyOf(s);
-			if (status.getExtendedOntology().getFunctionalObjectProperties()
-					.contains(sMinus)) {
+			if (status.getExtendedOntology().getFunctionalObjectProperties().contains(sMinus)) {
 
 				for (int a : status.getSubsumers(y)) {
-					for (GCI2Axiom axiom : status.getExtendedOntology()
-							.getGCI2Axioms(a)) {
+					for (GCI2Axiom axiom : status.getExtendedOntology().getGCI2Axioms(a)) {
 						int r2Minus = axiom.getPropertyInSuperClass();
 						int r2 = status.getInverseObjectPropertyOf(r2Minus);
 						if (status.getSubObjectProperties(s).contains(r2)) {

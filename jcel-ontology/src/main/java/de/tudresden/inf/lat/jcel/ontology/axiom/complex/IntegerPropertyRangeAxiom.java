@@ -80,8 +80,8 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerPropertyRangeAxiom(IntegerObjectPropertyExpression prop,
-			IntegerClassExpression clExpr, Set<Annotation> annotations) {
+	IntegerPropertyRangeAxiom(IntegerObjectPropertyExpression prop, IntegerClassExpression clExpr,
+			Set<Annotation> annotations) {
 		if (prop == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -97,19 +97,14 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 
 		Set<Integer> classesInSignature = new HashSet<Integer>();
 		classesInSignature.addAll(this.range.getClassesInSignature());
-		this.classesInSignature = Collections
-				.unmodifiableSet(classesInSignature);
+		this.classesInSignature = Collections.unmodifiableSet(classesInSignature);
 
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
-		objectPropertiesInSignature.addAll(this.range
-				.getObjectPropertiesInSignature());
-		objectPropertiesInSignature.addAll(this.property
-				.getObjectPropertiesInSignature());
-		this.objectPropertiesInSignature = Collections
-				.unmodifiableSet(objectPropertiesInSignature);
+		objectPropertiesInSignature.addAll(this.range.getObjectPropertiesInSignature());
+		objectPropertiesInSignature.addAll(this.property.getObjectPropertiesInSignature());
+		this.objectPropertiesInSignature = Collections.unmodifiableSet(objectPropertiesInSignature);
 		this.annotations = annotations;
-		this.hashCode = this.property.hashCode() + 0x1F
-				* (this.range.hashCode() + 0x1F * this.annotations.hashCode());
+		this.hashCode = this.property.hashCode() + 0x1F * (this.range.hashCode() + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override
@@ -125,8 +120,7 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 		boolean ret = (this == obj);
 		if (!ret && (obj instanceof IntegerPropertyRangeAxiom)) {
 			IntegerPropertyRangeAxiom other = (IntegerPropertyRangeAxiom) obj;
-			ret = getProperty().equals(other.getProperty())
-					&& getRange().equals(other.getRange())
+			ret = getProperty().equals(other.getProperty()) && getRange().equals(other.getRange())
 					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;

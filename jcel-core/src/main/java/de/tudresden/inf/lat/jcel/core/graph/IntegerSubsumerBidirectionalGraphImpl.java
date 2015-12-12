@@ -56,8 +56,7 @@ import java.util.Iterator;
  *
  * @author Julian Mendez
  */
-public class IntegerSubsumerBidirectionalGraphImpl implements
-IntegerSubsumerBidirectionalGraph {
+public class IntegerSubsumerBidirectionalGraphImpl implements IntegerSubsumerBidirectionalGraph {
 
 	private final IntegerSubsumerGraphImpl graph;
 	private final IntegerSubsumerGraphImpl invGraph;
@@ -104,8 +103,7 @@ IntegerSubsumerBidirectionalGraph {
 
 	@Override
 	public boolean containsPair(int subsumee, int subsumer) {
-		return (getSubsumers(subsumee) != null)
-				&& getSubsumers(subsumee).contains(subsumer);
+		return (getSubsumers(subsumee) != null) && getSubsumers(subsumee).contains(subsumer);
 	}
 
 	@Override
@@ -113,14 +111,11 @@ IntegerSubsumerBidirectionalGraph {
 		boolean ret = (this == o);
 		if (!ret && (o instanceof IntegerSubsumerBidirectionalGraph)) {
 			IntegerSubsumerBidirectionalGraph other = (IntegerSubsumerBidirectionalGraph) o;
-			ret = (getBottomElement() == other.getBottomElement())
-					&& (getTopElement() == other.getTopElement())
+			ret = (getBottomElement() == other.getBottomElement()) && (getTopElement() == other.getTopElement())
 					&& getElements().equals(other.getElements());
-			for (Iterator<Integer> it = getElements().iterator(); ret
-					&& it.hasNext();) {
+			for (Iterator<Integer> it = getElements().iterator(); ret && it.hasNext();) {
 				Integer elem = it.next();
-				ret = ret
-						&& getSubsumers(elem).equals(other.getSubsumers(elem));
+				ret = ret && getSubsumers(elem).equals(other.getSubsumers(elem));
 			}
 		}
 		return ret;

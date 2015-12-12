@@ -59,8 +59,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * 
  * @author Julian Mendez
  */
-public class JcelOntologyChangeVisitorEx implements
-		OWLOntologyChangeVisitorEx<Boolean> {
+public class JcelOntologyChangeVisitorEx implements OWLOntologyChangeVisitorEx<Boolean> {
 
 	private final JcelReasoner reasoner;
 

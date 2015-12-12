@@ -61,8 +61,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  * 
  * @author Julian Mendez
  */
-public class ObjectPropertyIdFinder implements
-		IntegerObjectPropertyExpressionVisitor<Integer> {
+public class ObjectPropertyIdFinder implements IntegerObjectPropertyExpressionVisitor<Integer> {
 
 	private final IntegerEntityManager idGenerator;
 	private final Set<NormalizedIntegerAxiom> requiredAxioms = new HashSet<NormalizedIntegerAxiom>();
@@ -96,8 +95,7 @@ public class ObjectPropertyIdFinder implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 		Integer firstProperty = objectPropertyExpression.getInverse().getId();
-		Integer secondProperty = getIdGenerator()
-				.createOrGetInverseObjectPropertyOf(firstProperty);
+		Integer secondProperty = getIdGenerator().createOrGetInverseObjectPropertyOf(firstProperty);
 		return secondProperty;
 	}
 

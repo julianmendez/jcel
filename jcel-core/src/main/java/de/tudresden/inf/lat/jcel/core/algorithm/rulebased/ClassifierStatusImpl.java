@@ -108,8 +108,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 * @param ontology
 	 *            extended ontology
 	 */
-	public ClassifierStatusImpl(IntegerEntityManager generator,
-			ExtendedOntology ontology) {
+	public ClassifierStatusImpl(IntegerEntityManager generator, ExtendedOntology ontology) {
 		if (generator == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -128,12 +127,10 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	}
 
 	@Override
-	public boolean addNewREntry(int propertyId, int leftClassId,
-			int rightClassId) {
+	public boolean addNewREntry(int propertyId, int leftClassId, int rightClassId) {
 		boolean ret = false;
 		synchronized (this.monitorSetQsubR) {
-			ret = this.setQsubR.add(new REntryImpl(propertyId, leftClassId,
-					rightClassId));
+			ret = this.setQsubR.add(new REntryImpl(propertyId, leftClassId, rightClassId));
 		}
 		return ret;
 	}
@@ -196,8 +193,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	private void createClassGraph() {
 		synchronized (this.monitorClassGraph) {
-			this.classGraph = new IntegerSubsumerGraphImpl(bottomClassId,
-					topClassId);
+			this.classGraph = new IntegerSubsumerGraphImpl(bottomClassId, topClassId);
 		}
 		this.nodeSet.clear();
 		this.invNodeSet.clear();
@@ -223,21 +219,17 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	}
 
 	private void createObjectPropertyGraph() {
-		this.objectPropertyGraph = new IntegerSubsumerBidirectionalGraphImpl(
-				bottomObjectPropertyId, topObjectPropertyId);
+		this.objectPropertyGraph = new IntegerSubsumerBidirectionalGraphImpl(bottomObjectPropertyId,
+				topObjectPropertyId);
 		for (int index : this.extendedOntology.getObjectPropertySet()) {
 			this.objectPropertyGraph.addAncestor(index, topObjectPropertyId);
-			int inverseProp = this.entityManager
-					.createOrGetInverseObjectPropertyOf(index);
-			this.objectPropertyGraph.addAncestor(inverseProp,
-					topObjectPropertyId);
+			int inverseProp = this.entityManager.createOrGetInverseObjectPropertyOf(index);
+			this.objectPropertyGraph.addAncestor(inverseProp, topObjectPropertyId);
 		}
 		for (int property : this.extendedOntology.getObjectPropertySet()) {
-			Set<RI2Axiom> axiomSet = this.extendedOntology
-					.getRI2rAxioms(property);
+			Set<RI2Axiom> axiomSet = this.extendedOntology.getRI2rAxioms(property);
 			for (RI2Axiom axiom : axiomSet) {
-				this.objectPropertyGraph.addAncestor(axiom.getSubProperty(),
-						axiom.getSuperProperty());
+				this.objectPropertyGraph.addAncestor(axiom.getSubProperty(), axiom.getSuperProperty());
 			}
 		}
 		makeTransitiveClosure(this.objectPropertyGraph);
@@ -253,8 +245,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 		if (ret == null) {
 			ret = node.getClassId();
 			if (!node.isEmpty()) {
-				ret = getIdGenerator().createAnonymousEntity(
-						IntegerEntityType.CLASS, true);
+				ret = getIdGenerator().createAnonymousEntity(IntegerEntityType.CLASS, true);
 				VNodeImpl newNode = new VNodeImpl(node.getClassId());
 				newNode.addExistentialsOf(node);
 				this.nodeSet.put(ret, newNode);
@@ -375,8 +366,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	@Override
 	public int getInverseObjectPropertyOf(int propertyId) {
-		return this.entityManager
-				.createOrGetInverseObjectPropertyOf(propertyId);
+		return this.entityManager.createOrGetInverseObjectPropertyOf(propertyId);
 	}
 
 	@Override
@@ -430,8 +420,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	}
 
 	@Override
-	public Set<Integer> getObjectPropertiesWithFunctionalAncestor(
-			int objectProperty) {
+	public Set<Integer> getObjectPropertiesWithFunctionalAncestor(int objectProperty) {
 		Set<Integer> ret = this.cognateFunctPropMap.get(objectProperty);
 		if (ret == null) {
 			ret = Collections.emptySet();
@@ -484,8 +473,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	@Override
 	public Collection<Integer> getSubObjectProperties(int objectProperty) {
-		return Collections.unmodifiableCollection(this.objectPropertyGraph
-				.getSubsumees(objectProperty));
+		return Collections.unmodifiableCollection(this.objectPropertyGraph.getSubsumees(objectProperty));
 	}
 
 	@Override
@@ -499,12 +487,10 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	@Override
 	public Collection<Integer> getSuperObjectProperties(int objectProperty) {
-		return Collections.unmodifiableCollection(this.objectPropertyGraph
-				.getSubsumers(objectProperty));
+		return Collections.unmodifiableCollection(this.objectPropertyGraph.getSubsumers(objectProperty));
 	}
 
-	private void makeTransitiveClosure(
-			IntegerSubsumerBidirectionalGraphImpl graph) {
+	private void makeTransitiveClosure(IntegerSubsumerBidirectionalGraphImpl graph) {
 		boolean hasChanged = true;
 		while (hasChanged) {
 			hasChanged = false;
@@ -571,8 +557,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 		BufferedWriter writer = new BufferedWriter(output);
 		Collection<Integer> concepts = this.classGraph.getElements();
 		for (Integer concept : concepts) {
-			Collection<Integer> subsumers = this.classGraph
-					.getSubsumers(concept);
+			Collection<Integer> subsumers = this.classGraph.getSubsumers(concept);
 			for (Integer subsumer : subsumers) {
 				writer.write(this.entityManager.getName(concept));
 				writer.write(COMMA_SEPARATOR);
@@ -587,11 +572,9 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 		BufferedWriter writer = new BufferedWriter(output);
 		Collection<Integer> concepts = this.classGraph.getElements();
 		for (Integer concept : concepts) {
-			Collection<Integer> relations = this.relationSet
-					.getRelationsByFirst(concept);
+			Collection<Integer> relations = this.relationSet.getRelationsByFirst(concept);
 			for (Integer relation : relations) {
-				Collection<Integer> otherConcepts = this.relationSet
-						.getByFirst(relation, concept);
+				Collection<Integer> otherConcepts = this.relationSet.getByFirst(relation, concept);
 				for (Integer otherConcept : otherConcepts) {
 					writer.write(this.entityManager.getName(concept));
 					writer.write(COMMA_SEPARATOR);

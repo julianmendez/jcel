@@ -79,8 +79,8 @@ public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom 
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerInverseObjectPropertiesAxiom(IntegerObjectPropertyExpression first,
-			IntegerObjectPropertyExpression second, Set<Annotation> annotations) {
+	IntegerInverseObjectPropertiesAxiom(IntegerObjectPropertyExpression first, IntegerObjectPropertyExpression second,
+			Set<Annotation> annotations) {
 		if (first == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -95,17 +95,12 @@ public class IntegerInverseObjectPropertiesAxiom implements ComplexIntegerAxiom 
 		this.secondProperty = second;
 
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
-		objectPropertiesInSignature.addAll(this.firstProperty
-				.getObjectPropertiesInSignature());
-		objectPropertiesInSignature.addAll(this.secondProperty
-				.getObjectPropertiesInSignature());
-		this.objectPropertiesInSignature = Collections
-				.unmodifiableSet(objectPropertiesInSignature);
+		objectPropertiesInSignature.addAll(this.firstProperty.getObjectPropertiesInSignature());
+		objectPropertiesInSignature.addAll(this.secondProperty.getObjectPropertiesInSignature());
+		this.objectPropertiesInSignature = Collections.unmodifiableSet(objectPropertiesInSignature);
 		this.annotations = annotations;
 		this.hashCode = this.firstProperty.hashCode()
-				+ 0x1F
-				* (this.secondProperty.hashCode() + 0x1F * this.annotations
-						.hashCode());
+				+ 0x1F * (this.secondProperty.hashCode() + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override

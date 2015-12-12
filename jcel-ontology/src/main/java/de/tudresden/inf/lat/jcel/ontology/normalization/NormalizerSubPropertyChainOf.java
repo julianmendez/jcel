@@ -107,24 +107,20 @@ class NormalizerSubPropertyChainOf implements NormalizationRule {
 		return this.ontologyObjectFactory;
 	}
 
-	private Collection<NormalizedIntegerAxiom> simplify(
-			IntegerSubPropertyChainOfAxiom axiom) {
+	private Collection<NormalizedIntegerAxiom> simplify(IntegerSubPropertyChainOfAxiom axiom) {
 		Collection<NormalizedIntegerAxiom> ret = new ArrayList<NormalizedIntegerAxiom>();
-		List<IntegerObjectPropertyExpression> propChain = axiom
-				.getPropertyChain();
+		List<IntegerObjectPropertyExpression> propChain = axiom.getPropertyChain();
 		IntegerObjectPropertyExpression rightPart = axiom.getSuperProperty();
 
 		if (propChain.size() == 0) {
 
-			ret.add(getNormalizedAxiomFactory().createRI1Axiom(
-					getObjectPropertyId(rightPart), axiom.getAnnotations()));
+			ret.add(getNormalizedAxiomFactory().createRI1Axiom(getObjectPropertyId(rightPart), axiom.getAnnotations()));
 
 		} else if (propChain.size() == 1) {
 
 			Iterator<IntegerObjectPropertyExpression> it = propChain.iterator();
 			IntegerObjectPropertyExpression leftPropExpr = it.next();
-			ret.add(getNormalizedAxiomFactory().createRI2Axiom(
-					getObjectPropertyId(leftPropExpr),
+			ret.add(getNormalizedAxiomFactory().createRI2Axiom(getObjectPropertyId(leftPropExpr),
 					getObjectPropertyId(rightPart), axiom.getAnnotations()));
 
 		} else if (propChain.size() == 2) {
@@ -132,10 +128,8 @@ class NormalizerSubPropertyChainOf implements NormalizationRule {
 			Iterator<IntegerObjectPropertyExpression> it = propChain.iterator();
 			IntegerObjectPropertyExpression leftLeftProp = it.next();
 			IntegerObjectPropertyExpression leftRightProp = it.next();
-			ret.add(getNormalizedAxiomFactory().createRI3Axiom(
-					getObjectPropertyId(leftLeftProp),
-					getObjectPropertyId(leftRightProp),
-					getObjectPropertyId(rightPart), axiom.getAnnotations()));
+			ret.add(getNormalizedAxiomFactory().createRI3Axiom(getObjectPropertyId(leftLeftProp),
+					getObjectPropertyId(leftRightProp), getObjectPropertyId(rightPart), axiom.getAnnotations()));
 
 		}
 		return ret;

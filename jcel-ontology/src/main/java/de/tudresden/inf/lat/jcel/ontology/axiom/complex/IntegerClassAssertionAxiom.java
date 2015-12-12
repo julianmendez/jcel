@@ -53,7 +53,8 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 
 /**
- * This class models an assertion axiom that relates a class with an individual. <br>
+ * This class models an assertion axiom that relates a class with an individual.
+ * <br>
  * This is: A(b)
  * 
  * @author Julian Mendez
@@ -75,8 +76,7 @@ public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerClassAssertionAxiom(IntegerClassExpression classExpr,
-			int individualId, Set<Annotation> annotations) {
+	IntegerClassAssertionAxiom(IntegerClassExpression classExpr, int individualId, Set<Annotation> annotations) {
 		if (classExpr == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -87,8 +87,7 @@ public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 		this.classExpression = classExpr;
 		this.individual = individualId;
 		this.annotations = annotations;
-		this.hashCode = this.classExpression.hashCode() + 0x1F
-				* (this.individual + 0x1F * this.annotations.hashCode());
+		this.hashCode = this.classExpression.hashCode() + 0x1F * (this.individual + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override
@@ -106,8 +105,7 @@ public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 		if (!ret && (obj instanceof IntegerClassAssertionAxiom)) {
 			IntegerClassAssertionAxiom other = (IntegerClassAssertionAxiom) obj;
 			ret = getClassExpression().equals(other.getClassExpression())
-					&& getIndividual().equals(other.getIndividual())
-					&& getAnnotations().equals(other.getAnnotations());
+					&& getIndividual().equals(other.getIndividual()) && getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}

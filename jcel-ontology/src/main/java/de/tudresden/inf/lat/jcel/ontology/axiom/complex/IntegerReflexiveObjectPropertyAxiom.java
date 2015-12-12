@@ -71,9 +71,7 @@ public class IntegerReflexiveObjectPropertyAxiom implements ComplexIntegerAxiom 
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerReflexiveObjectPropertyAxiom(
-			IntegerObjectPropertyExpression property,
-			Set<Annotation> annotations) {
+	IntegerReflexiveObjectPropertyAxiom(IntegerObjectPropertyExpression property, Set<Annotation> annotations) {
 		if (property == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -83,8 +81,7 @@ public class IntegerReflexiveObjectPropertyAxiom implements ComplexIntegerAxiom 
 
 		this.objectProperty = property;
 		this.annotations = annotations;
-		this.hashCode = this.objectProperty.hashCode() + 0x1F
-				* this.annotations.hashCode();
+		this.hashCode = this.objectProperty.hashCode() + 0x1F * this.annotations.hashCode();
 	}
 
 	@Override
@@ -100,8 +97,7 @@ public class IntegerReflexiveObjectPropertyAxiom implements ComplexIntegerAxiom 
 		boolean ret = (this == obj);
 		if (!ret && (obj instanceof IntegerReflexiveObjectPropertyAxiom)) {
 			IntegerReflexiveObjectPropertyAxiom other = (IntegerReflexiveObjectPropertyAxiom) obj;
-			ret = getProperty().equals(other.getProperty())
-					&& getAnnotations().equals(other.getAnnotations());
+			ret = getProperty().equals(other.getProperty()) && getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}

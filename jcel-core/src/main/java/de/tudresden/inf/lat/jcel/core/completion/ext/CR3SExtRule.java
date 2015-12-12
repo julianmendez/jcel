@@ -64,9 +64,11 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
  * <b>then</b> V := V &cup; {v} <br>
  * &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; S := S &cup; {(v, B)} &cup;
  * {(v, \u22A4)} <br>
- * &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; R := R &cup; {(r, x, v)} <br>
+ * &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; R := R &cup; {(r, x, v)}
+ * <br>
  * &nbsp;&nbsp;&nbsp;&nbsp; <b>else</b> y := (B, &empty;) <br>
- * &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; R := R &cup; {(r, x, y)}</li>
+ * &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; R := R &cup; {(r, x, y)}
+ * </li>
  * </ul>
  * <br>
  * 
@@ -94,10 +96,8 @@ public class CR3SExtRule implements SObserverRule {
 		for (GCI2Axiom axiom : status.getExtendedOntology().getGCI2Axioms(a)) {
 			int r = axiom.getPropertyInSuperClass();
 			int b = axiom.getClassInSuperClass();
-			if (status.getExtendedOntology().getFunctionalObjectProperties()
-					.contains(r)) {
-				VNodeImpl newNode = new VNodeImpl(
-						IntegerEntityManager.topClassId);
+			if (status.getExtendedOntology().getFunctionalObjectProperties().contains(r)) {
+				VNodeImpl newNode = new VNodeImpl(IntegerEntityManager.topClassId);
 				int rMinus = status.getInverseObjectPropertyOf(r);
 				newNode.addExistential(rMinus, a);
 				int v = status.createOrGetNodeId(newNode);

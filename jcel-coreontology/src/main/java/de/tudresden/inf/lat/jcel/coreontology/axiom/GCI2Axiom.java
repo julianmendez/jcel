@@ -80,8 +80,7 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	GCI2Axiom(int leftClassId, int rightPropertyId, int rightClassId,
-			Set<Annotation> annotations) {
+	GCI2Axiom(int leftClassId, int rightPropertyId, int rightClassId, Set<Annotation> annotations) {
 		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -90,10 +89,8 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 		this.propertyInSuperClass = rightPropertyId;
 		this.classInSuperClass = rightClassId;
 		this.annotations = annotations;
-		this.hashCode = this.subClass
-				+ 0x1F
-				* (this.propertyInSuperClass + 0x1F * (this.classInSuperClass + 0x1F * this.annotations
-						.hashCode()));
+		this.hashCode = this.subClass + 0x1F
+				* (this.propertyInSuperClass + 0x1F * (this.classInSuperClass + 0x1F * this.annotations.hashCode()));
 	}
 
 	@Override
@@ -110,8 +107,7 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 		boolean ret = (this == obj);
 		if (!ret && (obj instanceof GCI2Axiom)) {
 			GCI2Axiom other = (GCI2Axiom) obj;
-			ret = (this.subClass == other.subClass)
-					&& (this.classInSuperClass == other.classInSuperClass)
+			ret = (this.subClass == other.subClass) && (this.classInSuperClass == other.classInSuperClass)
 					&& (this.propertyInSuperClass == other.propertyInSuperClass)
 					&& this.annotations.equals(other.annotations);
 		}

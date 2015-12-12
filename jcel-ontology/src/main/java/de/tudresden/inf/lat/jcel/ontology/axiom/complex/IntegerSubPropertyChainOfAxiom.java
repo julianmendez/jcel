@@ -80,8 +80,7 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 	 *            annotations
 	 */
 	IntegerSubPropertyChainOfAxiom(List<IntegerObjectPropertyExpression> chain,
-			IntegerObjectPropertyExpression superProp,
-			Set<Annotation> annotations) {
+			IntegerObjectPropertyExpression superProp, Set<Annotation> annotations) {
 		if (chain == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -97,18 +96,13 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
 		for (IntegerObjectPropertyExpression propertyExpr : getPropertyChain()) {
-			objectPropertiesInSignature.addAll(propertyExpr
-					.getObjectPropertiesInSignature());
+			objectPropertiesInSignature.addAll(propertyExpr.getObjectPropertiesInSignature());
 		}
-		objectPropertiesInSignature.addAll(getSuperProperty()
-				.getObjectPropertiesInSignature());
-		this.objectPropertiesInSignature = Collections
-				.unmodifiableSet(objectPropertiesInSignature);
+		objectPropertiesInSignature.addAll(getSuperProperty().getObjectPropertiesInSignature());
+		this.objectPropertiesInSignature = Collections.unmodifiableSet(objectPropertiesInSignature);
 		this.annotations = annotations;
 		this.hashCode = this.propertyChain.hashCode()
-				+ 0x1F
-				* (this.superProperty.hashCode() + 0x1F * this.annotations
-						.hashCode());
+				+ 0x1F * (this.superProperty.hashCode() + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override

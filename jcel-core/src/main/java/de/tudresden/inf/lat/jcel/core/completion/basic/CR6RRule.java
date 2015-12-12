@@ -53,8 +53,8 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
 /**
  * 
  * <ul>
- * <li>CR-6 : <b>if</b> r \u2218 s \u2291 t &isin; <i>T</i>, <u>(r, x, y)
- * &isin; R</u>, <u>(s, y, z) &isin; R</u> <br>
+ * <li>CR-6 : <b>if</b> r \u2218 s \u2291 t &isin; <i>T</i>, <u>(r, x, y) &isin;
+ * R</u>, <u>(s, y, z) &isin; R</u> <br>
  * <b>then</b> R := R &cup; {(t, x, z)}</li>
  * </ul>
  * <br>
@@ -77,8 +77,7 @@ public class CR6RRule implements RObserverRule {
 	}
 
 	@Override
-	public boolean apply(ClassifierStatus status, int property, int leftClass,
-			int rightClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass, int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -91,8 +90,7 @@ public class CR6RRule implements RObserverRule {
 
 	private boolean apply1(ClassifierStatus status, int r, int x, int y) {
 		boolean ret = false;
-		for (RI3Axiom axiom : status.getExtendedOntology()
-				.getRI3AxiomsByLeft(r)) {
+		for (RI3Axiom axiom : status.getExtendedOntology().getRI3AxiomsByLeft(r)) {
 			int s = axiom.getRightSubProperty();
 			int t = axiom.getSuperProperty();
 			for (int z : status.getSecondByFirst(s, y)) {
@@ -104,8 +102,7 @@ public class CR6RRule implements RObserverRule {
 
 	private boolean apply2(ClassifierStatus status, int s, int y, int z) {
 		boolean ret = false;
-		for (RI3Axiom axiom : status.getExtendedOntology().getRI3AxiomsByRight(
-				s)) {
+		for (RI3Axiom axiom : status.getExtendedOntology().getRI3AxiomsByRight(s)) {
 			int r = axiom.getLeftSubProperty();
 			int t = axiom.getSuperProperty();
 			for (int x : status.getFirstBySecond(r, y)) {

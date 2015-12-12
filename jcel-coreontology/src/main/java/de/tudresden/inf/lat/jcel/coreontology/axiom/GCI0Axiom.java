@@ -83,8 +83,7 @@ public class GCI0Axiom implements NormalizedIntegerAxiom {
 		this.subClass = subClassId;
 		this.superClass = superClassId;
 		this.annotations = annotations;
-		this.hashCode = this.subClass + 0x1F
-				* (this.superClass + 0x1F * this.annotations.hashCode());
+		this.hashCode = this.subClass + 0x1F * (this.superClass + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override
@@ -101,8 +100,7 @@ public class GCI0Axiom implements NormalizedIntegerAxiom {
 		boolean ret = (this == obj);
 		if (!ret && (obj instanceof GCI0Axiom)) {
 			GCI0Axiom other = (GCI0Axiom) obj;
-			ret = (this.subClass == other.subClass)
-					&& (this.superClass == other.superClass)
+			ret = (this.subClass == other.subClass) && (this.superClass == other.superClass)
 					&& this.annotations.equals(other.annotations);
 		}
 		return ret;

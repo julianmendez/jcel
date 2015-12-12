@@ -117,8 +117,7 @@ public class RuleBasedProcessor implements Processor {
 		}
 	}
 
-	private static final Logger logger = Logger
-			.getLogger(RuleBasedProcessor.class.getName());
+	private static final Logger logger = Logger.getLogger(RuleBasedProcessor.class.getName());
 
 	private static final long loggingFrequency = 0x1000000;
 	private static final long threadWaitingTime = 0x20;
@@ -159,12 +158,9 @@ public class RuleBasedProcessor implements Processor {
 	 * @param entityManager
 	 *            entity manager
 	 */
-	public RuleBasedProcessor(Set<Integer> originalObjectProperties,
-			Set<Integer> originalClasses,
-			Set<NormalizedIntegerAxiom> normalizedAxiomSet,
-			OntologyExpressivity expressivity,
-			NormalizedIntegerAxiomFactory factory,
-			IntegerEntityManager entityManager) {
+	public RuleBasedProcessor(Set<Integer> originalObjectProperties, Set<Integer> originalClasses,
+			Set<NormalizedIntegerAxiom> normalizedAxiomSet, OntologyExpressivity expressivity,
+			NormalizedIntegerAxiomFactory factory, IntegerEntityManager entityManager) {
 		if (originalObjectProperties == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -187,14 +183,12 @@ public class RuleBasedProcessor implements Processor {
 		this.factory = factory;
 		this.entityManager = entityManager;
 
-		CompletionRuleChainSelector selector = new CompletionRuleChainSelector(
-				expressivity);
+		CompletionRuleChainSelector selector = new CompletionRuleChainSelector(expressivity);
 		selector.activateProfiler();
 		this.chainR = selector.getRChain();
 		this.chainS = selector.getSChain();
 
-		preProcess(createExtendedOntology(originalObjectProperties,
-				originalClasses, normalizedAxiomSet));
+		preProcess(createExtendedOntology(originalObjectProperties, originalClasses, normalizedAxiomSet));
 	}
 
 	public void addAxioms(Set<NormalizedIntegerAxiom> normalizedAxiomSet) {
@@ -213,17 +207,14 @@ public class RuleBasedProcessor implements Processor {
 	 *            graph containing direct subsumers
 	 * @return a map with all the direct types for each individual.
 	 */
-	private Map<Integer, Set<Integer>> computeDirectTypes(
-			IntegerHierarchicalGraph hierarchicalGraph) {
+	private Map<Integer, Set<Integer>> computeDirectTypes(IntegerHierarchicalGraph hierarchicalGraph) {
 		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
 		Set<Integer> individuals = getEntityManager().getIndividuals();
 		for (Integer indiv : individuals) {
-			Set<Integer> subsumers = hierarchicalGraph
-					.getParents(getEntityManager().getAuxiliaryNominal(indiv));
+			Set<Integer> subsumers = hierarchicalGraph.getParents(getEntityManager().getAuxiliaryNominal(indiv));
 			for (Integer elem : subsumers) {
 				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
-					throw new IllegalStateException(
-							"An individual has another individual as direct subsumer.");
+					throw new IllegalStateException("An individual has another individual as direct subsumer.");
 				}
 			}
 			ret.put(indiv, Collections.unmodifiableSet(subsumers));
@@ -250,8 +241,7 @@ public class RuleBasedProcessor implements Processor {
 			ret.add(elem);
 			Set<Integer> newToVisit = new HashSet<Integer>();
 			for (Integer r : this.status.getObjectPropertiesByFirst(elem)) {
-				IntegerBinaryRelation relation = this.status.getRelationSet()
-						.get(r);
+				IntegerBinaryRelation relation = this.status.getRelationSet().get(r);
 				newToVisit.addAll(relation.getByFirst(elem));
 			}
 			newToVisit.removeAll(ret);
@@ -260,8 +250,7 @@ public class RuleBasedProcessor implements Processor {
 		return ret;
 	}
 
-	private Set<Integer> computeReachability(Integer c,
-			Map<Integer, Set<Integer>> reachableNodeCache) {
+	private Set<Integer> computeReachability(Integer c, Map<Integer, Set<Integer>> reachableNodeCache) {
 		Set<Integer> reachableNodes = reachableNodeCache.get(c);
 		if (reachableNodes == null) {
 			reachableNodes = computeReachability(c);
@@ -270,14 +259,12 @@ public class RuleBasedProcessor implements Processor {
 		return reachableNodes;
 	}
 
-	private Map<Integer, Set<Integer>> computeSameIndividualMap(
-			IntegerHierarchicalGraph hierarchicalGraph) {
+	private Map<Integer, Set<Integer>> computeSameIndividualMap(IntegerHierarchicalGraph hierarchicalGraph) {
 		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
 		Set<Integer> individuals = getEntityManager().getIndividuals();
 		for (Integer indiv : individuals) {
 			Set<Integer> equivalentClasses = hierarchicalGraph
-					.getEquivalents(getEntityManager().getAuxiliaryNominal(
-							indiv));
+					.getEquivalents(getEntityManager().getAuxiliaryNominal(indiv));
 			Set<Integer> equivalents = new HashSet<Integer>();
 			for (Integer elem : equivalentClasses) {
 				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
@@ -303,13 +290,11 @@ public class RuleBasedProcessor implements Processor {
 		return new AbstractMap.SimpleEntry<String, String>(key, value);
 	}
 
-	private ExtendedOntology createExtendedOntology(
-			Set<Integer> originalObjectPropertySet,
+	private ExtendedOntology createExtendedOntology(Set<Integer> originalObjectPropertySet,
 			Set<Integer> originalClassSet, Set<NormalizedIntegerAxiom> axioms) {
-		SubPropertyNormalizer subPropNormalizer = new SubPropertyNormalizer(
-				getOntologyObjectFactory(), getEntityManager());
-		Set<NormalizedIntegerAxiom> saturatedNormalizedAxiomSet = subPropNormalizer
-				.apply(axioms);
+		SubPropertyNormalizer subPropNormalizer = new SubPropertyNormalizer(getOntologyObjectFactory(),
+				getEntityManager());
+		Set<NormalizedIntegerAxiom> saturatedNormalizedAxiomSet = subPropNormalizer.apply(axioms);
 		ExtendedOntology extendedOntology = new ExtendedOntologyImpl();
 		extendedOntology.load(saturatedNormalizedAxiomSet);
 		for (Integer elem : originalObjectPropertySet) {
@@ -347,37 +332,22 @@ public class RuleBasedProcessor implements Processor {
 		List<Map.Entry<String, String>> ret = new ArrayList<Map.Entry<String, String>>();
 		ret.add(createEntry("processor", getClass().getSimpleName()));
 		ret.add(createEntry("iterations per log entry", "" + loggingFrequency));
-		ret.add(createEntry(
-				"classes read (including TOP and BOTTOM classes)",
-				""
-						+ getEntityManager().getEntities(
-								IntegerEntityType.CLASS, false).size()));
-		ret.add(createEntry(
-				"object properties read (including TOP and BOTTOM object properties)",
-				""
-						+ getEntityManager().getEntities(
-								IntegerEntityType.OBJECT_PROPERTY, false)
-								.size()));
-		ret.add(createEntry(
-				"auxiliary classes created (including nominals)",
-				""
-						+ getEntityManager().getEntities(
-								IntegerEntityType.CLASS, true).size()));
-		ret.add(createEntry("auxiliary classes created for nominals", ""
-				+ getEntityManager().getIndividuals().size()));
-		ret.add(createEntry(
-				"auxiliary object properties created",
-				""
-						+ getEntityManager().getEntities(
-								IntegerEntityType.OBJECT_PROPERTY, true).size()));
+		ret.add(createEntry("classes read (including TOP and BOTTOM classes)",
+				"" + getEntityManager().getEntities(IntegerEntityType.CLASS, false).size()));
+		ret.add(createEntry("object properties read (including TOP and BOTTOM object properties)",
+				"" + getEntityManager().getEntities(IntegerEntityType.OBJECT_PROPERTY, false).size()));
+		ret.add(createEntry("auxiliary classes created (including nominals)",
+				"" + getEntityManager().getEntities(IntegerEntityType.CLASS, true).size()));
+		ret.add(createEntry("auxiliary classes created for nominals", "" + getEntityManager().getIndividuals().size()));
+		ret.add(createEntry("auxiliary object properties created",
+				"" + getEntityManager().getEntities(IntegerEntityType.OBJECT_PROPERTY, true).size()));
 		ret.add(createEntry("chain S", this.chainS.toString()));
 		ret.add(createEntry("chain R", this.chainR.toString()));
 		return ret;
 	}
 
 	@Override
-	public IntegerHierarchicalGraph getDataPropertyHierarchy()
-			throws UnclassifiedOntologyException {
+	public IntegerHierarchicalGraph getDataPropertyHierarchy() throws UnclassifiedOntologyException {
 		if (!isReady()) {
 			throw new UnclassifiedOntologyException();
 		}
@@ -393,8 +363,7 @@ public class RuleBasedProcessor implements Processor {
 	 *            starting vertex to compute the descendants
 	 * @return the descendants according the graph
 	 */
-	private Set<Integer> getDescendants(
-			IntegerHierarchicalGraph hierarchicalGraph, Integer vertex) {
+	private Set<Integer> getDescendants(IntegerHierarchicalGraph hierarchicalGraph, Integer vertex) {
 		Set<Integer> visited = new HashSet<Integer>();
 		Set<Integer> queue = new HashSet<Integer>();
 		queue.add(vertex);
@@ -466,8 +435,7 @@ public class RuleBasedProcessor implements Processor {
 	 * @return the set of all relation ids
 	 */
 	protected Set<Integer> getRelationIdSet() {
-		return Collections.unmodifiableSet(this.status.getRelationSet()
-				.getElements());
+		return Collections.unmodifiableSet(this.status.getRelationSet().getElements());
 	}
 
 	@Override
@@ -505,19 +473,16 @@ public class RuleBasedProcessor implements Processor {
 	 */
 	protected void postProcess() {
 		removeAuxiliaryObjectProperties();
-		this.objectPropertyHierarchy = new IntegerHierarchicalGraphImpl(
-				getObjectPropertyGraph());
+		this.objectPropertyHierarchy = new IntegerHierarchicalGraphImpl(getObjectPropertyGraph());
 
 		removeAuxiliaryClassesExceptNominals();
-		IntegerHierarchicalGraph hierarchicalGraph = new IntegerHierarchicalGraphImpl(
-				this.status.getClassGraph());
+		IntegerHierarchicalGraph hierarchicalGraph = new IntegerHierarchicalGraphImpl(this.status.getClassGraph());
 		processNominals(hierarchicalGraph);
 		this.directTypes = computeDirectTypes(hierarchicalGraph);
 		this.sameIndividualMap = computeSameIndividualMap(hierarchicalGraph);
 
 		removeAuxiliaryNominals();
-		this.classHierarchy = new IntegerHierarchicalGraphImpl(
-				this.status.getClassGraph());
+		this.classHierarchy = new IntegerHierarchicalGraphImpl(this.status.getClassGraph());
 	};
 
 	/**
@@ -535,10 +500,8 @@ public class RuleBasedProcessor implements Processor {
 
 		this.isReady = false;
 		this.status = new ClassifierStatusImpl(getEntityManager(), ontology);
-		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
-				new IntegerSubsumerGraphImpl(
-						IntegerEntityManager.bottomDataPropertyId,
-						IntegerEntityManager.topDataPropertyId));
+		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(new IntegerSubsumerGraphImpl(
+				IntegerEntityManager.bottomDataPropertyId, IntegerEntityManager.topDataPropertyId));
 		Set<Integer> classNameSet = new HashSet<Integer>();
 		classNameSet.addAll(this.status.getExtendedOntology().getClassSet());
 		for (Integer className : classNameSet) {
@@ -582,14 +545,12 @@ public class RuleBasedProcessor implements Processor {
 
 	private boolean processMultiThreaded() {
 		if (!this.isReady) {
-			if ((this.threadS1 != null) && (this.threadS2 != null)
-					&& (this.threadR1 != null) && (this.threadR2 != null)
+			if ((this.threadS1 != null) && (this.threadS2 != null) && (this.threadR1 != null) && (this.threadR2 != null)
 					&& this.threadS1.getState().equals(Thread.State.TERMINATED)
 					&& this.threadS2.getState().equals(Thread.State.TERMINATED)
 					&& this.threadR1.getState().equals(Thread.State.TERMINATED)
 					&& this.threadR2.getState().equals(Thread.State.TERMINATED)
-					&& (this.status.getNumberOfSEntries() == 0)
-					&& (this.status.getNumberOfREntries() == 0)) {
+					&& (this.status.getNumberOfSEntries() == 0) && (this.status.getNumberOfREntries() == 0)) {
 
 				logger.fine(showStatusInfo());
 				postProcess();
@@ -598,40 +559,35 @@ public class RuleBasedProcessor implements Processor {
 			} else {
 
 				if ((this.threadS1 == null)
-						|| ((this.threadS1 != null) && this.threadS1.getState()
-								.equals(Thread.State.TERMINATED))) {
+						|| ((this.threadS1 != null) && this.threadS1.getState().equals(Thread.State.TERMINATED))) {
 					this.threadS1 = new WorkerThreadS();
 					this.threadS1.start();
 					logger.finest("starting new thread S-1 ...");
 				}
 
 				if ((this.threadS2 == null)
-						|| ((this.threadS2 != null) && this.threadS2.getState()
-								.equals(Thread.State.TERMINATED))) {
+						|| ((this.threadS2 != null) && this.threadS2.getState().equals(Thread.State.TERMINATED))) {
 					this.threadS2 = new WorkerThreadS();
 					this.threadS2.start();
 					logger.finest("starting new thread S-2 ...");
 				}
 
 				if ((this.threadR1 == null)
-						|| ((this.threadR1 != null) && this.threadR1.getState()
-								.equals(Thread.State.TERMINATED))) {
+						|| ((this.threadR1 != null) && this.threadR1.getState().equals(Thread.State.TERMINATED))) {
 					this.threadR1 = new WorkerThreadR();
 					this.threadR1.start();
 					logger.finest("starting new thread R-1 ...");
 				}
 
 				if ((this.threadR2 == null)
-						|| ((this.threadR2 != null) && this.threadR2.getState()
-								.equals(Thread.State.TERMINATED))) {
+						|| ((this.threadR2 != null) && this.threadR2.getState().equals(Thread.State.TERMINATED))) {
 					this.threadR2 = new WorkerThreadR();
 					this.threadR2.start();
 					logger.finest("starting new thread R-2 ...");
 				}
 
 				try {
-					if (this.status.getNumberOfREntries() < this.status
-							.getNumberOfSEntries()) {
+					if (this.status.getNumberOfREntries() < this.status.getNumberOfSEntries()) {
 						if ((this.iteration % 2) == 0) {
 							this.threadR1.join();
 						} else {
@@ -669,19 +625,15 @@ public class RuleBasedProcessor implements Processor {
 					Collection<Integer> sC = getClassGraph().getSubsumers(c);
 					Collection<Integer> sD = getClassGraph().getSubsumers(d);
 					if (!(sD.containsAll(sC))) {
-						if (computeReachability(c, reachabilityCache).contains(
-								d)) {
+						if (computeReachability(c, reachabilityCache).contains(d)) {
 							for (Integer elem : sD) {
-								this.status.getClassGraph()
-										.addAncestor(c, elem);
+								this.status.getClassGraph().addAncestor(c, elem);
 							}
 						}
 						for (Integer nominal : nominals) {
-							if (computeReachability(nominal, reachabilityCache)
-									.contains(d)) {
+							if (computeReachability(nominal, reachabilityCache).contains(d)) {
 								for (Integer elem : sD) {
-									this.status.getClassGraph().addAncestor(c,
-											elem);
+									this.status.getClassGraph().addAncestor(c, elem);
 								}
 							}
 						}
@@ -703,8 +655,7 @@ public class RuleBasedProcessor implements Processor {
 			int property = entry.getProperty();
 			int leftClass = entry.getLeftClass();
 			int rightClass = entry.getRightClass();
-			boolean applied = this.status.addToR(property, leftClass,
-					rightClass);
+			boolean applied = this.status.addToR(property, leftClass, rightClass);
 			if (applied) {
 				this.chainR.apply(this.status, property, leftClass, rightClass);
 				this.loggingCount--;
@@ -737,15 +688,13 @@ public class RuleBasedProcessor implements Processor {
 
 	private boolean processSingleThreaded() {
 		if (!this.isReady) {
-			if ((this.status.getNumberOfSEntries() == 0)
-					&& (this.status.getNumberOfREntries() == 0)) {
+			if ((this.status.getNumberOfSEntries() == 0) && (this.status.getNumberOfREntries() == 0)) {
 				logger.fine(showStatusInfo());
 				postProcess();
 				logger.fine(showConfigurationInfo());
 				this.isReady = true;
 			} else {
-				if (this.status.getNumberOfSEntries() > this.status
-						.getNumberOfREntries()) {
+				if (this.status.getNumberOfSEntries() > this.status.getNumberOfREntries()) {
 					processSEntries();
 				} else {
 					processREntries();

@@ -76,8 +76,7 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	RI2Axiom(int leftPropertyId, int rightPropertyId,
-			Set<Annotation> annotations) {
+	RI2Axiom(int leftPropertyId, int rightPropertyId, Set<Annotation> annotations) {
 		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -85,8 +84,7 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 		this.subProperty = leftPropertyId;
 		this.superProperty = rightPropertyId;
 		this.annotations = annotations;
-		this.hashCode = this.subProperty + 0x1F
-				* (this.superProperty + 0x1F * this.annotations.hashCode());
+		this.hashCode = this.subProperty + 0x1F * (this.superProperty + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override
@@ -103,8 +101,7 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 		boolean ret = (this == obj);
 		if (!ret && (obj instanceof RI2Axiom)) {
 			RI2Axiom other = (RI2Axiom) obj;
-			ret = (this.subProperty == other.subProperty)
-					&& (this.superProperty == other.superProperty)
+			ret = (this.subProperty == other.subProperty) && (this.superProperty == other.superProperty)
 					&& this.annotations.equals(other.annotations);
 		}
 		return ret;

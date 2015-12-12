@@ -84,8 +84,7 @@ public class Translator {
 	private final AxiomTranslator axiomTranslator;
 	private final IntegerOntologyObjectFactory factory;
 
-	public Translator(OWLDataFactory dataFactory,
-			IntegerOntologyObjectFactory factory) {
+	public Translator(OWLDataFactory dataFactory, IntegerOntologyObjectFactory factory) {
 		if (dataFactory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -93,13 +92,11 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		TranslationRepository repository = new TranslationRepository(
-				dataFactory, factory.getEntityManager());
+		TranslationRepository repository = new TranslationRepository(dataFactory, factory.getEntityManager());
 		this.factory = factory;
 		ObjectPropertyExpressionTranslator objPropExprTranslator = new ObjectPropertyExpressionTranslator(
 				this.factory.getDataTypeFactory(), repository);
-		ClassExpressionTranslator cet = new ClassExpressionTranslator(
-				objPropExprTranslator);
+		ClassExpressionTranslator cet = new ClassExpressionTranslator(objPropExprTranslator);
 
 		this.axiomTranslator = new AxiomTranslator(cet, this.factory);
 	}
@@ -134,9 +131,8 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return getOntologyObjectFactory().getDataTypeFactory().createClass(
-				getAxiomTranslator().getTranslationRepository()
-						.getId(owlObject));
+		return getOntologyObjectFactory().getDataTypeFactory()
+				.createClass(getAxiomTranslator().getTranslationRepository().getId(owlObject));
 	}
 
 	public IntegerClassExpression translateCE(OWLClassExpression owlObject) {
@@ -144,8 +140,7 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return owlObject.accept(getAxiomTranslator()
-				.getClassExpressionTranslator());
+		return owlObject.accept(getAxiomTranslator().getClassExpressionTranslator());
 	}
 
 	public OWLNamedIndividual translateI(IntegerNamedIndividual integerObject) {
@@ -153,8 +148,7 @@ public class Translator {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return getTranslationRepository().getOWLNamedIndividual(
-				integerObject.getId());
+		return getTranslationRepository().getOWLNamedIndividual(integerObject.getId());
 	}
 
 	public IntegerNamedIndividual translateI(OWLNamedIndividual owlObject) {
@@ -163,36 +157,29 @@ public class Translator {
 		}
 
 		return getOntologyObjectFactory().getDataTypeFactory()
-				.createNamedIndividual(
-						getAxiomTranslator().getTranslationRepository().getId(
-								owlObject));
+				.createNamedIndividual(getAxiomTranslator().getTranslationRepository().getId(owlObject));
 	}
 
-	public OWLObjectPropertyExpression translateOPE(
-			IntegerObjectPropertyExpression integerObject) {
+	public OWLObjectPropertyExpression translateOPE(IntegerObjectPropertyExpression integerObject) {
 		if (integerObject == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		if (!(integerObject instanceof IntegerObjectProperty)) {
-			TranslationException
-					.newUnsupportedTranslationException(integerObject);
+			TranslationException.newUnsupportedTranslationException(integerObject);
 		}
 
 		IntegerObjectProperty property = (IntegerObjectProperty) integerObject;
-		return getTranslationRepository()
-				.getOWLObjectProperty(property.getId());
+		return getTranslationRepository().getOWLObjectProperty(property.getId());
 	}
 
-	public IntegerObjectPropertyExpression translateOPE(
-			OWLObjectPropertyExpression owlObject) {
+	public IntegerObjectPropertyExpression translateOPE(OWLObjectPropertyExpression owlObject) {
 		if (owlObject == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return owlObject.accept(getAxiomTranslator()
-				.getClassExpressionTranslator()
-				.getObjectPropertyExpressionTranslator());
+		return owlObject
+				.accept(getAxiomTranslator().getClassExpressionTranslator().getObjectPropertyExpressionTranslator());
 	}
 
 	public Set<ComplexIntegerAxiom> translateSA(Set<OWLAxiom> owlObject) {
@@ -231,8 +218,7 @@ public class Translator {
 		return NodeFactory.getOWLClassNode(set);
 	}
 
-	public Set<IntegerNamedIndividual> translateSI(
-			Node<OWLNamedIndividual> owlObject) {
+	public Set<IntegerNamedIndividual> translateSI(Node<OWLNamedIndividual> owlObject) {
 		Set<IntegerNamedIndividual> ret = new HashSet<IntegerNamedIndividual>();
 		for (OWLNamedIndividual indiv : owlObject.getEntities()) {
 			ret.add(translateI(indiv));
@@ -240,8 +226,7 @@ public class Translator {
 		return Collections.unmodifiableSet(ret);
 	}
 
-	public Node<OWLNamedIndividual> translateSI(
-			Set<IntegerNamedIndividual> integerObject) {
+	public Node<OWLNamedIndividual> translateSI(Set<IntegerNamedIndividual> integerObject) {
 		if (integerObject == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -253,8 +238,7 @@ public class Translator {
 		return NodeFactory.getOWLNamedIndividualNode(set);
 	}
 
-	public Set<IntegerObjectPropertyExpression> translateSOPE(
-			Node<OWLObjectPropertyExpression> owlObject) {
+	public Set<IntegerObjectPropertyExpression> translateSOPE(Node<OWLObjectPropertyExpression> owlObject) {
 		if (owlObject == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -266,8 +250,7 @@ public class Translator {
 		return Collections.unmodifiableSet(ret);
 	}
 
-	public Node<OWLObjectPropertyExpression> translateSOPE(
-			Set<IntegerObjectPropertyExpression> integerObject) {
+	public Node<OWLObjectPropertyExpression> translateSOPE(Set<IntegerObjectPropertyExpression> integerObject) {
 		if (integerObject == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -303,8 +286,7 @@ public class Translator {
 		return new OWLClassNodeSet(setOfNodes);
 	}
 
-	public Set<Set<IntegerNamedIndividual>> translateSSI(
-			NodeSet<OWLNamedIndividual> owlObject) {
+	public Set<Set<IntegerNamedIndividual>> translateSSI(NodeSet<OWLNamedIndividual> owlObject) {
 		if (owlObject == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -316,8 +298,7 @@ public class Translator {
 		return Collections.unmodifiableSet(ret);
 	}
 
-	public NodeSet<OWLNamedIndividual> translateSSI(
-			Set<Set<IntegerNamedIndividual>> integerObject) {
+	public NodeSet<OWLNamedIndividual> translateSSI(Set<Set<IntegerNamedIndividual>> integerObject) {
 		if (integerObject == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -329,8 +310,7 @@ public class Translator {
 		return new OWLNamedIndividualNodeSet(setOfNodes);
 	}
 
-	public Set<Set<IntegerObjectPropertyExpression>> translateSSOPE(
-			NodeSet<OWLObjectPropertyExpression> owlObject) {
+	public Set<Set<IntegerObjectPropertyExpression>> translateSSOPE(NodeSet<OWLObjectPropertyExpression> owlObject) {
 		if (owlObject == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

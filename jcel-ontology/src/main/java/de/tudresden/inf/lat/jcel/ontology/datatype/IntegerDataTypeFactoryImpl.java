@@ -57,16 +57,13 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
  */
 public class IntegerDataTypeFactoryImpl implements IntegerDataTypeFactory {
 
-	private final IntegerClass bottomClass = new IntegerClass(
-			IntegerEntityManager.bottomClassId);
+	private final IntegerClass bottomClass = new IntegerClass(IntegerEntityManager.bottomClassId);
 	private final IntegerDataProperty bottomDataProperty = new IntegerDataProperty(
 			IntegerEntityManager.bottomDataPropertyId);
 	private final IntegerObjectProperty bottomObjectProperty = new IntegerObjectProperty(
 			IntegerEntityManager.bottomObjectPropertyId);
-	private final IntegerClass topClass = new IntegerClass(
-			IntegerEntityManager.topClassId);
-	private final IntegerDataProperty topDataProperty = new IntegerDataProperty(
-			IntegerEntityManager.topDataPropertyId);
+	private final IntegerClass topClass = new IntegerClass(IntegerEntityManager.topClassId);
+	private final IntegerDataProperty topDataProperty = new IntegerDataProperty(IntegerEntityManager.topDataPropertyId);
 	private final IntegerObjectProperty topObjectProperty = new IntegerObjectProperty(
 			IntegerEntityManager.topObjectPropertyId);
 
@@ -92,8 +89,8 @@ public class IntegerDataTypeFactoryImpl implements IntegerDataTypeFactory {
 	}
 
 	@Override
-	public IntegerDataSomeValuesFrom createDataSomeValuesFrom(
-			int dataPropertyId, IntegerClassExpression classExpression) {
+	public IntegerDataSomeValuesFrom createDataSomeValuesFrom(int dataPropertyId,
+			IntegerClassExpression classExpression) {
 		if (classExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -106,8 +103,7 @@ public class IntegerDataTypeFactoryImpl implements IntegerDataTypeFactory {
 	}
 
 	@Override
-	public IntegerObjectIntersectionOf createObjectIntersectionOf(
-			Set<IntegerClassExpression> operands) {
+	public IntegerObjectIntersectionOf createObjectIntersectionOf(Set<IntegerClassExpression> operands) {
 		if (operands == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -115,8 +111,7 @@ public class IntegerDataTypeFactoryImpl implements IntegerDataTypeFactory {
 	}
 
 	@Override
-	public IntegerObjectInverseOf createObjectInverseOf(
-			IntegerObjectProperty property) {
+	public IntegerObjectInverseOf createObjectInverseOf(IntegerObjectProperty property) {
 		if (property == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -134,8 +129,7 @@ public class IntegerDataTypeFactoryImpl implements IntegerDataTypeFactory {
 	}
 
 	@Override
-	public IntegerObjectSomeValuesFrom createObjectSomeValuesFrom(
-			IntegerObjectPropertyExpression propertyExpression,
+	public IntegerObjectSomeValuesFrom createObjectSomeValuesFrom(IntegerObjectPropertyExpression propertyExpression,
 			IntegerClassExpression classExpression) {
 		if (propertyExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -143,8 +137,7 @@ public class IntegerDataTypeFactoryImpl implements IntegerDataTypeFactory {
 		if (classExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		return new IntegerObjectSomeValuesFrom(propertyExpression,
-				classExpression);
+		return new IntegerObjectSomeValuesFrom(propertyExpression, classExpression);
 	}
 
 	@Override

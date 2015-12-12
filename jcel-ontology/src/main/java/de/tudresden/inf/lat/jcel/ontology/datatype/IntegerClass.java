@@ -56,8 +56,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
  * 
  * @author Julian Mendez
  */
-public class IntegerClass implements IntegerClassExpression,
-		Comparable<IntegerClass> {
+public class IntegerClass implements IntegerClassExpression, Comparable<IntegerClass> {
 
 	private final int id;
 

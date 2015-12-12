@@ -58,10 +58,9 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
  * <li>CR-7 : <b>if</b> &exist; s<sup>-</sup> <i>.</i> A \u2291 B &isin;
  * <i>T</i> , <u>(r<sub>2</sub>, x, y) &isin; R</u>, x = (A', &phi;) , y = (B',
  * &psi;), <br>
- * r \u2218 r \u2291 r &isin; <i>T</i>, r<sub>1</sub>
- * \u2291<sub><i>T</i></sub> r, r<sub>2</sub> \u2291<sub><i>T</i></sub> r,
- * &exist; r<sub>1</sub><sup>-</sup> <i>.</i> A &isin; &phi;, r
- * \u2291<sub><i>T</i></sub> s <br>
+ * r \u2218 r \u2291 r &isin; <i>T</i>, r<sub>1</sub> \u2291<sub><i>T</i></sub>
+ * r, r<sub>2</sub> \u2291<sub><i>T</i></sub> r, &exist; r<sub>1</sub>
+ * <sup>-</sup> <i>.</i> A &isin; &phi;, r \u2291<sub><i>T</i></sub> s <br>
  * <b>then</b> v := (B', &psi; &cup; {&exist; r<sup>-</sup> <i>.</i> A}) <br>
  * &nbsp;&nbsp;&nbsp;&nbsp; <b>if</b> v &notin; V <b>then</b> V := V &cup; {v} ,
  * S := S &cup; {(v, k) | (y, k) &isin; S} <br>
@@ -81,8 +80,7 @@ public class CR7RExtRule implements RObserverRule {
 	}
 
 	@Override
-	public boolean apply(ClassifierStatus status, int property, int leftClass,
-			int rightClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass, int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -95,20 +93,17 @@ public class CR7RExtRule implements RObserverRule {
 		VNode phiNode = status.getNode(x);
 		VNode psiNode = status.getNode(y);
 		for (int r : status.getSuperObjectProperties(r2)) {
-			if (status.getExtendedOntology().getTransitiveObjectProperties()
-					.contains(r)) {
+			if (status.getExtendedOntology().getTransitiveObjectProperties().contains(r)) {
 				int rMinus = status.getInverseObjectPropertyOf(r);
 				for (int s : status.getSuperObjectProperties(r)) {
 					int sMinus = status.getInverseObjectPropertyOf(s);
-					for (GCI3Axiom axiom : status.getExtendedOntology()
-							.getGCI3rAxioms(sMinus)) {
+					for (GCI3Axiom axiom : status.getExtendedOntology().getGCI3rAxioms(sMinus)) {
 						int a = axiom.getClassInSubClass();
 						int b = axiom.getSuperClass();
 						for (int r1 : status.getSubObjectProperties(r)) {
 							int r1Minus = status.getInverseObjectPropertyOf(r1);
 							if (phiNode.containsExistential(r1Minus, a)) {
-								VNodeImpl newNode = new VNodeImpl(
-										psiNode.getClassId());
+								VNodeImpl newNode = new VNodeImpl(psiNode.getClassId());
 								newNode.addExistentialsOf(psiNode);
 								newNode.addExistential(rMinus, a);
 								boolean inV = status.contains(newNode);

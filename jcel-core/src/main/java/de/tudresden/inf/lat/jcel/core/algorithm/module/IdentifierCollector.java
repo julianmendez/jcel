@@ -144,8 +144,7 @@ class IdentifierCollector {
 	 * @author Julian Mendez
 	 *
 	 */
-	private class AuxIdentifierCollector implements
-			NormalizedIntegerAxiomVisitor<Boolean> {
+	private class AuxIdentifierCollector implements NormalizedIntegerAxiomVisitor<Boolean> {
 
 		AuxIdentifierCollector() {
 		}

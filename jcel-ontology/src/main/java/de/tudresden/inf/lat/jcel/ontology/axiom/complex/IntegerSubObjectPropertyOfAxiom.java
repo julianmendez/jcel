@@ -78,10 +78,8 @@ public class IntegerSubObjectPropertyOfAxiom implements ComplexIntegerAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerSubObjectPropertyOfAxiom(
-			IntegerObjectPropertyExpression subPropExpr,
-			IntegerObjectPropertyExpression superPropExpr,
-			Set<Annotation> annotations) {
+	IntegerSubObjectPropertyOfAxiom(IntegerObjectPropertyExpression subPropExpr,
+			IntegerObjectPropertyExpression superPropExpr, Set<Annotation> annotations) {
 		if (subPropExpr == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -96,17 +94,12 @@ public class IntegerSubObjectPropertyOfAxiom implements ComplexIntegerAxiom {
 		this.superObjectProperty = superPropExpr;
 
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
-		objectPropertiesInSignature.addAll(this.subObjectProperty
-				.getObjectPropertiesInSignature());
-		objectPropertiesInSignature.addAll(this.superObjectProperty
-				.getObjectPropertiesInSignature());
-		this.objectPropertiesInSignature = Collections
-				.unmodifiableSet(objectPropertiesInSignature);
+		objectPropertiesInSignature.addAll(this.subObjectProperty.getObjectPropertiesInSignature());
+		objectPropertiesInSignature.addAll(this.superObjectProperty.getObjectPropertiesInSignature());
+		this.objectPropertiesInSignature = Collections.unmodifiableSet(objectPropertiesInSignature);
 		this.annotations = annotations;
 		this.hashCode = this.subObjectProperty.hashCode()
-				+ 0x1F
-				* (this.superObjectProperty.hashCode() + 0x1F * this.annotations
-						.hashCode());
+				+ 0x1F * (this.superObjectProperty.hashCode() + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override
@@ -123,8 +116,7 @@ public class IntegerSubObjectPropertyOfAxiom implements ComplexIntegerAxiom {
 		boolean ret = (this == obj);
 		if (!ret && (obj instanceof IntegerSubObjectPropertyOfAxiom)) {
 			IntegerSubObjectPropertyOfAxiom other = (IntegerSubObjectPropertyOfAxiom) obj;
-			ret = getSubProperty().equals(other.getSubProperty())
-					&& getSuperProperty().equals(other.getSuperProperty())
+			ret = getSubProperty().equals(other.getSubProperty()) && getSuperProperty().equals(other.getSuperProperty())
 					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;

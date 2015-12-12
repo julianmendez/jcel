@@ -92,8 +92,7 @@ public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
 		boolean ret = false;
 		if (obj instanceof FunctObjectPropAxiom) {
 			FunctObjectPropAxiom other = (FunctObjectPropAxiom) obj;
-			ret = (this.property == other.property)
-					&& this.annotations.equals(other.annotations);
+			ret = (this.property == other.property) && this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}

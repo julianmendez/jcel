@@ -108,8 +108,7 @@ public interface IntegerReasoner {
 	 *            <code>true</code> to get only the direct domains
 	 * @return the classes that are domains of the specified data property
 	 */
-	Set<Set<IntegerClass>> getDataPropertyDomains(IntegerDataProperty pe,
-			boolean direct);
+	Set<Set<IntegerClass>> getDataPropertyDomains(IntegerDataProperty pe, boolean direct);
 
 	/**
 	 * Returns the data property values for the specified individual and data
@@ -122,8 +121,7 @@ public interface IntegerReasoner {
 	 * @return the data property values for the specified individual and data
 	 *         property
 	 */
-	Set<IntegerClass> getDataPropertyValues(IntegerNamedIndividual ind,
-			IntegerDataProperty pe);
+	Set<IntegerClass> getDataPropertyValues(IntegerNamedIndividual ind, IntegerDataProperty pe);
 
 	/**
 	 * Returns the individuals that are known to be different from the specified
@@ -134,8 +132,7 @@ public interface IntegerReasoner {
 	 * @return the individuals that are known to be different from the specified
 	 *         individual
 	 */
-	Set<Set<IntegerNamedIndividual>> getDifferentIndividuals(
-			IntegerNamedIndividual ind);
+	Set<Set<IntegerNamedIndividual>> getDifferentIndividuals(IntegerNamedIndividual ind);
 
 	/**
 	 * Returns the classes that are disjoint with the specified class
@@ -156,8 +153,7 @@ public interface IntegerReasoner {
 	 * @return the data properties that are disjoint with the specified data
 	 *         property expression
 	 */
-	Set<Set<IntegerDataProperty>> getDisjointDataProperties(
-			IntegerDataPropertyExpression pe);
+	Set<Set<IntegerDataProperty>> getDisjointDataProperties(IntegerDataPropertyExpression pe);
 
 	/**
 	 * Returns the object properties that are disjoint with the specified object
@@ -168,8 +164,7 @@ public interface IntegerReasoner {
 	 * @return the object properties that are disjoint with the specified object
 	 *         property expression
 	 */
-	Set<Set<IntegerObjectPropertyExpression>> getDisjointObjectProperties(
-			IntegerObjectPropertyExpression pe);
+	Set<Set<IntegerObjectPropertyExpression>> getDisjointObjectProperties(IntegerObjectPropertyExpression pe);
 
 	/**
 	 * Returns the classes that are equivalent to the specified class
@@ -201,8 +196,7 @@ public interface IntegerReasoner {
 	 * @return the object properties that are equivalent to the specified object
 	 *         property expression
 	 */
-	Set<IntegerObjectPropertyExpression> getEquivalentObjectProperties(
-			IntegerObjectPropertyExpression pe);
+	Set<IntegerObjectPropertyExpression> getEquivalentObjectProperties(IntegerObjectPropertyExpression pe);
 
 	/**
 	 * Returns the individuals that are instances of the specified class
@@ -215,8 +209,7 @@ public interface IntegerReasoner {
 	 * @return the individuals that are instances of the specified class
 	 *         expression
 	 */
-	Set<Set<IntegerNamedIndividual>> getInstances(IntegerClassExpression ce,
-			boolean direct);
+	Set<Set<IntegerNamedIndividual>> getInstances(IntegerClassExpression ce, boolean direct);
 
 	/**
 	 * Returns the object property expressions that are the inverses of the
@@ -227,8 +220,7 @@ public interface IntegerReasoner {
 	 * @return the object property expressions that are the inverses of the
 	 *         specified object property expression
 	 */
-	Set<IntegerObjectPropertyExpression> getInverseObjectProperties(
-			IntegerObjectPropertyExpression pe);
+	Set<IntegerObjectPropertyExpression> getInverseObjectProperties(IntegerObjectPropertyExpression pe);
 
 	/**
 	 * Returns the classes that are domains of the specified object property
@@ -241,8 +233,7 @@ public interface IntegerReasoner {
 	 * @return the classes that are domains of the specified object property
 	 *         expression
 	 */
-	Set<Set<IntegerClass>> getObjectPropertyDomains(
-			IntegerObjectPropertyExpression pe, boolean direct);
+	Set<Set<IntegerClass>> getObjectPropertyDomains(IntegerObjectPropertyExpression pe, boolean direct);
 
 	/**
 	 * Returns the classes that are ranges of the specified object property
@@ -255,8 +246,7 @@ public interface IntegerReasoner {
 	 * @return the classes that are ranges of the specified object property
 	 *         expression
 	 */
-	Set<Set<IntegerClass>> getObjectPropertyRanges(
-			IntegerObjectPropertyExpression pe, boolean direct);
+	Set<Set<IntegerClass>> getObjectPropertyRanges(IntegerObjectPropertyExpression pe, boolean direct);
 
 	/**
 	 * Returns the object property values for the specified individual and
@@ -269,8 +259,8 @@ public interface IntegerReasoner {
 	 * @return the object property values for the specified individual and
 	 *         object property expression
 	 */
-	Set<Set<IntegerNamedIndividual>> getObjectPropertyValues(
-			IntegerNamedIndividual ind, IntegerObjectPropertyExpression pe);
+	Set<Set<IntegerNamedIndividual>> getObjectPropertyValues(IntegerNamedIndividual ind,
+			IntegerObjectPropertyExpression pe);
 
 	/**
 	 * Returns the name of this reasoner.
@@ -304,8 +294,7 @@ public interface IntegerReasoner {
 	 *            <code>true</code> to get only the direct sub classes
 	 * @return the sub classes of a specified class expression
 	 */
-	Set<Set<IntegerClass>> getSubClasses(IntegerClassExpression ce,
-			boolean direct);
+	Set<Set<IntegerClass>> getSubClasses(IntegerClassExpression ce, boolean direct);
 
 	/**
 	 * Returns the sub data properties of a specified data property.
@@ -316,8 +305,7 @@ public interface IntegerReasoner {
 	 *            <code>true</code> to get only the direct sub data properties
 	 * @return the sub data properties of a specified data property
 	 */
-	Set<Set<IntegerDataProperty>> getSubDataProperties(IntegerDataProperty pe,
-			boolean direct);
+	Set<Set<IntegerDataProperty>> getSubDataProperties(IntegerDataProperty pe, boolean direct);
 
 	/**
 	 * Returns the sub object properties of a specified object property
@@ -330,8 +318,8 @@ public interface IntegerReasoner {
 	 * @return the sub object properties of a specified object property
 	 *         expression
 	 */
-	Set<Set<IntegerObjectPropertyExpression>> getSubObjectProperties(
-			IntegerObjectPropertyExpression pe, boolean direct);
+	Set<Set<IntegerObjectPropertyExpression>> getSubObjectProperties(IntegerObjectPropertyExpression pe,
+			boolean direct);
 
 	/**
 	 * Returns the super classes of a specified class expression.
@@ -342,8 +330,7 @@ public interface IntegerReasoner {
 	 *            <code>true</code> to get only the direct super classes
 	 * @return the super classes of a specified class expression
 	 */
-	Set<Set<IntegerClass>> getSuperClasses(IntegerClassExpression ce,
-			boolean direct);
+	Set<Set<IntegerClass>> getSuperClasses(IntegerClassExpression ce, boolean direct);
 
 	/**
 	 * Returns the super data properties of a specified data property.
@@ -354,8 +341,7 @@ public interface IntegerReasoner {
 	 *            <code>true</code> to get only the direct super data properties
 	 * @return the super data properties of a specified data property
 	 */
-	Set<Set<IntegerDataProperty>> getSuperDataProperties(
-			IntegerDataProperty pe, boolean direct);
+	Set<Set<IntegerDataProperty>> getSuperDataProperties(IntegerDataProperty pe, boolean direct);
 
 	/**
 	 * Returns the super object properties of a specified object property
@@ -369,8 +355,8 @@ public interface IntegerReasoner {
 	 * @return the super object properties of a specified object property
 	 *         expression
 	 */
-	Set<Set<IntegerObjectPropertyExpression>> getSuperObjectProperties(
-			IntegerObjectPropertyExpression pe, boolean direct);
+	Set<Set<IntegerObjectPropertyExpression>> getSuperObjectProperties(IntegerObjectPropertyExpression pe,
+			boolean direct);
 
 	/**
 	 * Returns the time out.

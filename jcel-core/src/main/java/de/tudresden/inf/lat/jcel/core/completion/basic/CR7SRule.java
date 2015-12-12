@@ -89,8 +89,7 @@ public class CR7SRule implements SObserverRule {
 		if (a == IntegerEntityManager.bottomClassId) {
 			for (int r : status.getObjectPropertiesBySecond(y)) {
 				for (int x : status.getFirstBySecond(r, y)) {
-					ret |= status.addNewSEntry(x,
-							IntegerEntityManager.bottomClassId);
+					ret |= status.addNewSEntry(x, IntegerEntityManager.bottomClassId);
 				}
 			}
 		}

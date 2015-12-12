@@ -77,8 +77,7 @@ public class CR5RRule implements RObserverRule {
 	}
 
 	@Override
-	public boolean apply(ClassifierStatus status, int property, int leftClass,
-			int rightClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass, int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

@@ -52,10 +52,9 @@ import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 /**
  * 
  * <ul>
- * <li>CR-5 : <b>if</b> s \u2218 s \u2291 s &isin; <i>T</i> ,
- * <u>(r<sub>1</sub>, x, y) &isin; R</u>, <u>(r<sub>2</sub>, y, z) &isin; R</u>,
- * r<sub>1</sub> \u2291<sub><i>T</i></sub> s, r<sub>2</sub>
- * \u2291<sub><i>T</i></sub> s <br>
+ * <li>CR-5 : <b>if</b> s \u2218 s \u2291 s &isin; <i>T</i> , <u>(r<sub>1</sub>,
+ * x, y) &isin; R</u>, <u>(r<sub>2</sub>, y, z) &isin; R</u>, r<sub>1</sub>
+ * \u2291<sub><i>T</i></sub> s, r<sub>2</sub> \u2291<sub><i>T</i></sub> s <br>
  * <b>then</b> R := R &cup; {(s, x, z)}</li>
  * </ul>
  * <br>
@@ -71,8 +70,7 @@ public class CR5RExtRule implements RObserverRule {
 	}
 
 	@Override
-	public boolean apply(ClassifierStatus status, int property, int leftClass,
-			int rightClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass, int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -86,8 +84,7 @@ public class CR5RExtRule implements RObserverRule {
 	private boolean apply1(ClassifierStatus status, int r1, int x, int y) {
 		boolean ret = false;
 		for (int s : status.getSuperObjectProperties(r1)) {
-			if (status.getExtendedOntology().getTransitiveObjectProperties()
-					.contains(s)) {
+			if (status.getExtendedOntology().getTransitiveObjectProperties().contains(s)) {
 				for (int r2 : status.getSubObjectProperties(s)) {
 					for (int z : status.getSecondByFirst(r2, y)) {
 						ret |= status.addNewREntry(s, x, z);
@@ -101,8 +98,7 @@ public class CR5RExtRule implements RObserverRule {
 	private boolean apply2(ClassifierStatus status, int r2, int y, int z) {
 		boolean ret = false;
 		for (int s : status.getSuperObjectProperties(r2)) {
-			if (status.getExtendedOntology().getTransitiveObjectProperties()
-					.contains(s)) {
+			if (status.getExtendedOntology().getTransitiveObjectProperties().contains(s)) {
 				for (int r1 : status.getSubObjectProperties(s)) {
 					for (int x : status.getFirstBySecond(r1, y)) {
 						ret |= status.addNewREntry(s, x, z);

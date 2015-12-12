@@ -83,8 +83,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  * 
  * @author Julian Mendez
  */
-public class ClassExpressionTranslator implements
-		OWLClassExpressionVisitorEx<IntegerClassExpression> {
+public class ClassExpressionTranslator implements OWLClassExpressionVisitorEx<IntegerClassExpression> {
 
 	private final ObjectPropertyExpressionTranslator objectPropertyExpressionTranslator;
 
@@ -94,8 +93,7 @@ public class ClassExpressionTranslator implements
 	 * @param translator
 	 *            object property expression translator
 	 */
-	public ClassExpressionTranslator(
-			ObjectPropertyExpressionTranslator translator) {
+	public ClassExpressionTranslator(ObjectPropertyExpressionTranslator translator) {
 		if (translator == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -112,8 +110,7 @@ public class ClassExpressionTranslator implements
 	}
 
 	public TranslationRepository getTranslationRepository() {
-		return this.objectPropertyExpressionTranslator
-				.getTranslationRepository();
+		return this.objectPropertyExpressionTranslator.getTranslationRepository();
 	}
 
 	public Integer translateDataProperty(OWLDataProperty owlDataProperty) {
@@ -125,19 +122,16 @@ public class ClassExpressionTranslator implements
 		return getTranslationRepository().getId(owlDataProperty);
 	}
 
-	public Integer translateIndividual(OWLIndividual owlIndividual)
-			throws TranslationException {
+	public Integer translateIndividual(OWLIndividual owlIndividual) throws TranslationException {
 		if (owlIndividual == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		getTranslationRepository().addNamedIndividual(
-				owlIndividual.asOWLNamedIndividual());
+		getTranslationRepository().addNamedIndividual(owlIndividual.asOWLNamedIndividual());
 		return getTranslationRepository().getId(owlIndividual);
 	}
 
-	public Integer translateLiteral(OWLLiteral owlLiteral)
-			throws TranslationException {
+	public Integer translateLiteral(OWLLiteral owlLiteral) throws TranslationException {
 		if (owlLiteral == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -153,8 +147,7 @@ public class ClassExpressionTranslator implements
 		}
 
 		getTranslationRepository().addClass(owlClassExpression);
-		return getDataTypeFactory().createClass(
-				getTranslationRepository().getId(owlClassExpression));
+		return getDataTypeFactory().createClass(getTranslationRepository().getId(owlClassExpression));
 	}
 
 	@Override
@@ -181,12 +174,10 @@ public class ClassExpressionTranslator implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Integer dataPropertyId = getObjectPropertyExpressionTranslator()
-				.getTranslationRepository().getId(
-						ce.getProperty().asOWLDataProperty());
+		Integer dataPropertyId = getObjectPropertyExpressionTranslator().getTranslationRepository()
+				.getId(ce.getProperty().asOWLDataProperty());
 		Integer literalId = getTranslationRepository().getId(ce.getFiller());
-		return getDataTypeFactory().createDataHasValue(dataPropertyId,
-				literalId);
+		return getDataTypeFactory().createDataHasValue(dataPropertyId, literalId);
 	}
 
 	@Override
@@ -272,8 +263,7 @@ public class ClassExpressionTranslator implements
 		for (OWLClassExpression elem : operands) {
 			classExpressionList.add(elem.accept(this));
 		}
-		return getDataTypeFactory().createObjectIntersectionOf(
-				classExpressionList);
+		return getDataTypeFactory().createObjectIntersectionOf(classExpressionList);
 	}
 
 	@Override
@@ -302,16 +292,13 @@ public class ClassExpressionTranslator implements
 
 		Set<OWLIndividual> indivSet = ce.getIndividuals();
 		if (indivSet.isEmpty()) {
-			throw new TranslationException(
-					"It is not possible to translate ObjectOneOf with empty set.");
+			throw new TranslationException("It is not possible to translate ObjectOneOf with empty set.");
 		}
 		if (indivSet.size() > 1) {
 			throw new TranslationException(
-					"It is not possible to translate ObjectOneOf with multiple individuals: '"
-							+ indivSet + "'.");
+					"It is not possible to translate ObjectOneOf with multiple individuals: '" + indivSet + "'.");
 		}
-		return getDataTypeFactory().createObjectOneOf(
-				translateIndividual(indivSet.iterator().next()));
+		return getDataTypeFactory().createObjectOneOf(translateIndividual(indivSet.iterator().next()));
 	}
 
 	@Override
@@ -320,12 +307,10 @@ public class ClassExpressionTranslator implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		IntegerObjectPropertyExpression propertyExpr = ce.getProperty().accept(
-				getObjectPropertyExpressionTranslator());
+		IntegerObjectPropertyExpression propertyExpr = ce.getProperty().accept(getObjectPropertyExpressionTranslator());
 		OWLClassExpression desc = ce.getFiller();
 		IntegerClassExpression classExpression = desc.accept(this);
-		return getDataTypeFactory().createObjectSomeValuesFrom(propertyExpr,
-				classExpression);
+		return getDataTypeFactory().createObjectSomeValuesFrom(propertyExpr, classExpression);
 	}
 
 	@Override

@@ -63,8 +63,7 @@ public class HashArraySetTest extends TestCase {
 	public HashArraySetTest() {
 	}
 
-	private boolean assertInclusion(Collection<Integer> c1,
-			Collection<Integer> c2) {
+	private boolean assertInclusion(Collection<Integer> c1, Collection<Integer> c2) {
 		boolean ret = true;
 		for (Integer e : c1) {
 			assertTrue(c2.contains(e));

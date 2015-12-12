@@ -53,8 +53,8 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
 /**
  * 
  * <ul>
- * <li>CR-3 : <b>if</b> A \u2291 &exist; r <i>.</i> B &isin; <i>T</i>, <u>(x,
- * A) &isin; S</u> <br>
+ * <li>CR-3 : <b>if</b> A \u2291 &exist; r <i>.</i> B &isin; <i>T</i>, <u>(x, A)
+ * &isin; S</u> <br>
  * <b>then</b> R := R &cup;{(r, x, B)}</li>
  * </ul>
  * <br>

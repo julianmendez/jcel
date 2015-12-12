@@ -75,18 +75,14 @@ public class TinyOntologyTest extends TestCase {
 	public TinyOntologyTest() {
 	}
 
-	private IntegerClass createNewClass(IntegerOntologyObjectFactory factory,
-			String name) {
-		return factory.getDataTypeFactory().createClass(
-				factory.getEntityManager().createNamedEntity(
-						IntegerEntityType.CLASS, name, false));
+	private IntegerClass createNewClass(IntegerOntologyObjectFactory factory, String name) {
+		return factory.getDataTypeFactory()
+				.createClass(factory.getEntityManager().createNamedEntity(IntegerEntityType.CLASS, name, false));
 	}
 
-	private IntegerObjectProperty createNewObjectProperty(
-			IntegerOntologyObjectFactory factory, String name) {
+	private IntegerObjectProperty createNewObjectProperty(IntegerOntologyObjectFactory factory, String name) {
 		return factory.getDataTypeFactory().createObjectProperty(
-				factory.getEntityManager().createNamedEntity(
-						IntegerEntityType.OBJECT_PROPERTY, name, false));
+				factory.getEntityManager().createNamedEntity(IntegerEntityType.OBJECT_PROPERTY, name, false));
 	}
 
 	private Set<IntegerClass> flatten(Set<Set<IntegerClass>> originalSet) {
@@ -117,22 +113,18 @@ public class TinyOntologyTest extends TestCase {
 		IntegerClass c = createNewClass(factory, "C");
 
 		// 1
-		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
-				b, annotations));
+		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a, b, annotations));
 
 		// 2
-		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(b,
-				c, annotations));
+		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(b, c, annotations));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
 
-		Set<IntegerClass> superClassesOfA = flatten(reasoner.getSuperClasses(a,
-				false));
+		Set<IntegerClass> superClassesOfA = flatten(reasoner.getSuperClasses(a, false));
 		assertTrue(superClassesOfA.contains(c));
 
-		Set<IntegerClass> subClassesOfC = flatten(reasoner.getSubClasses(c,
-				false));
+		Set<IntegerClass> subClassesOfC = flatten(reasoner.getSubClasses(c, false));
 		assertTrue(subClassesOfC.contains(a));
 
 		verifyBottomAndTop(factory, reasoner);
@@ -161,27 +153,22 @@ public class TinyOntologyTest extends TestCase {
 
 		// 1
 		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
-				factory.getDataTypeFactory().createObjectSomeValuesFrom(r, a),
-				annotations));
+				factory.getDataTypeFactory().createObjectSomeValuesFrom(r, a), annotations));
 
 		// 2
-		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
-				b, annotations));
+		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a, b, annotations));
 
 		// 3
-		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
-				factory.getDataTypeFactory().createObjectSomeValuesFrom(r, b),
-				c, annotations));
+		ontology.add(factory.getComplexAxiomFactory()
+				.createSubClassOfAxiom(factory.getDataTypeFactory().createObjectSomeValuesFrom(r, b), c, annotations));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
 
-		Set<IntegerClass> superClassesOfA = flatten(reasoner.getSuperClasses(a,
-				false));
+		Set<IntegerClass> superClassesOfA = flatten(reasoner.getSuperClasses(a, false));
 		assertTrue(superClassesOfA.contains(c));
 
-		Set<IntegerClass> subClassesOfC = flatten(reasoner.getSubClasses(c,
-				false));
+		Set<IntegerClass> subClassesOfC = flatten(reasoner.getSubClasses(c, false));
 		assertTrue(subClassesOfC.contains(a));
 
 		verifyBottomAndTop(factory, reasoner);
@@ -206,12 +193,10 @@ public class TinyOntologyTest extends TestCase {
 		IntegerClass b = createNewClass(factory, "B");
 
 		// 1
-		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
-				b, annotations));
+		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a, b, annotations));
 
 		// 2
-		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(b,
-				a, annotations));
+		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(b, a, annotations));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
@@ -245,12 +230,11 @@ public class TinyOntologyTest extends TestCase {
 		IntegerClass b = createNewClass(factory, "B");
 
 		// 1
-		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(
-				factory.getDataTypeFactory().getTopClass(), a, annotations));
+		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(factory.getDataTypeFactory().getTopClass(),
+				a, annotations));
 
 		// 2
-		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
-				b, annotations));
+		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(a, b, annotations));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
@@ -260,12 +244,9 @@ public class TinyOntologyTest extends TestCase {
 
 		Set<IntegerClass> equivalentsOfB = reasoner.getEquivalentClasses(b);
 		assertTrue(equivalentsOfB.contains(a));
-		assertTrue(equivalentsOfB.contains(factory.getDataTypeFactory()
-				.getTopClass()));
+		assertTrue(equivalentsOfB.contains(factory.getDataTypeFactory().getTopClass()));
 
-		Set<IntegerClass> equivalentsOfTop = reasoner
-				.getEquivalentClasses(factory.getDataTypeFactory()
-						.getTopClass());
+		Set<IntegerClass> equivalentsOfTop = reasoner.getEquivalentClasses(factory.getDataTypeFactory().getTopClass());
 		assertTrue(equivalentsOfTop.contains(b));
 
 		verifyBottomAndTop(factory, reasoner);
@@ -295,8 +276,7 @@ public class TinyOntologyTest extends TestCase {
 				factory.getDataTypeFactory().getBottomClass(), annotations));
 
 		// 2
-		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(b,
-				a, annotations));
+		ontology.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(b, a, annotations));
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
@@ -306,12 +286,10 @@ public class TinyOntologyTest extends TestCase {
 
 		Set<IntegerClass> equivalentsOfB = reasoner.getEquivalentClasses(b);
 		assertTrue(equivalentsOfB.contains(a));
-		assertTrue(equivalentsOfB.contains(factory.getDataTypeFactory()
-				.getBottomClass()));
+		assertTrue(equivalentsOfB.contains(factory.getDataTypeFactory().getBottomClass()));
 
 		Set<IntegerClass> equivalentsOfBottom = reasoner
-				.getEquivalentClasses(factory.getDataTypeFactory()
-						.getBottomClass());
+				.getEquivalentClasses(factory.getDataTypeFactory().getBottomClass());
 		assertTrue(equivalentsOfBottom.contains(b));
 
 		verifyBottomAndTop(factory, reasoner);
@@ -319,8 +297,10 @@ public class TinyOntologyTest extends TestCase {
 
 	/**
 	 * <ol>
-	 * <li>C &equiv; A<sub>1</sub> \u2293 A<sub>2</sub> \u2293 A<sub>3</sub>,</li>
-	 * <li>D &equiv; A<sub>2</sub> \u2293 A<sub>3</sub> \u2293 A<sub>4</sub>,</li>
+	 * <li>C &equiv; A<sub>1</sub> \u2293 A<sub>2</sub> \u2293 A<sub>3</sub>,
+	 * </li>
+	 * <li>D &equiv; A<sub>2</sub> \u2293 A<sub>3</sub> \u2293 A<sub>4</sub>,
+	 * </li>
 	 * <li>A<sub>1</sub> &equiv; \u22A4</li>
 	 * <li>A<sub>4</sub> &equiv; \u22A4</li>
 	 * </ol>
@@ -346,15 +326,13 @@ public class TinyOntologyTest extends TestCase {
 			conjunction.add(a1);
 			conjunction.add(a2);
 			conjunction.add(a3);
-			IntegerClassExpression defOfC = factory.getDataTypeFactory()
-					.createObjectIntersectionOf(conjunction);
+			IntegerClassExpression defOfC = factory.getDataTypeFactory().createObjectIntersectionOf(conjunction);
 			Set<IntegerClassExpression> equivClasses = new HashSet<IntegerClassExpression>();
 			equivClasses.add(c);
 			equivClasses.add(defOfC);
 
 			// 1
-			ontology.add(factory.getComplexAxiomFactory()
-					.createEquivalentClassesAxiom(equivClasses, annotations));
+			ontology.add(factory.getComplexAxiomFactory().createEquivalentClassesAxiom(equivClasses, annotations));
 		}
 
 		{
@@ -362,15 +340,13 @@ public class TinyOntologyTest extends TestCase {
 			conjunction.add(a2);
 			conjunction.add(a3);
 			conjunction.add(a4);
-			IntegerClassExpression defOfD = factory.getDataTypeFactory()
-					.createObjectIntersectionOf(conjunction);
+			IntegerClassExpression defOfD = factory.getDataTypeFactory().createObjectIntersectionOf(conjunction);
 			Set<IntegerClassExpression> equivClasses = new HashSet<IntegerClassExpression>();
 			equivClasses.add(d);
 			equivClasses.add(defOfD);
 
 			// 2
-			ontology.add(factory.getComplexAxiomFactory()
-					.createEquivalentClassesAxiom(equivClasses, annotations));
+			ontology.add(factory.getComplexAxiomFactory().createEquivalentClassesAxiom(equivClasses, annotations));
 		}
 
 		{
@@ -380,8 +356,7 @@ public class TinyOntologyTest extends TestCase {
 			equivClasses.add(factory.getDataTypeFactory().getTopClass());
 
 			// 3
-			ontology.add(factory.getComplexAxiomFactory()
-					.createEquivalentClassesAxiom(equivClasses, annotations));
+			ontology.add(factory.getComplexAxiomFactory().createEquivalentClassesAxiom(equivClasses, annotations));
 		}
 
 		{
@@ -391,8 +366,7 @@ public class TinyOntologyTest extends TestCase {
 			equivClasses.add(factory.getDataTypeFactory().getTopClass());
 
 			// 4
-			ontology.add(factory.getComplexAxiomFactory()
-					.createEquivalentClassesAxiom(equivClasses, annotations));
+			ontology.add(factory.getComplexAxiomFactory().createEquivalentClassesAxiom(equivClasses, annotations));
 		}
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
@@ -407,8 +381,7 @@ public class TinyOntologyTest extends TestCase {
 		verifyBottomAndTop(factory, reasoner);
 	}
 
-	private void verifyBottomAndTop(IntegerOntologyObjectFactory factory,
-			IntegerReasoner reasoner) {
+	private void verifyBottomAndTop(IntegerOntologyObjectFactory factory, IntegerReasoner reasoner) {
 
 		IntegerClass top = factory.getDataTypeFactory().getTopClass();
 		IntegerClass bottom = factory.getDataTypeFactory().getBottomClass();

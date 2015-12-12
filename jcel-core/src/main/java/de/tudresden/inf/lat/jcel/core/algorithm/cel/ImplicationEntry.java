@@ -79,8 +79,7 @@ class ImplicationEntry implements ExtensionEntry {
 
 		this.leftPart = left;
 		this.superClass = right;
-		this.hashcode = (31 * this.leftPart.hashCode())
-				+ this.superClass.hashCode();
+		this.hashcode = (31 * this.leftPart.hashCode()) + this.superClass.hashCode();
 	}
 
 	@Override
@@ -98,8 +97,7 @@ class ImplicationEntry implements ExtensionEntry {
 		boolean ret = false;
 		if (o instanceof ImplicationEntry) {
 			ImplicationEntry other = (ImplicationEntry) o;
-			ret = getOperands().equals(other.getOperands())
-					&& getSuperClass().equals(other.getSuperClass());
+			ret = getOperands().equals(other.getOperands()) && getSuperClass().equals(other.getSuperClass());
 		}
 		return ret;
 	}

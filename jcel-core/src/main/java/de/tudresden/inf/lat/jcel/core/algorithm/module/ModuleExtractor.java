@@ -78,8 +78,7 @@ public class ModuleExtractor {
 	 *            set of object properties
 	 * @return a module, i.e. a subset of axioms relevant to answer a query
 	 */
-	public Set<NormalizedIntegerAxiom> extractModule(
-			Collection<NormalizedIntegerAxiom> setOfAxioms,
+	public Set<NormalizedIntegerAxiom> extractModule(Collection<NormalizedIntegerAxiom> setOfAxioms,
 			Set<Integer> setOfClasses, Set<Integer> setOfObjectProperties) {
 
 		Set<NormalizedIntegerAxiom> ret = new HashSet<NormalizedIntegerAxiom>();
@@ -101,15 +100,12 @@ public class ModuleExtractor {
 
 				IdentifierCollector c = new IdentifierCollector(axiom);
 				Set<Integer> classesOnTheLeft = c.getClassesOnTheLeft();
-				Set<Integer> objectPropertiesOnTheLeft = c
-						.getObjectPropertiesOnTheLeft();
+				Set<Integer> objectPropertiesOnTheLeft = c.getObjectPropertiesOnTheLeft();
 
-				boolean case0 = !Collections
-						.disjoint(classesOnTheLeft, classes);
-				boolean case1 = (classesOnTheLeft.isEmpty() && !Collections
-						.disjoint(objectPropertiesOnTheLeft, objectProperties));
-				boolean case2 = (classesOnTheLeft.isEmpty() && objectPropertiesOnTheLeft
-						.isEmpty());
+				boolean case0 = !Collections.disjoint(classesOnTheLeft, classes);
+				boolean case1 = (classesOnTheLeft.isEmpty()
+						&& !Collections.disjoint(objectPropertiesOnTheLeft, objectProperties));
+				boolean case2 = (classesOnTheLeft.isEmpty() && objectPropertiesOnTheLeft.isEmpty());
 
 				if (case0 || case1 || case2) {
 					classes.addAll(c.getClassesOnTheRight());

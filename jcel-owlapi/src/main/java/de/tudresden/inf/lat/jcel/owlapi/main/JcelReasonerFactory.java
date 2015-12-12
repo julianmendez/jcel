@@ -72,8 +72,7 @@ public class JcelReasonerFactory implements OWLReasonerFactory {
 	}
 
 	@Override
-	public JcelReasoner createNonBufferingReasoner(OWLOntology ontology,
-			OWLReasonerConfiguration configuration)
+	public JcelReasoner createNonBufferingReasoner(OWLOntology ontology, OWLReasonerConfiguration configuration)
 			throws IllegalConfigurationException {
 		if (ontology == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -95,8 +94,7 @@ public class JcelReasonerFactory implements OWLReasonerFactory {
 	}
 
 	@Override
-	public JcelReasoner createReasoner(OWLOntology ontology,
-			OWLReasonerConfiguration configuration)
+	public JcelReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration configuration)
 			throws IllegalConfigurationException {
 		if (ontology == null) {
 			throw new IllegalArgumentException("Null argument.");

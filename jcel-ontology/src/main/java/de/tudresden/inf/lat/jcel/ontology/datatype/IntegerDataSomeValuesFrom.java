@@ -73,8 +73,7 @@ public class IntegerDataSomeValuesFrom implements IntegerClassExpression {
 	 * @param classExpression
 	 *            class expression
 	 */
-	protected IntegerDataSomeValuesFrom(int propertyId,
-			IntegerClassExpression classExpression) {
+	protected IntegerDataSomeValuesFrom(int propertyId, IntegerClassExpression classExpression) {
 		if (classExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -104,8 +103,7 @@ public class IntegerDataSomeValuesFrom implements IntegerClassExpression {
 		boolean ret = (this == o);
 		if (!ret && (o instanceof IntegerDataSomeValuesFrom)) {
 			IntegerDataSomeValuesFrom other = (IntegerDataSomeValuesFrom) o;
-			ret = (getProperty() == other.getProperty())
-					&& getFiller().equals(other.getFiller());
+			ret = (getProperty() == other.getProperty()) && getFiller().equals(other.getFiller());
 		}
 		return ret;
 	}

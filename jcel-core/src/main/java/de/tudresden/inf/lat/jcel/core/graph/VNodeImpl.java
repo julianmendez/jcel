@@ -85,8 +85,7 @@ public class VNodeImpl implements VNode {
 	 *         the specified pair
 	 */
 	public boolean addExistential(int propertyId, int classId) {
-		boolean ret = this.existentialSet
-				.add(new VNodeObjectSomeValuesFromImpl(propertyId, classId));
+		boolean ret = this.existentialSet.add(new VNodeObjectSomeValuesFromImpl(propertyId, classId));
 		return ret;
 	}
 
@@ -107,8 +106,7 @@ public class VNodeImpl implements VNode {
 
 	@Override
 	public boolean containsExistential(int propertyId, int classId) {
-		return this.existentialSet.contains(new VNodeObjectSomeValuesFromImpl(
-				propertyId, classId));
+		return this.existentialSet.contains(new VNodeObjectSomeValuesFromImpl(propertyId, classId));
 	}
 
 	@Override
@@ -116,9 +114,7 @@ public class VNodeImpl implements VNode {
 		boolean ret = (this == o);
 		if (!ret && (o instanceof VNode)) {
 			VNode other = (VNode) o;
-			ret = (getClassId() == other.getClassId())
-					&& getExistentialEntries().equals(
-							other.getExistentialEntries());
+			ret = (getClassId() == other.getClassId()) && getExistentialEntries().equals(other.getExistentialEntries());
 		}
 		return ret;
 	}

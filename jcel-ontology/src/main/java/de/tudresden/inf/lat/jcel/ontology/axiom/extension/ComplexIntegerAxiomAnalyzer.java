@@ -81,8 +81,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
  * 
  * @author Julian Mendez
  */
-class ComplexIntegerAxiomAnalyzer implements
-		ComplexIntegerAxiomVisitor<Boolean>, OntologyExpressivity {
+class ComplexIntegerAxiomAnalyzer implements ComplexIntegerAxiomVisitor<Boolean>, OntologyExpressivity {
 
 	private final IntegerExpressionAnalyzer expressionAnalyzer = new IntegerExpressionAnalyzer();
 	private boolean hasBottom = false;
@@ -123,8 +122,7 @@ class ComplexIntegerAxiomAnalyzer implements
 
 	@Override
 	public boolean hasInverseObjectProperty() {
-		return this.hasInverseObjectProperty
-				|| this.expressionAnalyzer.hasInverseObjectProperty();
+		return this.hasInverseObjectProperty || this.expressionAnalyzer.hasInverseObjectProperty();
 	}
 
 	@Override

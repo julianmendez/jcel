@@ -66,16 +66,16 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
  * 
  * <ul>
  * <li>CR-2 : <b>if</b> A<sub>1</sub> \u2293 &hellip; \u2293 A<sub>i</sub>
- * \u2293 &hellip; \u2293 A<sub>n</sub> \u2291 B &isin; <i>T</i>, (x,
- * A<sub>1</sub>) &isin; S, &hellip; <u>(x, A<sub>i</sub>) &isin; S</u>,
- * &hellip; , (x, A<sub>n</sub>) &isin; S <br>
+ * \u2293 &hellip; \u2293 A<sub>n</sub> \u2291 B &isin; <i>T</i>, (x, A
+ * <sub>1</sub>) &isin; S, &hellip; <u>(x, A<sub>i</sub>) &isin; S</u>, &hellip;
+ * , (x, A<sub>n</sub>) &isin; S <br>
  * <b>then</b> S := S &cup; {(x, B)}</li>
  * </ul>
  * 
  * <ul>
  * <li>CR1 : <b>if</b> A<sub>1</sub>, &hellip; , A<sub>n</sub> &isin; S(X)
- * <b>and</b> A<sub>1</sub> \u2293 &hellip; \u2293 A<sub>n</sub> \u2291 B
- * &isin; O <b>and</b> B &notin; S(X) <br>
+ * <b>and</b> A<sub>1</sub> \u2293 &hellip; \u2293 A<sub>n</sub> \u2291 B &isin;
+ * O <b>and</b> B &notin; S(X) <br>
  * <b>then</b> S(X) := S(X) &cup; {B}</li>
  * </ul>
  * 
@@ -107,8 +107,7 @@ public class CR2SRule implements SObserverRule {
 			if (a == axiom.getRightSubClass()) {
 				valid = valid && subsumersOfX.contains(axiom.getLeftSubClass());
 			} else {
-				valid = valid
-						&& subsumersOfX.contains(axiom.getRightSubClass());
+				valid = valid && subsumersOfX.contains(axiom.getRightSubClass());
 			}
 
 			if (valid) {

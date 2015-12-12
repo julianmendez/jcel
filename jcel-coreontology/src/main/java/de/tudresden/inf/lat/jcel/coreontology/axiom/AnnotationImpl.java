@@ -91,8 +91,7 @@ public class AnnotationImpl implements Annotation, Comparable<Annotation> {
 
 	@Override
 	public int hashCode() {
-		return this.annotationProperty.hashCode()
-				+ (0x1F * this.annotationValue.hashCode());
+		return this.annotationProperty.hashCode() + (0x1F * this.annotationValue.hashCode());
 	}
 
 	@Override
@@ -103,8 +102,7 @@ public class AnnotationImpl implements Annotation, Comparable<Annotation> {
 			return false;
 		} else {
 			Annotation other = (Annotation) obj;
-			return getAnnotationProperty()
-					.equals(other.getAnnotationProperty())
+			return getAnnotationProperty().equals(other.getAnnotationProperty())
 					&& getAnnotationValue().equals(getAnnotationValue());
 		}
 	}
@@ -120,8 +118,7 @@ public class AnnotationImpl implements Annotation, Comparable<Annotation> {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		int ret = getAnnotationProperty().compareTo(
-				other.getAnnotationProperty());
+		int ret = getAnnotationProperty().compareTo(other.getAnnotationProperty());
 		if (ret == 0) {
 			return getAnnotationValue().compareTo(other.getAnnotationValue());
 		} else {

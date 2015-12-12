@@ -110,8 +110,7 @@ public class TurtleRenderer {
 			if (uri.getFragment() == null) {
 				String path = uri.getPath();
 				if (path != null) {
-					ret += path.substring(0,
-							path.lastIndexOf(slash) + slash.length());
+					ret += path.substring(0, path.lastIndexOf(slash) + slash.length());
 				}
 			} else {
 				ret += uri.getPath() + fragmentSeparator;
@@ -153,10 +152,8 @@ public class TurtleRenderer {
 			try {
 				URI uri = new URI(name);
 				String prefix = getPrefix(uri);
-				if ((prefix.length() > 0)
-						&& !this.mapOfPrefixes.containsKey(prefix)) {
-					this.mapOfPrefixes.put(prefix, prefixBeginning
-							+ this.mapOfPrefixes.keySet().size());
+				if ((prefix.length() > 0) && !this.mapOfPrefixes.containsKey(prefix)) {
+					this.mapOfPrefixes.put(prefix, prefixBeginning + this.mapOfPrefixes.keySet().size());
 					ret = true;
 				}
 			} catch (URISyntaxException e) {
@@ -202,8 +199,7 @@ public class TurtleRenderer {
 	 * @throws IOException
 	 *             if an I/O error occurs
 	 */
-	public void renderTriple(String predicate, String subject, String object)
-			throws IOException {
+	public void renderTriple(String predicate, String subject, String object) throws IOException {
 		this.output.write(getTurtleEntity(subject));
 		this.output.write(separator);
 		this.output.write(getTurtleEntity(predicate));

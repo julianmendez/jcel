@@ -58,8 +58,7 @@ import de.tudresden.inf.lat.jcel.owlapi.main.JcelReasoner;
  */
 public class TimeOutMonitor extends Thread {
 
-	private static final Logger logger = Logger.getLogger(TimeOutMonitor.class
-			.getName());
+	private static final Logger logger = Logger.getLogger(TimeOutMonitor.class.getName());
 
 	private final JcelReasoner reasoner;
 	private final long timeout;

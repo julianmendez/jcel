@@ -80,8 +80,7 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	GCI3Axiom(int leftPropertyId, int leftClassId, int rightClassId,
-			Set<Annotation> annotations) {
+	GCI3Axiom(int leftPropertyId, int leftClassId, int rightClassId, Set<Annotation> annotations) {
 		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -91,9 +90,7 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 		this.superClass = rightClassId;
 		this.annotations = annotations;
 		this.hashCode = this.classInSubClass
-				+ 0x1F
-				* (this.propertyInSubClass + 0x1F * (this.superClass + 0x1F * this.annotations
-						.hashCode()));
+				+ 0x1F * (this.propertyInSubClass + 0x1F * (this.superClass + 0x1F * this.annotations.hashCode()));
 	}
 
 	@Override
@@ -111,8 +108,7 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 		if (!ret && (obj instanceof GCI3Axiom)) {
 			GCI3Axiom other = (GCI3Axiom) obj;
 			ret = (this.classInSubClass == other.classInSubClass)
-					&& (this.propertyInSubClass == other.propertyInSubClass)
-					&& (this.superClass == other.superClass)
+					&& (this.propertyInSubClass == other.propertyInSubClass) && (this.superClass == other.superClass)
 					&& this.annotations.equals(other.annotations);
 		}
 		return ret;

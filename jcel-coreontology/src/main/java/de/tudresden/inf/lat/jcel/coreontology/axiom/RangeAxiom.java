@@ -82,8 +82,7 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 		this.property = propertyId;
 		this.range = classId;
 		this.annotations = annotations;
-		this.hashCode = this.property + 0x1F
-				* (this.range + 0x1F * this.annotations.hashCode());
+		this.hashCode = this.property + 0x1F * (this.range + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override
@@ -100,8 +99,7 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 		boolean ret = (this == obj);
 		if (!ret && (obj instanceof RangeAxiom)) {
 			RangeAxiom other = (RangeAxiom) obj;
-			ret = (this.property == other.property)
-					&& (this.range == other.range)
+			ret = (this.property == other.property) && (this.range == other.range)
 					&& this.annotations.equals(other.annotations);
 		}
 		return ret;

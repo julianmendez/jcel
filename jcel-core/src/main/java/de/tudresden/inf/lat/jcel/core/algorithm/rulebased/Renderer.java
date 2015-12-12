@@ -107,8 +107,8 @@ public class Renderer {
 
 	public static final String subClassOf = "isA";
 
-	private Set<String> getNames(Collection<Integer> identifiers,
-			IntegerEntityManager entityManager) throws IOException {
+	private Set<String> getNames(Collection<Integer> identifiers, IntegerEntityManager entityManager)
+			throws IOException {
 		Set<String> ret = new TreeSet<String>();
 		for (int id : identifiers) {
 			ret.add(entityManager.getName(id));
@@ -129,8 +129,7 @@ public class Renderer {
 	 * @throws IOException
 	 *             if an I/O error occurs
 	 */
-	public boolean renderWithNames(Writer output,
-			IntegerEntityManager entityManager, IntegerRelationMap setR)
+	public boolean renderWithNames(Writer output, IntegerEntityManager entityManager, IntegerRelationMap setR)
 			throws IOException {
 		if ((output == null) || (entityManager == null) || (setR == null)) {
 			throw new IllegalArgumentException("Null argument.");
@@ -141,24 +140,20 @@ public class Renderer {
 		renderer.loadPrefixes(getNames(setR.getElements(), entityManager));
 		renderer.renderPrefixes();
 
-		List<Integer> listOfPropertyIds = sortByName(setR.getElements(),
-				entityManager);
+		List<Integer> listOfPropertyIds = sortByName(setR.getElements(), entityManager);
 		for (int propertyId : listOfPropertyIds) {
 
 			IntegerBinaryRelation relation = setR.get(propertyId);
 			String propertyName = entityManager.getName(propertyId);
-			List<Integer> listOfLeftClassIds = sortByName(
-					relation.getElements(), entityManager);
+			List<Integer> listOfLeftClassIds = sortByName(relation.getElements(), entityManager);
 			for (int leftClassId : listOfLeftClassIds) {
 
 				String leftClassName = entityManager.getName(leftClassId);
-				List<Integer> listOfRightClassIds = sortByName(
-						relation.getByFirst(leftClassId), entityManager);
+				List<Integer> listOfRightClassIds = sortByName(relation.getByFirst(leftClassId), entityManager);
 				for (int rightClassId : listOfRightClassIds) {
 
 					String rightClassName = entityManager.getName(rightClassId);
-					renderer.renderTriple(propertyName, leftClassName,
-							rightClassName);
+					renderer.renderTriple(propertyName, leftClassName, rightClassName);
 
 					ret = true;
 				}
@@ -180,8 +175,7 @@ public class Renderer {
 	 * @throws IOException
 	 *             if an I/O error occurs
 	 */
-	public boolean renderWithNames(Writer output,
-			IntegerEntityManager entityManager, IntegerSubsumerGraph setS)
+	public boolean renderWithNames(Writer output, IntegerEntityManager entityManager, IntegerSubsumerGraph setS)
 			throws IOException {
 		if ((output == null) || (entityManager == null) || (setS == null)) {
 			throw new IllegalArgumentException("Null argument.");
@@ -192,13 +186,11 @@ public class Renderer {
 		renderer.loadPrefixes(getNames(setS.getElements(), entityManager));
 		renderer.renderPrefixes();
 
-		List<Integer> listOfSubClassIds = sortByName(setS.getElements(),
-				entityManager);
+		List<Integer> listOfSubClassIds = sortByName(setS.getElements(), entityManager);
 		for (int subClassId : listOfSubClassIds) {
 
 			String subClassName = entityManager.getName(subClassId);
-			List<Integer> listOfSuperClassIds = sortByName(
-					setS.getSubsumers(subClassId), entityManager);
+			List<Integer> listOfSuperClassIds = sortByName(setS.getSubsumers(subClassId), entityManager);
 			for (int superClassId : listOfSuperClassIds) {
 
 				String superClassName = entityManager.getName(superClassId);
@@ -210,8 +202,7 @@ public class Renderer {
 		return ret;
 	}
 
-	private List<Integer> sortByName(Collection<Integer> identifiers,
-			IntegerEntityManager entityManager) {
+	private List<Integer> sortByName(Collection<Integer> identifiers, IntegerEntityManager entityManager) {
 		List<PairIdName> list = new ArrayList<PairIdName>();
 		for (int id : identifiers) {
 			list.add(new PairIdName(id, entityManager.getName(id)));

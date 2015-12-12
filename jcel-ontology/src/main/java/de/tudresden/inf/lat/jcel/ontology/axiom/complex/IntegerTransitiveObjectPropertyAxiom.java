@@ -59,8 +59,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  * 
  * @author Julian Mendez
  */
-public class IntegerTransitiveObjectPropertyAxiom implements
-		ComplexIntegerAxiom {
+public class IntegerTransitiveObjectPropertyAxiom implements ComplexIntegerAxiom {
 
 	private final IntegerObjectPropertyExpression property;
 	private final Set<Annotation> annotations;
@@ -74,8 +73,7 @@ public class IntegerTransitiveObjectPropertyAxiom implements
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerTransitiveObjectPropertyAxiom(IntegerObjectPropertyExpression prop,
-			Set<Annotation> annotations) {
+	IntegerTransitiveObjectPropertyAxiom(IntegerObjectPropertyExpression prop, Set<Annotation> annotations) {
 		if (prop == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -85,8 +83,7 @@ public class IntegerTransitiveObjectPropertyAxiom implements
 
 		this.property = prop;
 		this.annotations = annotations;
-		this.hashCode = this.property.hashCode() + 0x1F
-				* this.annotations.hashCode();
+		this.hashCode = this.property.hashCode() + 0x1F * this.annotations.hashCode();
 	}
 
 	@Override
@@ -103,8 +100,7 @@ public class IntegerTransitiveObjectPropertyAxiom implements
 		boolean ret = (this == obj);
 		if (!ret && (obj instanceof IntegerTransitiveObjectPropertyAxiom)) {
 			IntegerTransitiveObjectPropertyAxiom other = (IntegerTransitiveObjectPropertyAxiom) obj;
-			ret = getProperty().equals(other.getProperty())
-					&& getAnnotations().equals(other.getAnnotations());
+			ret = getProperty().equals(other.getProperty()) && getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}

@@ -72,44 +72,30 @@ import junit.framework.TestCase;
 public class NormalizerNR2_1Test extends TestCase {
 
 	/**
-	 * r<sub>1</sub> \u2218 r<sub>2</sub> \u2218 r<sub>3</sub> \u2218
-	 * r<sub>4</sub> \u2291 s \u219D r<sub>1</sub> \u2218 r<sub>2</sub> \u2291
-	 * u<sub>1</sub>, u<sub>1</sub> \u2218 r<sub>3</sub> \u2291 u<sub>2</sub>,
-	 * u<sub>2</sub> \u2218 r<sub>4</sub> \u2291 s
+	 * r<sub>1</sub> \u2218 r<sub>2</sub> \u2218 r<sub>3</sub> \u2218 r
+	 * <sub>4</sub> \u2291 s \u219D r<sub>1</sub> \u2218 r<sub>2</sub> \u2291 u
+	 * <sub>1</sub>, u<sub>1</sub> \u2218 r<sub>3</sub> \u2291 u<sub>2</sub>, u
+	 * <sub>2</sub> \u2218 r<sub>4</sub> \u2291 s
 	 */
 	public void testRule() {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR2_1 normalizer = new NormalizerNR2_1(factory);
 
-		IntegerObjectProperty r1 = factory
-				.getDataTypeFactory()
-				.createObjectProperty(
-						factory.getEntityManager().createNamedEntity(
-								IntegerEntityType.OBJECT_PROPERTY, "r1", false));
+		IntegerObjectProperty r1 = factory.getDataTypeFactory().createObjectProperty(
+				factory.getEntityManager().createNamedEntity(IntegerEntityType.OBJECT_PROPERTY, "r1", false));
 
-		IntegerObjectProperty r2 = factory
-				.getDataTypeFactory()
-				.createObjectProperty(
-						factory.getEntityManager().createNamedEntity(
-								IntegerEntityType.OBJECT_PROPERTY, "r2", false));
+		IntegerObjectProperty r2 = factory.getDataTypeFactory().createObjectProperty(
+				factory.getEntityManager().createNamedEntity(IntegerEntityType.OBJECT_PROPERTY, "r2", false));
 
-		IntegerObjectProperty r3 = factory
-				.getDataTypeFactory()
-				.createObjectProperty(
-						factory.getEntityManager().createNamedEntity(
-								IntegerEntityType.OBJECT_PROPERTY, "r3", false));
+		IntegerObjectProperty r3 = factory.getDataTypeFactory().createObjectProperty(
+				factory.getEntityManager().createNamedEntity(IntegerEntityType.OBJECT_PROPERTY, "r3", false));
 
-		IntegerObjectProperty r4 = factory
-				.getDataTypeFactory()
-				.createObjectProperty(
-						factory.getEntityManager().createNamedEntity(
-								IntegerEntityType.OBJECT_PROPERTY, "r4", false));
+		IntegerObjectProperty r4 = factory.getDataTypeFactory().createObjectProperty(
+				factory.getEntityManager().createNamedEntity(IntegerEntityType.OBJECT_PROPERTY, "r4", false));
 
-		IntegerObjectProperty s = factory.getDataTypeFactory()
-				.createObjectProperty(
-						factory.getEntityManager().createNamedEntity(
-								IntegerEntityType.OBJECT_PROPERTY, "s", false));
+		IntegerObjectProperty s = factory.getDataTypeFactory().createObjectProperty(
+				factory.getEntityManager().createNamedEntity(IntegerEntityType.OBJECT_PROPERTY, "s", false));
 
 		IntegerSubPropertyChainOfAxiom originalAxiom = null;
 		{
@@ -118,8 +104,7 @@ public class NormalizerNR2_1Test extends TestCase {
 			list.add(r2);
 			list.add(r3);
 			list.add(r4);
-			originalAxiom = factory.getComplexAxiomFactory()
-					.createSubPropertyChainOfAxiom(list, s, annotations);
+			originalAxiom = factory.getComplexAxiomFactory().createSubPropertyChainOfAxiom(list, s, annotations);
 		}
 		Set<IntegerAxiom> normalizedAxioms = normalizer.apply(originalAxiom);
 
@@ -131,28 +116,24 @@ public class NormalizerNR2_1Test extends TestCase {
 			if (normAxiom instanceof RI3Axiom) {
 				RI3Axiom axiom = (RI3Axiom) normAxiom;
 
-				if (axiom.getSuperProperty() == s.getId()
-						&& axiom.getRightSubProperty() == r4.getId()) {
-					u2 = factory.getDataTypeFactory().createObjectProperty(
-							axiom.getLeftSubProperty());
+				if (axiom.getSuperProperty() == s.getId() && axiom.getRightSubProperty() == r4.getId()) {
+					u2 = factory.getDataTypeFactory().createObjectProperty(axiom.getLeftSubProperty());
 				}
 
-				if (axiom.getLeftSubProperty() == r1.getId()
-						&& axiom.getRightSubProperty() == r2.getId()) {
-					u1 = factory.getDataTypeFactory().createObjectProperty(
-							axiom.getSuperProperty());
+				if (axiom.getLeftSubProperty() == r1.getId() && axiom.getRightSubProperty() == r2.getId()) {
+					u1 = factory.getDataTypeFactory().createObjectProperty(axiom.getSuperProperty());
 				}
 			}
 
 		}
 
 		Set<IntegerAxiom> expectedAxioms = new HashSet<IntegerAxiom>();
-		expectedAxioms.add(factory.getNormalizedAxiomFactory().createRI3Axiom(
-				r1.getId(), r2.getId(), u1.getId(), annotations));
-		expectedAxioms.add(factory.getNormalizedAxiomFactory().createRI3Axiom(
-				u1.getId(), r3.getId(), u2.getId(), annotations));
-		expectedAxioms.add(factory.getNormalizedAxiomFactory().createRI3Axiom(
-				u2.getId(), r4.getId(), s.getId(), annotations));
+		expectedAxioms.add(
+				factory.getNormalizedAxiomFactory().createRI3Axiom(r1.getId(), r2.getId(), u1.getId(), annotations));
+		expectedAxioms.add(
+				factory.getNormalizedAxiomFactory().createRI3Axiom(u1.getId(), r3.getId(), u2.getId(), annotations));
+		expectedAxioms.add(
+				factory.getNormalizedAxiomFactory().createRI3Axiom(u2.getId(), r4.getId(), s.getId(), annotations));
 
 		assertEquals(expectedAxioms, normalizedAxioms);
 	}

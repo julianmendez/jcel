@@ -106,15 +106,12 @@ class NormalizerNR4_1 implements NormalizationRule {
 			IntegerObjectOneOf oneOf = (IntegerObjectOneOf) superClass;
 			ret = new HashSet<IntegerAxiom>();
 			Integer individual = oneOf.getIndividual();
-			Integer auxiliaryClass = getOntologyObjectFactory()
-					.getEntityManager().createOrGetClassIdForIndividual(
-							individual);
+			Integer auxiliaryClass = getOntologyObjectFactory().getEntityManager()
+					.createOrGetClassIdForIndividual(individual);
+			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory().createNominalAxiom(auxiliaryClass,
+					individual, classAxiom.getAnnotations()));
 			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
-					.createNominalAxiom(auxiliaryClass, individual,
-							classAxiom.getAnnotations()));
-			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
-					.createGCI0Axiom(((IntegerClass) subClass).getId(),
-							auxiliaryClass, classAxiom.getAnnotations()));
+					.createGCI0Axiom(((IntegerClass) subClass).getId(), auxiliaryClass, classAxiom.getAnnotations()));
 		}
 		return ret;
 	}

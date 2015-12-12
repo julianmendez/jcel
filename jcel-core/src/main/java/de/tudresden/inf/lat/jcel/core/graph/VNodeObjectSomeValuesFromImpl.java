@@ -78,8 +78,7 @@ public class VNodeObjectSomeValuesFromImpl implements VNodeObjectSomeValuesFrom 
 		boolean ret = (this == o);
 		if (!ret && (o instanceof VNodeObjectSomeValuesFrom)) {
 			VNodeObjectSomeValuesFrom other = (VNodeObjectSomeValuesFrom) o;
-			ret = (this.objectPropertyId == other.getObjectPropertyId())
-					&& (this.classId == other.getClassId());
+			ret = (this.objectPropertyId == other.getObjectPropertyId()) && (this.classId == other.getClassId());
 		}
 		return ret;
 	}

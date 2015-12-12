@@ -110,68 +110,55 @@ class NormalizerSubClassOf implements NormalizationRule {
 		return this.ontologyObjectFactory;
 	}
 
-	private Collection<NormalizedIntegerAxiom> simplify(
-			IntegerSubClassOfAxiom axiom) {
+	private Collection<NormalizedIntegerAxiom> simplify(IntegerSubClassOfAxiom axiom) {
 		Collection<NormalizedIntegerAxiom> ret = new ArrayList<NormalizedIntegerAxiom>();
 		IntegerClassExpression subClass = axiom.getSubClass();
 		IntegerClassExpression superClass = axiom.getSuperClass();
 
 		if (subClass.isLiteral() && superClass.isLiteral()) {
-			ret.add(getNormalizedAxiomFactory()
-					.createGCI0Axiom(((IntegerClass) subClass).getId(),
-							((IntegerClass) superClass).getId(),
-							axiom.getAnnotations()));
+			ret.add(getNormalizedAxiomFactory().createGCI0Axiom(((IntegerClass) subClass).getId(),
+					((IntegerClass) superClass).getId(), axiom.getAnnotations()));
 
-		} else if (!subClass.isLiteral() && superClass.isLiteral()
-				&& (subClass instanceof IntegerObjectIntersectionOf)
+		} else if (!subClass.isLiteral() && superClass.isLiteral() && (subClass instanceof IntegerObjectIntersectionOf)
 				&& subClass.hasOnlyClasses()) {
 
 			IntegerObjectIntersectionOf intersection = (IntegerObjectIntersectionOf) subClass;
 			Set<IntegerClassExpression> operands = intersection.getOperands();
 			if (operands.size() == 0) {
-				ret.add(getNormalizedAxiomFactory().createGCI0Axiom(
-						IntegerEntityManager.topClassId,
-						((IntegerClass) superClass).getId(),
-						axiom.getAnnotations()));
+				ret.add(getNormalizedAxiomFactory().createGCI0Axiom(IntegerEntityManager.topClassId,
+						((IntegerClass) superClass).getId(), axiom.getAnnotations()));
 
 			} else if (operands.size() == 1) {
-				ret.add(getNormalizedAxiomFactory().createGCI0Axiom(
-						((IntegerClass) operands.iterator().next()).getId(),
-						((IntegerClass) superClass).getId(),
-						axiom.getAnnotations()));
+				ret.add(getNormalizedAxiomFactory().createGCI0Axiom(((IntegerClass) operands.iterator().next()).getId(),
+						((IntegerClass) superClass).getId(), axiom.getAnnotations()));
 
 			} else if (operands.size() == 2) {
 				Iterator<IntegerClassExpression> it = operands.iterator();
 				int leftSubClassId = ((IntegerClass) it.next()).getId();
 				int rightSubClassId = ((IntegerClass) it.next()).getId();
 				int superClassId = ((IntegerClass) superClass).getId();
-				ret.add(getNormalizedAxiomFactory().createGCI1Axiom(
-						leftSubClassId, rightSubClassId, superClassId,
+				ret.add(getNormalizedAxiomFactory().createGCI1Axiom(leftSubClassId, rightSubClassId, superClassId,
 						axiom.getAnnotations()));
 
 			}
 
 		} else if (subClass.isLiteral() && !superClass.isLiteral()
-				&& (superClass instanceof IntegerObjectSomeValuesFrom)
-				&& superClass.hasOnlyClasses()) {
+				&& (superClass instanceof IntegerObjectSomeValuesFrom) && superClass.hasOnlyClasses()) {
 
 			IntegerObjectSomeValuesFrom restriction = (IntegerObjectSomeValuesFrom) superClass;
 			IntegerClass filler = (IntegerClass) restriction.getFiller();
 			Integer property = getObjectPropertyId(restriction.getProperty());
-			ret.add(getNormalizedAxiomFactory().createGCI2Axiom(
-					((IntegerClass) subClass).getId(), property,
+			ret.add(getNormalizedAxiomFactory().createGCI2Axiom(((IntegerClass) subClass).getId(), property,
 					filler.getId(), axiom.getAnnotations()));
 
-		} else if (!subClass.isLiteral() && superClass.isLiteral()
-				&& (subClass instanceof IntegerObjectSomeValuesFrom)
+		} else if (!subClass.isLiteral() && superClass.isLiteral() && (subClass instanceof IntegerObjectSomeValuesFrom)
 				&& subClass.hasOnlyClasses()) {
 
 			IntegerObjectSomeValuesFrom restriction = (IntegerObjectSomeValuesFrom) subClass;
 			IntegerClass filler = (IntegerClass) restriction.getFiller();
 			Integer property = getObjectPropertyId(restriction.getProperty());
-			ret.add(getNormalizedAxiomFactory().createGCI3Axiom(property,
-					filler.getId(), ((IntegerClass) superClass).getId(),
-					axiom.getAnnotations()));
+			ret.add(getNormalizedAxiomFactory().createGCI3Axiom(property, filler.getId(),
+					((IntegerClass) superClass).getId(), axiom.getAnnotations()));
 
 		}
 		return ret;

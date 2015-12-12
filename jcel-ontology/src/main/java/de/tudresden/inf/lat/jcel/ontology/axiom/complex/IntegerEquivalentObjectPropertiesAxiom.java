@@ -56,13 +56,12 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 /**
  * This class models an axiom stating that the contained properties are
  * equivalent. <br>
- * This is: r<sub>1</sub> &equiv; r<sub>2</sub>, r<sub>2</sub> &equiv;
- * r<sub>3</sub>, &hellip; , r<sub>n-1</sub> &equiv; r<sub>n</sub>
+ * This is: r<sub>1</sub> &equiv; r<sub>2</sub>, r<sub>2</sub> &equiv; r
+ * <sub>3</sub>, &hellip; , r<sub>n-1</sub> &equiv; r<sub>n</sub>
  * 
  * @author Julian Mendez
  */
-public class IntegerEquivalentObjectPropertiesAxiom implements
-		ComplexIntegerAxiom {
+public class IntegerEquivalentObjectPropertiesAxiom implements ComplexIntegerAxiom {
 
 	private final Set<IntegerObjectPropertyExpression> objectProperties;
 	private final Set<Integer> objectPropertiesInSignature;
@@ -77,9 +76,7 @@ public class IntegerEquivalentObjectPropertiesAxiom implements
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerEquivalentObjectPropertiesAxiom(
-			Set<IntegerObjectPropertyExpression> propSet,
-			Set<Annotation> annotations) {
+	IntegerEquivalentObjectPropertiesAxiom(Set<IntegerObjectPropertyExpression> propSet, Set<Annotation> annotations) {
 		if (propSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -91,14 +88,11 @@ public class IntegerEquivalentObjectPropertiesAxiom implements
 
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
 		for (IntegerObjectPropertyExpression expression : this.objectProperties) {
-			objectPropertiesInSignature.addAll(expression
-					.getObjectPropertiesInSignature());
+			objectPropertiesInSignature.addAll(expression.getObjectPropertiesInSignature());
 		}
-		this.objectPropertiesInSignature = Collections
-				.unmodifiableSet(objectPropertiesInSignature);
+		this.objectPropertiesInSignature = Collections.unmodifiableSet(objectPropertiesInSignature);
 		this.annotations = annotations;
-		this.hashCode = this.objectProperties.hashCode() + 0x1F
-				* this.annotations.hashCode();
+		this.hashCode = this.objectProperties.hashCode() + 0x1F * this.annotations.hashCode();
 	}
 
 	@Override
@@ -115,8 +109,7 @@ public class IntegerEquivalentObjectPropertiesAxiom implements
 		boolean ret = (this == obj);
 		if (!ret && (obj instanceof IntegerEquivalentObjectPropertiesAxiom)) {
 			IntegerEquivalentObjectPropertiesAxiom other = (IntegerEquivalentObjectPropertiesAxiom) obj;
-			ret = getProperties().equals(other.getProperties())
-					&& getAnnotations().equals(other.getAnnotations());
+			ret = getProperties().equals(other.getProperties()) && getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}

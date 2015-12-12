@@ -82,8 +82,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  * 
  * @author Julian Mendez
  */
-public class OntologyEntailmentChecker implements
-		ComplexIntegerAxiomVisitor<Boolean> {
+public class OntologyEntailmentChecker implements ComplexIntegerAxiomVisitor<Boolean> {
 
 	private static final String errorMsg = "Unsupported entailment with axiom:";
 	private final RuleBasedReasoner reasoner;
@@ -121,8 +120,7 @@ public class OntologyEntailmentChecker implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		boolean ret = getReasoner().getProcessor().getClassHierarchy()
-				.getElements().contains(axiom.getEntity());
+		boolean ret = getReasoner().getProcessor().getClassHierarchy().getElements().contains(axiom.getEntity());
 		return ret;
 	}
 
@@ -171,20 +169,16 @@ public class OntologyEntailmentChecker implements
 		boolean ret = true;
 		Set<IntegerClassExpression> set = axiom.getClassExpressions();
 		if (!set.isEmpty()) {
-			IntegerClass representative = getReasoner().flattenClassExpression(
-					set.iterator().next());
+			IntegerClass representative = getReasoner().flattenClassExpression(set.iterator().next());
 			Set<IntegerClass> classSet = new HashSet<IntegerClass>();
 			for (IntegerClassExpression classExpr : set) {
 				classSet.add(getReasoner().flattenClassExpression(classExpr));
 			}
 			getReasoner().classify();
-			for (Iterator<IntegerClass> it = classSet.iterator(); ret
-					&& it.hasNext();) {
+			for (Iterator<IntegerClass> it = classSet.iterator(); ret && it.hasNext();) {
 				IntegerClass currentClass = it.next();
-				ret = ret
-						&& getReasoner().getProcessor().getClassHierarchy()
-								.getEquivalents(currentClass.getId())
-								.contains(representative.getId());
+				ret = ret && getReasoner().getProcessor().getClassHierarchy().getEquivalents(currentClass.getId())
+						.contains(representative.getId());
 
 			}
 		}
@@ -260,8 +254,7 @@ public class OntologyEntailmentChecker implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return getReasoner().getProcessor().getObjectPropertyHierarchy()
-				.getElements().contains(axiom.getEntity());
+		return getReasoner().getProcessor().getObjectPropertyHierarchy().getElements().contains(axiom.getEntity());
 	}
 
 	@Override
@@ -299,19 +292,15 @@ public class OntologyEntailmentChecker implements
 
 		IntegerClassExpression subClassExpr = axiom.getSubClass();
 		IntegerClassExpression superClassExpr = axiom.getSuperClass();
-		IntegerClass subClass = getReasoner().flattenClassExpression(
-				subClassExpr);
-		IntegerClass superClass = getReasoner().flattenClassExpression(
-				superClassExpr);
+		IntegerClass subClass = getReasoner().flattenClassExpression(subClassExpr);
+		IntegerClass superClass = getReasoner().flattenClassExpression(superClassExpr);
 		getReasoner().classify();
 
-		boolean isEquivalent = getReasoner().getEquivalentClasses(subClass)
-				.contains(superClass);
+		boolean isEquivalent = getReasoner().getEquivalentClasses(subClass).contains(superClass);
 
 		boolean isAncestor = false;
 		if (!isEquivalent) {
-			Set<Set<IntegerClass>> setsOfAncestors = getReasoner()
-					.getSuperClasses(subClassExpr, false);
+			Set<Set<IntegerClass>> setsOfAncestors = getReasoner().getSuperClasses(subClassExpr, false);
 			for (Set<IntegerClass> ancestor : setsOfAncestors) {
 				isAncestor = isAncestor || ancestor.contains(superClass);
 			}
@@ -326,22 +315,19 @@ public class OntologyEntailmentChecker implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		IntegerObjectPropertyExpression subObjectPropExpr = axiom
-				.getSubProperty();
-		IntegerObjectPropertyExpression superObjectPropExpr = axiom
-				.getSuperProperty();
+		IntegerObjectPropertyExpression subObjectPropExpr = axiom.getSubProperty();
+		IntegerObjectPropertyExpression superObjectPropExpr = axiom.getSuperProperty();
 		getReasoner().classify();
 
-		boolean isEquivalent = getReasoner().getEquivalentObjectProperties(
-				subObjectPropExpr).contains(superObjectPropExpr);
+		boolean isEquivalent = getReasoner().getEquivalentObjectProperties(subObjectPropExpr)
+				.contains(superObjectPropExpr);
 
 		boolean isAncestor = false;
 		if (!isEquivalent) {
 			Set<Set<IntegerObjectPropertyExpression>> setsOfAncestors = getReasoner()
 					.getSuperObjectProperties(subObjectPropExpr, false);
 			for (Set<IntegerObjectPropertyExpression> ancestor : setsOfAncestors) {
-				isAncestor = isAncestor
-						|| ancestor.contains(superObjectPropExpr);
+				isAncestor = isAncestor || ancestor.contains(superObjectPropExpr);
 			}
 		}
 

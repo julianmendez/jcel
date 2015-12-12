@@ -57,7 +57,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0Axiom;
  * <b>then</b> S := S &cup; {(x, B)}</li>
  * </ul>
  * <br>
- *  
+ * 
  * Previous form:
  * <ul>
  * <li>CR0 : <b>if</b> A &isin; S(X) <b>and</b> A \u2291 B &isin; O <br>

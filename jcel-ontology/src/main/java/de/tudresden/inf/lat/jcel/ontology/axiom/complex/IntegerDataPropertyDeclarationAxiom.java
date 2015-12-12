@@ -56,8 +56,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
  * 
  * @author Julian Mendez
  */
-public class IntegerDataPropertyDeclarationAxiom implements
-		IntegerDeclarationAxiom {
+public class IntegerDataPropertyDeclarationAxiom implements IntegerDeclarationAxiom {
 
 	private final int entity;
 	private final Set<Annotation> annotations;
@@ -71,8 +70,7 @@ public class IntegerDataPropertyDeclarationAxiom implements
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerDataPropertyDeclarationAxiom(int declaredEntity,
-			Set<Annotation> annotations) {
+	IntegerDataPropertyDeclarationAxiom(int declaredEntity, Set<Annotation> annotations) {
 		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -96,8 +94,7 @@ public class IntegerDataPropertyDeclarationAxiom implements
 		boolean ret = (this == obj);
 		if (!ret && (obj instanceof IntegerDataPropertyDeclarationAxiom)) {
 			IntegerDataPropertyDeclarationAxiom other = (IntegerDataPropertyDeclarationAxiom) obj;
-			ret = getEntity().equals(other.getEntity())
-					&& getAnnotations().equals(other.getAnnotations());
+			ret = getEntity().equals(other.getEntity()) && getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}

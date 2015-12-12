@@ -71,8 +71,7 @@ public interface ComplexIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new class assertion axiom
 	 */
-	public IntegerClassAssertionAxiom createClassAssertionAxiom(
-			IntegerClassExpression classExpr, int individualId,
+	public IntegerClassAssertionAxiom createClassAssertionAxiom(IntegerClassExpression classExpr, int individualId,
 			Set<Annotation> annotations);
 
 	/**
@@ -84,8 +83,7 @@ public interface ComplexIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new class declaration axiom
 	 */
-	public IntegerClassDeclarationAxiom createClassDeclarationAxiom(
-			int declaredEntity, Set<Annotation> annotations);
+	public IntegerClassDeclarationAxiom createClassDeclarationAxiom(int declaredEntity, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new data property assertion axiom.
@@ -100,9 +98,8 @@ public interface ComplexIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new data property assertion axiom
 	 */
-	public IntegerDataPropertyAssertionAxiom createDataPropertyAssertionAxiom(
-			int objectProp, int subjectInd, int objectInd,
-			Set<Annotation> annotations);
+	public IntegerDataPropertyAssertionAxiom createDataPropertyAssertionAxiom(int objectProp, int subjectInd,
+			int objectInd, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new data property declaration axiom.
@@ -113,8 +110,8 @@ public interface ComplexIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new data property declaration axiom
 	 */
-	public IntegerDataPropertyDeclarationAxiom createDataPropertyDeclarationAxiom(
-			int declaredEntity, Set<Annotation> annotations);
+	public IntegerDataPropertyDeclarationAxiom createDataPropertyDeclarationAxiom(int declaredEntity,
+			Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new different individuals axiom
@@ -125,8 +122,8 @@ public interface ComplexIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new different individuals axiom
 	 */
-	public IntegerDifferentIndividualsAxiom createDifferentIndividualsAxiom(
-			Set<Integer> individualSet, Set<Annotation> annotations);
+	public IntegerDifferentIndividualsAxiom createDifferentIndividualsAxiom(Set<Integer> individualSet,
+			Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new disjoint classes axiom.
@@ -137,8 +134,8 @@ public interface ComplexIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new disjoint classes axiom
 	 */
-	public IntegerDisjointClassesAxiom createDisjointClassesAxiom(
-			Set<IntegerClassExpression> descSet, Set<Annotation> annotations);
+	public IntegerDisjointClassesAxiom createDisjointClassesAxiom(Set<IntegerClassExpression> descSet,
+			Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new equivalent classes axiom.
@@ -149,8 +146,8 @@ public interface ComplexIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new equivalent classes axiom
 	 */
-	public IntegerEquivalentClassesAxiom createEquivalentClassesAxiom(
-			Set<IntegerClassExpression> descSet, Set<Annotation> annotations);
+	public IntegerEquivalentClassesAxiom createEquivalentClassesAxiom(Set<IntegerClassExpression> descSet,
+			Set<Annotation> annotations);
 
 	/**
 	 * Constructs an equivalent object properties axiom.
@@ -162,8 +159,7 @@ public interface ComplexIntegerAxiomFactory {
 	 * @return an equivalent object properties axiom
 	 */
 	public IntegerEquivalentObjectPropertiesAxiom createEquivalentObjectPropertiesAxiom(
-			Set<IntegerObjectPropertyExpression> propSet,
-			Set<Annotation> annotations);
+			Set<IntegerObjectPropertyExpression> propSet, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new functional object property axiom.
@@ -175,8 +171,7 @@ public interface ComplexIntegerAxiomFactory {
 	 * @return a new functional object property axiom
 	 */
 	public IntegerFunctionalObjectPropertyAxiom createFunctionalObjectPropertyAxiom(
-			IntegerObjectPropertyExpression property,
-			Set<Annotation> annotations);
+			IntegerObjectPropertyExpression property, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new inverse functional object property axiom.
@@ -188,8 +183,7 @@ public interface ComplexIntegerAxiomFactory {
 	 * @return a new inverse functional object property axiom
 	 */
 	public IntegerInverseFunctionalObjectPropertyAxiom createInverseFunctionalObjectPropertyAxiom(
-			IntegerObjectPropertyExpression property,
-			Set<Annotation> annotations);
+			IntegerObjectPropertyExpression property, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new inverse object property axiom, declaring that one object
@@ -203,8 +197,7 @@ public interface ComplexIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new inverse object property axiom
 	 */
-	public IntegerInverseObjectPropertiesAxiom createInverseObjectPropertiesAxiom(
-			IntegerObjectPropertyExpression first,
+	public IntegerInverseObjectPropertiesAxiom createInverseObjectPropertiesAxiom(IntegerObjectPropertyExpression first,
 			IntegerObjectPropertyExpression second, Set<Annotation> annotations);
 
 	/**
@@ -216,8 +209,8 @@ public interface ComplexIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new named individual declaration axiom
 	 */
-	public IntegerNamedIndividualDeclarationAxiom createNamedIndividualDeclarationAxiom(
-			int declaredEntity, Set<Annotation> annotations);
+	public IntegerNamedIndividualDeclarationAxiom createNamedIndividualDeclarationAxiom(int declaredEntity,
+			Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new negative object property axiom.
@@ -233,8 +226,7 @@ public interface ComplexIntegerAxiomFactory {
 	 * @return a new negative object property axiom
 	 */
 	public IntegerNegativeObjectPropertyAssertionAxiom createNegativeObjectPropertyAssertionAxiom(
-			IntegerObjectPropertyExpression objectProp, int subjectInd,
-			int objectInd, Set<Annotation> annotations);
+			IntegerObjectPropertyExpression objectProp, int subjectInd, int objectInd, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new object property assertion axiom.
@@ -250,8 +242,7 @@ public interface ComplexIntegerAxiomFactory {
 	 * @return a new object property assertion axiom
 	 */
 	public IntegerObjectPropertyAssertionAxiom createObjectPropertyAssertionAxiom(
-			IntegerObjectPropertyExpression objectProp, int subjectInd,
-			int objectInd, Set<Annotation> annotations);
+			IntegerObjectPropertyExpression objectProp, int subjectInd, int objectInd, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new object property declaration axiom.
@@ -262,8 +253,8 @@ public interface ComplexIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new object property declaration axiom
 	 */
-	public IntegerObjectPropertyDeclarationAxiom createObjectPropertyDeclarationAxiom(
-			int declaredEntity, Set<Annotation> annotations);
+	public IntegerObjectPropertyDeclarationAxiom createObjectPropertyDeclarationAxiom(int declaredEntity,
+			Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new object property range axiom.
@@ -276,8 +267,7 @@ public interface ComplexIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new object property range axiom
 	 */
-	public IntegerPropertyRangeAxiom createPropertyRangeAxiom(
-			IntegerObjectPropertyExpression prop,
+	public IntegerPropertyRangeAxiom createPropertyRangeAxiom(IntegerObjectPropertyExpression prop,
 			IntegerClassExpression clExpr, Set<Annotation> annotations);
 
 	/**
@@ -290,8 +280,7 @@ public interface ComplexIntegerAxiomFactory {
 	 * @return a new reflexive object property axiom
 	 */
 	public IntegerReflexiveObjectPropertyAxiom createReflexiveObjectPropertyAxiom(
-			IntegerObjectPropertyExpression property,
-			Set<Annotation> annotations);
+			IntegerObjectPropertyExpression property, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new same individual axiom.
@@ -302,8 +291,8 @@ public interface ComplexIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new same individual axiom
 	 */
-	public IntegerSameIndividualAxiom createSameIndividualAxiom(
-			Set<Integer> individualSet, Set<Annotation> annotations);
+	public IntegerSameIndividualAxiom createSameIndividualAxiom(Set<Integer> individualSet,
+			Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new subclass axiom.
@@ -316,8 +305,7 @@ public interface ComplexIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new subclass axiom
 	 */
-	public IntegerSubClassOfAxiom createSubClassOfAxiom(
-			IntegerClassExpression subClExpr,
+	public IntegerSubClassOfAxiom createSubClassOfAxiom(IntegerClassExpression subClExpr,
 			IntegerClassExpression superClExpr, Set<Annotation> annotations);
 
 	/**
@@ -331,10 +319,8 @@ public interface ComplexIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new sub object property axiom
 	 */
-	public IntegerSubObjectPropertyOfAxiom createSubObjectPropertyOfAxiom(
-			IntegerObjectPropertyExpression subPropExpr,
-			IntegerObjectPropertyExpression superPropExpr,
-			Set<Annotation> annotations);
+	public IntegerSubObjectPropertyOfAxiom createSubObjectPropertyOfAxiom(IntegerObjectPropertyExpression subPropExpr,
+			IntegerObjectPropertyExpression superPropExpr, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new sub object property chain axiom.
@@ -347,10 +333,8 @@ public interface ComplexIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new sub object property chain axiom
 	 */
-	public IntegerSubPropertyChainOfAxiom createSubPropertyChainOfAxiom(
-			List<IntegerObjectPropertyExpression> chain,
-			IntegerObjectPropertyExpression superProp,
-			Set<Annotation> annotations);
+	public IntegerSubPropertyChainOfAxiom createSubPropertyChainOfAxiom(List<IntegerObjectPropertyExpression> chain,
+			IntegerObjectPropertyExpression superProp, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new transitive object property axiom.

@@ -55,8 +55,7 @@ import java.util.Set;
  * @author Julian Mendez
  * 
  */
-public class IntegerDataProperty implements IntegerDataPropertyExpression,
-		Comparable<IntegerDataProperty> {
+public class IntegerDataProperty implements IntegerDataPropertyExpression, Comparable<IntegerDataProperty> {
 
 	private final int id;
 

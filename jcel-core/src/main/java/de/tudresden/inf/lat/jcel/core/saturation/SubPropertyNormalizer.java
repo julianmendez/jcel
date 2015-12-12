@@ -84,8 +84,7 @@ public class SubPropertyNormalizer implements SaturationRule {
 	 * @param entityManager
 	 *            entity manager
 	 */
-	public SubPropertyNormalizer(NormalizedIntegerAxiomFactory factory,
-			IntegerEntityManager entityManager) {
+	public SubPropertyNormalizer(NormalizedIntegerAxiomFactory factory, IntegerEntityManager entityManager) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -105,14 +104,13 @@ public class SubPropertyNormalizer implements SaturationRule {
 	 * @return the saturated set of normalized axioms
 	 */
 	@Override
-	public Set<NormalizedIntegerAxiom> apply(
-			Set<NormalizedIntegerAxiom> originalSet) {
+	public Set<NormalizedIntegerAxiom> apply(Set<NormalizedIntegerAxiom> originalSet) {
 		if (originalSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return Collections.unmodifiableSet(this.sr4.apply(this.sr3
-				.apply(this.sr1sr2.apply(this.sr0.apply(originalSet)))));
+		return Collections
+				.unmodifiableSet(this.sr4.apply(this.sr3.apply(this.sr1sr2.apply(this.sr0.apply(originalSet)))));
 	}
 
 }

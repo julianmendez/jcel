@@ -147,8 +147,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 		}
 	}
 
-	private void dagClassify(Integer cA, Set<Integer> classified,
-			IntegerSubsumerGraph setS) {
+	private void dagClassify(Integer cA, Set<Integer> classified, IntegerSubsumerGraph setS) {
 		Set<Integer> candidates = new TreeSet<Integer>();
 		candidates.add(getTopElement());
 		Set<Integer> subsumersA = new TreeSet<Integer>();
@@ -240,8 +239,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 			}
 
 		} else {
-			throw new IllegalArgumentException(
-					"Both graphs have different bottom element or different top element.");
+			throw new IllegalArgumentException("Both graphs have different bottom element or different top element.");
 		}
 	}
 
@@ -250,17 +248,13 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 		boolean ret = (this == o);
 		if (!ret && (o instanceof IntegerHierarchicalGraph)) {
 			IntegerHierarchicalGraph other = (IntegerHierarchicalGraph) o;
-			ret = getBottomElement().equals(other.getBottomElement())
-					&& getTopElement().equals(other.getTopElement())
+			ret = getBottomElement().equals(other.getBottomElement()) && getTopElement().equals(other.getTopElement())
 					&& getElements().equals(other.getElements());
-			for (Iterator<Integer> it = getElements().iterator(); ret
-					&& it.hasNext();) {
+			for (Iterator<Integer> it = getElements().iterator(); ret && it.hasNext();) {
 				Integer elem = it.next();
-				ret = ret
-						&& getChildren(elem).equals(other.getChildren(elem))
+				ret = ret && getChildren(elem).equals(other.getChildren(elem))
 						&& getParents(elem).equals(other.getParents(elem))
-						&& getEquivalents(elem).equals(
-								other.getEquivalents(elem));
+						&& getEquivalents(elem).equals(other.getEquivalents(elem));
 			}
 		}
 		return ret;
@@ -333,8 +327,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return Collections.unmodifiableSet(this.equivalents
-				.get(this.representative.get(elem)));
+		return Collections.unmodifiableSet(this.equivalents.get(this.representative.get(elem)));
 	}
 
 	/**
@@ -419,8 +412,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 		}
 		Set<Integer> equivToBottom = this.equivalents.get(this.bottomElement);
 		parentsOfBottom.removeAll(equivToBottom);
-		if (!equivToBottom.contains(this.topElement)
-				&& parentsOfBottom.isEmpty()) {
+		if (!equivToBottom.contains(this.topElement) && parentsOfBottom.isEmpty()) {
 			parentsOfBottom.add(this.topElement);
 		}
 		for (Integer elem : parentsOfBottom) {

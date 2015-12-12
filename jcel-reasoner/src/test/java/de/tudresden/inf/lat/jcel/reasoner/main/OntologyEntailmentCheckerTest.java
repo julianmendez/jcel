@@ -71,18 +71,14 @@ public class OntologyEntailmentCheckerTest extends TestCase {
 	public OntologyEntailmentCheckerTest() {
 	}
 
-	private IntegerClass createNewClass(IntegerOntologyObjectFactory factory,
-			String name) {
-		return factory.getDataTypeFactory().createClass(
-				factory.getEntityManager().createNamedEntity(
-						IntegerEntityType.CLASS, name, false));
+	private IntegerClass createNewClass(IntegerOntologyObjectFactory factory, String name) {
+		return factory.getDataTypeFactory()
+				.createClass(factory.getEntityManager().createNamedEntity(IntegerEntityType.CLASS, name, false));
 	}
 
-	private IntegerObjectProperty createNewObjectProperty(
-			IntegerOntologyObjectFactory factory, String name) {
+	private IntegerObjectProperty createNewObjectProperty(IntegerOntologyObjectFactory factory, String name) {
 		return factory.getDataTypeFactory().createObjectProperty(
-				factory.getEntityManager().createNamedEntity(
-						IntegerEntityType.OBJECT_PROPERTY, name, false));
+				factory.getEntityManager().createNamedEntity(IntegerEntityType.OBJECT_PROPERTY, name, false));
 	}
 
 	/**
@@ -110,22 +106,15 @@ public class OntologyEntailmentCheckerTest extends TestCase {
 		IntegerClass d = createNewClass(factory, "D");
 		IntegerObjectProperty r = createNewObjectProperty(factory, "r");
 
-		ComplexIntegerAxiom axiom1 = factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(
-						a,
-						factory.getDataTypeFactory()
-								.createObjectSomeValuesFrom(r, b), annotations);
+		ComplexIntegerAxiom axiom1 = factory.getComplexAxiomFactory().createSubClassOfAxiom(a,
+				factory.getDataTypeFactory().createObjectSomeValuesFrom(r, b), annotations);
 		ontology.add(axiom1);
 
 		ComplexIntegerAxiom axiom2 = factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(
-						factory.getDataTypeFactory()
-								.createObjectSomeValuesFrom(r, c), d,
-						annotations);
+				.createSubClassOfAxiom(factory.getDataTypeFactory().createObjectSomeValuesFrom(r, c), d, annotations);
 		ontology.add(axiom2);
 
-		ComplexIntegerAxiom axiom3 = factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(b, c, annotations);
+		ComplexIntegerAxiom axiom3 = factory.getComplexAxiomFactory().createSubClassOfAxiom(b, c, annotations);
 		ontology.add(axiom3);
 
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
@@ -135,9 +124,8 @@ public class OntologyEntailmentCheckerTest extends TestCase {
 		assertTrue(reasoner.isEntailed(axiom2));
 		assertTrue(reasoner.isEntailed(axiom3));
 
-		boolean isEntailed = reasoner.isEntailed(factory
-				.getComplexAxiomFactory().createSubClassOfAxiom(b, c,
-						annotations));
+		boolean isEntailed = reasoner
+				.isEntailed(factory.getComplexAxiomFactory().createSubClassOfAxiom(b, c, annotations));
 
 		assertTrue(isEntailed);
 	}

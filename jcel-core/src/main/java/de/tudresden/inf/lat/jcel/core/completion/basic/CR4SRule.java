@@ -53,8 +53,8 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
 /**
  * 
  * <ul>
- * <li>CR-4 : <b>if</b> &exist; r <i>.</i> A \u2291 B &isin; <i>T</i>, (r, x,
- * y) &isin; R, <u>(y, A) &isin; S</u> <br>
+ * <li>CR-4 : <b>if</b> &exist; r <i>.</i> A \u2291 B &isin; <i>T</i>, (r, x, y)
+ * &isin; R, <u>(y, A) &isin; S</u> <br>
  * <b>then</b> S := S &cup; {(x, B)}</li>
  * </ul>
  * <br>
@@ -88,8 +88,7 @@ public class CR4SRule implements SObserverRule {
 	private boolean applyRule(ClassifierStatus status, int y, int a) {
 		boolean ret = false;
 		for (int r : status.getObjectPropertiesBySecond(y)) {
-			for (GCI3Axiom axiom : status.getExtendedOntology()
-					.getGCI3rAAxioms(r, a)) {
+			for (GCI3Axiom axiom : status.getExtendedOntology().getGCI3rAAxioms(r, a)) {
 				for (int x : status.getFirstBySecond(r, y)) {
 					int b = axiom.getSuperClass();
 					ret |= status.addNewSEntry(x, b);

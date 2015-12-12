@@ -82,8 +82,7 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 		this.classExpression = classId;
 		this.individual = individualId;
 		this.annotations = annotations;
-		this.hashCode = this.classExpression + 0x1F
-				* (this.individual + 0x1F * this.annotations.hashCode());
+		this.hashCode = this.classExpression + 0x1F * (this.individual + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override
@@ -100,8 +99,7 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 		boolean ret = (this == obj);
 		if (!ret && (obj instanceof NominalAxiom)) {
 			NominalAxiom other = (NominalAxiom) obj;
-			ret = (this.classExpression == other.classExpression)
-					&& (this.individual == other.individual)
+			ret = (this.classExpression == other.classExpression) && (this.individual == other.individual)
 					&& this.annotations.equals(other.annotations);
 		}
 		return ret;

@@ -81,15 +81,13 @@ public class SR4Rule implements SaturationRule {
 	}
 
 	@Override
-	public Set<NormalizedIntegerAxiom> apply(
-			Set<NormalizedIntegerAxiom> originalSet) {
+	public Set<NormalizedIntegerAxiom> apply(Set<NormalizedIntegerAxiom> originalSet) {
 		if (originalSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		Map<Integer, Set<Integer>> mapBySuperProp = this.helper
-				.getMapBySuperObjectProperty(this.helper
-						.getRI2Axioms(originalSet));
+				.getMapBySuperObjectProperty(this.helper.getRI2Axioms(originalSet));
 		Set<NormalizedIntegerAxiom> ret = new HashSet<NormalizedIntegerAxiom>();
 		ret.addAll(originalSet);
 
@@ -97,11 +95,9 @@ public class SR4Rule implements SaturationRule {
 			if (normalizedAxiom instanceof FunctObjectPropAxiom) {
 				FunctObjectPropAxiom axiom = (FunctObjectPropAxiom) normalizedAxiom;
 				Integer functionalProperty = axiom.getProperty();
-				Set<Integer> newFunctionalPropertySet = this.helper
-						.getReachable(functionalProperty, mapBySuperProp);
+				Set<Integer> newFunctionalPropertySet = this.helper.getReachable(functionalProperty, mapBySuperProp);
 				for (Integer newFunctionalProperty : newFunctionalPropertySet) {
-					ret.add(this.factory.createFunctObjectPropAxiom(
-							newFunctionalProperty, axiom.getAnnotations()));
+					ret.add(this.factory.createFunctObjectPropAxiom(newFunctionalProperty, axiom.getAnnotations()));
 				}
 			}
 		}

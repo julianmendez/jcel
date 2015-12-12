@@ -79,7 +79,8 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
  * <b>and</b> A<sub>1</sub> \u2293 &hellip; \u2293 A<sub>n</sub> \u2291 B &isin;
  * O <b>and</b> B &notin; S(X) <b>then</b> S(X) := S(X) &cup; {B}</li>
  * <li>CR2 : <b>if</b> A &isin; S(X) <b>and</b> A \u2291 &exist; r <i>.</i> B
- * &isin; O <b>and</b> (X,B) &notin; R(r) <b>then</b> R(r) := R(r) &cup;{(X,B)}</li>
+ * &isin; O <b>and</b> (X,B) &notin; R(r) <b>then</b> R(r) := R(r) &cup;{(X,B)}
+ * </li>
  * <li>CR3 : <b>if</b> (X,Y) &isin; R(r) <b>and</b> A &isin; S(Y) <b>and</b>
  * &exist; r <i>.</i> A \u2291 B &isin; O <b>and</b> B &notin; S(X) <b>then</b>
  * S(X) := S(X) &cup; {B}</li>
@@ -98,8 +99,7 @@ public class CelProcessor implements Processor {
 
 	private static final Integer bottomClassId = IntegerEntityManager.bottomClassId;
 	private static final Integer bottomObjectPropertyId = IntegerEntityManager.bottomObjectPropertyId;
-	private static final Logger logger = Logger.getLogger(CelProcessor.class
-			.getName());
+	private static final Logger logger = Logger.getLogger(CelProcessor.class.getName());
 	private static final Integer topClassId = IntegerEntityManager.topClassId;
 	private static final Integer topObjectPropertyId = IntegerEntityManager.topObjectPropertyId;
 
@@ -134,10 +134,8 @@ public class CelProcessor implements Processor {
 	 * @param entityManager
 	 *            entity manager
 	 */
-	public CelProcessor(Set<Integer> originalObjectProperties,
-			Set<Integer> originalClasses,
-			Set<NormalizedIntegerAxiom> normalizedAxiomSet,
-			NormalizedIntegerAxiomFactory factory,
+	public CelProcessor(Set<Integer> originalObjectProperties, Set<Integer> originalClasses,
+			Set<NormalizedIntegerAxiom> normalizedAxiomSet, NormalizedIntegerAxiomFactory factory,
 			IntegerEntityManager entityManager) {
 		if (originalObjectProperties == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -157,12 +155,10 @@ public class CelProcessor implements Processor {
 
 		this.axiomFactory = factory;
 		this.entityManager = entityManager;
-		preProcess(originalObjectProperties, originalClasses,
-				normalizedAxiomSet);
+		preProcess(originalObjectProperties, originalClasses, normalizedAxiomSet);
 	}
 
-	private void addToQueue(Integer className,
-			Collection<ExtensionEntry> entrySet) {
+	private void addToQueue(Integer className, Collection<ExtensionEntry> entrySet) {
 		for (ExtensionEntry entry : entrySet) {
 			this.queueKeys.push(className);
 			this.queueEntries.push(entry);
@@ -174,18 +170,14 @@ public class CelProcessor implements Processor {
 	 *            graph containing direct subsumers
 	 * @return a map with all the direct types for each individual.
 	 */
-	private Map<Integer, Set<Integer>> computeDirectTypes(
-			IntegerHierarchicalGraph hierarchicalGraph) {
+	private Map<Integer, Set<Integer>> computeDirectTypes(IntegerHierarchicalGraph hierarchicalGraph) {
 		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
-		Set<Integer> individuals = getEntityManager().getEntities(
-				IntegerEntityType.INDIVIDUAL, false);
+		Set<Integer> individuals = getEntityManager().getEntities(IntegerEntityType.INDIVIDUAL, false);
 		for (Integer indiv : individuals) {
-			Set<Integer> subsumers = hierarchicalGraph
-					.getParents(getEntityManager().getAuxiliaryNominal(indiv));
+			Set<Integer> subsumers = hierarchicalGraph.getParents(getEntityManager().getAuxiliaryNominal(indiv));
 			for (Integer elem : subsumers) {
 				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
-					throw new IllegalStateException(
-							"An individual has another individual as direct subsumer.");
+					throw new IllegalStateException("An individual has another individual as direct subsumer.");
 				}
 			}
 			ret.put(indiv, Collections.unmodifiableSet(subsumers));
@@ -193,15 +185,12 @@ public class CelProcessor implements Processor {
 		return ret;
 	}
 
-	private Map<Integer, Set<Integer>> computeSameIndividualMap(
-			IntegerHierarchicalGraph hierarchicalGraph) {
+	private Map<Integer, Set<Integer>> computeSameIndividualMap(IntegerHierarchicalGraph hierarchicalGraph) {
 		Map<Integer, Set<Integer>> ret = new HashMap<Integer, Set<Integer>>();
-		Set<Integer> individuals = getEntityManager().getEntities(
-				IntegerEntityType.INDIVIDUAL, false);
+		Set<Integer> individuals = getEntityManager().getEntities(IntegerEntityType.INDIVIDUAL, false);
 		for (Integer indiv : individuals) {
 			Set<Integer> equivalentClasses = hierarchicalGraph
-					.getEquivalents(getEntityManager().getAuxiliaryNominal(
-							indiv));
+					.getEquivalents(getEntityManager().getAuxiliaryNominal(indiv));
 			Set<Integer> equivalents = new HashSet<Integer>();
 			for (Integer elem : equivalentClasses) {
 				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
@@ -213,16 +202,15 @@ public class CelProcessor implements Processor {
 		return ret;
 	}
 
-	private IntegerSubsumerGraphImpl createClassGraph(
-			Set<Integer> originalClassSet, Set<NormalizedIntegerAxiom> axiomSet) {
+	private IntegerSubsumerGraphImpl createClassGraph(Set<Integer> originalClassSet,
+			Set<NormalizedIntegerAxiom> axiomSet) {
 
 		Set<Integer> classIdSet = new HashSet<Integer>();
 		classIdSet.addAll(originalClassSet);
 		for (NormalizedIntegerAxiom axiom : axiomSet) {
 			classIdSet.addAll(axiom.getClassesInSignature());
 		}
-		IntegerSubsumerGraphImpl ret = new IntegerSubsumerGraphImpl(
-				bottomClassId, topClassId);
+		IntegerSubsumerGraphImpl ret = new IntegerSubsumerGraphImpl(bottomClassId, topClassId);
 		for (Integer index : classIdSet) {
 			ret.addAncestor(index, topClassId);
 		}
@@ -230,11 +218,9 @@ public class CelProcessor implements Processor {
 		return ret;
 	}
 
-	private IntegerSubsumerGraphImpl createObjectPropertyGraph(
-			Set<Integer> originalPropertySet,
+	private IntegerSubsumerGraphImpl createObjectPropertyGraph(Set<Integer> originalPropertySet,
 			Set<NormalizedIntegerAxiom> axiomSet) {
-		IntegerSubsumerGraphImpl ret = new IntegerSubsumerGraphImpl(
-				bottomObjectPropertyId, topObjectPropertyId);
+		IntegerSubsumerGraphImpl ret = new IntegerSubsumerGraphImpl(bottomObjectPropertyId, topObjectPropertyId);
 		Set<Integer> propertyIdSet = new HashSet<Integer>();
 		propertyIdSet.addAll(originalPropertySet);
 		for (NormalizedIntegerAxiom axiom : axiomSet) {
@@ -246,8 +232,7 @@ public class CelProcessor implements Processor {
 		for (NormalizedIntegerAxiom axiom : axiomSet) {
 			if (axiom instanceof RI2Axiom) {
 				RI2Axiom current = (RI2Axiom) axiom;
-				ret.addAncestor(current.getSubProperty(),
-						current.getSuperProperty());
+				ret.addAncestor(current.getSubProperty(), current.getSuperProperty());
 			}
 		}
 		makeTransitiveClosure(ret);
@@ -268,8 +253,7 @@ public class CelProcessor implements Processor {
 		return ret;
 	}
 
-	private IntegerRelationMapImpl createRelationSet(
-			Collection<Integer> collection) {
+	private IntegerRelationMapImpl createRelationSet(Collection<Integer> collection) {
 		IntegerRelationMapImpl ret = new IntegerRelationMapImpl();
 		for (Integer index : collection) {
 			ret.add(index);
@@ -309,8 +293,7 @@ public class CelProcessor implements Processor {
 	}
 
 	@Override
-	public IntegerHierarchicalGraph getDataPropertyHierarchy()
-			throws UnclassifiedOntologyException {
+	public IntegerHierarchicalGraph getDataPropertyHierarchy() throws UnclassifiedOntologyException {
 		if (!isReady()) {
 			throw new UnclassifiedOntologyException();
 		}
@@ -326,8 +309,7 @@ public class CelProcessor implements Processor {
 	 *            starting vertex to compute the descendants
 	 * @return the descendants according the graph
 	 */
-	private Set<Integer> getDescendants(
-			IntegerHierarchicalGraph hierarchicalGraph, Integer vertex) {
+	private Set<Integer> getDescendants(IntegerHierarchicalGraph hierarchicalGraph, Integer vertex) {
 		Set<Integer> visited = new HashSet<Integer>();
 		Set<Integer> queue = new HashSet<Integer>();
 		queue.add(vertex);
@@ -454,11 +436,9 @@ public class CelProcessor implements Processor {
 		return this.isReady;
 	}
 
-	private boolean isReflexiveTransitiveSubsumed(Integer leftPropertyName,
-			Integer rightPropertyName) {
+	private boolean isReflexiveTransitiveSubsumed(Integer leftPropertyName, Integer rightPropertyName) {
 		return (this.objectPropertyGraph != null)
-				&& this.objectPropertyGraph.containsPair(leftPropertyName,
-						rightPropertyName);
+				&& this.objectPropertyGraph.containsPair(leftPropertyName, rightPropertyName);
 	}
 
 	private void makeTransitiveClosure(IntegerSubsumerGraphImpl graph) {
@@ -488,13 +468,11 @@ public class CelProcessor implements Processor {
 	 */
 	protected void postProcess() {
 		removeAuxiliaryObjectProperties();
-		this.objectPropertyHierarchy = new IntegerHierarchicalGraphImpl(
-				this.objectPropertyGraph);
+		this.objectPropertyHierarchy = new IntegerHierarchicalGraphImpl(this.objectPropertyGraph);
 		this.objectPropertyGraph = null;
 
 		removeAuxiliaryClassesExceptNominals();
-		IntegerHierarchicalGraph hierarchicalGraph = new IntegerHierarchicalGraphImpl(
-				this.classGraph);
+		IntegerHierarchicalGraph hierarchicalGraph = new IntegerHierarchicalGraphImpl(this.classGraph);
 		processNominals(hierarchicalGraph);
 		this.directTypes = computeDirectTypes(hierarchicalGraph);
 		this.sameIndividualMap = computeSameIndividualMap(hierarchicalGraph);
@@ -531,8 +509,7 @@ public class CelProcessor implements Processor {
 	 *            set of axioms, i.e. the ontology
 	 *
 	 */
-	protected void preProcess(Set<Integer> originalObjectProperties,
-			Set<Integer> originalClasses,
+	protected void preProcess(Set<Integer> originalObjectProperties, Set<Integer> originalClasses,
 			Set<NormalizedIntegerAxiom> normalizedAxiomSet) {
 		if (originalObjectProperties == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -550,10 +527,8 @@ public class CelProcessor implements Processor {
 
 		logger.fine("configuring processor ...");
 
-		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
-				new IntegerSubsumerGraphImpl(
-						IntegerEntityManager.bottomDataPropertyId,
-						IntegerEntityManager.topDataPropertyId));
+		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(new IntegerSubsumerGraphImpl(
+				IntegerEntityManager.bottomDataPropertyId, IntegerEntityManager.topDataPropertyId));
 
 		// These sets include the declared entities that are not present in the
 		// normalized axioms.
@@ -572,13 +547,10 @@ public class CelProcessor implements Processor {
 		ontology.addAll(normalizedAxiomSet);
 
 		logger.finer("auxiliary classes created (including nominals) : "
-				+ getEntityManager().getEntities(IntegerEntityType.CLASS, true)
-						.size());
-		logger.finer("auxiliary classes created for nominals : "
-				+ (getEntityManager().getIndividuals().size()));
+				+ getEntityManager().getEntities(IntegerEntityType.CLASS, true).size());
+		logger.finer("auxiliary classes created for nominals : " + (getEntityManager().getIndividuals().size()));
 		logger.finer("auxiliary object properties created : "
-				+ getEntityManager().getEntities(
-						IntegerEntityType.OBJECT_PROPERTY, true).size());
+				+ getEntityManager().getEntities(IntegerEntityType.OBJECT_PROPERTY, true).size());
 
 		logger.finer("creating extended ontology ...");
 		this.extendedOntology = new CelExtendedOntology();
@@ -588,11 +560,9 @@ public class CelProcessor implements Processor {
 		this.classGraph = createClassGraph(originalClassSet, ontology);
 
 		logger.finer("creating property graph ...");
-		this.objectPropertyGraph = createObjectPropertyGraph(
-				originalObjectPropertySet, ontology);
+		this.objectPropertyGraph = createObjectPropertyGraph(originalObjectPropertySet, ontology);
 
-		this.relationSet = createRelationSet(this.objectPropertyGraph
-				.getElements());
+		this.relationSet = createRelationSet(this.objectPropertyGraph.getElements());
 
 		this.propertyUsedByClass = createPropertyUseMap();
 
@@ -625,8 +595,7 @@ public class CelProcessor implements Processor {
 		} else if (eX.isExistential()) {
 			processExistential(cA, eX.asExistential());
 		} else {
-			throw new RuntimeException(
-					"Internal error: entry was not recognized " + eX);
+			throw new RuntimeException("Internal error: entry was not recognized " + eX);
 		}
 	}
 
@@ -634,10 +603,8 @@ public class CelProcessor implements Processor {
 		this.classGraph.addAncestor(className, bottomClassId);
 
 		for (Integer relation : this.relationSet.getElements()) {
-			for (Integer firstComponent : this.relationSet.getBySecond(
-					relation, className)) {
-				if (!this.classGraph
-						.containsPair(firstComponent, bottomClassId)) {
+			for (Integer firstComponent : this.relationSet.getBySecond(relation, className)) {
+				if (!this.classGraph.containsPair(firstComponent, bottomClassId)) {
 					processBottom(firstComponent);
 				}
 			}
@@ -651,8 +618,7 @@ public class CelProcessor implements Processor {
 
 		if (!this.relationSet.contains(r, cA, cB)) {
 
-			if (this.classGraph.containsPair(cB, bottom)
-					&& !this.classGraph.containsPair(cA, bottom)) {
+			if (this.classGraph.containsPair(cB, bottom) && !this.classGraph.containsPair(cA, bottom)) {
 
 				processBottom(cA);
 
@@ -684,11 +650,9 @@ public class CelProcessor implements Processor {
 
 				for (Integer r : propertySet) {
 
-					Set<ExtensionEntry> existentialEntries = getExtendedOntology()
-							.getExistentialEntries(r, cB);
+					Set<ExtensionEntry> existentialEntries = getExtendedOntology().getExistentialEntries(r, cB);
 
-					Collection<Integer> classSet = this.relationSet
-							.getBySecond(r, cA);
+					Collection<Integer> classSet = this.relationSet.getBySecond(r, cA);
 
 					for (Integer cAprime : classSet) {
 
@@ -706,18 +670,15 @@ public class CelProcessor implements Processor {
 			getPropertyUsedByClass(cB).add(s);
 
 			for (Integer cBprime : this.classGraph.getSubsumers(cB)) {
-				addToQueue(cA,
-						getExtendedOntology().getExistentialEntries(s, cBprime));
+				addToQueue(cA, getExtendedOntology().getExistentialEntries(s, cBprime));
 			}
 
-			for (RI3Axiom axiom : getExtendedOntology()
-					.getSubPropertyAxiomSetByRight(s)) {
+			for (RI3Axiom axiom : getExtendedOntology().getSubPropertyAxiomSetByRight(s)) {
 
 				Integer t = axiom.getLeftSubProperty();
 				Integer u = axiom.getSuperProperty();
 
-				Collection<Integer> classSet = this.relationSet.getBySecond(t,
-						cA);
+				Collection<Integer> classSet = this.relationSet.getBySecond(t, cA);
 
 				for (Integer cAprime : classSet) {
 
@@ -727,14 +688,12 @@ public class CelProcessor implements Processor {
 				}
 			}
 
-			for (RI3Axiom axiom : getExtendedOntology()
-					.getSubPropertyAxiomSetByLeft(s)) {
+			for (RI3Axiom axiom : getExtendedOntology().getSubPropertyAxiomSetByLeft(s)) {
 
 				Integer t = axiom.getRightSubProperty();
 				Integer u = axiom.getSuperProperty();
 
-				Collection<Integer> classSet = this.relationSet.getByFirst(t,
-						cB);
+				Collection<Integer> classSet = this.relationSet.getByFirst(t, cB);
 
 				for (Integer cBprime : classSet) {
 

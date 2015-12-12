@@ -85,8 +85,7 @@ public class HashArraySetIterator implements Iterator<Integer> {
 		boolean ret = (this == o);
 		if (!ret && (o instanceof HashArraySetIterator)) {
 			HashArraySetIterator other = (HashArraySetIterator) o;
-			ret = (this.size == other.size) && (this.pointer == other.pointer)
-					&& (this.count == other.count);
+			ret = (this.size == other.size) && (this.pointer == other.pointer) && (this.count == other.count);
 			for (int index = 0; ret && (index < this.size); index++) {
 				ret = ret && (this.array[index] == other.array[index]);
 			}
@@ -109,8 +108,7 @@ public class HashArraySetIterator implements Iterator<Integer> {
 		if (this.count >= this.size) {
 			throw new NoSuchElementException();
 		}
-		while ((this.pointer < this.array.length)
-				&& (this.array[this.pointer] == HashArraySet.EMPTY)) {
+		while ((this.pointer < this.array.length) && (this.array[this.pointer] == HashArraySet.EMPTY)) {
 			this.pointer++;
 		}
 		if (this.pointer == this.array.length) {

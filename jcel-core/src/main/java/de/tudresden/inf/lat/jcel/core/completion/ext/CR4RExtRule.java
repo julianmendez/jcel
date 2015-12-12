@@ -53,8 +53,8 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
 /**
  * 
  * <ul>
- * <li>CR-4 : <b>if</b> &exist; s <i>.</i> A \u2291 B &isin; <i>T</i>, <u>(r,
- * x, y) &isin; R</u>, (y, A) &isin; S, r \u2291<sub><i>T</i></sub> s <br>
+ * <li>CR-4 : <b>if</b> &exist; s <i>.</i> A \u2291 B &isin; <i>T</i>, <u>(r, x,
+ * y) &isin; R</u>, (y, A) &isin; S, r \u2291<sub><i>T</i></sub> s <br>
  * <b>then</b> S := S &cup; {(x, B)}</li>
  * </ul>
  * <br>
@@ -77,8 +77,7 @@ public class CR4RExtRule implements RObserverRule {
 	}
 
 	@Override
-	public boolean apply(ClassifierStatus status, int property, int leftClass,
-			int rightClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass, int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -91,8 +90,7 @@ public class CR4RExtRule implements RObserverRule {
 		for (int s : status.getSuperObjectProperties(r)) {
 
 			for (int a : status.getSubsumers(y)) {
-				for (GCI3Axiom axiom : status.getExtendedOntology()
-						.getGCI3rAAxioms(s, a)) {
+				for (GCI3Axiom axiom : status.getExtendedOntology().getGCI3rAAxioms(s, a)) {
 					int b = axiom.getSuperClass();
 					ret |= status.addNewSEntry(x, b);
 				}

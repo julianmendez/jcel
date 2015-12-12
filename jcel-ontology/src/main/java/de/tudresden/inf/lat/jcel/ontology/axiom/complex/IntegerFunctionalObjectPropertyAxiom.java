@@ -57,8 +57,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  * 
  * @author Julian Mendez
  */
-public class IntegerFunctionalObjectPropertyAxiom implements
-		ComplexIntegerAxiom {
+public class IntegerFunctionalObjectPropertyAxiom implements ComplexIntegerAxiom {
 
 	private final IntegerObjectPropertyExpression objectProperty;
 	private final Set<Annotation> annotations;
@@ -72,9 +71,7 @@ public class IntegerFunctionalObjectPropertyAxiom implements
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerFunctionalObjectPropertyAxiom(
-			IntegerObjectPropertyExpression property,
-			Set<Annotation> annotations) {
+	IntegerFunctionalObjectPropertyAxiom(IntegerObjectPropertyExpression property, Set<Annotation> annotations) {
 		if (property == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -84,8 +81,7 @@ public class IntegerFunctionalObjectPropertyAxiom implements
 
 		this.objectProperty = property;
 		this.annotations = annotations;
-		this.hashCode = this.objectProperty.hashCode() + 0x1F
-				* this.annotations.hashCode();
+		this.hashCode = this.objectProperty.hashCode() + 0x1F * this.annotations.hashCode();
 	}
 
 	@Override
@@ -101,8 +97,7 @@ public class IntegerFunctionalObjectPropertyAxiom implements
 		boolean ret = (this == obj);
 		if (!ret && (obj instanceof IntegerFunctionalObjectPropertyAxiom)) {
 			IntegerFunctionalObjectPropertyAxiom other = (IntegerFunctionalObjectPropertyAxiom) obj;
-			ret = getProperty().equals(other.getProperty())
-					&& getAnnotations().equals(other.getAnnotations());
+			ret = getProperty().equals(other.getProperty()) && getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}

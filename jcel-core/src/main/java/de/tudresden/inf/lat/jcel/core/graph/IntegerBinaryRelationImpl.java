@@ -141,8 +141,7 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 		if (!ret && (o instanceof IntegerBinaryRelation)) {
 			IntegerBinaryRelation other = (IntegerBinaryRelation) o;
 			ret = getElements().equals(other.getElements());
-			for (Iterator<Integer> it = getElements().iterator(); ret
-					&& it.hasNext();) {
+			for (Iterator<Integer> it = getElements().iterator(); ret && it.hasNext();) {
 				Integer elem = it.next();
 				ret = ret && getByFirst(elem).equals(other.getByFirst(elem));
 			}

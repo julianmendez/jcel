@@ -76,8 +76,7 @@ class ExistentialEntry implements ExtensionEntry {
 
 		this.propertyId = property;
 		this.classId = cls;
-		this.hashcode = (31 * this.classId.hashCode())
-				+ this.propertyId.hashCode();
+		this.hashcode = (31 * this.classId.hashCode()) + this.propertyId.hashCode();
 	}
 
 	@Override
@@ -95,8 +94,7 @@ class ExistentialEntry implements ExtensionEntry {
 		boolean ret = false;
 		if (o instanceof ExistentialEntry) {
 			ExistentialEntry other = (ExistentialEntry) o;
-			ret = getClassId().equals(other.getClassId())
-					&& getPropertyId().equals(other.getPropertyId());
+			ret = getClassId().equals(other.getClassId()) && getPropertyId().equals(other.getPropertyId());
 		}
 		return ret;
 	}

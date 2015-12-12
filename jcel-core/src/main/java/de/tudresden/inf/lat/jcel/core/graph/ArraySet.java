@@ -86,15 +86,12 @@ public class ArraySet implements Set<Integer> {
 			pointer = (-1) * (pointer + 1);
 			ret = true;
 			if (this.size >= this.array.length) {
-				int[] newArray = new int[linearGrowthFactor
-						+ (exponentialGrowthFactor * this.array.length)];
+				int[] newArray = new int[linearGrowthFactor + (exponentialGrowthFactor * this.array.length)];
 				System.arraycopy(this.array, 0, newArray, 0, pointer);
-				System.arraycopy(this.array, pointer, newArray, pointer + 1,
-						this.size - pointer);
+				System.arraycopy(this.array, pointer, newArray, pointer + 1, this.size - pointer);
 				this.array = newArray;
 			} else {
-				System.arraycopy(this.array, pointer, this.array, pointer + 1,
-						this.size - pointer);
+				System.arraycopy(this.array, pointer, this.array, pointer + 1, this.size - pointer);
 			}
 			this.array[pointer] = elem;
 			this.size++;

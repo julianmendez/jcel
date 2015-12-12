@@ -113,15 +113,13 @@ public class RuleProfiler implements RObserverRule, SObserverRule {
 	}
 
 	@Override
-	public boolean apply(ClassifierStatus status, int property, int leftClass,
-			int rightClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass, int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		long start = Calendar.getInstance().getTimeInMillis();
-		boolean ret = this.rListener.apply(status, property, leftClass,
-				rightClass);
+		boolean ret = this.rListener.apply(status, property, leftClass, rightClass);
 		this.totalTime += (Calendar.getInstance().getTimeInMillis() - start);
 		this.times++;
 		if (ret) {

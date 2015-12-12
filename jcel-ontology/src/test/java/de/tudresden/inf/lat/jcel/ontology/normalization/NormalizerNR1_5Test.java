@@ -77,74 +77,61 @@ public class NormalizerNR1_5Test extends TestCase {
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR1_5 normalizer = new NormalizerNR1_5(factory);
 
-		IntegerClass c = factory.getDataTypeFactory().createClass(
-				factory.getEntityManager().createNamedEntity(
-						IntegerEntityType.CLASS, "C", false));
-		IntegerClass d = factory.getDataTypeFactory().createClass(
-				factory.getEntityManager().createNamedEntity(
-						IntegerEntityType.CLASS, "D", false));
+		IntegerClass c = factory.getDataTypeFactory()
+				.createClass(factory.getEntityManager().createNamedEntity(IntegerEntityType.CLASS, "C", false));
+		IntegerClass d = factory.getDataTypeFactory()
+				.createClass(factory.getEntityManager().createNamedEntity(IntegerEntityType.CLASS, "D", false));
 
 		Set<IntegerClassExpression> set = new HashSet<IntegerClassExpression>();
 		set.add(c);
 		set.add(d);
-		IntegerEquivalentClassesAxiom axiom = factory.getComplexAxiomFactory()
-				.createEquivalentClassesAxiom(set, annotations);
+		IntegerEquivalentClassesAxiom axiom = factory.getComplexAxiomFactory().createEquivalentClassesAxiom(set,
+				annotations);
 		Set<IntegerAxiom> normalizedAxioms = normalizer.apply(axiom);
 
 		Set<IntegerAxiom> expectedAxioms = new HashSet<IntegerAxiom>();
-		expectedAxioms.add(factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(c, d, annotations));
-		expectedAxioms.add(factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(d, c, annotations));
+		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(c, d, annotations));
+		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(d, c, annotations));
 
 		assertEquals(expectedAxioms, normalizedAxioms);
 	}
 
 	/**
-	 * &exist; r <i>.</i> C<sub>1</sub> &equiv; C<sub>2</sub> \u2293
-	 * C<sub>3</sub> \u219D &exist; r <i>.</i> C<sub>1</sub> \u2291
-	 * C<sub>2</sub> \u2293 C<sub>3</sub>, C<sub>2</sub> \u2293 C<sub>3</sub>
-	 * \u2291 &exist; r <i>.</i> C<sub>1</sub>
+	 * &exist; r <i>.</i> C<sub>1</sub> &equiv; C<sub>2</sub> \u2293 C
+	 * <sub>3</sub> \u219D &exist; r <i>.</i> C<sub>1</sub> \u2291 C<sub>2</sub>
+	 * \u2293 C<sub>3</sub>, C<sub>2</sub> \u2293 C<sub>3</sub> \u2291 &exist; r
+	 * <i>.</i> C<sub>1</sub>
 	 */
 	public void testUsingClassExpressions() {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR1_5 normalizer = new NormalizerNR1_5(factory);
 
-		IntegerObjectProperty r = factory.getDataTypeFactory()
-				.createObjectProperty(
-						factory.getEntityManager().createNamedEntity(
-								IntegerEntityType.OBJECT_PROPERTY, "r", false));
-		IntegerClass c1 = factory.getDataTypeFactory().createClass(
-				factory.getEntityManager().createNamedEntity(
-						IntegerEntityType.CLASS, "C1", false));
-		IntegerClass c2 = factory.getDataTypeFactory().createClass(
-				factory.getEntityManager().createNamedEntity(
-						IntegerEntityType.CLASS, "C2", false));
-		IntegerClass c3 = factory.getDataTypeFactory().createClass(
-				factory.getEntityManager().createNamedEntity(
-						IntegerEntityType.CLASS, "C3", false));
+		IntegerObjectProperty r = factory.getDataTypeFactory().createObjectProperty(
+				factory.getEntityManager().createNamedEntity(IntegerEntityType.OBJECT_PROPERTY, "r", false));
+		IntegerClass c1 = factory.getDataTypeFactory()
+				.createClass(factory.getEntityManager().createNamedEntity(IntegerEntityType.CLASS, "C1", false));
+		IntegerClass c2 = factory.getDataTypeFactory()
+				.createClass(factory.getEntityManager().createNamedEntity(IntegerEntityType.CLASS, "C2", false));
+		IntegerClass c3 = factory.getDataTypeFactory()
+				.createClass(factory.getEntityManager().createNamedEntity(IntegerEntityType.CLASS, "C3", false));
 
-		IntegerClassExpression c = factory.getDataTypeFactory()
-				.createObjectSomeValuesFrom(r, c1);
+		IntegerClassExpression c = factory.getDataTypeFactory().createObjectSomeValuesFrom(r, c1);
 		Set<IntegerClassExpression> parameter = new HashSet<IntegerClassExpression>();
 		parameter.add(c2);
 		parameter.add(c3);
-		IntegerClassExpression d = factory.getDataTypeFactory()
-				.createObjectIntersectionOf(parameter);
+		IntegerClassExpression d = factory.getDataTypeFactory().createObjectIntersectionOf(parameter);
 
 		Set<IntegerClassExpression> set = new HashSet<IntegerClassExpression>();
 		set.add(c);
 		set.add(d);
-		IntegerEquivalentClassesAxiom axiom = factory.getComplexAxiomFactory()
-				.createEquivalentClassesAxiom(set, annotations);
+		IntegerEquivalentClassesAxiom axiom = factory.getComplexAxiomFactory().createEquivalentClassesAxiom(set,
+				annotations);
 		Set<IntegerAxiom> normalizedAxioms = normalizer.apply(axiom);
 
 		Set<IntegerAxiom> expectedAxioms = new HashSet<IntegerAxiom>();
-		expectedAxioms.add(factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(c, d, annotations));
-		expectedAxioms.add(factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(d, c, annotations));
+		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(c, d, annotations));
+		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(d, c, annotations));
 
 		assertEquals(expectedAxioms, normalizedAxioms);
 	}

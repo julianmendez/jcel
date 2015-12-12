@@ -95,8 +95,7 @@ public class SEntryImpl implements SEntry, Comparable<SEntry> {
 		boolean ret = (this == o);
 		if (!ret && (o instanceof SEntry)) {
 			SEntry other = (SEntry) o;
-			ret = (this.subClass == other.getSubClass())
-					&& (this.superClass == other.getSuperClass());
+			ret = (this.subClass == other.getSubClass()) && (this.superClass == other.getSuperClass());
 		}
 		return ret;
 	}

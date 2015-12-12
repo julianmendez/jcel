@@ -65,29 +65,23 @@ public class TranslationException extends UnsupportedOperationException {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return new TranslationException(
-				"The translation map is incomplete. Item id was not found: '"
-						+ item + "'.");
+		return new TranslationException("The translation map is incomplete. Item id was not found: '" + item + "'.");
 	}
 
-	public static TranslationException newUnsupportedAxiomException(
-			OWLAxiom axiom) {
+	public static TranslationException newUnsupportedAxiomException(OWLAxiom axiom) {
 		if (axiom == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return new TranslationException("This axiom is not supported: '"
-				+ axiom + "'.");
+		return new TranslationException("This axiom is not supported: '" + axiom + "'.");
 	}
 
-	public static TranslationException newUnsupportedTranslationException(
-			Object o) {
+	public static TranslationException newUnsupportedTranslationException(Object o) {
 		if (o == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		return new TranslationException("Object cannot be translated: '"
-				+ o.toString() + "'.");
+		return new TranslationException("Object cannot be translated: '" + o.toString() + "'.");
 	}
 
 	public TranslationException(String message) {

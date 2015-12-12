@@ -52,8 +52,10 @@ import java.util.Set;
  * This interface is implemented by classes modeling a directed graph
  * considering equivalent classes. Each vertex can have <i>children</i>,
  * <i>parents</i>, and <i>equivalents</i>. <br>
- * The children of a vertex are all those vertices that are direct successors. <br>
- * The parents of a vertex are all those vertices that are direct predecessors. <br>
+ * The children of a vertex are all those vertices that are direct successors.
+ * <br>
+ * The parents of a vertex are all those vertices that are direct predecessors.
+ * <br>
  * If a vertex <i>v</i> belongs to a cycle <i>C</i>, all the vertices in
  * <i>C</i> are equivalents of <i>v</i>. If a vertex <i>v</i> does not belong to
  * a cycle, the equivalents of <i>v</i> is a singleton containing only <i>v</i>.

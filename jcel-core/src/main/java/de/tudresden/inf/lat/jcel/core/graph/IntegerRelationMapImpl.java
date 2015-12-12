@@ -148,8 +148,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 		if (!ret && (o instanceof IntegerRelationMap)) {
 			IntegerRelationMap other = (IntegerRelationMap) o;
 			ret = getElements().equals(other.getElements());
-			for (Iterator<Integer> it = getElements().iterator(); ret
-					&& it.hasNext();) {
+			for (Iterator<Integer> it = getElements().iterator(); ret && it.hasNext();) {
 				Integer elem = it.next();
 				ret = ret && get(elem).equals(other.get(elem));
 			}

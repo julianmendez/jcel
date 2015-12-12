@@ -88,8 +88,7 @@ public interface IntegerEntityManager {
 	 *            name for this entity
 	 * @return a new auxiliary entity of a certain type
 	 */
-	Integer createNamedEntity(IntegerEntityType type, String name,
-			boolean auxiliary);
+	Integer createNamedEntity(IntegerEntityType type, String name, boolean auxiliary);
 
 	/**
 	 * Returns the class identifier corresponding to the given individual. If
@@ -112,8 +111,7 @@ public interface IntegerEntityManager {
 	 *             if the property identifier is greater than the last auxiliary
 	 *             property created
 	 */
-	Integer createOrGetInverseObjectPropertyOf(Integer propertyId)
-			throws IndexOutOfBoundsException;
+	Integer createOrGetInverseObjectPropertyOf(Integer propertyId) throws IndexOutOfBoundsException;
 
 	/**
 	 * Returns the auxiliary inverse object properties.
@@ -220,8 +218,8 @@ public interface IntegerEntityManager {
 	 *            an object property
 	 * @return <code>true</code> if and only if the proposal was accepted
 	 */
-	boolean proposeInverseObjectPropertyOf(Integer firstProperty,
-			Integer secondProperty) throws IndexOutOfBoundsException;
+	boolean proposeInverseObjectPropertyOf(Integer firstProperty, Integer secondProperty)
+			throws IndexOutOfBoundsException;
 
 	/**
 	 * Returns the number of created entities, either auxiliary or

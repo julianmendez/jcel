@@ -103,28 +103,21 @@ class NormalizerNR3_2 implements NormalizationRule {
 		Set<IntegerAxiom> ret = Collections.emptySet();
 		IntegerClassExpression subClass = classAxiom.getSubClass();
 		IntegerClassExpression superClass = classAxiom.getSuperClass();
-		if (subClass.isLiteral()
-				&& (superClass instanceof IntegerObjectSomeValuesFrom)) {
+		if (subClass.isLiteral() && (superClass instanceof IntegerObjectSomeValuesFrom)) {
 			IntegerObjectSomeValuesFrom restriction = (IntegerObjectSomeValuesFrom) superClass;
-			IntegerObjectPropertyExpression propertyExpression = restriction
-					.getProperty();
+			IntegerObjectPropertyExpression propertyExpression = restriction.getProperty();
 			IntegerClassExpression filler = restriction.getFiller();
 			if (!filler.isLiteral()) {
 				ret = new HashSet<IntegerAxiom>();
-				IntegerClass newClass = getOntologyObjectFactory()
-						.getDataTypeFactory().createClass(
-								getOntologyObjectFactory().getEntityManager()
-										.createAnonymousEntity(
-												IntegerEntityType.CLASS, true));
-				IntegerObjectSomeValuesFrom newExistential = getOntologyObjectFactory()
-						.getDataTypeFactory().createObjectSomeValuesFrom(
-								propertyExpression, newClass);
-				ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-						.createSubClassOfAxiom(subClass, newExistential,
-								classAxiom.getAnnotations()));
-				ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-						.createSubClassOfAxiom(newClass, filler,
-								classAxiom.getAnnotations()));
+				IntegerClass newClass = getOntologyObjectFactory().getDataTypeFactory()
+						.createClass(getOntologyObjectFactory().getEntityManager()
+								.createAnonymousEntity(IntegerEntityType.CLASS, true));
+				IntegerObjectSomeValuesFrom newExistential = getOntologyObjectFactory().getDataTypeFactory()
+						.createObjectSomeValuesFrom(propertyExpression, newClass);
+				ret.add(getOntologyObjectFactory().getComplexAxiomFactory().createSubClassOfAxiom(subClass,
+						newExistential, classAxiom.getAnnotations()));
+				ret.add(getOntologyObjectFactory().getComplexAxiomFactory().createSubClassOfAxiom(newClass, filler,
+						classAxiom.getAnnotations()));
 			}
 		}
 		return ret;

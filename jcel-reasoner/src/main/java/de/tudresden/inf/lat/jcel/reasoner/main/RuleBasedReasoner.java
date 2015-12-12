@@ -81,21 +81,18 @@ import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
  */
 public class RuleBasedReasoner implements IntegerReasoner {
 
-	private static final Logger logger = Logger
-			.getLogger(RuleBasedReasoner.class.getName());
+	private static final Logger logger = Logger.getLogger(RuleBasedReasoner.class.getName());
 
 	private final Map<IntegerClassExpression, Integer> auxClassInvMap = new HashMap<IntegerClassExpression, Integer>();
 	private final Map<Integer, IntegerClassExpression> auxClassMap = new HashMap<Integer, IntegerClassExpression>();
 	private boolean classified = false;
-	private final OntologyEntailmentChecker entailmentChecker = new OntologyEntailmentChecker(
-			this);
+	private final OntologyEntailmentChecker entailmentChecker = new OntologyEntailmentChecker(this);
 	private final IntegerOntologyObjectFactory factory;
 	private boolean interruptRequested = false;
 	private RuleBasedProcessor processor = null;
 	private final long timeOut = 0;
 
-	public RuleBasedReasoner(Set<ComplexIntegerAxiom> ontology,
-			IntegerOntologyObjectFactory factory) {
+	public RuleBasedReasoner(Set<ComplexIntegerAxiom> ontology, IntegerOntologyObjectFactory factory) {
 		if (ontology == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -128,37 +125,29 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	private RuleBasedProcessor createProcessor(Set<ComplexIntegerAxiom> ontology) {
 		logger.fine("creating processor (phase 1) ...");
 
-		OntologyExpressivity expressivity = new ComplexAxiomExpressivityDetector(
-				ontology);
+		OntologyExpressivity expressivity = new ComplexAxiomExpressivityDetector(ontology);
 
-		logger.fine("description logic family : " + expressivity.toString()
-				+ " .");
+		logger.fine("description logic family : " + expressivity.toString() + " .");
 
 		Set<Integer> originalClassSet = new HashSet<Integer>();
 		Set<Integer> originalObjectPropertySet = new HashSet<Integer>();
 
 		for (ComplexIntegerAxiom axiom : ontology) {
 			originalClassSet.addAll(axiom.getClassesInSignature());
-			originalObjectPropertySet.addAll(axiom
-					.getObjectPropertiesInSignature());
+			originalObjectPropertySet.addAll(axiom.getObjectPropertiesInSignature());
 		}
 
 		logger.fine("number of axioms : " + ontology.size());
 		logger.fine("number of classes : " + originalClassSet.size());
-		logger.fine("number of object properties : "
-				+ originalObjectPropertySet.size());
+		logger.fine("number of object properties : " + originalObjectPropertySet.size());
 
 		logger.fine("normalizing ontology ...");
 		OntologyNormalizer axiomNormalizer = new OntologyNormalizer();
-		Set<NormalizedIntegerAxiom> normalizedAxiomSet = axiomNormalizer
-				.normalize(ontology, this.factory);
+		Set<NormalizedIntegerAxiom> normalizedAxiomSet = axiomNormalizer.normalize(ontology, this.factory);
 
 		logger.fine("creating processor (phase 2) ...");
-		RuleBasedProcessor ret = new RuleBasedProcessor(
-				originalObjectPropertySet, originalClassSet,
-				normalizedAxiomSet, expressivity,
-				this.factory.getNormalizedAxiomFactory(),
-				this.factory.getEntityManager());
+		RuleBasedProcessor ret = new RuleBasedProcessor(originalObjectPropertySet, originalClassSet, normalizedAxiomSet,
+				expressivity, this.factory.getNormalizedAxiomFactory(), this.factory.getEntityManager());
 		logger.fine("processor created.");
 		return ret;
 	}
@@ -175,8 +164,8 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		} else {
 			Integer classIndex = this.auxClassInvMap.get(ce);
 			if (classIndex == null) {
-				Integer auxClassId = this.factory.getEntityManager()
-						.createAnonymousEntity(IntegerEntityType.CLASS, false);
+				Integer auxClassId = this.factory.getEntityManager().createAnonymousEntity(IntegerEntityType.CLASS,
+						false);
 				ret = getDataTypeFactory().createClass(auxClassId);
 				this.auxClassMap.put(auxClassId, ce);
 				this.auxClassInvMap.put(ce, auxClassId);
@@ -186,12 +175,12 @@ public class RuleBasedReasoner implements IntegerReasoner {
 
 				Set<ComplexIntegerAxiom> extendedOntology = new HashSet<ComplexIntegerAxiom>();
 				Set<Annotation> annotations = Collections.emptySet();
-				extendedOntology.add(this.factory.getComplexAxiomFactory()
-						.createEquivalentClassesAxiom(argument, annotations));
+				extendedOntology
+						.add(this.factory.getComplexAxiomFactory().createEquivalentClassesAxiom(argument, annotations));
 
 				OntologyNormalizer axiomNormalizer = new OntologyNormalizer();
-				Set<NormalizedIntegerAxiom> extendedNormalizedAxiomSet = axiomNormalizer
-						.normalize(extendedOntology, this.factory);
+				Set<NormalizedIntegerAxiom> extendedNormalizedAxiomSet = axiomNormalizer.normalize(extendedOntology,
+						this.factory);
 
 				this.processor.addAxioms(extendedNormalizedAxiomSet);
 
@@ -219,35 +208,28 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	@Override
 	public Set<IntegerDataProperty> getBottomDataPropertyNode() {
 		classify();
-		IntegerHierarchicalGraph graph = getProcessor()
-				.getDataPropertyHierarchy();
-		return toIntegerDataProperty(graph.getEquivalents(graph
-				.getBottomElement()));
+		IntegerHierarchicalGraph graph = getProcessor().getDataPropertyHierarchy();
+		return toIntegerDataProperty(graph.getEquivalents(graph.getBottomElement()));
 	}
 
 	@Override
 	public Set<IntegerObjectPropertyExpression> getBottomObjectPropertyNode() {
 		classify();
-		IntegerHierarchicalGraph graph = getProcessor()
-				.getObjectPropertyHierarchy();
-		return toIntegerObjectPropertyExpression(graph.getEquivalents(graph
-				.getBottomElement()));
+		IntegerHierarchicalGraph graph = getProcessor().getObjectPropertyHierarchy();
+		return toIntegerObjectPropertyExpression(graph.getEquivalents(graph.getBottomElement()));
 	}
 
 	@Override
-	public Set<Set<IntegerClass>> getDataPropertyDomains(
-			IntegerDataProperty pe, boolean direct) {
+	public Set<Set<IntegerClass>> getDataPropertyDomains(IntegerDataProperty pe, boolean direct) {
 		if (pe == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		throw new UnsupportedQueryException(
-				"Unsupported query: DataPropertyDomains of " + pe);
+		throw new UnsupportedQueryException("Unsupported query: DataPropertyDomains of " + pe);
 	}
 
 	@Override
-	public Set<IntegerClass> getDataPropertyValues(IntegerNamedIndividual ind,
-			IntegerDataProperty pe) {
+	public Set<IntegerClass> getDataPropertyValues(IntegerNamedIndividual ind, IntegerDataProperty pe) {
 		if (ind == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -255,8 +237,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		throw new UnsupportedQueryException(
-				"Unsupported query: DataPropertyValues of " + ind + "," + pe);
+		throw new UnsupportedQueryException("Unsupported query: DataPropertyValues of " + ind + "," + pe);
 	}
 
 	private IntegerDataTypeFactory getDataTypeFactory() {
@@ -264,8 +245,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	}
 
 	@Override
-	public Set<Set<IntegerNamedIndividual>> getDifferentIndividuals(
-			IntegerNamedIndividual ind) {
+	public Set<Set<IntegerNamedIndividual>> getDifferentIndividuals(IntegerNamedIndividual ind) {
 		if (ind == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -287,8 +267,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	}
 
 	@Override
-	public Set<Set<IntegerDataProperty>> getDisjointDataProperties(
-			IntegerDataPropertyExpression pe) {
+	public Set<Set<IntegerDataProperty>> getDisjointDataProperties(IntegerDataPropertyExpression pe) {
 		if (pe == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -299,8 +278,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	}
 
 	@Override
-	public Set<Set<IntegerObjectPropertyExpression>> getDisjointObjectProperties(
-			IntegerObjectPropertyExpression pe) {
+	public Set<Set<IntegerObjectPropertyExpression>> getDisjointObjectProperties(IntegerObjectPropertyExpression pe) {
 		if (pe == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -323,33 +301,28 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	}
 
 	@Override
-	public Set<IntegerDataProperty> getEquivalentDataProperties(
-			IntegerDataProperty pe) {
+	public Set<IntegerDataProperty> getEquivalentDataProperties(IntegerDataProperty pe) {
 		if (pe == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		throw new UnsupportedQueryException(
-				"Unsupported query: EquivalentDataProperties of " + pe);
+		throw new UnsupportedQueryException("Unsupported query: EquivalentDataProperties of " + pe);
 	}
 
 	@Override
-	public Set<IntegerObjectPropertyExpression> getEquivalentObjectProperties(
-			IntegerObjectPropertyExpression pe) {
+	public Set<IntegerObjectPropertyExpression> getEquivalentObjectProperties(IntegerObjectPropertyExpression pe) {
 		if (pe == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		classify();
 		Integer propId = getObjectPropertyExpressionId(pe);
-		IntegerHierarchicalGraph graph = getProcessor()
-				.getObjectPropertyHierarchy();
+		IntegerHierarchicalGraph graph = getProcessor().getObjectPropertyHierarchy();
 		return toIntegerObjectPropertyExpression(graph.getEquivalents(propId));
 	}
 
 	@Override
-	public Set<Set<IntegerNamedIndividual>> getInstances(
-			IntegerClassExpression ce, boolean direct) {
+	public Set<Set<IntegerNamedIndividual>> getInstances(IntegerClassExpression ce, boolean direct) {
 		if (ce == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -362,8 +335,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		Set<Integer> classIdSet = new HashSet<Integer>();
 		classIdSet.add(classId);
 		if (!direct) {
-			classIdSet.addAll(getProcessor().getClassHierarchy()
-					.getDescendants(classId));
+			classIdSet.addAll(getProcessor().getClassHierarchy().getDescendants(classId));
 		}
 
 		Set<Integer> indivIdSet = new HashSet<Integer>();
@@ -384,8 +356,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			}
 
 			if (found) {
-				Set<Integer> equivIndivId = getProcessor()
-						.getSameIndividualMap().get(indivId);
+				Set<Integer> equivIndivId = getProcessor().getSameIndividualMap().get(indivId);
 				Set<IntegerNamedIndividual> elem = toIntegerNamedIndividual(equivIndivId);
 				indivIdSet.removeAll(equivIndivId);
 				ret.add(elem);
@@ -396,50 +367,45 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	}
 
 	@Override
-	public Set<IntegerObjectPropertyExpression> getInverseObjectProperties(
+	public Set<IntegerObjectPropertyExpression> getInverseObjectProperties(IntegerObjectPropertyExpression pe) {
+		if (pe == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		classify();
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<Set<IntegerClass>> getObjectPropertyDomains(IntegerObjectPropertyExpression pe, boolean direct) {
+		if (pe == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		classify();
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private Integer getObjectPropertyExpressionId(IntegerObjectPropertyExpression propExpr) {
+		return propExpr.accept(new ObjectPropertyIdFinder(this.factory.getEntityManager()));
+	}
+
+	@Override
+	public Set<Set<IntegerClass>> getObjectPropertyRanges(IntegerObjectPropertyExpression pe, boolean direct) {
+		if (pe == null) {
+			throw new IllegalArgumentException("Null argument.");
+		}
+
+		classify();
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<Set<IntegerNamedIndividual>> getObjectPropertyValues(IntegerNamedIndividual ind,
 			IntegerObjectPropertyExpression pe) {
-		if (pe == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		classify();
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<Set<IntegerClass>> getObjectPropertyDomains(
-			IntegerObjectPropertyExpression pe, boolean direct) {
-		if (pe == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		classify();
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private Integer getObjectPropertyExpressionId(
-			IntegerObjectPropertyExpression propExpr) {
-		return propExpr.accept(new ObjectPropertyIdFinder(this.factory
-				.getEntityManager()));
-	}
-
-	@Override
-	public Set<Set<IntegerClass>> getObjectPropertyRanges(
-			IntegerObjectPropertyExpression pe, boolean direct) {
-		if (pe == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
-		classify();
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<Set<IntegerNamedIndividual>> getObjectPropertyValues(
-			IntegerNamedIndividual ind, IntegerObjectPropertyExpression pe) {
 		if (ind == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -467,20 +433,17 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	}
 
 	@Override
-	public Set<IntegerNamedIndividual> getSameIndividuals(
-			IntegerNamedIndividual ind) {
+	public Set<IntegerNamedIndividual> getSameIndividuals(IntegerNamedIndividual ind) {
 		if (ind == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		classify();
-		return toIntegerNamedIndividual(getProcessor().getSameIndividualMap()
-				.get(ind.getId()));
+		return toIntegerNamedIndividual(getProcessor().getSameIndividualMap().get(ind.getId()));
 	}
 
 	@Override
-	public Set<Set<IntegerClass>> getSubClasses(IntegerClassExpression ce,
-			boolean direct) {
+	public Set<Set<IntegerClass>> getSubClasses(IntegerClassExpression ce, boolean direct) {
 		if (ce == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -502,27 +465,24 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	}
 
 	@Override
-	public Set<Set<IntegerDataProperty>> getSubDataProperties(
-			IntegerDataProperty pe, boolean direct) {
+	public Set<Set<IntegerDataProperty>> getSubDataProperties(IntegerDataProperty pe, boolean direct) {
 		if (pe == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		throw new UnsupportedQueryException(
-				"Unsupported query: SubDataProperties of " + pe);
+		throw new UnsupportedQueryException("Unsupported query: SubDataProperties of " + pe);
 	}
 
 	@Override
-	public Set<Set<IntegerObjectPropertyExpression>> getSubObjectProperties(
-			IntegerObjectPropertyExpression pe, boolean direct) {
+	public Set<Set<IntegerObjectPropertyExpression>> getSubObjectProperties(IntegerObjectPropertyExpression pe,
+			boolean direct) {
 		if (pe == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		classify();
 		Integer propId = getObjectPropertyExpressionId(pe);
-		IntegerHierarchicalGraph graph = getProcessor()
-				.getObjectPropertyHierarchy();
+		IntegerHierarchicalGraph graph = getProcessor().getObjectPropertyHierarchy();
 		Set<Integer> set = null;
 		if (direct) {
 			set = graph.getChildren(propId);
@@ -531,15 +491,13 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		}
 		Set<Set<IntegerObjectPropertyExpression>> ret = new HashSet<Set<IntegerObjectPropertyExpression>>();
 		for (Integer currentElem : set) {
-			ret.add(toIntegerObjectPropertyExpression(graph
-					.getEquivalents(currentElem)));
+			ret.add(toIntegerObjectPropertyExpression(graph.getEquivalents(currentElem)));
 		}
 		return ret;
 	}
 
 	@Override
-	public Set<Set<IntegerClass>> getSuperClasses(IntegerClassExpression ce,
-			boolean direct) {
+	public Set<Set<IntegerClass>> getSuperClasses(IntegerClassExpression ce, boolean direct) {
 		if (ce == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -562,27 +520,24 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	}
 
 	@Override
-	public Set<Set<IntegerDataProperty>> getSuperDataProperties(
-			IntegerDataProperty pe, boolean direct) {
+	public Set<Set<IntegerDataProperty>> getSuperDataProperties(IntegerDataProperty pe, boolean direct) {
 		if (pe == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		throw new UnsupportedQueryException(
-				"Unsupported query: SuperDataProperties of " + pe);
+		throw new UnsupportedQueryException("Unsupported query: SuperDataProperties of " + pe);
 	}
 
 	@Override
-	public Set<Set<IntegerObjectPropertyExpression>> getSuperObjectProperties(
-			IntegerObjectPropertyExpression pe, boolean direct) {
+	public Set<Set<IntegerObjectPropertyExpression>> getSuperObjectProperties(IntegerObjectPropertyExpression pe,
+			boolean direct) {
 		if (pe == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		classify();
 		Integer propId = getObjectPropertyExpressionId(pe);
-		IntegerHierarchicalGraph graph = getProcessor()
-				.getObjectPropertyHierarchy();
+		IntegerHierarchicalGraph graph = getProcessor().getObjectPropertyHierarchy();
 		Set<Integer> set = null;
 		if (direct) {
 			set = graph.getParents(propId);
@@ -591,8 +546,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		}
 		Set<Set<IntegerObjectPropertyExpression>> ret = new HashSet<Set<IntegerObjectPropertyExpression>>();
 		for (Integer currentElem : set) {
-			ret.add(toIntegerObjectPropertyExpression(graph
-					.getEquivalents(currentElem)));
+			ret.add(toIntegerObjectPropertyExpression(graph.getEquivalents(currentElem)));
 		}
 		return ret;
 	}
@@ -612,24 +566,19 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	@Override
 	public Set<IntegerDataProperty> getTopDataPropertyNode() {
 		classify();
-		IntegerHierarchicalGraph graph = getProcessor()
-				.getDataPropertyHierarchy();
-		return toIntegerDataProperty(graph
-				.getEquivalents(graph.getTopElement()));
+		IntegerHierarchicalGraph graph = getProcessor().getDataPropertyHierarchy();
+		return toIntegerDataProperty(graph.getEquivalents(graph.getTopElement()));
 	}
 
 	@Override
 	public Set<IntegerObjectPropertyExpression> getTopObjectPropertyNode() {
 		classify();
-		IntegerHierarchicalGraph graph = getProcessor()
-				.getObjectPropertyHierarchy();
-		return toIntegerObjectPropertyExpression(graph.getEquivalents(graph
-				.getTopElement()));
+		IntegerHierarchicalGraph graph = getProcessor().getObjectPropertyHierarchy();
+		return toIntegerObjectPropertyExpression(graph.getEquivalents(graph.getTopElement()));
 	}
 
 	@Override
-	public Set<Set<IntegerClass>> getTypes(IntegerNamedIndividual ind,
-			boolean direct) {
+	public Set<Set<IntegerClass>> getTypes(IntegerNamedIndividual ind, boolean direct) {
 		if (ind == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -675,8 +624,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	@Override
 	public boolean isConsistent() {
 		classify();
-		return !getUnsatisfiableClasses().contains(
-				getProcessor().getClassHierarchy().getTopElement());
+		return !getUnsatisfiableClasses().contains(getProcessor().getClassHierarchy().getTopElement());
 	}
 
 	@Override
@@ -698,8 +646,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 
 		classify();
 		boolean ret = true;
-		for (Iterator<ComplexIntegerAxiom> it = axioms.iterator(); ret
-				&& it.hasNext();) {
+		for (Iterator<ComplexIntegerAxiom> it = axioms.iterator(); ret && it.hasNext();) {
 			ComplexIntegerAxiom axiom = it.next();
 			ret = ret && axiom.accept(this.entailmentChecker);
 		}
@@ -733,8 +680,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		return ret;
 	}
 
-	private Set<IntegerNamedIndividual> toIntegerNamedIndividual(
-			Set<Integer> set) {
+	private Set<IntegerNamedIndividual> toIntegerNamedIndividual(Set<Integer> set) {
 		Set<IntegerNamedIndividual> ret = new HashSet<IntegerNamedIndividual>();
 		for (Integer elem : set) {
 			ret.add(getDataTypeFactory().createNamedIndividual(elem));
@@ -742,8 +688,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		return ret;
 	}
 
-	private Set<IntegerObjectPropertyExpression> toIntegerObjectPropertyExpression(
-			Set<Integer> set) {
+	private Set<IntegerObjectPropertyExpression> toIntegerObjectPropertyExpression(Set<Integer> set) {
 		Set<IntegerObjectPropertyExpression> ret = new HashSet<IntegerObjectPropertyExpression>();
 		for (Integer elem : set) {
 			ret.add(getDataTypeFactory().createObjectProperty(elem));

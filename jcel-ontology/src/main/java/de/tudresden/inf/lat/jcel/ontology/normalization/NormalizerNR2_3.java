@@ -105,25 +105,19 @@ class NormalizerNR2_3 implements NormalizationRule {
 		IntegerClassExpression superClass = classAxiom.getSuperClass();
 		if (subClass instanceof IntegerObjectSomeValuesFrom) {
 			IntegerObjectSomeValuesFrom restriction = (IntegerObjectSomeValuesFrom) subClass;
-			IntegerObjectPropertyExpression propertyExpression = restriction
-					.getProperty();
+			IntegerObjectPropertyExpression propertyExpression = restriction.getProperty();
 			IntegerClassExpression filler = restriction.getFiller();
 			if (!filler.isLiteral()) {
 				ret = new HashSet<IntegerAxiom>();
-				IntegerClass newClass = getOntologyObjectFactory()
-						.getDataTypeFactory().createClass(
-								getOntologyObjectFactory().getEntityManager()
-										.createAnonymousEntity(
-												IntegerEntityType.CLASS, true));
-				IntegerObjectSomeValuesFrom newExistential = getOntologyObjectFactory()
-						.getDataTypeFactory().createObjectSomeValuesFrom(
-								propertyExpression, newClass);
-				ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-						.createSubClassOfAxiom(filler, newClass,
-								classAxiom.getAnnotations()));
-				ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-						.createSubClassOfAxiom(newExistential, superClass,
-								classAxiom.getAnnotations()));
+				IntegerClass newClass = getOntologyObjectFactory().getDataTypeFactory()
+						.createClass(getOntologyObjectFactory().getEntityManager()
+								.createAnonymousEntity(IntegerEntityType.CLASS, true));
+				IntegerObjectSomeValuesFrom newExistential = getOntologyObjectFactory().getDataTypeFactory()
+						.createObjectSomeValuesFrom(propertyExpression, newClass);
+				ret.add(getOntologyObjectFactory().getComplexAxiomFactory().createSubClassOfAxiom(filler, newClass,
+						classAxiom.getAnnotations()));
+				ret.add(getOntologyObjectFactory().getComplexAxiomFactory().createSubClassOfAxiom(newExistential,
+						superClass, classAxiom.getAnnotations()));
 			}
 		}
 		return ret;

@@ -66,8 +66,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
  * 
  * @author Julian Mendez
  */
-class NormalizedIntegerAxiomAnalyzer implements
-		NormalizedIntegerAxiomVisitor<Boolean>, OntologyExpressivity {
+class NormalizedIntegerAxiomAnalyzer implements NormalizedIntegerAxiomVisitor<Boolean>, OntologyExpressivity {
 
 	private boolean hasBottom = false;
 	private final boolean hasDatatype = false;

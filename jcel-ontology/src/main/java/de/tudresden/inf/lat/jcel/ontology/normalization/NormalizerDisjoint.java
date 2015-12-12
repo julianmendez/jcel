@@ -94,10 +94,8 @@ class NormalizerDisjoint implements NormalizationRule {
 		return ret;
 	}
 
-	private Set<IntegerAxiom> applyRule(
-			IntegerDisjointClassesAxiom disjointAxiom) {
-		Set<IntegerClassExpression> classExpressionSet = disjointAxiom
-				.getClassExpressions();
+	private Set<IntegerAxiom> applyRule(IntegerDisjointClassesAxiom disjointAxiom) {
+		Set<IntegerClassExpression> classExpressionSet = disjointAxiom.getClassExpressions();
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
 		for (IntegerClassExpression firstClassExpression : classExpressionSet) {
 			for (IntegerClassExpression secondClassExpression : classExpressionSet) {
@@ -105,18 +103,11 @@ class NormalizerDisjoint implements NormalizationRule {
 					Set<IntegerClassExpression> pair = new HashSet<IntegerClassExpression>();
 					pair.add(firstClassExpression);
 					pair.add(secondClassExpression);
-					IntegerObjectIntersectionOf intersection = getOntologyObjectFactory()
-							.getDataTypeFactory().createObjectIntersectionOf(
-									pair);
-					IntegerSubClassOfAxiom subClassAxiom = getOntologyObjectFactory()
-							.getComplexAxiomFactory()
-							.createSubClassOfAxiom(
-									intersection,
-									getOntologyObjectFactory()
-											.getDataTypeFactory()
-											.createClass(
-													IntegerEntityManager.bottomClassId),
-									disjointAxiom.getAnnotations());
+					IntegerObjectIntersectionOf intersection = getOntologyObjectFactory().getDataTypeFactory()
+							.createObjectIntersectionOf(pair);
+					IntegerSubClassOfAxiom subClassAxiom = getOntologyObjectFactory().getComplexAxiomFactory()
+							.createSubClassOfAxiom(intersection, getOntologyObjectFactory().getDataTypeFactory()
+									.createClass(IntegerEntityManager.bottomClassId), disjointAxiom.getAnnotations());
 					ret.add(subClassAxiom);
 				}
 			}

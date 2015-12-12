@@ -95,8 +95,7 @@ public class RI1Axiom implements NormalizedIntegerAxiom {
 		boolean ret = (this == obj);
 		if (!ret && (obj instanceof RI1Axiom)) {
 			RI1Axiom other = (RI1Axiom) obj;
-			ret = (this.superProperty == other.superProperty)
-					&& this.annotations.equals(other.annotations);
+			ret = (this.superProperty == other.superProperty) && this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}

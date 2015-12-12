@@ -77,8 +77,7 @@ class SaturationRuleHelper {
 	 * @return a map that for each object property has a set of super object
 	 *         properties
 	 */
-	public Map<Integer, Set<Integer>> getMapBySubObjectProperty(
-			Set<RI2Axiom> axiomSet) {
+	public Map<Integer, Set<Integer>> getMapBySubObjectProperty(Set<RI2Axiom> axiomSet) {
 		if (axiomSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -104,8 +103,7 @@ class SaturationRuleHelper {
 	 * @return a map that for each object property has a set of sub object
 	 *         properties
 	 */
-	public Map<Integer, Set<Integer>> getMapBySuperObjectProperty(
-			Set<RI2Axiom> axiomSet) {
+	public Map<Integer, Set<Integer>> getMapBySuperObjectProperty(Set<RI2Axiom> axiomSet) {
 		if (axiomSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -133,8 +131,7 @@ class SaturationRuleHelper {
 	 * @return the set of all nodes reachable from a specified starting node,
 	 *         according to the given graph
 	 */
-	public Set<Integer> getReachable(Integer first,
-			Map<Integer, Set<Integer>> map) {
+	public Set<Integer> getReachable(Integer first, Map<Integer, Set<Integer>> map) {
 		if (first == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}

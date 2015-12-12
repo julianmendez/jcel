@@ -73,8 +73,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
  * 
  * @author Julian Mendez
  */
-public class CelExtendedOntology implements
-		NormalizedIntegerAxiomVisitor<Boolean> {
+public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolean> {
 
 	private final Map<Integer, Set<ExtensionEntry>> ohatOfClass = new HashMap<Integer, Set<ExtensionEntry>>();
 	private final Map<Integer, Map<Integer, Set<ExtensionEntry>>> ohatOfExistential = new HashMap<Integer, Map<Integer, Set<ExtensionEntry>>>();
@@ -98,8 +97,7 @@ public class CelExtendedOntology implements
 		this.ohatOfClass.get(classId).add(entry);
 	}
 
-	private void addTo(Integer property, RI3Axiom axiom,
-			Map<Integer, Set<RI3Axiom>> map) {
+	private void addTo(Integer property, RI3Axiom axiom, Map<Integer, Set<RI3Axiom>> map) {
 		Set<RI3Axiom> axiomSet = map.get(property);
 		if (axiomSet == null) {
 			axiomSet = new HashSet<RI3Axiom>();
@@ -157,8 +155,7 @@ public class CelExtendedOntology implements
 	 * @return the existential entries related to the specified object property
 	 *         and class.
 	 */
-	public Set<ExtensionEntry> getExistentialEntries(Integer propertyId,
-			Integer classId) {
+	public Set<ExtensionEntry> getExistentialEntries(Integer propertyId, Integer classId) {
 		if (propertyId == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -167,8 +164,7 @@ public class CelExtendedOntology implements
 		}
 
 		Set<ExtensionEntry> ret = Collections.emptySet();
-		Map<Integer, Set<ExtensionEntry>> map = this.ohatOfExistential
-				.get(propertyId);
+		Map<Integer, Set<ExtensionEntry>> map = this.ohatOfExistential.get(propertyId);
 		if (map != null) {
 			ret = map.get(classId);
 			if (ret == null) {
@@ -270,8 +266,7 @@ public class CelExtendedOntology implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		addClassEntry(axiom.getSubClass(), new ImplicationEntry(
-				new HashSet<Integer>(), axiom.getSuperClass()));
+		addClassEntry(axiom.getSubClass(), new ImplicationEntry(new HashSet<Integer>(), axiom.getSuperClass()));
 		return true;
 	}
 
@@ -289,8 +284,7 @@ public class CelExtendedOntology implements
 			Set<Integer> currentSet = new HashSet<Integer>();
 			currentSet.addAll(operandSet);
 			currentSet.remove(currentOperand);
-			addClassEntry(currentOperand, new ImplicationEntry(currentSet,
-					superClass));
+			addClassEntry(currentOperand, new ImplicationEntry(currentSet, superClass));
 		}
 		return true;
 	}
@@ -301,10 +295,8 @@ public class CelExtendedOntology implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		addClassEntry(
-				axiom.getSubClass(),
-				new ExistentialEntry(axiom.getPropertyInSuperClass(), axiom
-						.getClassInSuperClass()));
+		addClassEntry(axiom.getSubClass(),
+				new ExistentialEntry(axiom.getPropertyInSuperClass(), axiom.getClassInSuperClass()));
 		return true;
 	}
 
@@ -314,12 +306,10 @@ public class CelExtendedOntology implements
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		ExtensionEntry entry = new ImplicationEntry(new HashSet<Integer>(),
-				axiom.getSuperClass());
+		ExtensionEntry entry = new ImplicationEntry(new HashSet<Integer>(), axiom.getSuperClass());
 		Integer propertyId = axiom.getPropertyInSubClass();
 		Integer classId = axiom.getClassInSubClass();
-		Map<Integer, Set<ExtensionEntry>> map = this.ohatOfExistential
-				.get(propertyId);
+		Map<Integer, Set<ExtensionEntry>> map = this.ohatOfExistential.get(propertyId);
 		if (map == null) {
 			map = new HashMap<Integer, Set<ExtensionEntry>>();
 			this.ohatOfExistential.put(propertyId, map);

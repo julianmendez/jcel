@@ -101,13 +101,11 @@ import de.tudresden.inf.lat.jcel.reasoner.main.RuleBasedReasoner;
  */
 public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 
-	private static final Logger logger = Logger.getLogger(JcelReasoner.class
-			.getName());
+	private static final Logger logger = Logger.getLogger(JcelReasoner.class.getName());
 
 	private final boolean buffering = false;
 	private RuleBasedReasoner jcelCore;
-	private final OWLOntologyChangeVisitorEx<Boolean> ontologyChangeVisitor = new JcelOntologyChangeVisitorEx(
-			this);
+	private final OWLOntologyChangeVisitorEx<Boolean> ontologyChangeVisitor = new JcelOntologyChangeVisitorEx(this);
 	private final Set<OWLAxiom> pendingAxiomAdditions = new HashSet<OWLAxiom>();
 	private final Set<OWLAxiom> pendingAxiomRemovals = new HashSet<OWLAxiom>();
 	private final List<OWLOntologyChange> pendingChanges = new ArrayList<OWLOntologyChange>();
@@ -132,10 +130,9 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 
 		logger.fine("configuring jcel reasoner ...");
 		this.rootOntology = rootOntology;
-		this.translator = new Translator(rootOntology.getOWLOntologyManager()
-				.getOWLDataFactory(), new IntegerOntologyObjectFactoryImpl());
-		this.rootOntology.getOWLOntologyManager().addOntologyChangeListener(
-				this);
+		this.translator = new Translator(rootOntology.getOWLOntologyManager().getOWLDataFactory(),
+				new IntegerOntologyObjectFactoryImpl());
+		this.rootOntology.getOWLOntologyManager().addOntologyChangeListener(this);
 		this.supportedAxiomTypes = getSupportedTypes();
 
 		logger.fine("resetting reasoner ...");
@@ -154,8 +151,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	 * @param configuration
 	 *            reasoner configuration
 	 */
-	public JcelReasoner(OWLOntology rootOntology, boolean buffering,
-			OWLReasonerConfiguration configuration) {
+	public JcelReasoner(OWLOntology rootOntology, boolean buffering, OWLReasonerConfiguration configuration) {
 		this(rootOntology, buffering);
 		if (configuration == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -180,8 +176,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public void dispose() {
 		logger.finer("dispose()");
-		this.rootOntology.getOWLOntologyManager().removeOntologyChangeListener(
-				this);
+		this.rootOntology.getOWLOntologyManager().removeOntologyChangeListener(this);
 		getReasoner().dispose();
 	}
 
@@ -198,8 +193,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public Node<OWLClass> getBottomClassNode() {
 		logger.finer("getBottomClassNode()");
-		Node<OWLClass> ret = getTranslator().translateSC(
-				getReasoner().getBottomClassNode());
+		Node<OWLClass> ret = getTranslator().translateSC(getReasoner().getBottomClassNode());
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -207,15 +201,14 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public Node<OWLDataProperty> getBottomDataPropertyNode() {
 		logger.finer("getBottomDataPropertyNode()");
-		throw new UnsupportedReasonerOperationInJcelException(
-				"Unsupported operation : getBottomDataPropertyNode()");
+		throw new UnsupportedReasonerOperationInJcelException("Unsupported operation : getBottomDataPropertyNode()");
 	}
 
 	@Override
 	public Node<OWLObjectPropertyExpression> getBottomObjectPropertyNode() {
 		logger.finer("getBottomObjectPropertyNode()");
-		Node<OWLObjectPropertyExpression> ret = getTranslator().translateSOPE(
-				getReasoner().getBottomObjectPropertyNode());
+		Node<OWLObjectPropertyExpression> ret = getTranslator()
+				.translateSOPE(getReasoner().getBottomObjectPropertyNode());
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -224,31 +217,27 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	public BufferingMode getBufferingMode() {
 		logger.finer("getBufferingMode()");
 
-		BufferingMode ret = this.buffering ? BufferingMode.BUFFERING
-				: BufferingMode.NON_BUFFERING;
+		BufferingMode ret = this.buffering ? BufferingMode.BUFFERING : BufferingMode.NON_BUFFERING;
 		logger.finer("" + ret);
 		return ret;
 	}
 
 	@Override
-	public NodeSet<OWLClass> getDataPropertyDomains(
-			OWLDataProperty dataProperty, boolean direct)
-			throws InconsistentOntologyException, FreshEntitiesException,
-			ReasonerInterruptedException, TimeOutException {
+	public NodeSet<OWLClass> getDataPropertyDomains(OWLDataProperty dataProperty, boolean direct)
+			throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException,
+			TimeOutException {
 		if (dataProperty == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		logger.finer("getDataPropertyDomains(" + dataProperty + ", " + direct
-				+ ")");
+		logger.finer("getDataPropertyDomains(" + dataProperty + ", " + direct + ")");
 		throw new UnsupportedReasonerOperationInJcelException(
 				"Unsupported operation : getDataPropertyDomains(OWLDataProperty, boolean)");
 	}
 
 	@Override
-	public Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual individual,
-			OWLDataProperty dataProperty) throws InconsistentOntologyException,
-			FreshEntitiesException, ReasonerInterruptedException,
+	public Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual individual, OWLDataProperty dataProperty)
+			throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException,
 			TimeOutException {
 		if (individual == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -257,100 +246,84 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		logger.finer("getDataPropertyValues(" + individual + ", "
-				+ dataProperty + ")");
+		logger.finer("getDataPropertyValues(" + individual + ", " + dataProperty + ")");
 		throw new UnsupportedReasonerOperationInJcelException(
 				"Unsupported operation : getDataPropertyValues(OWLNamedIndividual, OWLDataProperty)");
 	}
 
 	@Override
-	public NodeSet<OWLNamedIndividual> getDifferentIndividuals(
-			OWLNamedIndividual individual)
-			throws InconsistentOntologyException, FreshEntitiesException,
-			ReasonerInterruptedException, TimeOutException {
+	public NodeSet<OWLNamedIndividual> getDifferentIndividuals(OWLNamedIndividual individual)
+			throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException,
+			TimeOutException {
 		if (individual == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		logger.finer("getDifferentIndividuals(" + individual + ")");
-		NodeSet<OWLNamedIndividual> ret = getTranslator().translateSSI(
-				getReasoner().getDifferentIndividuals(
-						getTranslator().translateI(individual)));
+		NodeSet<OWLNamedIndividual> ret = getTranslator()
+				.translateSSI(getReasoner().getDifferentIndividuals(getTranslator().translateI(individual)));
 		logger.finer("" + ret);
 		return ret;
 	}
 
 	@Override
-	public NodeSet<OWLClass> getDisjointClasses(
-			OWLClassExpression classExpression)
-			throws ReasonerInterruptedException, TimeOutException,
-			FreshEntitiesException, InconsistentOntologyException {
+	public NodeSet<OWLClass> getDisjointClasses(OWLClassExpression classExpression) throws ReasonerInterruptedException,
+			TimeOutException, FreshEntitiesException, InconsistentOntologyException {
 		if (classExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		logger.finer("getDisjointClasses(" + classExpression + ")");
-		NodeSet<OWLClass> ret = getTranslator().translateSSC(
-				getReasoner().getDisjointClasses(
-						getTranslator().translateCE(classExpression)));
+		NodeSet<OWLClass> ret = getTranslator()
+				.translateSSC(getReasoner().getDisjointClasses(getTranslator().translateCE(classExpression)));
 		logger.finer("" + ret);
 		return ret;
 	}
 
 	@Override
-	public NodeSet<OWLDataProperty> getDisjointDataProperties(
-			OWLDataPropertyExpression dataPropertyExpression)
-			throws InconsistentOntologyException, FreshEntitiesException,
-			ReasonerInterruptedException, TimeOutException {
+	public NodeSet<OWLDataProperty> getDisjointDataProperties(OWLDataPropertyExpression dataPropertyExpression)
+			throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException,
+			TimeOutException {
 		if (dataPropertyExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		logger.finer("getDisjointDataProperties(" + dataPropertyExpression
-				+ ")");
+		logger.finer("getDisjointDataProperties(" + dataPropertyExpression + ")");
 		throw new UnsupportedReasonerOperationInJcelException(
 				"Unsupported operation : getDisjointDataProperties(OWLDataPropertyExpression)");
 	}
 
 	@Override
 	public NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(
-			OWLObjectPropertyExpression objectPropertyExpression)
-			throws InconsistentOntologyException, FreshEntitiesException,
-			ReasonerInterruptedException, TimeOutException {
+			OWLObjectPropertyExpression objectPropertyExpression) throws InconsistentOntologyException,
+					FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
 		if (objectPropertyExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		logger.finer("getDisjointDataProperties(" + objectPropertyExpression
-				+ ")");
-		NodeSet<OWLObjectPropertyExpression> ret = getTranslator()
-				.translateSSOPE(
-						getReasoner().getDisjointObjectProperties(
-								getTranslator().translateOPE(
-										objectPropertyExpression)));
+		logger.finer("getDisjointDataProperties(" + objectPropertyExpression + ")");
+		NodeSet<OWLObjectPropertyExpression> ret = getTranslator().translateSSOPE(
+				getReasoner().getDisjointObjectProperties(getTranslator().translateOPE(objectPropertyExpression)));
 		logger.finer("" + ret);
 		return ret;
 	}
 
 	@Override
-	public Node<OWLClass> getEquivalentClasses(
-			OWLClassExpression classExpression) {
+	public Node<OWLClass> getEquivalentClasses(OWLClassExpression classExpression) {
 		if (classExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		logger.finer("getEquivalentClasses(" + classExpression + ")");
-		Node<OWLClass> ret = getTranslator().translateSC(
-				getReasoner().getEquivalentClasses(
-						getTranslator().translateCE(classExpression)));
+		Node<OWLClass> ret = getTranslator()
+				.translateSC(getReasoner().getEquivalentClasses(getTranslator().translateCE(classExpression)));
 		logger.finer("" + ret);
 		return ret;
 	}
 
 	@Override
-	public Node<OWLDataProperty> getEquivalentDataProperties(
-			OWLDataProperty dataProperty) throws InconsistentOntologyException,
-			FreshEntitiesException, ReasonerInterruptedException,
+	public Node<OWLDataProperty> getEquivalentDataProperties(OWLDataProperty dataProperty)
+			throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException,
 			TimeOutException {
 		if (dataProperty == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -363,20 +336,15 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 
 	@Override
 	public Node<OWLObjectPropertyExpression> getEquivalentObjectProperties(
-			OWLObjectPropertyExpression objectPropertyExpression)
-			throws InconsistentOntologyException, FreshEntitiesException,
-			ReasonerInterruptedException, TimeOutException {
+			OWLObjectPropertyExpression objectPropertyExpression) throws InconsistentOntologyException,
+					FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
 		if (objectPropertyExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		logger.finer("getEquivalentObjectProperties("
-				+ objectPropertyExpression + ")");
-		Node<OWLObjectPropertyExpression> ret = getTranslator()
-				.translateSOPE(
-						getReasoner().getEquivalentObjectProperties(
-								getTranslator().translateOPE(
-										objectPropertyExpression)));
+		logger.finer("getEquivalentObjectProperties(" + objectPropertyExpression + ")");
+		Node<OWLObjectPropertyExpression> ret = getTranslator().translateSOPE(
+				getReasoner().getEquivalentObjectProperties(getTranslator().translateOPE(objectPropertyExpression)));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -384,31 +352,26 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public FreshEntityPolicy getFreshEntityPolicy() {
 		logger.finer("getFreshEntityPolicy()");
-		throw new UnsupportedReasonerOperationInJcelException(
-				"Unsupported operation : getFreshEntityPolicy()");
+		throw new UnsupportedReasonerOperationInJcelException("Unsupported operation : getFreshEntityPolicy()");
 	}
 
 	@Override
 	public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
 		logger.finer("getIndividualNodeSetPolicy()");
-		throw new UnsupportedReasonerOperationInJcelException(
-				"Unsupported operation : getIndividualNodeSetPolicy()");
+		throw new UnsupportedReasonerOperationInJcelException("Unsupported operation : getIndividualNodeSetPolicy()");
 	}
 
 	@Override
-	public NodeSet<OWLNamedIndividual> getInstances(
-			OWLClassExpression classExpression, boolean direct)
-			throws InconsistentOntologyException,
-			ClassExpressionNotInProfileException, FreshEntitiesException,
+	public NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression classExpression, boolean direct)
+			throws InconsistentOntologyException, ClassExpressionNotInProfileException, FreshEntitiesException,
 			ReasonerInterruptedException, TimeOutException {
 		if (classExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		logger.finer("getInstances(" + classExpression + ", " + direct + ")");
-		NodeSet<OWLNamedIndividual> ret = getTranslator().translateSSI(
-				getReasoner().getInstances(
-						getTranslator().translateCE(classExpression), direct));
+		NodeSet<OWLNamedIndividual> ret = getTranslator()
+				.translateSSI(getReasoner().getInstances(getTranslator().translateCE(classExpression), direct));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -420,8 +383,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 			owlAxiomSet.addAll(ont.getAxioms());
 		}
 
-		this.translator.getTranslationRepository().addAxiomEntities(
-				this.rootOntology);
+		this.translator.getTranslationRepository().addAxiomEntities(this.rootOntology);
 
 		logger.fine("translating axioms ...");
 		Set<ComplexIntegerAxiom> ret = this.translator.translateSA(owlAxiomSet);
@@ -432,55 +394,47 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 
 	@Override
 	public Node<OWLObjectPropertyExpression> getInverseObjectProperties(
-			OWLObjectPropertyExpression objectPropertyExpression)
-			throws InconsistentOntologyException, FreshEntitiesException,
-			ReasonerInterruptedException, TimeOutException {
+			OWLObjectPropertyExpression objectPropertyExpression) throws InconsistentOntologyException,
+					FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
 		if (objectPropertyExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		logger.finer("getInverseObjectProperties(" + objectPropertyExpression
-				+ ")");
+		logger.finer("getInverseObjectProperties(" + objectPropertyExpression + ")");
 		throw new UnsupportedReasonerOperationInJcelException(
 				"Unsupported operation : getInverseObjectProperties(OWLObjectPropertyExpression)");
 	}
 
 	@Override
-	public NodeSet<OWLClass> getObjectPropertyDomains(
-			OWLObjectPropertyExpression objectPropertyExpression, boolean direct)
-			throws InconsistentOntologyException, FreshEntitiesException,
-			ReasonerInterruptedException, TimeOutException {
+	public NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression objectPropertyExpression,
+			boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException,
+					TimeOutException {
 		if (objectPropertyExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		logger.finer("getObjectPropertyDomains(" + objectPropertyExpression
-				+ ", " + direct + ")");
+		logger.finer("getObjectPropertyDomains(" + objectPropertyExpression + ", " + direct + ")");
 		throw new UnsupportedReasonerOperationInJcelException(
 				"Unsupported operation : getObjectPropertyDomains(OWLObjectPropertyExpression, boolean)");
 	}
 
 	@Override
-	public NodeSet<OWLClass> getObjectPropertyRanges(
-			OWLObjectPropertyExpression objectPropertyExpression, boolean direct)
-			throws InconsistentOntologyException, FreshEntitiesException,
-			ReasonerInterruptedException, TimeOutException {
+	public NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression objectPropertyExpression,
+			boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException,
+					TimeOutException {
 		if (objectPropertyExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		logger.finer("getObjectPropertyRanges(" + objectPropertyExpression
-				+ ", " + direct + ")");
+		logger.finer("getObjectPropertyRanges(" + objectPropertyExpression + ", " + direct + ")");
 		throw new UnsupportedReasonerOperationInJcelException(
 				"Unsupported operation : getObjectPropertyRanges(OWLObjectPropertyExpression, boolean)");
 	}
 
 	@Override
-	public NodeSet<OWLNamedIndividual> getObjectPropertyValues(
-			OWLNamedIndividual individual,
-			OWLObjectPropertyExpression objectPropertyExpression)
-			throws InconsistentOntologyException, FreshEntitiesException,
-			ReasonerInterruptedException, TimeOutException {
+	public NodeSet<OWLNamedIndividual> getObjectPropertyValues(OWLNamedIndividual individual,
+			OWLObjectPropertyExpression objectPropertyExpression) throws InconsistentOntologyException,
+					FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
 		if (individual == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -488,14 +442,9 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		logger.finer("getObjectPropertyValues(" + individual + ", "
-				+ objectPropertyExpression + ")");
-		NodeSet<OWLNamedIndividual> ret = getTranslator()
-				.translateSSI(
-						getReasoner().getObjectPropertyValues(
-								getTranslator().translateI(individual),
-								getTranslator().translateOPE(
-										objectPropertyExpression)));
+		logger.finer("getObjectPropertyValues(" + individual + ", " + objectPropertyExpression + ")");
+		NodeSet<OWLNamedIndividual> ret = getTranslator().translateSSI(getReasoner().getObjectPropertyValues(
+				getTranslator().translateI(individual), getTranslator().translateOPE(objectPropertyExpression)));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -561,14 +510,10 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		String versionId = getReasoner().getReasonerVersion();
 		if (versionId != null) {
 			StringTokenizer stok = new StringTokenizer(versionId, ".");
-			int major = stok.hasMoreTokens() ? Integer.parseInt(stok
-					.nextToken()) : 0;
-			int minor = stok.hasMoreTokens() ? Integer.parseInt(stok
-					.nextToken()) : 0;
-			int patch = stok.hasMoreTokens() ? Integer.parseInt(stok
-					.nextToken()) : 0;
-			int build = stok.hasMoreTokens() ? Integer.parseInt(stok
-					.nextToken()) : 0;
+			int major = stok.hasMoreTokens() ? Integer.parseInt(stok.nextToken()) : 0;
+			int minor = stok.hasMoreTokens() ? Integer.parseInt(stok.nextToken()) : 0;
+			int patch = stok.hasMoreTokens() ? Integer.parseInt(stok.nextToken()) : 0;
+			int build = stok.hasMoreTokens() ? Integer.parseInt(stok.nextToken()) : 0;
 			ret = new Version(major, minor, patch, build);
 		}
 		logger.finer("" + ret);
@@ -584,18 +529,16 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	}
 
 	@Override
-	public Node<OWLNamedIndividual> getSameIndividuals(
-			OWLNamedIndividual individual)
-			throws InconsistentOntologyException, FreshEntitiesException,
-			ReasonerInterruptedException, TimeOutException {
+	public Node<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual individual)
+			throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException,
+			TimeOutException {
 		if (individual == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		logger.finer("getSameIndividuals(" + individual + ")");
-		Node<OWLNamedIndividual> ret = getTranslator().translateSI(
-				getReasoner().getSameIndividuals(
-						getTranslator().translateI(individual)));
+		Node<OWLNamedIndividual> ret = getTranslator()
+				.translateSI(getReasoner().getSameIndividuals(getTranslator().translateI(individual)));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -605,104 +548,85 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	}
 
 	@Override
-	public NodeSet<OWLClass> getSubClasses(OWLClassExpression classExpression,
-			boolean direct) {
+	public NodeSet<OWLClass> getSubClasses(OWLClassExpression classExpression, boolean direct) {
 		if (classExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		logger.finer("getSubClasses(" + classExpression + ", " + direct + ")");
-		NodeSet<OWLClass> ret = getTranslator().translateSSC(
-				getReasoner().getSubClasses(
-						getTranslator().translateCE(classExpression), direct));
+		NodeSet<OWLClass> ret = getTranslator()
+				.translateSSC(getReasoner().getSubClasses(getTranslator().translateCE(classExpression), direct));
 		logger.finer("" + ret);
 		return ret;
 	}
 
 	@Override
-	public NodeSet<OWLDataProperty> getSubDataProperties(
-			OWLDataProperty dataProperty, boolean direct)
-			throws InconsistentOntologyException, FreshEntitiesException,
-			ReasonerInterruptedException, TimeOutException {
+	public NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty dataProperty, boolean direct)
+			throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException,
+			TimeOutException {
 		if (dataProperty == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		logger.finer("getSubDataProperties(" + dataProperty + ", " + direct
-				+ ")");
+		logger.finer("getSubDataProperties(" + dataProperty + ", " + direct + ")");
 		throw new UnsupportedReasonerOperationInJcelException(
 				"Unsupported operation : getSubDataProperties(OWLDataProperty, boolean)");
 	}
 
 	@Override
 	public NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(
-			OWLObjectPropertyExpression objectPropertyExpression, boolean direct)
-			throws InconsistentOntologyException, FreshEntitiesException,
-			ReasonerInterruptedException, TimeOutException {
+			OWLObjectPropertyExpression objectPropertyExpression, boolean direct) throws InconsistentOntologyException,
+					FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
 		if (objectPropertyExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		logger.finer("getSubObjectProperties(" + objectPropertyExpression
-				+ ", " + direct + ")");
-		NodeSet<OWLObjectPropertyExpression> ret = getTranslator()
-				.translateSSOPE(
-						getReasoner().getSubObjectProperties(
-								getTranslator().translateOPE(
-										objectPropertyExpression), direct));
+		logger.finer("getSubObjectProperties(" + objectPropertyExpression + ", " + direct + ")");
+		NodeSet<OWLObjectPropertyExpression> ret = getTranslator().translateSSOPE(
+				getReasoner().getSubObjectProperties(getTranslator().translateOPE(objectPropertyExpression), direct));
 		logger.finer("" + ret);
 		return ret;
 	}
 
 	@Override
-	public NodeSet<OWLClass> getSuperClasses(
-			OWLClassExpression classExpression, boolean direct)
-			throws InconsistentOntologyException,
-			ClassExpressionNotInProfileException, FreshEntitiesException,
+	public NodeSet<OWLClass> getSuperClasses(OWLClassExpression classExpression, boolean direct)
+			throws InconsistentOntologyException, ClassExpressionNotInProfileException, FreshEntitiesException,
 			ReasonerInterruptedException, TimeOutException {
 		if (classExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		logger.finer("getSuperClasses(" + classExpression + ", " + direct + ")");
-		NodeSet<OWLClass> ret = getTranslator().translateSSC(
-				getReasoner().getSuperClasses(
-						getTranslator().translateCE(classExpression), direct));
+		NodeSet<OWLClass> ret = getTranslator()
+				.translateSSC(getReasoner().getSuperClasses(getTranslator().translateCE(classExpression), direct));
 		logger.finer("" + ret);
 		return ret;
 	}
 
 	@Override
-	public NodeSet<OWLDataProperty> getSuperDataProperties(
-			OWLDataProperty dataProperty, boolean direct)
-			throws InconsistentOntologyException, FreshEntitiesException,
-			ReasonerInterruptedException, TimeOutException {
+	public NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataProperty dataProperty, boolean direct)
+			throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException,
+			TimeOutException {
 		if (dataProperty == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		logger.finer("getSuperDataProperties(" + dataProperty + ", " + direct
-				+ ")");
+		logger.finer("getSuperDataProperties(" + dataProperty + ", " + direct + ")");
 		throw new UnsupportedReasonerOperationInJcelException(
 				"Unsupported operation : getSuperDataProperties(OWLDataProperty, boolean)");
 	}
 
 	@Override
 	public NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(
-			OWLObjectPropertyExpression objectPropertyExpression, boolean direct)
-			throws InconsistentOntologyException, FreshEntitiesException,
-			ReasonerInterruptedException, TimeOutException {
+			OWLObjectPropertyExpression objectPropertyExpression, boolean direct) throws InconsistentOntologyException,
+					FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
 		if (objectPropertyExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		logger.finer("getSuperObjectProperties(" + objectPropertyExpression
-				+ ", " + direct + ")");
-		NodeSet<OWLObjectPropertyExpression> ret = getTranslator()
-				.translateSSOPE(
-						getReasoner().getSuperObjectProperties(
-								getTranslator().translateOPE(
-										objectPropertyExpression), direct));
+		logger.finer("getSuperObjectProperties(" + objectPropertyExpression + ", " + direct + ")");
+		NodeSet<OWLObjectPropertyExpression> ret = getTranslator().translateSSOPE(
+				getReasoner().getSuperObjectProperties(getTranslator().translateOPE(objectPropertyExpression), direct));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -726,8 +650,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public Node<OWLClass> getTopClassNode() {
 		logger.finer("getTopClassNode()");
-		Node<OWLClass> ret = getTranslator().translateSC(
-				getReasoner().getTopClassNode());
+		Node<OWLClass> ret = getTranslator().translateSC(getReasoner().getTopClassNode());
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -735,15 +658,13 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public Node<OWLDataProperty> getTopDataPropertyNode() {
 		logger.finer("getTopDataPropertyNode()");
-		throw new UnsupportedReasonerOperationInJcelException(
-				"Unsupported operation : getTopDataPropertyNode()");
+		throw new UnsupportedReasonerOperationInJcelException("Unsupported operation : getTopDataPropertyNode()");
 	}
 
 	@Override
 	public Node<OWLObjectPropertyExpression> getTopObjectPropertyNode() {
 		logger.finer("getTopObjectPropertyNode()");
-		Node<OWLObjectPropertyExpression> ret = getTranslator().translateSOPE(
-				getReasoner().getTopObjectPropertyNode());
+		Node<OWLObjectPropertyExpression> ret = getTranslator().translateSOPE(getReasoner().getTopObjectPropertyNode());
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -753,28 +674,24 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	}
 
 	@Override
-	public NodeSet<OWLClass> getTypes(OWLNamedIndividual individual,
-			boolean direct) throws InconsistentOntologyException,
-			FreshEntitiesException, ReasonerInterruptedException,
+	public NodeSet<OWLClass> getTypes(OWLNamedIndividual individual, boolean direct)
+			throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException,
 			TimeOutException {
 		if (individual == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		logger.finer("getTypes(" + individual + ", " + direct + ")");
-		NodeSet<OWLClass> ret = getTranslator().translateSSC(
-				getReasoner().getTypes(getTranslator().translateI(individual),
-						direct));
+		NodeSet<OWLClass> ret = getTranslator()
+				.translateSSC(getReasoner().getTypes(getTranslator().translateI(individual), direct));
 		logger.finer("" + ret);
 		return ret;
 	}
 
 	@Override
-	public Node<OWLClass> getUnsatisfiableClasses()
-			throws ReasonerInterruptedException, TimeOutException {
+	public Node<OWLClass> getUnsatisfiableClasses() throws ReasonerInterruptedException, TimeOutException {
 		logger.finer("getUnsatisfiableClasses()");
-		Node<OWLClass> ret = getTranslator().translateSC(
-				getReasoner().getUnsatisfiableClasses());
+		Node<OWLClass> ret = getTranslator().translateSC(getReasoner().getUnsatisfiableClasses());
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -782,13 +699,11 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public void interrupt() {
 		logger.finer("interrupt()");
-		throw new UnsupportedReasonerOperationInJcelException(
-				"Unsupported operation : interrupt()");
+		throw new UnsupportedReasonerOperationInJcelException("Unsupported operation : interrupt()");
 	}
 
 	@Override
-	public boolean isConsistent() throws ReasonerInterruptedException,
-			TimeOutException {
+	public boolean isConsistent() throws ReasonerInterruptedException, TimeOutException {
 		logger.finer("isConsistent()");
 		boolean ret = getReasoner().isConsistent();
 		logger.finer("" + ret);
@@ -796,26 +711,21 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	}
 
 	@Override
-	public boolean isEntailed(OWLAxiom axiom)
-			throws ReasonerInterruptedException,
-			UnsupportedEntailmentTypeException, TimeOutException,
-			AxiomNotInProfileException, FreshEntitiesException {
+	public boolean isEntailed(OWLAxiom axiom) throws ReasonerInterruptedException, UnsupportedEntailmentTypeException,
+			TimeOutException, AxiomNotInProfileException, FreshEntitiesException {
 		if (axiom == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		logger.finer("isEntailed((OWLAxiom) " + axiom + ")");
-		boolean ret = getReasoner().isEntailed(
-				getTranslator().translateSA(Collections.singleton(axiom)));
+		boolean ret = getReasoner().isEntailed(getTranslator().translateSA(Collections.singleton(axiom)));
 		logger.finer("" + ret);
 		return ret;
 	}
 
 	@Override
-	public boolean isEntailed(Set<? extends OWLAxiom> axiomSet)
-			throws ReasonerInterruptedException,
-			UnsupportedEntailmentTypeException, TimeOutException,
-			AxiomNotInProfileException, FreshEntitiesException {
+	public boolean isEntailed(Set<? extends OWLAxiom> axiomSet) throws ReasonerInterruptedException,
+			UnsupportedEntailmentTypeException, TimeOutException, AxiomNotInProfileException, FreshEntitiesException {
 		if (axiomSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -825,8 +735,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		for (OWLAxiom axiom : axiomSet) {
 			set.add(axiom);
 		}
-		boolean ret = getReasoner()
-				.isEntailed(getTranslator().translateSA(set));
+		boolean ret = getReasoner().isEntailed(getTranslator().translateSA(set));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -850,8 +759,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		}
 
 		logger.finer("isPrecomputed(" + inferenceType + ")");
-		throw new UnsupportedReasonerOperationInJcelException(
-				"Unsupported operation : isPrecomputed()");
+		throw new UnsupportedReasonerOperationInJcelException("Unsupported operation : isPrecomputed()");
 	}
 
 	@Override
@@ -861,15 +769,13 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		}
 
 		logger.finer("isSatisfiable(" + classExpression + ")");
-		boolean ret = getReasoner().isSatisfiable(
-				getTranslator().translateCE(classExpression));
+		boolean ret = getReasoner().isSatisfiable(getTranslator().translateCE(classExpression));
 		logger.finer("" + ret);
 		return ret;
 	}
 
 	@Override
-	public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
-			throws OWLException {
+	public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
 		this.pendingChanges.addAll(changes);
 		for (OWLOntologyChange change : changes) {
 			change.accept(this.ontologyChangeVisitor);
@@ -878,28 +784,24 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 
 	@Override
 	public void precomputeInferences(InferenceType... inferenceTypes)
-			throws ReasonerInterruptedException, TimeOutException,
-			InconsistentOntologyException {
+			throws ReasonerInterruptedException, TimeOutException, InconsistentOntologyException {
 		if (inferenceTypes == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		logger.finer("precomputeInferences(" + inferenceTypes + ")");
 		if (this.reasonerConfiguration != null) {
-			this.reasonerConfiguration.getProgressMonitor()
-					.reasonerTaskStarted(ReasonerProgressMonitor.CLASSIFYING);
+			this.reasonerConfiguration.getProgressMonitor().reasonerTaskStarted(ReasonerProgressMonitor.CLASSIFYING);
 			this.reasonerConfiguration.getProgressMonitor().reasonerTaskBusy();
 		}
 
 		logger.finer("classifying ...");
 		Date start = new Date();
 		getReasoner().classify();
-		logger.finer("jcel classified in "
-				+ ((new Date()).getTime() - start.getTime()) + "ms");
+		logger.finer("jcel classified in " + ((new Date()).getTime() - start.getTime()) + "ms");
 
 		if (this.reasonerConfiguration != null) {
-			this.reasonerConfiguration.getProgressMonitor()
-					.reasonerTaskStopped();
+			this.reasonerConfiguration.getProgressMonitor().reasonerTaskStopped();
 		}
 	}
 
@@ -917,8 +819,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	}
 
 	private void resetReasoner() {
-		this.jcelCore = new RuleBasedReasoner(getIntegerOntology(),
-				this.translator.getOntologyObjectFactory());
+		this.jcelCore = new RuleBasedReasoner(getIntegerOntology(), this.translator.getOntologyObjectFactory());
 	}
 
 }

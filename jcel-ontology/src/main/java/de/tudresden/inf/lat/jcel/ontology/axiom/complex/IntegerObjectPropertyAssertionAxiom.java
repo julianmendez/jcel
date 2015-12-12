@@ -81,9 +81,8 @@ public class IntegerObjectPropertyAssertionAxiom implements ComplexIntegerAxiom 
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerObjectPropertyAssertionAxiom(
-			IntegerObjectPropertyExpression objectProp, int subjectInd,
-			int objectInd, Set<Annotation> annotations) {
+	IntegerObjectPropertyAssertionAxiom(IntegerObjectPropertyExpression objectProp, int subjectInd, int objectInd,
+			Set<Annotation> annotations) {
 		if (objectProp == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -98,13 +97,10 @@ public class IntegerObjectPropertyAssertionAxiom implements ComplexIntegerAxiom 
 		Set<Integer> individualsInSignature = new HashSet<Integer>();
 		individualsInSignature.add(this.subject);
 		individualsInSignature.add(this.object);
-		this.individualsInSignature = Collections
-				.unmodifiableSet(individualsInSignature);
+		this.individualsInSignature = Collections.unmodifiableSet(individualsInSignature);
 		this.annotations = annotations;
 		this.hashCode = this.property.hashCode()
-				+ 0x1F
-				* (this.subject + 0x1F * (this.object + 0x1F * this.annotations
-						.hashCode()));
+				+ 0x1F * (this.subject + 0x1F * (this.object + 0x1F * this.annotations.hashCode()));
 	}
 
 	@Override
@@ -121,10 +117,8 @@ public class IntegerObjectPropertyAssertionAxiom implements ComplexIntegerAxiom 
 		boolean ret = (this == obj);
 		if (!ret && (obj instanceof IntegerObjectPropertyAssertionAxiom)) {
 			IntegerObjectPropertyAssertionAxiom other = (IntegerObjectPropertyAssertionAxiom) obj;
-			ret = getProperty().equals(other.getProperty())
-					&& getSubject().equals(other.getSubject())
-					&& getObject().equals(other.getObject())
-					&& getAnnotations().equals(other.getAnnotations());
+			ret = getProperty().equals(other.getProperty()) && getSubject().equals(other.getSubject())
+					&& getObject().equals(other.getObject()) && getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}

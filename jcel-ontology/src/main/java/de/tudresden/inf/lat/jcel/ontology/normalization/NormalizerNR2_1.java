@@ -101,51 +101,39 @@ class NormalizerNR2_1 implements NormalizationRule {
 		return ret;
 	}
 
-	private Set<IntegerAxiom> applyRule(
-			IntegerSubPropertyChainOfAxiom propertyAxiom) {
+	private Set<IntegerAxiom> applyRule(IntegerSubPropertyChainOfAxiom propertyAxiom) {
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
-		List<IntegerObjectPropertyExpression> propertyList = propertyAxiom
-				.getPropertyChain();
-		Integer superProperty = getObjectPropertyId(propertyAxiom
-				.getSuperProperty());
+		List<IntegerObjectPropertyExpression> propertyList = propertyAxiom.getPropertyChain();
+		Integer superProperty = getObjectPropertyId(propertyAxiom.getSuperProperty());
 		while (propertyList.size() > 2) {
 			int lastPos = propertyList.size() - 1;
-			Integer lastPropertyName = getObjectPropertyId(propertyList
-					.get(lastPos));
-			Integer newPropertyName = getOntologyObjectFactory()
-					.getEntityManager().createAnonymousEntity(
-							IntegerEntityType.OBJECT_PROPERTY, true);
-			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
-					.createRI3Axiom(newPropertyName, lastPropertyName,
-							superProperty, propertyAxiom.getAnnotations()));
+			Integer lastPropertyName = getObjectPropertyId(propertyList.get(lastPos));
+			Integer newPropertyName = getOntologyObjectFactory().getEntityManager()
+					.createAnonymousEntity(IntegerEntityType.OBJECT_PROPERTY, true);
+			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory().createRI3Axiom(newPropertyName,
+					lastPropertyName, superProperty, propertyAxiom.getAnnotations()));
 			propertyList = propertyList.subList(0, lastPos);
 			superProperty = newPropertyName;
 		}
 		if (propertyList.size() == 2) {
-			Iterator<IntegerObjectPropertyExpression> it = propertyList
-					.iterator();
+			Iterator<IntegerObjectPropertyExpression> it = propertyList.iterator();
 			Integer first = getObjectPropertyId(it.next());
 			Integer second = getObjectPropertyId(it.next());
-			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
-					.createRI3Axiom(first, second, superProperty,
-							propertyAxiom.getAnnotations()));
+			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory().createRI3Axiom(first, second, superProperty,
+					propertyAxiom.getAnnotations()));
 		} else if (propertyList.size() == 1) {
-			Integer subProperty = getObjectPropertyId(propertyList.iterator()
-					.next());
-			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
-					.createRI2Axiom(subProperty, superProperty,
-							propertyAxiom.getAnnotations()));
+			Integer subProperty = getObjectPropertyId(propertyList.iterator().next());
+			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory().createRI2Axiom(subProperty, superProperty,
+					propertyAxiom.getAnnotations()));
 		} else if (propertyList.size() == 0) {
-			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory()
-					.createRI1Axiom(superProperty,
-							propertyAxiom.getAnnotations()));
+			ret.add(getOntologyObjectFactory().getNormalizedAxiomFactory().createRI1Axiom(superProperty,
+					propertyAxiom.getAnnotations()));
 		}
 		return ret;
 	}
 
 	private Integer getObjectPropertyId(IntegerObjectPropertyExpression propExpr) {
-		return propExpr.accept(new ObjectPropertyIdFinder(
-				getOntologyObjectFactory().getEntityManager()));
+		return propExpr.accept(new ObjectPropertyIdFinder(getOntologyObjectFactory().getEntityManager()));
 	}
 
 	private IntegerOntologyObjectFactory getOntologyObjectFactory() {

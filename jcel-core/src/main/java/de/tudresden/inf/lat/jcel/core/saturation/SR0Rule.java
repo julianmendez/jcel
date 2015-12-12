@@ -77,8 +77,7 @@ public class SR0Rule implements SaturationRule {
 	}
 
 	@Override
-	public Set<NormalizedIntegerAxiom> apply(
-			Set<NormalizedIntegerAxiom> originalSet) {
+	public Set<NormalizedIntegerAxiom> apply(Set<NormalizedIntegerAxiom> originalSet) {
 		if (originalSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -93,8 +92,7 @@ public class SR0Rule implements SaturationRule {
 
 		Set<Annotation> annotations = Collections.emptySet();
 		for (Integer objectProperty : objectPropertySet) {
-			ret.add(this.factory.createRI2Axiom(objectProperty, objectProperty,
-					annotations));
+			ret.add(this.factory.createRI2Axiom(objectProperty, objectProperty, annotations));
 		}
 
 		return Collections.unmodifiableSet(ret);

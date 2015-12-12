@@ -80,8 +80,7 @@ public class RI3Axiom implements NormalizedIntegerAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	RI3Axiom(int leftLeftPropertyId, int leftRightPropertyId,
-			int rightPropertyId, Set<Annotation> annotations) {
+	RI3Axiom(int leftLeftPropertyId, int leftRightPropertyId, int rightPropertyId, Set<Annotation> annotations) {
 		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -91,9 +90,7 @@ public class RI3Axiom implements NormalizedIntegerAxiom {
 		this.superProperty = rightPropertyId;
 		this.annotations = annotations;
 		this.hashCode = this.leftSubProperty
-				+ 0x1F
-				* (this.rightSubProperty + 0x1F * (this.superProperty + 0x1F * this.annotations
-						.hashCode()));
+				+ 0x1F * (this.rightSubProperty + 0x1F * (this.superProperty + 0x1F * this.annotations.hashCode()));
 	}
 
 	@Override
@@ -110,10 +107,8 @@ public class RI3Axiom implements NormalizedIntegerAxiom {
 		boolean ret = (this == obj);
 		if (!ret && (obj instanceof RI3Axiom)) {
 			RI3Axiom other = (RI3Axiom) obj;
-			ret = (this.leftSubProperty == other.leftSubProperty)
-					&& (this.rightSubProperty == other.rightSubProperty)
-					&& (this.superProperty == other.superProperty)
-					&& this.annotations.equals(other.annotations);
+			ret = (this.leftSubProperty == other.leftSubProperty) && (this.rightSubProperty == other.rightSubProperty)
+					&& (this.superProperty == other.superProperty) && this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}

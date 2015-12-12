@@ -70,8 +70,7 @@ public class IntegerClassDeclarationAxiom implements IntegerDeclarationAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerClassDeclarationAxiom(int declaredEntity,
-			Set<Annotation> annotations) {
+	IntegerClassDeclarationAxiom(int declaredEntity, Set<Annotation> annotations) {
 		if (annotations == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -95,8 +94,7 @@ public class IntegerClassDeclarationAxiom implements IntegerDeclarationAxiom {
 		boolean ret = (this == obj);
 		if (!ret && (obj instanceof IntegerClassDeclarationAxiom)) {
 			IntegerClassDeclarationAxiom other = (IntegerClassDeclarationAxiom) obj;
-			ret = getEntity().equals(other.getEntity())
-					&& getAnnotations().equals(other.getAnnotations());
+			ret = getEntity().equals(other.getEntity()) && getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}

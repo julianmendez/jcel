@@ -93,8 +93,7 @@ public interface IntegerDataTypeFactory {
 	 *            class expression
 	 * @return an existential restriction
 	 */
-	IntegerDataSomeValuesFrom createDataSomeValuesFrom(int dataPropertyId,
-			IntegerClassExpression classExpression);
+	IntegerDataSomeValuesFrom createDataSomeValuesFrom(int dataPropertyId, IntegerClassExpression classExpression);
 
 	/**
 	 * Creates a named individual.
@@ -112,8 +111,7 @@ public interface IntegerDataTypeFactory {
 	 *            set of class expressions
 	 * @return an intersection of class expressions
 	 */
-	IntegerObjectIntersectionOf createObjectIntersectionOf(
-			Set<IntegerClassExpression> operands);
+	IntegerObjectIntersectionOf createObjectIntersectionOf(Set<IntegerClassExpression> operands);
 
 	/**
 	 * Creates an inverse object property.
@@ -122,8 +120,7 @@ public interface IntegerDataTypeFactory {
 	 *            object property to create the inverse
 	 * @return an inverse object property
 	 */
-	IntegerObjectInverseOf createObjectInverseOf(
-			IntegerObjectProperty objectPropertyId);
+	IntegerObjectInverseOf createObjectInverseOf(IntegerObjectProperty objectPropertyId);
 
 	/**
 	 * Creates a nominal expression.
@@ -152,8 +149,7 @@ public interface IntegerDataTypeFactory {
 	 *            class expression
 	 * @return an existential restriction
 	 */
-	IntegerObjectSomeValuesFrom createObjectSomeValuesFrom(
-			IntegerObjectPropertyExpression propertyExpression,
+	IntegerObjectSomeValuesFrom createObjectSomeValuesFrom(IntegerObjectPropertyExpression propertyExpression,
 			IntegerClassExpression classExpression);
 
 	/**

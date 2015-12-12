@@ -93,19 +93,15 @@ class NormalizerEquivProperties implements NormalizationRule {
 		return ret;
 	}
 
-	private Set<IntegerAxiom> applyRule(
-			IntegerEquivalentObjectPropertiesAxiom equivPropAxiom) {
-		Set<IntegerObjectPropertyExpression> expressionSet = equivPropAxiom
-				.getProperties();
+	private Set<IntegerAxiom> applyRule(IntegerEquivalentObjectPropertiesAxiom equivPropAxiom) {
+		Set<IntegerObjectPropertyExpression> expressionSet = equivPropAxiom.getProperties();
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
 		for (IntegerObjectPropertyExpression integerObjectPropertyExpression : expressionSet) {
 			Integer firstExpression = getObjectPropertyId(integerObjectPropertyExpression);
 			for (IntegerObjectPropertyExpression integerObjectPropertyExpression2 : expressionSet) {
 				Integer secondExpression = getObjectPropertyId(integerObjectPropertyExpression2);
-				RI2Axiom subPropertyAxiom = getOntologyObjectFactory()
-						.getNormalizedAxiomFactory().createRI2Axiom(
-								firstExpression, secondExpression,
-								equivPropAxiom.getAnnotations());
+				RI2Axiom subPropertyAxiom = getOntologyObjectFactory().getNormalizedAxiomFactory()
+						.createRI2Axiom(firstExpression, secondExpression, equivPropAxiom.getAnnotations());
 				ret.add(subPropertyAxiom);
 			}
 		}
@@ -113,8 +109,7 @@ class NormalizerEquivProperties implements NormalizationRule {
 	}
 
 	private Integer getObjectPropertyId(IntegerObjectPropertyExpression propExpr) {
-		return propExpr.accept(new ObjectPropertyIdFinder(
-				getOntologyObjectFactory().getEntityManager()));
+		return propExpr.accept(new ObjectPropertyIdFinder(getOntologyObjectFactory().getEntityManager()));
 	}
 
 	private IntegerOntologyObjectFactory getOntologyObjectFactory() {

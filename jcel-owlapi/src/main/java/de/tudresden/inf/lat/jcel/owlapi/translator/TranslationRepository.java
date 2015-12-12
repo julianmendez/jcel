@@ -96,8 +96,7 @@ public class TranslationRepository {
 	 * @param manager
 	 *            entity manager
 	 */
-	public TranslationRepository(OWLDataFactory dataFactory,
-			IntegerEntityManager manager) {
+	public TranslationRepository(OWLDataFactory dataFactory, IntegerEntityManager manager) {
 		if (dataFactory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -133,8 +132,7 @@ public class TranslationRepository {
 			boolean changed = addClass(cls);
 			ret = ret || changed;
 		}
-		for (OWLObjectProperty objProp : ontology
-				.getObjectPropertiesInSignature()) {
+		for (OWLObjectProperty objProp : ontology.getObjectPropertiesInSignature()) {
 			boolean changed = addObjectProperty(objProp);
 			ret = ret || changed;
 		}
@@ -163,8 +161,7 @@ public class TranslationRepository {
 
 		boolean ret = false;
 		if (!this.classInvMap.containsKey(cls)) {
-			Integer id = this.entityManager.createNamedEntity(
-					IntegerEntityType.CLASS, cls.toStringID(), false);
+			Integer id = this.entityManager.createNamedEntity(IntegerEntityType.CLASS, cls.toStringID(), false);
 			this.classMap.put(id, cls);
 			this.classInvMap.put(cls, id);
 			ret = true;
@@ -186,8 +183,7 @@ public class TranslationRepository {
 
 		boolean ret = false;
 		if (!this.dataPropertyInvMap.containsKey(dataProp)) {
-			Integer id = this.entityManager.createNamedEntity(
-					IntegerEntityType.DATA_PROPERTY, dataProp.toStringID(),
+			Integer id = this.entityManager.createNamedEntity(IntegerEntityType.DATA_PROPERTY, dataProp.toStringID(),
 					false);
 			this.dataPropertyMap.put(id, dataProp);
 			this.dataPropertyInvMap.put(dataProp, id);
@@ -210,8 +206,7 @@ public class TranslationRepository {
 
 		boolean ret = false;
 		if (!this.literalInvMap.containsKey(lit)) {
-			Integer id = this.entityManager.createNamedEntity(
-					IntegerEntityType.LITERAL, lit.getLiteral(), false);
+			Integer id = this.entityManager.createNamedEntity(IntegerEntityType.LITERAL, lit.getLiteral(), false);
 			this.literalMap.put(id, lit);
 			this.literalInvMap.put(lit, id);
 			ret = true;
@@ -233,8 +228,7 @@ public class TranslationRepository {
 
 		boolean ret = false;
 		if (!this.individualInvMap.containsKey(indiv)) {
-			Integer id = this.entityManager.createNamedEntity(
-					IntegerEntityType.INDIVIDUAL, indiv.toStringID(), false);
+			Integer id = this.entityManager.createNamedEntity(IntegerEntityType.INDIVIDUAL, indiv.toStringID(), false);
 			this.individualMap.put(id, indiv);
 			this.individualInvMap.put(indiv, id);
 			ret = true;
@@ -256,8 +250,7 @@ public class TranslationRepository {
 
 		boolean ret = false;
 		if (!this.objectPropertyInvMap.containsKey(objProp)) {
-			Integer id = this.entityManager.createNamedEntity(
-					IntegerEntityType.OBJECT_PROPERTY, objProp.toStringID(),
+			Integer id = this.entityManager.createNamedEntity(IntegerEntityType.OBJECT_PROPERTY, objProp.toStringID(),
 					false);
 			this.objectPropertyMap.put(id, objProp);
 			this.objectPropertyInvMap.put(objProp, id);
@@ -273,8 +266,7 @@ public class TranslationRepository {
 
 		Integer ret = this.classInvMap.get(owlClass);
 		if (ret == null) {
-			throw TranslationException.newIncompleteMapException(owlClass
-					.toStringID());
+			throw TranslationException.newIncompleteMapException(owlClass.toStringID());
 		}
 		return ret;
 	}
@@ -286,8 +278,7 @@ public class TranslationRepository {
 
 		Integer ret = this.dataPropertyInvMap.get(owlDataProperty);
 		if (ret == null) {
-			throw TranslationException
-					.newIncompleteMapException(owlDataProperty.toStringID());
+			throw TranslationException.newIncompleteMapException(owlDataProperty.toStringID());
 		}
 		return ret;
 	}
@@ -299,8 +290,7 @@ public class TranslationRepository {
 
 		Integer ret = this.individualInvMap.get(individual);
 		if (ret == null) {
-			throw TranslationException.newIncompleteMapException(individual
-					.toStringID());
+			throw TranslationException.newIncompleteMapException(individual.toStringID());
 		}
 		return ret;
 	}
@@ -312,8 +302,7 @@ public class TranslationRepository {
 
 		Integer ret = this.literalInvMap.get(owlLiteral);
 		if (ret == null) {
-			throw TranslationException.newIncompleteMapException(owlLiteral
-					.getLiteral());
+			throw TranslationException.newIncompleteMapException(owlLiteral.getLiteral());
 		}
 		return ret;
 	}
@@ -325,8 +314,7 @@ public class TranslationRepository {
 
 		Integer ret = this.objectPropertyInvMap.get(owlObjectProperty);
 		if (ret == null) {
-			throw TranslationException
-					.newIncompleteMapException(owlObjectProperty.toStringID());
+			throw TranslationException.newIncompleteMapException(owlObjectProperty.toStringID());
 		}
 		return ret;
 	}
@@ -338,8 +326,7 @@ public class TranslationRepository {
 
 		OWLClass ret = this.classMap.get(index);
 		if (ret == null) {
-			throw TranslationException.newIncompleteMapException(index
-					.toString());
+			throw TranslationException.newIncompleteMapException(index.toString());
 		}
 		return ret;
 	}
@@ -351,8 +338,7 @@ public class TranslationRepository {
 
 		OWLDataProperty ret = this.dataPropertyMap.get(index);
 		if (ret == null) {
-			throw TranslationException.newIncompleteMapException(index
-					.toString());
+			throw TranslationException.newIncompleteMapException(index.toString());
 		}
 		return ret;
 	}
@@ -364,8 +350,7 @@ public class TranslationRepository {
 
 		OWLNamedIndividual ret = this.individualMap.get(index);
 		if (ret == null) {
-			throw TranslationException.newIncompleteMapException(index
-					.toString());
+			throw TranslationException.newIncompleteMapException(index.toString());
 		}
 		return ret;
 	}
@@ -377,8 +362,7 @@ public class TranslationRepository {
 
 		OWLObjectProperty ret = this.objectPropertyMap.get(index);
 		if (ret == null) {
-			throw TranslationException.newIncompleteMapException(index
-					.toString());
+			throw TranslationException.newIncompleteMapException(index.toString());
 		}
 		return ret;
 	}
@@ -386,28 +370,19 @@ public class TranslationRepository {
 	private void initializeMaps() {
 
 		this.classMap.put(IntegerEntityManager.bottomClassId, this.bottomClass);
-		this.classInvMap.put(this.bottomClass,
-				IntegerEntityManager.bottomClassId);
+		this.classInvMap.put(this.bottomClass, IntegerEntityManager.bottomClassId);
 		this.classMap.put(IntegerEntityManager.topClassId, this.topClass);
 		this.classInvMap.put(this.topClass, IntegerEntityManager.topClassId);
 
-		this.objectPropertyMap.put(IntegerEntityManager.bottomObjectPropertyId,
-				this.bottomObjectProperty);
-		this.objectPropertyInvMap.put(this.bottomObjectProperty,
-				IntegerEntityManager.bottomObjectPropertyId);
-		this.objectPropertyMap.put(IntegerEntityManager.topObjectPropertyId,
-				this.topObjectProperty);
-		this.objectPropertyInvMap.put(this.topObjectProperty,
-				IntegerEntityManager.topObjectPropertyId);
+		this.objectPropertyMap.put(IntegerEntityManager.bottomObjectPropertyId, this.bottomObjectProperty);
+		this.objectPropertyInvMap.put(this.bottomObjectProperty, IntegerEntityManager.bottomObjectPropertyId);
+		this.objectPropertyMap.put(IntegerEntityManager.topObjectPropertyId, this.topObjectProperty);
+		this.objectPropertyInvMap.put(this.topObjectProperty, IntegerEntityManager.topObjectPropertyId);
 
-		this.dataPropertyMap.put(IntegerEntityManager.bottomDataPropertyId,
-				this.bottomDataProperty);
-		this.dataPropertyInvMap.put(this.bottomDataProperty,
-				IntegerEntityManager.bottomDataPropertyId);
-		this.dataPropertyMap.put(IntegerEntityManager.topDataPropertyId,
-				this.topDataProperty);
-		this.dataPropertyInvMap.put(this.topDataProperty,
-				IntegerEntityManager.topDataPropertyId);
+		this.dataPropertyMap.put(IntegerEntityManager.bottomDataPropertyId, this.bottomDataProperty);
+		this.dataPropertyInvMap.put(this.bottomDataProperty, IntegerEntityManager.bottomDataPropertyId);
+		this.dataPropertyMap.put(IntegerEntityManager.topDataPropertyId, this.topDataProperty);
+		this.dataPropertyInvMap.put(this.topDataProperty, IntegerEntityManager.topDataPropertyId);
 	}
 
 	@Override

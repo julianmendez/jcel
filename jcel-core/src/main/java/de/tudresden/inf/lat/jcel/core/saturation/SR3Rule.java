@@ -76,8 +76,7 @@ public class SR3Rule implements SaturationRule {
 	 * @param entityManager
 	 *            entity manager
 	 */
-	public SR3Rule(NormalizedIntegerAxiomFactory factory,
-			IntegerEntityManager entityManager) {
+	public SR3Rule(NormalizedIntegerAxiomFactory factory, IntegerEntityManager entityManager) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -89,8 +88,7 @@ public class SR3Rule implements SaturationRule {
 	}
 
 	@Override
-	public Set<NormalizedIntegerAxiom> apply(
-			Set<NormalizedIntegerAxiom> originalSet) {
+	public Set<NormalizedIntegerAxiom> apply(Set<NormalizedIntegerAxiom> originalSet) {
 		if (originalSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -101,16 +99,11 @@ public class SR3Rule implements SaturationRule {
 			if (normalizedAxiom instanceof RI3Axiom) {
 				RI3Axiom axiom = (RI3Axiom) normalizedAxiom;
 				Integer invLeftSubProp = this.idGenerator
-						.createOrGetInverseObjectPropertyOf(axiom
-								.getLeftSubProperty());
+						.createOrGetInverseObjectPropertyOf(axiom.getLeftSubProperty());
 				Integer invRightSubProp = this.idGenerator
-						.createOrGetInverseObjectPropertyOf(axiom
-								.getRightSubProperty());
-				Integer invSuperProp = this.idGenerator
-						.createOrGetInverseObjectPropertyOf(axiom
-								.getSuperProperty());
-				RI3Axiom newAxiom = this.factory.createRI3Axiom(
-						invRightSubProp, invLeftSubProp, invSuperProp,
+						.createOrGetInverseObjectPropertyOf(axiom.getRightSubProperty());
+				Integer invSuperProp = this.idGenerator.createOrGetInverseObjectPropertyOf(axiom.getSuperProperty());
+				RI3Axiom newAxiom = this.factory.createRI3Axiom(invRightSubProp, invLeftSubProp, invSuperProp,
 						axiom.getAnnotations());
 				ret.add(newAxiom);
 			}

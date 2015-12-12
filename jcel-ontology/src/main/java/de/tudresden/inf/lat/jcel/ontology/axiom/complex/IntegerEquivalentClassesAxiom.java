@@ -54,9 +54,10 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 
 /**
- * This class models an axiom stating that the contained classes are equivalent. <br>
- * This is: A<sub>1</sub> &equiv; A<sub>2</sub>, A<sub>2</sub> &equiv;
- * A<sub>3</sub>, &hellip; , A<sub>n-1</sub> &equiv; A<sub>n</sub>
+ * This class models an axiom stating that the contained classes are equivalent.
+ * <br>
+ * This is: A<sub>1</sub> &equiv; A<sub>2</sub>, A<sub>2</sub> &equiv; A
+ * <sub>3</sub>, &hellip; , A<sub>n-1</sub> &equiv; A<sub>n</sub>
  * 
  * @author Julian Mendez
  */
@@ -76,8 +77,7 @@ public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerEquivalentClassesAxiom(Set<IntegerClassExpression> descSet,
-			Set<Annotation> annotations) {
+	IntegerEquivalentClassesAxiom(Set<IntegerClassExpression> descSet, Set<Annotation> annotations) {
 		if (descSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -91,19 +91,15 @@ public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 		for (IntegerClassExpression expression : this.classExpressions) {
 			classesInSignature.addAll(expression.getClassesInSignature());
 		}
-		this.classesInSignature = Collections
-				.unmodifiableSet(classesInSignature);
+		this.classesInSignature = Collections.unmodifiableSet(classesInSignature);
 
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
 		for (IntegerClassExpression expression : this.classExpressions) {
-			objectPropertiesInSignature.addAll(expression
-					.getObjectPropertiesInSignature());
+			objectPropertiesInSignature.addAll(expression.getObjectPropertiesInSignature());
 		}
-		this.objectPropertiesInSignature = Collections
-				.unmodifiableSet(objectPropertiesInSignature);
+		this.objectPropertiesInSignature = Collections.unmodifiableSet(objectPropertiesInSignature);
 		this.annotations = annotations;
-		this.hashCode = this.classExpressions.hashCode() + 0x1F
-				* this.annotations.hashCode();
+		this.hashCode = this.classExpressions.hashCode() + 0x1F * this.annotations.hashCode();
 	}
 
 	@Override

@@ -67,8 +67,7 @@ public interface Processor {
 	 * @throws UnclassifiedOntologyException
 	 *             if the classification has not finished yet
 	 */
-	IntegerHierarchicalGraph getClassHierarchy()
-			throws UnclassifiedOntologyException;
+	IntegerHierarchicalGraph getClassHierarchy() throws UnclassifiedOntologyException;
 
 	/**
 	 * Returns the data property hierarchy after the classification has
@@ -78,8 +77,7 @@ public interface Processor {
 	 * @throws UnclassifiedOntologyException
 	 *             if the classification has not finished yet
 	 */
-	IntegerHierarchicalGraph getDataPropertyHierarchy()
-			throws UnclassifiedOntologyException;
+	IntegerHierarchicalGraph getDataPropertyHierarchy() throws UnclassifiedOntologyException;
 
 	/**
 	 * Returns the map of direct types for every individual.
@@ -88,8 +86,7 @@ public interface Processor {
 	 * @throws UnclassifiedOntologyException
 	 *             if the classification has not finished yet
 	 */
-	Map<Integer, Set<Integer>> getDirectTypes()
-			throws UnclassifiedOntologyException;
+	Map<Integer, Set<Integer>> getDirectTypes() throws UnclassifiedOntologyException;
 
 	/**
 	 * Returns the object property hierarchy after the classification has
@@ -99,8 +96,7 @@ public interface Processor {
 	 * @throws UnclassifiedOntologyException
 	 *             if the classification has not finished yet
 	 */
-	IntegerHierarchicalGraph getObjectPropertyHierarchy()
-			throws UnclassifiedOntologyException;
+	IntegerHierarchicalGraph getObjectPropertyHierarchy() throws UnclassifiedOntologyException;
 
 	/**
 	 * Returns the map of same individuals.
@@ -110,8 +106,7 @@ public interface Processor {
 	 * @throws UnclassifiedOntologyException
 	 *             if the classification has not finished yet
 	 */
-	Map<Integer, Set<Integer>> getSameIndividualMap()
-			throws UnclassifiedOntologyException;
+	Map<Integer, Set<Integer>> getSameIndividualMap() throws UnclassifiedOntologyException;
 
 	/**
 	 * Tells whether the processor has classified the class hierarchy and object

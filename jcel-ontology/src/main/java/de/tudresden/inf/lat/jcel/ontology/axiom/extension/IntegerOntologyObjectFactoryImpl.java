@@ -60,8 +60,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactoryImpl;
  * 
  * @author Julian Mendez
  */
-public class IntegerOntologyObjectFactoryImpl implements
-		IntegerOntologyObjectFactory {
+public class IntegerOntologyObjectFactoryImpl implements IntegerOntologyObjectFactory {
 
 	private final ComplexIntegerAxiomFactory complexAxiomFactory = new ComplexIntegerAxiomFactoryImpl();
 	private final IntegerDataTypeFactory dataTypeFactory = new IntegerDataTypeFactoryImpl();

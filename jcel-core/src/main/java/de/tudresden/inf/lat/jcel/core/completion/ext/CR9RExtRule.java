@@ -60,7 +60,8 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
  * \u2291<sub><i>T</i></sub> s, y = (\u22A4 , &psi;), z = (\u22A4 , &phi;), y
  * &ne; z, f(s) <br>
  * <b>then</b> v := (\u22A4 , &psi; &cup; &phi;) <br>
- * &nbsp;&nbsp;&nbsp;&nbsp; <b>if</b> v &notin; V <b>then</b> V := V &cup; {v} <br>
+ * &nbsp;&nbsp;&nbsp;&nbsp; <b>if</b> v &notin; V <b>then</b> V := V &cup; {v}
+ * <br>
  * &nbsp;&nbsp;&nbsp;&nbsp; S := S &cup; {(v, k) | (y, k) &isin; S} &cup; {(v,
  * k) | (z, k) &isin; S} <br>
  * &nbsp;&nbsp;&nbsp;&nbsp; R := R &cup; {(r<sub>1</sub>, x, v)}</li>
@@ -78,8 +79,7 @@ public class CR9RExtRule implements RObserverRule {
 	}
 
 	@Override
-	public boolean apply(ClassifierStatus status, int property, int leftClass,
-			int rightClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass, int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -96,8 +96,7 @@ public class CR9RExtRule implements RObserverRule {
 					VNode phiNode = status.getNode(z);
 					if (phiNode.getClassId() == IntegerEntityManager.topClassId) {
 						if (y != z) {
-							VNodeImpl newNode = new VNodeImpl(
-									IntegerEntityManager.topClassId);
+							VNodeImpl newNode = new VNodeImpl(IntegerEntityManager.topClassId);
 							newNode.addExistentialsOf(psiNode);
 							newNode.addExistentialsOf(phiNode);
 							int v = status.createOrGetNodeId(newNode);

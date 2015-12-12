@@ -55,8 +55,7 @@ import java.util.Set;
  * @author Julian Mendez
  * 
  */
-public class IntegerObjectProperty implements IntegerObjectPropertyExpression,
-		Comparable<IntegerObjectProperty> {
+public class IntegerObjectProperty implements IntegerObjectPropertyExpression, Comparable<IntegerObjectProperty> {
 
 	private final int id;
 

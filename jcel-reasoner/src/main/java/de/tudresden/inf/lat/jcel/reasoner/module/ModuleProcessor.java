@@ -73,8 +73,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
  */
 public class ModuleProcessor implements Processor {
 
-	private static final Logger logger = Logger.getLogger(ModuleProcessor.class
-			.getName());
+	private static final Logger logger = Logger.getLogger(ModuleProcessor.class.getName());
 
 	private IntegerHierarchicalGraphImpl classHierarchy = null;
 	private IntegerHierarchicalGraphImpl dataPropertyHierarchy = null;
@@ -96,8 +95,7 @@ public class ModuleProcessor implements Processor {
 	 * @param factory
 	 *            factory to create the auxiliary processor
 	 */
-	public ModuleProcessor(Set<ComplexIntegerAxiom> axiomSet,
-			ModuleProcessorFactory factory) {
+	public ModuleProcessor(Set<ComplexIntegerAxiom> axiomSet, ModuleProcessorFactory factory) {
 		if (axiomSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -113,8 +111,7 @@ public class ModuleProcessor implements Processor {
 		boolean ret = false;
 		for (Iterator<Integer> it = b.iterator(); !ret && it.hasNext();) {
 			Integer elem = it.next();
-			if (!elem.equals(IntegerEntityManager.bottomClassId)
-					&& !elem.equals(IntegerEntityManager.topClassId)) {
+			if (!elem.equals(IntegerEntityManager.bottomClassId) && !elem.equals(IntegerEntityManager.topClassId)) {
 				ret = ret || a.contains(elem);
 			}
 		}
@@ -141,8 +138,7 @@ public class ModuleProcessor implements Processor {
 	 *            the set of axioms
 	 * @return the subsets with disjoint symbols
 	 */
-	private List<Set<ComplexIntegerAxiom>> findModules(
-			Set<ComplexIntegerAxiom> axiomSet) {
+	private List<Set<ComplexIntegerAxiom>> findModules(Set<ComplexIntegerAxiom> axiomSet) {
 		List<Set<ComplexIntegerAxiom>> ret = new ArrayList<Set<ComplexIntegerAxiom>>();
 		Set<ComplexIntegerAxiom> toBeGrouped = new HashSet<ComplexIntegerAxiom>();
 		toBeGrouped.addAll(axiomSet);
@@ -163,13 +159,10 @@ public class ModuleProcessor implements Processor {
 				Set<ComplexIntegerAxiom> toVisit = new HashSet<ComplexIntegerAxiom>();
 				toVisit.addAll(toBeGrouped);
 				for (ComplexIntegerAxiom currentAxiom : toVisit) {
-					Set<Integer> classesInSignature = currentAxiom
-							.getClassesInSignature();
-					Set<Integer> propertiesInSignature = currentAxiom
-							.getObjectPropertiesInSignature();
+					Set<Integer> classesInSignature = currentAxiom.getClassesInSignature();
+					Set<Integer> propertiesInSignature = currentAxiom.getObjectPropertiesInSignature();
 					if (containsAnyClass(classSet, classesInSignature)
-							|| containsAnyProperty(propertySet,
-									propertiesInSignature)) {
+							|| containsAnyProperty(propertySet, propertiesInSignature)) {
 						toBeGrouped.remove(currentAxiom);
 						propertySet.addAll(propertiesInSignature);
 						classSet.addAll(classesInSignature);
@@ -193,8 +186,7 @@ public class ModuleProcessor implements Processor {
 	}
 
 	@Override
-	public IntegerHierarchicalGraph getDataPropertyHierarchy()
-			throws UnclassifiedOntologyException {
+	public IntegerHierarchicalGraph getDataPropertyHierarchy() throws UnclassifiedOntologyException {
 		IntegerHierarchicalGraph ret = null;
 		if (isReady()) {
 			ret = this.dataPropertyHierarchy;
@@ -240,24 +232,19 @@ public class ModuleProcessor implements Processor {
 
 		logger.fine("using " + getClass().getSimpleName() + " ...");
 
-		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(
-				new IntegerSubsumerGraphImpl(
-						IntegerEntityManager.bottomDataPropertyId,
-						IntegerEntityManager.topDataPropertyId));
+		this.dataPropertyHierarchy = new IntegerHierarchicalGraphImpl(new IntegerSubsumerGraphImpl(
+				IntegerEntityManager.bottomDataPropertyId, IntegerEntityManager.topDataPropertyId));
 
 		this.moduleList = findModules(originalAxiomSet);
 		logger.fine("modules found : " + this.moduleList.size());
 		for (int index = 0; index < this.moduleList.size(); index++) {
-			logger.fine("module " + index + " has "
-					+ this.moduleList.get(index).size() + " axioms");
+			logger.fine("module " + index + " has " + this.moduleList.get(index).size() + " axioms");
 		}
 
 		this.moduleIndex = 0;
-		this.classHierarchy = new IntegerHierarchicalGraphImpl(
-				IntegerEntityManager.bottomClassId,
+		this.classHierarchy = new IntegerHierarchicalGraphImpl(IntegerEntityManager.bottomClassId,
 				IntegerEntityManager.topClassId);
-		this.objectPropertyHierarchy = new IntegerHierarchicalGraphImpl(
-				IntegerEntityManager.bottomObjectPropertyId,
+		this.objectPropertyHierarchy = new IntegerHierarchicalGraphImpl(IntegerEntityManager.bottomObjectPropertyId,
 				IntegerEntityManager.topObjectPropertyId);
 		this.directTypes = new HashMap<Integer, Set<Integer>>();
 		this.sameIndividualMap = new HashMap<Integer, Set<Integer>>();
@@ -266,8 +253,7 @@ public class ModuleProcessor implements Processor {
 		logger.fine("");
 		logger.fine("classifying module " + this.moduleIndex + " ...");
 
-		this.processor = this.processorFactory.createProcessor(this.moduleList
-				.get(this.moduleIndex));
+		this.processor = this.processorFactory.createProcessor(this.moduleList.get(this.moduleIndex));
 	}
 
 	@Override
@@ -275,25 +261,18 @@ public class ModuleProcessor implements Processor {
 		if (!this.isReady) {
 			boolean hasMoreEntries = this.processor.process();
 			if (!hasMoreEntries) {
-				this.classHierarchy.disjointUnion(this.processor
-						.getClassHierarchy());
-				this.objectPropertyHierarchy.disjointUnion(this.processor
-						.getObjectPropertyHierarchy());
+				this.classHierarchy.disjointUnion(this.processor.getClassHierarchy());
+				this.objectPropertyHierarchy.disjointUnion(this.processor.getObjectPropertyHierarchy());
 				this.directTypes.putAll(this.processor.getDirectTypes());
-				this.sameIndividualMap.putAll(this.processor
-						.getSameIndividualMap());
+				this.sameIndividualMap.putAll(this.processor.getSameIndividualMap());
 				this.processor = null;
-				logger.fine("module " + this.moduleIndex
-						+ " has been classified.");
+				logger.fine("module " + this.moduleIndex + " has been classified.");
 				logger.fine("");
 				this.moduleIndex++;
 				if (this.moduleIndex < this.moduleList.size()) {
 					hasMoreEntries = true;
-					logger.fine("classifying module " + this.moduleIndex
-							+ " ...");
-					this.processor = this.processorFactory
-							.createProcessor(this.moduleList
-									.get(this.moduleIndex));
+					logger.fine("classifying module " + this.moduleIndex + " ...");
+					this.processor = this.processorFactory.createProcessor(this.moduleList.get(this.moduleIndex));
 				}
 				if (!hasMoreEntries) {
 					this.isReady = true;

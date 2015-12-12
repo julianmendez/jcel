@@ -56,8 +56,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
  * 
  * @author Julian Mendez
  */
-public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression,
-		Comparable<IntegerObjectInverseOf> {
+public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression, Comparable<IntegerObjectInverseOf> {
 
 	private final int hashCode;
 	private final IntegerObjectProperty invProperty;

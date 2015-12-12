@@ -63,8 +63,8 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  * 
  * @author Julian Mendez
  */
-public class ObjectPropertyExpressionTranslator implements
-		OWLPropertyExpressionVisitorEx<IntegerObjectPropertyExpression> {
+public class ObjectPropertyExpressionTranslator
+		implements OWLPropertyExpressionVisitorEx<IntegerObjectPropertyExpression> {
 
 	private final IntegerDataTypeFactory factory;
 	private final TranslationRepository repository;
@@ -77,8 +77,7 @@ public class ObjectPropertyExpressionTranslator implements
 	 * @param repository
 	 *            translation repository
 	 */
-	public ObjectPropertyExpressionTranslator(IntegerDataTypeFactory factory,
-			TranslationRepository repository) {
+	public ObjectPropertyExpressionTranslator(IntegerDataTypeFactory factory, TranslationRepository repository) {
 		if (factory == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -112,38 +111,31 @@ public class ObjectPropertyExpressionTranslator implements
 		if (property == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-		IntegerObjectPropertyExpression propExpr = property.getInverse()
-				.accept(this);
+		IntegerObjectPropertyExpression propExpr = property.getInverse().accept(this);
 		IntegerObjectPropertyExpression ret;
 		if (propExpr instanceof IntegerObjectProperty) {
-			ret = getDataTypeFactory().createObjectInverseOf(
-					(IntegerObjectProperty) propExpr);
+			ret = getDataTypeFactory().createObjectInverseOf((IntegerObjectProperty) propExpr);
 		} else if (propExpr instanceof IntegerObjectInverseOf) {
 			ret = ((IntegerObjectInverseOf) propExpr).getInverse();
 		} else {
-			throw new IllegalArgumentException(
-					"Object property expression cannot be translated: "
-							+ property);
+			throw new IllegalArgumentException("Object property expression cannot be translated: " + property);
 		}
 
 		return ret;
 	}
 
 	@Override
-	public IntegerObjectPropertyExpression visit(
-			OWLObjectProperty owlObjectProperty) {
+	public IntegerObjectPropertyExpression visit(OWLObjectProperty owlObjectProperty) {
 		if (owlObjectProperty == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
 		getTranslationRepository().addObjectProperty(owlObjectProperty);
-		return getDataTypeFactory().createObjectProperty(
-				getTranslationRepository().getId(owlObjectProperty));
+		return getDataTypeFactory().createObjectProperty(getTranslationRepository().getId(owlObjectProperty));
 	}
 
 	// @Override
-	public IntegerObjectPropertyExpression visit(
-			OWLAnnotationProperty owlAnnotationProperty) {
+	public IntegerObjectPropertyExpression visit(OWLAnnotationProperty owlAnnotationProperty) {
 		// TODO Auto-generated method stub
 		return null;
 	}

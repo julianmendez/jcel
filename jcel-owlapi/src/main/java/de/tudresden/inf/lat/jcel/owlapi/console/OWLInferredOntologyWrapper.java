@@ -73,8 +73,7 @@ public class OWLInferredOntologyWrapper {
 	private final OWLOntology ontology;
 	private final OWLReasoner reasoner;
 
-	public OWLInferredOntologyWrapper(OWLReasoner reasoner)
-			throws OWLOntologyCreationException {
+	public OWLInferredOntologyWrapper(OWLReasoner reasoner) throws OWLOntologyCreationException {
 		if (reasoner == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -82,8 +81,7 @@ public class OWLInferredOntologyWrapper {
 		this.reasoner = reasoner;
 
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-		this.ontology = manager.createOntology(reasoner.getRootOntology()
-				.getOntologyID());
+		this.ontology = manager.createOntology(reasoner.getRootOntology().getOntologyID());
 
 		process();
 
@@ -105,14 +103,11 @@ public class OWLInferredOntologyWrapper {
 		Set<OWLClass> classSet = new TreeSet<OWLClass>();
 		classSet.addAll(getReasoner().getRootOntology().getClassesInSignature());
 		Set<OWLObjectProperty> objectPropertySet = new TreeSet<OWLObjectProperty>();
-		objectPropertySet.addAll(getReasoner().getRootOntology()
-				.getObjectPropertiesInSignature());
+		objectPropertySet.addAll(getReasoner().getRootOntology().getObjectPropertiesInSignature());
 		Set<OWLDataProperty> dataPropertySet = new TreeSet<OWLDataProperty>();
-		dataPropertySet.addAll(getReasoner().getRootOntology()
-				.getDataPropertiesInSignature());
+		dataPropertySet.addAll(getReasoner().getRootOntology().getDataPropertiesInSignature());
 		Set<OWLNamedIndividual> individualSet = new TreeSet<OWLNamedIndividual>();
-		individualSet.addAll(getReasoner().getRootOntology()
-				.getIndividualsInSignature());
+		individualSet.addAll(getReasoner().getRootOntology().getIndividualsInSignature());
 
 		processDeclarationC(classSet);
 		processDeclarationOP(objectPropertySet);
@@ -125,8 +120,7 @@ public class OWLInferredOntologyWrapper {
 			while (!classesToVisit.isEmpty()) {
 				OWLClass cls = classesToVisit.iterator().next();
 				classesToVisit.remove(cls);
-				Set<OWLClass> equivClasses = getReasoner()
-						.getEquivalentClasses(cls).getEntities();
+				Set<OWLClass> equivClasses = getReasoner().getEquivalentClasses(cls).getEntities();
 				if (equivClasses.size() > 1) {
 					processEquivalentClasses(equivClasses);
 				}
@@ -138,11 +132,10 @@ public class OWLInferredOntologyWrapper {
 			Set<OWLObjectProperty> objectPropertiesToVisit = new TreeSet<OWLObjectProperty>();
 			objectPropertiesToVisit.addAll(objectPropertySet);
 			while (!objectPropertiesToVisit.isEmpty()) {
-				OWLObjectProperty property = objectPropertiesToVisit.iterator()
-						.next();
+				OWLObjectProperty property = objectPropertiesToVisit.iterator().next();
 				objectPropertiesToVisit.remove(property);
-				Set<OWLObjectPropertyExpression> equivProperties = getReasoner()
-						.getEquivalentObjectProperties(property).getEntities();
+				Set<OWLObjectPropertyExpression> equivProperties = getReasoner().getEquivalentObjectProperties(property)
+						.getEntities();
 				if (equivProperties.size() > 1) {
 					processEquivalentObjectProperties(equivProperties);
 				}
@@ -154,11 +147,10 @@ public class OWLInferredOntologyWrapper {
 			Set<OWLDataProperty> dataPropertiesToVisit = new TreeSet<OWLDataProperty>();
 			dataPropertiesToVisit.addAll(dataPropertySet);
 			while (!dataPropertiesToVisit.isEmpty()) {
-				OWLDataProperty property = dataPropertiesToVisit.iterator()
-						.next();
+				OWLDataProperty property = dataPropertiesToVisit.iterator().next();
 				dataPropertiesToVisit.remove(property);
-				Set<OWLDataProperty> equivProperties = getReasoner()
-						.getEquivalentDataProperties(property).getEntities();
+				Set<OWLDataProperty> equivProperties = getReasoner().getEquivalentDataProperties(property)
+						.getEntities();
 				if (equivProperties.size() > 1) {
 					processEquivalentDataProperties(equivProperties);
 				}
@@ -168,8 +160,7 @@ public class OWLInferredOntologyWrapper {
 
 		for (OWLClass subClass : classSet) {
 			Set<OWLClass> superClasses = new TreeSet<OWLClass>();
-			superClasses.addAll(getReasoner().getSuperClasses(subClass, true)
-					.getFlattened());
+			superClasses.addAll(getReasoner().getSuperClasses(subClass, true).getFlattened());
 			for (OWLClass superClass : superClasses) {
 				processSubClassOf(subClass, superClass);
 			}
@@ -177,28 +168,23 @@ public class OWLInferredOntologyWrapper {
 
 		for (OWLObjectProperty subProperty : objectPropertySet) {
 			Set<OWLObjectPropertyExpression> superProperties = new TreeSet<OWLObjectPropertyExpression>();
-			superProperties.addAll(getReasoner().getSuperObjectProperties(
-					subProperty, true).getFlattened());
+			superProperties.addAll(getReasoner().getSuperObjectProperties(subProperty, true).getFlattened());
 			for (OWLObjectPropertyExpression superProperty : superProperties) {
-				processSubObjectPropertyOf(subProperty.asOWLObjectProperty(),
-						superProperty.asOWLObjectProperty());
+				processSubObjectPropertyOf(subProperty.asOWLObjectProperty(), superProperty.asOWLObjectProperty());
 			}
 		}
 
 		for (OWLDataProperty subProperty : dataPropertySet) {
 			Set<OWLDataPropertyExpression> superProperties = new TreeSet<OWLDataPropertyExpression>();
-			superProperties.addAll(getReasoner().getSuperDataProperties(
-					subProperty, true).getFlattened());
+			superProperties.addAll(getReasoner().getSuperDataProperties(subProperty, true).getFlattened());
 			for (OWLDataPropertyExpression superProperty : superProperties) {
-				processSubDataPropertyOf(subProperty.asOWLDataProperty(),
-						superProperty.asOWLDataProperty());
+				processSubDataPropertyOf(subProperty.asOWLDataProperty(), superProperty.asOWLDataProperty());
 			}
 		}
 
 		for (OWLClass cls : classSet) {
 			Set<OWLNamedIndividual> instances = new TreeSet<OWLNamedIndividual>();
-			instances.addAll(getReasoner().getInstances(cls, true)
-					.getFlattened());
+			instances.addAll(getReasoner().getInstances(cls, true).getFlattened());
 			for (OWLNamedIndividual individual : instances) {
 				processClassAssertion(cls, individual);
 			}
@@ -207,12 +193,10 @@ public class OWLInferredOntologyWrapper {
 		for (OWLObjectProperty property : objectPropertySet) {
 			for (OWLNamedIndividual individual : individualSet) {
 				Set<OWLNamedIndividual> propertyValues = new TreeSet<OWLNamedIndividual>();
-				propertyValues.addAll(getReasoner().getObjectPropertyValues(
-						individual, property.asOWLObjectProperty())
+				propertyValues.addAll(getReasoner().getObjectPropertyValues(individual, property.asOWLObjectProperty())
 						.getFlattened());
 				for (OWLNamedIndividual otherIndividual : propertyValues) {
-					processObjectPropertyAssertion(property, individual,
-							otherIndividual);
+					processObjectPropertyAssertion(property, individual, otherIndividual);
 				}
 			}
 		}
@@ -220,24 +204,20 @@ public class OWLInferredOntologyWrapper {
 		for (OWLDataProperty property : dataPropertySet) {
 			for (OWLNamedIndividual individual : individualSet) {
 				Set<OWLLiteral> propertyValues = new TreeSet<OWLLiteral>();
-				propertyValues.addAll(getReasoner().getDataPropertyValues(
-						individual, property.asOWLDataProperty()));
+				propertyValues.addAll(getReasoner().getDataPropertyValues(individual, property.asOWLDataProperty()));
 				for (OWLLiteral otherIndividual : propertyValues) {
-					processDataPropertyAssertion(property, individual,
-							otherIndividual);
+					processDataPropertyAssertion(property, individual, otherIndividual);
 				}
 			}
 		}
 	}
 
-	private void processClassAssertion(OWLClass cls,
-			OWLNamedIndividual individual) {
+	private void processClassAssertion(OWLClass cls, OWLNamedIndividual individual) {
 		processEntity(cls);
 		processEntity(individual);
 	}
 
-	private void processDataPropertyAssertion(OWLDataProperty property,
-			OWLNamedIndividual subject, OWLLiteral object) {
+	private void processDataPropertyAssertion(OWLDataProperty property, OWLNamedIndividual subject, OWLLiteral object) {
 		processEntity(property);
 		processEntity(subject);
 		// processEntity(object);
@@ -268,63 +248,53 @@ public class OWLInferredOntologyWrapper {
 	}
 
 	private void processEntity(OWLClass entity) {
-		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory()
-				.getOWLDeclarationAxiom(entity));
+		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(entity));
 	}
 
 	private void processEntity(OWLDataProperty entity) {
-		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory()
-				.getOWLDeclarationAxiom(entity));
+		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(entity));
 	}
 
 	private void processEntity(OWLNamedIndividual entity) {
-		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory()
-				.getOWLDeclarationAxiom(entity));
+		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(entity));
 	}
 
 	private void processEntity(OWLObjectProperty entity) {
-		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory()
-				.getOWLDeclarationAxiom(entity));
+		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(entity));
 	}
 
 	private void processEquivalentClasses(Set<OWLClass> classSet) {
-		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory()
-				.getOWLEquivalentClassesAxiom(classSet));
+		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory().getOWLEquivalentClassesAxiom(classSet));
 	}
 
-	private void processEquivalentDataProperties(
-			Set<OWLDataProperty> propertySet) {
+	private void processEquivalentDataProperties(Set<OWLDataProperty> propertySet) {
 		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory()
 				.getOWLEquivalentDataPropertiesAxiom(propertySet));
 	}
 
-	private void processEquivalentObjectProperties(
-			Set<OWLObjectPropertyExpression> propertySet) {
+	private void processEquivalentObjectProperties(Set<OWLObjectPropertyExpression> propertySet) {
 		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory()
 				.getOWLEquivalentObjectPropertiesAxiom(propertySet));
 	}
 
-	private void processObjectPropertyAssertion(OWLObjectProperty property,
-			OWLNamedIndividual subject, OWLNamedIndividual object) {
-		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory()
-				.getOWLObjectPropertyAssertionAxiom(property, subject, object));
+	private void processObjectPropertyAssertion(OWLObjectProperty property, OWLNamedIndividual subject,
+			OWLNamedIndividual object) {
+		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(property,
+				subject, object));
 	}
 
 	private void processSubClassOf(OWLClass subClass, OWLClass superClass) {
-		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory()
-				.getOWLSubClassOfAxiom(subClass, superClass));
+		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory().getOWLSubClassOfAxiom(subClass, superClass));
 	}
 
-	private void processSubDataPropertyOf(OWLDataProperty subProperty,
-			OWLDataProperty superProperty) {
-		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory()
-				.getOWLSubDataPropertyOfAxiom(subProperty, superProperty));
+	private void processSubDataPropertyOf(OWLDataProperty subProperty, OWLDataProperty superProperty) {
+		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory().getOWLSubDataPropertyOfAxiom(subProperty,
+				superProperty));
 	}
 
-	private void processSubObjectPropertyOf(OWLObjectProperty subProperty,
-			OWLObjectProperty superProperty) {
-		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory()
-				.getOWLSubObjectPropertyOfAxiom(subProperty, superProperty));
+	private void processSubObjectPropertyOf(OWLObjectProperty subProperty, OWLObjectProperty superProperty) {
+		addAxiom(this.ontology.getOWLOntologyManager().getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(subProperty,
+				superProperty));
 	}
 
 }

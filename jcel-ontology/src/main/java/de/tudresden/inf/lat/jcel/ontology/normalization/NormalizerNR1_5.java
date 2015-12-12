@@ -95,18 +95,14 @@ class NormalizerNR1_5 implements NormalizationRule {
 		return ret;
 	}
 
-	private Set<IntegerAxiom> applyRule(
-			IntegerEquivalentClassesAxiom equivalentAxiom) {
+	private Set<IntegerAxiom> applyRule(IntegerEquivalentClassesAxiom equivalentAxiom) {
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
-		Set<IntegerClassExpression> classExpressionSet = equivalentAxiom
-				.getClassExpressions();
+		Set<IntegerClassExpression> classExpressionSet = equivalentAxiom.getClassExpressions();
 		for (IntegerClassExpression firstClassExpression : classExpressionSet) {
 			for (IntegerClassExpression secondClassExpression : classExpressionSet) {
 				if (!firstClassExpression.equals(secondClassExpression)) {
-					IntegerSubClassOfAxiom subClassAxiom = getOntologyObjectFactory()
-							.getComplexAxiomFactory().createSubClassOfAxiom(
-									firstClassExpression,
-									secondClassExpression,
+					IntegerSubClassOfAxiom subClassAxiom = getOntologyObjectFactory().getComplexAxiomFactory()
+							.createSubClassOfAxiom(firstClassExpression, secondClassExpression,
 									equivalentAxiom.getAnnotations());
 					ret.add(subClassAxiom);
 				}

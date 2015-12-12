@@ -52,8 +52,8 @@ import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 /**
  * 
  * <ul>
- * <li>CR-6 : <b>if</b> r \u2218 r \u2291 r &isin; <i>T</i>, <u>(r, x, y)
- * &isin; R</u>, <u>(r, y, z) &isin; R</u> <br>
+ * <li>CR-6 : <b>if</b> r \u2218 r \u2291 r &isin; <i>T</i>, <u>(r, x, y) &isin;
+ * R</u>, <u>(r, y, z) &isin; R</u> <br>
  * <b>then</b> R := R &cup; {(r, x, z)}</li>
  * </ul>
  * <br>
@@ -62,8 +62,8 @@ import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
  * 
  * Previous forms:
  * <ul>
- * <li>CR-6 : <b>if</b> r \u2218 s \u2291 t &isin; <i>T</i>, <u>(r, x, y)
- * &isin; R</u>, <u>(s, y, z) &isin; R</u> <br>
+ * <li>CR-6 : <b>if</b> r \u2218 s \u2291 t &isin; <i>T</i>, <u>(r, x, y) &isin;
+ * R</u>, <u>(s, y, z) &isin; R</u> <br>
  * <b>then</b> R := R &cup; {(t, x, z)}</li>
  * </ul>
  * 
@@ -84,8 +84,7 @@ public class CR6RTrRule implements RObserverRule {
 	}
 
 	@Override
-	public boolean apply(ClassifierStatus status, int property, int leftClass,
-			int rightClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass, int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -98,8 +97,7 @@ public class CR6RTrRule implements RObserverRule {
 
 	private boolean apply1(ClassifierStatus status, int r, int x, int y) {
 		boolean ret = false;
-		if (status.getExtendedOntology().getTransitiveObjectProperties()
-				.contains(r)) {
+		if (status.getExtendedOntology().getTransitiveObjectProperties().contains(r)) {
 			for (int z : status.getSecondByFirst(r, y)) {
 				ret |= status.addNewREntry(r, x, z);
 			}
@@ -109,8 +107,7 @@ public class CR6RTrRule implements RObserverRule {
 
 	private boolean apply2(ClassifierStatus status, int r, int y, int z) {
 		boolean ret = false;
-		if (status.getExtendedOntology().getTransitiveObjectProperties()
-				.contains(r)) {
+		if (status.getExtendedOntology().getTransitiveObjectProperties().contains(r)) {
 			for (int x : status.getFirstBySecond(r, y)) {
 				ret |= status.addNewREntry(r, x, z);
 			}

@@ -56,8 +56,7 @@ package de.tudresden.inf.lat.jcel.owlapi.main;
  * 
  * @see JcelReasoner
  */
-public class UnsupportedReasonerOperationInJcelException extends
-		UnsupportedOperationException {
+public class UnsupportedReasonerOperationInJcelException extends UnsupportedOperationException {
 
 	private static final long serialVersionUID = 5757365447889383439L;
 
@@ -69,8 +68,7 @@ public class UnsupportedReasonerOperationInJcelException extends
 		super(message);
 	}
 
-	public UnsupportedReasonerOperationInJcelException(String message,
-			Throwable cause) {
+	public UnsupportedReasonerOperationInJcelException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

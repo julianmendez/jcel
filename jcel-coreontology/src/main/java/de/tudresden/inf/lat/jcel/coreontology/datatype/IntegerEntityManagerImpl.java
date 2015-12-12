@@ -81,19 +81,14 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	public IntegerEntityManagerImpl() {
 		registerProperty(bottomClassId, IntegerEntityType.CLASS, false);
 		registerProperty(topClassId, IntegerEntityType.CLASS, false);
-		registerProperty(bottomObjectPropertyId,
-				IntegerEntityType.OBJECT_PROPERTY, false);
-		registerProperty(topObjectPropertyId,
-				IntegerEntityType.OBJECT_PROPERTY, false);
-		registerProperty(bottomDataPropertyId, IntegerEntityType.DATA_PROPERTY,
-				false);
-		registerProperty(topDataPropertyId, IntegerEntityType.DATA_PROPERTY,
-				false);
+		registerProperty(bottomObjectPropertyId, IntegerEntityType.OBJECT_PROPERTY, false);
+		registerProperty(topObjectPropertyId, IntegerEntityType.OBJECT_PROPERTY, false);
+		registerProperty(bottomDataPropertyId, IntegerEntityType.DATA_PROPERTY, false);
+		registerProperty(topDataPropertyId, IntegerEntityType.DATA_PROPERTY, false);
 	}
 
 	@Override
-	public Integer createAnonymousEntity(IntegerEntityType type,
-			boolean auxiliary) {
+	public Integer createAnonymousEntity(IntegerEntityType type, boolean auxiliary) {
 		if (type == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -106,8 +101,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	}
 
 	@Override
-	public Integer createNamedEntity(IntegerEntityType type, String name,
-			boolean auxiliary) {
+	public Integer createNamedEntity(IntegerEntityType type, String name, boolean auxiliary) {
 		if (type == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -136,8 +130,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	}
 
 	@Override
-	public Integer createOrGetInverseObjectPropertyOf(Integer propertyId)
-			throws IndexOutOfBoundsException {
+	public Integer createOrGetInverseObjectPropertyOf(Integer propertyId) throws IndexOutOfBoundsException {
 		if (propertyId == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -157,16 +150,13 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 		boolean ret = (this == o);
 		if (!ret && (o instanceof IntegerEntityManagerImpl)) {
 			IntegerEntityManagerImpl other = (IntegerEntityManagerImpl) o;
-			ret = (this.entityCounter == other.entityCounter)
-					&& this.auxEntityMap.equals(other.auxEntityMap)
+			ret = (this.entityCounter == other.entityCounter) && this.auxEntityMap.equals(other.auxEntityMap)
 					&& this.nonAuxEntityMap.equals(other.nonAuxEntityMap)
 					&& this.auxNominalMap.equals(other.auxNominalMap)
 					&& this.auxNominalInvMap.equals(other.auxNominalInvMap)
-					&& this.auxInverseObjectPropertySet
-							.equals(other.inverseObjectPropertyMap)
+					&& this.auxInverseObjectPropertySet.equals(other.inverseObjectPropertyMap)
 					&& this.nameMap.equals(other.nameMap)
-					&& this.inverseObjectPropertyMap
-							.equals(other.inverseObjectPropertyMap);
+					&& this.inverseObjectPropertyMap.equals(other.inverseObjectPropertyMap);
 		}
 
 		return ret;
@@ -248,8 +238,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 			throw new IllegalArgumentException("Null argument.");
 		}
 		if (!this.entityTypeMap.containsKey(identifier)) {
-			throw new IndexOutOfBoundsException("Invalid identifier : "
-					+ identifier);
+			throw new IndexOutOfBoundsException("Invalid identifier : " + identifier);
 		}
 
 		String ret = this.nameMap.get(identifier);
@@ -271,8 +260,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 
 		IntegerEntityType ret = this.entityTypeMap.get(identifier);
 		if (ret == null) {
-			throw new IndexOutOfBoundsException("Invalid identifier : "
-					+ identifier);
+			throw new IndexOutOfBoundsException("Invalid identifier : " + identifier);
 		}
 		return ret;
 	}
@@ -289,8 +277,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 		}
 
 		if (!this.entityTypeMap.containsKey(identifier)) {
-			throw new IndexOutOfBoundsException("Invalid identifier : "
-					+ identifier);
+			throw new IndexOutOfBoundsException("Invalid identifier : " + identifier);
 		}
 		return this.auxEntitySet.contains(identifier);
 	}
@@ -305,8 +292,8 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	}
 
 	@Override
-	public boolean proposeInverseObjectPropertyOf(Integer firstProperty,
-			Integer secondProperty) throws IndexOutOfBoundsException {
+	public boolean proposeInverseObjectPropertyOf(Integer firstProperty, Integer secondProperty)
+			throws IndexOutOfBoundsException {
 		if (firstProperty == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -315,10 +302,8 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 		}
 
 		boolean ret = false;
-		Integer invFirstProperty = this.inverseObjectPropertyMap
-				.get(firstProperty);
-		Integer invSecondProperty = this.inverseObjectPropertyMap
-				.get(secondProperty);
+		Integer invFirstProperty = this.inverseObjectPropertyMap.get(firstProperty);
+		Integer invSecondProperty = this.inverseObjectPropertyMap.get(secondProperty);
 		if ((invFirstProperty == null) && (invSecondProperty == null)) {
 			this.inverseObjectPropertyMap.put(firstProperty, secondProperty);
 			this.inverseObjectPropertyMap.put(secondProperty, firstProperty);
@@ -327,8 +312,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 		return ret;
 	}
 
-	private void registerProperty(Integer identifier, IntegerEntityType type,
-			boolean auxiliary) {
+	private void registerProperty(Integer identifier, IntegerEntityType type, boolean auxiliary) {
 		if (auxiliary) {
 			this.auxEntitySet.add(identifier);
 			Set<Integer> set = this.auxEntityMap.get(type);

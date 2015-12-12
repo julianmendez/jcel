@@ -97,8 +97,7 @@ public class IntegerDataHasValue implements IntegerClassExpression {
 		boolean ret = (this == o);
 		if (!ret && (o instanceof IntegerDataHasValue)) {
 			IntegerDataHasValue other = (IntegerDataHasValue) o;
-			ret = (getProperty() == other.getProperty())
-					&& (getValue() == other.getValue());
+			ret = (getProperty() == other.getProperty()) && (getValue() == other.getValue());
 		}
 		return ret;
 	}

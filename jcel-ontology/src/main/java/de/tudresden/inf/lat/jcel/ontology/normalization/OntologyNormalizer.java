@@ -68,12 +68,12 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
  * <li>NR-1.5 : C &equiv; D \u219D C \u2291 D, D \u2291 C</li>
  * <li>NR-1.6 : C<sup>&perp;</sup> \u2291 D \u219D</li>
  * <li>NR-1.7 : C \u2291 D<sup>&perp;</sup> \u219D C \u2291 &perp;</li>
- * <li>NR-2.1 : r<sub>1</sub> \u2218 &hellip; \u2218 r<sub>k</sub> \u2291
- * s \u219D r<sub>1</sub> \u2218 &hellip; \u2218 r<sub>k-1</sub> \u2291
- * u, u \u2218 r<sub>k</sub> \u2291 s</li>
- * <li>NR-2.2 : C<sub>1</sub> \u2293 &hellip; \u2293 C' \u2293 &hellip;
- * \u2293 C<sub>n</sub> \u2291 D \u219D C' \u2291 A, C<sub>1</sub> \u2293
- * &hellip; \u2293 A \u2293 &hellip; \u2293 C<sub>n</sub> \u2291 D</li>
+ * <li>NR-2.1 : r<sub>1</sub> \u2218 &hellip; \u2218 r<sub>k</sub> \u2291 s
+ * \u219D r<sub>1</sub> \u2218 &hellip; \u2218 r<sub>k-1</sub> \u2291 u, u
+ * \u2218 r<sub>k</sub> \u2291 s</li>
+ * <li>NR-2.2 : C<sub>1</sub> \u2293 &hellip; \u2293 C' \u2293 &hellip; \u2293 C
+ * <sub>n</sub> \u2291 D \u219D C' \u2291 A, C<sub>1</sub> \u2293 &hellip;
+ * \u2293 A \u2293 &hellip; \u2293 C<sub>n</sub> \u2291 D</li>
  * <li>NR-2.3 : &exist; r <i>.</i> C'\u2291 D \u219D C' \u2291 A, &exist; r
  * <i>.</i> A \u2291 D</li>
  * <li>NR-3.1 : C' \u2291 D' \u219D C' \u2291 A, A \u2291 D'</li>
@@ -101,8 +101,7 @@ public class OntologyNormalizer {
 	 *            factory
 	 * @return the normalized set of axioms according to the specified axioms
 	 */
-	public Set<NormalizedIntegerAxiom> normalize(
-			Set<ComplexIntegerAxiom> originalAxiomSet,
+	public Set<NormalizedIntegerAxiom> normalize(Set<ComplexIntegerAxiom> originalAxiomSet,
 			IntegerOntologyObjectFactory factory) {
 		if (originalAxiomSet == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -127,11 +126,8 @@ public class OntologyNormalizer {
 		}
 
 		for (Integer propId : objectPropIdSet) {
-			Integer inversePropId = factory.getEntityManager()
-					.createOrGetInverseObjectPropertyOf(propId);
-			currentAxiomSet
-					.addAll(normalizer.getAxiomsForInverseObjectProperties(
-							propId, inversePropId));
+			Integer inversePropId = factory.getEntityManager().createOrGetInverseObjectPropertyOf(propId);
+			currentAxiomSet.addAll(normalizer.getAxiomsForInverseObjectProperties(propId, inversePropId));
 		}
 
 		while (currentAxiomSet.size() > 0) {

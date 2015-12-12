@@ -77,8 +77,7 @@ public class CR6RExtRule implements RObserverRule {
 	}
 
 	@Override
-	public boolean apply(ClassifierStatus status, int property, int leftClass,
-			int rightClass) {
+	public boolean apply(ClassifierStatus status, int property, int leftClass, int rightClass) {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -93,8 +92,7 @@ public class CR6RExtRule implements RObserverRule {
 			int sMinus = status.getInverseObjectPropertyOf(s);
 
 			for (int a : status.getSubsumers(x)) {
-				for (GCI3Axiom axiom : status.getExtendedOntology()
-						.getGCI3rAAxioms(sMinus, a)) {
+				for (GCI3Axiom axiom : status.getExtendedOntology().getGCI3rAAxioms(sMinus, a)) {
 					int b = axiom.getSuperClass();
 					if (!status.getSubsumers(y).contains(b)) {
 						VNode psiNode = status.getNode(y);

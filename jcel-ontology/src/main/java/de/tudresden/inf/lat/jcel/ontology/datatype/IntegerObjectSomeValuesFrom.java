@@ -74,8 +74,7 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 	 * @param classExpression
 	 *            class expression
 	 */
-	protected IntegerObjectSomeValuesFrom(
-			IntegerObjectPropertyExpression propertyExpression,
+	protected IntegerObjectSomeValuesFrom(IntegerObjectPropertyExpression propertyExpression,
 			IntegerClassExpression classExpression) {
 		if (propertyExpression == null) {
 			throw new IllegalArgumentException("Null argument.");
@@ -87,8 +86,7 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 		this.property = propertyExpression;
 		this.filler = classExpression;
 		this.normalized = classExpression.isLiteral();
-		this.hashCode = propertyExpression.hashCode()
-				+ (31 * classExpression.hashCode());
+		this.hashCode = propertyExpression.hashCode() + (31 * classExpression.hashCode());
 	}
 
 	@Override
@@ -110,8 +108,7 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 		boolean ret = (this == o);
 		if (!ret && (o instanceof IntegerObjectSomeValuesFrom)) {
 			IntegerObjectSomeValuesFrom other = (IntegerObjectSomeValuesFrom) o;
-			ret = getProperty().equals(other.getProperty())
-					&& getFiller().equals(other.getFiller());
+			ret = getProperty().equals(other.getProperty()) && getFiller().equals(other.getFiller());
 		}
 		return ret;
 	}

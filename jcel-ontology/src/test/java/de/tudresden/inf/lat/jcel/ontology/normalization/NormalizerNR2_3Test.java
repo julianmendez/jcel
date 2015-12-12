@@ -72,47 +72,33 @@ public class NormalizerNR2_3Test extends TestCase {
 	/**
 	 * &exist; r <i>.</i> &exist; s<sub>1</sub> <i>.</i> C<sub>1</sub> \u2291
 	 * &exist; s<sub>2</sub> <i>.</i> C<sub>2</sub> \u219D &exist; s<sub>1</sub>
-	 * <i>.</i> C<sub>1</sub> \u2291 A, &exist; r <i>.</i> A \u2291 &exist;
-	 * s<sub>2</sub> <i>.</i> C<sub>2</sub>
+	 * <i>.</i> C<sub>1</sub> \u2291 A, &exist; r <i>.</i> A \u2291 &exist; s
+	 * <sub>2</sub> <i>.</i> C<sub>2</sub>
 	 */
 	public void testRule() {
 		Set<Annotation> annotations = new TreeSet<Annotation>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR2_3 normalizer = new NormalizerNR2_3(factory);
 
-		IntegerObjectProperty r = factory.getDataTypeFactory()
-				.createObjectProperty(
-						factory.getEntityManager().createNamedEntity(
-								IntegerEntityType.OBJECT_PROPERTY, "r", false));
+		IntegerObjectProperty r = factory.getDataTypeFactory().createObjectProperty(
+				factory.getEntityManager().createNamedEntity(IntegerEntityType.OBJECT_PROPERTY, "r", false));
 
-		IntegerClass c1 = factory.getDataTypeFactory().createClass(
-				factory.getEntityManager().createNamedEntity(
-						IntegerEntityType.CLASS, "C1", false));
+		IntegerClass c1 = factory.getDataTypeFactory()
+				.createClass(factory.getEntityManager().createNamedEntity(IntegerEntityType.CLASS, "C1", false));
 
-		IntegerObjectProperty s1 = factory
-				.getDataTypeFactory()
-				.createObjectProperty(
-						factory.getEntityManager().createNamedEntity(
-								IntegerEntityType.OBJECT_PROPERTY, "s1", false));
+		IntegerObjectProperty s1 = factory.getDataTypeFactory().createObjectProperty(
+				factory.getEntityManager().createNamedEntity(IntegerEntityType.OBJECT_PROPERTY, "s1", false));
 
-		IntegerClass c2 = factory.getDataTypeFactory().createClass(
-				factory.getEntityManager().createNamedEntity(
-						IntegerEntityType.CLASS, "C2", false));
+		IntegerClass c2 = factory.getDataTypeFactory()
+				.createClass(factory.getEntityManager().createNamedEntity(IntegerEntityType.CLASS, "C2", false));
 
-		IntegerObjectProperty s2 = factory
-				.getDataTypeFactory()
-				.createObjectProperty(
-						factory.getEntityManager().createNamedEntity(
-								IntegerEntityType.OBJECT_PROPERTY, "s2", false));
+		IntegerObjectProperty s2 = factory.getDataTypeFactory().createObjectProperty(
+				factory.getEntityManager().createNamedEntity(IntegerEntityType.OBJECT_PROPERTY, "s2", false));
 
-		IntegerClassExpression cPrime = factory.getDataTypeFactory()
-				.createObjectSomeValuesFrom(s1, c1);
-		IntegerClassExpression c = factory.getDataTypeFactory()
-				.createObjectSomeValuesFrom(r, cPrime);
-		IntegerClassExpression d = factory.getDataTypeFactory()
-				.createObjectSomeValuesFrom(s2, c2);
-		IntegerSubClassOfAxiom axiom = factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(c, d, annotations);
+		IntegerClassExpression cPrime = factory.getDataTypeFactory().createObjectSomeValuesFrom(s1, c1);
+		IntegerClassExpression c = factory.getDataTypeFactory().createObjectSomeValuesFrom(r, cPrime);
+		IntegerClassExpression d = factory.getDataTypeFactory().createObjectSomeValuesFrom(s2, c2);
+		IntegerSubClassOfAxiom axiom = factory.getComplexAxiomFactory().createSubClassOfAxiom(c, d, annotations);
 
 		Set<IntegerAxiom> normalizedAxioms = normalizer.apply(axiom);
 
@@ -135,13 +121,10 @@ public class NormalizerNR2_3Test extends TestCase {
 		assertTrue(a.isLiteral());
 
 		Set<IntegerAxiom> expectedAxioms = new HashSet<IntegerAxiom>();
-		expectedAxioms.add(factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(cPrime, a, annotations));
+		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(cPrime, a, annotations));
 
-		IntegerClassExpression newExpr = factory.getDataTypeFactory()
-				.createObjectSomeValuesFrom(r, a);
-		expectedAxioms.add(factory.getComplexAxiomFactory()
-				.createSubClassOfAxiom(newExpr, d, annotations));
+		IntegerClassExpression newExpr = factory.getDataTypeFactory().createObjectSomeValuesFrom(r, a);
+		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(newExpr, d, annotations));
 
 		assertEquals(expectedAxioms, normalizedAxioms);
 	}

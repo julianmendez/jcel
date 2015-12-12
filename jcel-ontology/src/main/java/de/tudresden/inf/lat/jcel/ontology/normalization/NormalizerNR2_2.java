@@ -62,8 +62,8 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
 /**
  * 
  * <ul>
- * <li>NR-2.2 : C<sub>1</sub> \u2293 &hellip; \u2293 C' \u2293 &hellip; \u2293
- * C<sub>n</sub> \u2291 D \u219D C' \u2291 A, C<sub>1</sub> \u2293 &hellip;
+ * <li>NR-2.2 : C<sub>1</sub> \u2293 &hellip; \u2293 C' \u2293 &hellip; \u2293 C
+ * <sub>n</sub> \u2291 D \u219D C' \u2291 A, C<sub>1</sub> \u2293 &hellip;
  * \u2293 A \u2293 &hellip; \u2293 C<sub>n</sub> \u2291 D</li>
  * </ul>
  * <br>
@@ -111,10 +111,8 @@ class NormalizerNR2_2 implements NormalizationRule {
 			IntegerClassExpression superClass = classAxiom.getSuperClass();
 			if (subClass instanceof IntegerObjectIntersectionOf) {
 				IntegerObjectIntersectionOf intersection = (IntegerObjectIntersectionOf) subClass;
-				Set<IntegerClassExpression> operands = intersection
-						.getOperands();
-				Set<IntegerAxiom> newSet = applyRule(operands, superClass,
-						classAxiom.getAnnotations());
+				Set<IntegerClassExpression> operands = intersection.getOperands();
+				Set<IntegerAxiom> newSet = applyRule(operands, superClass, classAxiom.getAnnotations());
 				if (newSet.size() > 1) {
 					ret = newSet;
 				}
@@ -123,8 +121,8 @@ class NormalizerNR2_2 implements NormalizationRule {
 		return ret;
 	}
 
-	private Set<IntegerAxiom> applyRule(Set<IntegerClassExpression> operands,
-			IntegerClassExpression superClass, Set<Annotation> annotations) {
+	private Set<IntegerAxiom> applyRule(Set<IntegerClassExpression> operands, IntegerClassExpression superClass,
+			Set<Annotation> annotations) {
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
 		Set<IntegerClassExpression> newOperands = new HashSet<IntegerClassExpression>();
 		boolean applied = false;
@@ -133,24 +131,19 @@ class NormalizerNR2_2 implements NormalizationRule {
 				newOperands.add(classExpression);
 			} else {
 				applied = true;
-				IntegerClass newClass = getOntologyObjectFactory()
-						.getDataTypeFactory().createClass(
-								getOntologyObjectFactory().getEntityManager()
-										.createAnonymousEntity(
-												IntegerEntityType.CLASS, true));
-				ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-						.createSubClassOfAxiom(classExpression, newClass,
-								annotations));
+				IntegerClass newClass = getOntologyObjectFactory().getDataTypeFactory()
+						.createClass(getOntologyObjectFactory().getEntityManager()
+								.createAnonymousEntity(IntegerEntityType.CLASS, true));
+				ret.add(getOntologyObjectFactory().getComplexAxiomFactory().createSubClassOfAxiom(classExpression,
+						newClass, annotations));
 				newOperands.add(newClass);
 			}
 		}
 		if (applied) {
-			IntegerObjectIntersectionOf newIntersection = getOntologyObjectFactory()
-					.getDataTypeFactory().createObjectIntersectionOf(
-							newOperands);
-			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-					.createSubClassOfAxiom(newIntersection, superClass,
-							annotations));
+			IntegerObjectIntersectionOf newIntersection = getOntologyObjectFactory().getDataTypeFactory()
+					.createObjectIntersectionOf(newOperands);
+			ret.add(getOntologyObjectFactory().getComplexAxiomFactory().createSubClassOfAxiom(newIntersection,
+					superClass, annotations));
 		}
 		return ret;
 	}

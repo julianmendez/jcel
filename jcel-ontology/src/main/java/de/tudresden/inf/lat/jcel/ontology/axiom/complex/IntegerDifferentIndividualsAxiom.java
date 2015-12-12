@@ -71,8 +71,7 @@ public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerDifferentIndividualsAxiom(Set<Integer> individualSet,
-			Set<Annotation> annotations) {
+	IntegerDifferentIndividualsAxiom(Set<Integer> individualSet, Set<Annotation> annotations) {
 		if (individualSet == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
@@ -82,8 +81,7 @@ public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 
 		this.individuals = Collections.unmodifiableSet(individualSet);
 		this.annotations = annotations;
-		this.hashCode = this.individuals.hashCode() + 0x1F
-				* this.annotations.hashCode();
+		this.hashCode = this.individuals.hashCode() + 0x1F * this.annotations.hashCode();
 	}
 
 	@Override
@@ -100,8 +98,7 @@ public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 		boolean ret = (this == obj);
 		if (!ret && (obj instanceof IntegerDifferentIndividualsAxiom)) {
 			IntegerDifferentIndividualsAxiom other = (IntegerDifferentIndividualsAxiom) obj;
-			ret = getIndividuals().equals(other.getIndividuals())
-					&& getAnnotations().equals(other.getAnnotations());
+			ret = getIndividuals().equals(other.getIndividuals()) && getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}

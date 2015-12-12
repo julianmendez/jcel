@@ -62,7 +62,8 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
 /**
  * 
  * <ul>
- * <li>NR-2.4 : B \u2293 C' \u2291 D \u219D C' \u2291 A, B \u2293 A \u2291 D</li>
+ * <li>NR-2.4 : B \u2293 C' \u2291 D \u219D C' \u2291 A, B \u2293 A \u2291 D
+ * </li>
  * </ul>
  * <br>
  * 
@@ -106,11 +107,9 @@ class NormalizerNR2_4 implements NormalizationRule {
 			IntegerClassExpression superClass = classAxiom.getSuperClass();
 			if (subClass instanceof IntegerObjectIntersectionOf) {
 				IntegerObjectIntersectionOf intersection = (IntegerObjectIntersectionOf) subClass;
-				Set<IntegerClassExpression> operands = intersection
-						.getOperands();
+				Set<IntegerClassExpression> operands = intersection.getOperands();
 				if (operands.size() > 2) {
-					Set<IntegerAxiom> newSet = applyRule(operands, superClass,
-							classAxiom.getAnnotations());
+					Set<IntegerAxiom> newSet = applyRule(operands, superClass, classAxiom.getAnnotations());
 					if (newSet.size() > 1) {
 						ret = newSet;
 					}
@@ -121,8 +120,8 @@ class NormalizerNR2_4 implements NormalizationRule {
 		return ret;
 	}
 
-	private Set<IntegerAxiom> applyRule(Set<IntegerClassExpression> operands,
-			IntegerClassExpression superClass, Set<Annotation> annotations) {
+	private Set<IntegerAxiom> applyRule(Set<IntegerClassExpression> operands, IntegerClassExpression superClass,
+			Set<Annotation> annotations) {
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
 		IntegerClassExpression aLiteral = null;
 		for (IntegerClassExpression op : operands) {
@@ -131,31 +130,24 @@ class NormalizerNR2_4 implements NormalizationRule {
 			}
 		}
 		if (aLiteral != null) {
-			IntegerClass newClass = getOntologyObjectFactory()
-					.getDataTypeFactory().createClass(
-							getOntologyObjectFactory().getEntityManager()
-									.createAnonymousEntity(
-											IntegerEntityType.CLASS, true));
+			IntegerClass newClass = getOntologyObjectFactory().getDataTypeFactory().createClass(
+					getOntologyObjectFactory().getEntityManager().createAnonymousEntity(IntegerEntityType.CLASS, true));
 
 			Set<IntegerClassExpression> newOperands = new HashSet<IntegerClassExpression>();
 			newOperands.addAll(operands);
 			newOperands.remove(aLiteral);
-			IntegerObjectIntersectionOf newIntersection = getOntologyObjectFactory()
-					.getDataTypeFactory().createObjectIntersectionOf(
-							newOperands);
-			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-					.createSubClassOfAxiom(newIntersection, newClass,
-							annotations));
+			IntegerObjectIntersectionOf newIntersection = getOntologyObjectFactory().getDataTypeFactory()
+					.createObjectIntersectionOf(newOperands);
+			ret.add(getOntologyObjectFactory().getComplexAxiomFactory().createSubClassOfAxiom(newIntersection, newClass,
+					annotations));
 
 			Set<IntegerClassExpression> pairOfLiterals = new HashSet<IntegerClassExpression>();
 			pairOfLiterals.add(aLiteral);
 			pairOfLiterals.add(newClass);
-			IntegerObjectIntersectionOf intersectionOfLiterals = getOntologyObjectFactory()
-					.getDataTypeFactory().createObjectIntersectionOf(
-							pairOfLiterals);
-			ret.add(getOntologyObjectFactory().getComplexAxiomFactory()
-					.createSubClassOfAxiom(intersectionOfLiterals, superClass,
-							annotations));
+			IntegerObjectIntersectionOf intersectionOfLiterals = getOntologyObjectFactory().getDataTypeFactory()
+					.createObjectIntersectionOf(pairOfLiterals);
+			ret.add(getOntologyObjectFactory().getComplexAxiomFactory().createSubClassOfAxiom(intersectionOfLiterals,
+					superClass, annotations));
 		}
 		return ret;
 	}

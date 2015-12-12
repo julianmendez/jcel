@@ -64,8 +64,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 
 	private final int bottomElement;
-	private final Collection<Integer> emptyCollection = Collections
-			.unmodifiableCollection(new ArraySet());
+	private final Collection<Integer> emptyCollection = Collections.unmodifiableCollection(new ArraySet());
 	private final Set<Integer> equivToBottom = new HashSet<Integer>();
 	private final Map<Integer, Collection<Integer>> setS = new ConcurrentHashMap<Integer, Collection<Integer>>();
 	private final int topElement;
@@ -82,8 +81,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 		this.bottomElement = bottom;
 		this.topElement = top;
 		this.setS.put(this.bottomElement, this.emptyCollection);
-		this.setS.put(this.topElement,
-				Collections.synchronizedCollection(new ArraySet()));
+		this.setS.put(this.topElement, Collections.synchronizedCollection(new ArraySet()));
 		this.equivToBottom.add(this.bottomElement);
 	}
 
@@ -97,8 +95,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	public boolean add(int vertex) {
 		boolean ret = false;
 		if (!this.setS.containsKey(vertex)) {
-			this.setS.put(vertex,
-					Collections.synchronizedCollection(new ArraySet()));
+			this.setS.put(vertex, Collections.synchronizedCollection(new ArraySet()));
 			ret = true;
 		}
 		return ret;
@@ -134,8 +131,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 
 	@Override
 	public boolean containsPair(int subsumee, int subsumer) {
-		return (getSubsumers(subsumee) != null)
-				&& getSubsumers(subsumee).contains(subsumer);
+		return (getSubsumers(subsumee) != null) && getSubsumers(subsumee).contains(subsumer);
 	}
 
 	@Override
@@ -143,14 +139,11 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 		boolean ret = (this == o);
 		if (!ret && (o instanceof IntegerSubsumerGraph)) {
 			IntegerSubsumerGraph other = (IntegerSubsumerGraph) o;
-			ret = (getBottomElement() == other.getBottomElement())
-					&& (getTopElement() == other.getTopElement())
+			ret = (getBottomElement() == other.getBottomElement()) && (getTopElement() == other.getTopElement())
 					&& getElements().equals(other.getElements());
-			for (Iterator<Integer> it = getElements().iterator(); ret
-					&& it.hasNext();) {
+			for (Iterator<Integer> it = getElements().iterator(); ret && it.hasNext();) {
 				Integer elem = it.next();
-				ret = ret
-						&& getSubsumers(elem).equals(other.getSubsumers(elem));
+				ret = ret && getSubsumers(elem).equals(other.getSubsumers(elem));
 			}
 		}
 		return ret;
@@ -223,8 +216,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 		keySet.addAll(this.setS.keySet());
 		for (Integer key : keySet) {
 			if (collection.contains(key)) {
-				Collection<Integer> value = Collections
-						.synchronizedCollection(new ArraySet());
+				Collection<Integer> value = Collections.synchronizedCollection(new ArraySet());
 				for (Integer elem : getSubsumers(key)) {
 					if (collection.contains(elem)) {
 						value.add(elem);
