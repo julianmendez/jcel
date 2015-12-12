@@ -50,7 +50,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-import junit.framework.TestCase;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
@@ -59,6 +58,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactoryImpl;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
+import junit.framework.TestCase;
 
 /**
  * Test class for ontology normalizer.

@@ -51,7 +51,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-import junit.framework.TestCase;
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
 import de.tudresden.inf.lat.jcel.core.algorithm.rulebased.RuleBasedProcessor;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
@@ -62,6 +61,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManagerImpl;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.coreontology.expressivity.NormalizedAxiomExpressivityDetector;
+import junit.framework.TestCase;
 
 /**
  * Set of tests using tiny ontologies.

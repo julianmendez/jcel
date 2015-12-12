@@ -50,7 +50,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-import junit.framework.TestCase;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
@@ -61,6 +60,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
+import junit.framework.TestCase;
 
 /**
  * @author Julian Mendez

@@ -52,7 +52,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import junit.framework.TestCase;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
@@ -62,6 +61,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactoryImpl;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
+import junit.framework.TestCase;
 
 /**
  * 
