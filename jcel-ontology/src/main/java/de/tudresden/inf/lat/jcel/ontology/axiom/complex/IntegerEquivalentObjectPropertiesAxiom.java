@@ -87,9 +87,8 @@ public class IntegerEquivalentObjectPropertiesAxiom implements ComplexIntegerAxi
 		this.objectProperties = Collections.unmodifiableSet(propSet);
 
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
-		for (IntegerObjectPropertyExpression expression : this.objectProperties) {
-			objectPropertiesInSignature.addAll(expression.getObjectPropertiesInSignature());
-		}
+		this.objectProperties
+				.forEach(expression -> objectPropertiesInSignature.addAll(expression.getObjectPropertiesInSignature()));
 		this.objectPropertiesInSignature = Collections.unmodifiableSet(objectPropertiesInSignature);
 		this.annotations = annotations;
 		this.hashCode = this.objectProperties.hashCode() + 0x1F * this.annotations.hashCode();
@@ -164,10 +163,10 @@ public class IntegerEquivalentObjectPropertiesAxiom implements ComplexIntegerAxi
 		sbuf.append(ComplexIntegerAxiomConstant.EquivalentProperties);
 		sbuf.append(ComplexIntegerAxiomConstant.openPar);
 		Set<IntegerObjectPropertyExpression> propertySet = getProperties();
-		for (IntegerObjectPropertyExpression property : propertySet) {
+		propertySet.forEach(property -> {
 			sbuf.append(property);
 			sbuf.append(ComplexIntegerAxiomConstant.sp);
-		}
+		});
 		sbuf.append(ComplexIntegerAxiomConstant.closePar);
 		return sbuf.toString();
 	}

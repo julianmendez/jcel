@@ -95,9 +95,8 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 		this.superProperty = superProp;
 
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
-		for (IntegerObjectPropertyExpression propertyExpr : getPropertyChain()) {
-			objectPropertiesInSignature.addAll(propertyExpr.getObjectPropertiesInSignature());
-		}
+		getPropertyChain().forEach(
+				propertyExpr -> objectPropertiesInSignature.addAll(propertyExpr.getObjectPropertiesInSignature()));
 		objectPropertiesInSignature.addAll(getSuperProperty().getObjectPropertiesInSignature());
 		this.objectPropertiesInSignature = Collections.unmodifiableSet(objectPropertiesInSignature);
 		this.annotations = annotations;
@@ -182,10 +181,10 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 		sbuf.append(ComplexIntegerAxiomConstant.ObjectPropertyChain);
 		sbuf.append(ComplexIntegerAxiomConstant.openPar);
 		List<IntegerObjectPropertyExpression> propertyList = getPropertyChain();
-		for (IntegerObjectPropertyExpression property : propertyList) {
+		propertyList.forEach(property -> {
 			sbuf.append(property.toString());
 			sbuf.append(ComplexIntegerAxiomConstant.sp);
-		}
+		});
 		sbuf.append(ComplexIntegerAxiomConstant.closePar);
 		sbuf.append(ComplexIntegerAxiomConstant.sp);
 		sbuf.append(getSuperProperty());

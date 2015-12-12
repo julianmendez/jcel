@@ -60,7 +60,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
@@ -91,9 +90,7 @@ public class TinyOntologyTest extends TestCase {
 
 	private Set<OWLClass> flatten(NodeSet<OWLClass> originalSet) {
 		Set<OWLClass> ret = new TreeSet<OWLClass>();
-		for (Node<OWLClass> set : originalSet.getNodes()) {
-			ret.addAll(set.getEntities());
-		}
+		originalSet.getNodes().forEach(set -> ret.addAll(set.getEntities()));
 		return ret;
 	}
 

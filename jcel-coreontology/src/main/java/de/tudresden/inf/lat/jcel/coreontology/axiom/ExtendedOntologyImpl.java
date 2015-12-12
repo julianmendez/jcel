@@ -311,10 +311,10 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		for (NormalizedIntegerAxiom axiom : axiomSet) {
+		axiomSet.forEach(axiom -> {
 			axiom.accept(this);
 			addEntities(axiom);
-		}
+		});
 	}
 
 	@Override

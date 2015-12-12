@@ -97,8 +97,8 @@ class NormalizerDisjoint implements NormalizationRule {
 	private Set<IntegerAxiom> applyRule(IntegerDisjointClassesAxiom disjointAxiom) {
 		Set<IntegerClassExpression> classExpressionSet = disjointAxiom.getClassExpressions();
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
-		for (IntegerClassExpression firstClassExpression : classExpressionSet) {
-			for (IntegerClassExpression secondClassExpression : classExpressionSet) {
+		classExpressionSet.forEach(firstClassExpression -> {
+			classExpressionSet.forEach(secondClassExpression-> {
 				if (!firstClassExpression.equals(secondClassExpression)) {
 					Set<IntegerClassExpression> pair = new HashSet<IntegerClassExpression>();
 					pair.add(firstClassExpression);
@@ -110,8 +110,8 @@ class NormalizerDisjoint implements NormalizationRule {
 									.createClass(IntegerEntityManager.bottomClassId), disjointAxiom.getAnnotations());
 					ret.add(subClassAxiom);
 				}
-			}
-		}
+			});
+		});
 		return ret;
 	}
 

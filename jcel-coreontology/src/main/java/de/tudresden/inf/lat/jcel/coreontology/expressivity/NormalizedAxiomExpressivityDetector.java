@@ -73,9 +73,7 @@ public class NormalizedAxiomExpressivityDetector implements OntologyExpressivity
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		for (NormalizedIntegerAxiom axiom : axiomSet) {
-			axiom.accept(this.axiomAnalyzer);
-		}
+		axiomSet.forEach(axiom -> axiom.accept(this.axiomAnalyzer));
 		this.name = (new ExpressivityName()).getName(this);
 	}
 

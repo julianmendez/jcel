@@ -98,16 +98,16 @@ class NormalizerNR1_5 implements NormalizationRule {
 	private Set<IntegerAxiom> applyRule(IntegerEquivalentClassesAxiom equivalentAxiom) {
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
 		Set<IntegerClassExpression> classExpressionSet = equivalentAxiom.getClassExpressions();
-		for (IntegerClassExpression firstClassExpression : classExpressionSet) {
-			for (IntegerClassExpression secondClassExpression : classExpressionSet) {
+		classExpressionSet.forEach(firstClassExpression -> {
+			classExpressionSet.forEach(secondClassExpression -> {
 				if (!firstClassExpression.equals(secondClassExpression)) {
 					IntegerSubClassOfAxiom subClassAxiom = getOntologyObjectFactory().getComplexAxiomFactory()
 							.createSubClassOfAxiom(firstClassExpression, secondClassExpression,
 									equivalentAxiom.getAnnotations());
 					ret.add(subClassAxiom);
 				}
-			}
-		}
+			});
+		});
 		return ret;
 	}
 

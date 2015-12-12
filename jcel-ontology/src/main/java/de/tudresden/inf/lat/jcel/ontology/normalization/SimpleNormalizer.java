@@ -281,11 +281,11 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
 		Set<Integer> individualSet = axiom.getIndividuals();
 		Set<IntegerClassExpression> classExprSet = new HashSet<IntegerClassExpression>();
-		for (Integer individual : individualSet) {
+		individualSet.forEach(individual -> {
 			Integer classForIndiv = getIdGenerator().createOrGetClassIdForIndividual(individual);
 			ret.add(getNormalizedAxiomFactory().createNominalAxiom(classForIndiv, individual, axiom.getAnnotations()));
 			classExprSet.add(getOntologyObjectFactory().getDataTypeFactory().createClass(classForIndiv));
-		}
+		});
 		ret.add(getComplexAxiomFactory().createDisjointClassesAxiom(classExprSet, axiom.getAnnotations()));
 		return Collections.unmodifiableSet(ret);
 	}
@@ -468,11 +468,11 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 		Set<IntegerAxiom> ret = new HashSet<IntegerAxiom>();
 		Set<Integer> individualSet = axiom.getIndividuals();
 		Set<IntegerClassExpression> classExprSet = new HashSet<IntegerClassExpression>();
-		for (Integer individual : individualSet) {
+		individualSet.forEach(individual -> {
 			Integer classForIndiv = getIdGenerator().createOrGetClassIdForIndividual(individual);
 			ret.add(getNormalizedAxiomFactory().createNominalAxiom(classForIndiv, individual, axiom.getAnnotations()));
 			classExprSet.add(getOntologyObjectFactory().getDataTypeFactory().createClass(classForIndiv));
-		}
+		});
 		ret.add(getComplexAxiomFactory().createEquivalentClassesAxiom(classExprSet, axiom.getAnnotations()));
 		return Collections.unmodifiableSet(ret);
 	}

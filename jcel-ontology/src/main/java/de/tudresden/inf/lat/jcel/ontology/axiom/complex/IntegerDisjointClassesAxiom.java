@@ -89,15 +89,12 @@ public class IntegerDisjointClassesAxiom implements ComplexIntegerAxiom {
 		this.classExpressions = Collections.unmodifiableSet(descSet);
 
 		Set<Integer> classesInSignature = new HashSet<Integer>();
-		for (IntegerClassExpression expression : this.classExpressions) {
-			classesInSignature.addAll(expression.getClassesInSignature());
-		}
+		this.classExpressions.forEach(expression -> classesInSignature.addAll(expression.getClassesInSignature()));
 		this.classesInSignature = Collections.unmodifiableSet(classesInSignature);
 
 		Set<Integer> objectPropertiesInSignature = new HashSet<Integer>();
-		for (IntegerClassExpression expression : this.classExpressions) {
-			objectPropertiesInSignature.addAll(expression.getObjectPropertiesInSignature());
-		}
+		this.classExpressions
+				.forEach(expression -> objectPropertiesInSignature.addAll(expression.getObjectPropertiesInSignature()));
 		this.objectPropertiesInSignature = Collections.unmodifiableSet(objectPropertiesInSignature);
 		this.annotations = annotations;
 		this.hashCode = this.classExpressions.hashCode() + 0x1F * this.annotations.hashCode();
@@ -173,10 +170,10 @@ public class IntegerDisjointClassesAxiom implements ComplexIntegerAxiom {
 		sbuf.append(ComplexIntegerAxiomConstant.DisjointClasses);
 		sbuf.append(ComplexIntegerAxiomConstant.openPar);
 		Set<IntegerClassExpression> classExpressionSet = getClassExpressions();
-		for (IntegerClassExpression classExpression : classExpressionSet) {
+		classExpressionSet.forEach(classExpression -> {
 			sbuf.append(classExpression.toString());
 			sbuf.append(ComplexIntegerAxiomConstant.sp);
-		}
+		});
 		sbuf.append(ComplexIntegerAxiomConstant.closePar);
 		return sbuf.toString();
 	}

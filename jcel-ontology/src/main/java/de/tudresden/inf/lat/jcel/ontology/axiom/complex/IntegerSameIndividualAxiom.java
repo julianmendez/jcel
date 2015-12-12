@@ -153,10 +153,10 @@ public class IntegerSameIndividualAxiom implements ComplexIntegerAxiom {
 		sbuf.append(ComplexIntegerAxiomConstant.SameIndividual);
 		sbuf.append(ComplexIntegerAxiomConstant.openPar);
 		Set<Integer> individualSet = getIndividuals();
-		for (Integer individual : individualSet) {
+		individualSet.forEach(individual -> {
 			sbuf.append(individual.toString());
 			sbuf.append(ComplexIntegerAxiomConstant.sp);
-		}
+		});
 		sbuf.append(ComplexIntegerAxiomConstant.closePar);
 		return sbuf.toString();
 	}
