@@ -501,7 +501,7 @@ public class TinyOntologyTest extends TestCase {
 		elementsToTest.add(e);
 		elementsToTest.add(factory.getOWLNothing());
 
-		for (OWLClass element : elementsToTest) {
+		elementsToTest.forEach(element -> {
 			Set<OWLClass> equivalents = reasoner.getEquivalentClasses(element).getEntities();
 			assertTrue(equivalents.contains(a));
 			assertTrue(equivalents.contains(b));
@@ -509,7 +509,7 @@ public class TinyOntologyTest extends TestCase {
 			assertTrue(equivalents.contains(d));
 			assertTrue(equivalents.contains(e));
 			assertTrue(equivalents.contains(factory.getOWLNothing()));
-		}
+		});
 
 		verifyBottomAndTop(reasoner);
 

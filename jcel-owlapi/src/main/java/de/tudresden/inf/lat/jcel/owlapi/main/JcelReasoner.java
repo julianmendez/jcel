@@ -379,9 +379,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	private Set<ComplexIntegerAxiom> getIntegerOntology() {
 		Set<OWLAxiom> owlAxiomSet = new HashSet<>();
 		owlAxiomSet.addAll(this.rootOntology.getAxioms());
-		for (OWLOntology ont : this.rootOntology.getImportsClosure()) {
-			owlAxiomSet.addAll(ont.getAxioms());
-		}
+		this.rootOntology.getImportsClosure().forEach(ont -> owlAxiomSet.addAll(ont.getAxioms()));
 
 		this.translator.getTranslationRepository().addAxiomEntities(this.rootOntology);
 
@@ -732,9 +730,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 
 		logger.finer("isEntailed((Set<? extends OWLAxiom>) " + axiomSet + ")");
 		Set<OWLAxiom> set = new HashSet<>();
-		for (OWLAxiom axiom : axiomSet) {
-			set.add(axiom);
-		}
+		axiomSet.forEach(axiom -> set.add(axiom));
 		boolean ret = getReasoner().isEntailed(getTranslator().translateSA(set));
 		logger.finer("" + ret);
 		return ret;
@@ -777,9 +773,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
 		this.pendingChanges.addAll(changes);
-		for (OWLOntologyChange change : changes) {
-			change.accept(this.ontologyChangeVisitor);
-		}
+		changes.forEach(change -> change.accept(this.ontologyChangeVisitor));
 	}
 
 	@Override

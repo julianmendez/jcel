@@ -219,17 +219,17 @@ public class ClassModuleProcessor implements Processor {
 
 		List<Set<ComplexIntegerAxiom>> ret = new ArrayList<>();
 		List<Set<Integer>> clustersOfClasses = getClustersOfClasses(axiomSet);
-		for (Set<Integer> classSet : clustersOfClasses) {
+		clustersOfClasses.forEach(classSet -> {
 			Set<ComplexIntegerAxiom> currentModule = new HashSet<>();
-			for (Integer classId : classSet) {
+			classSet.forEach(classId -> {
 				Set<ComplexIntegerAxiom> reachable = this.classToAxiom.get(classId);
 				if (reachable != null) {
 					currentModule.addAll(reachable);
 				}
-			}
+			});
 			currentModule.addAll(this.sharedAxioms);
 			ret.add(currentModule);
-		}
+		});
 
 		return ret;
 	}
@@ -251,9 +251,7 @@ public class ClassModuleProcessor implements Processor {
 		List<Set<Integer>> ret = new ArrayList<>();
 
 		Set<Integer> allClasses = new TreeSet<>();
-		for (ComplexIntegerAxiom axiom : axiomSet) {
-			allClasses.addAll(axiom.getClassesInSignature());
-		}
+		axiomSet.forEach(axiom -> allClasses.addAll(axiom.getClassesInSignature()));
 		allClasses.remove(bottomClassId);
 		allClasses.remove(topClassId);
 

@@ -87,9 +87,7 @@ public class TinyOntologyTest extends TestCase {
 
 	private Set<IntegerClass> flatten(Set<Set<IntegerClass>> originalSet) {
 		Set<IntegerClass> ret = new TreeSet<IntegerClass>();
-		for (Set<IntegerClass> set : originalSet) {
-			ret.addAll(set);
-		}
+		originalSet.forEach(set -> ret.addAll(set));
 		return ret;
 	}
 

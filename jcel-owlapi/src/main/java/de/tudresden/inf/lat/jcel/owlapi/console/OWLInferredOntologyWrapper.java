@@ -158,58 +158,50 @@ public class OWLInferredOntologyWrapper {
 			}
 		}
 
-		for (OWLClass subClass : classSet) {
+		classSet.forEach(subClass -> {
 			Set<OWLClass> superClasses = new TreeSet<OWLClass>();
 			superClasses.addAll(getReasoner().getSuperClasses(subClass, true).getFlattened());
-			for (OWLClass superClass : superClasses) {
-				processSubClassOf(subClass, superClass);
-			}
-		}
+			superClasses.forEach(superClass -> processSubClassOf(subClass, superClass));
+		});
 
-		for (OWLObjectProperty subProperty : objectPropertySet) {
+		objectPropertySet.forEach(subProperty -> {
 			Set<OWLObjectPropertyExpression> superProperties = new TreeSet<OWLObjectPropertyExpression>();
 			superProperties.addAll(getReasoner().getSuperObjectProperties(subProperty, true).getFlattened());
-			for (OWLObjectPropertyExpression superProperty : superProperties) {
-				processSubObjectPropertyOf(subProperty.asOWLObjectProperty(), superProperty.asOWLObjectProperty());
-			}
-		}
+			superProperties.forEach(superProperty -> processSubObjectPropertyOf(subProperty.asOWLObjectProperty(),
+					superProperty.asOWLObjectProperty()));
+		});
 
-		for (OWLDataProperty subProperty : dataPropertySet) {
+		dataPropertySet.forEach(subProperty -> {
 			Set<OWLDataPropertyExpression> superProperties = new TreeSet<OWLDataPropertyExpression>();
 			superProperties.addAll(getReasoner().getSuperDataProperties(subProperty, true).getFlattened());
-			for (OWLDataPropertyExpression superProperty : superProperties) {
-				processSubDataPropertyOf(subProperty.asOWLDataProperty(), superProperty.asOWLDataProperty());
-			}
-		}
+			superProperties.forEach(superProperty -> processSubDataPropertyOf(subProperty.asOWLDataProperty(),
+					superProperty.asOWLDataProperty()));
+		});
 
-		for (OWLClass cls : classSet) {
+		classSet.forEach(cls -> {
 			Set<OWLNamedIndividual> instances = new TreeSet<OWLNamedIndividual>();
 			instances.addAll(getReasoner().getInstances(cls, true).getFlattened());
-			for (OWLNamedIndividual individual : instances) {
-				processClassAssertion(cls, individual);
-			}
-		}
+			instances.forEach(individual -> processClassAssertion(cls, individual));
+		});
 
-		for (OWLObjectProperty property : objectPropertySet) {
-			for (OWLNamedIndividual individual : individualSet) {
+		objectPropertySet.forEach(property -> {
+			individualSet.forEach(individual -> {
 				Set<OWLNamedIndividual> propertyValues = new TreeSet<OWLNamedIndividual>();
 				propertyValues.addAll(getReasoner().getObjectPropertyValues(individual, property.asOWLObjectProperty())
 						.getFlattened());
-				for (OWLNamedIndividual otherIndividual : propertyValues) {
-					processObjectPropertyAssertion(property, individual, otherIndividual);
-				}
-			}
-		}
+				propertyValues.forEach(
+						otherIndividual -> processObjectPropertyAssertion(property, individual, otherIndividual));
+			});
+		});
 
-		for (OWLDataProperty property : dataPropertySet) {
-			for (OWLNamedIndividual individual : individualSet) {
+		dataPropertySet.forEach(property -> {
+			individualSet.forEach(individual -> {
 				Set<OWLLiteral> propertyValues = new TreeSet<OWLLiteral>();
 				propertyValues.addAll(getReasoner().getDataPropertyValues(individual, property.asOWLDataProperty()));
-				for (OWLLiteral otherIndividual : propertyValues) {
-					processDataPropertyAssertion(property, individual, otherIndividual);
-				}
-			}
-		}
+				propertyValues.forEach(
+						otherIndividual -> processDataPropertyAssertion(property, individual, otherIndividual));
+			});
+		});
 	}
 
 	private void processClassAssertion(OWLClass cls, OWLNamedIndividual individual) {
@@ -224,27 +216,19 @@ public class OWLInferredOntologyWrapper {
 	}
 
 	private void processDeclarationC(Set<OWLClass> entities) {
-		for (OWLClass elem : entities) {
-			processEntity(elem);
-		}
+		entities.forEach(elem -> processEntity(elem));
 	}
 
 	private void processDeclarationDP(Set<OWLDataProperty> entities) {
-		for (OWLDataProperty elem : entities) {
-			processEntity(elem);
-		}
+		entities.forEach(elem -> processEntity(elem));
 	}
 
 	private void processDeclarationI(Set<OWLNamedIndividual> entities) {
-		for (OWLNamedIndividual elem : entities) {
-			processEntity(elem);
-		}
+		entities.forEach(elem -> processEntity(elem));
 	}
 
 	private void processDeclarationOP(Set<OWLObjectProperty> entities) {
-		for (OWLObjectProperty elem : entities) {
-			processEntity(elem);
-		}
+		entities.forEach(elem -> processEntity(elem));
 	}
 
 	private void processEntity(OWLClass entity) {

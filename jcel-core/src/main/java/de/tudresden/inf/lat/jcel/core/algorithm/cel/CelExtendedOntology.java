@@ -229,7 +229,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 		}
 
 		clear();
-		for (NormalizedIntegerAxiom axiom : axiomSet) {
+		axiomSet.forEach(axiom -> {
 			axiom.accept(this);
 			if (axiom instanceof RI3Axiom) {
 				RI3Axiom subPropAxiom = (RI3Axiom) axiom;
@@ -238,7 +238,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 				addTo(left, subPropAxiom, this.subPropertyAxiomSetByLeft);
 				addTo(right, subPropAxiom, this.subPropertyAxiomSetByRight);
 			}
-		}
+		});
 	}
 
 	@Override
@@ -280,12 +280,12 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 		List<Integer> operandSet = new ArrayList<>();
 		operandSet.add(axiom.getLeftSubClass());
 		operandSet.add(axiom.getRightSubClass());
-		for (Integer currentOperand : operandSet) {
+		operandSet.forEach(currentOperand -> {
 			Set<Integer> currentSet = new HashSet<>();
 			currentSet.addAll(operandSet);
 			currentSet.remove(currentOperand);
 			addClassEntry(currentOperand, new ImplicationEntry(currentSet, superClass));
-		}
+		});
 		return true;
 	}
 

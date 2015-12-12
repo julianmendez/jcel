@@ -181,9 +181,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	public Set<Annotation> translateAnnotations(Set<OWLAnnotation> owlAnnotations) {
 		Set<Annotation> ret = new TreeSet<Annotation>();
-		for (OWLAnnotation owlAnnotation : owlAnnotations) {
-			ret.add(translateAnnotation(owlAnnotation));
-		}
+		owlAnnotations.forEach(owlAnnotation -> ret.add(translateAnnotation(owlAnnotation)));
 		return ret;
 	}
 
@@ -349,9 +347,8 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 		Set<OWLIndividual> individualSet = axiom.getIndividuals();
 		Set<Integer> individualIdSet = new HashSet<>();
-		for (OWLIndividual individual : individualSet) {
-			individualIdSet.add(getClassExpressionTranslator().getTranslationRepository().getId(individual));
-		}
+		individualSet.forEach(individual -> individualIdSet
+				.add(getClassExpressionTranslator().getTranslationRepository().getId(individual)));
 		ComplexIntegerAxiom ret = getAxiomFactory().createDifferentIndividualsAxiom(individualIdSet,
 				translateAnnotations(axiom.getAnnotations()));
 		return Collections.singleton(ret);
@@ -365,9 +362,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 		Set<OWLClassExpression> classExpressionSet = axiom.getClassExpressions();
 		Set<IntegerClassExpression> classIdSet = new HashSet<>();
-		for (OWLClassExpression classExpression : classExpressionSet) {
-			classIdSet.add(translate(classExpression));
-		}
+		classExpressionSet.forEach(classExpression -> classIdSet.add(translate(classExpression)));
 		ComplexIntegerAxiom ret = getAxiomFactory().createDisjointClassesAxiom(classIdSet,
 				translateAnnotations(axiom.getAnnotations()));
 		return Collections.singleton(ret);
@@ -408,9 +403,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 		Set<OWLClassExpression> classExpressionSet = axiom.getClassExpressions();
 		Set<IntegerClassExpression> classIdSet = new HashSet<>();
-		for (OWLClassExpression classExpression : classExpressionSet) {
-			classIdSet.add(translate(classExpression));
-		}
+		classExpressionSet.forEach(classExpression -> classIdSet.add(translate(classExpression)));
 		ComplexIntegerAxiom ret = getAxiomFactory().createEquivalentClassesAxiom(classIdSet,
 				translateAnnotations(axiom.getAnnotations()));
 		return Collections.singleton(ret);
@@ -433,7 +426,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 		Set<OWLObjectPropertyExpression> propertySet = axiom.getProperties();
 		Set<IntegerObjectPropertyExpression> propertyExprSet = new HashSet<>();
-		for (OWLObjectPropertyExpression propertyExpr : propertySet) {
+		propertySet.forEach(propertyExpr -> {
 			if (propertyExpr instanceof OWLObjectProperty) {
 				propertyExprSet.add(getDataTypeFactory()
 						.createObjectProperty(getClassExpressionTranslator().getObjectPropertyExpressionTranslator()
@@ -441,7 +434,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 			} else {
 				throw new IllegalStateException();
 			}
-		}
+		});
 		ComplexIntegerAxiom ret = getAxiomFactory().createEquivalentObjectPropertiesAxiom(propertyExprSet,
 				translateAnnotations(axiom.getAnnotations()));
 		return Collections.singleton(ret);
@@ -613,9 +606,8 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 		Set<OWLIndividual> individualSet = axiom.getIndividuals();
 		Set<Integer> individualIdSet = new HashSet<>();
-		for (OWLIndividual individual : individualSet) {
-			individualIdSet.add(getClassExpressionTranslator().getTranslationRepository().getId(individual));
-		}
+		individualSet.forEach(individual -> individualIdSet
+				.add(getClassExpressionTranslator().getTranslationRepository().getId(individual)));
 		ComplexIntegerAxiom ret = getAxiomFactory().createSameIndividualAxiom(individualIdSet,
 				translateAnnotations(axiom.getAnnotations()));
 		return Collections.singleton(ret);
@@ -677,9 +669,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 		List<OWLObjectPropertyExpression> propChain = axiom.getPropertyChain();
 		OWLObjectPropertyExpression superProperty = axiom.getSuperProperty();
 		List<IntegerObjectPropertyExpression> chain = new ArrayList<>();
-		for (OWLObjectPropertyExpression property : propChain) {
-			chain.add(translateObjectPropertyExpression(property));
-		}
+		propChain.forEach(property -> chain.add(translateObjectPropertyExpression(property)));
 		ComplexIntegerAxiom ret = getAxiomFactory().createSubPropertyChainOfAxiom(chain,
 				translateObjectPropertyExpression(superProperty), translateAnnotations(axiom.getAnnotations()));
 		return Collections.singleton(ret);

@@ -67,7 +67,6 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 
@@ -159,10 +158,10 @@ public class CelProcessor implements Processor {
 	}
 
 	private void addToQueue(Integer className, Collection<ExtensionEntry> entrySet) {
-		for (ExtensionEntry entry : entrySet) {
+		entrySet.forEach(entry -> {
 			this.queueKeys.push(className);
 			this.queueEntries.push(entry);
-		}
+		});
 	}
 
 	/**
@@ -173,32 +172,32 @@ public class CelProcessor implements Processor {
 	private Map<Integer, Set<Integer>> computeDirectTypes(IntegerHierarchicalGraph hierarchicalGraph) {
 		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		Set<Integer> individuals = getEntityManager().getEntities(IntegerEntityType.INDIVIDUAL, false);
-		for (Integer indiv : individuals) {
+		individuals.forEach(indiv -> {
 			Set<Integer> subsumers = hierarchicalGraph.getParents(getEntityManager().getAuxiliaryNominal(indiv));
-			for (Integer elem : subsumers) {
+			subsumers.forEach(elem -> {
 				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
 					throw new IllegalStateException("An individual has another individual as direct subsumer.");
 				}
-			}
+			});
 			ret.put(indiv, Collections.unmodifiableSet(subsumers));
-		}
+		});
 		return ret;
 	}
 
 	private Map<Integer, Set<Integer>> computeSameIndividualMap(IntegerHierarchicalGraph hierarchicalGraph) {
 		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		Set<Integer> individuals = getEntityManager().getEntities(IntegerEntityType.INDIVIDUAL, false);
-		for (Integer indiv : individuals) {
+		individuals.forEach(indiv -> {
 			Set<Integer> equivalentClasses = hierarchicalGraph
 					.getEquivalents(getEntityManager().getAuxiliaryNominal(indiv));
 			Set<Integer> equivalents = new HashSet<>();
-			for (Integer elem : equivalentClasses) {
+			equivalentClasses.forEach(elem -> {
 				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
 					equivalents.add(getEntityManager().getIndividual(elem));
 				}
-			}
+			});
 			ret.put(indiv, Collections.unmodifiableSet(equivalents));
-		}
+		});
 		return ret;
 	}
 
@@ -207,13 +206,9 @@ public class CelProcessor implements Processor {
 
 		Set<Integer> classIdSet = new HashSet<>();
 		classIdSet.addAll(originalClassSet);
-		for (NormalizedIntegerAxiom axiom : axiomSet) {
-			classIdSet.addAll(axiom.getClassesInSignature());
-		}
+		axiomSet.forEach(axiom -> classIdSet.addAll(axiom.getClassesInSignature()));
 		IntegerSubsumerGraphImpl ret = new IntegerSubsumerGraphImpl(bottomClassId, topClassId);
-		for (Integer index : classIdSet) {
-			ret.addAncestor(index, topClassId);
-		}
+		classIdSet.forEach(index -> ret.addAncestor(index, topClassId));
 		ret.addAncestor(topClassId, topClassId);
 		return ret;
 	}
@@ -223,55 +218,49 @@ public class CelProcessor implements Processor {
 		IntegerSubsumerGraphImpl ret = new IntegerSubsumerGraphImpl(bottomObjectPropertyId, topObjectPropertyId);
 		Set<Integer> propertyIdSet = new HashSet<>();
 		propertyIdSet.addAll(originalPropertySet);
-		for (NormalizedIntegerAxiom axiom : axiomSet) {
-			propertyIdSet.addAll(axiom.getObjectPropertiesInSignature());
-		}
-		for (Integer index : propertyIdSet) {
-			ret.addAncestor(index, topObjectPropertyId);
-		}
-		for (NormalizedIntegerAxiom axiom : axiomSet) {
+		axiomSet.forEach(axiom -> propertyIdSet.addAll(axiom.getObjectPropertiesInSignature()));
+		propertyIdSet.forEach(index -> ret.addAncestor(index, topObjectPropertyId));
+		axiomSet.forEach(axiom -> {
 			if (axiom instanceof RI2Axiom) {
 				RI2Axiom current = (RI2Axiom) axiom;
 				ret.addAncestor(current.getSubProperty(), current.getSuperProperty());
 			}
-		}
+		});
 		makeTransitiveClosure(ret);
 		return ret;
 	}
 
 	private Map<Integer, Set<Integer>> createPropertyUseMap() {
 		Map<Integer, Set<Integer>> ret = new HashMap<>();
-		for (Integer cA : getClassGraph().getElements()) {
+		getClassGraph().getElements().forEach(cA -> {
 			Set<Integer> propertySet = new HashSet<>();
-			for (Integer r : getObjectPropertyGraph().getElements()) {
+			getObjectPropertyGraph().getElements().forEach(r -> {
 				if (!(this.relationSet.getBySecond(r, cA).isEmpty())) {
 					propertySet.add(r);
 				}
-			}
+			});
 			ret.put(cA, propertySet);
-		}
+		});
 		return ret;
 	}
 
 	private IntegerRelationMapImpl createRelationSet(Collection<Integer> collection) {
 		IntegerRelationMapImpl ret = new IntegerRelationMapImpl();
-		for (Integer index : collection) {
-			ret.add(index);
-		}
+		collection.forEach(index -> ret.add(index));
 		return ret;
 	}
 
 	private Map<Integer, Set<Integer>> createTransitiveSubsumed() {
 		Map<Integer, Set<Integer>> ret = new HashMap<>();
-		for (Integer r : getObjectPropertyGraph().getElements()) {
+		getObjectPropertyGraph().getElements().forEach(r -> {
 			Set<Integer> related = new HashSet<>();
-			for (Integer s : getObjectPropertyGraph().getElements()) {
+			getObjectPropertyGraph().getElements().forEach(s -> {
 				if (isReflexiveTransitiveSubsumed(r, s)) {
 					related.add(s);
 				}
-			}
+			});
 			ret.put(r, related);
-		}
+		});
 		return ret;
 	}
 
@@ -421,10 +410,10 @@ public class CelProcessor implements Processor {
 			toVisit.remove(elem);
 			visited.add(elem);
 			Set<Integer> newToVisit = new HashSet<>();
-			for (Integer r : getPropertyUsedByClass(elem)) {
+			getPropertyUsedByClass(elem).forEach(r -> {
 				IntegerBinaryRelation relation = this.relationSet.get(r);
 				newToVisit.addAll(relation.getByFirst(elem));
-			}
+			});
 			newToVisit.removeAll(visited);
 			toVisit.addAll(newToVisit);
 		}
@@ -485,10 +474,10 @@ public class CelProcessor implements Processor {
 	private void prepareQueue(CelExtendedOntology ontology) {
 		Set<Integer> classNameSet = new HashSet<>();
 		classNameSet.addAll(ontology.getClassSet());
-		for (Integer className : classNameSet) {
+		classNameSet.forEach(className -> {
 			addToQueue(className, ontology.getClassEntries(className));
 			addToQueue(className, ontology.getClassEntries(topClassId));
-		}
+		});
 	}
 
 	/**
@@ -602,13 +591,13 @@ public class CelProcessor implements Processor {
 	private void processBottom(Integer className) {
 		this.classGraph.addAncestor(className, bottomClassId);
 
-		for (Integer relation : this.relationSet.getElements()) {
-			for (Integer firstComponent : this.relationSet.getBySecond(relation, className)) {
+		this.relationSet.getElements().forEach(relation -> {
+			this.relationSet.getBySecond(relation, className).forEach(firstComponent -> {
 				if (!this.classGraph.containsPair(firstComponent, bottomClassId)) {
 					processBottom(firstComponent);
 				}
-			}
-		}
+			});
+		});
 	}
 
 	private void processExistential(Integer cA, ExistentialEntry eX) {
@@ -648,61 +637,62 @@ public class CelProcessor implements Processor {
 
 				Set<Integer> propertySet = getPropertyUsedByClass(cA);
 
-				for (Integer r : propertySet) {
+				propertySet.forEach(r -> {
 
 					Set<ExtensionEntry> existentialEntries = getExtendedOntology().getExistentialEntries(r, cB);
 
 					Collection<Integer> classSet = this.relationSet.getBySecond(r, cA);
 
-					for (Integer cAprime : classSet) {
+					classSet.forEach(cAprime -> addToQueue(cAprime, existentialEntries));
 
-						addToQueue(cAprime, existentialEntries);
-					}
-				}
+				});
 			}
 		}
 	}
 
 	private void processNewEdge(Integer cA, Integer r, Integer cB) {
-		for (Integer s : this.transitiveSubsumed.get(r)) {
+		this.transitiveSubsumed.get(r).forEach(s -> {
 
 			this.relationSet.add(s, cA, cB);
 			getPropertyUsedByClass(cB).add(s);
 
-			for (Integer cBprime : this.classGraph.getSubsumers(cB)) {
-				addToQueue(cA, getExtendedOntology().getExistentialEntries(s, cBprime));
-			}
+			this.classGraph.getSubsumers(cB)
+					.forEach(cBprime -> addToQueue(cA, getExtendedOntology().getExistentialEntries(s, cBprime)));
 
-			for (RI3Axiom axiom : getExtendedOntology().getSubPropertyAxiomSetByRight(s)) {
+			getExtendedOntology().getSubPropertyAxiomSetByRight(s).forEach(axiom -> {
 
 				Integer t = axiom.getLeftSubProperty();
 				Integer u = axiom.getSuperProperty();
 
 				Collection<Integer> classSet = this.relationSet.getBySecond(t, cA);
 
-				for (Integer cAprime : classSet) {
+				classSet.forEach(cAprime -> {
 
 					if (!this.relationSet.contains(u, cAprime, cB)) {
 						processNewEdge(cAprime, u, cB);
 					}
-				}
-			}
 
-			for (RI3Axiom axiom : getExtendedOntology().getSubPropertyAxiomSetByLeft(s)) {
+				});
+
+			});
+
+			getExtendedOntology().getSubPropertyAxiomSetByLeft(s).forEach(axiom -> {
 
 				Integer t = axiom.getRightSubProperty();
 				Integer u = axiom.getSuperProperty();
 
 				Collection<Integer> classSet = this.relationSet.getByFirst(t, cB);
 
-				for (Integer cBprime : classSet) {
+				classSet.forEach(cBprime -> {
 
 					if (!this.relationSet.contains(u, cA, cBprime)) {
 						processNewEdge(cA, u, cBprime);
 					}
-				}
-			}
-		}
+
+				});
+
+			});
+		});
 	}
 
 	/**
@@ -714,38 +704,34 @@ public class CelProcessor implements Processor {
 	 */
 	private void processNominals(IntegerHierarchicalGraph hierarchicalGraph) {
 		Set<Integer> nominals = getEntityManager().getAuxiliaryNominals();
-		for (Integer indiv : nominals) {
+		nominals.forEach(indiv -> {
 			Set<Integer> descendants = getDescendants(hierarchicalGraph, indiv);
-			for (Integer c : descendants) {
-				for (Integer d : descendants) {
+			descendants.forEach(c -> {
+				descendants.forEach(d -> {
 					Collection<Integer> sC = getClassGraph().getSubsumers(c);
 					Collection<Integer> sD = getClassGraph().getSubsumers(d);
 					if (!(sD.containsAll(sC))) {
 						if (isConnectedTo(c, d)) {
-							for (Integer elem : sD) {
-								this.classGraph.addAncestor(c, elem);
-							}
+							sD.forEach(elem -> this.classGraph.addAncestor(c, elem));
 						}
-						for (Integer nominal : nominals) {
+						nominals.forEach(nominal -> {
 							if (isConnectedTo(nominal, d)) {
-								for (Integer elem : sD) {
-									this.classGraph.addAncestor(c, elem);
-								}
+								sD.forEach(elem -> this.classGraph.addAncestor(c, elem));
 							}
-						}
+						});
 					}
-				}
-			}
-		}
+				});
+			});
+		});
 	}
 
 	private void removeAuxiliaryClassesExceptNominals() {
 		Set<Integer> reqClasses = new HashSet<>();
-		for (Integer elem : getClassGraph().getElements()) {
+		getClassGraph().getElements().forEach(elem -> {
 			if (!getEntityManager().isAuxiliary(elem)) {
 				reqClasses.add(elem);
 			}
-		}
+		});
 		reqClasses.addAll(getEntityManager().getAuxiliaryNominals());
 		this.classGraph.retainAll(reqClasses);
 	}
@@ -759,11 +745,11 @@ public class CelProcessor implements Processor {
 
 	private void removeAuxiliaryObjectProperties() {
 		Set<Integer> reqObjectProperties = new HashSet<>();
-		for (Integer elem : getObjectPropertyGraph().getElements()) {
+		getObjectPropertyGraph().getElements().forEach(elem -> {
 			if (!getEntityManager().isAuxiliary(elem)) {
 				reqObjectProperties.add(elem);
 			}
-		}
+		});
 		this.objectPropertyGraph.retainAll(reqObjectProperties);
 	}
 

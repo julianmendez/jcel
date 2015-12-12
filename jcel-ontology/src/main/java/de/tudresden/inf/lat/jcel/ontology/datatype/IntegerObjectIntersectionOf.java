@@ -121,9 +121,7 @@ public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 	@Override
 	public Set<Integer> getClassesInSignature() {
 		Set<Integer> ret = new HashSet<>();
-		for (IntegerClassExpression expression : getOperands()) {
-			ret.addAll(expression.getClassesInSignature());
-		}
+		getOperands().forEach(expression -> ret.addAll(expression.getClassesInSignature()));
 		return Collections.unmodifiableSet(ret);
 	}
 
@@ -145,9 +143,7 @@ public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
 		Set<Integer> ret = new HashSet<>();
-		for (IntegerClassExpression expression : getOperands()) {
-			ret.addAll(expression.getObjectPropertiesInSignature());
-		}
+		getOperands().forEach(expression -> ret.addAll(expression.getObjectPropertiesInSignature()));
 		return Collections.unmodifiableSet(ret);
 	}
 

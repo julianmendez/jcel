@@ -132,10 +132,10 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		Set<Integer> originalClassSet = new HashSet<>();
 		Set<Integer> originalObjectPropertySet = new HashSet<>();
 
-		for (ComplexIntegerAxiom axiom : ontology) {
+		ontology.forEach(axiom -> {
 			originalClassSet.addAll(axiom.getClassesInSignature());
 			originalObjectPropertySet.addAll(axiom.getObjectPropertiesInSignature());
-		}
+		});
 
 		logger.fine("number of axioms : " + ontology.size());
 		logger.fine("number of classes : " + originalClassSet.size());
@@ -458,9 +458,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			set = graph.getDescendants(cls.getId());
 		}
 		Set<Set<IntegerClass>> ret = new HashSet<>();
-		for (Integer currentElem : set) {
-			ret.add(toIntegerClass(graph.getEquivalents(currentElem)));
-		}
+		set.forEach(currentElem -> ret.add(toIntegerClass(graph.getEquivalents(currentElem))));
 		return ret;
 	}
 
@@ -490,9 +488,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			set = graph.getDescendants(propId);
 		}
 		Set<Set<IntegerObjectPropertyExpression>> ret = new HashSet<>();
-		for (Integer currentElem : set) {
-			ret.add(toIntegerObjectPropertyExpression(graph.getEquivalents(currentElem)));
-		}
+		set.forEach(currentElem -> ret.add(toIntegerObjectPropertyExpression(graph.getEquivalents(currentElem))));
 		return ret;
 	}
 
@@ -512,10 +508,10 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			set = graph.getAncestors(cls.getId());
 		}
 		Set<Set<IntegerClass>> ret = new HashSet<>();
-		for (Integer currentElem : set) {
+		set.forEach(currentElem -> {
 			Set<Integer> equivalents = graph.getEquivalents(currentElem);
 			ret.add(toIntegerClass(equivalents));
-		}
+		});
 		return ret;
 	}
 
@@ -545,9 +541,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			set = graph.getAncestors(propId);
 		}
 		Set<Set<IntegerObjectPropertyExpression>> ret = new HashSet<>();
-		for (Integer currentElem : set) {
-			ret.add(toIntegerObjectPropertyExpression(graph.getEquivalents(currentElem)));
-		}
+		set.forEach(currentElem -> ret.add(toIntegerObjectPropertyExpression(graph.getEquivalents(currentElem))));
 		return ret;
 	}
 
@@ -600,9 +594,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			}
 		}
 		Set<Set<IntegerClass>> ret = new HashSet<>();
-		for (Integer currentElem : set) {
-			ret.add(toIntegerClass(graph.getEquivalents(currentElem)));
-		}
+		set.forEach(currentElem -> ret.add(toIntegerClass(graph.getEquivalents(currentElem))));
 		return ret;
 	}
 
@@ -666,33 +658,25 @@ public class RuleBasedReasoner implements IntegerReasoner {
 
 	private Set<IntegerClass> toIntegerClass(Set<Integer> set) {
 		Set<IntegerClass> ret = new HashSet<>();
-		for (Integer elem : set) {
-			ret.add(getDataTypeFactory().createClass(elem));
-		}
+		set.forEach(elem -> ret.add(getDataTypeFactory().createClass(elem)));
 		return ret;
 	}
 
 	private Set<IntegerDataProperty> toIntegerDataProperty(Set<Integer> set) {
 		Set<IntegerDataProperty> ret = new HashSet<>();
-		for (Integer elem : set) {
-			ret.add(getDataTypeFactory().createDataProperty(elem));
-		}
+		set.forEach(elem -> ret.add(getDataTypeFactory().createDataProperty(elem)));
 		return ret;
 	}
 
 	private Set<IntegerNamedIndividual> toIntegerNamedIndividual(Set<Integer> set) {
 		Set<IntegerNamedIndividual> ret = new HashSet<>();
-		for (Integer elem : set) {
-			ret.add(getDataTypeFactory().createNamedIndividual(elem));
-		}
+		set.forEach(elem -> ret.add(getDataTypeFactory().createNamedIndividual(elem)));
 		return ret;
 	}
 
 	private Set<IntegerObjectPropertyExpression> toIntegerObjectPropertyExpression(Set<Integer> set) {
 		Set<IntegerObjectPropertyExpression> ret = new HashSet<>();
-		for (Integer elem : set) {
-			ret.add(getDataTypeFactory().createObjectProperty(elem));
-		}
+		set.forEach(elem -> ret.add(getDataTypeFactory().createObjectProperty(elem)));
 		return ret;
 	}
 
