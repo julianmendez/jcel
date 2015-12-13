@@ -54,6 +54,7 @@ package de.tudresden.inf.lat.jcel.core.completion.common;
  * 
  * @author Julian Mendez
  */
+@FunctionalInterface
 public interface SObserverRule {
 
 	/**

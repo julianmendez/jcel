@@ -56,6 +56,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
  * 
  * @author Julian Mendez
  */
+@FunctionalInterface
 public interface NormalizationRule {
 
 	/**

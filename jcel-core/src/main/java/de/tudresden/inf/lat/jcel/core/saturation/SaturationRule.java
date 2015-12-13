@@ -56,6 +56,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
  * 
  * @author Julian Mendez
  */
+@FunctionalInterface
 public interface SaturationRule {
 
 	/**
