@@ -49,6 +49,7 @@ package de.tudresden.inf.lat.jcel.core.completion.basic;
 import java.util.Collection;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
+import de.tudresden.inf.lat.jcel.core.completion.common.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 
 /**

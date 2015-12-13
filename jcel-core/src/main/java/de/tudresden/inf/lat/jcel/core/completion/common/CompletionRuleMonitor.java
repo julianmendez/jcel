@@ -44,7 +44,7 @@
  *
  */
 
-package de.tudresden.inf.lat.jcel.core.completion.basic;
+package de.tudresden.inf.lat.jcel.core.completion.common;
 
 /**
  * An object of this class keeps track whether a completion rule has been
