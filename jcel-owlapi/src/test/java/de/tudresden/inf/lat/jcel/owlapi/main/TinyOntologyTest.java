@@ -89,7 +89,7 @@ public class TinyOntologyTest extends TestCase {
 	}
 
 	private Set<OWLClass> flatten(NodeSet<OWLClass> originalSet) {
-		Set<OWLClass> ret = new TreeSet<OWLClass>();
+		Set<OWLClass> ret = new TreeSet<>();
 		originalSet.getNodes().forEach(set -> ret.addAll(set.getEntities()));
 		return ret;
 	}
@@ -493,7 +493,7 @@ public class TinyOntologyTest extends TestCase {
 		JcelReasonerFactory reasonerFactory = new JcelReasonerFactory();
 		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
 
-		Set<OWLClass> elementsToTest = new TreeSet<OWLClass>();
+		Set<OWLClass> elementsToTest = new TreeSet<>();
 		elementsToTest.add(a);
 		elementsToTest.add(b);
 		elementsToTest.add(c);

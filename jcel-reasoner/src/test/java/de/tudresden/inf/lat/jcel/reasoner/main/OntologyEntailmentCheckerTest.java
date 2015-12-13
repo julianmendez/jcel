@@ -96,7 +96,7 @@ public class OntologyEntailmentCheckerTest extends TestCase {
 	 * </ul>
 	 */
 	public void testOntology0() {
-		Set<Annotation> annotations = new TreeSet<Annotation>();
+		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<>();

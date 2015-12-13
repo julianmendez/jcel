@@ -180,7 +180,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 	}
 
 	public Set<Annotation> translateAnnotations(Set<OWLAnnotation> owlAnnotations) {
-		Set<Annotation> ret = new TreeSet<Annotation>();
+		Set<Annotation> ret = new TreeSet<>();
 		owlAnnotations.forEach(owlAnnotation -> ret.add(translateAnnotation(owlAnnotation)));
 		return ret;
 	}

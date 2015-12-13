@@ -113,7 +113,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology0() {
-		Set<Annotation> annotations = new TreeSet<Annotation>();
+		Set<Annotation> annotations = new TreeSet<>();
 		NormalizedIntegerAxiomFactoryImpl factory = new NormalizedIntegerAxiomFactoryImpl();
 		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<>();
@@ -155,7 +155,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology1() {
-		Set<Annotation> annotations = new TreeSet<Annotation>();
+		Set<Annotation> annotations = new TreeSet<>();
 		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
 		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<>();
@@ -200,7 +200,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology2() {
-		Set<Annotation> annotations = new TreeSet<Annotation>();
+		Set<Annotation> annotations = new TreeSet<>();
 		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
 		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<>();
@@ -240,7 +240,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology3() {
-		Set<Annotation> annotations = new TreeSet<Annotation>();
+		Set<Annotation> annotations = new TreeSet<>();
 		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
 		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<>();
@@ -299,7 +299,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 */
 	public void testTinyOntology4() {
-		Set<Annotation> annotations = new TreeSet<Annotation>();
+		Set<Annotation> annotations = new TreeSet<>();
 		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
 		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<>();

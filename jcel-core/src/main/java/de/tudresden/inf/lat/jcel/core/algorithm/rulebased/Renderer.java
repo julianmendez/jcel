@@ -109,7 +109,7 @@ public class Renderer {
 
 	private Set<String> getNames(Collection<Integer> identifiers, IntegerEntityManager entityManager)
 			throws IOException {
-		Set<String> ret = new TreeSet<String>();
+		Set<String> ret = new TreeSet<>();
 		for (int id : identifiers) {
 			ret.add(entityManager.getName(id));
 		}

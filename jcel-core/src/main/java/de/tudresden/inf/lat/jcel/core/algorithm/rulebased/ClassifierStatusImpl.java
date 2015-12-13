@@ -97,8 +97,8 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	private final Map<Integer, VNodeImpl> nodeSet = new HashMap<>();
 	private IntegerSubsumerBidirectionalGraphImpl objectPropertyGraph = null;
 	private IntegerRelationMapImpl relationSet = null;
-	private final Set<REntry> setQsubR = new TreeSet<REntry>();
-	private final Set<SEntry> setQsubS = new TreeSet<SEntry>();
+	private final Set<REntry> setQsubR = new TreeSet<>();
+	private final Set<SEntry> setQsubS = new TreeSet<>();
 
 	/**
 	 * Constructs a new classifier status.

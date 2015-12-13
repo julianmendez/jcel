@@ -86,7 +86,7 @@ public class NormalizerNR3_3Test extends TestCase {
 	 * </ul>
 	 */
 	public void testRule() {
-		Set<Annotation> annotations = new TreeSet<Annotation>();
+		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR3_3 normalizer = new NormalizerNR3_3(factory);
 

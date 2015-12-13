@@ -129,7 +129,7 @@ public class SR1AndSR2Rules implements SaturationRule {
 		for (RI2Axiom axiom0 : axiomSet) {
 			for (RI2Axiom axiom1 : axiomSet) {
 				if (axiom0.getSuperProperty() == axiom1.getSubProperty()) {
-					Set<Annotation> annotations = new TreeSet<Annotation>();
+					Set<Annotation> annotations = new TreeSet<>();
 					annotations.addAll(axiom0.getAnnotations());
 					annotations.addAll(axiom1.getAnnotations());
 					ret.add(this.factory.createRI2Axiom(axiom0.getSubProperty(), axiom1.getSuperProperty(),

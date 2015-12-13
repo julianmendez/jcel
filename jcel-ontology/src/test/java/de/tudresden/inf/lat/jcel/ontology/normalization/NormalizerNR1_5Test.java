@@ -73,7 +73,7 @@ public class NormalizerNR1_5Test extends TestCase {
 	 * C &equiv; D \u219D C \u2291 D, D \u2291 C
 	 */
 	public void testUsingClasses() {
-		Set<Annotation> annotations = new TreeSet<Annotation>();
+		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR1_5 normalizer = new NormalizerNR1_5(factory);
 
@@ -103,7 +103,7 @@ public class NormalizerNR1_5Test extends TestCase {
 	 * <i>.</i> C<sub>1</sub>
 	 */
 	public void testUsingClassExpressions() {
-		Set<Annotation> annotations = new TreeSet<Annotation>();
+		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR1_5 normalizer = new NormalizerNR1_5(factory);
 

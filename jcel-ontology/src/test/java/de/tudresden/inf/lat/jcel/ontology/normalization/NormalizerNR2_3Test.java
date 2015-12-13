@@ -76,7 +76,7 @@ public class NormalizerNR2_3Test extends TestCase {
 	 * <sub>2</sub> <i>.</i> C<sub>2</sub>
 	 */
 	public void testRule() {
-		Set<Annotation> annotations = new TreeSet<Annotation>();
+		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR2_3 normalizer = new NormalizerNR2_3(factory);
 
