@@ -50,6 +50,7 @@ import java.util.Collections;
 import java.util.List;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
+import de.tudresden.inf.lat.jcel.core.completion.common.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 
 /**
@@ -82,11 +83,11 @@ public class SChain implements SObserverRule {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		boolean ret = false;
-		for (SObserverRule elem : this.chain) {
-			ret |= elem.apply(status, subClass, superClass);
-		}
-		return ret;
+		CompletionRuleMonitor ret = new CompletionRuleMonitor();
+		this.chain.forEach(elem -> {
+			ret.or(elem.apply(status, subClass, superClass));
+		});
+		return ret.get();
 	}
 
 	/**

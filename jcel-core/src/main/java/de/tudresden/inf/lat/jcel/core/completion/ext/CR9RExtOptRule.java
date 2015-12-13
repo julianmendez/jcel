@@ -110,9 +110,9 @@ public class CR9RExtOptRule implements RObserverRule {
 
 			if (valid.size() > 1) {
 				VNodeImpl newNode = new VNodeImpl(IntegerEntityManager.topClassId);
-				for (int yi : valid) {
+				valid.forEach(yi -> {
 					newNode.addExistentialsOf(status.getNode(yi));
-				}
+				});
 				int v = status.createOrGetNodeId(newNode);
 				valid.forEach(yi -> {
 
