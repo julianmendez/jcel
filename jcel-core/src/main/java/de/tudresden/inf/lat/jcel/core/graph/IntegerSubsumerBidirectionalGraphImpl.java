@@ -169,17 +169,15 @@ public class IntegerSubsumerBidirectionalGraphImpl implements IntegerSubsumerBid
 	@Override
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		for (Integer id : this.graph.getElements()) {
+		this.graph.getElements().forEach(id -> {
 			Collection<Integer> related = getSubsumers(id);
 			ret.append(id);
 			ret.append(" (");
 			ret.append(related.size());
 			ret.append(") : ");
-			for (Integer elem : related) {
-				ret.append(elem + " ");
-			}
+			related.forEach(elem -> ret.append(elem + " "));
 			ret.append("\n");
-		}
+		});
 		return ret.toString();
 	}
 

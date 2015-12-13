@@ -234,12 +234,12 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	@Override
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
-		for (Integer relationId : getElements()) {
+		getElements().forEach(relationId -> {
 			sbuf.append(relationId);
 			sbuf.append(" ");
 			sbuf.append(this.relationMap.get(relationId).toString());
 			sbuf.append("\n");
-		}
+		});
 		return sbuf.toString();
 	}
 

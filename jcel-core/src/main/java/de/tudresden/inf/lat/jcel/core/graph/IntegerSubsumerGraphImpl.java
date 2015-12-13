@@ -214,36 +214,34 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 
 		Set<Integer> keySet = new HashSet<>();
 		keySet.addAll(this.setS.keySet());
-		for (Integer key : keySet) {
+		keySet.forEach(key -> {
 			if (collection.contains(key)) {
 				Collection<Integer> value = Collections.synchronizedCollection(new ArraySet());
-				for (Integer elem : getSubsumers(key)) {
+				getSubsumers(key).forEach(elem -> {
 					if (collection.contains(elem)) {
 						value.add(elem);
 					}
-				}
+				});
 				this.setS.put(key, value);
 			}
-		}
-		for (Integer key : keySet) {
+		});
+		keySet.forEach(key -> {
 			if (!collection.contains(key)) {
 				this.setS.remove(key);
 				if (this.equivToBottom.contains(key)) {
 					this.equivToBottom.remove(key);
 				}
 			}
-		}
+		});
 	}
 
 	@Override
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
 		ret.append("equivalent to bottom: ");
-		for (Integer elem : this.equivToBottom) {
-			ret.append(" " + elem);
-		}
+		this.equivToBottom.forEach(elem -> ret.append(" " + elem));
 		ret.append("\n");
-		for (Integer id : this.setS.keySet()) {
+		this.setS.keySet().forEach(id -> {
 			Collection<Integer> related = getSubsumers(id);
 			if (this.equivToBottom.contains(id)) {
 				ret.append("* ");
@@ -252,11 +250,9 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 			ret.append(" (");
 			ret.append(related.size());
 			ret.append(") : ");
-			for (Integer elem : related) {
-				ret.append(elem + " ");
-			}
+			related.forEach(elem -> ret.append(elem + " "));
 			ret.append("\n");
-		}
+		});
 		return ret.toString();
 	}
 

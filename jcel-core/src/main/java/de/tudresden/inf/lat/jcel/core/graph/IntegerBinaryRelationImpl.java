@@ -203,16 +203,16 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 		StringBuffer sbuf = new StringBuffer();
 		Set<Integer> elements = getElements();
 		sbuf.append("[");
-		for (Integer firstComponent : elements) {
+		elements.forEach(firstComponent -> {
 			Collection<Integer> connectedElem = getByFirst(firstComponent);
-			for (Integer secondComponent : connectedElem) {
+			connectedElem.forEach(secondComponent -> {
 				sbuf.append(" (");
 				sbuf.append(firstComponent);
 				sbuf.append(",");
 				sbuf.append(secondComponent);
 				sbuf.append(")");
-			}
-		}
+			});
+		});
 		sbuf.append(" ]");
 		return sbuf.toString();
 	}

@@ -153,11 +153,11 @@ public class VNodeImpl implements VNode {
 		StringBuffer ret = new StringBuffer();
 		ret.append(this.classIdentifier);
 		ret.append(" ");
-		for (VNodeObjectSomeValuesFrom expression : this.existentialSet) {
+		this.existentialSet.forEach(expression -> {
 			ret.append(expression.toString());
 			ret.append(", ");
 
-		}
+		});
 		ret.append(" ");
 		return ret.toString();
 	}

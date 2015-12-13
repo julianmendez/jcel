@@ -110,9 +110,7 @@ public class Renderer {
 	private Set<String> getNames(Collection<Integer> identifiers, IntegerEntityManager entityManager)
 			throws IOException {
 		Set<String> ret = new TreeSet<>();
-		for (int id : identifiers) {
-			ret.add(entityManager.getName(id));
-		}
+		identifiers.forEach(id -> ret.add(entityManager.getName(id)));
 		return ret;
 	}
 
@@ -204,14 +202,10 @@ public class Renderer {
 
 	private List<Integer> sortByName(Collection<Integer> identifiers, IntegerEntityManager entityManager) {
 		List<PairIdName> list = new ArrayList<>();
-		for (int id : identifiers) {
-			list.add(new PairIdName(id, entityManager.getName(id)));
-		}
+		identifiers.forEach(id -> list.add(new PairIdName(id, entityManager.getName(id))));
 		Collections.sort(list);
 		List<Integer> ret = new ArrayList<>();
-		for (PairIdName pair : list) {
-			ret.add(pair.getId());
-		}
+		list.forEach(pair -> ret.add(pair.getId()));
 		return ret;
 	}
 

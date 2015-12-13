@@ -91,16 +91,15 @@ public class SR4Rule implements SaturationRule {
 		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
 		ret.addAll(originalSet);
 
-		for (NormalizedIntegerAxiom normalizedAxiom : originalSet) {
+		originalSet.forEach(normalizedAxiom -> {
 			if (normalizedAxiom instanceof FunctObjectPropAxiom) {
 				FunctObjectPropAxiom axiom = (FunctObjectPropAxiom) normalizedAxiom;
 				Integer functionalProperty = axiom.getProperty();
 				Set<Integer> newFunctionalPropertySet = this.helper.getReachable(functionalProperty, mapBySuperProp);
-				for (Integer newFunctionalProperty : newFunctionalPropertySet) {
-					ret.add(this.factory.createFunctObjectPropAxiom(newFunctionalProperty, axiom.getAnnotations()));
-				}
+				newFunctionalPropertySet.forEach(newFunctionalProperty -> ret
+						.add(this.factory.createFunctObjectPropAxiom(newFunctionalProperty, axiom.getAnnotations())));
 			}
-		}
+		});
 		return Collections.unmodifiableSet(ret);
 	}
 

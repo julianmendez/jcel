@@ -102,10 +102,10 @@ public class SChain implements SObserverRule {
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append("(");
-		for (SObserverRule elem : getList()) {
+		getList().forEach(elem -> {
 			sbuf.append(elem.toString());
 			sbuf.append(" ");
-		}
+		});
 		sbuf.append(")");
 		return sbuf.toString();
 	}

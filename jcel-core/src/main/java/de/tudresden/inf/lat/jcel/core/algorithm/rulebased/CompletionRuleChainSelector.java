@@ -155,16 +155,12 @@ public class CompletionRuleChainSelector {
 	public void activateProfiler() {
 		List<SObserverRule> listS = this.chainS.getList();
 		List<SObserverRule> listSWithProfiler = new ArrayList<>();
-		for (SObserverRule current : listS) {
-			listSWithProfiler.add(new RuleProfiler(current));
-		}
+		listS.forEach(current -> listSWithProfiler.add(new RuleProfiler(current)));
 		this.chainS = new SChain(listSWithProfiler);
 
 		List<RObserverRule> listR = this.chainR.getList();
 		List<RObserverRule> listRWithProfiler = new ArrayList<>();
-		for (RObserverRule current : listR) {
-			listRWithProfiler.add(new RuleProfiler(current));
-		}
+		listR.forEach(current -> listRWithProfiler.add(new RuleProfiler(current)));
 		this.chainR = new RChain(listRWithProfiler);
 	}
 

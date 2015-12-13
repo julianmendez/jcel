@@ -197,41 +197,43 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 		}
 		this.nodeSet.clear();
 		this.invNodeSet.clear();
-		for (int elem : getExtendedOntology().getClassSet()) {
+		getExtendedOntology().getClassSet().forEach(elem -> {
 			VNodeImpl node = new VNodeImpl(elem);
 			this.nodeSet.put(elem, node);
 			this.invNodeSet.put(node, elem);
-		}
+		});
 	}
 
 	private void createMapOfObjectPropertiesWithFunctionalAncestor() {
-		for (int s : this.extendedOntology.getFunctionalObjectProperties()) {
+		this.extendedOntology.getFunctionalObjectProperties().forEach(s -> {
 			Collection<Integer> cognates = getSubObjectProperties(s);
-			for (int r : cognates) {
+			cognates.forEach(r -> {
 				Set<Integer> currentSet = this.cognateFunctPropMap.get(r);
 				if (currentSet == null) {
 					currentSet = new HashSet<>();
 					this.cognateFunctPropMap.put(r, currentSet);
 				}
 				currentSet.addAll(cognates);
-			}
-		}
+			});
+		});
 	}
 
 	private void createObjectPropertyGraph() {
 		this.objectPropertyGraph = new IntegerSubsumerBidirectionalGraphImpl(bottomObjectPropertyId,
 				topObjectPropertyId);
-		for (int index : this.extendedOntology.getObjectPropertySet()) {
+
+		this.extendedOntology.getObjectPropertySet().forEach(index -> {
 			this.objectPropertyGraph.addAncestor(index, topObjectPropertyId);
 			int inverseProp = this.entityManager.createOrGetInverseObjectPropertyOf(index);
 			this.objectPropertyGraph.addAncestor(inverseProp, topObjectPropertyId);
-		}
-		for (int property : this.extendedOntology.getObjectPropertySet()) {
+		});
+
+		this.extendedOntology.getObjectPropertySet().forEach(property -> {
 			Set<RI2Axiom> axiomSet = this.extendedOntology.getRI2rAxioms(property);
-			for (RI2Axiom axiom : axiomSet) {
-				this.objectPropertyGraph.addAncestor(axiom.getSubProperty(), axiom.getSuperProperty());
-			}
-		}
+			axiomSet.forEach(
+					axiom -> this.objectPropertyGraph.addAncestor(axiom.getSubProperty(), axiom.getSuperProperty()));
+		});
+
 		makeTransitiveClosure(this.objectPropertyGraph);
 	}
 
@@ -259,16 +261,12 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 		Collection<Integer> collection = getObjectPropertyGraph().getElements();
 		synchronized (this.monitorRelationSet) {
 			this.relationSet = new IntegerRelationMapImpl();
-			for (int index : collection) {
-				this.relationSet.add(index);
-			}
+			collection.forEach(index -> this.relationSet.add(index));
 		}
 	}
 
 	private void createSetOfNodes() {
-		for (int classId : getExtendedOntology().getClassSet()) {
-			createOrGetNodeId(new VNodeImpl(classId));
-		}
+		getExtendedOntology().getClassSet().forEach(classId -> createOrGetNodeId(new VNodeImpl(classId)));
 	}
 
 	/**

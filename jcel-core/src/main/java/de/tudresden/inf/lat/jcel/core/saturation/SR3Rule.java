@@ -95,7 +95,8 @@ public class SR3Rule implements SaturationRule {
 
 		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
 		ret.addAll(originalSet);
-		for (NormalizedIntegerAxiom normalizedAxiom : originalSet) {
+
+		originalSet.forEach(normalizedAxiom -> {
 			if (normalizedAxiom instanceof RI3Axiom) {
 				RI3Axiom axiom = (RI3Axiom) normalizedAxiom;
 				Integer invLeftSubProp = this.idGenerator
@@ -107,7 +108,7 @@ public class SR3Rule implements SaturationRule {
 						axiom.getAnnotations());
 				ret.add(newAxiom);
 			}
-		}
+		});
 		return Collections.unmodifiableSet(ret);
 	}
 

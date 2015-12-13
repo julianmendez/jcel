@@ -210,15 +210,15 @@ public class RuleBasedProcessor implements Processor {
 	private Map<Integer, Set<Integer>> computeDirectTypes(IntegerHierarchicalGraph hierarchicalGraph) {
 		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		Set<Integer> individuals = getEntityManager().getIndividuals();
-		for (Integer indiv : individuals) {
+		individuals.forEach(indiv -> {
 			Set<Integer> subsumers = hierarchicalGraph.getParents(getEntityManager().getAuxiliaryNominal(indiv));
-			for (Integer elem : subsumers) {
+			subsumers.forEach(elem -> {
 				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
 					throw new IllegalStateException("An individual has another individual as direct subsumer.");
 				}
-			}
+			});
 			ret.put(indiv, Collections.unmodifiableSet(subsumers));
-		}
+		});
 		return ret;
 	}
 
@@ -240,10 +240,10 @@ public class RuleBasedProcessor implements Processor {
 			toVisit.remove(elem);
 			ret.add(elem);
 			Set<Integer> newToVisit = new HashSet<>();
-			for (Integer r : this.status.getObjectPropertiesByFirst(elem)) {
+			this.status.getObjectPropertiesByFirst(elem).forEach(r -> {
 				IntegerBinaryRelation relation = this.status.getRelationSet().get(r);
 				newToVisit.addAll(relation.getByFirst(elem));
-			}
+			});
 			newToVisit.removeAll(ret);
 			toVisit.addAll(newToVisit);
 		}
@@ -262,17 +262,17 @@ public class RuleBasedProcessor implements Processor {
 	private Map<Integer, Set<Integer>> computeSameIndividualMap(IntegerHierarchicalGraph hierarchicalGraph) {
 		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		Set<Integer> individuals = getEntityManager().getIndividuals();
-		for (Integer indiv : individuals) {
+		individuals.forEach(indiv -> {
 			Set<Integer> equivalentClasses = hierarchicalGraph
 					.getEquivalents(getEntityManager().getAuxiliaryNominal(indiv));
 			Set<Integer> equivalents = new HashSet<>();
-			for (Integer elem : equivalentClasses) {
+			equivalentClasses.forEach(elem -> {
 				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
 					equivalents.add(getEntityManager().getIndividual(elem));
 				}
-			}
+			});
 			ret.put(indiv, Collections.unmodifiableSet(equivalents));
-		}
+		});
 		return ret;
 	}
 
@@ -297,12 +297,8 @@ public class RuleBasedProcessor implements Processor {
 		Set<NormalizedIntegerAxiom> saturatedNormalizedAxiomSet = subPropNormalizer.apply(axioms);
 		ExtendedOntology extendedOntology = new ExtendedOntologyImpl();
 		extendedOntology.load(saturatedNormalizedAxiomSet);
-		for (Integer elem : originalObjectPropertySet) {
-			extendedOntology.addObjectProperty(elem);
-		}
-		for (Integer elem : originalClassSet) {
-			extendedOntology.addClass(elem);
-		}
+		originalObjectPropertySet.forEach(elem -> extendedOntology.addObjectProperty(elem));
+		originalClassSet.forEach(elem -> extendedOntology.addClass(elem));
 		return extendedOntology;
 	}
 
@@ -504,10 +500,10 @@ public class RuleBasedProcessor implements Processor {
 				IntegerEntityManager.bottomDataPropertyId, IntegerEntityManager.topDataPropertyId));
 		Set<Integer> classNameSet = new HashSet<>();
 		classNameSet.addAll(this.status.getExtendedOntology().getClassSet());
-		for (Integer className : classNameSet) {
+		classNameSet.forEach(className -> {
 			this.status.addNewSEntry(className, className);
 			this.status.addNewSEntry(className, topClassId);
-		}
+		});
 
 		logger.fine("processor configured.");
 		logger.fine(showConfigurationInfo());
@@ -618,29 +614,25 @@ public class RuleBasedProcessor implements Processor {
 	private void processNominals(IntegerHierarchicalGraph hierarchicalGraph) {
 		Map<Integer, Set<Integer>> reachabilityCache = new HashMap<>();
 		Set<Integer> nominals = getEntityManager().getAuxiliaryNominals();
-		for (Integer indiv : nominals) {
+		nominals.forEach(indiv -> {
 			Set<Integer> descendants = getDescendants(hierarchicalGraph, indiv);
-			for (Integer c : descendants) {
-				for (Integer d : descendants) {
+			descendants.forEach(c -> {
+				descendants.forEach(d -> {
 					Collection<Integer> sC = getClassGraph().getSubsumers(c);
 					Collection<Integer> sD = getClassGraph().getSubsumers(d);
 					if (!(sD.containsAll(sC))) {
 						if (computeReachability(c, reachabilityCache).contains(d)) {
-							for (Integer elem : sD) {
-								this.status.getClassGraph().addAncestor(c, elem);
-							}
+							sD.forEach(elem -> this.status.getClassGraph().addAncestor(c, elem));
 						}
-						for (Integer nominal : nominals) {
+						nominals.forEach(nominal -> {
 							if (computeReachability(nominal, reachabilityCache).contains(d)) {
-								for (Integer elem : sD) {
-									this.status.getClassGraph().addAncestor(c, elem);
-								}
+								sD.forEach(elem -> this.status.getClassGraph().addAncestor(c, elem));
 							}
-						}
+						});
 					}
-				}
-			}
-		}
+				});
+			});
+		});
 	}
 
 	private boolean processREntries() {
@@ -706,11 +698,11 @@ public class RuleBasedProcessor implements Processor {
 
 	private void removeAuxiliaryClassesExceptNominals() {
 		Set<Integer> reqClasses = new HashSet<>();
-		for (Integer elem : getClassGraph().getElements()) {
+		getClassGraph().getElements().forEach(elem -> {
 			if (!getEntityManager().isAuxiliary(elem)) {
 				reqClasses.add(elem);
 			}
-		}
+		});
 		reqClasses.addAll(getEntityManager().getAuxiliaryNominals());
 		this.status.getClassGraph().retainAll(reqClasses);
 	}
@@ -728,33 +720,33 @@ public class RuleBasedProcessor implements Processor {
 	 */
 	private void removeAuxiliaryObjectProperties() {
 		Set<Integer> reqObjectProperties = new HashSet<>();
-		for (Integer elem : getObjectPropertyGraph().getElements()) {
+		getObjectPropertyGraph().getElements().forEach(elem -> {
 			if (!getEntityManager().isAuxiliary(elem)) {
 				reqObjectProperties.add(elem);
 			}
-		}
+		});
 		this.status.getObjectPropertyGraph().retainAll(reqObjectProperties);
 	}
 
 	public String showConfigurationInfo() {
 		StringBuffer sbuf = new StringBuffer();
-		for (Map.Entry<String, String> entry : getConfigurationInfo()) {
+		getConfigurationInfo().forEach(entry -> {
 			sbuf.append(entry.getKey());
 			sbuf.append(" = ");
 			sbuf.append(entry.getValue());
 			sbuf.append("\n");
-		}
+		});
 		return sbuf.toString();
 	}
 
 	public String showStatusInfo() {
 		StringBuffer sbuf = new StringBuffer();
-		for (Map.Entry<String, String> entry : getStatusInfo()) {
+		getStatusInfo().forEach(entry -> {
 			sbuf.append(entry.getKey());
 			sbuf.append("=");
 			sbuf.append(entry.getValue());
 			sbuf.append(" ");
-		}
+		});
 		return sbuf.toString();
 	}
 

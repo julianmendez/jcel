@@ -102,10 +102,10 @@ public class RChain implements RObserverRule {
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append("(");
-		for (RObserverRule elem : getList()) {
+		getList().forEach(elem -> {
 			sbuf.append(elem.toString());
 			sbuf.append(" ");
-		}
+		});
 		sbuf.append(")");
 		return sbuf.toString();
 	}

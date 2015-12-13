@@ -116,18 +116,18 @@ public class SR1AndSR2Rules implements SaturationRule {
 
 	private Set<RI2Axiom> applyRule1(Set<RI2Axiom> axiomSet) {
 		Set<RI2Axiom> ret = new HashSet<>();
-		for (RI2Axiom axiom : axiomSet) {
+		axiomSet.forEach(axiom -> {
 			Integer invSubProperty = this.idGenerator.createOrGetInverseObjectPropertyOf(axiom.getSubProperty());
 			Integer invSuperProperty = this.idGenerator.createOrGetInverseObjectPropertyOf(axiom.getSuperProperty());
 			ret.add(this.factory.createRI2Axiom(invSubProperty, invSuperProperty, axiom.getAnnotations()));
-		}
+		});
 		return ret;
 	}
 
 	private Set<RI2Axiom> applyRule2(Set<RI2Axiom> axiomSet) {
 		Set<RI2Axiom> ret = new HashSet<>();
-		for (RI2Axiom axiom0 : axiomSet) {
-			for (RI2Axiom axiom1 : axiomSet) {
+		axiomSet.forEach(axiom0 -> {
+			axiomSet.forEach(axiom1 -> {
 				if (axiom0.getSuperProperty() == axiom1.getSubProperty()) {
 					Set<Annotation> annotations = new TreeSet<>();
 					annotations.addAll(axiom0.getAnnotations());
@@ -135,8 +135,8 @@ public class SR1AndSR2Rules implements SaturationRule {
 					ret.add(this.factory.createRI2Axiom(axiom0.getSubProperty(), axiom1.getSuperProperty(),
 							annotations));
 				}
-			}
-		}
+			});
+		});
 		return ret;
 	}
 

@@ -83,14 +83,14 @@ class SaturationRuleHelper {
 		}
 
 		Map<Integer, Set<Integer>> ret = new HashMap<>();
-		for (RI2Axiom axiom : axiomSet) {
+		axiomSet.forEach(axiom -> {
 			Set<Integer> relatedElemSet = ret.get(axiom.getSubProperty());
 			if (relatedElemSet == null) {
 				relatedElemSet = new HashSet<>();
 				ret.put(axiom.getSubProperty(), relatedElemSet);
 			}
 			relatedElemSet.add(axiom.getSuperProperty());
-		}
+		});
 		return Collections.unmodifiableMap(ret);
 	}
 
@@ -109,14 +109,14 @@ class SaturationRuleHelper {
 		}
 
 		Map<Integer, Set<Integer>> ret = new HashMap<>();
-		for (RI2Axiom axiom : axiomSet) {
+		axiomSet.forEach(axiom -> {
 			Set<Integer> relatedElemSet = ret.get(axiom.getSuperProperty());
 			if (relatedElemSet == null) {
 				relatedElemSet = new HashSet<>();
 				ret.put(axiom.getSuperProperty(), relatedElemSet);
 			}
 			relatedElemSet.add(axiom.getSubProperty());
-		}
+		});
 		return Collections.unmodifiableMap(ret);
 	}
 
@@ -148,11 +148,11 @@ class SaturationRuleHelper {
 			ret.add(elem);
 			Set<Integer> set = map.get(elem);
 			if (set != null) {
-				for (Integer newElem : set) {
+				set.forEach(newElem -> {
 					if (!ret.contains(newElem)) {
 						toVisit.add(newElem);
 					}
-				}
+				});
 			}
 		}
 		return Collections.unmodifiableSet(ret);
@@ -171,11 +171,11 @@ class SaturationRuleHelper {
 		}
 
 		Set<RI2Axiom> ret = new HashSet<>();
-		for (NormalizedIntegerAxiom axiom : originalSet) {
+		originalSet.forEach(axiom -> {
 			if (axiom instanceof RI2Axiom) {
 				ret.add((RI2Axiom) axiom);
 			}
-		}
+		});
 		return Collections.unmodifiableSet(ret);
 	}
 

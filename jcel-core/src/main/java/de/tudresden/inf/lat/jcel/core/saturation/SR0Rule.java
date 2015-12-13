@@ -86,14 +86,11 @@ public class SR0Rule implements SaturationRule {
 		ret.addAll(originalSet);
 
 		Set<Integer> objectPropertySet = new HashSet<>();
-		for (NormalizedIntegerAxiom axiom : originalSet) {
-			objectPropertySet.addAll(axiom.getObjectPropertiesInSignature());
-		}
+		originalSet.forEach(axiom -> objectPropertySet.addAll(axiom.getObjectPropertiesInSignature()));
 
 		Set<Annotation> annotations = Collections.emptySet();
-		for (Integer objectProperty : objectPropertySet) {
-			ret.add(this.factory.createRI2Axiom(objectProperty, objectProperty, annotations));
-		}
+		objectPropertySet.forEach(
+				objectProperty -> ret.add(this.factory.createRI2Axiom(objectProperty, objectProperty, annotations)));
 
 		return Collections.unmodifiableSet(ret);
 	}
