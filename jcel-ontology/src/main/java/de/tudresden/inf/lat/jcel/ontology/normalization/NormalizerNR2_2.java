@@ -125,12 +125,13 @@ class NormalizerNR2_2 implements NormalizationRule {
 			Set<Annotation> annotations) {
 		Set<IntegerAxiom> ret = new HashSet<>();
 		Set<IntegerClassExpression> newOperands = new HashSet<>();
-		boolean applied = false;
-		for (IntegerClassExpression classExpression : operands) {
+		boolean[] applied = new boolean[1];
+		applied[0] = false;
+		operands.forEach(classExpression -> {
 			if (classExpression.isLiteral()) {
 				newOperands.add(classExpression);
 			} else {
-				applied = true;
+				applied[0] = true;
 				IntegerClass newClass = getOntologyObjectFactory().getDataTypeFactory()
 						.createClass(getOntologyObjectFactory().getEntityManager()
 								.createAnonymousEntity(IntegerEntityType.CLASS, true));
@@ -138,8 +139,8 @@ class NormalizerNR2_2 implements NormalizationRule {
 						newClass, annotations));
 				newOperands.add(newClass);
 			}
-		}
-		if (applied) {
+		});
+		if (applied[0]) {
 			IntegerObjectIntersectionOf newIntersection = getOntologyObjectFactory().getDataTypeFactory()
 					.createObjectIntersectionOf(newOperands);
 			ret.add(getOntologyObjectFactory().getComplexAxiomFactory().createSubClassOfAxiom(newIntersection,

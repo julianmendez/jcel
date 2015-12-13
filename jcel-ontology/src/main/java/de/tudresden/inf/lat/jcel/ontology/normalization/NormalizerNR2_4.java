@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.ontology.normalization;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
@@ -123,13 +124,10 @@ class NormalizerNR2_4 implements NormalizationRule {
 	private Set<IntegerAxiom> applyRule(Set<IntegerClassExpression> operands, IntegerClassExpression superClass,
 			Set<Annotation> annotations) {
 		Set<IntegerAxiom> ret = new HashSet<>();
-		IntegerClassExpression aLiteral = null;
-		for (IntegerClassExpression op : operands) {
-			if (op.isLiteral()) {
-				aLiteral = op;
-			}
-		}
-		if (aLiteral != null) {
+		Optional<IntegerClassExpression> optional = operands.stream().filter(op -> op.isLiteral()).findAny();
+
+		if (optional.isPresent()) {
+			IntegerClassExpression aLiteral = optional.get();
 			IntegerClass newClass = getOntologyObjectFactory().getDataTypeFactory().createClass(
 					getOntologyObjectFactory().getEntityManager().createAnonymousEntity(IntegerEntityType.CLASS, true));
 

@@ -48,7 +48,6 @@ package de.tudresden.inf.lat.jcel.ontology.normalization;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -80,13 +79,12 @@ class NormalizerSubPropertyChainOf implements NormalizationRule {
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		Set<IntegerAxiom> ret = Collections.emptySet();
+		Set<IntegerAxiom> ret = new HashSet<>();
 		if (axiom instanceof IntegerSubPropertyChainOfAxiom) {
-			ret = new HashSet<>();
 			Collection<NormalizedIntegerAxiom> normalizedAxioms = simplify((IntegerSubPropertyChainOfAxiom) axiom);
-			for (NormalizedIntegerAxiom normalizedAxiom : normalizedAxioms) {
+			normalizedAxioms.forEach(normalizedAxiom -> {
 				ret.add(normalizedAxiom);
-			}
+			});
 		}
 		return ret;
 	}
