@@ -46,10 +46,10 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
+import de.tudresden.inf.lat.jcel.core.completion.basic.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
 /**
@@ -92,8 +92,8 @@ public class CR3SExtRule implements SObserverRule {
 	}
 
 	private boolean applyRule(ClassifierStatus status, int x, int a) {
-		boolean ret = false;
-		for (GCI2Axiom axiom : status.getExtendedOntology().getGCI2Axioms(a)) {
+		CompletionRuleMonitor ret = new CompletionRuleMonitor();
+		status.getExtendedOntology().getGCI2Axioms(a).forEach(axiom -> {
 			int r = axiom.getPropertyInSuperClass();
 			int b = axiom.getClassInSuperClass();
 			if (status.getExtendedOntology().getFunctionalObjectProperties().contains(r)) {
@@ -101,15 +101,15 @@ public class CR3SExtRule implements SObserverRule {
 				int rMinus = status.getInverseObjectPropertyOf(r);
 				newNode.addExistential(rMinus, a);
 				int v = status.createOrGetNodeId(newNode);
-				ret |= status.addNewSEntry(v, b);
-				ret |= status.addNewSEntry(v, IntegerEntityManager.topClassId);
-				ret |= status.addNewREntry(r, x, v);
+				ret.or(status.addNewSEntry(v, b));
+				ret.or(status.addNewSEntry(v, IntegerEntityManager.topClassId));
+				ret.or(status.addNewREntry(r, x, v));
 			} else {
 				int y = status.createOrGetNodeId(new VNodeImpl(b));
-				ret |= status.addNewREntry(r, x, y);
+				ret.or(status.addNewREntry(r, x, y));
 			}
-		}
-		return ret;
+		});
+		return ret.get();
 	}
 
 	@Override

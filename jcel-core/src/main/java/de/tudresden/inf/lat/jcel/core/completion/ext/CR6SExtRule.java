@@ -46,11 +46,11 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
+import de.tudresden.inf.lat.jcel.core.completion.basic.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 import de.tudresden.inf.lat.jcel.core.graph.VNode;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
 
 /**
  * 
@@ -86,14 +86,14 @@ public class CR6SExtRule implements SObserverRule {
 	}
 
 	private boolean applyRule(ClassifierStatus status, int x, int a) {
-		boolean ret = false;
-		for (GCI3Axiom axiom : status.getExtendedOntology().getGCI3AAxioms(a)) {
+		CompletionRuleMonitor ret = new CompletionRuleMonitor();
+		status.getExtendedOntology().getGCI3AAxioms(a).forEach(axiom -> {
 			int sMinus = axiom.getPropertyInSubClass();
 			int s = status.getInverseObjectPropertyOf(sMinus);
-			for (int r : status.getSubObjectProperties(s)) {
+			status.getSubObjectProperties(s).forEach(r -> {
 				int rMinus = status.getInverseObjectPropertyOf(r);
 				int b = axiom.getSuperClass();
-				for (int y : status.getSecondByFirst(r, x)) {
+				status.getSecondByFirst(r, x).forEach(y -> {
 					if (!status.getSubsumers(y).contains(b)) {
 						VNode psiNode = status.getNode(y);
 						VNodeImpl newNode = new VNodeImpl(psiNode.getClassId());
@@ -102,17 +102,17 @@ public class CR6SExtRule implements SObserverRule {
 						boolean inV = status.contains(newNode);
 						int v = status.createOrGetNodeId(newNode);
 						if (!inV) {
-							for (int p : status.getSubsumers(y)) {
-								ret |= status.addNewSEntry(v, p);
-							}
+							status.getSubsumers(y).forEach(p -> {
+								ret.or(status.addNewSEntry(v, p));
+							});
 						}
-						ret |= status.addNewSEntry(v, b);
-						ret |= status.addNewREntry(r, x, v);
+						ret.or(status.addNewSEntry(v, b));
+						ret.or(status.addNewREntry(r, x, v));
 					}
-				}
-			}
-		}
-		return ret;
+				});
+			});
+		});
+		return ret.get();
 	}
 
 	@Override

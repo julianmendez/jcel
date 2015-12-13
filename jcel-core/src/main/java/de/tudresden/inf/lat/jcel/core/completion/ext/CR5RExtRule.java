@@ -46,6 +46,7 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
+import de.tudresden.inf.lat.jcel.core.completion.basic.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 
@@ -82,31 +83,31 @@ public class CR5RExtRule implements RObserverRule {
 	}
 
 	private boolean apply1(ClassifierStatus status, int r1, int x, int y) {
-		boolean ret = false;
-		for (int s : status.getSuperObjectProperties(r1)) {
+		CompletionRuleMonitor ret = new CompletionRuleMonitor();
+		status.getSuperObjectProperties(r1).forEach(s -> {
 			if (status.getExtendedOntology().getTransitiveObjectProperties().contains(s)) {
-				for (int r2 : status.getSubObjectProperties(s)) {
-					for (int z : status.getSecondByFirst(r2, y)) {
-						ret |= status.addNewREntry(s, x, z);
-					}
-				}
+				status.getSubObjectProperties(s).forEach(r2 -> {
+					status.getSecondByFirst(r2, y).forEach(z -> {
+						ret.or(status.addNewREntry(s, x, z));
+					});
+				});
 			}
-		}
-		return ret;
+		});
+		return ret.get();
 	}
 
 	private boolean apply2(ClassifierStatus status, int r2, int y, int z) {
-		boolean ret = false;
-		for (int s : status.getSuperObjectProperties(r2)) {
+		CompletionRuleMonitor ret = new CompletionRuleMonitor();
+		status.getSuperObjectProperties(r2).forEach(s -> {
 			if (status.getExtendedOntology().getTransitiveObjectProperties().contains(s)) {
-				for (int r1 : status.getSubObjectProperties(s)) {
-					for (int x : status.getFirstBySecond(r1, y)) {
-						ret |= status.addNewREntry(s, x, z);
-					}
-				}
+				status.getSubObjectProperties(s).forEach(r1 -> {
+					status.getFirstBySecond(r1, y).forEach(x -> {
+						ret.or(status.addNewREntry(s, x, z));
+					});
+				});
 			}
-		}
-		return ret;
+		});
+		return ret.get();
 	}
 
 	@Override

@@ -46,9 +46,9 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
+import de.tudresden.inf.lat.jcel.core.completion.basic.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
 
 /**
  * 
@@ -86,18 +86,18 @@ public class CR4SExtRule implements SObserverRule {
 	}
 
 	private boolean applyRule(ClassifierStatus status, int y, int a) {
-		boolean ret = false;
-		for (int r : status.getObjectPropertiesBySecond(y)) {
-			for (int s : status.getSuperObjectProperties(r)) {
-				for (GCI3Axiom axiom : status.getExtendedOntology().getGCI3rAAxioms(s, a)) {
-					for (int x : status.getFirstBySecond(r, y)) {
+		CompletionRuleMonitor ret = new CompletionRuleMonitor();
+		status.getObjectPropertiesBySecond(y).forEach(r -> {
+			status.getSuperObjectProperties(r).forEach(s -> {
+				status.getExtendedOntology().getGCI3rAAxioms(s, a).forEach(axiom -> {
+					status.getFirstBySecond(r, y).forEach(x -> {
 						int b = axiom.getSuperClass();
-						ret |= status.addNewSEntry(x, b);
-					}
-				}
-			}
-		}
-		return ret;
+						ret.or(status.addNewSEntry(x, b));
+					});
+				});
+			});
+		});
+		return ret.get();
 	}
 
 	@Override

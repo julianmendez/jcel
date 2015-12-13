@@ -46,11 +46,11 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
+import de.tudresden.inf.lat.jcel.core.completion.basic.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 import de.tudresden.inf.lat.jcel.core.graph.VNode;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
 
 /**
  * 
@@ -86,13 +86,13 @@ public class CR6RExtRule implements RObserverRule {
 	}
 
 	private boolean applyRule(ClassifierStatus status, int r, int x, int y) {
-		boolean ret = false;
+		CompletionRuleMonitor ret = new CompletionRuleMonitor();
 		int rMinus = status.getInverseObjectPropertyOf(r);
-		for (int s : status.getSuperObjectProperties(r)) {
+		status.getSuperObjectProperties(r).forEach(s -> {
 			int sMinus = status.getInverseObjectPropertyOf(s);
 
-			for (int a : status.getSubsumers(x)) {
-				for (GCI3Axiom axiom : status.getExtendedOntology().getGCI3rAAxioms(sMinus, a)) {
+			status.getSubsumers(x).forEach(a -> {
+				status.getExtendedOntology().getGCI3rAAxioms(sMinus, a).forEach(axiom -> {
 					int b = axiom.getSuperClass();
 					if (!status.getSubsumers(y).contains(b)) {
 						VNode psiNode = status.getNode(y);
@@ -102,18 +102,18 @@ public class CR6RExtRule implements RObserverRule {
 						boolean inV = status.contains(newNode);
 						int v = status.createOrGetNodeId(newNode);
 						if (!inV) {
-							for (int p : status.getSubsumers(y)) {
-								ret |= status.addNewSEntry(v, p);
-							}
+							status.getSubsumers(y).forEach(p -> {
+								ret.or(status.addNewSEntry(v, p));
+							});
 						}
-						ret |= status.addNewSEntry(v, b);
-						ret |= status.addNewREntry(r, x, v);
+						ret.or(status.addNewSEntry(v, b));
+						ret.or(status.addNewREntry(r, x, v));
 					}
-				}
-			}
+				});
+			});
 
-		}
-		return ret;
+		});
+		return ret.get();
 	}
 
 	@Override

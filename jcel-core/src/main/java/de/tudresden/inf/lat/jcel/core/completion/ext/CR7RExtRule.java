@@ -46,11 +46,11 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
+import de.tudresden.inf.lat.jcel.core.completion.basic.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 import de.tudresden.inf.lat.jcel.core.graph.VNode;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
 
 /**
  * 
@@ -89,18 +89,18 @@ public class CR7RExtRule implements RObserverRule {
 	}
 
 	private boolean applyRule(ClassifierStatus status, int r2, int x, int y) {
-		boolean ret = false;
+		CompletionRuleMonitor ret = new CompletionRuleMonitor();
 		VNode phiNode = status.getNode(x);
 		VNode psiNode = status.getNode(y);
-		for (int r : status.getSuperObjectProperties(r2)) {
+		status.getSuperObjectProperties(r2).forEach(r -> {
 			if (status.getExtendedOntology().getTransitiveObjectProperties().contains(r)) {
 				int rMinus = status.getInverseObjectPropertyOf(r);
-				for (int s : status.getSuperObjectProperties(r)) {
+				status.getSuperObjectProperties(r).forEach(s -> {
 					int sMinus = status.getInverseObjectPropertyOf(s);
-					for (GCI3Axiom axiom : status.getExtendedOntology().getGCI3rAxioms(sMinus)) {
+					status.getExtendedOntology().getGCI3rAxioms(sMinus).forEach(axiom -> {
 						int a = axiom.getClassInSubClass();
 						int b = axiom.getSuperClass();
-						for (int r1 : status.getSubObjectProperties(r)) {
+						status.getSubObjectProperties(r).forEach(r1 -> {
 							int r1Minus = status.getInverseObjectPropertyOf(r1);
 							if (phiNode.containsExistential(r1Minus, a)) {
 								VNodeImpl newNode = new VNodeImpl(psiNode.getClassId());
@@ -109,19 +109,19 @@ public class CR7RExtRule implements RObserverRule {
 								boolean inV = status.contains(newNode);
 								int v = status.createOrGetNodeId(newNode);
 								if (!inV) {
-									for (int p : status.getSubsumers(y)) {
-										ret |= status.addNewSEntry(v, p);
-									}
+									status.getSubsumers(y).forEach(p -> {
+										ret.or(status.addNewSEntry(v, p));
+									});
 								}
-								ret |= status.addNewSEntry(v, b);
-								ret |= status.addNewREntry(r2, x, v);
+								ret.or(status.addNewSEntry(v, b));
+								ret.or(status.addNewREntry(r2, x, v));
 							}
-						}
-					}
-				}
+						});
+					});
+				});
 			}
-		}
-		return ret;
+		});
+		return ret.get();
 	}
 
 	@Override

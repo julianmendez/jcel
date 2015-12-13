@@ -46,9 +46,9 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
+import de.tudresden.inf.lat.jcel.core.completion.basic.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
 
 /**
  * 
@@ -81,25 +81,25 @@ public class CR8RExtRule implements RObserverRule {
 	}
 
 	private boolean applyRule(ClassifierStatus status, int r1, int x, int y) {
-		boolean ret = false;
-		for (int s : status.getSuperObjectProperties(r1)) {
+		CompletionRuleMonitor ret = new CompletionRuleMonitor();
+		status.getSuperObjectProperties(r1).forEach(s -> {
 			int sMinus = status.getInverseObjectPropertyOf(s);
 			if (status.getExtendedOntology().getFunctionalObjectProperties().contains(sMinus)) {
 
-				for (int a : status.getSubsumers(y)) {
-					for (GCI2Axiom axiom : status.getExtendedOntology().getGCI2Axioms(a)) {
+				status.getSubsumers(y).forEach(a -> {
+					status.getExtendedOntology().getGCI2Axioms(a).forEach(axiom -> {
 						int r2Minus = axiom.getPropertyInSuperClass();
 						int r2 = status.getInverseObjectPropertyOf(r2Minus);
 						if (status.getSubObjectProperties(s).contains(r2)) {
 							int b = axiom.getClassInSuperClass();
-							ret |= status.addNewSEntry(x, b);
+							ret.or(status.addNewSEntry(x, b));
 						}
-					}
-				}
+					});
+				});
 
 			}
-		}
-		return ret;
+		});
+		return ret.get();
 	}
 
 	@Override

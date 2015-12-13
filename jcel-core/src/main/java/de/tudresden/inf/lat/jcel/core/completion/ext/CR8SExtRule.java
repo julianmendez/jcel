@@ -46,9 +46,9 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
+import de.tudresden.inf.lat.jcel.core.completion.basic.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
 
 /**
  * 
@@ -81,23 +81,23 @@ public class CR8SExtRule implements SObserverRule {
 	}
 
 	private boolean applyRule(ClassifierStatus status, int y, int a) {
-		boolean ret = false;
-		for (GCI2Axiom axiom : status.getExtendedOntology().getGCI2Axioms(a)) {
+		CompletionRuleMonitor ret = new CompletionRuleMonitor();
+		status.getExtendedOntology().getGCI2Axioms(a).forEach(axiom -> {
 			int r2Minus = axiom.getPropertyInSuperClass();
 			int r2 = status.getInverseObjectPropertyOf(r2Minus);
-			for (int s : status.getSuperObjectProperties(r2)) {
+			status.getSuperObjectProperties(r2).forEach(s -> {
 				int sMinus = status.getInverseObjectPropertyOf(s);
 				if (status.getExtendedOntology().getFunctionalObjectProperties().contains(sMinus)) {
 					int b = axiom.getClassInSuperClass();
-					for (int r1 : status.getSubObjectProperties(s)) {
-						for (int x : status.getFirstBySecond(r1, y)) {
-							ret |= status.addNewSEntry(x, b);
-						}
-					}
+					status.getSubObjectProperties(s).forEach(r1 -> {
+						status.getFirstBySecond(r1, y).forEach(x -> {
+							ret.or(status.addNewSEntry(x, b));
+						});
+					});
 				}
-			}
-		}
-		return ret;
+			});
+		});
+		return ret.get();
 	}
 
 	@Override

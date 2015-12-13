@@ -49,6 +49,7 @@ package de.tudresden.inf.lat.jcel.core.completion.ext;
 import java.util.HashSet;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.core.completion.basic.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
@@ -94,18 +95,18 @@ public class CR9RExtOptRule implements RObserverRule {
 	}
 
 	private boolean applyRule(ClassifierStatus status, int r1, int x, int y) {
-		boolean ret = false;
+		CompletionRuleMonitor ret = new CompletionRuleMonitor();
 		if (status.getNode(y).getClassId() == IntegerEntityManager.topClassId) {
 
 			Set<Integer> valid = new HashSet<>();
 			valid.add(y);
-			for (int r2 : status.getObjectPropertiesWithFunctionalAncestor(r1)) {
-				for (int yi : status.getSecondByFirst(r2, x)) {
+			status.getObjectPropertiesWithFunctionalAncestor(r1).forEach(r2 -> {
+				status.getSecondByFirst(r2, x).forEach(yi -> {
 					if (status.getNode(yi).getClassId() == IntegerEntityManager.topClassId) {
 						valid.add(yi);
 					}
-				}
-			}
+				});
+			});
 
 			if (valid.size() > 1) {
 				VNodeImpl newNode = new VNodeImpl(IntegerEntityManager.topClassId);
@@ -113,18 +114,18 @@ public class CR9RExtOptRule implements RObserverRule {
 					newNode.addExistentialsOf(status.getNode(yi));
 				}
 				int v = status.createOrGetNodeId(newNode);
-				for (int yi : valid) {
+				valid.forEach(yi -> {
 
-					for (int p : status.getSubsumers(yi)) {
-						ret |= status.addNewSEntry(v, p);
-					}
+					status.getSubsumers(yi).forEach(p -> {
+						ret.or(status.addNewSEntry(v, p));
+					});
 
-					ret |= status.addNewREntry(r1, x, v);
-				}
+					ret.or(status.addNewREntry(r1, x, v));
+				});
 			}
 
 		}
-		return ret;
+		return ret.get();
 	}
 
 	@Override

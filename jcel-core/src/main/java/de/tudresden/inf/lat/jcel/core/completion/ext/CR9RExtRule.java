@@ -46,6 +46,7 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
+import de.tudresden.inf.lat.jcel.core.completion.basic.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 import de.tudresden.inf.lat.jcel.core.graph.VNode;
@@ -88,11 +89,11 @@ public class CR9RExtRule implements RObserverRule {
 	}
 
 	private boolean applyRule(ClassifierStatus status, int r1, int x, int y) {
-		boolean ret = false;
+		CompletionRuleMonitor ret = new CompletionRuleMonitor();
 		VNode psiNode = status.getNode(y);
 		if (psiNode.getClassId() == IntegerEntityManager.topClassId) {
-			for (int r2 : status.getObjectPropertiesWithFunctionalAncestor(r1)) {
-				for (int z : status.getSecondByFirst(r2, x)) {
+			status.getObjectPropertiesWithFunctionalAncestor(r1).forEach(r2 -> {
+				status.getSecondByFirst(r2, x).forEach(z -> {
 					VNode phiNode = status.getNode(z);
 					if (phiNode.getClassId() == IntegerEntityManager.topClassId) {
 						if (y != z) {
@@ -101,21 +102,21 @@ public class CR9RExtRule implements RObserverRule {
 							newNode.addExistentialsOf(phiNode);
 							int v = status.createOrGetNodeId(newNode);
 
-							for (int p : status.getSubsumers(y)) {
-								ret |= status.addNewSEntry(v, p);
-							}
+							status.getSubsumers(y).forEach(p -> {
+								ret.or(status.addNewSEntry(v, p));
+							});
 
-							for (int p : status.getSubsumers(z)) {
-								ret |= status.addNewSEntry(v, p);
-							}
+							status.getSubsumers(z).forEach(p -> {
+								ret.or(status.addNewSEntry(v, p));
+							});
 
-							ret |= status.addNewREntry(r1, x, v);
+							ret.or(status.addNewREntry(r1, x, v));
 						}
 					}
-				}
-			}
+				});
+			});
 		}
-		return ret;
+		return ret.get();
 	}
 
 	@Override
