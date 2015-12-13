@@ -86,15 +86,12 @@ public class CR4RRule implements RObserverRule {
 
 	private boolean applyRule(ClassifierStatus status, int r, int x, int y) {
 		CompletionRuleMonitor ret = new CompletionRuleMonitor();
-
-		status.getSubsumers(y).forEach(a ->
-
-		status.getExtendedOntology().getGCI3rAAxioms(r, a).forEach(axiom -> {
-
-			int b = axiom.getSuperClass();
-			ret.or(status.addNewSEntry(x, b));
-
-		}));
+		status.getSubsumers(y).forEach(a -> {
+			status.getExtendedOntology().getGCI3rAAxioms(r, a).forEach(axiom -> {
+				int b = axiom.getSuperClass();
+				ret.or(status.addNewSEntry(x, b));
+			});
+		});
 		return ret.get();
 	}
 

@@ -89,32 +89,24 @@ public class CR6RRule implements RObserverRule {
 
 	private boolean apply1(ClassifierStatus status, int r, int x, int y) {
 		CompletionRuleMonitor ret = new CompletionRuleMonitor();
-
 		status.getExtendedOntology().getRI3AxiomsByLeft(r).forEach(axiom -> {
-
 			int s = axiom.getRightSubProperty();
 			int t = axiom.getSuperProperty();
-
-			status.getSecondByFirst(s, y).forEach(z ->
-
-			ret.or(status.addNewREntry(t, x, z)));
-
+			status.getSecondByFirst(s, y).forEach(z -> {
+				ret.or(status.addNewREntry(t, x, z));
+			});
 		});
 		return ret.get();
 	}
 
 	private boolean apply2(ClassifierStatus status, int s, int y, int z) {
 		CompletionRuleMonitor ret = new CompletionRuleMonitor();
-
 		status.getExtendedOntology().getRI3AxiomsByRight(s).forEach(axiom -> {
-
 			int r = axiom.getLeftSubProperty();
 			int t = axiom.getSuperProperty();
-
-			status.getFirstBySecond(r, y).forEach(x ->
-
-			ret.or(status.addNewREntry(t, x, z)));
-
+			status.getFirstBySecond(r, y).forEach(x -> {
+				ret.or(status.addNewREntry(t, x, z));
+			});
 		});
 		return ret.get();
 	}

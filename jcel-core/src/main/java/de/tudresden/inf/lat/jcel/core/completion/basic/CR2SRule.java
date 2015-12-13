@@ -101,7 +101,6 @@ public class CR2SRule implements SObserverRule {
 		CompletionRuleMonitor ret = new CompletionRuleMonitor();
 		Collection<Integer> subsumersOfX = status.getSubsumers(x);
 		status.getExtendedOntology().getGCI1Axioms(a).forEach(axiom -> {
-
 			boolean valid = true;
 
 			if (a == axiom.getRightSubClass()) {

@@ -87,11 +87,9 @@ public class CR3SRule implements SObserverRule {
 	private boolean applyRule(ClassifierStatus status, int x, int a) {
 		CompletionRuleMonitor ret = new CompletionRuleMonitor();
 		status.getExtendedOntology().getGCI2Axioms(a).forEach(axiom -> {
-
 			int r = axiom.getPropertyInSuperClass();
 			int b = axiom.getClassInSuperClass();
 			ret.or(status.addNewREntry(r, x, b));
-
 		});
 		return ret.get();
 	}

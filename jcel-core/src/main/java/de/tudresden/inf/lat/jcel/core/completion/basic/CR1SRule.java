@@ -88,10 +88,8 @@ public class CR1SRule implements SObserverRule {
 	private boolean applyRule(ClassifierStatus status, int x, int a) {
 		CompletionRuleMonitor ret = new CompletionRuleMonitor();
 		status.getExtendedOntology().getGCI0Axioms(a).forEach(axiom -> {
-
 			int b = axiom.getSuperClass();
 			ret.or(status.addNewSEntry(x, b));
-
 		});
 		return ret.get();
 	}

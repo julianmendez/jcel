@@ -97,22 +97,20 @@ public class CR6RTrRule implements RObserverRule {
 
 	private boolean apply1(ClassifierStatus status, int r, int x, int y) {
 		CompletionRuleMonitor ret = new CompletionRuleMonitor();
-
 		if (status.getExtendedOntology().getTransitiveObjectProperties().contains(r)) {
-
-			status.getSecondByFirst(r, y).forEach(z -> ret.or(status.addNewREntry(r, x, z)));
-
+			status.getSecondByFirst(r, y).forEach(z -> {
+				ret.or(status.addNewREntry(r, x, z));
+			});
 		}
 		return ret.get();
 	}
 
 	private boolean apply2(ClassifierStatus status, int r, int y, int z) {
 		CompletionRuleMonitor ret = new CompletionRuleMonitor();
-
 		if (status.getExtendedOntology().getTransitiveObjectProperties().contains(r)) {
-
-			status.getFirstBySecond(r, y).forEach(x -> ret.or(status.addNewREntry(r, x, z)));
-
+			status.getFirstBySecond(r, y).forEach(x -> {
+				ret.or(status.addNewREntry(r, x, z));
+			});
 		}
 		return ret.get();
 	}

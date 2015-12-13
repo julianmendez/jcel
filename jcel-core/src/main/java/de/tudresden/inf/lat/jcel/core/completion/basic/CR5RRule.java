@@ -86,12 +86,9 @@ public class CR5RRule implements RObserverRule {
 
 	private boolean applyRule(ClassifierStatus status, int r, int x, int y) {
 		CompletionRuleMonitor ret = new CompletionRuleMonitor();
-
 		status.getExtendedOntology().getRI2rAxioms(r).forEach(axiom -> {
-
 			int s = axiom.getSuperProperty();
 			ret.or(status.addNewREntry(s, x, y));
-
 		});
 		return ret.get();
 	}
