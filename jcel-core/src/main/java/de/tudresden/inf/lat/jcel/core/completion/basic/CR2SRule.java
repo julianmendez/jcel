@@ -98,8 +98,9 @@ public class CR2SRule implements SObserverRule {
 	}
 
 	private boolean applyRule(ClassifierStatus status, int x, int a) {
+		CompletionRuleMonitor ret = new CompletionRuleMonitor();
 		Collection<Integer> subsumersOfX = status.getSubsumers(x);
-		return status.getExtendedOntology().getGCI1Axioms(a).stream().map(axiom -> {
+		status.getExtendedOntology().getGCI1Axioms(a).forEach(axiom -> {
 
 			boolean valid = true;
 
@@ -111,12 +112,11 @@ public class CR2SRule implements SObserverRule {
 
 			if (valid) {
 				int b = axiom.getSuperClass();
-				return status.addNewSEntry(x, b);
-			} else {
-				return false;
+				ret.or(status.addNewSEntry(x, b));
 			}
 
-		}).reduce(false, (accum, elem) -> (accum || elem));
+		});
+		return ret.get();
 	}
 
 	@Override

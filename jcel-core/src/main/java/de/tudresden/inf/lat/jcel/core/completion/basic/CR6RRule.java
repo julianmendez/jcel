@@ -88,33 +88,35 @@ public class CR6RRule implements RObserverRule {
 	}
 
 	private boolean apply1(ClassifierStatus status, int r, int x, int y) {
-		return status.getExtendedOntology().getRI3AxiomsByLeft(r).stream().map(axiom -> {
+		CompletionRuleMonitor ret = new CompletionRuleMonitor();
+
+		status.getExtendedOntology().getRI3AxiomsByLeft(r).forEach(axiom -> {
 
 			int s = axiom.getRightSubProperty();
 			int t = axiom.getSuperProperty();
 
-			return status.getSecondByFirst(s, y).stream().map(z ->
+			status.getSecondByFirst(s, y).forEach(z ->
 
-			status.addNewREntry(t, x, z)
+			ret.or(status.addNewREntry(t, x, z)));
 
-			).reduce(false, (accum, elem) -> (accum || elem));
-
-		}).reduce(false, (accum, elem) -> (accum || elem));
+		});
+		return ret.get();
 	}
 
 	private boolean apply2(ClassifierStatus status, int s, int y, int z) {
-		return status.getExtendedOntology().getRI3AxiomsByRight(s).stream().map(axiom -> {
+		CompletionRuleMonitor ret = new CompletionRuleMonitor();
+
+		status.getExtendedOntology().getRI3AxiomsByRight(s).forEach(axiom -> {
 
 			int r = axiom.getLeftSubProperty();
 			int t = axiom.getSuperProperty();
 
-			return status.getFirstBySecond(r, y).stream().map(x ->
+			status.getFirstBySecond(r, y).forEach(x ->
 
-			status.addNewREntry(t, x, z)
+			ret.or(status.addNewREntry(t, x, z)));
 
-			).reduce(false, (accum, elem) -> (accum || elem));
-
-		}).reduce(false, (accum, elem) -> (accum || elem));
+		});
+		return ret.get();
 	}
 
 	@Override

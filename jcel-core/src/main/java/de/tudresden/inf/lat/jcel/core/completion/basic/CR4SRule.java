@@ -85,21 +85,19 @@ public class CR4SRule implements SObserverRule {
 	}
 
 	private boolean applyRule(ClassifierStatus status, int y, int a) {
-		return status.getObjectPropertiesBySecond(y).stream().map(r ->
+		CompletionRuleMonitor ret = new CompletionRuleMonitor();
 
-		status.getExtendedOntology().getGCI3rAAxioms(r, a).stream().map(axiom ->
+		status.getObjectPropertiesBySecond(y).forEach(r ->
 
-		status.getFirstBySecond(r, y).stream().map(x -> {
+		status.getExtendedOntology().getGCI3rAAxioms(r, a).forEach(axiom ->
+
+		status.getFirstBySecond(r, y).forEach(x -> {
 
 			int b = axiom.getSuperClass();
-			return status.addNewSEntry(x, b);
+			ret.or(status.addNewSEntry(x, b));
 
-		}).reduce(false, (accum, elem) -> (accum || elem)))
-
-				.reduce(false, (accum, elem) -> (accum || elem)))
-
-				.reduce(false, (accum, elem) -> (accum || elem));
-
+		})));
+		return ret.get();
 	}
 
 	@Override

@@ -46,69 +46,51 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.basic;
 
-import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
-import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
-
 /**
- * 
- * <ul>
- * <li>CR-5 : <b>if</b> r \u2291 s &isin; <i>T</i>, <u>(r, x, y) &isin; R</u>
- * <br>
- * <b>then</b> R := R &cup; {(s, x, y)}</li>
- * </ul>
- * <br>
- * 
- * Previous form:
- * <ul>
- * <li>CR5 : <b>if</b> (X, Y) &isin; R(r) <b>and</b> r \u2291 s &isin; O
- * <b>and</b> (X, Y) &notin; R(s) <br>
- * <b>then</b> R(s) := R(s) &cup; {(X, Y)}</li>
- * </ul>
+ * An object of this class keeps track whether a completion rule has been
+ * applied.
  * 
  * @author Julian Mendez
+ *
  */
-public class CR5RRule implements RObserverRule {
+public class CompletionRuleMonitor {
 
-	/**
-	 * Constructs a new completion rule CR-5.
-	 */
-	public CR5RRule() {
+	private Object monitor = new Object();
+	private boolean state = false;
+
+	public CompletionRuleMonitor() {
 	}
 
-	@Override
-	public boolean apply(ClassifierStatus status, int property, int leftClass, int rightClass) {
-		if (status == null) {
-			throw new IllegalArgumentException("Null argument.");
+	public boolean get() {
+		return this.state;
+	}
+
+	public synchronized void or(boolean b) {
+		synchronized (this.monitor) {
+			this.state |= b;
 		}
-
-		return applyRule(status, property, leftClass, rightClass);
-	}
-
-	private boolean applyRule(ClassifierStatus status, int r, int x, int y) {
-		CompletionRuleMonitor ret = new CompletionRuleMonitor();
-
-		status.getExtendedOntology().getRI2rAxioms(r).forEach(axiom -> {
-
-			int s = axiom.getSuperProperty();
-			ret.or(status.addNewREntry(s, x, y));
-
-		});
-		return ret.get();
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return (o != null) && getClass().equals(o.getClass());
 	}
 
 	@Override
 	public int hashCode() {
-		return getClass().hashCode();
+		return this.state ? 1 : 0;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		} else if (!(obj instanceof CompletionRuleMonitor)) {
+			return false;
+		} else {
+			CompletionRuleMonitor other = (CompletionRuleMonitor) obj;
+			return this.state == other.state;
+		}
 	}
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName();
+		return "" + this.state;
 	}
 
 }

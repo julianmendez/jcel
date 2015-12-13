@@ -85,21 +85,18 @@ public class CR7SRule implements SObserverRule {
 	}
 
 	private boolean applyRule(ClassifierStatus status, int y, int a) {
+		CompletionRuleMonitor ret = new CompletionRuleMonitor();
+
 		if (a == IntegerEntityManager.bottomClassId) {
 
-			return status.getObjectPropertiesBySecond(y).stream().map(r ->
+			status.getObjectPropertiesBySecond(y).forEach(r ->
 
-			status.getFirstBySecond(r, y).stream().map(x ->
+			status.getFirstBySecond(r, y).forEach(x ->
 
-			status.addNewSEntry(x, IntegerEntityManager.bottomClassId)
+			ret.or(status.addNewSEntry(x, IntegerEntityManager.bottomClassId))));
 
-			).reduce(false, (accum, elem) -> (accum || elem))
-
-			).reduce(false, (accum, elem) -> (accum || elem));
-
-		} else {
-			return false;
 		}
+		return ret.get();
 	}
 
 	@Override
