@@ -48,7 +48,6 @@ package de.tudresden.inf.lat.jcel.core.completion.basic;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0Axiom;
 
 /**
  * 
@@ -87,12 +86,12 @@ public class CR1SRule implements SObserverRule {
 	}
 
 	private boolean applyRule(ClassifierStatus status, int x, int a) {
-		boolean ret = false;
-		for (GCI0Axiom axiom : status.getExtendedOntology().getGCI0Axioms(a)) {
+		return status.getExtendedOntology().getGCI0Axioms(a).stream().map(axiom -> {
+
 			int b = axiom.getSuperClass();
-			ret |= status.addNewSEntry(x, b);
-		}
-		return ret;
+			return status.addNewSEntry(x, b);
+
+		}).reduce(false, (accum, elem) -> (accum || elem));
 	}
 
 	@Override

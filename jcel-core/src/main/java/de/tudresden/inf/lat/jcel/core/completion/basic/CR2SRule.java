@@ -50,7 +50,6 @@ import java.util.Collection;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
 
 /**
  * 
@@ -99,9 +98,9 @@ public class CR2SRule implements SObserverRule {
 	}
 
 	private boolean applyRule(ClassifierStatus status, int x, int a) {
-		boolean ret = false;
 		Collection<Integer> subsumersOfX = status.getSubsumers(x);
-		for (GCI1Axiom axiom : status.getExtendedOntology().getGCI1Axioms(a)) {
+		return status.getExtendedOntology().getGCI1Axioms(a).stream().map(axiom -> {
+
 			boolean valid = true;
 
 			if (a == axiom.getRightSubClass()) {
@@ -112,10 +111,12 @@ public class CR2SRule implements SObserverRule {
 
 			if (valid) {
 				int b = axiom.getSuperClass();
-				ret |= status.addNewSEntry(x, b);
+				return status.addNewSEntry(x, b);
+			} else {
+				return false;
 			}
-		}
-		return ret;
+
+		}).reduce(false, (accum, elem) -> (accum || elem));
 	}
 
 	@Override

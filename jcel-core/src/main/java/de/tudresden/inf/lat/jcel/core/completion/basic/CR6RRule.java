@@ -48,7 +48,6 @@ package de.tudresden.inf.lat.jcel.core.completion.basic;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
 
 /**
  * 
@@ -89,27 +88,33 @@ public class CR6RRule implements RObserverRule {
 	}
 
 	private boolean apply1(ClassifierStatus status, int r, int x, int y) {
-		boolean ret = false;
-		for (RI3Axiom axiom : status.getExtendedOntology().getRI3AxiomsByLeft(r)) {
+		return status.getExtendedOntology().getRI3AxiomsByLeft(r).stream().map(axiom -> {
+
 			int s = axiom.getRightSubProperty();
 			int t = axiom.getSuperProperty();
-			for (int z : status.getSecondByFirst(s, y)) {
-				ret |= status.addNewREntry(t, x, z);
-			}
-		}
-		return ret;
+
+			return status.getSecondByFirst(s, y).stream().map(z ->
+
+			status.addNewREntry(t, x, z)
+
+			).reduce(false, (accum, elem) -> (accum || elem));
+
+		}).reduce(false, (accum, elem) -> (accum || elem));
 	}
 
 	private boolean apply2(ClassifierStatus status, int s, int y, int z) {
-		boolean ret = false;
-		for (RI3Axiom axiom : status.getExtendedOntology().getRI3AxiomsByRight(s)) {
+		return status.getExtendedOntology().getRI3AxiomsByRight(s).stream().map(axiom -> {
+
 			int r = axiom.getLeftSubProperty();
 			int t = axiom.getSuperProperty();
-			for (int x : status.getFirstBySecond(r, y)) {
-				ret |= status.addNewREntry(t, x, z);
-			}
-		}
-		return ret;
+
+			return status.getFirstBySecond(r, y).stream().map(x ->
+
+			status.addNewREntry(t, x, z)
+
+			).reduce(false, (accum, elem) -> (accum || elem));
+
+		}).reduce(false, (accum, elem) -> (accum || elem));
 	}
 
 	@Override

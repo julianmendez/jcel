@@ -98,9 +98,11 @@ public class CR6RTrRule implements RObserverRule {
 	private boolean apply1(ClassifierStatus status, int r, int x, int y) {
 		boolean ret = false;
 		if (status.getExtendedOntology().getTransitiveObjectProperties().contains(r)) {
-			for (int z : status.getSecondByFirst(r, y)) {
-				ret |= status.addNewREntry(r, x, z);
-			}
+			ret = status.getSecondByFirst(r, y).stream().map(z ->
+
+			status.addNewREntry(r, x, z)
+
+			).reduce(false, (accum, elem) -> (accum || elem));
 		}
 		return ret;
 	}
@@ -108,9 +110,11 @@ public class CR6RTrRule implements RObserverRule {
 	private boolean apply2(ClassifierStatus status, int r, int y, int z) {
 		boolean ret = false;
 		if (status.getExtendedOntology().getTransitiveObjectProperties().contains(r)) {
-			for (int x : status.getFirstBySecond(r, y)) {
-				ret |= status.addNewREntry(r, x, z);
-			}
+			ret = status.getFirstBySecond(r, y).stream().map(x ->
+
+			status.addNewREntry(r, x, z)
+
+			).reduce(false, (accum, elem) -> (accum || elem));
 		}
 		return ret;
 	}

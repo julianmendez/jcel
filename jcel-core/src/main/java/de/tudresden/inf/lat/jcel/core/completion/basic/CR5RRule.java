@@ -48,7 +48,6 @@ package de.tudresden.inf.lat.jcel.core.completion.basic;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 
 /**
  * 
@@ -86,12 +85,12 @@ public class CR5RRule implements RObserverRule {
 	}
 
 	private boolean applyRule(ClassifierStatus status, int r, int x, int y) {
-		boolean ret = false;
-		for (RI2Axiom axiom : status.getExtendedOntology().getRI2rAxioms(r)) {
+		return status.getExtendedOntology().getRI2rAxioms(r).stream().map(axiom -> {
+
 			int s = axiom.getSuperProperty();
-			ret |= status.addNewREntry(s, x, y);
-		}
-		return ret;
+			return status.addNewREntry(s, x, y);
+
+		}).reduce(false, (accum, elem) -> (accum || elem));
 	}
 
 	@Override
