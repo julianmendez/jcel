@@ -205,12 +205,7 @@ class IntegerExpressionAnalyzer implements IntegerClassExpressionVisitor<Boolean
 			throw new IllegalArgumentException("Null argument.");
 		}
 
-		boolean ret = true;
-		for (IntegerClassExpression expr : classSet) {
-			boolean accepted = expr.accept(this);
-			ret = ret && accepted;
-		}
-		return ret;
+		return classSet.stream().map(expr -> expr.accept(this)).reduce(true, (accum, elem) -> (accum && elem));
 	}
 
 }
