@@ -110,12 +110,12 @@ public class HashArraySetTest extends TestCase {
 		assertInclusion(treeSet, arraySet);
 		assertInclusion(arraySet, treeSet);
 
-		for (int i = 0; i < 0x10000; i += 0x2A) {
+		IntStream.range(0, 0x618).map(x -> (x * 0x2A)).forEach(i -> {
 			int element = i % 0xF08;
 			treeSet.add(element);
 			arraySet.add(element);
 			assertEquals(treeSet.size(), arraySet.size());
-		}
+		});
 
 		assertInclusion(treeSet, arraySet);
 		assertInclusion(arraySet, treeSet);
