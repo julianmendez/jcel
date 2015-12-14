@@ -128,22 +128,19 @@ public class TranslationRepository {
 		}
 
 		boolean ret = false;
-		for (OWLClass cls : ontology.getClassesInSignature()) {
-			boolean changed = addClass(cls);
-			ret = ret || changed;
-		}
-		for (OWLObjectProperty objProp : ontology.getObjectPropertiesInSignature()) {
-			boolean changed = addObjectProperty(objProp);
-			ret = ret || changed;
-		}
-		for (OWLNamedIndividual indiv : ontology.getIndividualsInSignature()) {
-			boolean changed = addNamedIndividual(indiv);
-			ret = ret || changed;
-		}
-		for (OWLDataProperty dataProp : ontology.getDataPropertiesInSignature()) {
-			boolean changed = addDataProperty(dataProp);
-			ret = ret || changed;
-		}
+
+		ret = ontology.getClassesInSignature().stream().map(cls -> addClass(cls)) //
+				.reduce(ret, (accum, elem) -> (accum || elem));
+
+		ret = ontology.getObjectPropertiesInSignature().stream().map(objProp -> addObjectProperty(objProp)) //
+				.reduce(ret, (accum, elem) -> (accum || elem));
+
+		ret = ontology.getIndividualsInSignature().stream().map(indiv -> addNamedIndividual(indiv)) //
+				.reduce(ret, (accum, elem) -> (accum || elem));
+
+		ret = ontology.getDataPropertiesInSignature().stream().map(dataProp -> addDataProperty(dataProp)) //
+				.reduce(ret, (accum, elem) -> (accum || elem));
+
 		return ret;
 	}
 

@@ -260,9 +260,9 @@ public class ClassExpressionTranslator implements OWLClassExpressionVisitorEx<In
 
 		Set<OWLClassExpression> operands = ce.getOperands();
 		Set<IntegerClassExpression> classExpressionList = new HashSet<>();
-		for (OWLClassExpression elem : operands) {
+		operands.forEach(elem -> {
 			classExpressionList.add(elem.accept(this));
-		}
+		});
 		return getDataTypeFactory().createObjectIntersectionOf(classExpressionList);
 	}
 

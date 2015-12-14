@@ -188,9 +188,9 @@ public class Translator {
 		}
 
 		Set<ComplexIntegerAxiom> ret = new HashSet<>();
-		for (OWLAxiom axiom : owlObject) {
+		owlObject.forEach(axiom -> {
 			ret.addAll(axiom.accept(axiomTranslator));
-		}
+		});
 		return ret;
 	}
 
@@ -200,9 +200,9 @@ public class Translator {
 		}
 
 		Set<IntegerClass> ret = new HashSet<IntegerClass>();
-		for (OWLClass cls : owlObject) {
+		owlObject.forEach(cls -> {
 			ret.add(translateC(cls));
-		}
+		});
 		return Collections.unmodifiableSet(ret);
 	}
 
@@ -212,17 +212,17 @@ public class Translator {
 		}
 
 		Set<OWLClass> set = new HashSet<OWLClass>();
-		for (IntegerClass cls : integerObject) {
+		integerObject.forEach(cls -> {
 			set.add(translateC(cls));
-		}
+		});
 		return NodeFactory.getOWLClassNode(set);
 	}
 
 	public Set<IntegerNamedIndividual> translateSI(Node<OWLNamedIndividual> owlObject) {
 		Set<IntegerNamedIndividual> ret = new HashSet<>();
-		for (OWLNamedIndividual indiv : owlObject.getEntities()) {
+		owlObject.getEntities().forEach(indiv -> {
 			ret.add(translateI(indiv));
-		}
+		});
 		return Collections.unmodifiableSet(ret);
 	}
 
@@ -232,9 +232,9 @@ public class Translator {
 		}
 
 		Set<OWLNamedIndividual> set = new HashSet<>();
-		for (IntegerNamedIndividual indiv : integerObject) {
+		integerObject.forEach(indiv -> {
 			set.add(translateI(indiv));
-		}
+		});
 		return NodeFactory.getOWLNamedIndividualNode(set);
 	}
 
@@ -244,9 +244,9 @@ public class Translator {
 		}
 
 		Set<IntegerObjectPropertyExpression> ret = new HashSet<>();
-		for (OWLObjectPropertyExpression prop : owlObject.getEntities()) {
+		owlObject.getEntities().forEach(prop -> {
 			ret.add(translateOPE(prop));
-		}
+		});
 		return Collections.unmodifiableSet(ret);
 	}
 
@@ -256,9 +256,9 @@ public class Translator {
 		}
 
 		Set<OWLObjectPropertyExpression> set = new HashSet<>();
-		for (IntegerObjectPropertyExpression prop : integerObject) {
+		integerObject.forEach(prop -> {
 			set.add(translateOPE(prop));
-		}
+		});
 		return NodeFactory.getOWLObjectPropertyNode(set);
 	}
 
@@ -268,9 +268,9 @@ public class Translator {
 		}
 
 		Set<Set<IntegerClass>> ret = new HashSet<>();
-		for (Node<OWLClass> node : owlObject.getNodes()) {
+		owlObject.getNodes().forEach(node -> {
 			ret.add(translateSC(node));
-		}
+		});
 		return Collections.unmodifiableSet(ret);
 	}
 
@@ -280,9 +280,9 @@ public class Translator {
 		}
 
 		Set<Node<OWLClass>> setOfNodes = new HashSet<>();
-		for (Set<IntegerClass> intSet : integerObject) {
+		integerObject.forEach(intSet -> {
 			setOfNodes.add(translateSC(intSet));
-		}
+		});
 		return new OWLClassNodeSet(setOfNodes);
 	}
 
@@ -292,9 +292,9 @@ public class Translator {
 		}
 
 		Set<Set<IntegerNamedIndividual>> ret = new HashSet<>();
-		for (Node<OWLNamedIndividual> node : owlObject.getNodes()) {
+		owlObject.getNodes().forEach(node -> {
 			ret.add(translateSI(node));
-		}
+		});
 		return Collections.unmodifiableSet(ret);
 	}
 
@@ -304,9 +304,9 @@ public class Translator {
 		}
 
 		Set<Node<OWLNamedIndividual>> setOfNodes = new HashSet<>();
-		for (Set<IntegerNamedIndividual> intSet : integerObject) {
+		integerObject.forEach(intSet -> {
 			setOfNodes.add(translateSI(intSet));
-		}
+		});
 		return new OWLNamedIndividualNodeSet(setOfNodes);
 	}
 
@@ -316,9 +316,9 @@ public class Translator {
 		}
 
 		Set<Set<IntegerObjectPropertyExpression>> ret = new HashSet<>();
-		for (Node<OWLObjectPropertyExpression> node : owlObject.getNodes()) {
+		owlObject.getNodes().forEach(node -> {
 			ret.add(translateSOPE(node));
-		}
+		});
 		return Collections.unmodifiableSet(ret);
 	}
 
@@ -329,9 +329,9 @@ public class Translator {
 		}
 
 		Set<Node<OWLObjectPropertyExpression>> setOfNodes = new HashSet<>();
-		for (Set<IntegerObjectPropertyExpression> intSet : integerObject) {
+		integerObject.forEach(intSet -> {
 			setOfNodes.add(translateSOPE(intSet));
-		}
+		});
 		return new OWLObjectPropertyNodeSet(setOfNodes);
 	}
 
