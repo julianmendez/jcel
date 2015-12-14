@@ -42,7 +42,7 @@
 
 * [Java Development Kit 8](http://java.sun.com/) (or higher)
 * [Apache Maven 3.0.3](http://maven.apache.org/) (or higher)
-* [Eclipse Luna](http://www.eclipse.org/) (or higher)
+* [Eclipse Mars](http://www.eclipse.org/) (or higher)
 
 
 ## source code
