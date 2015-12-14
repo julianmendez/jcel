@@ -49,11 +49,11 @@ package de.tudresden.inf.lat.jcel.reasoner.module;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.stream.IntStream;
 
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
 import de.tudresden.inf.lat.jcel.core.algorithm.common.UnclassifiedOntologyException;
@@ -108,26 +108,17 @@ public class ModuleProcessor implements Processor {
 	}
 
 	private boolean containsAnyClass(Set<Integer> a, Set<Integer> b) {
-		boolean ret = false;
-		for (Iterator<Integer> it = b.iterator(); !ret && it.hasNext();) {
-			Integer elem = it.next();
-			if (!elem.equals(IntegerEntityManager.bottomClassId) && !elem.equals(IntegerEntityManager.topClassId)) {
-				ret = ret || a.contains(elem);
-			}
-		}
-		return ret;
+		return b.stream()
+				.filter(elem -> (!elem.equals(IntegerEntityManager.bottomClassId)
+						&& !elem.equals(IntegerEntityManager.topClassId))) //
+				.anyMatch(elem -> a.contains(elem));
 	}
 
 	private boolean containsAnyProperty(Set<Integer> a, Set<Integer> b) {
-		boolean ret = false;
-		for (Iterator<Integer> it = b.iterator(); !ret && it.hasNext();) {
-			Integer elem = it.next();
-			if (!elem.equals(IntegerEntityManager.bottomObjectPropertyId)
-					&& !elem.equals(IntegerEntityManager.topObjectPropertyId)) {
-				ret = ret || a.contains(elem);
-			}
-		}
-		return ret;
+		return b.stream()
+				.filter(elem -> (!elem.equals(IntegerEntityManager.bottomObjectPropertyId)
+						&& !elem.equals(IntegerEntityManager.topObjectPropertyId))) //
+				.anyMatch(elem -> a.contains(elem));
 	}
 
 	/**
@@ -237,9 +228,9 @@ public class ModuleProcessor implements Processor {
 
 		this.moduleList = findModules(originalAxiomSet);
 		logger.fine("modules found : " + this.moduleList.size());
-		for (int index = 0; index < this.moduleList.size(); index++) {
+		IntStream.range(0, this.moduleList.size()).forEach(index -> {
 			logger.fine("module " + index + " has " + this.moduleList.get(index).size() + " axioms");
-		}
+		});
 
 		this.moduleIndex = 0;
 		this.classHierarchy = new IntegerHierarchicalGraphImpl(IntegerEntityManager.bottomClassId,

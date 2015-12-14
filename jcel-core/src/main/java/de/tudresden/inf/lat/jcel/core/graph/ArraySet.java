@@ -51,6 +51,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 /**
  * This class implements a set of integers using a sorted array of
@@ -137,11 +138,7 @@ public class ArraySet implements Set<Integer> {
 			throw new NullPointerException("Null argument.");
 		}
 
-		boolean ret = true;
-		for (Iterator<?> it = collection.iterator(); ret && it.hasNext();) {
-			ret = ret && contains(it.next());
-		}
-		return ret;
+		return collection.stream().allMatch(elem -> contains(elem));
 	}
 
 	@Override
@@ -150,9 +147,8 @@ public class ArraySet implements Set<Integer> {
 		if (!ret && (o instanceof ArraySet)) {
 			ArraySet other = (ArraySet) o;
 			ret = (this.size == other.size);
-			for (int index = 0; ret && (index < this.size); index++) {
-				ret = ret && (this.array[index] == other.array[index]);
-			}
+
+			ret = ret && IntStream.range(0, this.size).allMatch(index -> (this.array[index] == other.array[index]));
 		}
 		return ret;
 	}
@@ -204,9 +200,9 @@ public class ArraySet implements Set<Integer> {
 
 	private synchronized ArrayList<Integer> toArrayList() {
 		ArrayList<Integer> ret = new ArrayList<>();
-		for (int index = 0; index < this.size; index++) {
+		IntStream.range(0, this.size).forEach(index -> {
 			ret.add(this.array[index]);
-		}
+		});
 		return ret;
 	}
 
@@ -214,10 +210,10 @@ public class ArraySet implements Set<Integer> {
 	public synchronized String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append("[ ");
-		for (int index = 0; index < size(); index++) {
+		IntStream.range(0, size()).forEach(index -> {
 			sbuf.append(this.array[index]);
 			sbuf.append(" ");
-		}
+		});
 		sbuf.append("]");
 		return sbuf.toString();
 	}

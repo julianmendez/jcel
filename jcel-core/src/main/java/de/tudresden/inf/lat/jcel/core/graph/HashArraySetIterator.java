@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.core.graph;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.stream.IntStream;
 
 /**
  * This class implements an iterator for a hash array set.
@@ -86,9 +87,7 @@ public class HashArraySetIterator implements Iterator<Integer> {
 		if (!ret && (o instanceof HashArraySetIterator)) {
 			HashArraySetIterator other = (HashArraySetIterator) o;
 			ret = (this.size == other.size) && (this.pointer == other.pointer) && (this.count == other.count);
-			for (int index = 0; ret && (index < this.size); index++) {
-				ret = ret && (this.array[index] == other.array[index]);
-			}
+			ret = ret && IntStream.range(0, this.size).allMatch(index -> (this.array[index] == other.array[index]));
 		}
 		return ret;
 	}
@@ -138,7 +137,7 @@ public class HashArraySetIterator implements Iterator<Integer> {
 		sbuf.append(this.array.length);
 		sbuf.append(")   ");
 		sbuf.append("[ ");
-		for (int index = 0; index < this.array.length; index++) {
+		IntStream.range(0, this.array.length).forEach(index -> {
 			int element = this.array[index];
 			if (index == this.pointer) {
 				sbuf.append("^");
@@ -149,7 +148,7 @@ public class HashArraySetIterator implements Iterator<Integer> {
 				sbuf.append(element);
 			}
 			sbuf.append(" ");
-		}
+		});
 		sbuf.append("]");
 		return sbuf.toString();
 	}

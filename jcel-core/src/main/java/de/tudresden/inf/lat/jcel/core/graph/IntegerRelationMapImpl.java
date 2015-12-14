@@ -48,7 +48,6 @@ package de.tudresden.inf.lat.jcel.core.graph;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -148,10 +147,8 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 		if (!ret && (o instanceof IntegerRelationMap)) {
 			IntegerRelationMap other = (IntegerRelationMap) o;
 			ret = getElements().equals(other.getElements());
-			for (Iterator<Integer> it = getElements().iterator(); ret && it.hasNext();) {
-				Integer elem = it.next();
-				ret = ret && get(elem).equals(other.get(elem));
-			}
+
+			ret = ret && getElements().stream().allMatch(elem -> get(elem).equals(other.get(elem)));
 		}
 		return ret;
 	}
@@ -191,15 +188,19 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	 */
 	public long getDeepSize() {
 		long ret = 0;
-		for (int key : this.relationMap.keySet()) {
-			ret += this.relationMap.get(key).getDeepSize();
-		}
-		for (int key : this.relationSetByFirst.keySet()) {
-			ret += this.relationSetByFirst.get(key).size();
-		}
-		for (int key : this.relationSetBySecond.keySet()) {
-			ret += this.relationSetBySecond.get(key).size();
-		}
+
+		ret += this.relationMap.keySet().stream() //
+				.map(key -> this.relationMap.get(key).getDeepSize()) //
+				.reduce(0L, (accum, elem) -> (accum + elem));
+
+		ret += this.relationSetByFirst.keySet().stream() //
+				.map(key -> this.relationSetByFirst.get(key).size()) //
+				.reduce(0, (accum, elem) -> (accum + elem));
+
+		ret += this.relationSetBySecond.keySet().stream() //
+				.map(key -> this.relationSetBySecond.get(key).size()) //
+				.reduce(0, (accum, elem) -> (accum + elem));
+
 		return ret;
 	}
 

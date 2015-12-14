@@ -49,7 +49,6 @@ package de.tudresden.inf.lat.jcel.reasoner.main;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -637,12 +636,8 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		}
 
 		classify();
-		boolean ret = true;
-		for (Iterator<ComplexIntegerAxiom> it = axioms.iterator(); ret && it.hasNext();) {
-			ComplexIntegerAxiom axiom = it.next();
-			ret = ret && axiom.accept(this.entailmentChecker);
-		}
-		return ret;
+
+		return axioms.stream().allMatch(axiom -> axiom.accept(this.entailmentChecker));
 	}
 
 	@Override

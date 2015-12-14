@@ -48,7 +48,6 @@ package de.tudresden.inf.lat.jcel.core.graph;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -141,10 +140,8 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 		if (!ret && (o instanceof IntegerBinaryRelation)) {
 			IntegerBinaryRelation other = (IntegerBinaryRelation) o;
 			ret = getElements().equals(other.getElements());
-			for (Iterator<Integer> it = getElements().iterator(); ret && it.hasNext();) {
-				Integer elem = it.next();
-				ret = ret && getByFirst(elem).equals(other.getByFirst(elem));
-			}
+
+			ret = ret && getElements().stream().allMatch(elem -> getByFirst(elem).equals(other.getByFirst(elem)));
 		}
 		return ret;
 	}
@@ -179,12 +176,15 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	 */
 	public long getDeepSize() {
 		long ret = 0;
-		for (Integer key : this.byFirstComp.keySet()) {
-			ret += this.byFirstComp.get(key).size();
-		}
-		for (Integer key : this.bySecondComp.keySet()) {
-			ret += this.bySecondComp.get(key).size();
-		}
+
+		ret += this.byFirstComp.keySet().stream() //
+				.map(key -> this.byFirstComp.get(key).size()) //
+				.reduce(0, (accum, elem) -> (accum + elem));
+
+		ret += this.bySecondComp.keySet().stream() //
+				.map(key -> this.bySecondComp.get(key).size()) //
+				.reduce(0, (accum, elem) -> (accum + elem));
+
 		return ret;
 	}
 

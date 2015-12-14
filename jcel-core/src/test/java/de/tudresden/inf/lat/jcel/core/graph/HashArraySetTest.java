@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.IntStream;
 
 import junit.framework.TestCase;
 
@@ -65,9 +66,9 @@ public class HashArraySetTest extends TestCase {
 
 	private boolean assertInclusion(Collection<Integer> c1, Collection<Integer> c2) {
 		boolean ret = true;
-		for (Integer e : c1) {
+		c1.forEach(e -> {
 			assertTrue(c2.contains(e));
-		}
+		});
 		return ret;
 	}
 
@@ -77,34 +78,34 @@ public class HashArraySetTest extends TestCase {
 		ArrayList<Integer> arrayList = new ArrayList<>();
 		Set<Integer> treeSet = new TreeSet<>();
 
-		for (int i = 0; i < 0x1000; i++) {
+		IntStream.range(0, 0x1000).forEach(i -> {
 			int element = i % 0xf0;
 			treeSet.add(element);
 			arrayList.add(element);
 			arraySet.add(element);
 			assertEquals(treeSet.size(), arraySet.size());
-		}
+		});
 
-		for (int i = 0x1000; i < 0x10000; i++) {
+		IntStream.range(0x1000, 0x10000).forEach(i -> {
 			int element = i % 0xFF;
 			boolean b1 = treeSet.contains(element);
 			boolean b2 = arrayList.contains(element);
 			boolean b3 = arraySet.contains(element);
 			assertEquals(b1, b3);
 			assertEquals(b2, b3);
-		}
+		});
 	}
 
 	public void testIteration() {
 		Set<Integer> treeSet = new TreeSet<>();
 		HashArraySet arraySet = new HashArraySet();
 
-		for (int i = 0; i < 0x1000; i++) {
+		IntStream.range(0, 0x1000).forEach(i -> {
 			int element = i % 0xF0;
 			treeSet.add(element);
 			arraySet.add(element);
 			assertEquals(treeSet.size(), arraySet.size());
-		}
+		});
 
 		assertInclusion(treeSet, arraySet);
 		assertInclusion(arraySet, treeSet);
@@ -119,12 +120,12 @@ public class HashArraySetTest extends TestCase {
 		assertInclusion(treeSet, arraySet);
 		assertInclusion(arraySet, treeSet);
 
-		for (int i = 0; i < 0x1000; i++) {
+		IntStream.range(0, 0x1000).forEach(i -> {
 			int element = i % 0xF0;
 			treeSet.add(element);
 			arraySet.add(element);
 			assertEquals(treeSet.size(), arraySet.size());
-		}
+		});
 
 		assertInclusion(treeSet, arraySet);
 		assertInclusion(arraySet, treeSet);

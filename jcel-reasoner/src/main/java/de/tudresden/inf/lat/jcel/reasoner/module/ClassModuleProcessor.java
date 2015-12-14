@@ -55,6 +55,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Logger;
+import java.util.stream.IntStream;
 
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
 import de.tudresden.inf.lat.jcel.core.algorithm.common.UnclassifiedOntologyException;
@@ -136,22 +137,22 @@ public class ClassModuleProcessor implements Processor {
 	private Set<ComplexIntegerAxiom> convertClassHierarchyToAxioms(IntegerHierarchicalGraph classGraph) {
 		Set<ComplexIntegerAxiom> ret = new HashSet<>();
 		Set<Annotation> annotations = Collections.emptySet();
-		for (Integer subClass : classGraph.getElements()) {
+		classGraph.getElements().forEach(subClass -> {
 
 			Set<Integer> superSet = classGraph.getParents(subClass);
-			for (Integer superClass : superSet) {
+			superSet.forEach(superClass -> {
 				ret.add(getAxiomFactory().createSubClassOfAxiom(getDataTypeFactory().createClass(subClass),
 						getDataTypeFactory().createClass(superClass), annotations));
-			}
+			});
 
 			Set<Integer> equivSet = classGraph.getEquivalents(subClass);
 			Set<IntegerClassExpression> equivalentClassSet = new HashSet<>();
-			for (Integer equivalentClass : equivSet) {
+			equivSet.forEach(equivalentClass -> {
 				equivalentClassSet.add(getDataTypeFactory().createClass(equivalentClass));
-			}
+			});
 			ret.add(getAxiomFactory().createEquivalentClassesAxiom(equivalentClassSet, annotations));
 
-		}
+		});
 
 		return ret;
 	}
@@ -160,22 +161,22 @@ public class ClassModuleProcessor implements Processor {
 			IntegerHierarchicalGraph objectPropertyGraph) {
 		Set<ComplexIntegerAxiom> ret = new HashSet<>();
 		Set<Annotation> annotations = Collections.emptySet();
-		for (Integer subObjectProperty : objectPropertyGraph.getElements()) {
+		objectPropertyGraph.getElements().forEach(subObjectProperty -> {
 
 			Set<Integer> set = objectPropertyGraph.getParents(subObjectProperty);
-			for (Integer superObjectProperty : set) {
+			set.forEach(superObjectProperty -> {
 				ret.add(getAxiomFactory().createSubObjectPropertyOfAxiom(
 						getDataTypeFactory().createObjectProperty(subObjectProperty),
 						getDataTypeFactory().createObjectProperty(superObjectProperty), annotations));
-			}
+			});
 
 			Set<Integer> equivSet = objectPropertyGraph.getEquivalents(subObjectProperty);
 			Set<IntegerObjectPropertyExpression> propExprSet = new HashSet<>();
-			for (Integer elem : equivSet) {
+			equivSet.forEach(elem -> {
 				propExprSet.add(getDataTypeFactory().createObjectProperty(elem));
-			}
+			});
 			ret.add(getAxiomFactory().createEquivalentObjectPropertiesAxiom(propExprSet, annotations));
-		}
+		});
 
 		return ret;
 	}
@@ -186,12 +187,12 @@ public class ClassModuleProcessor implements Processor {
 		this.classToClass.clear();
 		this.sharedAxioms.clear();
 
-		for (ComplexIntegerAxiom axiom : axiomSet) {
+		axiomSet.forEach(axiom -> {
 			Set<Integer> classSet = axiom.getClassesInSignature();
 			if (classSet.isEmpty()) {
 				this.sharedAxioms.add(axiom);
 			} else {
-				for (Integer classId : classSet) {
+				classSet.forEach(classId -> {
 
 					Set<ComplexIntegerAxiom> complexAxioms = this.classToAxiom.get(classId);
 					if (complexAxioms == null) {
@@ -207,9 +208,9 @@ public class ClassModuleProcessor implements Processor {
 					}
 					otherClasses.addAll(classSet);
 
-				}
+				});
 			}
-		}
+		});
 
 	}
 
@@ -335,9 +336,9 @@ public class ClassModuleProcessor implements Processor {
 
 		this.moduleList = findModules(axioms);
 		logger.fine("modules found : " + this.moduleList.size());
-		for (int index = 0; index < this.moduleList.size(); index++) {
+		IntStream.range(0, this.moduleList.size()).forEach(index -> {
 			logger.fine("module " + index + " has " + this.moduleList.get(index).size() + " axioms");
-		}
+		});
 
 		this.moduleIndex = 0;
 		this.accumulatedAxiomSet = new HashSet<>();

@@ -49,7 +49,6 @@ package de.tudresden.inf.lat.jcel.core.graph;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -240,12 +239,11 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 			IntegerHierarchicalGraph other = (IntegerHierarchicalGraph) o;
 			ret = getBottomElement().equals(other.getBottomElement()) && getTopElement().equals(other.getTopElement())
 					&& getElements().equals(other.getElements());
-			for (Iterator<Integer> it = getElements().iterator(); ret && it.hasNext();) {
-				Integer elem = it.next();
-				ret = ret && getChildren(elem).equals(other.getChildren(elem))
-						&& getParents(elem).equals(other.getParents(elem))
-						&& getEquivalents(elem).equals(other.getEquivalents(elem));
-			}
+
+			ret = ret && getElements().stream()
+					.allMatch(elem -> getChildren(elem).equals(other.getChildren(elem))
+							&& getParents(elem).equals(other.getParents(elem))
+							&& getEquivalents(elem).equals(other.getEquivalents(elem)));
 		}
 		return ret;
 	}

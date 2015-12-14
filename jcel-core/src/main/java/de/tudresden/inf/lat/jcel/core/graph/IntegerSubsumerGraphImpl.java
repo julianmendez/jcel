@@ -49,7 +49,6 @@ package de.tudresden.inf.lat.jcel.core.graph;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -141,10 +140,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 			IntegerSubsumerGraph other = (IntegerSubsumerGraph) o;
 			ret = (getBottomElement() == other.getBottomElement()) && (getTopElement() == other.getTopElement())
 					&& getElements().equals(other.getElements());
-			for (Iterator<Integer> it = getElements().iterator(); ret && it.hasNext();) {
-				Integer elem = it.next();
-				ret = ret && getSubsumers(elem).equals(other.getSubsumers(elem));
-			}
+			ret = ret && getElements().stream().allMatch(elem -> getSubsumers(elem).equals(other.getSubsumers(elem)));
 		}
 		return ret;
 	}
@@ -163,11 +159,9 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	 *         the keys, without counting the keys themselves
 	 */
 	public long getDeepSize() {
-		long ret = 0;
-		for (Integer key : this.setS.keySet()) {
-			ret += this.setS.get(key).size();
-		}
-		return ret;
+		return this.setS.keySet().stream() //
+				.map(key -> this.setS.get(key).size()) //
+				.reduce(0, (accum, elem) -> (accum + elem));
 	}
 
 	@Override

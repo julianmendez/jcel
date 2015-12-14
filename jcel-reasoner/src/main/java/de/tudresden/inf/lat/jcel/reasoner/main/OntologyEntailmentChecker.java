@@ -47,7 +47,6 @@
 package de.tudresden.inf.lat.jcel.reasoner.main;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomVisitor;
@@ -173,12 +172,9 @@ public class OntologyEntailmentChecker implements ComplexIntegerAxiomVisitor<Boo
 			Set<IntegerClass> classSet = new HashSet<>();
 			set.forEach(classExpr -> classSet.add(getReasoner().flattenClassExpression(classExpr)));
 			getReasoner().classify();
-			for (Iterator<IntegerClass> it = classSet.iterator(); ret && it.hasNext();) {
-				IntegerClass currentClass = it.next();
-				ret = ret && getReasoner().getProcessor().getClassHierarchy().getEquivalents(currentClass.getId())
-						.contains(representative.getId());
-
-			}
+			ret = ret && classSet.stream() //
+					.allMatch(currentClass -> getReasoner().getProcessor().getClassHierarchy()
+							.getEquivalents(currentClass.getId()).contains(representative.getId()));
 		}
 		return ret;
 	}
@@ -299,9 +295,8 @@ public class OntologyEntailmentChecker implements ComplexIntegerAxiomVisitor<Boo
 		boolean isAncestor = false;
 		if (!isEquivalent) {
 			Set<Set<IntegerClass>> setsOfAncestors = getReasoner().getSuperClasses(subClassExpr, false);
-			for (Set<IntegerClass> ancestor : setsOfAncestors) {
-				isAncestor = isAncestor || ancestor.contains(superClass);
-			}
+			isAncestor = isAncestor || setsOfAncestors.stream() //
+					.anyMatch(ancestor -> ancestor.contains(superClass));
 		}
 
 		return (isAncestor || isEquivalent);
@@ -324,9 +319,8 @@ public class OntologyEntailmentChecker implements ComplexIntegerAxiomVisitor<Boo
 		if (!isEquivalent) {
 			Set<Set<IntegerObjectPropertyExpression>> setsOfAncestors = getReasoner()
 					.getSuperObjectProperties(subObjectPropExpr, false);
-			for (Set<IntegerObjectPropertyExpression> ancestor : setsOfAncestors) {
-				isAncestor = isAncestor || ancestor.contains(superObjectPropExpr);
-			}
+			isAncestor = isAncestor || setsOfAncestors.stream() //
+					.anyMatch(ancestor -> ancestor.contains(superObjectPropExpr));
 		}
 
 		return (isAncestor || isEquivalent);

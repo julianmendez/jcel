@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 /**
  * This class implements a set of integers using an array of <code>int</code>
@@ -142,11 +143,7 @@ public class HashArraySet implements Set<Integer> {
 			throw new NullPointerException("Null argument.");
 		}
 
-		boolean ret = true;
-		for (Iterator<?> it = collection.iterator(); ret && it.hasNext();) {
-			ret = ret && contains(it.next());
-		}
-		return ret;
+		return collection.stream().allMatch(elem -> contains(elem));
 	}
 
 	@Override
@@ -155,18 +152,12 @@ public class HashArraySet implements Set<Integer> {
 		if (!ret && (o instanceof HashArraySet)) {
 			HashArraySet other = (HashArraySet) o;
 			ret = (this.size == other.size);
-			for (int index = 0; ret && (index < this.array.length); index++) {
-				int current = this.array[index];
-				if (current != EMPTY) {
-					ret = ret && other.contains(current);
-				}
-			}
-			for (int index = 0; ret && (index < other.array.length); index++) {
-				int current = other.array[index];
-				if (current != EMPTY) {
-					contains(current);
-				}
-			}
+
+			ret = ret && IntStream.range(0, this.array.length).map(index -> this.array[index])
+					.filter(current -> current != EMPTY).allMatch(current -> other.contains(current));
+
+			ret = ret && IntStream.range(0, other.array.length).map(index -> other.array[index])
+					.filter(current -> current != EMPTY).allMatch(current -> contains(current));
 		}
 		return ret;
 	}
@@ -222,9 +213,9 @@ public class HashArraySet implements Set<Integer> {
 
 	private int[] makeNewArray(int size) {
 		int[] ret = new int[size];
-		for (int i = 0; i < size; i++) {
+		IntStream.range(0, size).forEach(i -> {
 			ret[i] = EMPTY;
-		}
+		});
 		return ret;
 	}
 
@@ -292,11 +283,12 @@ public class HashArraySet implements Set<Integer> {
 
 	private synchronized ArrayList<Integer> toArrayList() {
 		ArrayList<Integer> ret = new ArrayList<>();
-		for (int element : this.array) {
+		IntStream.range(0, this.array.length).forEach(index -> {
+			int element = this.array[index];
 			if (element != EMPTY) {
 				ret.add(element);
 			}
-		}
+		});
 		return ret;
 	}
 
@@ -304,14 +296,15 @@ public class HashArraySet implements Set<Integer> {
 	public synchronized String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append("[ ");
-		for (int element : this.array) {
+		IntStream.range(0, this.array.length).forEach(index -> {
+			int element = this.array[index];
 			if (element == EMPTY) {
 				sbuf.append(".");
 			} else {
 				sbuf.append(element);
 			}
 			sbuf.append(" ");
-		}
+		});
 		sbuf.append("]");
 		return sbuf.toString();
 	}

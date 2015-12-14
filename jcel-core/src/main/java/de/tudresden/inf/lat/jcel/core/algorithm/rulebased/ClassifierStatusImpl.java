@@ -496,15 +496,15 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 				Collection<Integer> subsumerSet = graph.getSubsumers(elem);
 				Set<Integer> allSubsumers = new HashSet<>();
 				allSubsumers.add(elem);
-				for (int otherElem : subsumerSet) {
+				subsumerSet.forEach(otherElem -> {
 					allSubsumers.addAll(graph.getSubsumers(otherElem));
-				}
+				});
 				allSubsumers.removeAll(subsumerSet);
 				if (!allSubsumers.isEmpty()) {
 					hasChanged = true;
-					for (int subsumer : allSubsumers) {
+					allSubsumers.forEach(subsumer -> {
 						graph.addAncestor(elem, subsumer);
-					}
+					});
 				}
 			}
 		}

@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.core.graph;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.stream.IntStream;
 
 /**
  * This class implements an iterator for an array set.
@@ -85,9 +86,7 @@ public class ArraySetIterator implements Iterator<Integer> {
 		if (!ret && (o instanceof ArraySetIterator)) {
 			ArraySetIterator other = (ArraySetIterator) o;
 			ret = (this.size == other.size) && (this.pointer == other.pointer);
-			for (int index = 0; ret && (index < this.size); index++) {
-				ret = ret && (this.array[index] == other.array[index]);
-			}
+			ret = ret && IntStream.range(0, this.size).allMatch(index -> (this.array[index] == other.array[index]));
 		}
 		return ret;
 	}
