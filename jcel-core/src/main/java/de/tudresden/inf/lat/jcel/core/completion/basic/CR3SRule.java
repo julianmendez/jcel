@@ -46,9 +46,12 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.basic;
 
+import java.util.function.Function;
+
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.ExtendedOntology;
 
 /**
  * 
@@ -81,16 +84,21 @@ public class CR3SRule implements SObserverRule {
 		if (status == null) {
 			throw new IllegalArgumentException("Null argument.");
 		}
-
 		return applyRule(status, subClass, superClass);
 	}
 
-	private boolean applyRule(ClassifierStatus status, int x, int a) {
+	private boolean applyRule(ClassifierStatus status, int subClass, int superClass) {
+		return applyRule(status.getExtendedOntology(),
+				(Integer r) -> (Integer x) -> (Integer b) -> status.addNewREntry(r, x, b), subClass, superClass);
+	}
+
+	private boolean applyRule(ExtendedOntology ontology,
+			Function<Integer, Function<Integer, Function<Integer, Boolean>>> queue, int x, int a) {
 		CompletionRuleMonitor ret = new CompletionRuleMonitor();
-		status.getExtendedOntology().getGCI2Axioms(a).forEach(axiom -> {
+		ontology.getGCI2Axioms(a).forEach(axiom -> {
 			int r = axiom.getPropertyInSuperClass();
 			int b = axiom.getClassInSuperClass();
-			ret.or(status.addNewREntry(r, x, b));
+			ret.or(queue.apply(r).apply(x).apply(b));
 		});
 		return ret.get();
 	}

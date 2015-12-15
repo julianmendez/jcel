@@ -46,9 +46,12 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.basic;
 
+import java.util.function.Function;
+
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.ExtendedOntology;
 
 /**
  * 
@@ -85,11 +88,18 @@ public class CR5RRule implements RObserverRule {
 		return applyRule(status, property, leftClass, rightClass);
 	}
 
-	private boolean applyRule(ClassifierStatus status, int r, int x, int y) {
+	private boolean applyRule(ClassifierStatus status, int property, int leftClass, int rightClass) {
+		return applyRule(status.getExtendedOntology(),
+				(Integer s) -> (Integer x) -> (Integer y) -> status.addNewREntry(s, x, y), property, leftClass,
+				rightClass);
+	}
+
+	private boolean applyRule(ExtendedOntology ontology,
+			Function<Integer, Function<Integer, Function<Integer, Boolean>>> queue, int r, int x, int y) {
 		CompletionRuleMonitor ret = new CompletionRuleMonitor();
-		status.getExtendedOntology().getRI2rAxioms(r).forEach(axiom -> {
+		ontology.getRI2rAxioms(r).forEach(axiom -> {
 			int s = axiom.getSuperProperty();
-			ret.or(status.addNewREntry(s, x, y));
+			ret.or(queue.apply(s).apply(x).apply(y));
 		});
 		return ret.get();
 	}
