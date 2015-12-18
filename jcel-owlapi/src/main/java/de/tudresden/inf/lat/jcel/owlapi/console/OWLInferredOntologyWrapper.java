@@ -46,6 +46,7 @@
 
 package de.tudresden.inf.lat.jcel.owlapi.console;
 
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -74,10 +75,7 @@ public class OWLInferredOntologyWrapper {
 	private final OWLReasoner reasoner;
 
 	public OWLInferredOntologyWrapper(OWLReasoner reasoner) throws OWLOntologyCreationException {
-		if (reasoner == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(reasoner);
 		this.reasoner = reasoner;
 
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();

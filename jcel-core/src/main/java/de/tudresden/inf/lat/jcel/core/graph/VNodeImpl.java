@@ -49,6 +49,7 @@ package de.tudresden.inf.lat.jcel.core.graph;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -97,10 +98,7 @@ public class VNodeImpl implements VNode {
 	 * @return <code>true</code> if and only if set of pairs was changed
 	 */
 	public boolean addExistentialsOf(VNode other) {
-		if (other == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(other);
 		return this.existentialSet.addAll(other.getExistentialEntries());
 	}
 

@@ -52,6 +52,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiom;
@@ -124,10 +125,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	 * @return the class entries related to the specified class
 	 */
 	public Set<ExtensionEntry> getClassEntries(Integer classId) {
-		if (classId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(classId);
 		Set<ExtensionEntry> ret = this.ohatOfClass.get(classId);
 		if (ret == null) {
 			ret = Collections.emptySet();
@@ -156,13 +154,8 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	 *         and class.
 	 */
 	public Set<ExtensionEntry> getExistentialEntries(Integer propertyId, Integer classId) {
-		if (propertyId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (classId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(propertyId);
+		Objects.requireNonNull(classId);
 		Set<ExtensionEntry> ret = Collections.emptySet();
 		Map<Integer, Set<ExtensionEntry>> map = this.ohatOfExistential.get(propertyId);
 		if (map != null) {
@@ -185,10 +178,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	 *         object property occurs on the left-hand part of the composition.
 	 */
 	public Set<RI3Axiom> getSubPropertyAxiomSetByLeft(Integer elem) {
-		if (elem == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(elem);
 		Set<RI3Axiom> ret = this.subPropertyAxiomSetByLeft.get(elem);
 		if (ret == null) {
 			ret = Collections.emptySet();
@@ -206,10 +196,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	 *         object property occurs on the right-hand part of the composition.
 	 */
 	public Set<RI3Axiom> getSubPropertyAxiomSetByRight(Integer elem) {
-		if (elem == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(elem);
 		Set<RI3Axiom> ret = this.subPropertyAxiomSetByRight.get(elem);
 		if (ret == null) {
 			ret = Collections.emptySet();
@@ -224,10 +211,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	 *            set of normalized axioms
 	 */
 	public void load(Set<NormalizedIntegerAxiom> axiomSet) {
-		if (axiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiomSet);
 		clear();
 		axiomSet.forEach(axiom -> {
 			axiom.accept(this);
@@ -253,29 +237,20 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 
 	@Override
 	public Boolean visit(FunctObjectPropAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return false;
 	}
 
 	@Override
 	public Boolean visit(GCI0Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		addClassEntry(axiom.getSubClass(), new ImplicationEntry(new HashSet<>(), axiom.getSuperClass()));
 		return true;
 	}
 
 	@Override
 	public Boolean visit(GCI1Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Integer superClass = axiom.getSuperClass();
 		List<Integer> operandSet = new ArrayList<>();
 		operandSet.add(axiom.getLeftSubClass());
@@ -291,10 +266,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 
 	@Override
 	public Boolean visit(GCI2Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		addClassEntry(axiom.getSubClass(),
 				new ExistentialEntry(axiom.getPropertyInSuperClass(), axiom.getClassInSuperClass()));
 		return true;
@@ -302,10 +274,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 
 	@Override
 	public Boolean visit(GCI3Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		ExtensionEntry entry = new ImplicationEntry(new HashSet<>(), axiom.getSuperClass());
 		Integer propertyId = axiom.getPropertyInSubClass();
 		Integer classId = axiom.getClassInSubClass();
@@ -325,46 +294,31 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 
 	@Override
 	public Boolean visit(NominalAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return false;
 	}
 
 	@Override
 	public Boolean visit(RangeAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return false;
 	}
 
 	@Override
 	public Boolean visit(RI1Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return false;
 	}
 
 	@Override
 	public Boolean visit(RI2Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return false;
 	}
 
 	@Override
 	public Boolean visit(RI3Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return false;
 	}
 

@@ -46,6 +46,7 @@
 
 package de.tudresden.inf.lat.jcel.ontology.datatype;
 
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
@@ -91,9 +92,7 @@ public class IntegerDataTypeFactoryImpl implements IntegerDataTypeFactory {
 	@Override
 	public IntegerDataSomeValuesFrom createDataSomeValuesFrom(int dataPropertyId,
 			IntegerClassExpression classExpression) {
-		if (classExpression == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		Objects.requireNonNull(classExpression);
 		return new IntegerDataSomeValuesFrom(dataPropertyId, classExpression);
 	}
 
@@ -104,17 +103,13 @@ public class IntegerDataTypeFactoryImpl implements IntegerDataTypeFactory {
 
 	@Override
 	public IntegerObjectIntersectionOf createObjectIntersectionOf(Set<IntegerClassExpression> operands) {
-		if (operands == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		Objects.requireNonNull(operands);
 		return new IntegerObjectIntersectionOf(operands);
 	}
 
 	@Override
 	public IntegerObjectInverseOf createObjectInverseOf(IntegerObjectProperty property) {
-		if (property == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		Objects.requireNonNull(property);
 		return new IntegerObjectInverseOf(property);
 	}
 
@@ -131,12 +126,8 @@ public class IntegerDataTypeFactoryImpl implements IntegerDataTypeFactory {
 	@Override
 	public IntegerObjectSomeValuesFrom createObjectSomeValuesFrom(IntegerObjectPropertyExpression propertyExpression,
 			IntegerClassExpression classExpression) {
-		if (propertyExpression == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (classExpression == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		Objects.requireNonNull(propertyExpression);
+		Objects.requireNonNull(classExpression);
 		return new IntegerObjectSomeValuesFrom(propertyExpression, classExpression);
 	}
 

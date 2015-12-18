@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.ontology.datatype;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -71,10 +72,7 @@ public class IntegerDataProperty implements IntegerDataPropertyExpression, Compa
 
 	@Override
 	public int compareTo(IntegerDataProperty o) {
-		if (o == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(o);
 		return getId() - o.getId();
 	}
 

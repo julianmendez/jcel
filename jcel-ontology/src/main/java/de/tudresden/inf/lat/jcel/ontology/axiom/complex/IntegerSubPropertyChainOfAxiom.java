@@ -49,6 +49,7 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
@@ -81,16 +82,9 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 	 */
 	IntegerSubPropertyChainOfAxiom(List<IntegerObjectPropertyExpression> chain,
 			IntegerObjectPropertyExpression superProp, Set<Annotation> annotations) {
-		if (chain == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (superProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (annotations == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(chain);
+		Objects.requireNonNull(superProp);
+		Objects.requireNonNull(annotations);
 		this.propertyChain = chain;
 		this.superProperty = superProp;
 
@@ -106,10 +100,7 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 
 	@Override
 	public <T> T accept(ComplexIntegerAxiomVisitor<T> visitor) {
-		if (visitor == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(visitor);
 		return visitor.visit(this);
 	}
 

@@ -46,6 +46,8 @@
 
 package de.tudresden.inf.lat.jcel.owlapi.main;
 
+import java.util.Objects;
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
@@ -64,73 +66,49 @@ public class JcelOntologyChangeVisitorEx implements OWLOntologyChangeVisitorEx<B
 	private final JcelReasoner reasoner;
 
 	public JcelOntologyChangeVisitorEx(JcelReasoner reasoner) {
-		if (reasoner == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(reasoner);
 		this.reasoner = reasoner;
 	}
 
 	@Override
 	public Boolean visit(AddAxiom change) {
-		if (change == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(change);
 		return this.reasoner.addAxiom(change.getAxiom());
 	}
 
 	@Override
 	public Boolean visit(AddImport change) {
-		if (change == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(change);
 		return false;
 	}
 
 	@Override
 	public Boolean visit(AddOntologyAnnotation change) {
-		if (change == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(change);
 		return false;
 	}
 
 	@Override
 	public Boolean visit(RemoveAxiom change) {
-		if (change == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(change);
 		return this.reasoner.removeAxiom(change.getAxiom());
 	}
 
 	@Override
 	public Boolean visit(RemoveImport change) {
-		if (change == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(change);
 		return false;
 	}
 
 	@Override
 	public Boolean visit(RemoveOntologyAnnotation change) {
-		if (change == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(change);
 		return false;
 	}
 
 	@Override
 	public Boolean visit(SetOntologyID change) {
-		if (change == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(change);
 		return false;
 	}
 

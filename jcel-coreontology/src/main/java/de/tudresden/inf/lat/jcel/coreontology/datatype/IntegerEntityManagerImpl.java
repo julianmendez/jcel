@@ -50,6 +50,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -89,10 +90,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 
 	@Override
 	public Integer createAnonymousEntity(IntegerEntityType type, boolean auxiliary) {
-		if (type == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(type);
 		Integer ret = this.entityCounter;
 		this.entityCounter++;
 		registerProperty(ret, type, auxiliary);
@@ -102,13 +100,8 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 
 	@Override
 	public Integer createNamedEntity(IntegerEntityType type, String name, boolean auxiliary) {
-		if (type == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (name == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(type);
+		Objects.requireNonNull(name);
 		Integer ret = createAnonymousEntity(type, auxiliary);
 		this.nameMap.put(ret, name);
 		return ret;
@@ -116,10 +109,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 
 	@Override
 	public Integer createOrGetClassIdForIndividual(Integer individual) {
-		if (individual == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(individual);
 		Integer ret = this.auxNominalMap.get(individual);
 		if (ret == null) {
 			ret = createAnonymousEntity(IntegerEntityType.CLASS, true);
@@ -131,10 +121,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 
 	@Override
 	public Integer createOrGetInverseObjectPropertyOf(Integer propertyId) throws IndexOutOfBoundsException {
-		if (propertyId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(propertyId);
 		Integer ret = this.inverseObjectPropertyMap.get(propertyId);
 		if (ret == null) {
 			ret = createAnonymousEntity(IntegerEntityType.OBJECT_PROPERTY, true);
@@ -169,10 +156,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 
 	@Override
 	public Integer getAuxiliaryNominal(Integer individual) {
-		if (individual == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(individual);
 		return this.auxNominalMap.get(individual);
 	}
 
@@ -183,10 +167,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 
 	@Override
 	public Set<Integer> getEntities(IntegerEntityType type) {
-		if (type == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(type);
 		Set<Integer> ret = new TreeSet<>();
 		if (this.nonAuxEntityMap.get(type) != null) {
 			ret.addAll(this.nonAuxEntityMap.get(type));
@@ -200,10 +181,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 
 	@Override
 	public Set<Integer> getEntities(IntegerEntityType type, boolean auxiliary) {
-		if (type == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(type);
 		Set<Integer> ret;
 		if (auxiliary) {
 			ret = this.auxEntityMap.get(type);
@@ -220,10 +198,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 
 	@Override
 	public Integer getIndividual(Integer auxNominal) {
-		if (auxNominal == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(auxNominal);
 		return this.auxNominalInvMap.get(auxNominal);
 	}
 
@@ -234,9 +209,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 
 	@Override
 	public String getName(Integer identifier) {
-		if (identifier == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		Objects.requireNonNull(identifier);
 		if (!this.entityTypeMap.containsKey(identifier)) {
 			throw new IndexOutOfBoundsException("Invalid identifier : " + identifier);
 		}
@@ -254,10 +227,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 
 	@Override
 	public IntegerEntityType getType(Integer identifier) {
-		if (identifier == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(identifier);
 		IntegerEntityType ret = this.entityTypeMap.get(identifier);
 		if (ret == null) {
 			throw new IndexOutOfBoundsException("Invalid identifier : " + identifier);
@@ -272,10 +242,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 
 	@Override
 	public boolean isAuxiliary(Integer identifier) {
-		if (identifier == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(identifier);
 		if (!this.entityTypeMap.containsKey(identifier)) {
 			throw new IndexOutOfBoundsException("Invalid identifier : " + identifier);
 		}
@@ -284,23 +251,15 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 
 	@Override
 	public boolean isEntity(Integer identifier) {
-		if (identifier == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(identifier);
 		return this.entityTypeMap.containsKey(identifier);
 	}
 
 	@Override
 	public boolean proposeInverseObjectPropertyOf(Integer firstProperty, Integer secondProperty)
 			throws IndexOutOfBoundsException {
-		if (firstProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (secondProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(firstProperty);
+		Objects.requireNonNull(secondProperty);
 		boolean ret = false;
 		Integer invFirstProperty = this.inverseObjectPropertyMap.get(firstProperty);
 		Integer invSecondProperty = this.inverseObjectPropertyMap.get(secondProperty);

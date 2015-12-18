@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.ontology.datatype;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -71,19 +72,13 @@ public class IntegerObjectProperty implements IntegerObjectPropertyExpression, C
 
 	@Override
 	public <T> T accept(IntegerObjectPropertyExpressionVisitor<T> visitor) {
-		if (visitor == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(visitor);
 		return visitor.visit(this);
 	}
 
 	@Override
 	public int compareTo(IntegerObjectProperty o) {
-		if (o == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(o);
 		return getId() - o.getId();
 	}
 

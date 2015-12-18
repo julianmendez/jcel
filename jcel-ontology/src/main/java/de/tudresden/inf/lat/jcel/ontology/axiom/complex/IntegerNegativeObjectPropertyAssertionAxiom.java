@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
@@ -83,13 +84,8 @@ public class IntegerNegativeObjectPropertyAssertionAxiom implements ComplexInteg
 	 */
 	IntegerNegativeObjectPropertyAssertionAxiom(IntegerObjectPropertyExpression objectProp, int subjectInd,
 			int objectInd, Set<Annotation> annotations) {
-		if (annotations == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (objectProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(annotations);
+		Objects.requireNonNull(objectProp);
 		this.property = objectProp;
 		this.subject = subjectInd;
 		this.object = objectInd;
@@ -105,10 +101,7 @@ public class IntegerNegativeObjectPropertyAssertionAxiom implements ComplexInteg
 
 	@Override
 	public <T> T accept(ComplexIntegerAxiomVisitor<T> visitor) {
-		if (visitor == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(visitor);
 		return visitor.visit(this);
 	}
 

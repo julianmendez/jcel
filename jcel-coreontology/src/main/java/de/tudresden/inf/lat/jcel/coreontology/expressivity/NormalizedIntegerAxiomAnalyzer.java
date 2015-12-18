@@ -46,6 +46,8 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.expressivity;
 
+import java.util.Objects;
+
 import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
@@ -137,20 +139,14 @@ class NormalizedIntegerAxiomAnalyzer implements NormalizedIntegerAxiomVisitor<Bo
 
 	@Override
 	public Boolean visit(FunctObjectPropAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasFunctionalObjectProperty = true;
 		return true;
 	}
 
 	@Override
 	public Boolean visit(GCI0Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasBottom |= (axiom.getSubClass() == IntegerEntityManager.bottomClassId)
 				|| (axiom.getSuperClass() == IntegerEntityManager.bottomClassId);
 		return true;
@@ -158,10 +154,7 @@ class NormalizedIntegerAxiomAnalyzer implements NormalizedIntegerAxiomVisitor<Bo
 
 	@Override
 	public Boolean visit(GCI1Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasBottom |= (axiom.getLeftSubClass() == IntegerEntityManager.bottomClassId)
 				|| (axiom.getRightSubClass() == IntegerEntityManager.bottomClassId)
 				|| (axiom.getSuperClass() == IntegerEntityManager.bottomClassId);
@@ -170,10 +163,7 @@ class NormalizedIntegerAxiomAnalyzer implements NormalizedIntegerAxiomVisitor<Bo
 
 	@Override
 	public Boolean visit(GCI2Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasBottom |= (axiom.getSubClass() == IntegerEntityManager.bottomClassId)
 				|| (axiom.getClassInSuperClass() == IntegerEntityManager.bottomClassId);
 		return true;
@@ -181,10 +171,7 @@ class NormalizedIntegerAxiomAnalyzer implements NormalizedIntegerAxiomVisitor<Bo
 
 	@Override
 	public Boolean visit(GCI3Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasBottom |= (axiom.getClassInSubClass() == IntegerEntityManager.bottomClassId)
 				|| (axiom.getSuperClass() == IntegerEntityManager.bottomClassId);
 		return true;
@@ -192,50 +179,35 @@ class NormalizedIntegerAxiomAnalyzer implements NormalizedIntegerAxiomVisitor<Bo
 
 	@Override
 	public Boolean visit(NominalAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasNominal = true;
 		return true;
 	}
 
 	@Override
 	public Boolean visit(RangeAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasBottom |= (axiom.getRange() == IntegerEntityManager.bottomClassId);
 		return true;
 	}
 
 	@Override
 	public Boolean visit(RI1Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasReflexiveObjectProperty = true;
 		return true;
 	}
 
 	@Override
 	public Boolean visit(RI2Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasSubObjectPropertyOf = true;
 		return true;
 	}
 
 	@Override
 	public Boolean visit(RI3Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		if ((axiom.getSuperProperty() == axiom.getLeftSubProperty())
 				&& (axiom.getSuperProperty() == axiom.getRightSubProperty())) {
 			this.hasTransitiveObjectProperty = true;

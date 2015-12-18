@@ -51,6 +51,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -128,12 +129,8 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 	private final IntegerOntologyObjectFactory factory;
 
 	public AxiomTranslator(ClassExpressionTranslator translator, IntegerOntologyObjectFactory factory) {
-		if (translator == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (factory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		Objects.requireNonNull(translator);
+		Objects.requireNonNull(factory);
 		this.factory = factory;
 		this.classExpressionTranslator = translator;
 	}
@@ -192,46 +189,31 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLAnnotationAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return Collections.emptySet();
 	}
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLAnnotationPropertyDomainAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return Collections.emptySet();
 	}
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLAnnotationPropertyRangeAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return Collections.emptySet();
 	}
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw TranslationException.newUnsupportedAxiomException(axiom);
 	}
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLClassAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Integer individualId = getClassExpressionTranslator().getTranslationRepository().getId(axiom.getIndividual());
 		ComplexIntegerAxiom ret = getAxiomFactory().createClassAssertionAxiom(translate(axiom.getClassExpression()),
 				individualId, translateAnnotations(axiom.getAnnotations()));
@@ -240,10 +222,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLDataPropertyAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		OWLDataProperty property = asOWLDataProperty(axiom.getProperty());
 		Integer propertyId = getClassExpressionTranslator().getObjectPropertyExpressionTranslator()
 				.getTranslationRepository().getId(property);
@@ -256,28 +235,19 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLDataPropertyDomainAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw TranslationException.newUnsupportedAxiomException(axiom);
 	}
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLDataPropertyRangeAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw TranslationException.newUnsupportedAxiomException(axiom);
 	}
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLDatatypeDefinitionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw TranslationException.newUnsupportedAxiomException(axiom);
 	}
 
@@ -312,10 +282,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLDeclarationAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		OWLEntity entity = axiom.getEntity();
 		if (entity.isOWLClass()) {
 			return declare(entity.asOWLClass(), axiom.getAnnotations());
@@ -341,10 +308,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLDifferentIndividualsAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<OWLIndividual> individualSet = axiom.getIndividuals();
 		Set<Integer> individualIdSet = new HashSet<>();
 		individualSet.forEach(individual -> individualIdSet
@@ -356,10 +320,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLDisjointClassesAxiom axiom) throws TranslationException {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<OWLClassExpression> classExpressionSet = axiom.getClassExpressions();
 		Set<IntegerClassExpression> classIdSet = new HashSet<>();
 		classExpressionSet.forEach(classExpression -> classIdSet.add(translate(classExpression)));
@@ -370,37 +331,25 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLDisjointDataPropertiesAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw TranslationException.newUnsupportedAxiomException(axiom);
 	}
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLDisjointObjectPropertiesAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw TranslationException.newUnsupportedAxiomException(axiom);
 	}
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLDisjointUnionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw TranslationException.newUnsupportedAxiomException(axiom);
 	}
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLEquivalentClassesAxiom axiom) throws TranslationException {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<OWLClassExpression> classExpressionSet = axiom.getClassExpressions();
 		Set<IntegerClassExpression> classIdSet = new HashSet<>();
 		classExpressionSet.forEach(classExpression -> classIdSet.add(translate(classExpression)));
@@ -411,19 +360,13 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLEquivalentDataPropertiesAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw TranslationException.newUnsupportedAxiomException(axiom);
 	}
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLEquivalentObjectPropertiesAxiom axiom) throws TranslationException {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<OWLObjectPropertyExpression> propertySet = axiom.getProperties();
 		Set<IntegerObjectPropertyExpression> propertyExprSet = new HashSet<>();
 		propertySet.forEach(propertyExpr -> {
@@ -442,19 +385,13 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLFunctionalDataPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw TranslationException.newUnsupportedAxiomException(axiom);
 	}
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLFunctionalObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		OWLObjectProperty property = asOWLObjectProperty(axiom.getProperty());
 		IntegerObjectPropertyExpression propExpr = this.getDataTypeFactory()
 				.createObjectProperty(getClassExpressionTranslator().getObjectPropertyExpressionTranslator()
@@ -466,19 +403,13 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLHasKeyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw TranslationException.newUnsupportedAxiomException(axiom);
 	}
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		OWLObjectProperty property = asOWLObjectProperty(axiom.getProperty());
 		IntegerObjectProperty propExpr = getDataTypeFactory().createObjectProperty(getClassExpressionTranslator()
 				.getObjectPropertyExpressionTranslator().getTranslationRepository().getId(property));
@@ -489,10 +420,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLInverseObjectPropertiesAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		OWLObjectProperty firstProperty = asOWLObjectProperty(axiom.getFirstProperty());
 		OWLObjectProperty secondProperty = asOWLObjectProperty(axiom.getSecondProperty());
 
@@ -509,28 +437,19 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw TranslationException.newUnsupportedAxiomException(axiom);
 	}
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw TranslationException.newUnsupportedAxiomException(axiom);
 	}
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		IntegerObjectPropertyExpression propertyExpr = translateObjectPropertyExpression(axiom.getProperty());
 		Integer subjectId = getClassExpressionTranslator().getTranslationRepository().getId(axiom.getSubject());
 		Integer objectId = getClassExpressionTranslator().getTranslationRepository().getId(axiom.getObject());
@@ -541,10 +460,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLObjectPropertyAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		IntegerObjectPropertyExpression propertyExpr = translateObjectPropertyExpression(axiom.getProperty());
 		Integer subjectId = getClassExpressionTranslator().getTranslationRepository().getId(axiom.getSubject());
 		Integer objectId = getClassExpressionTranslator().getTranslationRepository().getId(axiom.getObject());
@@ -555,10 +471,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLObjectPropertyDomainAxiom axiom) throws TranslationException {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		IntegerObjectPropertyExpression propertyExpr = translateObjectPropertyExpression(axiom.getProperty());
 		OWLClassExpression classExpression = axiom.getDomain();
 		IntegerClassExpression superClassExpression = translate(classExpression);
@@ -571,10 +484,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLObjectPropertyRangeAxiom axiom) throws TranslationException {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		OWLObjectProperty property = asOWLObjectProperty(axiom.getProperty());
 		OWLClassExpression classExpression = axiom.getRange();
 		IntegerObjectProperty propExpr = getDataTypeFactory().createObjectProperty(getClassExpressionTranslator()
@@ -586,10 +496,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLReflexiveObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		OWLObjectProperty property = asOWLObjectProperty(axiom.getProperty());
 		IntegerObjectProperty propertyExpr = getDataTypeFactory().createObjectProperty(getClassExpressionTranslator()
 				.getObjectPropertyExpressionTranslator().getTranslationRepository().getId(property));
@@ -600,10 +507,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLSameIndividualAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<OWLIndividual> individualSet = axiom.getIndividuals();
 		Set<Integer> individualIdSet = new HashSet<>();
 		individualSet.forEach(individual -> individualIdSet
@@ -615,19 +519,13 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return Collections.emptySet();
 	}
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLSubClassOfAxiom axiom) throws TranslationException {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		OWLClassExpression owlSubClass = axiom.getSubClass();
 		OWLClassExpression owlSuperClass = axiom.getSuperClass();
 		IntegerClassExpression leftDescription = translate(owlSubClass);
@@ -639,19 +537,13 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLSubDataPropertyOfAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw TranslationException.newUnsupportedAxiomException(axiom);
 	}
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLSubObjectPropertyOfAxiom axiom) throws TranslationException {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		OWLObjectPropertyExpression leftPropExpr = axiom.getSubProperty();
 		OWLObjectPropertyExpression rightPropExpr = axiom.getSuperProperty();
 		ComplexIntegerAxiom ret = getAxiomFactory().createSubObjectPropertyOfAxiom(
@@ -662,10 +554,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLSubPropertyChainOfAxiom axiom) throws TranslationException {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		List<OWLObjectPropertyExpression> propChain = axiom.getPropertyChain();
 		OWLObjectPropertyExpression superProperty = axiom.getSuperProperty();
 		List<IntegerObjectPropertyExpression> chain = new ArrayList<>();
@@ -677,19 +566,13 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLSymmetricObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw TranslationException.newUnsupportedAxiomException(axiom);
 	}
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(OWLTransitiveObjectPropertyAxiom axiom) throws TranslationException {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		OWLObjectProperty property = axiom.getProperty().asOWLObjectProperty();
 		IntegerObjectProperty propExpr = getDataTypeFactory().createObjectProperty(getClassExpressionTranslator()
 				.getObjectPropertyExpressionTranslator().getTranslationRepository().getId(property));
@@ -700,10 +583,7 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 
 	@Override
 	public Set<ComplexIntegerAxiom> visit(SWRLRule axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw TranslationException.newUnsupportedAxiomException(axiom);
 	}
 

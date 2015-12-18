@@ -50,6 +50,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -80,13 +81,8 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 	 *            top class identifier
 	 */
 	public IntegerHierarchicalGraphImpl(Integer bottom, Integer top) {
-		if (bottom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (top == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(bottom);
+		Objects.requireNonNull(top);
 		this.bottomElement = bottom;
 		this.topElement = top;
 	}
@@ -98,10 +94,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 	 *            a subsumer graph
 	 */
 	public IntegerHierarchicalGraphImpl(IntegerSubsumerGraph origGraph) {
-		if (origGraph == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(origGraph);
 		this.bottomElement = origGraph.getBottomElement();
 		this.topElement = origGraph.getTopElement();
 
@@ -187,10 +180,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 	 *            other graph to make the union
 	 */
 	public void disjointUnion(IntegerHierarchicalGraph otherGraph) {
-		if (otherGraph == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(otherGraph);
 		if (getBottomElement().equals(otherGraph.getBottomElement())
 				&& getTopElement().equals(otherGraph.getTopElement())) {
 			Set<Integer> set = new HashSet<>();
@@ -250,10 +240,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 	@Override
 	public Set<Integer> getAncestors(Integer orig) {
-		if (orig == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(orig);
 		Set<Integer> ret = new HashSet<>();
 		Set<Integer> toVisit = new HashSet<>();
 		toVisit.addAll(this.parents.get(orig));
@@ -276,19 +263,13 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 	@Override
 	public Set<Integer> getChildren(Integer elem) {
-		if (elem == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(elem);
 		return Collections.unmodifiableSet(this.children.get(elem));
 	}
 
 	@Override
 	public Set<Integer> getDescendants(Integer orig) {
-		if (orig == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(orig);
 		Set<Integer> ret = new HashSet<>();
 		Set<Integer> toVisit = new HashSet<>();
 		toVisit.addAll(this.children.get(orig));
@@ -311,10 +292,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 	@Override
 	public Set<Integer> getEquivalents(Integer elem) {
-		if (elem == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(elem);
 		return Collections.unmodifiableSet(this.equivalents.get(this.representative.get(elem)));
 	}
 
@@ -329,10 +307,7 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 
 	@Override
 	public Set<Integer> getParents(Integer elem) {
-		if (elem == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(elem);
 		return Collections.unmodifiableSet(this.parents.get(elem));
 	}
 

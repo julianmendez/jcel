@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -77,10 +78,7 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 	 *            annotations
 	 */
 	RI2Axiom(int leftPropertyId, int rightPropertyId, Set<Annotation> annotations) {
-		if (annotations == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(annotations);
 		this.subProperty = leftPropertyId;
 		this.superProperty = rightPropertyId;
 		this.annotations = annotations;
@@ -89,10 +87,7 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public <T> T accept(NormalizedIntegerAxiomVisitor<T> visitor) {
-		if (visitor == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(visitor);
 		return visitor.visit(this);
 	}
 

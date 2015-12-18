@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.net.URI;
+import java.util.Objects;
 
 /**
  * An object of this class is an annotation.
@@ -68,13 +69,8 @@ public class AnnotationImpl implements Annotation, Comparable<Annotation> {
 	 *            annotation value
 	 */
 	public AnnotationImpl(URI annotationProperty, String annotationValue) {
-		if (annotationProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (annotationValue == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(annotationProperty);
+		Objects.requireNonNull(annotationValue);
 		this.annotationProperty = annotationProperty;
 		this.annotationValue = annotationValue;
 	}
@@ -114,10 +110,7 @@ public class AnnotationImpl implements Annotation, Comparable<Annotation> {
 
 	@Override
 	public int compareTo(Annotation other) {
-		if (other == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(other);
 		int ret = getAnnotationProperty().compareTo(other.getAnnotationProperty());
 		if (ret == 0) {
 			return getAnnotationValue().compareTo(other.getAnnotationValue());

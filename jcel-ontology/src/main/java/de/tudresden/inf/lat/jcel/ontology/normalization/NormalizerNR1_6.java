@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.ontology.normalization;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
@@ -71,10 +72,7 @@ class NormalizerNR1_6 implements NormalizationRule {
 
 	@Override
 	public Set<IntegerAxiom> apply(IntegerAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return Collections.emptySet();
 	}
 
@@ -87,10 +85,7 @@ class NormalizerNR1_6 implements NormalizationRule {
 	 *         specified subclass axiom
 	 */
 	public boolean canBeApplied(IntegerSubClassOfAxiom classAxiom) {
-		if (classAxiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(classAxiom);
 		return classAxiom.getSubClass().containsBottom();
 	}
 

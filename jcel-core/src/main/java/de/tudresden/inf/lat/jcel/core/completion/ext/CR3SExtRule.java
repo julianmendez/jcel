@@ -46,6 +46,8 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
+import java.util.Objects;
+
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
@@ -84,10 +86,7 @@ public class CR3SExtRule implements SObserverRule {
 
 	@Override
 	public boolean apply(ClassifierStatus status, int subClass, int superClass) {
-		if (status == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(status);
 		return applyRule(status, subClass, superClass);
 	}
 

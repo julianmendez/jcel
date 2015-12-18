@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.ontology.datatype;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
@@ -76,13 +77,8 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 	 */
 	protected IntegerObjectSomeValuesFrom(IntegerObjectPropertyExpression propertyExpression,
 			IntegerClassExpression classExpression) {
-		if (propertyExpression == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (classExpression == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(propertyExpression);
+		Objects.requireNonNull(classExpression);
 		this.property = propertyExpression;
 		this.filler = classExpression;
 		this.normalized = classExpression.isLiteral();
@@ -91,10 +87,7 @@ public class IntegerObjectSomeValuesFrom implements IntegerClassExpression {
 
 	@Override
 	public <T> T accept(IntegerClassExpressionVisitor<T> visitor) {
-		if (visitor == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(visitor);
 		return visitor.visit(this);
 	}
 

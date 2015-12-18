@@ -57,6 +57,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -161,25 +162,12 @@ public class RuleBasedProcessor implements Processor {
 	public RuleBasedProcessor(Set<Integer> originalObjectProperties, Set<Integer> originalClasses,
 			Set<NormalizedIntegerAxiom> normalizedAxiomSet, OntologyExpressivity expressivity,
 			NormalizedIntegerAxiomFactory factory, IntegerEntityManager entityManager) {
-		if (originalObjectProperties == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (originalClasses == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (normalizedAxiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (expressivity == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (factory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (entityManager == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(originalObjectProperties);
+		Objects.requireNonNull(originalClasses);
+		Objects.requireNonNull(normalizedAxiomSet);
+		Objects.requireNonNull(expressivity);
+		Objects.requireNonNull(factory);
+		Objects.requireNonNull(entityManager);
 		this.factory = factory;
 		this.entityManager = entityManager;
 
@@ -192,10 +180,7 @@ public class RuleBasedProcessor implements Processor {
 	}
 
 	public void addAxioms(Set<NormalizedIntegerAxiom> normalizedAxiomSet) {
-		if (normalizedAxiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(normalizedAxiomSet);
 		logger.fine("adding axioms ...");
 		this.status.getExtendedOntology().load(normalizedAxiomSet);
 		preProcess(this.status.getExtendedOntology());
@@ -418,10 +403,7 @@ public class RuleBasedProcessor implements Processor {
 	 *         relation is already defined
 	 */
 	protected IntegerBinaryRelation getRelation(Integer relationId) {
-		if (relationId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(relationId);
 		return this.status.getRelationSet().get(relationId);
 	}
 

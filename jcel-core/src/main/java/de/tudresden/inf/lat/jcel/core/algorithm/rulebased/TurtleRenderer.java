@@ -53,6 +53,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 
 /**
@@ -85,10 +86,7 @@ public class TurtleRenderer {
 	 *            writer
 	 */
 	public TurtleRenderer(Writer writer) {
-		if (writer == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(writer);
 		this.output = new BufferedWriter(writer);
 	}
 

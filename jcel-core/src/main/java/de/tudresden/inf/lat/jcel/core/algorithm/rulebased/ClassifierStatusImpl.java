@@ -55,6 +55,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -109,13 +110,8 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 *            extended ontology
 	 */
 	public ClassifierStatusImpl(IntegerEntityManager generator, ExtendedOntology ontology) {
-		if (generator == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (ontology == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(generator);
+		Objects.requireNonNull(ontology);
 		this.entityManager = generator;
 		this.extendedOntology = ontology;
 
@@ -184,10 +180,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	@Override
 	public boolean contains(VNode node) {
-		if (node == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(node);
 		return (this.invNodeSet.get(node) != null);
 	}
 
@@ -239,10 +232,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	@Override
 	public int createOrGetNodeId(VNode node) {
-		if (node == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(node);
 		Integer ret = this.invNodeSet.get(node);
 		if (ret == null) {
 			ret = node.getClassId();

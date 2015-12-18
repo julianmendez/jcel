@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.ontology.datatype;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
@@ -73,10 +74,7 @@ public class IntegerObjectOneOf implements IntegerClassExpression {
 
 	@Override
 	public <T> T accept(IntegerClassExpressionVisitor<T> visitor) {
-		if (visitor == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(visitor);
 		return visitor.visit(this);
 	}
 

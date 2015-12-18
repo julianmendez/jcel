@@ -52,6 +52,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Logger;
@@ -119,16 +120,9 @@ public class ClassModuleProcessor implements Processor {
 	 */
 	public ClassModuleProcessor(Set<ComplexIntegerAxiom> axiomSet, IntegerOntologyObjectFactory axFactory,
 			ModuleProcessorFactory procFactory) {
-		if (axiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (axFactory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (procFactory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiomSet);
+		Objects.requireNonNull(axFactory);
+		Objects.requireNonNull(procFactory);
 		this.axiomFactory = axFactory;
 		this.processorFactory = procFactory;
 		preProcess(axiomSet);

@@ -50,6 +50,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -307,10 +308,7 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 
 	@Override
 	public void load(Set<NormalizedIntegerAxiom> axiomSet) {
-		if (axiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiomSet);
 		axiomSet.forEach(axiom -> {
 			axiom.accept(this);
 			addEntities(axiom);
@@ -335,30 +333,21 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 
 	@Override
 	public Boolean visit(FunctObjectPropAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.setOfFunctionalObjectProperties.add(axiom.getProperty());
 		return true;
 	}
 
 	@Override
 	public Boolean visit(GCI0Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		addGCI0Axiom(axiom.getSubClass(), axiom);
 		return true;
 	}
 
 	@Override
 	public Boolean visit(GCI1Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		addGCI1Axiom(axiom.getLeftSubClass(), axiom);
 		addGCI1Axiom(axiom.getRightSubClass(), axiom);
 		return true;
@@ -366,60 +355,42 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 
 	@Override
 	public Boolean visit(GCI2Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		addGCI2Axiom(axiom.getSubClass(), axiom);
 		return true;
 	}
 
 	@Override
 	public Boolean visit(GCI3Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		addGCI3Axiom(axiom, axiom.getPropertyInSubClass(), axiom.getClassInSubClass());
 		return true;
 	}
 
 	@Override
 	public Boolean visit(NominalAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		addNominalAxiom(axiom.getIndividual(), axiom);
 		return true;
 	}
 
 	@Override
 	public Boolean visit(RangeAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		addRangeAxiom(axiom.getProperty(), axiom);
 		return true;
 	}
 
 	@Override
 	public Boolean visit(RI1Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.setOfReflexiveObjectProperties.add(axiom.getSuperProperty());
 		return true;
 	}
 
 	@Override
 	public Boolean visit(RI2Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Integer subProperty = axiom.getSubProperty();
 		if (this.mapOfRI2r.get(subProperty) == null) {
 			this.mapOfRI2r.put(subProperty, new HashSet<>());
@@ -437,10 +408,7 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 
 	@Override
 	public Boolean visit(RI3Axiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Integer left = axiom.getLeftSubProperty();
 		Integer right = axiom.getRightSubProperty();
 		addTo(left, axiom, this.mapOfRI3ByLeft);

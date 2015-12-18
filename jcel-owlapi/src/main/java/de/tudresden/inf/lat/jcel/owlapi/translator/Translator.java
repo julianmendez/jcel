@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.owlapi.translator;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -85,13 +86,8 @@ public class Translator {
 	private final IntegerOntologyObjectFactory factory;
 
 	public Translator(OWLDataFactory dataFactory, IntegerOntologyObjectFactory factory) {
-		if (dataFactory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (factory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(dataFactory);
+		Objects.requireNonNull(factory);
 		TranslationRepository repository = new TranslationRepository(dataFactory, factory.getEntityManager());
 		this.factory = factory;
 		ObjectPropertyExpressionTranslator objPropExprTranslator = new ObjectPropertyExpressionTranslator(
@@ -119,52 +115,34 @@ public class Translator {
 	}
 
 	public OWLClass translateC(IntegerClass integerObject) {
-		if (integerObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(integerObject);
 		return getTranslationRepository().getOWLClass(integerObject.getId());
 	}
 
 	public IntegerClass translateC(OWLClass owlObject) {
-		if (owlObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlObject);
 		return getOntologyObjectFactory().getDataTypeFactory()
 				.createClass(getAxiomTranslator().getTranslationRepository().getId(owlObject));
 	}
 
 	public IntegerClassExpression translateCE(OWLClassExpression owlObject) {
-		if (owlObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlObject);
 		return owlObject.accept(getAxiomTranslator().getClassExpressionTranslator());
 	}
 
 	public OWLNamedIndividual translateI(IntegerNamedIndividual integerObject) {
-		if (integerObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(integerObject);
 		return getTranslationRepository().getOWLNamedIndividual(integerObject.getId());
 	}
 
 	public IntegerNamedIndividual translateI(OWLNamedIndividual owlObject) {
-		if (owlObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlObject);
 		return getOntologyObjectFactory().getDataTypeFactory()
 				.createNamedIndividual(getAxiomTranslator().getTranslationRepository().getId(owlObject));
 	}
 
 	public OWLObjectPropertyExpression translateOPE(IntegerObjectPropertyExpression integerObject) {
-		if (integerObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(integerObject);
 		if (!(integerObject instanceof IntegerObjectProperty)) {
 			TranslationException.newUnsupportedTranslationException(integerObject);
 		}
@@ -174,19 +152,13 @@ public class Translator {
 	}
 
 	public IntegerObjectPropertyExpression translateOPE(OWLObjectPropertyExpression owlObject) {
-		if (owlObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlObject);
 		return owlObject
 				.accept(getAxiomTranslator().getClassExpressionTranslator().getObjectPropertyExpressionTranslator());
 	}
 
 	public Set<ComplexIntegerAxiom> translateSA(Set<OWLAxiom> owlObject) {
-		if (owlObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlObject);
 		Set<ComplexIntegerAxiom> ret = new HashSet<>();
 		owlObject.forEach(axiom -> {
 			ret.addAll(axiom.accept(axiomTranslator));
@@ -195,10 +167,7 @@ public class Translator {
 	}
 
 	public Set<IntegerClass> translateSC(Node<OWLClass> owlObject) {
-		if (owlObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlObject);
 		Set<IntegerClass> ret = new HashSet<IntegerClass>();
 		owlObject.forEach(cls -> {
 			ret.add(translateC(cls));
@@ -207,10 +176,7 @@ public class Translator {
 	}
 
 	public Node<OWLClass> translateSC(Set<IntegerClass> integerObject) {
-		if (integerObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(integerObject);
 		Set<OWLClass> set = new HashSet<OWLClass>();
 		integerObject.forEach(cls -> {
 			set.add(translateC(cls));
@@ -227,10 +193,7 @@ public class Translator {
 	}
 
 	public Node<OWLNamedIndividual> translateSI(Set<IntegerNamedIndividual> integerObject) {
-		if (integerObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(integerObject);
 		Set<OWLNamedIndividual> set = new HashSet<>();
 		integerObject.forEach(indiv -> {
 			set.add(translateI(indiv));
@@ -239,10 +202,7 @@ public class Translator {
 	}
 
 	public Set<IntegerObjectPropertyExpression> translateSOPE(Node<OWLObjectPropertyExpression> owlObject) {
-		if (owlObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlObject);
 		Set<IntegerObjectPropertyExpression> ret = new HashSet<>();
 		owlObject.getEntities().forEach(prop -> {
 			ret.add(translateOPE(prop));
@@ -251,10 +211,7 @@ public class Translator {
 	}
 
 	public Node<OWLObjectPropertyExpression> translateSOPE(Set<IntegerObjectPropertyExpression> integerObject) {
-		if (integerObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(integerObject);
 		Set<OWLObjectPropertyExpression> set = new HashSet<>();
 		integerObject.forEach(prop -> {
 			set.add(translateOPE(prop));
@@ -263,10 +220,7 @@ public class Translator {
 	}
 
 	public Set<Set<IntegerClass>> translateSSC(NodeSet<OWLClass> owlObject) {
-		if (owlObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlObject);
 		Set<Set<IntegerClass>> ret = new HashSet<>();
 		owlObject.getNodes().forEach(node -> {
 			ret.add(translateSC(node));
@@ -275,10 +229,7 @@ public class Translator {
 	}
 
 	public NodeSet<OWLClass> translateSSC(Set<Set<IntegerClass>> integerObject) {
-		if (integerObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(integerObject);
 		Set<Node<OWLClass>> setOfNodes = new HashSet<>();
 		integerObject.forEach(intSet -> {
 			setOfNodes.add(translateSC(intSet));
@@ -287,10 +238,7 @@ public class Translator {
 	}
 
 	public Set<Set<IntegerNamedIndividual>> translateSSI(NodeSet<OWLNamedIndividual> owlObject) {
-		if (owlObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlObject);
 		Set<Set<IntegerNamedIndividual>> ret = new HashSet<>();
 		owlObject.getNodes().forEach(node -> {
 			ret.add(translateSI(node));
@@ -299,10 +247,7 @@ public class Translator {
 	}
 
 	public NodeSet<OWLNamedIndividual> translateSSI(Set<Set<IntegerNamedIndividual>> integerObject) {
-		if (integerObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(integerObject);
 		Set<Node<OWLNamedIndividual>> setOfNodes = new HashSet<>();
 		integerObject.forEach(intSet -> {
 			setOfNodes.add(translateSI(intSet));
@@ -311,10 +256,7 @@ public class Translator {
 	}
 
 	public Set<Set<IntegerObjectPropertyExpression>> translateSSOPE(NodeSet<OWLObjectPropertyExpression> owlObject) {
-		if (owlObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlObject);
 		Set<Set<IntegerObjectPropertyExpression>> ret = new HashSet<>();
 		owlObject.getNodes().forEach(node -> {
 			ret.add(translateSOPE(node));
@@ -324,10 +266,7 @@ public class Translator {
 
 	public NodeSet<OWLObjectPropertyExpression> translateSSOPE(
 			Set<Set<IntegerObjectPropertyExpression>> integerObject) {
-		if (integerObject == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(integerObject);
 		Set<Node<OWLObjectPropertyExpression>> setOfNodes = new HashSet<>();
 		integerObject.forEach(intSet -> {
 			setOfNodes.add(translateSOPE(intSet));

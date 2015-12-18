@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.core.algorithm.rulebased;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
@@ -73,10 +74,7 @@ public class RuleProfiler implements RObserverRule, SObserverRule {
 	 *            R-rule to collect data
 	 */
 	public RuleProfiler(RObserverRule rule) {
-		if (rule == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(rule);
 		this.rListener = rule;
 		this.sListener = null;
 	}
@@ -88,20 +86,14 @@ public class RuleProfiler implements RObserverRule, SObserverRule {
 	 *            S-rule to collect data
 	 */
 	public RuleProfiler(SObserverRule rule) {
-		if (rule == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(rule);
 		this.sListener = rule;
 		this.rListener = null;
 	}
 
 	@Override
 	public boolean apply(ClassifierStatus status, int subClass, int superClass) {
-		if (status == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(status);
 		long start = (new Date()).getTime();
 		boolean ret = this.sListener.apply(status, subClass, superClass);
 		this.totalTime += ((new Date()).getTime() - start);
@@ -114,10 +106,7 @@ public class RuleProfiler implements RObserverRule, SObserverRule {
 
 	@Override
 	public boolean apply(ClassifierStatus status, int property, int leftClass, int rightClass) {
-		if (status == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(status);
 		long start = Calendar.getInstance().getTimeInMillis();
 		boolean ret = this.rListener.apply(status, property, leftClass, rightClass);
 		this.totalTime += (Calendar.getInstance().getTimeInMillis() - start);

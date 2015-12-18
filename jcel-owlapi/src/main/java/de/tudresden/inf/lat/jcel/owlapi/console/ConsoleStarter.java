@@ -56,6 +56,7 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -167,10 +168,7 @@ public class ConsoleStarter {
 	 */
 	public static void main(String[] args)
 			throws OWLRendererException, OWLOntologyCreationException, SecurityException, IOException {
-		if (args == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(args);
 		(new ConsoleStarter()).start(args);
 	}
 
@@ -228,10 +226,7 @@ public class ConsoleStarter {
 	 * @return <code>true</code> if and only if the given ontology is consistent
 	 */
 	public boolean checkConsistency(File ontologyFile) throws OWLOntologyCreationException {
-		if (ontologyFile == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ontologyFile);
 		JcelReasoner reasoner = createReasoner(ontologyFile);
 		OWLDataFactory dataFactory = reasoner.getRootOntology().getOWLOntologyManager().getOWLDataFactory();
 		boolean ret = !reasoner.getEquivalentClasses(dataFactory.getOWLThing()).contains(dataFactory.getOWLNothing());
@@ -257,13 +252,8 @@ public class ConsoleStarter {
 	 */
 	public boolean checkEntailment(File premiseFile, File conclusionFile)
 			throws OWLOntologyCreationException, OWLRendererException, FileNotFoundException {
-		if (premiseFile == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (conclusionFile == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(premiseFile);
+		Objects.requireNonNull(conclusionFile);
 		logger.fine("starting jcel console ...");
 
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -299,13 +289,8 @@ public class ConsoleStarter {
 	 *         with respect to the given ontology
 	 */
 	public boolean checkSatisfiability(File ontologyFile, IRI conceptIRI) throws OWLOntologyCreationException {
-		if (ontologyFile == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (conceptIRI == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ontologyFile);
+		Objects.requireNonNull(conceptIRI);
 		JcelReasoner reasoner = createReasoner(ontologyFile);
 		OWLDataFactory dataFactory = reasoner.getRootOntology().getOWLOntologyManager().getOWLDataFactory();
 		boolean ret = !reasoner.getEquivalentClasses(dataFactory.getOWLClass(conceptIRI))
@@ -332,13 +317,8 @@ public class ConsoleStarter {
 	 */
 	public void computeClassification(File ontologyFile, File inferredFile, AbstractOWLRenderer renderer)
 			throws OWLOntologyCreationException, OWLRendererException, FileNotFoundException {
-		if (ontologyFile == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (inferredFile == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ontologyFile);
+		Objects.requireNonNull(inferredFile);
 		JcelReasoner reasoner = createReasoner(ontologyFile);
 
 		logger.fine("precomputing inferences ...");
@@ -362,10 +342,7 @@ public class ConsoleStarter {
 	 *             if the ontology could not be created
 	 */
 	public JcelReasoner createReasoner(File ontologyFile) throws OWLOntologyCreationException {
-		if (ontologyFile == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ontologyFile);
 		logger.fine("starting jcel console ...");
 
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -413,10 +390,7 @@ public class ConsoleStarter {
 	 * @return the mode of execution that corresponds to the given identifier
 	 */
 	public Mode parseMode(String argument) {
-		if (argument == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(argument);
 		Mode mode = Mode.NOTHING;
 		if (argument.equals(cmdClassification)) {
 			mode = Mode.CLASSIFICATION;
@@ -442,10 +416,7 @@ public class ConsoleStarter {
 	 * @return a new abstract OWL renderer
 	 */
 	public AbstractOWLRenderer parseRenderer(String argument) {
-		if (argument == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(argument);
 		AbstractOWLRenderer ret = null;
 		if (argument.equals(rendererKRSS2OWL)) {
 			ret = new KRSS2OWLSyntaxRenderer();
@@ -475,10 +446,7 @@ public class ConsoleStarter {
 	 * @return a string that identifies the mode of execution
 	 */
 	public String renderMode(Mode mode) {
-		if (mode == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(mode);
 		String ret = "";
 		if (mode.equals(Mode.CLASSIFICATION)) {
 			ret = cmdClassification;

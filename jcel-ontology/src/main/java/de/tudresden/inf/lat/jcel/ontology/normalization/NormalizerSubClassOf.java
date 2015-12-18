@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
@@ -78,10 +79,7 @@ class NormalizerSubClassOf implements NormalizationRule {
 
 	@Override
 	public Set<IntegerAxiom> apply(IntegerAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<IntegerAxiom> ret = new HashSet<>();
 		if (axiom instanceof IntegerSubClassOfAxiom) {
 			Collection<NormalizedIntegerAxiom> normalizedAxioms = simplify((IntegerSubClassOfAxiom) axiom);

@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.owlapi.translator;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -97,12 +98,8 @@ public class TranslationRepository {
 	 *            entity manager
 	 */
 	public TranslationRepository(OWLDataFactory dataFactory, IntegerEntityManager manager) {
-		if (dataFactory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (manager == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		Objects.requireNonNull(dataFactory);
+		Objects.requireNonNull(manager);
 		this.entityManager = manager;
 
 		this.bottomClass = dataFactory.getOWLNothing();
@@ -123,10 +120,7 @@ public class TranslationRepository {
 	 * @return <code>true</code> if and only if the repository has changed
 	 */
 	public boolean addAxiomEntities(OWLOntology ontology) {
-		if (ontology == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ontology);
 		boolean ret = false;
 
 		ret = ontology.getClassesInSignature().stream().map(cls -> addClass(cls)) //
@@ -152,10 +146,7 @@ public class TranslationRepository {
 	 * @return <code>true</code> if and only if the repository has changed
 	 */
 	public boolean addClass(OWLClass cls) {
-		if (cls == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(cls);
 		boolean ret = false;
 		if (!this.classInvMap.containsKey(cls)) {
 			Integer id = this.entityManager.createNamedEntity(IntegerEntityType.CLASS, cls.toStringID(), false);
@@ -174,10 +165,7 @@ public class TranslationRepository {
 	 * @return <code>true</code> if and only if the repository has changed
 	 */
 	public boolean addDataProperty(OWLDataProperty dataProp) {
-		if (dataProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(dataProp);
 		boolean ret = false;
 		if (!this.dataPropertyInvMap.containsKey(dataProp)) {
 			Integer id = this.entityManager.createNamedEntity(IntegerEntityType.DATA_PROPERTY, dataProp.toStringID(),
@@ -197,10 +185,7 @@ public class TranslationRepository {
 	 * @return <code>true</code> if and only if the repository has changed
 	 */
 	public boolean addLiteral(OWLLiteral lit) {
-		if (lit == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(lit);
 		boolean ret = false;
 		if (!this.literalInvMap.containsKey(lit)) {
 			Integer id = this.entityManager.createNamedEntity(IntegerEntityType.LITERAL, lit.getLiteral(), false);
@@ -219,10 +204,7 @@ public class TranslationRepository {
 	 * @return <code>true</code> if and only if the repository has changed
 	 */
 	public boolean addNamedIndividual(OWLNamedIndividual indiv) {
-		if (indiv == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(indiv);
 		boolean ret = false;
 		if (!this.individualInvMap.containsKey(indiv)) {
 			Integer id = this.entityManager.createNamedEntity(IntegerEntityType.INDIVIDUAL, indiv.toStringID(), false);
@@ -241,10 +223,7 @@ public class TranslationRepository {
 	 * @return <code>true</code> if and only if the repository has changed
 	 */
 	public boolean addObjectProperty(OWLObjectProperty objProp) {
-		if (objProp == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(objProp);
 		boolean ret = false;
 		if (!this.objectPropertyInvMap.containsKey(objProp)) {
 			Integer id = this.entityManager.createNamedEntity(IntegerEntityType.OBJECT_PROPERTY, objProp.toStringID(),
@@ -257,10 +236,7 @@ public class TranslationRepository {
 	}
 
 	public Integer getId(OWLClass owlClass) {
-		if (owlClass == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlClass);
 		Integer ret = this.classInvMap.get(owlClass);
 		if (ret == null) {
 			throw TranslationException.newIncompleteMapException(owlClass.toStringID());
@@ -269,10 +245,7 @@ public class TranslationRepository {
 	}
 
 	public Integer getId(OWLDataProperty owlDataProperty) {
-		if (owlDataProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlDataProperty);
 		Integer ret = this.dataPropertyInvMap.get(owlDataProperty);
 		if (ret == null) {
 			throw TranslationException.newIncompleteMapException(owlDataProperty.toStringID());
@@ -281,10 +254,7 @@ public class TranslationRepository {
 	}
 
 	public Integer getId(OWLIndividual individual) {
-		if (individual == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(individual);
 		Integer ret = this.individualInvMap.get(individual);
 		if (ret == null) {
 			throw TranslationException.newIncompleteMapException(individual.toStringID());
@@ -293,10 +263,7 @@ public class TranslationRepository {
 	}
 
 	public Integer getId(OWLLiteral owlLiteral) {
-		if (owlLiteral == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlLiteral);
 		Integer ret = this.literalInvMap.get(owlLiteral);
 		if (ret == null) {
 			throw TranslationException.newIncompleteMapException(owlLiteral.getLiteral());
@@ -305,10 +272,7 @@ public class TranslationRepository {
 	}
 
 	public Integer getId(OWLObjectProperty owlObjectProperty) {
-		if (owlObjectProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlObjectProperty);
 		Integer ret = this.objectPropertyInvMap.get(owlObjectProperty);
 		if (ret == null) {
 			throw TranslationException.newIncompleteMapException(owlObjectProperty.toStringID());
@@ -317,10 +281,7 @@ public class TranslationRepository {
 	}
 
 	public OWLClass getOWLClass(Integer index) {
-		if (index == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(index);
 		OWLClass ret = this.classMap.get(index);
 		if (ret == null) {
 			throw TranslationException.newIncompleteMapException(index.toString());
@@ -329,10 +290,7 @@ public class TranslationRepository {
 	}
 
 	public OWLDataProperty getOWLDataProperty(Integer index) {
-		if (index == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(index);
 		OWLDataProperty ret = this.dataPropertyMap.get(index);
 		if (ret == null) {
 			throw TranslationException.newIncompleteMapException(index.toString());
@@ -341,10 +299,7 @@ public class TranslationRepository {
 	}
 
 	public OWLNamedIndividual getOWLNamedIndividual(Integer index) {
-		if (index == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(index);
 		OWLNamedIndividual ret = this.individualMap.get(index);
 		if (ret == null) {
 			throw TranslationException.newIncompleteMapException(index.toString());
@@ -353,10 +308,7 @@ public class TranslationRepository {
 	}
 
 	public OWLObjectProperty getOWLObjectProperty(Integer index) {
-		if (index == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(index);
 		OWLObjectProperty ret = this.objectPropertyMap.get(index);
 		if (ret == null) {
 			throw TranslationException.newIncompleteMapException(index.toString());

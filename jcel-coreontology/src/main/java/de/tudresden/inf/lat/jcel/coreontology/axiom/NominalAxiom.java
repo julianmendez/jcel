@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -75,10 +76,7 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 	 *            annotations
 	 */
 	NominalAxiom(int classId, int individualId, Set<Annotation> annotations) {
-		if (annotations == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(annotations);
 		this.classExpression = classId;
 		this.individual = individualId;
 		this.annotations = annotations;
@@ -87,10 +85,7 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public <T> T accept(NormalizedIntegerAxiomVisitor<T> visitor) {
-		if (visitor == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(visitor);
 		return visitor.visit(this);
 	}
 

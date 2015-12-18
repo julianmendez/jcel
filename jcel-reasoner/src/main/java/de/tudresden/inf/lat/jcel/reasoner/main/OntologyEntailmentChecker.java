@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.reasoner.main;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomVisitor;
@@ -93,10 +94,7 @@ public class OntologyEntailmentChecker implements ComplexIntegerAxiomVisitor<Boo
 	 *            reasoner
 	 */
 	public OntologyEntailmentChecker(RuleBasedReasoner reasoner) {
-		if (reasoner == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(reasoner);
 		this.reasoner = reasoner;
 	}
 
@@ -106,65 +104,44 @@ public class OntologyEntailmentChecker implements ComplexIntegerAxiomVisitor<Boo
 
 	@Override
 	public Boolean visit(IntegerClassAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw new UnsupportedQueryException(errorMsg + axiom);
 	}
 
 	@Override
 	public Boolean visit(IntegerClassDeclarationAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		boolean ret = getReasoner().getProcessor().getClassHierarchy().getElements().contains(axiom.getEntity());
 		return ret;
 	}
 
 	@Override
 	public Boolean visit(IntegerDataPropertyAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw new UnsupportedQueryException(errorMsg + axiom);
 	}
 
 	@Override
 	public Boolean visit(IntegerDataPropertyDeclarationAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw new UnsupportedQueryException(errorMsg + axiom);
 	}
 
 	@Override
 	public Boolean visit(IntegerDifferentIndividualsAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw new UnsupportedQueryException(errorMsg + axiom);
 	}
 
 	@Override
 	public Boolean visit(IntegerDisjointClassesAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw new UnsupportedQueryException(errorMsg + axiom);
 	}
 
 	@Override
 	public Boolean visit(IntegerEquivalentClassesAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		boolean ret = true;
 		Set<IntegerClassExpression> set = axiom.getClassExpressions();
 		if (!set.isEmpty()) {
@@ -181,109 +158,73 @@ public class OntologyEntailmentChecker implements ComplexIntegerAxiomVisitor<Boo
 
 	@Override
 	public Boolean visit(IntegerEquivalentObjectPropertiesAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw new UnsupportedQueryException(errorMsg + axiom);
 	}
 
 	@Override
 	public Boolean visit(IntegerFunctionalObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw new UnsupportedQueryException(errorMsg + axiom);
 	}
 
 	@Override
 	public Boolean visit(IntegerInverseFunctionalObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw new UnsupportedQueryException(errorMsg + axiom);
 	}
 
 	@Override
 	public Boolean visit(IntegerInverseObjectPropertiesAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw new UnsupportedQueryException(errorMsg + axiom);
 	}
 
 	@Override
 	public Boolean visit(IntegerNamedIndividualDeclarationAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw new UnsupportedQueryException(errorMsg + axiom);
 	}
 
 	@Override
 	public Boolean visit(IntegerNegativeObjectPropertyAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw new UnsupportedQueryException(errorMsg + axiom);
 	}
 
 	@Override
 	public Boolean visit(IntegerObjectPropertyAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw new UnsupportedQueryException(errorMsg + axiom);
 	}
 
 	@Override
 	public Boolean visit(IntegerObjectPropertyDeclarationAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return getReasoner().getProcessor().getObjectPropertyHierarchy().getElements().contains(axiom.getEntity());
 	}
 
 	@Override
 	public Boolean visit(IntegerPropertyRangeAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw new UnsupportedQueryException(errorMsg + axiom);
 	}
 
 	@Override
 	public Boolean visit(IntegerReflexiveObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw new UnsupportedQueryException(errorMsg + axiom);
 	}
 
 	@Override
 	public Boolean visit(IntegerSameIndividualAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw new UnsupportedQueryException(errorMsg + axiom);
 	}
 
 	@Override
 	public Boolean visit(IntegerSubClassOfAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		IntegerClassExpression subClassExpr = axiom.getSubClass();
 		IntegerClassExpression superClassExpr = axiom.getSuperClass();
 		IntegerClass subClass = getReasoner().flattenClassExpression(subClassExpr);
@@ -304,10 +245,7 @@ public class OntologyEntailmentChecker implements ComplexIntegerAxiomVisitor<Boo
 
 	@Override
 	public Boolean visit(IntegerSubObjectPropertyOfAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		IntegerObjectPropertyExpression subObjectPropExpr = axiom.getSubProperty();
 		IntegerObjectPropertyExpression superObjectPropExpr = axiom.getSuperProperty();
 		getReasoner().classify();
@@ -328,19 +266,13 @@ public class OntologyEntailmentChecker implements ComplexIntegerAxiomVisitor<Boo
 
 	@Override
 	public Boolean visit(IntegerSubPropertyChainOfAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw new UnsupportedQueryException(errorMsg + axiom);
 	}
 
 	@Override
 	public Boolean visit(IntegerTransitiveObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		throw new UnsupportedQueryException(errorMsg + axiom);
 	}
 
