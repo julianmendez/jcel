@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -77,10 +78,7 @@ public class ArraySet implements Set<Integer> {
 
 	@Override
 	public synchronized boolean add(Integer elem) {
-		if (elem == null) {
-			throw new NullPointerException("Null argument.");
-		}
-
+		Objects.requireNonNull(elem);
 		boolean ret = false;
 		int pointer = Arrays.binarySearch(this.array, 0, this.size, elem);
 		if (pointer < 0) {
@@ -102,10 +100,7 @@ public class ArraySet implements Set<Integer> {
 
 	@Override
 	public synchronized boolean addAll(Collection<? extends Integer> collection) {
-		if (collection == null) {
-			throw new NullPointerException("Null argument.");
-		}
-
+		Objects.requireNonNull(collection);
 		boolean ret = false;
 		for (Integer elem : collection) {
 			ret |= add(elem);
@@ -121,10 +116,7 @@ public class ArraySet implements Set<Integer> {
 
 	@Override
 	public synchronized boolean contains(Object elem) {
-		if (elem == null) {
-			throw new NullPointerException("Null argument.");
-		}
-
+		Objects.requireNonNull(elem);
 		boolean ret = false;
 		int e = ((Integer) elem).intValue();
 		int pointer = Arrays.binarySearch(this.array, 0, this.size, e);
@@ -134,10 +126,7 @@ public class ArraySet implements Set<Integer> {
 
 	@Override
 	public synchronized boolean containsAll(Collection<?> collection) {
-		if (collection == null) {
-			throw new NullPointerException("Null argument.");
-		}
-
+		Objects.requireNonNull(collection);
 		return collection.stream().allMatch(elem -> contains(elem));
 	}
 
