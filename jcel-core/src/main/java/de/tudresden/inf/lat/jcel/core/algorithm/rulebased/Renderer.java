@@ -107,8 +107,7 @@ public class Renderer {
 
 	public static final String subClassOf = "isA";
 
-	private Set<String> getNames(Collection<Integer> identifiers, IntegerEntityManager entityManager)
-			throws IOException {
+	private Set<String> getNames(Collection<Integer> identifiers, IntegerEntityManager entityManager) {
 		Set<String> ret = new TreeSet<>();
 		identifiers.forEach(id -> ret.add(entityManager.getName(id)));
 		return ret;
