@@ -321,12 +321,8 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 * @return the number of elements in the node set
 	 */
 	public long getDeepSizeOfV() {
-		long ret = 0;
-		for (int nodeId : this.nodeSet.keySet()) {
-			VNodeImpl node = this.nodeSet.get(nodeId);
-			ret += node.getDeepSize();
-		}
-		return ret;
+		return this.nodeSet.keySet().stream().map(nodeId -> this.nodeSet.get(nodeId).getDeepSize()).reduce(0L,
+				(accum, elem) -> (accum + elem));
 	}
 
 	@Override
