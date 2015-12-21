@@ -80,6 +80,13 @@ $ cd target
 $ jar -cf bundle.jar jcel-parent-*
 ```
 
+The version number is updated with:
+```
+$ mvn versions:set -DnewVersion=NEW_VERSION
+```
+where *NEW_VERSION* is the new version.
+The file [VersionInfo.java](https://github.com/julianmendez/jcel/blob/master/jcel-reasoner/src/main/java/de/tudresden/inf/lat/jcel/reasoner/main/VersionInfo.java) is updated manually.
+
 
 ## modules
 
