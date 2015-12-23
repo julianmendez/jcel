@@ -255,7 +255,7 @@
 							@jcel-reasoner-${project.version}.jar,
 							@jcel-owlapi-${project.version}.jar,
 							@jcel-protege-${project.version}.jar,
-							@owlapi-distribution-4.1.3.jar,
+							@owlapi-distribution-3.5.1.jar,
 							@slf4j-api-1.7.7.jar,
 							@guava-18.0.jar,
 							@guice-4.0-beta.jar,
