@@ -4,6 +4,7 @@
 | version | release date | Java | OWL API       | Protégé       |
 |:--------|:-------------|:----:|:--------------|:--------------|
 | v0.24.0 | (unreleased) | 8    | 4.1.3         | 5.0.0-beta-21 |
+| v0.23.1 | 2015-12-23   | 7    | 3.5.1         | 5.0.0-beta-17 |
 | v0.23.0 | 2015-11-30   | 7    | 4.1.3         | 5.0.0-beta-21 |
 | v0.22.0 | 2015-08-24   | 7    | 3.5.1         | 5.0.0-beta-17 |
 | v0.21.0 | 2015-04-13   | 7    | 3.5.0         | 4.3.0         |
@@ -40,6 +41,18 @@ $ mvn clean install
 ```
 * release: `target/jcel-0.24.0.zip`
 * plug-in: `jcel-plugin/target/de.tu-dresden.inf.lat.jcel-0.24.0.jar`
+
+
+### v0.23.1
+*(2015-12-23)*
+* uses the OWL API 3.5.1
+* can be used as a plug-in for Protégé 5.0.0-beta-17
+* build commands:
+```
+$ mvn clean install
+```
+* release: `target/jcel-0.23.1.zip`
+* plug-in: `jcel-plugin/target/de.tu-dresden.inf.lat.jcel-0.23.1.jar`
 
 
 ### v0.23.0
