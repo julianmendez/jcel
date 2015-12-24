@@ -61,19 +61,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
-
-// for OWL API 3.5.1
-
-//import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxRenderer;
-//import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2OWLSyntaxRenderer;
-//import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2SyntaxRenderer;
-//import de.uulm.ecs.ai.owlapi.krssrenderer.KRSSSyntaxRenderer;
-//import org.coode.owlapi.latex.LatexRenderer;
-//import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxRenderer;
-//import org.coode.owlapi.owlxml.renderer.OWLXMLRenderer;
-
-// for OWL API 4.1.3
-
 import org.semanticweb.owlapi.functional.renderer.OWLFunctionalSyntaxRenderer;
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
