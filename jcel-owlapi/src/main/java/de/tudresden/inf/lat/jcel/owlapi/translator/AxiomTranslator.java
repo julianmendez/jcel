@@ -54,6 +54,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
@@ -86,6 +87,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
@@ -104,6 +106,8 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
+
+import com.google.common.base.Optional;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.AnnotationImpl;
@@ -183,7 +187,16 @@ public class AxiomTranslator implements
 
 	public Annotation translateAnnotation(OWLAnnotation owlAnnotation) {
 		URI property = owlAnnotation.getProperty().getIRI().toURI();
-		String value = owlAnnotation.getValue().toString();
+		Optional<IRI> optIRI = owlAnnotation.getValue().asIRI();
+		Optional<OWLLiteral> optLiteral = owlAnnotation.getValue().asLiteral();
+		String value = null;
+		if (optIRI.isPresent()) {
+			value = optIRI.get().toString();
+		} else if (optLiteral.isPresent()) {
+			value = optLiteral.get().getLiteral();
+		} else {
+			value = "";
+		}
 		Annotation ret = new AnnotationImpl(property, value);
 		return ret;
 	}
