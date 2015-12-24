@@ -32,7 +32,7 @@
 <a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>download</h2>
 
 <ul>
-<li><a href="http://sourceforge.net/projects/jcel/files/jcel/0.23.0/zip/jcel-0.23.0.zip/download">all-in-one ZIP file</a></li>
+<li><a href="http://sourceforge.net/projects/jcel/files/jcel/0.23.2/zip/jcel-0.23.2.zip/download">all-in-one ZIP file</a></li>
 <li><a href="https://repo1.maven.org/maven2/de/tu-dresden/inf/lat/jcel/">The Central Repository</a></li>
 <li><a href="http://sourceforge.net/projects/jcel/files/">older releases</a></li>
 <li>as dependency:</li>
@@ -41,7 +41,7 @@
 <div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">dependency</span>&gt;
   &lt;<span class="pl-ent">groupId</span>&gt;de.tu-dresden.inf.lat.jcel&lt;/<span class="pl-ent">groupId</span>&gt;
   &lt;<span class="pl-ent">artifactId</span>&gt;jcel-owlapi&lt;/<span class="pl-ent">artifactId</span>&gt;
-  &lt;<span class="pl-ent">version</span>&gt;0.23.0&lt;/<span class="pl-ent">version</span>&gt;
+  &lt;<span class="pl-ent">version</span>&gt;0.23.2&lt;/<span class="pl-ent">version</span>&gt;
 &lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
 
 <h2>
@@ -79,7 +79,7 @@
 <li>
 <a href="http://maven.apache.org/">Apache Maven 3.0.3</a> (or higher)</li>
 <li>
-<a href="http://www.eclipse.org/">Eclipse Luna</a> (or higher)</li>
+<a href="http://www.eclipse.org/">Eclipse Mars</a> (or higher)</li>
 </ul>
 
 <h2>
@@ -120,6 +120,14 @@ $ jar -cf bundle.jar jcel-*
 <pre><code>$ cd target
 $ jar -cf bundle.jar jcel-parent-*
 </code></pre>
+
+<p>The version number is updated with:</p>
+
+<pre><code>$ mvn versions:set -DnewVersion=NEW_VERSION
+</code></pre>
+
+<p>where <em>NEW_VERSION</em> is the new version.
+The file <a href="https://github.com/julianmendez/jcel/blob/master/jcel-reasoner/src/main/java/de/tudresden/inf/lat/jcel/reasoner/main/VersionInfo.java">VersionInfo.java</a> is updated manually.</p>
 
 <h2>
 <a id="modules" class="anchor" href="#modules" aria-hidden="true"><span class="octicon octicon-link"></span></a>modules</h2>
