@@ -48,7 +48,6 @@ $ mvn clean install
 *(2015-12-24)*
 * uses the OWL API 4.1.3
 * can be used as a plug-in for Protégé 5.0.0-beta-21
-* fixes the translation of annotations
 * build commands:
 ```
 $ mvn clean install
