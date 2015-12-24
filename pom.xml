@@ -51,7 +51,7 @@
 
 	<groupId>de.tu-dresden.inf.lat.jcel</groupId>
 	<artifactId>jcel-parent</artifactId>
-	<version>0.23.1</version>
+	<version>0.23.2</version>
 	<packaging>pom</packaging>
 
 	<dependencyManagement>
