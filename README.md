@@ -7,7 +7,7 @@
 
 
 ## download
-* [all-in-one ZIP file](http://sourceforge.net/projects/jcel/files/jcel/0.23.1/zip/jcel-0.23.1.zip/download)
+* [all-in-one ZIP file](http://sourceforge.net/projects/jcel/files/jcel/0.23.2/zip/jcel-0.23.2.zip/download)
 * [The Central Repository](https://repo1.maven.org/maven2/de/tu-dresden/inf/lat/jcel/)
 * [older releases](http://sourceforge.net/projects/jcel/files/)
 * as dependency:
@@ -15,7 +15,7 @@
 <dependency>
   <groupId>de.tu-dresden.inf.lat.jcel</groupId>
   <artifactId>jcel-owlapi</artifactId>
-  <version>0.23.1</version>
+  <version>0.23.2</version>
 </dependency>
 ```
 
