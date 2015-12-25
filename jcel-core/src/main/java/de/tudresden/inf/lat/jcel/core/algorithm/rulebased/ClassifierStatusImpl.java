@@ -181,7 +181,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	@Override
 	public boolean contains(VNode node) {
 		Objects.requireNonNull(node);
-		return (this.invNodeSet.get(node) != null);
+		return !Objects.isNull(this.invNodeSet.get(node));
 	}
 
 	private void createClassGraph() {

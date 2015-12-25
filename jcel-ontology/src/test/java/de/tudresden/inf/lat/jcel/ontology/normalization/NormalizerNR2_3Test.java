@@ -118,7 +118,7 @@ public class NormalizerNR2_3Test extends TestCase {
 			}
 		}
 
-		assertTrue(a != null);
+		assertTrue(!Objects.isNull(a));
 		assertTrue(a.isLiteral());
 
 		Set<IntegerAxiom> expectedAxioms = new HashSet<>();

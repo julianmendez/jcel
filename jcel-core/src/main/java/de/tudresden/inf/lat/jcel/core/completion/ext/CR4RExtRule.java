@@ -101,7 +101,7 @@ public class CR4RExtRule implements RObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return (o != null) && getClass().equals(o.getClass());
+		return (!Objects.isNull(o)) && getClass().equals(o.getClass());
 	}
 
 	@Override

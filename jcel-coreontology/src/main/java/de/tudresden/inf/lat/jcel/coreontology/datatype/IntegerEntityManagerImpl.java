@@ -169,10 +169,10 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	public Set<Integer> getEntities(IntegerEntityType type) {
 		Objects.requireNonNull(type);
 		Set<Integer> ret = new TreeSet<>();
-		if (this.nonAuxEntityMap.get(type) != null) {
+		if (!Objects.isNull(this.nonAuxEntityMap.get(type))) {
 			ret.addAll(this.nonAuxEntityMap.get(type));
 		}
-		if (this.auxEntityMap.get(type) != null) {
+		if (!Objects.isNull(this.auxEntityMap.get(type))) {
 			ret.addAll(this.auxEntityMap.get(type));
 		}
 		ret = Collections.unmodifiableSet(ret);

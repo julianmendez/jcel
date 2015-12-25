@@ -413,7 +413,7 @@ public class CelProcessor implements Processor {
 	}
 
 	private boolean isReflexiveTransitiveSubsumed(Integer leftPropertyName, Integer rightPropertyName) {
-		return (this.objectPropertyGraph != null)
+		return !Objects.isNull(this.objectPropertyGraph)
 				&& this.objectPropertyGraph.containsPair(leftPropertyName, rightPropertyName);
 	}
 

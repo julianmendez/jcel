@@ -237,7 +237,7 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	public Set<GCI3Axiom> getGCI3rAAxioms(int objectPropertyId, int leftClassId) {
 		Set<GCI3Axiom> ret = null;
 		Map<Integer, Set<GCI3Axiom>> map = this.mapOfGCI3rA.get(objectPropertyId);
-		if (map != null) {
+		if (!Objects.isNull(map)) {
 			ret = map.get(leftClassId);
 		}
 		if (Objects.isNull(ret)) {

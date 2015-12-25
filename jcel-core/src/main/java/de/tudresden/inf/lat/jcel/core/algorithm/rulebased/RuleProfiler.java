@@ -150,10 +150,10 @@ public class RuleProfiler implements RObserverRule, SObserverRule {
 	@Override
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
-		if (this.rListener != null) {
+		if (!Objects.isNull(this.rListener)) {
 			sbuf.append(this.rListener.toString());
 		}
-		if (this.sListener != null) {
+		if (!Objects.isNull(this.sListener)) {
 			sbuf.append(this.sListener.toString());
 		}
 		sbuf.append(" ok=");

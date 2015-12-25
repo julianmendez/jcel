@@ -131,7 +131,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 
 	@Override
 	public boolean containsPair(int subsumee, int subsumer) {
-		return (getSubsumers(subsumee) != null) && getSubsumers(subsumee).contains(subsumer);
+		return !Objects.isNull(getSubsumers(subsumee)) && getSubsumers(subsumee).contains(subsumer);
 	}
 
 	@Override

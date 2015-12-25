@@ -452,7 +452,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		logger.finer("getReasonerVersion()");
 		Version ret = new Version(0, 0, 0, 0);
 		String versionId = getReasoner().getReasonerVersion();
-		if (versionId != null) {
+		if (!Objects.isNull(versionId)) {
 			StringTokenizer stok = new StringTokenizer(versionId, ".");
 			int major = stok.hasMoreTokens() ? Integer.parseInt(stok.nextToken()) : 0;
 			int minor = stok.hasMoreTokens() ? Integer.parseInt(stok.nextToken()) : 0;
@@ -688,7 +688,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 			throws ReasonerInterruptedException, TimeOutException, InconsistentOntologyException {
 		Objects.requireNonNull(inferenceTypes);
 		logger.finer("precomputeInferences(" + inferenceTypes + ")");
-		if (this.reasonerConfiguration != null) {
+		if (!Objects.isNull(this.reasonerConfiguration)) {
 			this.reasonerConfiguration.getProgressMonitor().reasonerTaskStarted(ReasonerProgressMonitor.CLASSIFYING);
 			this.reasonerConfiguration.getProgressMonitor().reasonerTaskBusy();
 		}
@@ -698,7 +698,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		getReasoner().classify();
 		logger.finer("jcel classified in " + ((new Date()).getTime() - start.getTime()) + "ms");
 
-		if (this.reasonerConfiguration != null) {
+		if (!Objects.isNull(this.reasonerConfiguration)) {
 			this.reasonerConfiguration.getProgressMonitor().reasonerTaskStopped();
 		}
 	}

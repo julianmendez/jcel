@@ -218,7 +218,7 @@ public class ClassModuleProcessor implements Processor {
 			Set<ComplexIntegerAxiom> currentModule = new HashSet<>();
 			classSet.forEach(classId -> {
 				Set<ComplexIntegerAxiom> reachable = this.classToAxiom.get(classId);
-				if (reachable != null) {
+				if (!Objects.isNull(reachable)) {
 					currentModule.addAll(reachable);
 				}
 			});
@@ -297,7 +297,7 @@ public class ClassModuleProcessor implements Processor {
 			Integer classId = toVisit.iterator().next();
 			ret.add(classId);
 			Set<Integer> reachable = this.classToClass.get(classId);
-			if (reachable != null) {
+			if (!Objects.isNull(reachable)) {
 				toVisit.addAll(reachable);
 			}
 			toVisit.removeAll(ret);
