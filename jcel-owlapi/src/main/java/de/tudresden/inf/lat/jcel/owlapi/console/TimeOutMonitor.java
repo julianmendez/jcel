@@ -46,6 +46,7 @@
 
 package de.tudresden.inf.lat.jcel.owlapi.console;
 
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import de.tudresden.inf.lat.jcel.owlapi.main.JcelReasoner;
@@ -64,10 +65,7 @@ public class TimeOutMonitor extends Thread {
 	private final long timeout;
 
 	public TimeOutMonitor(JcelReasoner reasoner, long timeout) {
-		if (reasoner == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(reasoner);
 		this.reasoner = reasoner;
 		this.timeout = timeout;
 	}

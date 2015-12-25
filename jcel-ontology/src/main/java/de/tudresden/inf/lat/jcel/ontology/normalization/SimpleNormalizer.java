@@ -51,6 +51,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
@@ -117,10 +118,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 	 *            factory
 	 */
 	public SimpleNormalizer(IntegerOntologyObjectFactory factory) {
-		if (factory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(factory);
 		this.ontologyObjectFactory = factory;
 
 		this.norChainOfSubClass = new ArrayList<>();
@@ -157,13 +155,8 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 	 */
 	public Set<NormalizedIntegerAxiom> getAxiomsForInverseObjectProperties(Integer firstProperty,
 			Integer secondProperty) {
-		if (firstProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (secondProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(firstProperty);
+		Objects.requireNonNull(secondProperty);
 		Set<Annotation> annotations = Collections.emptySet();
 		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
 		{
@@ -213,10 +206,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 	 * @return the normalized set of axioms according to the specified axiom
 	 */
 	public Set<IntegerAxiom> normalize(IntegerAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<IntegerAxiom> ret = Collections.emptySet();
 		if (axiom instanceof ComplexIntegerAxiom) {
 			ComplexIntegerAxiom complexAxiom = (ComplexIntegerAxiom) axiom;
@@ -227,10 +217,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerClassAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Integer individual = axiom.getIndividual();
 		IntegerClassExpression classExpression = axiom.getClassExpression();
 		Set<IntegerAxiom> ret = new HashSet<>();
@@ -244,19 +231,13 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerClassDeclarationAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return Collections.emptySet();
 	}
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerDataPropertyAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		// TODO Auto-generated method stub
 		// FIXME not implemented yet
 
@@ -265,19 +246,13 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerDataPropertyDeclarationAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return Collections.emptySet();
 	}
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerDifferentIndividualsAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<IntegerAxiom> ret = new HashSet<>();
 		Set<Integer> individualSet = axiom.getIndividuals();
 		Set<IntegerClassExpression> classExprSet = new HashSet<>();
@@ -292,37 +267,25 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerDisjointClassesAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return this.norDisjoint.apply(axiom);
 	}
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerEquivalentClassesAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return this.norNR1_5.apply(axiom);
 	}
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerEquivalentObjectPropertiesAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return this.norEquivProperties.apply(axiom);
 	}
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerFunctionalObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<IntegerAxiom> ret = new HashSet<>();
 		IntegerAxiom newAxiom = getNormalizedAxiomFactory()
 				.createFunctObjectPropAxiom(getObjectPropertyId(axiom.getProperty()), axiom.getAnnotations());
@@ -332,10 +295,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerInverseFunctionalObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		IntegerAxiom newAxiom = getNormalizedAxiomFactory().createFunctObjectPropAxiom(
 				getIdGenerator().createOrGetInverseObjectPropertyOf(getObjectPropertyId(axiom.getProperty())),
 				axiom.getAnnotations());
@@ -344,10 +304,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerInverseObjectPropertiesAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Integer firstProperty = getObjectPropertyId(axiom.getFirstProperty());
 		Integer secondProperty = getObjectPropertyId(axiom.getSecondProperty());
 		getIdGenerator().proposeInverseObjectPropertyOf(firstProperty, secondProperty);
@@ -358,20 +315,13 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerNamedIndividualDeclarationAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return Collections.emptySet();
 	}
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerNegativeObjectPropertyAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-
-		}
-
+		Objects.requireNonNull(axiom);
 		Integer object = axiom.getObject();
 		Integer subject = axiom.getSubject();
 		IntegerObjectPropertyExpression property = axiom.getProperty();
@@ -396,10 +346,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerObjectPropertyAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Integer object = axiom.getObject();
 		Integer subject = axiom.getSubject();
 		IntegerObjectPropertyExpression property = axiom.getProperty();
@@ -419,19 +366,13 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerObjectPropertyDeclarationAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return Collections.emptySet();
 	}
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerPropertyRangeAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<IntegerAxiom> ret = Collections.emptySet();
 		IntegerClassExpression range = axiom.getRange();
 		if (range.isLiteral()) {
@@ -448,10 +389,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerReflexiveObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<IntegerAxiom> ret = new HashSet<>();
 		IntegerAxiom newAxiom = getNormalizedAxiomFactory().createRI1Axiom(getObjectPropertyId(axiom.getProperty()),
 				axiom.getAnnotations());
@@ -461,10 +399,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerSameIndividualAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<IntegerAxiom> ret = new HashSet<>();
 		Set<Integer> individualSet = axiom.getIndividuals();
 		Set<IntegerClassExpression> classExprSet = new HashSet<>();
@@ -479,10 +414,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerSubClassOfAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<IntegerAxiom> ret = new HashSet<>();
 		if (!this.norNR1_6.canBeApplied(axiom)) {
 			for (Iterator<NormalizationRule> it = this.norChainOfSubClass.iterator(); it.hasNext() && ret.isEmpty();) {
@@ -494,10 +426,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerSubObjectPropertyOfAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<IntegerAxiom> ret = new HashSet<>();
 		Integer subProperty = getObjectPropertyId(axiom.getSubProperty());
 		Integer superProperty = getObjectPropertyId(axiom.getSuperProperty());
@@ -511,10 +440,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerSubPropertyChainOfAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<IntegerAxiom> ret = new HashSet<>();
 		if (ret.isEmpty()) {
 			ret = this.norNR2_1.apply(axiom);
@@ -528,10 +454,7 @@ class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> 
 
 	@Override
 	public Set<IntegerAxiom> visit(IntegerTransitiveObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<IntegerAxiom> ret = new HashSet<>();
 		Integer property = getObjectPropertyId(axiom.getProperty());
 		NormalizedIntegerAxiom normAxiom = getNormalizedAxiomFactory().createRI3Axiom(property, property, property,

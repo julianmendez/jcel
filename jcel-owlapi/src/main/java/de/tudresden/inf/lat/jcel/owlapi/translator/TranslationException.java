@@ -46,6 +46,8 @@
 
 package de.tudresden.inf.lat.jcel.owlapi.translator;
 
+import java.util.Objects;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
@@ -61,26 +63,17 @@ public class TranslationException extends UnsupportedOperationException {
 	private static final long serialVersionUID = 6883202061243751672L;
 
 	public static TranslationException newIncompleteMapException(String item) {
-		if (item == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(item);
 		return new TranslationException("The translation map is incomplete. Item id was not found: '" + item + "'.");
 	}
 
 	public static TranslationException newUnsupportedAxiomException(OWLAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return new TranslationException("This axiom is not supported: '" + axiom + "'.");
 	}
 
 	public static TranslationException newUnsupportedTranslationException(Object o) {
-		if (o == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(o);
 		return new TranslationException("Object cannot be translated: '" + o.toString() + "'.");
 	}
 

@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -75,10 +76,7 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 	 *            annotations
 	 */
 	RangeAxiom(int propertyId, int classId, Set<Annotation> annotations) {
-		if (annotations == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(annotations);
 		this.property = propertyId;
 		this.range = classId;
 		this.annotations = annotations;
@@ -87,10 +85,7 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public <T> T accept(NormalizedIntegerAxiomVisitor<T> visitor) {
-		if (visitor == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(visitor);
 		return visitor.visit(this);
 	}
 

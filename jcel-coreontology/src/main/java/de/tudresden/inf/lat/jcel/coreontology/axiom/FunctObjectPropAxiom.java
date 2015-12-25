@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -69,10 +70,7 @@ public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
 	 *            annotations
 	 */
 	FunctObjectPropAxiom(int propertyId, Set<Annotation> annotations) {
-		if (annotations == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(annotations);
 		this.property = propertyId;
 		this.annotations = annotations;
 		this.hashCode = this.property + 0x1F * this.annotations.hashCode();
@@ -80,10 +78,7 @@ public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public <T> T accept(NormalizedIntegerAxiomVisitor<T> visitor) {
-		if (visitor == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(visitor);
 		return visitor.visit(this);
 	}
 

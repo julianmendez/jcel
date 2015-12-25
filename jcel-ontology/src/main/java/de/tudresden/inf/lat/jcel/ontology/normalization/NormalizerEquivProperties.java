@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.ontology.normalization;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
@@ -73,19 +74,13 @@ class NormalizerEquivProperties implements NormalizationRule {
 	 *            factory
 	 */
 	public NormalizerEquivProperties(IntegerOntologyObjectFactory factory) {
-		if (factory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(factory);
 		this.ontologyObjectFactory = factory;
 	}
 
 	@Override
 	public Set<IntegerAxiom> apply(IntegerAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<IntegerAxiom> ret = Collections.emptySet();
 		if (axiom instanceof IntegerEquivalentObjectPropertiesAxiom) {
 			ret = applyRule((IntegerEquivalentObjectPropertiesAxiom) axiom);

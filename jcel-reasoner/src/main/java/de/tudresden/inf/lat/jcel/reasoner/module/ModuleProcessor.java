@@ -51,6 +51,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.IntStream;
@@ -96,13 +97,8 @@ public class ModuleProcessor implements Processor {
 	 *            factory to create the auxiliary processor
 	 */
 	public ModuleProcessor(Set<ComplexIntegerAxiom> axiomSet, ModuleProcessorFactory factory) {
-		if (axiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (factory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiomSet);
+		Objects.requireNonNull(factory);
 		this.processorFactory = factory;
 		preProcess(axiomSet);
 	}

@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.ontology.datatype;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
@@ -72,19 +73,13 @@ public class IntegerNamedIndividual implements IntegerClassExpression, Comparabl
 
 	@Override
 	public <T> T accept(IntegerClassExpressionVisitor<T> visitor) {
-		if (visitor == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(visitor);
 		return visitor.visit(this);
 	}
 
 	@Override
 	public int compareTo(IntegerNamedIndividual o) {
-		if (o == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(o);
 		return getId() - o.getId();
 	}
 

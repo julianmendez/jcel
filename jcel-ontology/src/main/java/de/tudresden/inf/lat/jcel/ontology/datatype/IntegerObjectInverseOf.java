@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.ontology.datatype;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
@@ -68,29 +69,20 @@ public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression, 
 	 *            property to create the inverse
 	 */
 	protected IntegerObjectInverseOf(IntegerObjectProperty property) {
-		if (property == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(property);
 		this.invProperty = property;
 		this.hashCode = property.hashCode();
 	}
 
 	@Override
 	public <T> T accept(IntegerObjectPropertyExpressionVisitor<T> visitor) {
-		if (visitor == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(visitor);
 		return visitor.visit(this);
 	}
 
 	@Override
 	public int compareTo(IntegerObjectInverseOf o) {
-		if (o == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(o);
 		return getInverse().compareTo(o.getInverse());
 	}
 

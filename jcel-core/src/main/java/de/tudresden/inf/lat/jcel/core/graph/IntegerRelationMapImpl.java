@@ -49,6 +49,7 @@ package de.tudresden.inf.lat.jcel.core.graph;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -100,7 +101,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	public boolean add(int relationId, int first, int second) {
 		boolean ret = false;
 		IntegerBinaryRelationImpl relation = this.relationMap.get(relationId);
-		if (relation == null) {
+		if (Objects.isNull(relation)) {
 			relation = new IntegerBinaryRelationImpl();
 			this.relationMap.put(relationId, relation);
 			ret = true;
@@ -108,7 +109,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 		ret |= relation.add(first, second);
 
 		Collection<Integer> byFirst = this.relationSetByFirst.get(first);
-		if (byFirst == null) {
+		if (Objects.isNull(byFirst)) {
 			byFirst = new ArraySet();
 			this.relationSetByFirst.put(first, byFirst);
 			ret = true;
@@ -116,7 +117,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 		ret |= byFirst.add(relationId);
 
 		Collection<Integer> bySecond = this.relationSetBySecond.get(second);
-		if (bySecond == null) {
+		if (Objects.isNull(bySecond)) {
 			bySecond = new ArraySet();
 			this.relationSetBySecond.put(second, bySecond);
 			ret = true;
@@ -135,7 +136,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	public boolean contains(int relationId, int first, int second) {
 		boolean ret = false;
 		IntegerBinaryRelation relation = this.relationMap.get(relationId);
-		if (relation != null) {
+		if (!Objects.isNull(relation)) {
 			ret = relation.contains(first, second);
 		}
 		return ret;
@@ -162,7 +163,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	public Collection<Integer> getByFirst(int relationId, int first) {
 		Collection<Integer> ret = Collections.emptySet();
 		IntegerBinaryRelation relation = this.relationMap.get(relationId);
-		if (relation != null) {
+		if (!Objects.isNull(relation)) {
 			ret = relation.getByFirst(first);
 		}
 		return ret;
@@ -172,7 +173,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	public Collection<Integer> getBySecond(int relationId, int second) {
 		Collection<Integer> ret = Collections.emptySet();
 		IntegerBinaryRelation relation = this.relationMap.get(relationId);
-		if (relation != null) {
+		if (!Objects.isNull(relation)) {
 			ret = relation.getBySecond(second);
 		}
 		return ret;
@@ -212,7 +213,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	@Override
 	public Collection<Integer> getRelationsByFirst(int first) {
 		Collection<Integer> ret = this.relationSetByFirst.get(first);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
 		return Collections.unmodifiableCollection(ret);
@@ -221,7 +222,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	@Override
 	public Collection<Integer> getRelationsBySecond(int second) {
 		Collection<Integer> ret = this.relationSetBySecond.get(second);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
 		return Collections.unmodifiableCollection(ret);

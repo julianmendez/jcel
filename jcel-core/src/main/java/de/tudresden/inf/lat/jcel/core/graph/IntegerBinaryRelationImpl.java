@@ -49,6 +49,7 @@ package de.tudresden.inf.lat.jcel.core.graph;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -119,7 +120,7 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 
 	private boolean addTo(int elem, Map<Integer, Collection<Integer>> map) {
 		boolean ret = false;
-		if (map.get(elem) == null) {
+		if (Objects.isNull(map.get(elem))) {
 			map.put(elem, new ArraySet());
 			ret = true;
 		}
@@ -130,7 +131,7 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	public boolean contains(int first, int second) {
 		boolean ret = false;
 		Collection<Integer> byFirst = this.byFirstComp.get(first);
-		ret = (byFirst != null) && byFirst.contains(second);
+		ret = (!Objects.isNull(byFirst)) && byFirst.contains(second);
 		return ret;
 	}
 
@@ -150,7 +151,7 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	public Collection<Integer> getByFirst(int first) {
 		Collection<Integer> ret = Collections.emptySet();
 		Collection<Integer> set = this.byFirstComp.get(first);
-		if (set != null) {
+		if (!Objects.isNull(set)) {
 			ret = Collections.unmodifiableCollection(set);
 		}
 		return ret;
@@ -160,7 +161,7 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	public Collection<Integer> getBySecond(int second) {
 		Collection<Integer> ret = Collections.emptySet();
 		Collection<Integer> set = this.bySecondComp.get(second);
-		if (set != null) {
+		if (!Objects.isNull(set)) {
 			ret = Collections.unmodifiableCollection(set);
 		}
 		return ret;

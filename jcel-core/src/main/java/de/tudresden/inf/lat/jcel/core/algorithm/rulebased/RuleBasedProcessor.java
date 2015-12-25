@@ -57,6 +57,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -161,25 +162,12 @@ public class RuleBasedProcessor implements Processor {
 	public RuleBasedProcessor(Set<Integer> originalObjectProperties, Set<Integer> originalClasses,
 			Set<NormalizedIntegerAxiom> normalizedAxiomSet, OntologyExpressivity expressivity,
 			NormalizedIntegerAxiomFactory factory, IntegerEntityManager entityManager) {
-		if (originalObjectProperties == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (originalClasses == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (normalizedAxiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (expressivity == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (factory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (entityManager == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(originalObjectProperties);
+		Objects.requireNonNull(originalClasses);
+		Objects.requireNonNull(normalizedAxiomSet);
+		Objects.requireNonNull(expressivity);
+		Objects.requireNonNull(factory);
+		Objects.requireNonNull(entityManager);
 		this.factory = factory;
 		this.entityManager = entityManager;
 
@@ -192,10 +180,7 @@ public class RuleBasedProcessor implements Processor {
 	}
 
 	public void addAxioms(Set<NormalizedIntegerAxiom> normalizedAxiomSet) {
-		if (normalizedAxiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(normalizedAxiomSet);
 		logger.fine("adding axioms ...");
 		this.status.getExtendedOntology().load(normalizedAxiomSet);
 		preProcess(this.status.getExtendedOntology());
@@ -252,7 +237,7 @@ public class RuleBasedProcessor implements Processor {
 
 	private Set<Integer> computeReachability(Integer c, Map<Integer, Set<Integer>> reachableNodeCache) {
 		Set<Integer> reachableNodes = reachableNodeCache.get(c);
-		if (reachableNodes == null) {
+		if (Objects.isNull(reachableNodes)) {
 			reachableNodes = computeReachability(c);
 			reachableNodeCache.put(c, reachableNodes);
 		}
@@ -418,10 +403,7 @@ public class RuleBasedProcessor implements Processor {
 	 *         relation is already defined
 	 */
 	protected IntegerBinaryRelation getRelation(Integer relationId) {
-		if (relationId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(relationId);
 		return this.status.getRelationSet().get(relationId);
 	}
 
@@ -541,8 +523,8 @@ public class RuleBasedProcessor implements Processor {
 
 	private boolean processMultiThreaded() {
 		if (!this.isReady) {
-			if ((this.threadS1 != null) && (this.threadS2 != null) && (this.threadR1 != null) && (this.threadR2 != null)
-					&& this.threadS1.getState().equals(Thread.State.TERMINATED)
+			if (!Objects.isNull(this.threadS1) && !Objects.isNull(this.threadS2) && !Objects.isNull(this.threadR1)
+					&& !Objects.isNull(this.threadR2) && this.threadS1.getState().equals(Thread.State.TERMINATED)
 					&& this.threadS2.getState().equals(Thread.State.TERMINATED)
 					&& this.threadR1.getState().equals(Thread.State.TERMINATED)
 					&& this.threadR2.getState().equals(Thread.State.TERMINATED)
@@ -554,29 +536,29 @@ public class RuleBasedProcessor implements Processor {
 				this.isReady = true;
 			} else {
 
-				if ((this.threadS1 == null)
-						|| ((this.threadS1 != null) && this.threadS1.getState().equals(Thread.State.TERMINATED))) {
+				if ((Objects.isNull(this.threadS1)) || (!Objects.isNull(this.threadS1)
+						&& this.threadS1.getState().equals(Thread.State.TERMINATED))) {
 					this.threadS1 = new WorkerThreadS();
 					this.threadS1.start();
 					logger.finest("starting new thread S-1 ...");
 				}
 
-				if ((this.threadS2 == null)
-						|| ((this.threadS2 != null) && this.threadS2.getState().equals(Thread.State.TERMINATED))) {
+				if ((Objects.isNull(this.threadS2)) || (!Objects.isNull(this.threadS2)
+						&& this.threadS2.getState().equals(Thread.State.TERMINATED))) {
 					this.threadS2 = new WorkerThreadS();
 					this.threadS2.start();
 					logger.finest("starting new thread S-2 ...");
 				}
 
-				if ((this.threadR1 == null)
-						|| ((this.threadR1 != null) && this.threadR1.getState().equals(Thread.State.TERMINATED))) {
+				if ((Objects.isNull(this.threadR1)) || (!Objects.isNull(this.threadR1)
+						&& this.threadR1.getState().equals(Thread.State.TERMINATED))) {
 					this.threadR1 = new WorkerThreadR();
 					this.threadR1.start();
 					logger.finest("starting new thread R-1 ...");
 				}
 
-				if ((this.threadR2 == null)
-						|| ((this.threadR2 != null) && this.threadR2.getState().equals(Thread.State.TERMINATED))) {
+				if ((Objects.isNull(this.threadR2)) || (!Objects.isNull(this.threadR2)
+						&& this.threadR2.getState().equals(Thread.State.TERMINATED))) {
 					this.threadR2 = new WorkerThreadR();
 					this.threadR2.start();
 					logger.finest("starting new thread R-2 ...");
@@ -642,7 +624,7 @@ public class RuleBasedProcessor implements Processor {
 			entry = this.status.removeNextREntry();
 		} catch (NoSuchElementException e) {
 		}
-		if (entry != null) {
+		if (!Objects.isNull(entry)) {
 			ret = true;
 			int property = entry.getProperty();
 			int leftClass = entry.getLeftClass();
@@ -664,7 +646,7 @@ public class RuleBasedProcessor implements Processor {
 			entry = this.status.removeNextSEntry();
 		} catch (NoSuchElementException e) {
 		}
-		if (entry != null) {
+		if (!Objects.isNull(entry)) {
 			ret = true;
 			int subClass = entry.getSubClass();
 			int superClass = entry.getSuperClass();

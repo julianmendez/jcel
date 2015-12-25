@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
@@ -77,13 +78,8 @@ public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 	 *            annotations
 	 */
 	IntegerClassAssertionAxiom(IntegerClassExpression classExpr, int individualId, Set<Annotation> annotations) {
-		if (classExpr == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (annotations == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(classExpr);
+		Objects.requireNonNull(annotations);
 		this.classExpression = classExpr;
 		this.individual = individualId;
 		this.annotations = annotations;
@@ -92,10 +88,7 @@ public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 
 	@Override
 	public <T> T accept(ComplexIntegerAxiomVisitor<T> visitor) {
-		if (visitor == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(visitor);
 		return visitor.visit(this);
 	}
 

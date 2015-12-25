@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.ontology.normalization;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -110,14 +111,14 @@ public class NormalizerNR2_3Test extends TestCase {
 				if (leftExpr instanceof IntegerObjectSomeValuesFrom) {
 					IntegerObjectSomeValuesFrom expr = (IntegerObjectSomeValuesFrom) leftExpr;
 					if (expr.getProperty().equals(r)) {
-						assertTrue(a == null);
+						assertTrue(Objects.isNull(a));
 						a = expr.getFiller();
 					}
 				}
 			}
 		}
 
-		assertTrue(a != null);
+		assertTrue(!Objects.isNull(a));
 		assertTrue(a.isLiteral());
 
 		Set<IntegerAxiom> expectedAxioms = new HashSet<>();

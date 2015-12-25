@@ -46,6 +46,8 @@
 
 package de.tudresden.inf.lat.jcel.core.algorithm.cel;
 
+import java.util.Objects;
+
 /**
  * This is an auxiliary class which corresponds to an existential entry in the
  * extended ontology.
@@ -67,13 +69,8 @@ class ExistentialEntry implements ExtensionEntry {
 	 *            class identifier
 	 */
 	public ExistentialEntry(Integer property, Integer cls) {
-		if (property == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (cls == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(property);
+		Objects.requireNonNull(cls);
 		this.propertyId = property;
 		this.classId = cls;
 		this.hashcode = (31 * this.classId.hashCode()) + this.propertyId.hashCode();

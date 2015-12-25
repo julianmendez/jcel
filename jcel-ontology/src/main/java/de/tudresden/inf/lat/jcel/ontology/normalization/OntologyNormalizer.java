@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.ontology.normalization;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
@@ -103,13 +104,8 @@ public class OntologyNormalizer {
 	 */
 	public Set<NormalizedIntegerAxiom> normalize(Set<ComplexIntegerAxiom> originalAxiomSet,
 			IntegerOntologyObjectFactory factory) {
-		if (originalAxiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (factory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(originalAxiomSet);
+		Objects.requireNonNull(factory);
 		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
 		SimpleNormalizer normalizer = new SimpleNormalizer(factory);
 		Set<Integer> objectPropIdSet = new HashSet<>();

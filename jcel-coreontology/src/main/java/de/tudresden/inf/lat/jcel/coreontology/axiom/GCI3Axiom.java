@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
@@ -81,10 +82,7 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 	 *            annotations
 	 */
 	GCI3Axiom(int leftPropertyId, int leftClassId, int rightClassId, Set<Annotation> annotations) {
-		if (annotations == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(annotations);
 		this.classInSubClass = leftClassId;
 		this.propertyInSubClass = leftPropertyId;
 		this.superClass = rightClassId;
@@ -95,10 +93,7 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public <T> T accept(NormalizedIntegerAxiomVisitor<T> visitor) {
-		if (visitor == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(visitor);
 		return visitor.visit(this);
 	}
 

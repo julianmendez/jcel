@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
@@ -87,10 +88,7 @@ public class CR9RExtOptRule implements RObserverRule {
 
 	@Override
 	public boolean apply(ClassifierStatus status, int property, int leftClass, int rightClass) {
-		if (status == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(status);
 		return applyRule(status, property, leftClass, rightClass);
 	}
 
@@ -130,7 +128,7 @@ public class CR9RExtOptRule implements RObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return (o != null) && getClass().equals(o.getClass());
+		return (!Objects.isNull(o)) && getClass().equals(o.getClass());
 	}
 
 	@Override

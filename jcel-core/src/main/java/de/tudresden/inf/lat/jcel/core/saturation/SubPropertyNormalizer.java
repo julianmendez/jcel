@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.core.saturation;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
@@ -85,10 +86,7 @@ public class SubPropertyNormalizer implements SaturationRule {
 	 *            entity manager
 	 */
 	public SubPropertyNormalizer(NormalizedIntegerAxiomFactory factory, IntegerEntityManager entityManager) {
-		if (factory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(factory);
 		this.sr0 = new SR0Rule(factory);
 		this.sr1sr2 = new SR1AndSR2Rules(factory, entityManager);
 		this.sr3 = new SR3Rule(factory, entityManager);
@@ -105,10 +103,7 @@ public class SubPropertyNormalizer implements SaturationRule {
 	 */
 	@Override
 	public Set<NormalizedIntegerAxiom> apply(Set<NormalizedIntegerAxiom> originalSet) {
-		if (originalSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(originalSet);
 		return Collections
 				.unmodifiableSet(this.sr4.apply(this.sr3.apply(this.sr1sr2.apply(this.sr0.apply(originalSet)))));
 	}

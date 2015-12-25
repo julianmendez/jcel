@@ -50,6 +50,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
@@ -82,18 +83,13 @@ class NormalizerNR2_1 implements NormalizationRule {
 	 *            factory
 	 */
 	public NormalizerNR2_1(IntegerOntologyObjectFactory factory) {
-		if (factory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		Objects.requireNonNull(factory);
 		this.ontologyObjectFactory = factory;
 	}
 
 	@Override
 	public Set<IntegerAxiom> apply(IntegerAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<IntegerAxiom> ret = Collections.emptySet();
 		if (axiom instanceof IntegerSubPropertyChainOfAxiom) {
 			ret = applyRule((IntegerSubPropertyChainOfAxiom) axiom);

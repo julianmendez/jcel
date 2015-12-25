@@ -46,6 +46,8 @@
 
 package de.tudresden.inf.lat.jcel.owlapi.translator;
 
+import java.util.Objects;
+
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
@@ -78,13 +80,8 @@ public class ObjectPropertyExpressionTranslator
 	 *            translation repository
 	 */
 	public ObjectPropertyExpressionTranslator(IntegerDataTypeFactory factory, TranslationRepository repository) {
-		if (factory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (repository == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(factory);
+		Objects.requireNonNull(repository);
 		this.factory = factory;
 		this.repository = repository;
 	}
@@ -99,18 +96,13 @@ public class ObjectPropertyExpressionTranslator
 
 	@Override
 	public IntegerObjectPropertyExpression visit(OWLDataProperty property) {
-		if (property == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(property);
 		throw TranslationException.newUnsupportedTranslationException(property);
 	}
 
 	@Override
 	public IntegerObjectPropertyExpression visit(OWLObjectInverseOf property) {
-		if (property == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		Objects.requireNonNull(property);
 		IntegerObjectPropertyExpression propExpr = property.getInverse().accept(this);
 		IntegerObjectPropertyExpression ret;
 		if (propExpr instanceof IntegerObjectProperty) {
@@ -126,10 +118,7 @@ public class ObjectPropertyExpressionTranslator
 
 	@Override
 	public IntegerObjectPropertyExpression visit(OWLObjectProperty owlObjectProperty) {
-		if (owlObjectProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlObjectProperty);
 		getTranslationRepository().addObjectProperty(owlObjectProperty);
 		return getDataTypeFactory().createObjectProperty(getTranslationRepository().getId(owlObjectProperty));
 	}
