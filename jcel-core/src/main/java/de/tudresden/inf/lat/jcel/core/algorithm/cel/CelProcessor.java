@@ -163,7 +163,7 @@ public class CelProcessor implements Processor {
 		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		Set<Integer> individuals = getEntityManager().getEntities(IntegerEntityType.INDIVIDUAL, false);
 		individuals.forEach(indiv -> {
-			Set<Integer> subsumers = hierarchicalGraph.getParents(getEntityManager().getAuxiliaryNominal(indiv));
+			Set<Integer> subsumers = hierarchicalGraph.getParents(getEntityManager().getAuxiliaryNominal(indiv).get());
 			subsumers.forEach(elem -> {
 				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
 					throw new IllegalStateException("An individual has another individual as direct subsumer.");
@@ -179,11 +179,11 @@ public class CelProcessor implements Processor {
 		Set<Integer> individuals = getEntityManager().getEntities(IntegerEntityType.INDIVIDUAL, false);
 		individuals.forEach(indiv -> {
 			Set<Integer> equivalentClasses = hierarchicalGraph
-					.getEquivalents(getEntityManager().getAuxiliaryNominal(indiv));
+					.getEquivalents(getEntityManager().getAuxiliaryNominal(indiv).get());
 			Set<Integer> equivalents = new HashSet<>();
 			equivalentClasses.forEach(elem -> {
 				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
-					equivalents.add(getEntityManager().getIndividual(elem));
+					equivalents.add(getEntityManager().getIndividual(elem).get());
 				}
 			});
 			ret.put(indiv, Collections.unmodifiableSet(equivalents));
@@ -560,9 +560,9 @@ public class CelProcessor implements Processor {
 
 	private void process(Integer cA, ExtensionEntry eX) {
 		if (eX.isImplication()) {
-			processImplication(cA, eX.asImplication());
+			processImplication(cA, eX.asImplication().get());
 		} else if (eX.isExistential()) {
-			processExistential(cA, eX.asExistential());
+			processExistential(cA, eX.asExistential().get());
 		} else {
 			throw new RuntimeException("Internal error: entry was not recognized " + eX);
 		}
