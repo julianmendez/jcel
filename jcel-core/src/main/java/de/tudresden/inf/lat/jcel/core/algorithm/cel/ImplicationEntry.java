@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.core.algorithm.cel;
 
 import java.util.Collections;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -79,13 +80,13 @@ class ImplicationEntry implements ExtensionEntry {
 	}
 
 	@Override
-	public ExistentialEntry asExistential() {
-		return null;
+	public Optional<ExistentialEntry> asExistential() {
+		return Optional.empty();
 	}
 
 	@Override
-	public ImplicationEntry asImplication() {
-		return this;
+	public Optional<ImplicationEntry> asImplication() {
+		return Optional.of(this);
 	}
 
 	@Override

@@ -196,7 +196,7 @@ public class RuleBasedProcessor implements Processor {
 		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		Set<Integer> individuals = getEntityManager().getIndividuals();
 		individuals.forEach(indiv -> {
-			Set<Integer> subsumers = hierarchicalGraph.getParents(getEntityManager().getAuxiliaryNominal(indiv));
+			Set<Integer> subsumers = hierarchicalGraph.getParents(getEntityManager().getAuxiliaryNominal(indiv).get());
 			subsumers.forEach(elem -> {
 				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
 					throw new IllegalStateException("An individual has another individual as direct subsumer.");
@@ -249,11 +249,11 @@ public class RuleBasedProcessor implements Processor {
 		Set<Integer> individuals = getEntityManager().getIndividuals();
 		individuals.forEach(indiv -> {
 			Set<Integer> equivalentClasses = hierarchicalGraph
-					.getEquivalents(getEntityManager().getAuxiliaryNominal(indiv));
+					.getEquivalents(getEntityManager().getAuxiliaryNominal(indiv).get());
 			Set<Integer> equivalents = new HashSet<>();
 			equivalentClasses.forEach(elem -> {
 				if (getEntityManager().getAuxiliaryNominals().contains(elem)) {
-					equivalents.add(getEntityManager().getIndividual(elem));
+					equivalents.add(getEntityManager().getIndividual(elem).get());
 				}
 			});
 			ret.put(indiv, Collections.unmodifiableSet(equivalents));

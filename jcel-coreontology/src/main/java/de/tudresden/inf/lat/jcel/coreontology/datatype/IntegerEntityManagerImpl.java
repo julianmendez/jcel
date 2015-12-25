@@ -51,6 +51,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -155,9 +156,9 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	}
 
 	@Override
-	public Integer getAuxiliaryNominal(Integer individual) {
+	public Optional<Integer> getAuxiliaryNominal(Integer individual) {
 		Objects.requireNonNull(individual);
-		return this.auxNominalMap.get(individual);
+		return Optional.ofNullable(this.auxNominalMap.get(individual));
 	}
 
 	@Override
@@ -197,9 +198,9 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	}
 
 	@Override
-	public Integer getIndividual(Integer auxNominal) {
+	public Optional<Integer> getIndividual(Integer auxNominal) {
 		Objects.requireNonNull(auxNominal);
-		return this.auxNominalInvMap.get(auxNominal);
+		return Optional.ofNullable(this.auxNominalInvMap.get(auxNominal));
 	}
 
 	@Override

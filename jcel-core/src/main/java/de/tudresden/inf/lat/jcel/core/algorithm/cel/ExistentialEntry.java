@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.core.algorithm.cel;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * This is an auxiliary class which corresponds to an existential entry in the
@@ -77,13 +78,13 @@ class ExistentialEntry implements ExtensionEntry {
 	}
 
 	@Override
-	public ExistentialEntry asExistential() {
-		return this;
+	public Optional<ExistentialEntry> asExistential() {
+		return Optional.of(this);
 	}
 
 	@Override
-	public ImplicationEntry asImplication() {
-		return null;
+	public Optional<ImplicationEntry> asImplication() {
+		return Optional.empty();
 	}
 
 	@Override

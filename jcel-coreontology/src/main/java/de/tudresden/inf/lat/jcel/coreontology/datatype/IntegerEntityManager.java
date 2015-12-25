@@ -46,6 +46,7 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.datatype;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -121,14 +122,17 @@ public interface IntegerEntityManager {
 	Set<Integer> getAuxiliaryInverseObjectProperties();
 
 	/**
-	 * This method gives the auxiliary nominal related to a specific individual.
+	 * Returns an optional containing the auxiliary nominal related to a
+	 * specific individual, or an empty optional if the individual does not have
+	 * any related auxiliary nominal.
 	 *
 	 * @param individual
 	 *            the individual
-	 * @return the requested class or <code>null</code> if the individual does
-	 *         not have any related auxiliary nominal.
+	 * @return an optional containing the auxiliary nominal related to a
+	 *         specific individual, or an empty optional if the individual does
+	 *         not have any related auxiliary nominal
 	 */
-	Integer getAuxiliaryNominal(Integer individual);
+	Optional<Integer> getAuxiliaryNominal(Integer individual);
 
 	/**
 	 * Returns the set of auxiliary nominals.
@@ -162,14 +166,17 @@ public interface IntegerEntityManager {
 	Set<Integer> getEntities(IntegerEntityType type, boolean auxiliary);
 
 	/**
-	 * This method gives the individual related to a specific auxiliary nominal.
+	 * Returns an optional containing the individual related to a specific
+	 * auxiliary nominal, or an empty optional if the auxiliary nominal does not
+	 * have any related individual.
 	 *
 	 * @param auxNominal
 	 *            the auxiliary nominal
-	 * @return the requested individual or <code>null</code> if the auxiliary
-	 *         nominal does not have any related individual.
+	 * @return an optional containing the individual related to a specific
+	 *         auxiliary nominal, or an empty optional if the auxiliary nominal
+	 *         does not have any related individual.
 	 */
-	Integer getIndividual(Integer auxNominal);
+	Optional<Integer> getIndividual(Integer auxNominal);
 
 	/**
 	 * Returns the set of individuals.

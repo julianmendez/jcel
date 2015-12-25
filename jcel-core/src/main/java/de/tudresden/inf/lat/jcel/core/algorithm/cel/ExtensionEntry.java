@@ -46,6 +46,8 @@
 
 package de.tudresden.inf.lat.jcel.core.algorithm.cel;
 
+import java.util.Optional;
+
 /**
  * This class models an entry for the queues. There are only two kinds of
  * entries : the existential and the implication.
@@ -55,20 +57,22 @@ package de.tudresden.inf.lat.jcel.core.algorithm.cel;
 public interface ExtensionEntry {
 
 	/**
-	 * Returns this entry as an existential entry.
+	 * Returns an optional containing this entry if this is as an existential
+	 * entry, or an empty optional otherwise.
 	 * 
-	 * @return <code>this</code> if this is an existential entry, or
-	 *         <code>null</code> if not
+	 * @return an optional containing this entry if this is as an existential
+	 *         entry, or an empty optional otherwise
 	 */
-	ExistentialEntry asExistential();
+	Optional<ExistentialEntry> asExistential();
 
 	/**
-	 * Returns this entry as an implication entry.
+	 * Returns an optional containing this entry if this is as an implication
+	 * entry, or an empty optional otherwise.
 	 * 
-	 * @return <code>this</code> if this is an implication entry, or
-	 *         <code>null</code> if not
+	 * @return an optional containing this entry if this is as an implication
+	 *         entry, or an empty optional otherwise
 	 */
-	ImplicationEntry asImplication();
+	Optional<ImplicationEntry> asImplication();
 
 	/**
 	 * Tell whether or not this is an existential entry.
