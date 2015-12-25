@@ -202,7 +202,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 			Collection<Integer> cognates = getSubObjectProperties(s);
 			cognates.forEach(r -> {
 				Set<Integer> currentSet = this.cognateFunctPropMap.get(r);
-				if (currentSet == null) {
+				if (Objects.isNull(currentSet)) {
 					currentSet = new HashSet<>();
 					this.cognateFunctPropMap.put(r, currentSet);
 				}
@@ -234,7 +234,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	public int createOrGetNodeId(VNode node) {
 		Objects.requireNonNull(node);
 		Integer ret = this.invNodeSet.get(node);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			ret = node.getClassId();
 			if (!node.isEmpty()) {
 				ret = getIdGenerator().createAnonymousEntity(IntegerEntityType.CLASS, true);
@@ -406,7 +406,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	@Override
 	public Set<Integer> getObjectPropertiesWithFunctionalAncestor(int objectProperty) {
 		Set<Integer> ret = this.cognateFunctPropMap.get(objectProperty);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		} else {
 			ret = Collections.unmodifiableSet(ret);

@@ -49,6 +49,7 @@ package de.tudresden.inf.lat.jcel.core.graph;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -119,7 +120,7 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 
 	private boolean addTo(int elem, Map<Integer, Collection<Integer>> map) {
 		boolean ret = false;
-		if (map.get(elem) == null) {
+		if (Objects.isNull(map.get(elem))) {
 			map.put(elem, new ArraySet());
 			ret = true;
 		}

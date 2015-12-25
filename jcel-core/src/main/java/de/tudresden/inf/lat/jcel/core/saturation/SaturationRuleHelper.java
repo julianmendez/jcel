@@ -83,7 +83,7 @@ class SaturationRuleHelper {
 		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		axiomSet.forEach(axiom -> {
 			Set<Integer> relatedElemSet = ret.get(axiom.getSubProperty());
-			if (relatedElemSet == null) {
+			if (Objects.isNull(relatedElemSet)) {
 				relatedElemSet = new HashSet<>();
 				ret.put(axiom.getSubProperty(), relatedElemSet);
 			}
@@ -106,7 +106,7 @@ class SaturationRuleHelper {
 		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		axiomSet.forEach(axiom -> {
 			Set<Integer> relatedElemSet = ret.get(axiom.getSuperProperty());
-			if (relatedElemSet == null) {
+			if (Objects.isNull(relatedElemSet)) {
 				relatedElemSet = new HashSet<>();
 				ret.put(axiom.getSuperProperty(), relatedElemSet);
 			}

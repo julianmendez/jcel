@@ -177,7 +177,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 			ret = getElements();
 		} else {
 			ret = this.setS.get(vertex);
-			if (ret == null) {
+			if (Objects.isNull(ret)) {
 				ret = Collections.emptySet();
 			} else {
 				ret = Collections.unmodifiableCollection(ret);

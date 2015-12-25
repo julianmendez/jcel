@@ -111,7 +111,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	public Integer createOrGetClassIdForIndividual(Integer individual) {
 		Objects.requireNonNull(individual);
 		Integer ret = this.auxNominalMap.get(individual);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			ret = createAnonymousEntity(IntegerEntityType.CLASS, true);
 			this.auxNominalInvMap.put(ret, individual);
 			this.auxNominalMap.put(individual, ret);
@@ -123,7 +123,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	public Integer createOrGetInverseObjectPropertyOf(Integer propertyId) throws IndexOutOfBoundsException {
 		Objects.requireNonNull(propertyId);
 		Integer ret = this.inverseObjectPropertyMap.get(propertyId);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			ret = createAnonymousEntity(IntegerEntityType.OBJECT_PROPERTY, true);
 			this.auxInverseObjectPropertySet.add(ret);
 			this.inverseObjectPropertyMap.put(propertyId, ret);
@@ -188,7 +188,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 		} else {
 			ret = this.nonAuxEntityMap.get(type);
 		}
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		} else {
 			ret = Collections.unmodifiableSet(ret);
@@ -215,7 +215,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 		}
 
 		String ret = this.nameMap.get(identifier);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			if (this.auxEntitySet.contains(identifier)) {
 				ret = auxiliaryEntity + identifier;
 			} else {
@@ -229,7 +229,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	public IntegerEntityType getType(Integer identifier) {
 		Objects.requireNonNull(identifier);
 		IntegerEntityType ret = this.entityTypeMap.get(identifier);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			throw new IndexOutOfBoundsException("Invalid identifier : " + identifier);
 		}
 		return ret;
@@ -263,7 +263,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 		boolean ret = false;
 		Integer invFirstProperty = this.inverseObjectPropertyMap.get(firstProperty);
 		Integer invSecondProperty = this.inverseObjectPropertyMap.get(secondProperty);
-		if ((invFirstProperty == null) && (invSecondProperty == null)) {
+		if ((Objects.isNull(invFirstProperty)) && (Objects.isNull(invSecondProperty))) {
 			this.inverseObjectPropertyMap.put(firstProperty, secondProperty);
 			this.inverseObjectPropertyMap.put(secondProperty, firstProperty);
 			ret = true;
@@ -275,14 +275,14 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 		if (auxiliary) {
 			this.auxEntitySet.add(identifier);
 			Set<Integer> set = this.auxEntityMap.get(type);
-			if (set == null) {
+			if (Objects.isNull(set)) {
 				set = new HashSet<>();
 				this.auxEntityMap.put(type, set);
 			}
 			set.add(identifier);
 		} else {
 			Set<Integer> set = this.nonAuxEntityMap.get(type);
-			if (set == null) {
+			if (Objects.isNull(set)) {
 				set = new HashSet<>();
 				this.nonAuxEntityMap.put(type, set);
 			}

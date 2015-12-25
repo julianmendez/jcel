@@ -88,7 +88,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	}
 
 	private void addClass(Integer classId) {
-		if (this.ohatOfClass.get(classId) == null) {
+		if (Objects.isNull(this.ohatOfClass.get(classId))) {
 			this.ohatOfClass.put(classId, new HashSet<>());
 		}
 	}
@@ -100,7 +100,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 
 	private void addTo(Integer property, RI3Axiom axiom, Map<Integer, Set<RI3Axiom>> map) {
 		Set<RI3Axiom> axiomSet = map.get(property);
-		if (axiomSet == null) {
+		if (Objects.isNull(axiomSet)) {
 			axiomSet = new HashSet<>();
 			map.put(property, axiomSet);
 		}
@@ -127,7 +127,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	public Set<ExtensionEntry> getClassEntries(Integer classId) {
 		Objects.requireNonNull(classId);
 		Set<ExtensionEntry> ret = this.ohatOfClass.get(classId);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
 		return Collections.unmodifiableSet(ret);
@@ -160,7 +160,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 		Map<Integer, Set<ExtensionEntry>> map = this.ohatOfExistential.get(propertyId);
 		if (map != null) {
 			ret = map.get(classId);
-			if (ret == null) {
+			if (Objects.isNull(ret)) {
 				ret = Collections.emptySet();
 			}
 		}
@@ -180,7 +180,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	public Set<RI3Axiom> getSubPropertyAxiomSetByLeft(Integer elem) {
 		Objects.requireNonNull(elem);
 		Set<RI3Axiom> ret = this.subPropertyAxiomSetByLeft.get(elem);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
 		return Collections.unmodifiableSet(ret);
@@ -198,7 +198,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	public Set<RI3Axiom> getSubPropertyAxiomSetByRight(Integer elem) {
 		Objects.requireNonNull(elem);
 		Set<RI3Axiom> ret = this.subPropertyAxiomSetByRight.get(elem);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
 		return Collections.unmodifiableSet(ret);
@@ -279,12 +279,12 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 		Integer propertyId = axiom.getPropertyInSubClass();
 		Integer classId = axiom.getClassInSubClass();
 		Map<Integer, Set<ExtensionEntry>> map = this.ohatOfExistential.get(propertyId);
-		if (map == null) {
+		if (Objects.isNull(map)) {
 			map = new HashMap<Integer, Set<ExtensionEntry>>();
 			this.ohatOfExistential.put(propertyId, map);
 		}
 		Set<ExtensionEntry> set = map.get(classId);
-		if (set == null) {
+		if (Objects.isNull(set)) {
 			set = new HashSet<>();
 			map.put(classId, set);
 		}

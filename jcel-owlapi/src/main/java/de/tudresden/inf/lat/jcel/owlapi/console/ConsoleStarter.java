@@ -522,19 +522,19 @@ public class ConsoleStarter {
 					}
 				}
 
-				if (operation == null) {
+				if (Objects.isNull(operation)) {
 					operation = parseMode(arguments.get(0));
 				}
-				if (ontologyFile == null) {
+				if (Objects.isNull(ontologyFile)) {
 					ontologyFile = new File(arguments.get(1));
 				}
-				if (outputFile == null) {
+				if (Objects.isNull(outputFile)) {
 					outputFile = new File(arguments.get(2));
 				}
-				if ((classIRI == null) && operation.equals(Mode.SATISFIABILITY)) {
+				if ((Objects.isNull(classIRI)) && operation.equals(Mode.SATISFIABILITY)) {
 					classIRI = IRI.create(arguments.get(3));
 				}
-				if (renderer == null) {
+				if (Objects.isNull(renderer)) {
 					renderer = new OWLFunctionalSyntaxRenderer();
 				}
 
@@ -569,7 +569,7 @@ public class ConsoleStarter {
 						throw new UnsupportedOperationException("Operation is not supported yet.");
 
 					} else if (operation == Mode.ENTAILMENT) {
-						if (conclusionFile == null) {
+						if (Objects.isNull(conclusionFile)) {
 							throw new IllegalArgumentException("No conclusion file has been defined.");
 						}
 

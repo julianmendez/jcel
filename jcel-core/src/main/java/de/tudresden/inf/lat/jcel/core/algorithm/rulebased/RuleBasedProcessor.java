@@ -237,7 +237,7 @@ public class RuleBasedProcessor implements Processor {
 
 	private Set<Integer> computeReachability(Integer c, Map<Integer, Set<Integer>> reachableNodeCache) {
 		Set<Integer> reachableNodes = reachableNodeCache.get(c);
-		if (reachableNodes == null) {
+		if (Objects.isNull(reachableNodes)) {
 			reachableNodes = computeReachability(c);
 			reachableNodeCache.put(c, reachableNodes);
 		}
@@ -536,28 +536,28 @@ public class RuleBasedProcessor implements Processor {
 				this.isReady = true;
 			} else {
 
-				if ((this.threadS1 == null)
+				if ((Objects.isNull(this.threadS1))
 						|| ((this.threadS1 != null) && this.threadS1.getState().equals(Thread.State.TERMINATED))) {
 					this.threadS1 = new WorkerThreadS();
 					this.threadS1.start();
 					logger.finest("starting new thread S-1 ...");
 				}
 
-				if ((this.threadS2 == null)
+				if ((Objects.isNull(this.threadS2))
 						|| ((this.threadS2 != null) && this.threadS2.getState().equals(Thread.State.TERMINATED))) {
 					this.threadS2 = new WorkerThreadS();
 					this.threadS2.start();
 					logger.finest("starting new thread S-2 ...");
 				}
 
-				if ((this.threadR1 == null)
+				if ((Objects.isNull(this.threadR1))
 						|| ((this.threadR1 != null) && this.threadR1.getState().equals(Thread.State.TERMINATED))) {
 					this.threadR1 = new WorkerThreadR();
 					this.threadR1.start();
 					logger.finest("starting new thread R-1 ...");
 				}
 
-				if ((this.threadR2 == null)
+				if ((Objects.isNull(this.threadR2))
 						|| ((this.threadR2 != null) && this.threadR2.getState().equals(Thread.State.TERMINATED))) {
 					this.threadR2 = new WorkerThreadR();
 					this.threadR2.start();

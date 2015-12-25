@@ -158,7 +158,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 			ret = (IntegerClass) ce;
 		} else {
 			Integer classIndex = this.auxClassInvMap.get(ce);
-			if (classIndex == null) {
+			if (Objects.isNull(classIndex)) {
 				Integer auxClassId = this.factory.getEntityManager().createAnonymousEntity(IntegerEntityType.CLASS,
 						false);
 				ret = getDataTypeFactory().createClass(auxClassId);
@@ -506,7 +506,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		IntegerHierarchicalGraph graph = getProcessor().getClassHierarchy();
 		Map<Integer, Set<Integer>> map = getProcessor().getDirectTypes();
 		Set<Integer> directElemSet = map.get(ind.getId());
-		if (directElemSet == null) {
+		if (Objects.isNull(directElemSet)) {
 			directElemSet = Collections.emptySet();
 		}
 		Set<Integer> set = null;

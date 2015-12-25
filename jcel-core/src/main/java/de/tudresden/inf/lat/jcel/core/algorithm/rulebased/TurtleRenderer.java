@@ -92,7 +92,7 @@ public class TurtleRenderer {
 
 	private String getName(URI uri) {
 		String ret = uri.getFragment();
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			String path = uri.getPath();
 			if (path != null) {
 				ret = path.substring(path.lastIndexOf(slash) + slash.length());
@@ -105,7 +105,7 @@ public class TurtleRenderer {
 		String ret = "";
 		if (uri.getHost() != null) {
 			ret = uri.getScheme() + colonSlashSlash + uri.getHost();
-			if (uri.getFragment() == null) {
+			if (Objects.isNull(uri.getFragment())) {
 				String path = uri.getPath();
 				if (path != null) {
 					ret += path.substring(0, path.lastIndexOf(slash) + slash.length());

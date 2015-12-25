@@ -238,7 +238,7 @@ public class TranslationRepository {
 	public Integer getId(OWLClass owlClass) {
 		Objects.requireNonNull(owlClass);
 		Integer ret = this.classInvMap.get(owlClass);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			throw TranslationException.newIncompleteMapException(owlClass.toStringID());
 		}
 		return ret;
@@ -247,7 +247,7 @@ public class TranslationRepository {
 	public Integer getId(OWLDataProperty owlDataProperty) {
 		Objects.requireNonNull(owlDataProperty);
 		Integer ret = this.dataPropertyInvMap.get(owlDataProperty);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			throw TranslationException.newIncompleteMapException(owlDataProperty.toStringID());
 		}
 		return ret;
@@ -256,7 +256,7 @@ public class TranslationRepository {
 	public Integer getId(OWLIndividual individual) {
 		Objects.requireNonNull(individual);
 		Integer ret = this.individualInvMap.get(individual);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			throw TranslationException.newIncompleteMapException(individual.toStringID());
 		}
 		return ret;
@@ -265,7 +265,7 @@ public class TranslationRepository {
 	public Integer getId(OWLLiteral owlLiteral) {
 		Objects.requireNonNull(owlLiteral);
 		Integer ret = this.literalInvMap.get(owlLiteral);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			throw TranslationException.newIncompleteMapException(owlLiteral.getLiteral());
 		}
 		return ret;
@@ -274,7 +274,7 @@ public class TranslationRepository {
 	public Integer getId(OWLObjectProperty owlObjectProperty) {
 		Objects.requireNonNull(owlObjectProperty);
 		Integer ret = this.objectPropertyInvMap.get(owlObjectProperty);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			throw TranslationException.newIncompleteMapException(owlObjectProperty.toStringID());
 		}
 		return ret;
@@ -283,7 +283,7 @@ public class TranslationRepository {
 	public OWLClass getOWLClass(Integer index) {
 		Objects.requireNonNull(index);
 		OWLClass ret = this.classMap.get(index);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			throw TranslationException.newIncompleteMapException(index.toString());
 		}
 		return ret;
@@ -292,7 +292,7 @@ public class TranslationRepository {
 	public OWLDataProperty getOWLDataProperty(Integer index) {
 		Objects.requireNonNull(index);
 		OWLDataProperty ret = this.dataPropertyMap.get(index);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			throw TranslationException.newIncompleteMapException(index.toString());
 		}
 		return ret;
@@ -301,7 +301,7 @@ public class TranslationRepository {
 	public OWLNamedIndividual getOWLNamedIndividual(Integer index) {
 		Objects.requireNonNull(index);
 		OWLNamedIndividual ret = this.individualMap.get(index);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			throw TranslationException.newIncompleteMapException(index.toString());
 		}
 		return ret;
@@ -310,7 +310,7 @@ public class TranslationRepository {
 	public OWLObjectProperty getOWLObjectProperty(Integer index) {
 		Objects.requireNonNull(index);
 		OWLObjectProperty ret = this.objectPropertyMap.get(index);
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			throw TranslationException.newIncompleteMapException(index.toString());
 		}
 		return ret;

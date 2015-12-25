@@ -189,14 +189,14 @@ public class ClassModuleProcessor implements Processor {
 				classSet.forEach(classId -> {
 
 					Set<ComplexIntegerAxiom> complexAxioms = this.classToAxiom.get(classId);
-					if (complexAxioms == null) {
+					if (Objects.isNull(complexAxioms)) {
 						complexAxioms = new HashSet<>();
 						this.classToAxiom.put(classId, complexAxioms);
 					}
 					complexAxioms.add(axiom);
 
 					Set<Integer> otherClasses = this.classToClass.get(classId);
-					if (otherClasses == null) {
+					if (Objects.isNull(otherClasses)) {
 						otherClasses = new HashSet<>();
 						this.classToClass.put(classId, otherClasses);
 					}

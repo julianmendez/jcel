@@ -197,20 +197,20 @@ public class IntegerHierarchicalGraphImpl implements IntegerHierarchicalGraph {
 			otherSet.addAll(otherGraph.getElements());
 			otherSet.forEach(elem -> {
 
-				if (this.children.get(elem) == null) {
+				if (Objects.isNull(this.children.get(elem))) {
 					this.children.put(elem, new HashSet<>());
 				}
 				this.children.get(elem).addAll(otherGraph.getChildren(elem));
 
-				if (this.parents.get(elem) == null) {
+				if (Objects.isNull(this.parents.get(elem))) {
 					this.parents.put(elem, new HashSet<>());
 				}
 				this.parents.get(elem).addAll(otherGraph.getParents(elem));
 
-				if (this.equivalents.get(elem) == null) {
+				if (Objects.isNull(this.equivalents.get(elem))) {
 					this.equivalents.put(elem, new HashSet<>());
 				}
-				if (this.representative.get(elem) == null) {
+				if (Objects.isNull(this.representative.get(elem))) {
 					this.representative.put(elem, elem);
 				}
 				otherGraph.getEquivalents(elem).forEach(otherElem -> makeEquivalent(elem, otherElem));
