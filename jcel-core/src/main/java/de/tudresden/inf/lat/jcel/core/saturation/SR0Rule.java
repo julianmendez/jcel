@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.core.saturation;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
@@ -70,18 +71,13 @@ public class SR0Rule implements SaturationRule {
 	 *            factory
 	 */
 	public SR0Rule(NormalizedIntegerAxiomFactory factory) {
-		if (factory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		Objects.requireNonNull(factory);
 		this.factory = factory;
 	}
 
 	@Override
 	public Set<NormalizedIntegerAxiom> apply(Set<NormalizedIntegerAxiom> originalSet) {
-		if (originalSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(originalSet);
 		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
 		ret.addAll(originalSet);
 

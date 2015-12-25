@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.core.algorithm.cel;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -70,13 +71,8 @@ class ImplicationEntry implements ExtensionEntry {
 	 *            class identifier
 	 */
 	public ImplicationEntry(Set<Integer> left, Integer right) {
-		if (left == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (right == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(left);
+		Objects.requireNonNull(right);
 		this.leftPart = left;
 		this.superClass = right;
 		this.hashcode = (31 * this.leftPart.hashCode()) + this.superClass.hashCode();

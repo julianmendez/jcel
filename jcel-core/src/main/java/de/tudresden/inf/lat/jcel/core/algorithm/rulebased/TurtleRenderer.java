@@ -53,6 +53,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 
 /**
@@ -85,18 +86,15 @@ public class TurtleRenderer {
 	 *            writer
 	 */
 	public TurtleRenderer(Writer writer) {
-		if (writer == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(writer);
 		this.output = new BufferedWriter(writer);
 	}
 
 	private String getName(URI uri) {
 		String ret = uri.getFragment();
-		if (ret == null) {
+		if (Objects.isNull(ret)) {
 			String path = uri.getPath();
-			if (path != null) {
+			if (!Objects.isNull(path)) {
 				ret = path.substring(path.lastIndexOf(slash) + slash.length());
 			}
 		}
@@ -105,11 +103,11 @@ public class TurtleRenderer {
 
 	private String getPrefix(URI uri) {
 		String ret = "";
-		if (uri.getHost() != null) {
+		if (!Objects.isNull(uri.getHost())) {
 			ret = uri.getScheme() + colonSlashSlash + uri.getHost();
-			if (uri.getFragment() == null) {
+			if (Objects.isNull(uri.getFragment())) {
 				String path = uri.getPath();
-				if (path != null) {
+				if (!Objects.isNull(path)) {
 					ret += path.substring(0, path.lastIndexOf(slash) + slash.length());
 				}
 			} else {
@@ -127,7 +125,7 @@ public class TurtleRenderer {
 			String prefix = getPrefix(uri);
 			if (prefix.length() > 0) {
 				String prefixId = this.mapOfPrefixes.get(prefix);
-				if (prefixId != null) {
+				if (!Objects.isNull(prefixId)) {
 					ret = prefixId + prefixSeparator + getName(uri);
 				} else {
 					ret = uriDelimiterLeft + name + uriDelimiterRight;

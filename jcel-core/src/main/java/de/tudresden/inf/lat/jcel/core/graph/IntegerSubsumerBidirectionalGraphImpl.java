@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.core.graph;
 
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  * This class implements a subsumer invGraph. This implementation keeps a set of
@@ -102,7 +103,7 @@ public class IntegerSubsumerBidirectionalGraphImpl implements IntegerSubsumerBid
 
 	@Override
 	public boolean containsPair(int subsumee, int subsumer) {
-		return (getSubsumers(subsumee) != null) && getSubsumers(subsumee).contains(subsumer);
+		return !Objects.isNull(getSubsumers(subsumee)) && getSubsumers(subsumee).contains(subsumer);
 	}
 
 	@Override
@@ -155,10 +156,7 @@ public class IntegerSubsumerBidirectionalGraphImpl implements IntegerSubsumerBid
 	 *            collection of elements to be retained
 	 */
 	public void retainAll(Collection<Integer> collection) {
-		if (collection == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(collection);
 		this.graph.retainAll(collection);
 		this.invGraph.retainAll(collection);
 	}

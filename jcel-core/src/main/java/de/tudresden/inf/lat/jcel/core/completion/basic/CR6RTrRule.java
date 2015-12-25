@@ -46,6 +46,8 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.basic;
 
+import java.util.Objects;
+
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
@@ -86,10 +88,7 @@ public class CR6RTrRule implements RObserverRule {
 
 	@Override
 	public boolean apply(ClassifierStatus status, int property, int leftClass, int rightClass) {
-		if (status == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(status);
 		boolean ret = false;
 		ret |= apply1(status, property, leftClass, rightClass);
 		ret |= apply2(status, property, leftClass, rightClass);
@@ -118,7 +117,7 @@ public class CR6RTrRule implements RObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return (o != null) && getClass().equals(o.getClass());
+		return (!Objects.isNull(o)) && getClass().equals(o.getClass());
 	}
 
 	@Override

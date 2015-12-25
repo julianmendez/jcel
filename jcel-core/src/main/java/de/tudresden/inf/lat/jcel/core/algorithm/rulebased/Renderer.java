@@ -52,6 +52,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -74,20 +75,14 @@ public class Renderer {
 		private final String name;
 
 		public PairIdName(int id, String name) {
-			if (name == null) {
-				throw new NullPointerException("Null argument.");
-			}
-
+			Objects.requireNonNull(name);
 			this.id = id;
 			this.name = name;
 		}
 
 		@Override
 		public int compareTo(PairIdName other) {
-			if (other == null) {
-				throw new NullPointerException("Null argument.");
-			}
-
+			Objects.requireNonNull(other);
 			int ret = getName().compareTo(other.getName());
 			if (ret == 0) {
 				ret = getId() - other.getId();
@@ -128,9 +123,9 @@ public class Renderer {
 	 */
 	public boolean renderWithNames(Writer output, IntegerEntityManager entityManager, IntegerRelationMap setR)
 			throws IOException {
-		if ((output == null) || (entityManager == null) || (setR == null)) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		Objects.requireNonNull(output);
+		Objects.requireNonNull(entityManager);
+		Objects.requireNonNull(setR);
 
 		boolean ret = false;
 		TurtleRenderer renderer = new TurtleRenderer(output);
@@ -174,9 +169,9 @@ public class Renderer {
 	 */
 	public boolean renderWithNames(Writer output, IntegerEntityManager entityManager, IntegerSubsumerGraph setS)
 			throws IOException {
-		if ((output == null) || (entityManager == null) || (setS == null)) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		Objects.requireNonNull(output);
+		Objects.requireNonNull(entityManager);
+		Objects.requireNonNull(setS);
 
 		boolean ret = false;
 		TurtleRenderer renderer = new TurtleRenderer(output);

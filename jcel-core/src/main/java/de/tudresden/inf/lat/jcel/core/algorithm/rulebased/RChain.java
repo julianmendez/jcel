@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.core.algorithm.rulebased;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.CompletionRuleMonitor;
@@ -70,19 +71,13 @@ public class RChain implements RObserverRule {
 	 *            list of rules
 	 */
 	public RChain(List<RObserverRule> ch) {
-		if (ch == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ch);
 		this.chain = ch;
 	}
 
 	@Override
 	public boolean apply(ClassifierStatus status, int property, int leftClass, int rightClass) {
-		if (status == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(status);
 		CompletionRuleMonitor ret = new CompletionRuleMonitor();
 		this.chain.forEach(elem -> {
 			ret.or(elem.apply(status, property, leftClass, rightClass));

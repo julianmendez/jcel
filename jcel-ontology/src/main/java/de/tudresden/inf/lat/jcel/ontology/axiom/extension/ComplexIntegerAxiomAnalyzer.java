@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.ontology.axiom.extension;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
@@ -152,29 +153,20 @@ class ComplexIntegerAxiomAnalyzer implements ComplexIntegerAxiomVisitor<Boolean>
 
 	@Override
 	public Boolean visit(IntegerClassAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasIndividual = true;
 		return axiom.getClassExpression().accept(this.expressionAnalyzer);
 	}
 
 	@Override
 	public Boolean visit(IntegerClassDeclarationAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return true;
 	}
 
 	@Override
 	public Boolean visit(IntegerDataPropertyAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasDatatype = true;
 		this.hasIndividual = true;
 		return true;
@@ -182,20 +174,14 @@ class ComplexIntegerAxiomAnalyzer implements ComplexIntegerAxiomVisitor<Boolean>
 
 	@Override
 	public Boolean visit(IntegerDataPropertyDeclarationAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasDatatype = true;
 		return true;
 	}
 
 	@Override
 	public Boolean visit(IntegerDifferentIndividualsAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasBottom = true;
 		this.hasIndividual = true;
 		return true;
@@ -203,48 +189,33 @@ class ComplexIntegerAxiomAnalyzer implements ComplexIntegerAxiomVisitor<Boolean>
 
 	@Override
 	public Boolean visit(IntegerDisjointClassesAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasBottom = true;
 		return this.expressionAnalyzer.visit(axiom.getClassExpressions());
 	}
 
 	@Override
 	public Boolean visit(IntegerEquivalentClassesAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return this.expressionAnalyzer.visit(axiom.getClassExpressions());
 	}
 
 	@Override
 	public Boolean visit(IntegerEquivalentObjectPropertiesAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return true;
 	}
 
 	@Override
 	public Boolean visit(IntegerFunctionalObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasFunctionalObjectProperty = true;
 		return true;
 	}
 
 	@Override
 	public Boolean visit(IntegerInverseFunctionalObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasFunctionalObjectProperty = true;
 		this.hasInverseObjectProperty = true;
 		return true;
@@ -252,30 +223,21 @@ class ComplexIntegerAxiomAnalyzer implements ComplexIntegerAxiomVisitor<Boolean>
 
 	@Override
 	public Boolean visit(IntegerInverseObjectPropertiesAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasInverseObjectProperty = true;
 		return true;
 	}
 
 	@Override
 	public Boolean visit(IntegerNamedIndividualDeclarationAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasIndividual = true;
 		return true;
 	}
 
 	@Override
 	public Boolean visit(IntegerNegativeObjectPropertyAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasBottom = true;
 		this.hasIndividual = true;
 		return true;
@@ -283,58 +245,40 @@ class ComplexIntegerAxiomAnalyzer implements ComplexIntegerAxiomVisitor<Boolean>
 
 	@Override
 	public Boolean visit(IntegerObjectPropertyAssertionAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasIndividual = true;
 		return true;
 	}
 
 	@Override
 	public Boolean visit(IntegerObjectPropertyDeclarationAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return true;
 	}
 
 	@Override
 	public Boolean visit(IntegerPropertyRangeAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		return axiom.getRange().accept(this.expressionAnalyzer);
 	}
 
 	@Override
 	public Boolean visit(IntegerReflexiveObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasReflexiveObjectProperty = true;
 		return true;
 	}
 
 	@Override
 	public Boolean visit(IntegerSameIndividualAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasIndividual = true;
 		return true;
 	}
 
 	@Override
 	public Boolean visit(IntegerSubClassOfAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		Set<IntegerClassExpression> set = new HashSet<>();
 		set.add(axiom.getSubClass());
 		set.add(axiom.getSuperClass());
@@ -344,20 +288,14 @@ class ComplexIntegerAxiomAnalyzer implements ComplexIntegerAxiomVisitor<Boolean>
 
 	@Override
 	public Boolean visit(IntegerSubObjectPropertyOfAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasSubObjectPropertyOf = true;
 		return true;
 	}
 
 	@Override
 	public Boolean visit(IntegerSubPropertyChainOfAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasSubPropertyChainOf = true;
 		this.hasSubObjectPropertyOf = true;
 		return true;
@@ -365,10 +303,7 @@ class ComplexIntegerAxiomAnalyzer implements ComplexIntegerAxiomVisitor<Boolean>
 
 	@Override
 	public Boolean visit(IntegerTransitiveObjectPropertyAxiom axiom) {
-		if (axiom == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiom);
 		this.hasTransitiveObjectProperty = true;
 		return true;
 	}

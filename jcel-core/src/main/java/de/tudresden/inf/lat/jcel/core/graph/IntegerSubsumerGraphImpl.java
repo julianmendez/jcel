@@ -50,6 +50,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -130,7 +131,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 
 	@Override
 	public boolean containsPair(int subsumee, int subsumer) {
-		return (getSubsumers(subsumee) != null) && getSubsumers(subsumee).contains(subsumer);
+		return !Objects.isNull(getSubsumers(subsumee)) && getSubsumers(subsumee).contains(subsumer);
 	}
 
 	@Override
@@ -176,7 +177,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 			ret = getElements();
 		} else {
 			ret = this.setS.get(vertex);
-			if (ret == null) {
+			if (Objects.isNull(ret)) {
 				ret = Collections.emptySet();
 			} else {
 				ret = Collections.unmodifiableCollection(ret);
@@ -202,10 +203,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	 *            collection of elements to be retained
 	 */
 	public void retainAll(Collection<Integer> collection) {
-		if (collection == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(collection);
 		Set<Integer> keySet = new HashSet<>();
 		keySet.addAll(this.setS.keySet());
 		keySet.forEach(key -> {

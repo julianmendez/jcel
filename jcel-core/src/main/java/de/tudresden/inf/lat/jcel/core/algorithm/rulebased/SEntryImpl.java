@@ -46,6 +46,8 @@
 
 package de.tudresden.inf.lat.jcel.core.algorithm.rulebased;
 
+import java.util.Objects;
+
 import de.tudresden.inf.lat.jcel.core.completion.common.SEntry;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
 
@@ -79,10 +81,7 @@ public class SEntryImpl implements SEntry, Comparable<SEntry> {
 
 	@Override
 	public int compareTo(SEntry other) {
-		if (other == null) {
-			throw new NullPointerException("Null argument.");
-		}
-
+		Objects.requireNonNull(other);
 		int ret = this.subClass - other.getSubClass();
 		if (ret == 0) {
 			ret = this.superClass - other.getSuperClass();

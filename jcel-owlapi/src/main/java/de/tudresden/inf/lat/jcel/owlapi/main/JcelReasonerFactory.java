@@ -46,6 +46,8 @@
 
 package de.tudresden.inf.lat.jcel.owlapi.main;
 
+import java.util.Objects;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.reasoner.IllegalConfigurationException;
 import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
@@ -64,45 +66,29 @@ public class JcelReasonerFactory implements OWLReasonerFactory {
 
 	@Override
 	public JcelReasoner createNonBufferingReasoner(OWLOntology ontology) {
-		if (ontology == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ontology);
 		return new JcelReasoner(ontology, false);
 	}
 
 	@Override
 	public JcelReasoner createNonBufferingReasoner(OWLOntology ontology, OWLReasonerConfiguration configuration)
 			throws IllegalConfigurationException {
-		if (ontology == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (configuration == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ontology);
+		Objects.requireNonNull(configuration);
 		return new JcelReasoner(ontology, false, configuration);
 	}
 
 	@Override
 	public JcelReasoner createReasoner(OWLOntology ontology) {
-		if (ontology == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ontology);
 		return new JcelReasoner(ontology, true);
 	}
 
 	@Override
 	public JcelReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration configuration)
 			throws IllegalConfigurationException {
-		if (ontology == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (configuration == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ontology);
+		Objects.requireNonNull(configuration);
 		return new JcelReasoner(ontology, true, configuration);
 	}
 

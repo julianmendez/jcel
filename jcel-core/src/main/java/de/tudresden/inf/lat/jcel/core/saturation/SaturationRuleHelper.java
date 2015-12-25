@@ -50,6 +50,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
@@ -78,14 +79,11 @@ class SaturationRuleHelper {
 	 *         properties
 	 */
 	public Map<Integer, Set<Integer>> getMapBySubObjectProperty(Set<RI2Axiom> axiomSet) {
-		if (axiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiomSet);
 		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		axiomSet.forEach(axiom -> {
 			Set<Integer> relatedElemSet = ret.get(axiom.getSubProperty());
-			if (relatedElemSet == null) {
+			if (Objects.isNull(relatedElemSet)) {
 				relatedElemSet = new HashSet<>();
 				ret.put(axiom.getSubProperty(), relatedElemSet);
 			}
@@ -104,14 +102,11 @@ class SaturationRuleHelper {
 	 *         properties
 	 */
 	public Map<Integer, Set<Integer>> getMapBySuperObjectProperty(Set<RI2Axiom> axiomSet) {
-		if (axiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiomSet);
 		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		axiomSet.forEach(axiom -> {
 			Set<Integer> relatedElemSet = ret.get(axiom.getSuperProperty());
-			if (relatedElemSet == null) {
+			if (Objects.isNull(relatedElemSet)) {
 				relatedElemSet = new HashSet<>();
 				ret.put(axiom.getSuperProperty(), relatedElemSet);
 			}
@@ -132,13 +127,8 @@ class SaturationRuleHelper {
 	 *         according to the given graph
 	 */
 	public Set<Integer> getReachable(Integer first, Map<Integer, Set<Integer>> map) {
-		if (first == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (map == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(first);
+		Objects.requireNonNull(map);
 		Set<Integer> ret = new HashSet<>();
 		Set<Integer> toVisit = new HashSet<>();
 		toVisit.add(first);
@@ -147,7 +137,7 @@ class SaturationRuleHelper {
 			toVisit.remove(elem);
 			ret.add(elem);
 			Set<Integer> set = map.get(elem);
-			if (set != null) {
+			if (!Objects.isNull(set)) {
 				set.forEach(newElem -> {
 					if (!ret.contains(newElem)) {
 						toVisit.add(newElem);
@@ -166,10 +156,7 @@ class SaturationRuleHelper {
 	 * @return all the RI-2 axioms in the specified set of normalized axioms
 	 */
 	public Set<RI2Axiom> getRI2Axioms(Set<NormalizedIntegerAxiom> originalSet) {
-		if (originalSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(originalSet);
 		Set<RI2Axiom> ret = new HashSet<>();
 		originalSet.forEach(axiom -> {
 			if (axiom instanceof RI2Axiom) {

@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.core.graph;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 /**
@@ -73,10 +74,7 @@ public class HashArraySetIterator implements Iterator<Integer> {
 	 *            number of elements to consider in the array
 	 */
 	public HashArraySetIterator(int[] a, int s) {
-		if (a == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(a);
 		this.array = a;
 		this.size = s;
 	}

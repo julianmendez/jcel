@@ -51,6 +51,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Date;
+import java.util.Objects;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
@@ -66,10 +67,7 @@ public class OutputStreamHandler extends Handler {
 	private final Date start;
 
 	public OutputStreamHandler(OutputStream output) throws IOException {
-		if (output == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(output);
 		this.output = new BufferedWriter(new OutputStreamWriter(output));
 		this.start = new Date();
 	}
@@ -118,10 +116,7 @@ public class OutputStreamHandler extends Handler {
 
 	@Override
 	public void publish(LogRecord record) {
-		if (record == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(record);
 		try {
 			this.output.write(createMessage(record.getMessage()));
 			this.output.newLine();

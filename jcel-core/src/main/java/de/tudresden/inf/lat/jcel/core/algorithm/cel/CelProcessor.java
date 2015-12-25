@@ -53,6 +53,7 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -136,22 +137,11 @@ public class CelProcessor implements Processor {
 	public CelProcessor(Set<Integer> originalObjectProperties, Set<Integer> originalClasses,
 			Set<NormalizedIntegerAxiom> normalizedAxiomSet, NormalizedIntegerAxiomFactory factory,
 			IntegerEntityManager entityManager) {
-		if (originalObjectProperties == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (originalClasses == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (normalizedAxiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (factory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (entityManager == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(originalObjectProperties);
+		Objects.requireNonNull(originalClasses);
+		Objects.requireNonNull(normalizedAxiomSet);
+		Objects.requireNonNull(factory);
+		Objects.requireNonNull(entityManager);
 		this.axiomFactory = factory;
 		this.entityManager = entityManager;
 		preProcess(originalObjectProperties, originalClasses, normalizedAxiomSet);
@@ -365,10 +355,7 @@ public class CelProcessor implements Processor {
 	 *         relation is already defined
 	 */
 	protected IntegerBinaryRelation getRelation(Integer relationId) {
-		if (relationId == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(relationId);
 		return this.relationSet.get(relationId);
 	}
 
@@ -426,7 +413,7 @@ public class CelProcessor implements Processor {
 	}
 
 	private boolean isReflexiveTransitiveSubsumed(Integer leftPropertyName, Integer rightPropertyName) {
-		return (this.objectPropertyGraph != null)
+		return !Objects.isNull(this.objectPropertyGraph)
 				&& this.objectPropertyGraph.containsPair(leftPropertyName, rightPropertyName);
 	}
 
@@ -500,16 +487,9 @@ public class CelProcessor implements Processor {
 	 */
 	protected void preProcess(Set<Integer> originalObjectProperties, Set<Integer> originalClasses,
 			Set<NormalizedIntegerAxiom> normalizedAxiomSet) {
-		if (originalObjectProperties == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (originalClasses == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (normalizedAxiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(originalObjectProperties);
+		Objects.requireNonNull(originalClasses);
+		Objects.requireNonNull(normalizedAxiomSet);
 		this.isReady = false;
 
 		logger.fine("using " + getClass().getSimpleName() + " ...");

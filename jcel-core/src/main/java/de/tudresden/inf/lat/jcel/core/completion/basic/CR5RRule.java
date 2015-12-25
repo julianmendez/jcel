@@ -46,6 +46,7 @@
 
 package de.tudresden.inf.lat.jcel.core.completion.basic;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
@@ -81,10 +82,7 @@ public class CR5RRule implements RObserverRule {
 
 	@Override
 	public boolean apply(ClassifierStatus status, int property, int leftClass, int rightClass) {
-		if (status == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(status);
 		return applyRule(status, property, leftClass, rightClass);
 	}
 
@@ -106,7 +104,7 @@ public class CR5RRule implements RObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return (o != null) && getClass().equals(o.getClass());
+		return (!Objects.isNull(o)) && getClass().equals(o.getClass());
 	}
 
 	@Override

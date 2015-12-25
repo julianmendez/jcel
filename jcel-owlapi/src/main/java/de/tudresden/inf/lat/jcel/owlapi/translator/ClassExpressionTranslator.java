@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.owlapi.translator;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLClass;
@@ -94,10 +95,7 @@ public class ClassExpressionTranslator implements OWLClassExpressionVisitorEx<In
 	 *            object property expression translator
 	 */
 	public ClassExpressionTranslator(ObjectPropertyExpressionTranslator translator) {
-		if (translator == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(translator);
 		this.objectPropertyExpressionTranslator = translator;
 	}
 
@@ -114,66 +112,45 @@ public class ClassExpressionTranslator implements OWLClassExpressionVisitorEx<In
 	}
 
 	public Integer translateDataProperty(OWLDataProperty owlDataProperty) {
-		if (owlDataProperty == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlDataProperty);
 		getTranslationRepository().addDataProperty(owlDataProperty);
 		return getTranslationRepository().getId(owlDataProperty);
 	}
 
 	public Integer translateIndividual(OWLIndividual owlIndividual) throws TranslationException {
-		if (owlIndividual == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlIndividual);
 		getTranslationRepository().addNamedIndividual(owlIndividual.asOWLNamedIndividual());
 		return getTranslationRepository().getId(owlIndividual);
 	}
 
 	public Integer translateLiteral(OWLLiteral owlLiteral) throws TranslationException {
-		if (owlLiteral == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlLiteral);
 		getTranslationRepository().addLiteral(owlLiteral);
 		return getTranslationRepository().getId(owlLiteral);
 	}
 
 	@Override
 	public IntegerClassExpression visit(OWLClass owlClassExpression) {
-		if (owlClassExpression == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(owlClassExpression);
 		getTranslationRepository().addClass(owlClassExpression);
 		return getDataTypeFactory().createClass(getTranslationRepository().getId(owlClassExpression));
 	}
 
 	@Override
 	public IntegerClassExpression visit(OWLDataAllValuesFrom ce) {
-		if (ce == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ce);
 		throw TranslationException.newUnsupportedTranslationException(ce);
 	}
 
 	@Override
 	public IntegerClassExpression visit(OWLDataExactCardinality ce) {
-		if (ce == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ce);
 		throw TranslationException.newUnsupportedTranslationException(ce);
 	}
 
 	@Override
 	public IntegerClassExpression visit(OWLDataHasValue ce) {
-		if (ce == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ce);
 		Integer dataPropertyId = getObjectPropertyExpressionTranslator().getTranslationRepository()
 				.getId(ce.getProperty().asOWLDataProperty());
 		Integer literalId = getTranslationRepository().getId(ce.getFiller());
@@ -182,82 +159,55 @@ public class ClassExpressionTranslator implements OWLClassExpressionVisitorEx<In
 
 	@Override
 	public IntegerClassExpression visit(OWLDataMaxCardinality ce) {
-		if (ce == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ce);
 		throw TranslationException.newUnsupportedTranslationException(ce);
 	}
 
 	@Override
 	public IntegerClassExpression visit(OWLDataMinCardinality ce) {
-		if (ce == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ce);
 		throw TranslationException.newUnsupportedTranslationException(ce);
 	}
 
 	@Override
 	public IntegerClassExpression visit(OWLDataSomeValuesFrom ce) {
-		if (ce == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ce);
 		throw TranslationException.newUnsupportedTranslationException(ce);
 	}
 
 	@Override
 	public IntegerClassExpression visit(OWLObjectAllValuesFrom ce) {
-		if (ce == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ce);
 		throw TranslationException.newUnsupportedTranslationException(ce);
 	}
 
 	@Override
 	public IntegerClassExpression visit(OWLObjectComplementOf ce) {
-		if (ce == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ce);
 		throw TranslationException.newUnsupportedTranslationException(ce);
 	}
 
 	@Override
 	public IntegerClassExpression visit(OWLObjectExactCardinality ce) {
-		if (ce == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ce);
 		throw TranslationException.newUnsupportedTranslationException(ce);
 	}
 
 	@Override
 	public IntegerClassExpression visit(OWLObjectHasSelf ce) {
-		if (ce == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ce);
 		throw TranslationException.newUnsupportedTranslationException(ce);
 	}
 
 	@Override
 	public IntegerClassExpression visit(OWLObjectHasValue ce) {
-		if (ce == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ce);
 		throw TranslationException.newUnsupportedTranslationException(ce);
 	}
 
 	@Override
 	public IntegerClassExpression visit(OWLObjectIntersectionOf ce) {
-		if (ce == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ce);
 		Set<OWLClassExpression> operands = ce.getOperands();
 		Set<IntegerClassExpression> classExpressionList = new HashSet<>();
 		operands.forEach(elem -> {
@@ -268,28 +218,19 @@ public class ClassExpressionTranslator implements OWLClassExpressionVisitorEx<In
 
 	@Override
 	public IntegerClassExpression visit(OWLObjectMaxCardinality ce) {
-		if (ce == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ce);
 		throw TranslationException.newUnsupportedTranslationException(ce);
 	}
 
 	@Override
 	public IntegerClassExpression visit(OWLObjectMinCardinality ce) {
-		if (ce == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ce);
 		throw TranslationException.newUnsupportedTranslationException(ce);
 	}
 
 	@Override
 	public IntegerClassExpression visit(OWLObjectOneOf ce) {
-		if (ce == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ce);
 		Set<OWLIndividual> indivSet = ce.getIndividuals();
 		if (indivSet.isEmpty()) {
 			throw new TranslationException("It is not possible to translate ObjectOneOf with empty set.");
@@ -303,10 +244,7 @@ public class ClassExpressionTranslator implements OWLClassExpressionVisitorEx<In
 
 	@Override
 	public IntegerClassExpression visit(OWLObjectSomeValuesFrom ce) {
-		if (ce == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ce);
 		IntegerObjectPropertyExpression propertyExpr = ce.getProperty().accept(getObjectPropertyExpressionTranslator());
 		OWLClassExpression desc = ce.getFiller();
 		IntegerClassExpression classExpression = desc.accept(this);
@@ -315,10 +253,7 @@ public class ClassExpressionTranslator implements OWLClassExpressionVisitorEx<In
 
 	@Override
 	public IntegerClassExpression visit(OWLObjectUnionOf ce) {
-		if (ce == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(ce);
 		throw TranslationException.newUnsupportedTranslationException(ce);
 	}
 

@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
@@ -79,13 +80,8 @@ public class IntegerDisjointClassesAxiom implements ComplexIntegerAxiom {
 	 *            annotations
 	 */
 	IntegerDisjointClassesAxiom(Set<IntegerClassExpression> descSet, Set<Annotation> annotations) {
-		if (descSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (annotations == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(descSet);
+		Objects.requireNonNull(annotations);
 		this.classExpressions = Collections.unmodifiableSet(descSet);
 
 		Set<Integer> classesInSignature = new HashSet<>();
@@ -102,10 +98,7 @@ public class IntegerDisjointClassesAxiom implements ComplexIntegerAxiom {
 
 	@Override
 	public <T> T accept(ComplexIntegerAxiomVisitor<T> visitor) {
-		if (visitor == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(visitor);
 		return visitor.visit(this);
 	}
 

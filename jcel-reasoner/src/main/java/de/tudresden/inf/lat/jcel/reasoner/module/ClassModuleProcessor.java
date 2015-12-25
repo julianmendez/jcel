@@ -52,6 +52,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Logger;
@@ -119,16 +120,9 @@ public class ClassModuleProcessor implements Processor {
 	 */
 	public ClassModuleProcessor(Set<ComplexIntegerAxiom> axiomSet, IntegerOntologyObjectFactory axFactory,
 			ModuleProcessorFactory procFactory) {
-		if (axiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (axFactory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (procFactory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiomSet);
+		Objects.requireNonNull(axFactory);
+		Objects.requireNonNull(procFactory);
 		this.axiomFactory = axFactory;
 		this.processorFactory = procFactory;
 		preProcess(axiomSet);
@@ -195,14 +189,14 @@ public class ClassModuleProcessor implements Processor {
 				classSet.forEach(classId -> {
 
 					Set<ComplexIntegerAxiom> complexAxioms = this.classToAxiom.get(classId);
-					if (complexAxioms == null) {
+					if (Objects.isNull(complexAxioms)) {
 						complexAxioms = new HashSet<>();
 						this.classToAxiom.put(classId, complexAxioms);
 					}
 					complexAxioms.add(axiom);
 
 					Set<Integer> otherClasses = this.classToClass.get(classId);
-					if (otherClasses == null) {
+					if (Objects.isNull(otherClasses)) {
 						otherClasses = new HashSet<>();
 						this.classToClass.put(classId, otherClasses);
 					}
@@ -224,7 +218,7 @@ public class ClassModuleProcessor implements Processor {
 			Set<ComplexIntegerAxiom> currentModule = new HashSet<>();
 			classSet.forEach(classId -> {
 				Set<ComplexIntegerAxiom> reachable = this.classToAxiom.get(classId);
-				if (reachable != null) {
+				if (!Objects.isNull(reachable)) {
 					currentModule.addAll(reachable);
 				}
 			});
@@ -303,7 +297,7 @@ public class ClassModuleProcessor implements Processor {
 			Integer classId = toVisit.iterator().next();
 			ret.add(classId);
 			Set<Integer> reachable = this.classToClass.get(classId);
-			if (reachable != null) {
+			if (!Objects.isNull(reachable)) {
 				toVisit.addAll(reachable);
 			}
 			toVisit.removeAll(ret);

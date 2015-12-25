@@ -46,6 +46,7 @@
 
 package de.tudresden.inf.lat.jcel.ontology.axiom.extension;
 
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
@@ -123,68 +124,47 @@ class IntegerExpressionAnalyzer implements IntegerClassExpressionVisitor<Boolean
 
 	@Override
 	public Boolean visit(IntegerClass classExpression) {
-		if (classExpression == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(classExpression);
 		this.hasBottom |= (classExpression.getId() == IntegerEntityManager.bottomClassId);
 		return true;
 	}
 
 	@Override
 	public Boolean visit(IntegerDataHasValue classExpression) {
-		if (classExpression == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(classExpression);
 		this.hasDatatype = true;
 		return true;
 	}
 
 	@Override
 	public Boolean visit(IntegerDataSomeValuesFrom classExpression) {
-		if (classExpression == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(classExpression);
 		this.hasDatatype = true;
 		return classExpression.getFiller().accept(this);
 	}
 
 	@Override
 	public Boolean visit(IntegerNamedIndividual namedIndividual) {
-		if (namedIndividual == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(namedIndividual);
 		return true;
 	}
 
 	@Override
 	public Boolean visit(IntegerObjectIntersectionOf classExpression) {
-		if (classExpression == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(classExpression);
 		return visit(classExpression.getOperands());
 	}
 
 	@Override
 	public Boolean visit(IntegerObjectOneOf classExpression) {
-		if (classExpression == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(classExpression);
 		this.hasNominal = true;
 		return true;
 	}
 
 	@Override
 	public Boolean visit(IntegerObjectSomeValuesFrom classExpression) {
-		if (classExpression == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(classExpression);
 		boolean fillerAcc = classExpression.getFiller().accept(this);
 		IntegerObjectPropertyExpression prop = classExpression.getProperty();
 		if (prop instanceof IntegerObjectInverseOf) {
@@ -201,10 +181,7 @@ class IntegerExpressionAnalyzer implements IntegerClassExpressionVisitor<Boolean
 	 * @return the visit result
 	 */
 	protected Boolean visit(Set<IntegerClassExpression> classSet) {
-		if (classSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(classSet);
 		return classSet.stream().map(expr -> expr.accept(this)).reduce(true, (accum, elem) -> (accum && elem));
 	}
 

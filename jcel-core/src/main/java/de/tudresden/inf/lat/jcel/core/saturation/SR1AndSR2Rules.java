@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.core.saturation;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -80,22 +81,15 @@ public class SR1AndSR2Rules implements SaturationRule {
 	 *            entity manager
 	 */
 	public SR1AndSR2Rules(NormalizedIntegerAxiomFactory factory, IntegerEntityManager entityManager) {
-		if (factory == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-		if (entityManager == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		Objects.requireNonNull(factory);
+		Objects.requireNonNull(entityManager);
 		this.factory = factory;
 		this.idGenerator = entityManager;
 	}
 
 	@Override
 	public Set<NormalizedIntegerAxiom> apply(Set<NormalizedIntegerAxiom> originalSet) {
-		if (originalSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(originalSet);
 		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
 		ret.addAll(originalSet);
 

@@ -46,6 +46,8 @@
 
 package de.tudresden.inf.lat.jcel.core.algorithm.rulebased;
 
+import java.util.Objects;
+
 import de.tudresden.inf.lat.jcel.core.completion.common.REntry;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
 
@@ -83,10 +85,7 @@ public class REntryImpl implements REntry, Comparable<REntry> {
 
 	@Override
 	public int compareTo(REntry other) {
-		if (other == null) {
-			throw new NullPointerException("Null argument.");
-		}
-
+		Objects.requireNonNull(other);
 		int ret = this.property - other.getProperty();
 		if (ret == 0) {
 			ret = this.leftClass - other.getLeftClass();

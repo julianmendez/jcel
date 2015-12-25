@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.core.algorithm.rulebased;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import de.tudresden.inf.lat.jcel.core.completion.basic.CR1SRule;
 import de.tudresden.inf.lat.jcel.core.completion.basic.CR2SRule;
@@ -93,10 +94,7 @@ public class CompletionRuleChainSelector {
 	 *            expressivity
 	 */
 	public CompletionRuleChainSelector(OntologyExpressivity expressivity) {
-		if (expressivity == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(expressivity);
 		this.expressivity = expressivity;
 
 		if (getOntologyExpressivity().hasInverseObjectProperty()

@@ -46,6 +46,7 @@
 
 package de.tudresden.inf.lat.jcel.ontology.axiom.extension;
 
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
@@ -70,10 +71,7 @@ public class ComplexAxiomExpressivityDetector implements OntologyExpressivity {
 	 *            set of axioms to detect the expressivity
 	 */
 	public ComplexAxiomExpressivityDetector(Set<ComplexIntegerAxiom> axiomSet) {
-		if (axiomSet == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
-
+		Objects.requireNonNull(axiomSet);
 		axiomSet.forEach(axiom -> axiom.accept(this.axiomAnalyzer));
 		this.name = (new ExpressivityName()).getName(this);
 	}

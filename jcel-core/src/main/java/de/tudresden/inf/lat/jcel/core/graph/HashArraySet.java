@@ -49,6 +49,7 @@ package de.tudresden.inf.lat.jcel.core.graph;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -78,10 +79,7 @@ public class HashArraySet implements Set<Integer> {
 
 	@Override
 	public synchronized boolean add(Integer elem) {
-		if (elem == null) {
-			throw new NullPointerException("Null argument.");
-		}
-
+		Objects.requireNonNull(elem);
 		boolean ret = false;
 		int pointer = find(elem, this.array);
 		if ((pointer == REHASH) || (pointer < 0)) {
@@ -99,10 +97,7 @@ public class HashArraySet implements Set<Integer> {
 
 	@Override
 	public synchronized boolean addAll(Collection<? extends Integer> collection) {
-		if (collection == null) {
-			throw new NullPointerException("Null argument.");
-		}
-
+		Objects.requireNonNull(collection);
 		boolean ret = false;
 		for (Integer elem : collection) {
 			ret |= add(elem);
@@ -126,10 +121,7 @@ public class HashArraySet implements Set<Integer> {
 
 	@Override
 	public synchronized boolean contains(Object elem) {
-		if (elem == null) {
-			throw new NullPointerException("Null argument.");
-		}
-
+		Objects.requireNonNull(elem);
 		boolean ret = false;
 		int e = ((Integer) elem).intValue();
 		int pointer = find(e, this.array);
@@ -139,10 +131,7 @@ public class HashArraySet implements Set<Integer> {
 
 	@Override
 	public synchronized boolean containsAll(Collection<?> collection) {
-		if (collection == null) {
-			throw new NullPointerException("Null argument.");
-		}
-
+		Objects.requireNonNull(collection);
 		return collection.stream().allMatch(elem -> contains(elem));
 	}
 

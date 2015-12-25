@@ -48,6 +48,7 @@ package de.tudresden.inf.lat.jcel.ontology.normalization;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
@@ -75,9 +76,7 @@ public class ObjectPropertyIdFinder implements IntegerObjectPropertyExpressionVi
 	 *            entity manager
 	 */
 	public ObjectPropertyIdFinder(IntegerEntityManager manager) {
-		if (manager == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		Objects.requireNonNull(manager);
 		this.idGenerator = manager;
 	}
 
@@ -91,9 +90,7 @@ public class ObjectPropertyIdFinder implements IntegerObjectPropertyExpressionVi
 
 	@Override
 	public Integer visit(IntegerObjectInverseOf objectPropertyExpression) {
-		if (objectPropertyExpression == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		Objects.requireNonNull(objectPropertyExpression);
 		Integer firstProperty = objectPropertyExpression.getInverse().getId();
 		Integer secondProperty = getIdGenerator().createOrGetInverseObjectPropertyOf(firstProperty);
 		return secondProperty;
@@ -101,9 +98,7 @@ public class ObjectPropertyIdFinder implements IntegerObjectPropertyExpressionVi
 
 	@Override
 	public Integer visit(IntegerObjectProperty objectPropertyExpression) {
-		if (objectPropertyExpression == null) {
-			throw new IllegalArgumentException("Null argument.");
-		}
+		Objects.requireNonNull(objectPropertyExpression);
 		return objectPropertyExpression.getId();
 	}
 
