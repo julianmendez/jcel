@@ -65,7 +65,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new functional object property axiom
 	 */
-	FunctObjectPropAxiomImpl createFunctObjectPropAxiom(int propertyId, Set<Annotation> annotations);
+	FunctObjectPropAxiom createFunctObjectPropAxiom(int propertyId, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new GCI-0 axiom.

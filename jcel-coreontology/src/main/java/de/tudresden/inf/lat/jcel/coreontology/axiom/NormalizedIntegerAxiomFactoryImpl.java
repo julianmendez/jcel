@@ -62,7 +62,7 @@ public class NormalizedIntegerAxiomFactoryImpl implements NormalizedIntegerAxiom
 	}
 
 	@Override
-	public FunctObjectPropAxiomImpl createFunctObjectPropAxiom(int propertyId, Set<Annotation> annotations) {
+	public FunctObjectPropAxiom createFunctObjectPropAxiom(int propertyId, Set<Annotation> annotations) {
 		return new FunctObjectPropAxiomImpl(propertyId, annotations);
 	}
 
@@ -107,7 +107,8 @@ public class NormalizedIntegerAxiomFactoryImpl implements NormalizedIntegerAxiom
 	}
 
 	@Override
-	public RI3AxiomImpl createRI3Axiom(int leftLeftProp, int leftRightProp, int rightProp, Set<Annotation> annotations) {
+	public RI3AxiomImpl createRI3Axiom(int leftLeftProp, int leftRightProp, int rightProp,
+			Set<Annotation> annotations) {
 		return new RI3AxiomImpl(leftLeftProp, leftRightProp, rightProp, annotations);
 	}
 

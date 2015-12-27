@@ -55,7 +55,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0AxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1AxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2AxiomImpl;
@@ -237,7 +237,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	}
 
 	@Override
-	public Boolean visit(FunctObjectPropAxiomImpl axiom) {
+	public Boolean visit(FunctObjectPropAxiom axiom) {
 		Objects.requireNonNull(axiom);
 		return false;
 	}

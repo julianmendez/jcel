@@ -332,7 +332,7 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	@Override
-	public Boolean visit(FunctObjectPropAxiomImpl axiom) {
+	public Boolean visit(FunctObjectPropAxiom axiom) {
 		Objects.requireNonNull(axiom);
 		this.setOfFunctionalObjectProperties.add(axiom.getProperty());
 		return true;

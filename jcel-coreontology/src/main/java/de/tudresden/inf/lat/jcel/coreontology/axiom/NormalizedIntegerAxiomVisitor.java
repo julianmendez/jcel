@@ -62,7 +62,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	T visit(FunctObjectPropAxiomImpl axiom);
+	T visit(FunctObjectPropAxiom axiom);
 
 	/**
 	 * Visits a GCI-0 axiom.
