@@ -130,11 +130,6 @@ public class RI3AxiomImpl implements RI3Axiom {
 		return Collections.emptySet();
 	}
 
-	/**
-	 * Returns the object property on the left-hand part of the composition.
-	 * 
-	 * @return the object property on the left-hand part of the composition
-	 */
 	@Override
 	public int getLeftSubProperty() {
 		return this.leftSubProperty;
@@ -149,21 +144,11 @@ public class RI3AxiomImpl implements RI3Axiom {
 		return Collections.unmodifiableSet(ret);
 	}
 
-	/**
-	 * Returns the object property on the right-hand part of the composition.
-	 * 
-	 * @return the object property on the right-hand part of the composition
-	 */
 	@Override
 	public int getRightSubProperty() {
 		return this.rightSubProperty;
 	}
 
-	/**
-	 * Returns the super object property.
-	 * 
-	 * @return the super object property
-	 */
 	@Override
 	public int getSuperProperty() {
 		return this.superProperty;

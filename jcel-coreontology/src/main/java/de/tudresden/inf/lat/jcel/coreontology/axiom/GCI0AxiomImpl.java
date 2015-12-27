@@ -129,21 +129,11 @@ public class GCI0AxiomImpl implements GCI0Axiom {
 		return Collections.emptySet();
 	}
 
-	/**
-	 * Returns the subclass in this axiom.
-	 * 
-	 * @return the subclass in this axiom
-	 */
 	@Override
 	public int getSubClass() {
 		return this.subClass;
 	}
 
-	/**
-	 * Returns the superclass in this axiom.
-	 * 
-	 * @return the superclass in this axiom
-	 */
 	@Override
 	public int getSuperClass() {
 		return this.superClass;

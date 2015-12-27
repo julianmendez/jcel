@@ -117,11 +117,6 @@ public class GCI2AxiomImpl implements GCI2Axiom {
 		return Collections.unmodifiableSet(ret);
 	}
 
-	/**
-	 * Returns the class in the right-hand part of the axiom.
-	 * 
-	 * @return the class in the right-hand part of the axiom
-	 */
 	@Override
 	public int getClassInSuperClass() {
 		return this.classInSuperClass;
@@ -149,21 +144,11 @@ public class GCI2AxiomImpl implements GCI2Axiom {
 		return Collections.unmodifiableSet(ret);
 	}
 
-	/**
-	 * Returns the object property on the right-hand part of the axiom.
-	 * 
-	 * @return the object property on the right-hand part of the axiom
-	 */
 	@Override
 	public int getPropertyInSuperClass() {
 		return this.propertyInSuperClass;
 	}
 
-	/**
-	 * Returns the subclass in the axiom.
-	 * 
-	 * @return the subclass in the axiom
-	 */
 	@Override
 	public int getSubClass() {
 		return this.subClass;

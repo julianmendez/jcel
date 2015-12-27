@@ -132,11 +132,6 @@ public class GCI1AxiomImpl implements GCI1Axiom {
 		return Collections.emptySet();
 	}
 
-	/**
-	 * Returns the left subclass in the axiom.
-	 * 
-	 * @return the left subclass in the axiom
-	 */
 	@Override
 	public int getLeftSubClass() {
 		return this.leftSubClass;
@@ -147,21 +142,11 @@ public class GCI1AxiomImpl implements GCI1Axiom {
 		return Collections.emptySet();
 	}
 
-	/**
-	 * Returns the right subclass in the axiom.
-	 * 
-	 * @return the right subclass in the axiom
-	 */
 	@Override
 	public int getRightSubClass() {
 		return this.rightSubClass;
 	}
 
-	/**
-	 * Returns the superclass in the axiom.
-	 * 
-	 * @return the superclass in the axiom
-	 */
 	@Override
 	public int getSuperClass() {
 		return this.superClass;

@@ -117,11 +117,6 @@ public class FunctObjectPropAxiomImpl implements FunctObjectPropAxiom {
 		return Collections.singleton(getProperty());
 	}
 
-	/**
-	 * Returns the object property in this axiom.
-	 * 
-	 * @return the object property in this axiom
-	 */
 	@Override
 	public int getProperty() {
 		return this.property;

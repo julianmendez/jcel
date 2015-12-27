@@ -130,21 +130,11 @@ public class RI2AxiomImpl implements RI2Axiom {
 		return Collections.unmodifiableSet(ret);
 	}
 
-	/**
-	 * Returns the object property on the left-hand part of the axiom
-	 * 
-	 * @return the object property on the left-hand part of the axiom
-	 */
 	@Override
 	public int getSubProperty() {
 		return this.subProperty;
 	}
 
-	/**
-	 * Returns the object property on the right-hand part of the axiom
-	 * 
-	 * @return the object property on the right-hand part of the axiom
-	 */
 	@Override
 	public int getSuperProperty() {
 		return this.superProperty;
