@@ -58,7 +58,7 @@ import java.util.Set;
  * 
  * @author Julian Mendez
  */
-public class RI1AxiomImpl implements NormalizedIntegerAxiom {
+public class RI1AxiomImpl implements RI1Axiom {
 
 	private final int superProperty;
 	private final Set<Annotation> annotations;
@@ -125,6 +125,7 @@ public class RI1AxiomImpl implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property in the axiom
 	 */
+	@Override
 	public int getSuperProperty() {
 		return this.superProperty;
 	}

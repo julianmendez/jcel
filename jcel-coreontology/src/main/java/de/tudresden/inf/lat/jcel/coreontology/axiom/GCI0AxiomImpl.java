@@ -59,7 +59,7 @@ import java.util.Set;
  * 
  * @author Julian Mendez
  */
-public class GCI0AxiomImpl implements NormalizedIntegerAxiom {
+public class GCI0AxiomImpl implements GCI0Axiom {
 
 	private final int subClass;
 	private final int superClass;
@@ -134,6 +134,7 @@ public class GCI0AxiomImpl implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the subclass in this axiom
 	 */
+	@Override
 	public int getSubClass() {
 		return this.subClass;
 	}
@@ -143,6 +144,7 @@ public class GCI0AxiomImpl implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the superclass in this axiom
 	 */
+	@Override
 	public int getSuperClass() {
 		return this.superClass;
 	}

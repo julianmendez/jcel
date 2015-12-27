@@ -53,6 +53,7 @@ import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3AxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
@@ -91,7 +92,7 @@ public class SR3Rule implements SaturationRule {
 		ret.addAll(originalSet);
 
 		originalSet.forEach(normalizedAxiom -> {
-			if (normalizedAxiom instanceof RI3AxiomImpl) {
+			if (normalizedAxiom instanceof RI3Axiom) {
 				RI3AxiomImpl axiom = (RI3AxiomImpl) normalizedAxiom;
 				Integer invLeftSubProp = this.idGenerator
 						.createOrGetInverseObjectPropertyOf(axiom.getLeftSubProperty());

@@ -58,7 +58,7 @@ import java.util.Set;
  * 
  * @author Julian Mendez
  */
-public class RangeAxiomImpl implements NormalizedIntegerAxiom {
+public class RangeAxiomImpl implements RangeAxiom {
 
 	private final int property;
 	private final int range;
@@ -130,6 +130,7 @@ public class RangeAxiomImpl implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property in the axiom
 	 */
+	@Override
 	public int getProperty() {
 		return this.property;
 	}
@@ -139,6 +140,7 @@ public class RangeAxiomImpl implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the class identifier in the axiom
 	 */
+	@Override
 	public int getRange() {
 		return this.range;
 	}

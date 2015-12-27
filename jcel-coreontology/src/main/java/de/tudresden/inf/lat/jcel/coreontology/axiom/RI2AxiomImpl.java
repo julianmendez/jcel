@@ -59,7 +59,7 @@ import java.util.Set;
  * 
  * @author Julian Mendez
  */
-public class RI2AxiomImpl implements NormalizedIntegerAxiom {
+public class RI2AxiomImpl implements RI2Axiom {
 
 	private final int subProperty;
 	private final int superProperty;
@@ -135,6 +135,7 @@ public class RI2AxiomImpl implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property on the left-hand part of the axiom
 	 */
+	@Override
 	public int getSubProperty() {
 		return this.subProperty;
 	}
@@ -144,6 +145,7 @@ public class RI2AxiomImpl implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property on the right-hand part of the axiom
 	 */
+	@Override
 	public int getSuperProperty() {
 		return this.superProperty;
 	}

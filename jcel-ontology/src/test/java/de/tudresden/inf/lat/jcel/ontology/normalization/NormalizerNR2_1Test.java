@@ -53,7 +53,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubPropertyChainOfAxiom;
@@ -112,9 +112,9 @@ public class NormalizerNR2_1Test extends TestCase {
 		IntegerObjectProperty u2 = null;
 
 		for (IntegerAxiom normAxiom : normalizedAxioms) {
-			assertTrue(normAxiom instanceof RI3AxiomImpl);
-			if (normAxiom instanceof RI3AxiomImpl) {
-				RI3AxiomImpl axiom = (RI3AxiomImpl) normAxiom;
+			assertTrue(normAxiom instanceof RI3Axiom);
+			if (normAxiom instanceof RI3Axiom) {
+				RI3Axiom axiom = (RI3Axiom) normAxiom;
 
 				if (axiom.getSuperProperty() == s.getId() && axiom.getRightSubProperty() == r4.getId()) {
 					u2 = factory.getDataTypeFactory().createObjectProperty(axiom.getLeftSubProperty());

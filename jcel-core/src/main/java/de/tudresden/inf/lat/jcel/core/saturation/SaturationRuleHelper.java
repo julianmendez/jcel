@@ -54,6 +54,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2AxiomImpl;
 
 /**
@@ -159,7 +160,7 @@ class SaturationRuleHelper {
 		Objects.requireNonNull(originalSet);
 		Set<RI2AxiomImpl> ret = new HashSet<>();
 		originalSet.forEach(axiom -> {
-			if (axiom instanceof RI2AxiomImpl) {
+			if (axiom instanceof RI2Axiom) {
 				ret.add((RI2AxiomImpl) axiom);
 			}
 		});

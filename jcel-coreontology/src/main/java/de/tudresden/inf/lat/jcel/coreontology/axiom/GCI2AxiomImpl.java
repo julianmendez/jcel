@@ -61,7 +61,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
  * 
  * @author Julian Mendez
  */
-public class GCI2AxiomImpl implements NormalizedIntegerAxiom {
+public class GCI2AxiomImpl implements GCI2Axiom {
 
 	private final int classInSuperClass;
 	private final int propertyInSuperClass;
@@ -122,6 +122,7 @@ public class GCI2AxiomImpl implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the class in the right-hand part of the axiom
 	 */
+	@Override
 	public int getClassInSuperClass() {
 		return this.classInSuperClass;
 	}
@@ -153,6 +154,7 @@ public class GCI2AxiomImpl implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property on the right-hand part of the axiom
 	 */
+	@Override
 	public int getPropertyInSuperClass() {
 		return this.propertyInSuperClass;
 	}
@@ -162,6 +164,7 @@ public class GCI2AxiomImpl implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the subclass in the axiom
 	 */
+	@Override
 	public int getSubClass() {
 		return this.subClass;
 	}

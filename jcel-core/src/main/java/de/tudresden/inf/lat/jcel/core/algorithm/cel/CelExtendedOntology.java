@@ -65,6 +65,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomVisitor;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1AxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3AxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiomImpl;
 
@@ -215,7 +216,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 		clear();
 		axiomSet.forEach(axiom -> {
 			axiom.accept(this);
-			if (axiom instanceof RI3AxiomImpl) {
+			if (axiom instanceof RI3Axiom) {
 				RI3AxiomImpl subPropAxiom = (RI3AxiomImpl) axiom;
 				Integer left = subPropAxiom.getLeftSubProperty();
 				Integer right = subPropAxiom.getRightSubProperty();

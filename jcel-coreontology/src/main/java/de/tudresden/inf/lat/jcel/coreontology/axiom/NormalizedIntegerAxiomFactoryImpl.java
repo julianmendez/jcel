@@ -67,37 +67,37 @@ public class NormalizedIntegerAxiomFactoryImpl implements NormalizedIntegerAxiom
 	}
 
 	@Override
-	public GCI0AxiomImpl createGCI0Axiom(int subCl, int superCl, Set<Annotation> annotations) {
+	public GCI0Axiom createGCI0Axiom(int subCl, int superCl, Set<Annotation> annotations) {
 		return new GCI0AxiomImpl(subCl, superCl, annotations);
 	}
 
 	@Override
-	public GCI1AxiomImpl createGCI1Axiom(int leftCl, int rightCl, int superCl, Set<Annotation> annotations) {
+	public GCI1Axiom createGCI1Axiom(int leftCl, int rightCl, int superCl, Set<Annotation> annotations) {
 		return new GCI1AxiomImpl(leftCl, rightCl, superCl, annotations);
 	}
 
 	@Override
-	public GCI2AxiomImpl createGCI2Axiom(int leftCl, int rightProp, int rightCl, Set<Annotation> annotations) {
+	public GCI2Axiom createGCI2Axiom(int leftCl, int rightProp, int rightCl, Set<Annotation> annotations) {
 		return new GCI2AxiomImpl(leftCl, rightProp, rightCl, annotations);
 	}
 
 	@Override
-	public GCI3AxiomImpl createGCI3Axiom(int leftProp, int leftCl, int rightCl, Set<Annotation> annotations) {
+	public GCI3Axiom createGCI3Axiom(int leftProp, int leftCl, int rightCl, Set<Annotation> annotations) {
 		return new GCI3AxiomImpl(leftProp, leftCl, rightCl, annotations);
 	}
 
 	@Override
-	public NominalAxiomImpl createNominalAxiom(int classId, int individualId, Set<Annotation> annotations) {
+	public NominalAxiom createNominalAxiom(int classId, int individualId, Set<Annotation> annotations) {
 		return new NominalAxiomImpl(classId, individualId, annotations);
 	}
 
 	@Override
-	public RangeAxiomImpl createRangeAxiom(int prop, int cl, Set<Annotation> annotations) {
+	public RangeAxiom createRangeAxiom(int prop, int cl, Set<Annotation> annotations) {
 		return new RangeAxiomImpl(prop, cl, annotations);
 	}
 
 	@Override
-	public RI1AxiomImpl createRI1Axiom(int prop, Set<Annotation> annotations) {
+	public RI1Axiom createRI1Axiom(int prop, Set<Annotation> annotations) {
 		return new RI1AxiomImpl(prop, annotations);
 	}
 

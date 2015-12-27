@@ -59,7 +59,7 @@ import java.util.Set;
  * 
  * @author Julian Mendez
  */
-public class RI3AxiomImpl implements NormalizedIntegerAxiom {
+public class RI3AxiomImpl implements RI3Axiom {
 
 	private final int leftSubProperty;
 	private final int rightSubProperty;
@@ -133,6 +133,7 @@ public class RI3AxiomImpl implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property on the left-hand part of the composition
 	 */
+	@Override
 	public int getLeftSubProperty() {
 		return this.leftSubProperty;
 	}
@@ -151,6 +152,7 @@ public class RI3AxiomImpl implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property on the right-hand part of the composition
 	 */
+	@Override
 	public int getRightSubProperty() {
 		return this.rightSubProperty;
 	}
@@ -160,6 +162,7 @@ public class RI3AxiomImpl implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the super object property
 	 */
+	@Override
 	public int getSuperProperty() {
 		return this.superProperty;
 	}

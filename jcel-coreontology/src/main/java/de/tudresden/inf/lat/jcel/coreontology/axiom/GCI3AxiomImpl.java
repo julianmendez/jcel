@@ -61,7 +61,7 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
  * 
  * @author Julian Mendez
  */
-public class GCI3AxiomImpl implements NormalizedIntegerAxiom {
+public class GCI3AxiomImpl implements GCI3Axiom {
 
 	private final int classInSubClass;
 	private final int propertyInSubClass;
@@ -122,6 +122,7 @@ public class GCI3AxiomImpl implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the class on the left-hand part of the axiom
 	 */
+	@Override
 	public int getClassInSubClass() {
 		return this.classInSubClass;
 	}
@@ -151,6 +152,7 @@ public class GCI3AxiomImpl implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property on the left-hand part of the axiom
 	 */
+	@Override
 	public int getPropertyInSubClass() {
 		return this.propertyInSubClass;
 	}
@@ -160,6 +162,7 @@ public class GCI3AxiomImpl implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the superclass in the axiom
 	 */
+	@Override
 	public int getSuperClass() {
 		return this.superClass;
 	}

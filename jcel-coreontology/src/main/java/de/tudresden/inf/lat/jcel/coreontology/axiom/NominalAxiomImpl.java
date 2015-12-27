@@ -58,7 +58,7 @@ import java.util.Set;
  * 
  * @author Julian Mendez
  */
-public class NominalAxiomImpl implements NormalizedIntegerAxiom {
+public class NominalAxiomImpl implements NominalAxiom {
 
 	private final int classExpression;
 	private final int individual;
@@ -105,6 +105,7 @@ public class NominalAxiomImpl implements NormalizedIntegerAxiom {
 		return Collections.singleton(getClassExpression());
 	}
 
+	@Override
 	public int getClassExpression() {
 		return this.classExpression;
 	}
@@ -119,6 +120,7 @@ public class NominalAxiomImpl implements NormalizedIntegerAxiom {
 		return Collections.emptySet();
 	}
 
+	@Override
 	public int getIndividual() {
 		return this.individual;
 	}

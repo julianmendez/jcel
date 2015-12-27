@@ -55,7 +55,7 @@ import java.util.Set;
  * 
  * @author Julian Mendez
  */
-public class FunctObjectPropAxiomImpl implements NormalizedIntegerAxiom {
+public class FunctObjectPropAxiomImpl implements FunctObjectPropAxiom {
 
 	private final int property;
 	private final Set<Annotation> annotations;
@@ -122,6 +122,7 @@ public class FunctObjectPropAxiomImpl implements NormalizedIntegerAxiom {
 	 * 
 	 * @return the object property in this axiom
 	 */
+	@Override
 	public int getProperty() {
 		return this.property;
 	}

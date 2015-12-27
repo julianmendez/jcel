@@ -78,7 +78,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new GCI-0 axiom
 	 */
-	GCI0AxiomImpl createGCI0Axiom(int subClassId, int superClassId, Set<Annotation> annotations);
+	GCI0Axiom createGCI0Axiom(int subClassId, int superClassId, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new GCI-1 axiom.
@@ -93,7 +93,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new GCI-1 axiom
 	 */
-	GCI1AxiomImpl createGCI1Axiom(int leftSubClassId, int rightSubClassId, int superClassId, Set<Annotation> annotations);
+	GCI1Axiom createGCI1Axiom(int leftSubClassId, int rightSubClassId, int superClassId, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new GCI-2 axiom.
@@ -108,7 +108,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new GCI-2 axiom
 	 */
-	GCI2AxiomImpl createGCI2Axiom(int leftClassId, int rightPropertyId, int rightClassId, Set<Annotation> annotations);
+	GCI2Axiom createGCI2Axiom(int leftClassId, int rightPropertyId, int rightClassId, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new GCI-3 axiom.
@@ -123,7 +123,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new GCI-3 axiom
 	 */
-	GCI3AxiomImpl createGCI3Axiom(int leftPropertyId, int leftClassId, int rightClassId, Set<Annotation> annotations);
+	GCI3Axiom createGCI3Axiom(int leftPropertyId, int leftClassId, int rightClassId, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new nominal axiom.
@@ -136,7 +136,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new nominal axiom
 	 */
-	NominalAxiomImpl createNominalAxiom(int classId, int individualId, Set<Annotation> annotations);
+	NominalAxiom createNominalAxiom(int classId, int individualId, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new range axiom.
@@ -149,7 +149,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new range axiom
 	 */
-	RangeAxiomImpl createRangeAxiom(int propertyId, int classId, Set<Annotation> annotations);
+	RangeAxiom createRangeAxiom(int propertyId, int classId, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new axiom RI-1.
@@ -160,7 +160,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new axiom RI-1
 	 */
-	RI1AxiomImpl createRI1Axiom(int propertyId, Set<Annotation> annotations);
+	RI1Axiom createRI1Axiom(int propertyId, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new axiom RI-2.
