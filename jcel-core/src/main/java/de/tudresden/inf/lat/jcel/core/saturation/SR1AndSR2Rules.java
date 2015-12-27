@@ -55,7 +55,7 @@ import java.util.TreeSet;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2AxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
 /**
@@ -93,8 +93,8 @@ public class SR1AndSR2Rules implements SaturationRule {
 		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
 		ret.addAll(originalSet);
 
-		Set<RI2Axiom> accumulatedSet = new HashSet<>();
-		Set<RI2Axiom> currentSet = new HashSet<>();
+		Set<RI2AxiomImpl> accumulatedSet = new HashSet<>();
+		Set<RI2AxiomImpl> currentSet = new HashSet<>();
 		currentSet.addAll(this.helper.getRI2Axioms(originalSet));
 		while (!currentSet.isEmpty()) {
 			accumulatedSet.addAll(currentSet);
@@ -108,8 +108,8 @@ public class SR1AndSR2Rules implements SaturationRule {
 		return Collections.unmodifiableSet(ret);
 	}
 
-	private Set<RI2Axiom> applyRule1(Set<RI2Axiom> axiomSet) {
-		Set<RI2Axiom> ret = new HashSet<>();
+	private Set<RI2AxiomImpl> applyRule1(Set<RI2AxiomImpl> axiomSet) {
+		Set<RI2AxiomImpl> ret = new HashSet<>();
 		axiomSet.forEach(axiom -> {
 			Integer invSubProperty = this.idGenerator.createOrGetInverseObjectPropertyOf(axiom.getSubProperty());
 			Integer invSuperProperty = this.idGenerator.createOrGetInverseObjectPropertyOf(axiom.getSuperProperty());
@@ -118,8 +118,8 @@ public class SR1AndSR2Rules implements SaturationRule {
 		return ret;
 	}
 
-	private Set<RI2Axiom> applyRule2(Set<RI2Axiom> axiomSet) {
-		Set<RI2Axiom> ret = new HashSet<>();
+	private Set<RI2AxiomImpl> applyRule2(Set<RI2AxiomImpl> axiomSet) {
+		Set<RI2AxiomImpl> ret = new HashSet<>();
 		axiomSet.forEach(axiom0 -> {
 			axiomSet.forEach(axiom1 -> {
 				if (axiom0.getSuperProperty() == axiom1.getSubProperty()) {

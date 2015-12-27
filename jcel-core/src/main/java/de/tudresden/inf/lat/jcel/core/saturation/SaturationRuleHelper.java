@@ -54,7 +54,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2AxiomImpl;
 
 /**
  * This class contains convenience methods used by saturation rules.
@@ -78,7 +78,7 @@ class SaturationRuleHelper {
 	 * @return a map that for each object property has a set of super object
 	 *         properties
 	 */
-	public Map<Integer, Set<Integer>> getMapBySubObjectProperty(Set<RI2Axiom> axiomSet) {
+	public Map<Integer, Set<Integer>> getMapBySubObjectProperty(Set<RI2AxiomImpl> axiomSet) {
 		Objects.requireNonNull(axiomSet);
 		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		axiomSet.forEach(axiom -> {
@@ -101,7 +101,7 @@ class SaturationRuleHelper {
 	 * @return a map that for each object property has a set of sub object
 	 *         properties
 	 */
-	public Map<Integer, Set<Integer>> getMapBySuperObjectProperty(Set<RI2Axiom> axiomSet) {
+	public Map<Integer, Set<Integer>> getMapBySuperObjectProperty(Set<RI2AxiomImpl> axiomSet) {
 		Objects.requireNonNull(axiomSet);
 		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		axiomSet.forEach(axiom -> {
@@ -155,12 +155,12 @@ class SaturationRuleHelper {
 	 *            set of normalized axioms
 	 * @return all the RI-2 axioms in the specified set of normalized axioms
 	 */
-	public Set<RI2Axiom> getRI2Axioms(Set<NormalizedIntegerAxiom> originalSet) {
+	public Set<RI2AxiomImpl> getRI2Axioms(Set<NormalizedIntegerAxiom> originalSet) {
 		Objects.requireNonNull(originalSet);
-		Set<RI2Axiom> ret = new HashSet<>();
+		Set<RI2AxiomImpl> ret = new HashSet<>();
 		originalSet.forEach(axiom -> {
-			if (axiom instanceof RI2Axiom) {
-				ret.add((RI2Axiom) axiom);
+			if (axiom instanceof RI2AxiomImpl) {
+				ret.add((RI2AxiomImpl) axiom);
 			}
 		});
 		return Collections.unmodifiableSet(ret);

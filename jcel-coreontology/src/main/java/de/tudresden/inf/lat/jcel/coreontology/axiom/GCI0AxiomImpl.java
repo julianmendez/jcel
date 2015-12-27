@@ -54,35 +54,34 @@ import java.util.Set;
 /**
  * Axiom of the form:
  * <ul>
- * <li>r \u2291 s</li>
+ * <li>A \u2291 B</li>
  * </ul>
  * 
  * @author Julian Mendez
  */
-public class RI2Axiom implements NormalizedIntegerAxiom {
+public class GCI0AxiomImpl implements NormalizedIntegerAxiom {
 
-	private final int subProperty;
-	private final int superProperty;
+	private final int subClass;
+	private final int superClass;
 	private final Set<Annotation> annotations;
 	private final int hashCode;
 
 	/**
-	 * Constructs a new axiom RI-2.
+	 * Constructs a new GCI-0 axiom.
 	 * 
-	 * @param leftPropertyId
-	 *            object property identifier for the left-hand part of the axiom
-	 * @param rightPropertyId
-	 *            object property identifier for the right-hand part of the
-	 *            axiom
+	 * @param subClassId
+	 *            subclass identifier
+	 * @param superClassId
+	 *            superclass identifier
 	 * @param annotations
 	 *            annotations
 	 */
-	RI2Axiom(int leftPropertyId, int rightPropertyId, Set<Annotation> annotations) {
+	GCI0AxiomImpl(int subClassId, int superClassId, Set<Annotation> annotations) {
 		Objects.requireNonNull(annotations);
-		this.subProperty = leftPropertyId;
-		this.superProperty = rightPropertyId;
+		this.subClass = subClassId;
+		this.superClass = superClassId;
 		this.annotations = annotations;
-		this.hashCode = this.subProperty + 0x1F * (this.superProperty + 0x1F * this.annotations.hashCode());
+		this.hashCode = this.subClass + 0x1F * (this.superClass + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override
@@ -94,9 +93,9 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public boolean equals(Object obj) {
 		boolean ret = (this == obj);
-		if (!ret && (obj instanceof RI2Axiom)) {
-			RI2Axiom other = (RI2Axiom) obj;
-			ret = (this.subProperty == other.subProperty) && (this.superProperty == other.superProperty)
+		if (!ret && (obj instanceof GCI0AxiomImpl)) {
+			GCI0AxiomImpl other = (GCI0AxiomImpl) obj;
+			ret = (this.subClass == other.subClass) && (this.superClass == other.superClass)
 					&& this.annotations.equals(other.annotations);
 		}
 		return ret;
@@ -104,7 +103,10 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public Set<Integer> getClassesInSignature() {
-		return Collections.emptySet();
+		Set<Integer> ret = new HashSet<>();
+		ret.add(this.subClass);
+		ret.add(this.superClass);
+		return Collections.unmodifiableSet(ret);
 	}
 
 	@Override
@@ -124,28 +126,25 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		Set<Integer> ret = new HashSet<>();
-		ret.add(this.subProperty);
-		ret.add(this.superProperty);
-		return Collections.unmodifiableSet(ret);
+		return Collections.emptySet();
 	}
 
 	/**
-	 * Returns the object property on the left-hand part of the axiom
+	 * Returns the subclass in this axiom.
 	 * 
-	 * @return the object property on the left-hand part of the axiom
+	 * @return the subclass in this axiom
 	 */
-	public int getSubProperty() {
-		return this.subProperty;
+	public int getSubClass() {
+		return this.subClass;
 	}
 
 	/**
-	 * Returns the object property on the right-hand part of the axiom
+	 * Returns the superclass in this axiom.
 	 * 
-	 * @return the object property on the right-hand part of the axiom
+	 * @return the superclass in this axiom
 	 */
-	public int getSuperProperty() {
-		return this.superProperty;
+	public int getSuperClass() {
+		return this.superClass;
 	}
 
 	@Override
@@ -161,11 +160,11 @@ public class RI2Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
-		sbuf.append(NormalizedIntegerAxiomConstant.RI2);
+		sbuf.append(NormalizedIntegerAxiomConstant.GCI0);
 		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
-		sbuf.append(getSubProperty());
+		sbuf.append(getSubClass());
 		sbuf.append(NormalizedIntegerAxiomConstant.sp);
-		sbuf.append(getSuperProperty());
+		sbuf.append(getSuperClass());
 		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
 		return sbuf.toString();
 	}

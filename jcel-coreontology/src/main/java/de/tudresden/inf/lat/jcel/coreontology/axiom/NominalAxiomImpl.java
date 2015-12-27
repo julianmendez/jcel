@@ -47,48 +47,40 @@
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
-import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
 
 /**
  * Axiom of the form:
  * <ul>
- * <li>A \u2291 &exist; r <i>.</i> B</li>
+ * <li>{a} &equiv; A</li>
  * </ul>
  * 
  * @author Julian Mendez
  */
-public class GCI2Axiom implements NormalizedIntegerAxiom {
+public class NominalAxiomImpl implements NormalizedIntegerAxiom {
 
-	private final int classInSuperClass;
-	private final int propertyInSuperClass;
-	private final int subClass;
+	private final int classExpression;
+	private final int individual;
 	private final Set<Annotation> annotations;
 	private final int hashCode;
 
 	/**
-	 * Constructs a new GCI-2 axiom.
+	 * Constructs a new nominal axiom.
 	 * 
-	 * @param leftClassId
-	 *            subclass identifier
-	 * @param rightPropertyId
-	 *            object property identifier
-	 * @param rightClassId
-	 *            class identifier for the right-hand part
+	 * @param classId
+	 *            class identifier in the axiom
+	 * @param individualId
+	 *            individual identifier in the axiom
 	 * @param annotations
 	 *            annotations
 	 */
-	GCI2Axiom(int leftClassId, int rightPropertyId, int rightClassId, Set<Annotation> annotations) {
+	NominalAxiomImpl(int classId, int individualId, Set<Annotation> annotations) {
 		Objects.requireNonNull(annotations);
-		this.subClass = leftClassId;
-		this.propertyInSuperClass = rightPropertyId;
-		this.classInSuperClass = rightClassId;
+		this.classExpression = classId;
+		this.individual = individualId;
 		this.annotations = annotations;
-		this.hashCode = this.subClass + 0x1F
-				* (this.propertyInSuperClass + 0x1F * (this.classInSuperClass + 0x1F * this.annotations.hashCode()));
+		this.hashCode = this.classExpression + 0x1F * (this.individual + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override
@@ -100,10 +92,9 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public boolean equals(Object obj) {
 		boolean ret = (this == obj);
-		if (!ret && (obj instanceof GCI2Axiom)) {
-			GCI2Axiom other = (GCI2Axiom) obj;
-			ret = (this.subClass == other.subClass) && (this.classInSuperClass == other.classInSuperClass)
-					&& (this.propertyInSuperClass == other.propertyInSuperClass)
+		if (!ret && (obj instanceof NominalAxiomImpl)) {
+			NominalAxiomImpl other = (NominalAxiomImpl) obj;
+			ret = (this.classExpression == other.classExpression) && (this.individual == other.individual)
 					&& this.annotations.equals(other.annotations);
 		}
 		return ret;
@@ -111,19 +102,11 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public Set<Integer> getClassesInSignature() {
-		Set<Integer> ret = new HashSet<>();
-		ret.add(this.subClass);
-		ret.add(this.classInSuperClass);
-		return Collections.unmodifiableSet(ret);
+		return Collections.singleton(getClassExpression());
 	}
 
-	/**
-	 * Returns the class in the right-hand part of the axiom.
-	 * 
-	 * @return the class in the right-hand part of the axiom
-	 */
-	public int getClassInSuperClass() {
-		return this.classInSuperClass;
+	public int getClassExpression() {
+		return this.classExpression;
 	}
 
 	@Override
@@ -136,34 +119,18 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 		return Collections.emptySet();
 	}
 
+	public int getIndividual() {
+		return this.individual;
+	}
+
 	@Override
 	public Set<Integer> getIndividualsInSignature() {
-		return Collections.emptySet();
+		return Collections.singleton(getIndividual());
 	}
 
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		Set<Integer> ret = new HashSet<>();
-		ret.add(getPropertyInSuperClass());
-		return Collections.unmodifiableSet(ret);
-	}
-
-	/**
-	 * Returns the object property on the right-hand part of the axiom.
-	 * 
-	 * @return the object property on the right-hand part of the axiom
-	 */
-	public int getPropertyInSuperClass() {
-		return this.propertyInSuperClass;
-	}
-
-	/**
-	 * Returns the subclass in the axiom.
-	 * 
-	 * @return the subclass in the axiom
-	 */
-	public int getSubClass() {
-		return this.subClass;
+		return Collections.emptySet();
 	}
 
 	@Override
@@ -179,16 +146,11 @@ public class GCI2Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
-		sbuf.append(NormalizedIntegerAxiomConstant.GCI2);
+		sbuf.append(NormalizedIntegerAxiomConstant.NominalAxiom);
 		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
-		sbuf.append(getSubClass());
+		sbuf.append(getClassExpression());
 		sbuf.append(NormalizedIntegerAxiomConstant.sp);
-		sbuf.append(IntegerClassExpressionWord.ObjectSomeValuesFrom);
-		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
-		sbuf.append(getPropertyInSuperClass());
-		sbuf.append(NormalizedIntegerAxiomConstant.sp);
-		sbuf.append(getClassInSuperClass());
-		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
+		sbuf.append(getIndividual());
 		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
 		return sbuf.toString();
 	}

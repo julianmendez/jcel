@@ -50,18 +50,18 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomVisitor;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiomImpl;
 
 /**
  * An object of this class collects symbols in an normalized axiom.
@@ -150,20 +150,20 @@ class IdentifierCollector {
 		}
 
 		@Override
-		public Boolean visit(FunctObjectPropAxiom axiom) {
+		public Boolean visit(FunctObjectPropAxiomImpl axiom) {
 			objectPropertiesOnTheLeft.add(axiom.getProperty());
 			return true;
 		}
 
 		@Override
-		public Boolean visit(GCI0Axiom axiom) {
+		public Boolean visit(GCI0AxiomImpl axiom) {
 			classesOnTheLeft.add(axiom.getSubClass());
 			classesOnTheRight.add(axiom.getSuperClass());
 			return true;
 		}
 
 		@Override
-		public Boolean visit(GCI1Axiom axiom) {
+		public Boolean visit(GCI1AxiomImpl axiom) {
 			classesOnTheLeft.add(axiom.getLeftSubClass());
 			classesOnTheLeft.add(axiom.getRightSubClass());
 			classesOnTheRight.add(axiom.getSuperClass());
@@ -171,7 +171,7 @@ class IdentifierCollector {
 		}
 
 		@Override
-		public Boolean visit(GCI2Axiom axiom) {
+		public Boolean visit(GCI2AxiomImpl axiom) {
 			classesOnTheLeft.add(axiom.getSubClass());
 			objectPropertiesOnTheRight.add(axiom.getPropertyInSuperClass());
 			classesOnTheRight.add(axiom.getClassInSuperClass());
@@ -179,7 +179,7 @@ class IdentifierCollector {
 		}
 
 		@Override
-		public Boolean visit(GCI3Axiom axiom) {
+		public Boolean visit(GCI3AxiomImpl axiom) {
 			objectPropertiesOnTheLeft.add(axiom.getPropertyInSubClass());
 			classesOnTheLeft.add(axiom.getClassInSubClass());
 			classesOnTheRight.add(axiom.getSuperClass());
@@ -187,34 +187,34 @@ class IdentifierCollector {
 		}
 
 		@Override
-		public Boolean visit(NominalAxiom axiom) {
+		public Boolean visit(NominalAxiomImpl axiom) {
 			classesOnTheLeft.add(axiom.getClassExpression());
 			classesOnTheRight.add(axiom.getClassExpression());
 			return true;
 		}
 
 		@Override
-		public Boolean visit(RangeAxiom axiom) {
+		public Boolean visit(RangeAxiomImpl axiom) {
 			objectPropertiesOnTheLeft.add(axiom.getProperty());
 			classesOnTheRight.add(axiom.getRange());
 			return true;
 		}
 
 		@Override
-		public Boolean visit(RI1Axiom axiom) {
+		public Boolean visit(RI1AxiomImpl axiom) {
 			objectPropertiesOnTheRight.add(axiom.getSuperProperty());
 			return true;
 		}
 
 		@Override
-		public Boolean visit(RI2Axiom axiom) {
+		public Boolean visit(RI2AxiomImpl axiom) {
 			objectPropertiesOnTheLeft.add(axiom.getSubProperty());
 			objectPropertiesOnTheRight.add(axiom.getSuperProperty());
 			return true;
 		}
 
 		@Override
-		public Boolean visit(RI3Axiom axiom) {
+		public Boolean visit(RI3AxiomImpl axiom) {
 			objectPropertiesOnTheLeft.add(axiom.getLeftSubProperty());
 			objectPropertiesOnTheLeft.add(axiom.getRightSubProperty());
 			objectPropertiesOnTheRight.add(axiom.getSuperProperty());

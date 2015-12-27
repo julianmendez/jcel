@@ -47,48 +47,36 @@
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 /**
  * Axiom of the form:
  * <ul>
- * <li>r \u2218 s \u2291 t</li>
+ * <li>\u03B5 \u2291 r</li>
  * </ul>
  * 
  * @author Julian Mendez
  */
-public class RI3Axiom implements NormalizedIntegerAxiom {
+public class RI1AxiomImpl implements NormalizedIntegerAxiom {
 
-	private final int leftSubProperty;
-	private final int rightSubProperty;
 	private final int superProperty;
 	private final Set<Annotation> annotations;
 	private final int hashCode;
 
 	/**
-	 * Constructs a new RI-3 axiom
+	 * Constructs a new axiom RI-1.
 	 * 
-	 * @param leftLeftPropertyId
-	 *            object property identifier for the left-hand object property
-	 *            on the composition
-	 * @param leftRightPropertyId
-	 *            object property identifier for the right-hand object property
-	 *            on the composition
-	 * @param rightPropertyId
-	 *            object property identifier for super object property
+	 * @param propertyId
+	 *            object property identifier
 	 * @param annotations
 	 *            annotations
 	 */
-	RI3Axiom(int leftLeftPropertyId, int leftRightPropertyId, int rightPropertyId, Set<Annotation> annotations) {
+	RI1AxiomImpl(int propertyId, Set<Annotation> annotations) {
 		Objects.requireNonNull(annotations);
-		this.leftSubProperty = leftLeftPropertyId;
-		this.rightSubProperty = leftRightPropertyId;
-		this.superProperty = rightPropertyId;
+		this.superProperty = propertyId;
 		this.annotations = annotations;
-		this.hashCode = this.leftSubProperty
-				+ 0x1F * (this.rightSubProperty + 0x1F * (this.superProperty + 0x1F * this.annotations.hashCode()));
+		this.hashCode = this.superProperty + 0x1F * this.annotations.hashCode();
 	}
 
 	@Override
@@ -100,10 +88,9 @@ public class RI3Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public boolean equals(Object obj) {
 		boolean ret = (this == obj);
-		if (!ret && (obj instanceof RI3Axiom)) {
-			RI3Axiom other = (RI3Axiom) obj;
-			ret = (this.leftSubProperty == other.leftSubProperty) && (this.rightSubProperty == other.rightSubProperty)
-					&& (this.superProperty == other.superProperty) && this.annotations.equals(other.annotations);
+		if (!ret && (obj instanceof RI1AxiomImpl)) {
+			RI1AxiomImpl other = (RI1AxiomImpl) obj;
+			ret = (this.superProperty == other.superProperty) && this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}
@@ -128,37 +115,15 @@ public class RI3Axiom implements NormalizedIntegerAxiom {
 		return Collections.emptySet();
 	}
 
-	/**
-	 * Returns the object property on the left-hand part of the composition.
-	 * 
-	 * @return the object property on the left-hand part of the composition
-	 */
-	public int getLeftSubProperty() {
-		return this.leftSubProperty;
-	}
-
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		Set<Integer> ret = new HashSet<>();
-		ret.add(this.leftSubProperty);
-		ret.add(this.rightSubProperty);
-		ret.add(this.superProperty);
-		return Collections.unmodifiableSet(ret);
+		return Collections.singleton(this.superProperty);
 	}
 
 	/**
-	 * Returns the object property on the right-hand part of the composition.
+	 * Returns the object property in the axiom.
 	 * 
-	 * @return the object property on the right-hand part of the composition
-	 */
-	public int getRightSubProperty() {
-		return this.rightSubProperty;
-	}
-
-	/**
-	 * Returns the super object property.
-	 * 
-	 * @return the super object property
+	 * @return the object property in the axiom
 	 */
 	public int getSuperProperty() {
 		return this.superProperty;
@@ -177,11 +142,9 @@ public class RI3Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
-		sbuf.append(NormalizedIntegerAxiomConstant.RI3);
+		sbuf.append(NormalizedIntegerAxiomConstant.RI1);
 		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
-		sbuf.append(getLeftSubProperty());
-		sbuf.append(NormalizedIntegerAxiomConstant.sp);
-		sbuf.append(getRightSubProperty());
+		sbuf.append(NormalizedIntegerAxiomConstant.emptyProp);
 		sbuf.append(NormalizedIntegerAxiomConstant.sp);
 		sbuf.append(getSuperProperty());
 		sbuf.append(NormalizedIntegerAxiomConstant.closePar);

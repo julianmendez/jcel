@@ -51,36 +51,29 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Axiom of the form:
- * <ul>
- * <li>{a} &equiv; A</li>
- * </ul>
+ * Axiom stating that an object property is functional.
  * 
  * @author Julian Mendez
  */
-public class NominalAxiom implements NormalizedIntegerAxiom {
+public class FunctObjectPropAxiomImpl implements NormalizedIntegerAxiom {
 
-	private final int classExpression;
-	private final int individual;
+	private final int property;
 	private final Set<Annotation> annotations;
 	private final int hashCode;
 
 	/**
-	 * Constructs a new nominal axiom.
+	 * Constructs a new functional object property axiom.
 	 * 
-	 * @param classId
-	 *            class identifier in the axiom
-	 * @param individualId
-	 *            individual identifier in the axiom
+	 * @param propertyId
+	 *            object property
 	 * @param annotations
 	 *            annotations
 	 */
-	NominalAxiom(int classId, int individualId, Set<Annotation> annotations) {
+	FunctObjectPropAxiomImpl(int propertyId, Set<Annotation> annotations) {
 		Objects.requireNonNull(annotations);
-		this.classExpression = classId;
-		this.individual = individualId;
+		this.property = propertyId;
 		this.annotations = annotations;
-		this.hashCode = this.classExpression + 0x1F * (this.individual + 0x1F * this.annotations.hashCode());
+		this.hashCode = this.property + 0x1F * this.annotations.hashCode();
 	}
 
 	@Override
@@ -91,22 +84,17 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public boolean equals(Object obj) {
-		boolean ret = (this == obj);
-		if (!ret && (obj instanceof NominalAxiom)) {
-			NominalAxiom other = (NominalAxiom) obj;
-			ret = (this.classExpression == other.classExpression) && (this.individual == other.individual)
-					&& this.annotations.equals(other.annotations);
+		boolean ret = false;
+		if (obj instanceof FunctObjectPropAxiomImpl) {
+			FunctObjectPropAxiomImpl other = (FunctObjectPropAxiomImpl) obj;
+			ret = (this.property == other.property) && this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}
 
 	@Override
 	public Set<Integer> getClassesInSignature() {
-		return Collections.singleton(getClassExpression());
-	}
-
-	public int getClassExpression() {
-		return this.classExpression;
+		return Collections.emptySet();
 	}
 
 	@Override
@@ -119,18 +107,23 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 		return Collections.emptySet();
 	}
 
-	public int getIndividual() {
-		return this.individual;
-	}
-
 	@Override
 	public Set<Integer> getIndividualsInSignature() {
-		return Collections.singleton(getIndividual());
+		return Collections.emptySet();
 	}
 
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		return Collections.emptySet();
+		return Collections.singleton(getProperty());
+	}
+
+	/**
+	 * Returns the object property in this axiom.
+	 * 
+	 * @return the object property in this axiom
+	 */
+	public int getProperty() {
+		return this.property;
 	}
 
 	@Override
@@ -146,11 +139,9 @@ public class NominalAxiom implements NormalizedIntegerAxiom {
 	@Override
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
-		sbuf.append(NormalizedIntegerAxiomConstant.NominalAxiom);
+		sbuf.append(NormalizedIntegerAxiomConstant.FunctionalObjectProperty);
 		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
-		sbuf.append(getClassExpression());
-		sbuf.append(NormalizedIntegerAxiomConstant.sp);
-		sbuf.append(getIndividual());
+		sbuf.append(getProperty());
 		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
 		return sbuf.toString();
 	}

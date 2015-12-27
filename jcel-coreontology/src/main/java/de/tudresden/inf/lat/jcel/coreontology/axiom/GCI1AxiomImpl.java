@@ -56,39 +56,39 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
 /**
  * Axiom of the form:
  * <ul>
- * <li>&exist; r <i>.</i> A \u2291 B</li>
+ * <li>A<sub>1</sub> \u2293 A<sub>2</sub> \u2291 B</li>
  * </ul>
  * 
  * @author Julian Mendez
  */
-public class GCI3Axiom implements NormalizedIntegerAxiom {
+public class GCI1AxiomImpl implements NormalizedIntegerAxiom {
 
-	private final int classInSubClass;
-	private final int propertyInSubClass;
+	private final int leftSubClass;
+	private final int rightSubClass;
 	private final int superClass;
 	private final Set<Annotation> annotations;
 	private final int hashCode;
 
 	/**
-	 * Constructs a new GCI-3 axiom.
+	 * Constructs a new GCI-1 axiom.
 	 * 
-	 * @param leftPropertyId
-	 *            object property identifier for the left-hand part
-	 * @param leftClassId
-	 *            class identifier for the left-hand part
+	 * @param leftSubClassId
+	 *            left subclass in the axiom
+	 * @param rightSubClassId
+	 *            right subclass in the axiom
 	 * @param rightClassId
-	 *            superclass identifier
+	 *            superclass in the axiom
 	 * @param annotations
 	 *            annotations
 	 */
-	GCI3Axiom(int leftPropertyId, int leftClassId, int rightClassId, Set<Annotation> annotations) {
+	GCI1AxiomImpl(int leftSubClassId, int rightSubClassId, int rightClassId, Set<Annotation> annotations) {
 		Objects.requireNonNull(annotations);
-		this.classInSubClass = leftClassId;
-		this.propertyInSubClass = leftPropertyId;
+		this.leftSubClass = leftSubClassId;
+		this.rightSubClass = rightSubClassId;
 		this.superClass = rightClassId;
 		this.annotations = annotations;
-		this.hashCode = this.classInSubClass
-				+ 0x1F * (this.propertyInSubClass + 0x1F * (this.superClass + 0x1F * this.annotations.hashCode()));
+		this.hashCode = this.leftSubClass
+				+ (0x1F * this.rightSubClass + (0x1F * this.superClass + (0x1F * this.annotations.hashCode())));
 	}
 
 	@Override
@@ -100,11 +100,10 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public boolean equals(Object obj) {
 		boolean ret = (this == obj);
-		if (!ret && (obj instanceof GCI3Axiom)) {
-			GCI3Axiom other = (GCI3Axiom) obj;
-			ret = (this.classInSubClass == other.classInSubClass)
-					&& (this.propertyInSubClass == other.propertyInSubClass) && (this.superClass == other.superClass)
-					&& this.annotations.equals(other.annotations);
+		if (!ret && (obj instanceof GCI1AxiomImpl)) {
+			GCI1AxiomImpl other = (GCI1AxiomImpl) obj;
+			ret = (this.leftSubClass == other.leftSubClass) && (this.rightSubClass == other.rightSubClass)
+					&& (this.superClass == other.superClass) && this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}
@@ -112,18 +111,10 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public Set<Integer> getClassesInSignature() {
 		Set<Integer> ret = new HashSet<>();
-		ret.add(this.classInSubClass);
+		ret.add(this.leftSubClass);
+		ret.add(this.rightSubClass);
 		ret.add(this.superClass);
 		return Collections.unmodifiableSet(ret);
-	}
-
-	/**
-	 * Returns the class on the left-hand part of the axiom.
-	 * 
-	 * @return the class on the left-hand part of the axiom
-	 */
-	public int getClassInSubClass() {
-		return this.classInSubClass;
 	}
 
 	@Override
@@ -141,18 +132,27 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 		return Collections.emptySet();
 	}
 
+	/**
+	 * Returns the left subclass in the axiom.
+	 * 
+	 * @return the left subclass in the axiom
+	 */
+	public int getLeftSubClass() {
+		return this.leftSubClass;
+	}
+
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		return Collections.singleton(this.propertyInSubClass);
+		return Collections.emptySet();
 	}
 
 	/**
-	 * Returns the object property on the left-hand part of the axiom.
+	 * Returns the right subclass in the axiom.
 	 * 
-	 * @return the object property on the left-hand part of the axiom
+	 * @return the right subclass in the axiom
 	 */
-	public int getPropertyInSubClass() {
-		return this.propertyInSubClass;
+	public int getRightSubClass() {
+		return this.rightSubClass;
 	}
 
 	/**
@@ -177,13 +177,13 @@ public class GCI3Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
-		sbuf.append(NormalizedIntegerAxiomConstant.GCI3);
+		sbuf.append(NormalizedIntegerAxiomConstant.GCI1);
 		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
-		sbuf.append(IntegerClassExpressionWord.ObjectSomeValuesFrom);
+		sbuf.append(IntegerClassExpressionWord.ObjectIntersectionOf);
 		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
-		sbuf.append(getPropertyInSubClass());
+		sbuf.append(getLeftSubClass());
 		sbuf.append(NormalizedIntegerAxiomConstant.sp);
-		sbuf.append(getClassInSubClass());
+		sbuf.append(getRightSubClass());
 		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
 		sbuf.append(NormalizedIntegerAxiomConstant.sp);
 		sbuf.append(getSuperClass());

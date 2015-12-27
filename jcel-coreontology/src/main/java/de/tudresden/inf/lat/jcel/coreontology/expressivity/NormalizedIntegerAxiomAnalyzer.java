@@ -48,17 +48,17 @@ package de.tudresden.inf.lat.jcel.coreontology.expressivity;
 
 import java.util.Objects;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomVisitor;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
 
@@ -138,14 +138,14 @@ class NormalizedIntegerAxiomAnalyzer implements NormalizedIntegerAxiomVisitor<Bo
 	}
 
 	@Override
-	public Boolean visit(FunctObjectPropAxiom axiom) {
+	public Boolean visit(FunctObjectPropAxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		this.hasFunctionalObjectProperty = true;
 		return true;
 	}
 
 	@Override
-	public Boolean visit(GCI0Axiom axiom) {
+	public Boolean visit(GCI0AxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		this.hasBottom |= (axiom.getSubClass() == IntegerEntityManager.bottomClassId)
 				|| (axiom.getSuperClass() == IntegerEntityManager.bottomClassId);
@@ -153,7 +153,7 @@ class NormalizedIntegerAxiomAnalyzer implements NormalizedIntegerAxiomVisitor<Bo
 	}
 
 	@Override
-	public Boolean visit(GCI1Axiom axiom) {
+	public Boolean visit(GCI1AxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		this.hasBottom |= (axiom.getLeftSubClass() == IntegerEntityManager.bottomClassId)
 				|| (axiom.getRightSubClass() == IntegerEntityManager.bottomClassId)
@@ -162,7 +162,7 @@ class NormalizedIntegerAxiomAnalyzer implements NormalizedIntegerAxiomVisitor<Bo
 	}
 
 	@Override
-	public Boolean visit(GCI2Axiom axiom) {
+	public Boolean visit(GCI2AxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		this.hasBottom |= (axiom.getSubClass() == IntegerEntityManager.bottomClassId)
 				|| (axiom.getClassInSuperClass() == IntegerEntityManager.bottomClassId);
@@ -170,7 +170,7 @@ class NormalizedIntegerAxiomAnalyzer implements NormalizedIntegerAxiomVisitor<Bo
 	}
 
 	@Override
-	public Boolean visit(GCI3Axiom axiom) {
+	public Boolean visit(GCI3AxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		this.hasBottom |= (axiom.getClassInSubClass() == IntegerEntityManager.bottomClassId)
 				|| (axiom.getSuperClass() == IntegerEntityManager.bottomClassId);
@@ -178,35 +178,35 @@ class NormalizedIntegerAxiomAnalyzer implements NormalizedIntegerAxiomVisitor<Bo
 	}
 
 	@Override
-	public Boolean visit(NominalAxiom axiom) {
+	public Boolean visit(NominalAxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		this.hasNominal = true;
 		return true;
 	}
 
 	@Override
-	public Boolean visit(RangeAxiom axiom) {
+	public Boolean visit(RangeAxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		this.hasBottom |= (axiom.getRange() == IntegerEntityManager.bottomClassId);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(RI1Axiom axiom) {
+	public Boolean visit(RI1AxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		this.hasReflexiveObjectProperty = true;
 		return true;
 	}
 
 	@Override
-	public Boolean visit(RI2Axiom axiom) {
+	public Boolean visit(RI2AxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		this.hasSubObjectPropertyOf = true;
 		return true;
 	}
 
 	@Override
-	public Boolean visit(RI3Axiom axiom) {
+	public Boolean visit(RI3AxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		if ((axiom.getSuperProperty() == axiom.getLeftSubProperty())
 				&& (axiom.getSuperProperty() == axiom.getRightSubProperty())) {

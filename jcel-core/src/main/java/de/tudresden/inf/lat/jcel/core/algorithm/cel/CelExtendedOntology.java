@@ -55,18 +55,18 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomVisitor;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiomImpl;
 
 /**
  * This class models an extended ontology. This is referred in the documentation
@@ -78,8 +78,8 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 
 	private final Map<Integer, Set<ExtensionEntry>> ohatOfClass = new HashMap<>();
 	private final Map<Integer, Map<Integer, Set<ExtensionEntry>>> ohatOfExistential = new HashMap<>();
-	private final Map<Integer, Set<RI3Axiom>> subPropertyAxiomSetByLeft = new HashMap<>();
-	private final Map<Integer, Set<RI3Axiom>> subPropertyAxiomSetByRight = new HashMap<>();
+	private final Map<Integer, Set<RI3AxiomImpl>> subPropertyAxiomSetByLeft = new HashMap<>();
+	private final Map<Integer, Set<RI3AxiomImpl>> subPropertyAxiomSetByRight = new HashMap<>();
 
 	/**
 	 * Constructs a new CEL extended ontology.
@@ -98,8 +98,8 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 		this.ohatOfClass.get(classId).add(entry);
 	}
 
-	private void addTo(Integer property, RI3Axiom axiom, Map<Integer, Set<RI3Axiom>> map) {
-		Set<RI3Axiom> axiomSet = map.get(property);
+	private void addTo(Integer property, RI3AxiomImpl axiom, Map<Integer, Set<RI3AxiomImpl>> map) {
+		Set<RI3AxiomImpl> axiomSet = map.get(property);
 		if (Objects.isNull(axiomSet)) {
 			axiomSet = new HashSet<>();
 			map.put(property, axiomSet);
@@ -177,9 +177,9 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	 * @return the set of sub object property axioms related where the specified
 	 *         object property occurs on the left-hand part of the composition.
 	 */
-	public Set<RI3Axiom> getSubPropertyAxiomSetByLeft(Integer elem) {
+	public Set<RI3AxiomImpl> getSubPropertyAxiomSetByLeft(Integer elem) {
 		Objects.requireNonNull(elem);
-		Set<RI3Axiom> ret = this.subPropertyAxiomSetByLeft.get(elem);
+		Set<RI3AxiomImpl> ret = this.subPropertyAxiomSetByLeft.get(elem);
 		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
@@ -195,9 +195,9 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	 * @return the set of sub object property axioms related where the specified
 	 *         object property occurs on the right-hand part of the composition.
 	 */
-	public Set<RI3Axiom> getSubPropertyAxiomSetByRight(Integer elem) {
+	public Set<RI3AxiomImpl> getSubPropertyAxiomSetByRight(Integer elem) {
 		Objects.requireNonNull(elem);
-		Set<RI3Axiom> ret = this.subPropertyAxiomSetByRight.get(elem);
+		Set<RI3AxiomImpl> ret = this.subPropertyAxiomSetByRight.get(elem);
 		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
@@ -215,8 +215,8 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 		clear();
 		axiomSet.forEach(axiom -> {
 			axiom.accept(this);
-			if (axiom instanceof RI3Axiom) {
-				RI3Axiom subPropAxiom = (RI3Axiom) axiom;
+			if (axiom instanceof RI3AxiomImpl) {
+				RI3AxiomImpl subPropAxiom = (RI3AxiomImpl) axiom;
 				Integer left = subPropAxiom.getLeftSubProperty();
 				Integer right = subPropAxiom.getRightSubProperty();
 				addTo(left, subPropAxiom, this.subPropertyAxiomSetByLeft);
@@ -236,20 +236,20 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	}
 
 	@Override
-	public Boolean visit(FunctObjectPropAxiom axiom) {
+	public Boolean visit(FunctObjectPropAxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		return false;
 	}
 
 	@Override
-	public Boolean visit(GCI0Axiom axiom) {
+	public Boolean visit(GCI0AxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		addClassEntry(axiom.getSubClass(), new ImplicationEntry(new HashSet<>(), axiom.getSuperClass()));
 		return true;
 	}
 
 	@Override
-	public Boolean visit(GCI1Axiom axiom) {
+	public Boolean visit(GCI1AxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		Integer superClass = axiom.getSuperClass();
 		List<Integer> operandSet = new ArrayList<>();
@@ -265,7 +265,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	}
 
 	@Override
-	public Boolean visit(GCI2Axiom axiom) {
+	public Boolean visit(GCI2AxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		addClassEntry(axiom.getSubClass(),
 				new ExistentialEntry(axiom.getPropertyInSuperClass(), axiom.getClassInSuperClass()));
@@ -273,7 +273,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	}
 
 	@Override
-	public Boolean visit(GCI3Axiom axiom) {
+	public Boolean visit(GCI3AxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		ExtensionEntry entry = new ImplicationEntry(new HashSet<>(), axiom.getSuperClass());
 		Integer propertyId = axiom.getPropertyInSubClass();
@@ -293,31 +293,31 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	}
 
 	@Override
-	public Boolean visit(NominalAxiom axiom) {
+	public Boolean visit(NominalAxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		return false;
 	}
 
 	@Override
-	public Boolean visit(RangeAxiom axiom) {
+	public Boolean visit(RangeAxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		return false;
 	}
 
 	@Override
-	public Boolean visit(RI1Axiom axiom) {
+	public Boolean visit(RI1AxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		return false;
 	}
 
 	@Override
-	public Boolean visit(RI2Axiom axiom) {
+	public Boolean visit(RI2AxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		return false;
 	}
 
 	@Override
-	public Boolean visit(RI3Axiom axiom) {
+	public Boolean visit(RI3AxiomImpl axiom) {
 		Objects.requireNonNull(axiom);
 		return false;
 	}

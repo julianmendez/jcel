@@ -52,7 +52,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
 
@@ -88,8 +88,8 @@ public class SR4Rule implements SaturationRule {
 		ret.addAll(originalSet);
 
 		originalSet.forEach(normalizedAxiom -> {
-			if (normalizedAxiom instanceof FunctObjectPropAxiom) {
-				FunctObjectPropAxiom axiom = (FunctObjectPropAxiom) normalizedAxiom;
+			if (normalizedAxiom instanceof FunctObjectPropAxiomImpl) {
+				FunctObjectPropAxiomImpl axiom = (FunctObjectPropAxiomImpl) normalizedAxiom;
 				Integer functionalProperty = axiom.getProperty();
 				Set<Integer> newFunctionalPropertySet = this.helper.getReachable(functionalProperty, mapBySuperProp);
 				newFunctionalPropertySet.forEach(newFunctionalProperty -> ret

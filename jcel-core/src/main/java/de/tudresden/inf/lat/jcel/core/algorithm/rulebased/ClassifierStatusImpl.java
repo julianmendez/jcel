@@ -68,7 +68,7 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.VNode;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.ExtendedOntology;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2AxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 
@@ -222,7 +222,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 		});
 
 		this.extendedOntology.getObjectPropertySet().forEach(property -> {
-			Set<RI2Axiom> axiomSet = this.extendedOntology.getRI2rAxioms(property);
+			Set<RI2AxiomImpl> axiomSet = this.extendedOntology.getRI2rAxioms(property);
 			axiomSet.forEach(
 					axiom -> this.objectPropertyGraph.addAncestor(axiom.getSubProperty(), axiom.getSuperProperty()));
 		});

@@ -47,40 +47,48 @@
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 /**
  * Axiom of the form:
  * <ul>
- * <li>range(r) \u2291 A</li>
+ * <li>r \u2218 s \u2291 t</li>
  * </ul>
  * 
  * @author Julian Mendez
  */
-public class RangeAxiom implements NormalizedIntegerAxiom {
+public class RI3AxiomImpl implements NormalizedIntegerAxiom {
 
-	private final int property;
-	private final int range;
+	private final int leftSubProperty;
+	private final int rightSubProperty;
+	private final int superProperty;
 	private final Set<Annotation> annotations;
 	private final int hashCode;
 
 	/**
-	 * Constructs a new range axiom.
+	 * Constructs a new RI-3 axiom
 	 * 
-	 * @param propertyId
-	 *            object property identifier
-	 * @param classId
-	 *            class identifier
+	 * @param leftLeftPropertyId
+	 *            object property identifier for the left-hand object property
+	 *            on the composition
+	 * @param leftRightPropertyId
+	 *            object property identifier for the right-hand object property
+	 *            on the composition
+	 * @param rightPropertyId
+	 *            object property identifier for super object property
 	 * @param annotations
 	 *            annotations
 	 */
-	RangeAxiom(int propertyId, int classId, Set<Annotation> annotations) {
+	RI3AxiomImpl(int leftLeftPropertyId, int leftRightPropertyId, int rightPropertyId, Set<Annotation> annotations) {
 		Objects.requireNonNull(annotations);
-		this.property = propertyId;
-		this.range = classId;
+		this.leftSubProperty = leftLeftPropertyId;
+		this.rightSubProperty = leftRightPropertyId;
+		this.superProperty = rightPropertyId;
 		this.annotations = annotations;
-		this.hashCode = this.property + 0x1F * (this.range + 0x1F * this.annotations.hashCode());
+		this.hashCode = this.leftSubProperty
+				+ 0x1F * (this.rightSubProperty + 0x1F * (this.superProperty + 0x1F * this.annotations.hashCode()));
 	}
 
 	@Override
@@ -92,17 +100,17 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 	@Override
 	public boolean equals(Object obj) {
 		boolean ret = (this == obj);
-		if (!ret && (obj instanceof RangeAxiom)) {
-			RangeAxiom other = (RangeAxiom) obj;
-			ret = (this.property == other.property) && (this.range == other.range)
-					&& this.annotations.equals(other.annotations);
+		if (!ret && (obj instanceof RI3AxiomImpl)) {
+			RI3AxiomImpl other = (RI3AxiomImpl) obj;
+			ret = (this.leftSubProperty == other.leftSubProperty) && (this.rightSubProperty == other.rightSubProperty)
+					&& (this.superProperty == other.superProperty) && this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}
 
 	@Override
 	public Set<Integer> getClassesInSignature() {
-		return Collections.singleton(this.range);
+		return Collections.emptySet();
 	}
 
 	@Override
@@ -120,27 +128,40 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 		return Collections.emptySet();
 	}
 
+	/**
+	 * Returns the object property on the left-hand part of the composition.
+	 * 
+	 * @return the object property on the left-hand part of the composition
+	 */
+	public int getLeftSubProperty() {
+		return this.leftSubProperty;
+	}
+
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		return Collections.singleton(this.property);
+		Set<Integer> ret = new HashSet<>();
+		ret.add(this.leftSubProperty);
+		ret.add(this.rightSubProperty);
+		ret.add(this.superProperty);
+		return Collections.unmodifiableSet(ret);
 	}
 
 	/**
-	 * Returns the object property in the axiom.
+	 * Returns the object property on the right-hand part of the composition.
 	 * 
-	 * @return the object property in the axiom
+	 * @return the object property on the right-hand part of the composition
 	 */
-	public int getProperty() {
-		return this.property;
+	public int getRightSubProperty() {
+		return this.rightSubProperty;
 	}
 
 	/**
-	 * Returns the class identifier in the axiom.
+	 * Returns the super object property.
 	 * 
-	 * @return the class identifier in the axiom
+	 * @return the super object property
 	 */
-	public int getRange() {
-		return this.range;
+	public int getSuperProperty() {
+		return this.superProperty;
 	}
 
 	@Override
@@ -156,11 +177,13 @@ public class RangeAxiom implements NormalizedIntegerAxiom {
 	@Override
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
-		sbuf.append(NormalizedIntegerAxiomConstant.NormalizedRangeAxiom);
+		sbuf.append(NormalizedIntegerAxiomConstant.RI3);
 		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
-		sbuf.append(getProperty());
+		sbuf.append(getLeftSubProperty());
 		sbuf.append(NormalizedIntegerAxiomConstant.sp);
-		sbuf.append(getRange());
+		sbuf.append(getRightSubProperty());
+		sbuf.append(NormalizedIntegerAxiomConstant.sp);
+		sbuf.append(getSuperProperty());
 		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
 		return sbuf.toString();
 	}

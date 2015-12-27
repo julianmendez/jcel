@@ -47,48 +47,40 @@
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
-import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
 
 /**
  * Axiom of the form:
  * <ul>
- * <li>A<sub>1</sub> \u2293 A<sub>2</sub> \u2291 B</li>
+ * <li>range(r) \u2291 A</li>
  * </ul>
  * 
  * @author Julian Mendez
  */
-public class GCI1Axiom implements NormalizedIntegerAxiom {
+public class RangeAxiomImpl implements NormalizedIntegerAxiom {
 
-	private final int leftSubClass;
-	private final int rightSubClass;
-	private final int superClass;
+	private final int property;
+	private final int range;
 	private final Set<Annotation> annotations;
 	private final int hashCode;
 
 	/**
-	 * Constructs a new GCI-1 axiom.
+	 * Constructs a new range axiom.
 	 * 
-	 * @param leftSubClassId
-	 *            left subclass in the axiom
-	 * @param rightSubClassId
-	 *            right subclass in the axiom
-	 * @param rightClassId
-	 *            superclass in the axiom
+	 * @param propertyId
+	 *            object property identifier
+	 * @param classId
+	 *            class identifier
 	 * @param annotations
 	 *            annotations
 	 */
-	GCI1Axiom(int leftSubClassId, int rightSubClassId, int rightClassId, Set<Annotation> annotations) {
+	RangeAxiomImpl(int propertyId, int classId, Set<Annotation> annotations) {
 		Objects.requireNonNull(annotations);
-		this.leftSubClass = leftSubClassId;
-		this.rightSubClass = rightSubClassId;
-		this.superClass = rightClassId;
+		this.property = propertyId;
+		this.range = classId;
 		this.annotations = annotations;
-		this.hashCode = this.leftSubClass
-				+ (0x1F * this.rightSubClass + (0x1F * this.superClass + (0x1F * this.annotations.hashCode())));
+		this.hashCode = this.property + 0x1F * (this.range + 0x1F * this.annotations.hashCode());
 	}
 
 	@Override
@@ -100,21 +92,17 @@ public class GCI1Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public boolean equals(Object obj) {
 		boolean ret = (this == obj);
-		if (!ret && (obj instanceof GCI1Axiom)) {
-			GCI1Axiom other = (GCI1Axiom) obj;
-			ret = (this.leftSubClass == other.leftSubClass) && (this.rightSubClass == other.rightSubClass)
-					&& (this.superClass == other.superClass) && this.annotations.equals(other.annotations);
+		if (!ret && (obj instanceof RangeAxiomImpl)) {
+			RangeAxiomImpl other = (RangeAxiomImpl) obj;
+			ret = (this.property == other.property) && (this.range == other.range)
+					&& this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}
 
 	@Override
 	public Set<Integer> getClassesInSignature() {
-		Set<Integer> ret = new HashSet<>();
-		ret.add(this.leftSubClass);
-		ret.add(this.rightSubClass);
-		ret.add(this.superClass);
-		return Collections.unmodifiableSet(ret);
+		return Collections.singleton(this.range);
 	}
 
 	@Override
@@ -132,36 +120,27 @@ public class GCI1Axiom implements NormalizedIntegerAxiom {
 		return Collections.emptySet();
 	}
 
-	/**
-	 * Returns the left subclass in the axiom.
-	 * 
-	 * @return the left subclass in the axiom
-	 */
-	public int getLeftSubClass() {
-		return this.leftSubClass;
-	}
-
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		return Collections.emptySet();
+		return Collections.singleton(this.property);
 	}
 
 	/**
-	 * Returns the right subclass in the axiom.
+	 * Returns the object property in the axiom.
 	 * 
-	 * @return the right subclass in the axiom
+	 * @return the object property in the axiom
 	 */
-	public int getRightSubClass() {
-		return this.rightSubClass;
+	public int getProperty() {
+		return this.property;
 	}
 
 	/**
-	 * Returns the superclass in the axiom.
+	 * Returns the class identifier in the axiom.
 	 * 
-	 * @return the superclass in the axiom
+	 * @return the class identifier in the axiom
 	 */
-	public int getSuperClass() {
-		return this.superClass;
+	public int getRange() {
+		return this.range;
 	}
 
 	@Override
@@ -177,16 +156,11 @@ public class GCI1Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
-		sbuf.append(NormalizedIntegerAxiomConstant.GCI1);
+		sbuf.append(NormalizedIntegerAxiomConstant.NormalizedRangeAxiom);
 		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
-		sbuf.append(IntegerClassExpressionWord.ObjectIntersectionOf);
-		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
-		sbuf.append(getLeftSubClass());
+		sbuf.append(getProperty());
 		sbuf.append(NormalizedIntegerAxiomConstant.sp);
-		sbuf.append(getRightSubClass());
-		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
-		sbuf.append(NormalizedIntegerAxiomConstant.sp);
-		sbuf.append(getSuperClass());
+		sbuf.append(getRange());
 		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
 		return sbuf.toString();
 	}

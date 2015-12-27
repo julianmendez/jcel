@@ -47,33 +47,48 @@
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
+
 /**
- * Axiom stating that an object property is functional.
+ * Axiom of the form:
+ * <ul>
+ * <li>&exist; r <i>.</i> A \u2291 B</li>
+ * </ul>
  * 
  * @author Julian Mendez
  */
-public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
+public class GCI3AxiomImpl implements NormalizedIntegerAxiom {
 
-	private final int property;
+	private final int classInSubClass;
+	private final int propertyInSubClass;
+	private final int superClass;
 	private final Set<Annotation> annotations;
 	private final int hashCode;
 
 	/**
-	 * Constructs a new functional object property axiom.
+	 * Constructs a new GCI-3 axiom.
 	 * 
-	 * @param propertyId
-	 *            object property
+	 * @param leftPropertyId
+	 *            object property identifier for the left-hand part
+	 * @param leftClassId
+	 *            class identifier for the left-hand part
+	 * @param rightClassId
+	 *            superclass identifier
 	 * @param annotations
 	 *            annotations
 	 */
-	FunctObjectPropAxiom(int propertyId, Set<Annotation> annotations) {
+	GCI3AxiomImpl(int leftPropertyId, int leftClassId, int rightClassId, Set<Annotation> annotations) {
 		Objects.requireNonNull(annotations);
-		this.property = propertyId;
+		this.classInSubClass = leftClassId;
+		this.propertyInSubClass = leftPropertyId;
+		this.superClass = rightClassId;
 		this.annotations = annotations;
-		this.hashCode = this.property + 0x1F * this.annotations.hashCode();
+		this.hashCode = this.classInSubClass
+				+ 0x1F * (this.propertyInSubClass + 0x1F * (this.superClass + 0x1F * this.annotations.hashCode()));
 	}
 
 	@Override
@@ -84,17 +99,31 @@ public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public boolean equals(Object obj) {
-		boolean ret = false;
-		if (obj instanceof FunctObjectPropAxiom) {
-			FunctObjectPropAxiom other = (FunctObjectPropAxiom) obj;
-			ret = (this.property == other.property) && this.annotations.equals(other.annotations);
+		boolean ret = (this == obj);
+		if (!ret && (obj instanceof GCI3AxiomImpl)) {
+			GCI3AxiomImpl other = (GCI3AxiomImpl) obj;
+			ret = (this.classInSubClass == other.classInSubClass)
+					&& (this.propertyInSubClass == other.propertyInSubClass) && (this.superClass == other.superClass)
+					&& this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}
 
 	@Override
 	public Set<Integer> getClassesInSignature() {
-		return Collections.emptySet();
+		Set<Integer> ret = new HashSet<>();
+		ret.add(this.classInSubClass);
+		ret.add(this.superClass);
+		return Collections.unmodifiableSet(ret);
+	}
+
+	/**
+	 * Returns the class on the left-hand part of the axiom.
+	 * 
+	 * @return the class on the left-hand part of the axiom
+	 */
+	public int getClassInSubClass() {
+		return this.classInSubClass;
 	}
 
 	@Override
@@ -114,16 +143,25 @@ public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		return Collections.singleton(getProperty());
+		return Collections.singleton(this.propertyInSubClass);
 	}
 
 	/**
-	 * Returns the object property in this axiom.
+	 * Returns the object property on the left-hand part of the axiom.
 	 * 
-	 * @return the object property in this axiom
+	 * @return the object property on the left-hand part of the axiom
 	 */
-	public int getProperty() {
-		return this.property;
+	public int getPropertyInSubClass() {
+		return this.propertyInSubClass;
+	}
+
+	/**
+	 * Returns the superclass in the axiom.
+	 * 
+	 * @return the superclass in the axiom
+	 */
+	public int getSuperClass() {
+		return this.superClass;
 	}
 
 	@Override
@@ -139,9 +177,16 @@ public class FunctObjectPropAxiom implements NormalizedIntegerAxiom {
 	@Override
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
-		sbuf.append(NormalizedIntegerAxiomConstant.FunctionalObjectProperty);
+		sbuf.append(NormalizedIntegerAxiomConstant.GCI3);
 		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
-		sbuf.append(getProperty());
+		sbuf.append(IntegerClassExpressionWord.ObjectSomeValuesFrom);
+		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
+		sbuf.append(getPropertyInSubClass());
+		sbuf.append(NormalizedIntegerAxiomConstant.sp);
+		sbuf.append(getClassInSubClass());
+		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
+		sbuf.append(NormalizedIntegerAxiomConstant.sp);
+		sbuf.append(getSuperClass());
 		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
 		return sbuf.toString();
 	}

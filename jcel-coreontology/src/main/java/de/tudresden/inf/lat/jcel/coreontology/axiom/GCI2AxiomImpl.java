@@ -47,36 +47,48 @@
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
 
 /**
  * Axiom of the form:
  * <ul>
- * <li>\u03B5 \u2291 r</li>
+ * <li>A \u2291 &exist; r <i>.</i> B</li>
  * </ul>
  * 
  * @author Julian Mendez
  */
-public class RI1Axiom implements NormalizedIntegerAxiom {
+public class GCI2AxiomImpl implements NormalizedIntegerAxiom {
 
-	private final int superProperty;
+	private final int classInSuperClass;
+	private final int propertyInSuperClass;
+	private final int subClass;
 	private final Set<Annotation> annotations;
 	private final int hashCode;
 
 	/**
-	 * Constructs a new axiom RI-1.
+	 * Constructs a new GCI-2 axiom.
 	 * 
-	 * @param propertyId
+	 * @param leftClassId
+	 *            subclass identifier
+	 * @param rightPropertyId
 	 *            object property identifier
+	 * @param rightClassId
+	 *            class identifier for the right-hand part
 	 * @param annotations
 	 *            annotations
 	 */
-	RI1Axiom(int propertyId, Set<Annotation> annotations) {
+	GCI2AxiomImpl(int leftClassId, int rightPropertyId, int rightClassId, Set<Annotation> annotations) {
 		Objects.requireNonNull(annotations);
-		this.superProperty = propertyId;
+		this.subClass = leftClassId;
+		this.propertyInSuperClass = rightPropertyId;
+		this.classInSuperClass = rightClassId;
 		this.annotations = annotations;
-		this.hashCode = this.superProperty + 0x1F * this.annotations.hashCode();
+		this.hashCode = this.subClass + 0x1F
+				* (this.propertyInSuperClass + 0x1F * (this.classInSuperClass + 0x1F * this.annotations.hashCode()));
 	}
 
 	@Override
@@ -88,16 +100,30 @@ public class RI1Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public boolean equals(Object obj) {
 		boolean ret = (this == obj);
-		if (!ret && (obj instanceof RI1Axiom)) {
-			RI1Axiom other = (RI1Axiom) obj;
-			ret = (this.superProperty == other.superProperty) && this.annotations.equals(other.annotations);
+		if (!ret && (obj instanceof GCI2AxiomImpl)) {
+			GCI2AxiomImpl other = (GCI2AxiomImpl) obj;
+			ret = (this.subClass == other.subClass) && (this.classInSuperClass == other.classInSuperClass)
+					&& (this.propertyInSuperClass == other.propertyInSuperClass)
+					&& this.annotations.equals(other.annotations);
 		}
 		return ret;
 	}
 
 	@Override
 	public Set<Integer> getClassesInSignature() {
-		return Collections.emptySet();
+		Set<Integer> ret = new HashSet<>();
+		ret.add(this.subClass);
+		ret.add(this.classInSuperClass);
+		return Collections.unmodifiableSet(ret);
+	}
+
+	/**
+	 * Returns the class in the right-hand part of the axiom.
+	 * 
+	 * @return the class in the right-hand part of the axiom
+	 */
+	public int getClassInSuperClass() {
+		return this.classInSuperClass;
 	}
 
 	@Override
@@ -117,16 +143,27 @@ public class RI1Axiom implements NormalizedIntegerAxiom {
 
 	@Override
 	public Set<Integer> getObjectPropertiesInSignature() {
-		return Collections.singleton(this.superProperty);
+		Set<Integer> ret = new HashSet<>();
+		ret.add(getPropertyInSuperClass());
+		return Collections.unmodifiableSet(ret);
 	}
 
 	/**
-	 * Returns the object property in the axiom.
+	 * Returns the object property on the right-hand part of the axiom.
 	 * 
-	 * @return the object property in the axiom
+	 * @return the object property on the right-hand part of the axiom
 	 */
-	public int getSuperProperty() {
-		return this.superProperty;
+	public int getPropertyInSuperClass() {
+		return this.propertyInSuperClass;
+	}
+
+	/**
+	 * Returns the subclass in the axiom.
+	 * 
+	 * @return the subclass in the axiom
+	 */
+	public int getSubClass() {
+		return this.subClass;
 	}
 
 	@Override
@@ -142,11 +179,16 @@ public class RI1Axiom implements NormalizedIntegerAxiom {
 	@Override
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
-		sbuf.append(NormalizedIntegerAxiomConstant.RI1);
+		sbuf.append(NormalizedIntegerAxiomConstant.GCI2);
 		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
-		sbuf.append(NormalizedIntegerAxiomConstant.emptyProp);
+		sbuf.append(getSubClass());
 		sbuf.append(NormalizedIntegerAxiomConstant.sp);
-		sbuf.append(getSuperProperty());
+		sbuf.append(IntegerClassExpressionWord.ObjectSomeValuesFrom);
+		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
+		sbuf.append(getPropertyInSuperClass());
+		sbuf.append(NormalizedIntegerAxiomConstant.sp);
+		sbuf.append(getClassInSuperClass());
+		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
 		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
 		return sbuf.toString();
 	}
