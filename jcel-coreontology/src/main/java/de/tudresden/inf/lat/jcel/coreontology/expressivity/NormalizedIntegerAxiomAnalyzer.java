@@ -49,10 +49,10 @@ package de.tudresden.inf.lat.jcel.coreontology.expressivity;
 import java.util.Objects;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0AxiomImpl;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1AxiomImpl;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2AxiomImpl;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomVisitor;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1AxiomImpl;
@@ -145,7 +145,7 @@ class NormalizedIntegerAxiomAnalyzer implements NormalizedIntegerAxiomVisitor<Bo
 	}
 
 	@Override
-	public Boolean visit(GCI0AxiomImpl axiom) {
+	public Boolean visit(GCI0Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		this.hasBottom |= (axiom.getSubClass() == IntegerEntityManager.bottomClassId)
 				|| (axiom.getSuperClass() == IntegerEntityManager.bottomClassId);
@@ -153,7 +153,7 @@ class NormalizedIntegerAxiomAnalyzer implements NormalizedIntegerAxiomVisitor<Bo
 	}
 
 	@Override
-	public Boolean visit(GCI1AxiomImpl axiom) {
+	public Boolean visit(GCI1Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		this.hasBottom |= (axiom.getLeftSubClass() == IntegerEntityManager.bottomClassId)
 				|| (axiom.getRightSubClass() == IntegerEntityManager.bottomClassId)
@@ -162,7 +162,7 @@ class NormalizedIntegerAxiomAnalyzer implements NormalizedIntegerAxiomVisitor<Bo
 	}
 
 	@Override
-	public Boolean visit(GCI2AxiomImpl axiom) {
+	public Boolean visit(GCI2Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		this.hasBottom |= (axiom.getSubClass() == IntegerEntityManager.bottomClassId)
 				|| (axiom.getClassInSuperClass() == IntegerEntityManager.bottomClassId);
@@ -170,7 +170,7 @@ class NormalizedIntegerAxiomAnalyzer implements NormalizedIntegerAxiomVisitor<Bo
 	}
 
 	@Override
-	public Boolean visit(GCI3AxiomImpl axiom) {
+	public Boolean visit(GCI3Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		this.hasBottom |= (axiom.getClassInSubClass() == IntegerEntityManager.bottomClassId)
 				|| (axiom.getSuperClass() == IntegerEntityManager.bottomClassId);

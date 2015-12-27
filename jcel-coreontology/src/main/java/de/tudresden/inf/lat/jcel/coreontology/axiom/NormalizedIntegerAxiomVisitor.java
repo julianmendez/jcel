@@ -71,7 +71,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	T visit(GCI0AxiomImpl axiom);
+	T visit(GCI0Axiom axiom);
 
 	/**
 	 * Visits a GCI-1 axiom.
@@ -80,7 +80,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	T visit(GCI1AxiomImpl axiom);
+	T visit(GCI1Axiom axiom);
 
 	/**
 	 * Visits a GCI-2 axiom.
@@ -89,7 +89,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	T visit(GCI2AxiomImpl axiom);
+	T visit(GCI2Axiom axiom);
 
 	/**
 	 * Visits a GCI-3 axiom.
@@ -98,7 +98,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	T visit(GCI3AxiomImpl axiom);
+	T visit(GCI3Axiom axiom);
 
 	/**
 	 * Visits a nominal axiom.

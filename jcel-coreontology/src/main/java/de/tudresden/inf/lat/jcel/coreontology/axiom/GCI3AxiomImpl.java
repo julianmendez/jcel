@@ -100,11 +100,11 @@ public class GCI3AxiomImpl implements GCI3Axiom {
 	@Override
 	public boolean equals(Object obj) {
 		boolean ret = (this == obj);
-		if (!ret && (obj instanceof GCI3AxiomImpl)) {
-			GCI3AxiomImpl other = (GCI3AxiomImpl) obj;
-			ret = (this.classInSubClass == other.classInSubClass)
-					&& (this.propertyInSubClass == other.propertyInSubClass) && (this.superClass == other.superClass)
-					&& this.annotations.equals(other.annotations);
+		if (!ret && (obj instanceof GCI3Axiom)) {
+			GCI3Axiom other = (GCI3Axiom) obj;
+			ret = (getClassInSubClass() == other.getClassInSubClass())
+					&& (getPropertyInSubClass() == other.getPropertyInSubClass())
+					&& (getSuperClass() == other.getSuperClass()) && getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}

@@ -56,10 +56,10 @@ import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0AxiomImpl;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1AxiomImpl;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2AxiomImpl;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomVisitor;
@@ -243,14 +243,14 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	}
 
 	@Override
-	public Boolean visit(GCI0AxiomImpl axiom) {
+	public Boolean visit(GCI0Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		addClassEntry(axiom.getSubClass(), new ImplicationEntry(new HashSet<>(), axiom.getSuperClass()));
 		return true;
 	}
 
 	@Override
-	public Boolean visit(GCI1AxiomImpl axiom) {
+	public Boolean visit(GCI1Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		Integer superClass = axiom.getSuperClass();
 		List<Integer> operandSet = new ArrayList<>();
@@ -266,7 +266,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	}
 
 	@Override
-	public Boolean visit(GCI2AxiomImpl axiom) {
+	public Boolean visit(GCI2Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		addClassEntry(axiom.getSubClass(),
 				new ExistentialEntry(axiom.getPropertyInSuperClass(), axiom.getClassInSuperClass()));
@@ -274,7 +274,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	}
 
 	@Override
-	public Boolean visit(GCI3AxiomImpl axiom) {
+	public Boolean visit(GCI3Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		ExtensionEntry entry = new ImplicationEntry(new HashSet<>(), axiom.getSuperClass());
 		Integer propertyId = axiom.getPropertyInSubClass();

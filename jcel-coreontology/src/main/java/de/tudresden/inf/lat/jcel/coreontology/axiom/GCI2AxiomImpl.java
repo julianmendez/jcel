@@ -100,11 +100,11 @@ public class GCI2AxiomImpl implements GCI2Axiom {
 	@Override
 	public boolean equals(Object obj) {
 		boolean ret = (this == obj);
-		if (!ret && (obj instanceof GCI2AxiomImpl)) {
-			GCI2AxiomImpl other = (GCI2AxiomImpl) obj;
-			ret = (this.subClass == other.subClass) && (this.classInSuperClass == other.classInSuperClass)
-					&& (this.propertyInSuperClass == other.propertyInSuperClass)
-					&& this.annotations.equals(other.annotations);
+		if (!ret && (obj instanceof GCI2Axiom)) {
+			GCI2Axiom other = (GCI2Axiom) obj;
+			ret = (getSubClass() == other.getSubClass()) && (getClassInSuperClass() == other.getClassInSuperClass())
+					&& (getPropertyInSuperClass() == other.getPropertyInSuperClass())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}

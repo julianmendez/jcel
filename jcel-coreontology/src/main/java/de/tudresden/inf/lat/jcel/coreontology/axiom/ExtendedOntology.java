@@ -101,7 +101,7 @@ public interface ExtendedOntology {
 	 * @return the set of all axioms GCI0 in the ontology such that the given
 	 *         class occurs in the left part of the axiom
 	 */
-	Set<GCI0AxiomImpl> getGCI0Axioms(int classId);
+	Set<GCI0Axiom> getGCI0Axioms(int classId);
 
 	/**
 	 * Returns the set of all axioms GCI1 in the ontology such that the given
@@ -113,7 +113,7 @@ public interface ExtendedOntology {
 	 * @return the set of all axioms GCI1 in the ontology such that the given
 	 *         class occurs in the left part of the axiom
 	 */
-	Set<GCI1AxiomImpl> getGCI1Axioms(int classId);
+	Set<GCI1Axiom> getGCI1Axioms(int classId);
 
 	/**
 	 * Returns the set of all axioms GCI2 in the ontology such that the given
@@ -125,7 +125,7 @@ public interface ExtendedOntology {
 	 * @return the set of all axioms GCI2 in the ontology such that the given
 	 *         class occurs in the left part of the axiom
 	 */
-	Set<GCI2AxiomImpl> getGCI2Axioms(int classId);
+	Set<GCI2Axiom> getGCI2Axioms(int classId);
 
 	/**
 	 * Returns the set of all axioms GCI3 in the ontology such that the given
@@ -137,7 +137,7 @@ public interface ExtendedOntology {
 	 * @return the set of all axioms GCI3 in the ontology such that the given
 	 *         class occurs in the left part of the axiom
 	 */
-	Set<GCI3AxiomImpl> getGCI3AAxioms(int classId);
+	Set<GCI3Axiom> getGCI3AAxioms(int classId);
 
 	/**
 	 * Returns the set of all axioms GCI3 in the ontology such that the given
@@ -153,7 +153,7 @@ public interface ExtendedOntology {
 	 *         object property and the given class occur in the left part of the
 	 *         axiom
 	 */
-	Set<GCI3AxiomImpl> getGCI3rAAxioms(int objectPropertyId, int leftClassId);
+	Set<GCI3Axiom> getGCI3rAAxioms(int objectPropertyId, int leftClassId);
 
 	/**
 	 * Returns the set of all axioms GCI3 in the ontology such that the given
@@ -165,7 +165,7 @@ public interface ExtendedOntology {
 	 * @return the set of all axioms GCI3 in the ontology such that the given
 	 *         object property occurs in the axiom
 	 */
-	Set<GCI3AxiomImpl> getGCI3rAxioms(int objectPropertyId);
+	Set<GCI3Axiom> getGCI3rAxioms(int objectPropertyId);
 
 	/**
 	 * Returns the set of all object properties in the ontology.

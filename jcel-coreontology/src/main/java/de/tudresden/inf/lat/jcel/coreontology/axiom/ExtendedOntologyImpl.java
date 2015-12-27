@@ -60,12 +60,12 @@ import java.util.Set;
  */
 public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedIntegerAxiomVisitor<Boolean> {
 
-	private final Map<Integer, Set<GCI0AxiomImpl>> mapOfGCI0 = new HashMap<>();
-	private final Map<Integer, Set<GCI1AxiomImpl>> mapOfGCI1 = new HashMap<>();
-	private final Map<Integer, Set<GCI2AxiomImpl>> mapOfGCI2 = new HashMap<>();
-	private final Map<Integer, Set<GCI3AxiomImpl>> mapOfGCI3A = new HashMap<>();
-	private final Map<Integer, Set<GCI3AxiomImpl>> mapOfGCI3r = new HashMap<>();
-	private final Map<Integer, Map<Integer, Set<GCI3AxiomImpl>>> mapOfGCI3rA = new HashMap<>();
+	private final Map<Integer, Set<GCI0Axiom>> mapOfGCI0 = new HashMap<>();
+	private final Map<Integer, Set<GCI1Axiom>> mapOfGCI1 = new HashMap<>();
+	private final Map<Integer, Set<GCI2Axiom>> mapOfGCI2 = new HashMap<>();
+	private final Map<Integer, Set<GCI3Axiom>> mapOfGCI3A = new HashMap<>();
+	private final Map<Integer, Set<GCI3Axiom>> mapOfGCI3r = new HashMap<>();
+	private final Map<Integer, Map<Integer, Set<GCI3Axiom>>> mapOfGCI3rA = new HashMap<>();
 	private final Map<Integer, Set<NominalAxiomImpl>> mapOfNominalAxiom = new HashMap<>();
 	private final Map<Integer, Set<RangeAxiomImpl>> mapOfRangeAxiom = new HashMap<>();
 	private final Map<Integer, Set<RI2AxiomImpl>> mapOfRI2r = new HashMap<>();
@@ -94,28 +94,28 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 		this.setOfClasses.addAll(axiom.getClassesInSignature());
 	}
 
-	private void addGCI0Axiom(int classId, GCI0AxiomImpl axiom) {
+	private void addGCI0Axiom(int classId, GCI0Axiom axiom) {
 		if (Objects.isNull(this.mapOfGCI0.get(classId))) {
 			this.mapOfGCI0.put(classId, new HashSet<>());
 		}
 		this.mapOfGCI0.get(classId).add(axiom);
 	}
 
-	private void addGCI1Axiom(int classId, GCI1AxiomImpl axiom) {
+	private void addGCI1Axiom(int classId, GCI1Axiom axiom) {
 		if (Objects.isNull(this.mapOfGCI1.get(classId))) {
 			this.mapOfGCI1.put(classId, new HashSet<>());
 		}
 		this.mapOfGCI1.get(classId).add(axiom);
 	}
 
-	private void addGCI2Axiom(int classId, GCI2AxiomImpl axiom) {
+	private void addGCI2Axiom(int classId, GCI2Axiom axiom) {
 		if (Objects.isNull(this.mapOfGCI2.get(classId))) {
 			this.mapOfGCI2.put(classId, new HashSet<>());
 		}
 		this.mapOfGCI2.get(classId).add(axiom);
 	}
 
-	private void addGCI3Axiom(GCI3AxiomImpl axiom, int objectPropertyId, int classId) {
+	private void addGCI3Axiom(GCI3Axiom axiom, int objectPropertyId, int classId) {
 
 		if (Objects.isNull(this.mapOfGCI3r.get(objectPropertyId))) {
 			this.mapOfGCI3r.put(objectPropertyId, new HashSet<>());
@@ -127,7 +127,7 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 		}
 		this.mapOfGCI3A.get(classId).add(axiom);
 
-		Map<Integer, Set<GCI3AxiomImpl>> map = this.mapOfGCI3rA.get(objectPropertyId);
+		Map<Integer, Set<GCI3Axiom>> map = this.mapOfGCI3rA.get(objectPropertyId);
 		if (Objects.isNull(map)) {
 			map = new HashMap<>();
 			this.mapOfGCI3rA.put(objectPropertyId, map);
@@ -198,8 +198,8 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	@Override
-	public Set<GCI0AxiomImpl> getGCI0Axioms(int classId) {
-		Set<GCI0AxiomImpl> ret = this.mapOfGCI0.get(classId);
+	public Set<GCI0Axiom> getGCI0Axioms(int classId) {
+		Set<GCI0Axiom> ret = this.mapOfGCI0.get(classId);
 		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
@@ -207,8 +207,8 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	@Override
-	public Set<GCI1AxiomImpl> getGCI1Axioms(int classId) {
-		Set<GCI1AxiomImpl> ret = this.mapOfGCI1.get(classId);
+	public Set<GCI1Axiom> getGCI1Axioms(int classId) {
+		Set<GCI1Axiom> ret = this.mapOfGCI1.get(classId);
 		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
@@ -216,8 +216,8 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	@Override
-	public Set<GCI2AxiomImpl> getGCI2Axioms(int classId) {
-		Set<GCI2AxiomImpl> ret = this.mapOfGCI2.get(classId);
+	public Set<GCI2Axiom> getGCI2Axioms(int classId) {
+		Set<GCI2Axiom> ret = this.mapOfGCI2.get(classId);
 		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
@@ -225,8 +225,8 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	@Override
-	public Set<GCI3AxiomImpl> getGCI3AAxioms(int classId) {
-		Set<GCI3AxiomImpl> ret = this.mapOfGCI3A.get(classId);
+	public Set<GCI3Axiom> getGCI3AAxioms(int classId) {
+		Set<GCI3Axiom> ret = this.mapOfGCI3A.get(classId);
 		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
@@ -234,9 +234,9 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	@Override
-	public Set<GCI3AxiomImpl> getGCI3rAAxioms(int objectPropertyId, int leftClassId) {
-		Set<GCI3AxiomImpl> ret = null;
-		Map<Integer, Set<GCI3AxiomImpl>> map = this.mapOfGCI3rA.get(objectPropertyId);
+	public Set<GCI3Axiom> getGCI3rAAxioms(int objectPropertyId, int leftClassId) {
+		Set<GCI3Axiom> ret = null;
+		Map<Integer, Set<GCI3Axiom>> map = this.mapOfGCI3rA.get(objectPropertyId);
 		if (!Objects.isNull(map)) {
 			ret = map.get(leftClassId);
 		}
@@ -247,8 +247,8 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	@Override
-	public Set<GCI3AxiomImpl> getGCI3rAxioms(int objectPropertyId) {
-		Set<GCI3AxiomImpl> ret = this.mapOfGCI3r.get(objectPropertyId);
+	public Set<GCI3Axiom> getGCI3rAxioms(int objectPropertyId) {
+		Set<GCI3Axiom> ret = this.mapOfGCI3r.get(objectPropertyId);
 		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
@@ -339,14 +339,14 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	@Override
-	public Boolean visit(GCI0AxiomImpl axiom) {
+	public Boolean visit(GCI0Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		addGCI0Axiom(axiom.getSubClass(), axiom);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(GCI1AxiomImpl axiom) {
+	public Boolean visit(GCI1Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		addGCI1Axiom(axiom.getLeftSubClass(), axiom);
 		addGCI1Axiom(axiom.getRightSubClass(), axiom);
@@ -354,14 +354,14 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	@Override
-	public Boolean visit(GCI2AxiomImpl axiom) {
+	public Boolean visit(GCI2Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		addGCI2Axiom(axiom.getSubClass(), axiom);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(GCI3AxiomImpl axiom) {
+	public Boolean visit(GCI3Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		addGCI3Axiom(axiom, axiom.getPropertyInSubClass(), axiom.getClassInSubClass());
 		return true;

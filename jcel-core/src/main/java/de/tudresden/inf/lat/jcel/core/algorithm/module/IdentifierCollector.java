@@ -51,10 +51,10 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0AxiomImpl;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1AxiomImpl;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2AxiomImpl;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomVisitor;
@@ -156,14 +156,14 @@ class IdentifierCollector {
 		}
 
 		@Override
-		public Boolean visit(GCI0AxiomImpl axiom) {
+		public Boolean visit(GCI0Axiom axiom) {
 			classesOnTheLeft.add(axiom.getSubClass());
 			classesOnTheRight.add(axiom.getSuperClass());
 			return true;
 		}
 
 		@Override
-		public Boolean visit(GCI1AxiomImpl axiom) {
+		public Boolean visit(GCI1Axiom axiom) {
 			classesOnTheLeft.add(axiom.getLeftSubClass());
 			classesOnTheLeft.add(axiom.getRightSubClass());
 			classesOnTheRight.add(axiom.getSuperClass());
@@ -171,7 +171,7 @@ class IdentifierCollector {
 		}
 
 		@Override
-		public Boolean visit(GCI2AxiomImpl axiom) {
+		public Boolean visit(GCI2Axiom axiom) {
 			classesOnTheLeft.add(axiom.getSubClass());
 			objectPropertiesOnTheRight.add(axiom.getPropertyInSuperClass());
 			classesOnTheRight.add(axiom.getClassInSuperClass());
@@ -179,7 +179,7 @@ class IdentifierCollector {
 		}
 
 		@Override
-		public Boolean visit(GCI3AxiomImpl axiom) {
+		public Boolean visit(GCI3Axiom axiom) {
 			objectPropertiesOnTheLeft.add(axiom.getPropertyInSubClass());
 			classesOnTheLeft.add(axiom.getClassInSubClass());
 			classesOnTheRight.add(axiom.getSuperClass());
