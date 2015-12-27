@@ -107,7 +107,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	T visit(NominalAxiomImpl axiom);
+	T visit(NominalAxiom axiom);
 
 	/**
 	 * Visits a range axiom.
@@ -116,7 +116,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	T visit(RangeAxiomImpl axiom);
+	T visit(RangeAxiom axiom);
 
 	/**
 	 * Visits an RI-1 axiom.

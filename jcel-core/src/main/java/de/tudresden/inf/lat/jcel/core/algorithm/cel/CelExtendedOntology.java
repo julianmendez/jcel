@@ -60,13 +60,13 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomVisitor;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
 
 /**
  * This class models an extended ontology. This is referred in the documentation
@@ -293,13 +293,13 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	}
 
 	@Override
-	public Boolean visit(NominalAxiomImpl axiom) {
+	public Boolean visit(NominalAxiom axiom) {
 		Objects.requireNonNull(axiom);
 		return false;
 	}
 
 	@Override
-	public Boolean visit(RangeAxiomImpl axiom) {
+	public Boolean visit(RangeAxiom axiom) {
 		Objects.requireNonNull(axiom);
 		return false;
 	}

@@ -55,13 +55,13 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomVisitor;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
 
 /**
  * An object of this class collects symbols in an normalized axiom.
@@ -187,14 +187,14 @@ class IdentifierCollector {
 		}
 
 		@Override
-		public Boolean visit(NominalAxiomImpl axiom) {
+		public Boolean visit(NominalAxiom axiom) {
 			classesOnTheLeft.add(axiom.getClassExpression());
 			classesOnTheRight.add(axiom.getClassExpression());
 			return true;
 		}
 
 		@Override
-		public Boolean visit(RangeAxiomImpl axiom) {
+		public Boolean visit(RangeAxiom axiom) {
 			objectPropertiesOnTheLeft.add(axiom.getProperty());
 			classesOnTheRight.add(axiom.getRange());
 			return true;

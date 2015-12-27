@@ -53,12 +53,12 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomVisitor;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
 
@@ -178,14 +178,14 @@ class NormalizedIntegerAxiomAnalyzer implements NormalizedIntegerAxiomVisitor<Bo
 	}
 
 	@Override
-	public Boolean visit(NominalAxiomImpl axiom) {
+	public Boolean visit(NominalAxiom axiom) {
 		Objects.requireNonNull(axiom);
 		this.hasNominal = true;
 		return true;
 	}
 
 	@Override
-	public Boolean visit(RangeAxiomImpl axiom) {
+	public Boolean visit(RangeAxiom axiom) {
 		Objects.requireNonNull(axiom);
 		this.hasBottom |= (axiom.getRange() == IntegerEntityManager.bottomClassId);
 		return true;

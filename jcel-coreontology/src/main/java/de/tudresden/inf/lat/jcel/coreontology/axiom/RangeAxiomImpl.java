@@ -92,10 +92,10 @@ public class RangeAxiomImpl implements RangeAxiom {
 	@Override
 	public boolean equals(Object obj) {
 		boolean ret = (this == obj);
-		if (!ret && (obj instanceof RangeAxiomImpl)) {
-			RangeAxiomImpl other = (RangeAxiomImpl) obj;
-			ret = (this.property == other.property) && (this.range == other.range)
-					&& this.annotations.equals(other.annotations);
+		if (!ret && (obj instanceof RangeAxiom)) {
+			RangeAxiom other = (RangeAxiom) obj;
+			ret = (getProperty() == other.getProperty()) && (getRange() == other.getRange())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}

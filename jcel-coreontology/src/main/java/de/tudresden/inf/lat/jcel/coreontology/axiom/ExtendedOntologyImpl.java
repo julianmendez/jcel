@@ -66,8 +66,8 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	private final Map<Integer, Set<GCI3Axiom>> mapOfGCI3A = new HashMap<>();
 	private final Map<Integer, Set<GCI3Axiom>> mapOfGCI3r = new HashMap<>();
 	private final Map<Integer, Map<Integer, Set<GCI3Axiom>>> mapOfGCI3rA = new HashMap<>();
-	private final Map<Integer, Set<NominalAxiomImpl>> mapOfNominalAxiom = new HashMap<>();
-	private final Map<Integer, Set<RangeAxiomImpl>> mapOfRangeAxiom = new HashMap<>();
+	private final Map<Integer, Set<NominalAxiom>> mapOfNominalAxiom = new HashMap<>();
+	private final Map<Integer, Set<RangeAxiom>> mapOfRangeAxiom = new HashMap<>();
 	private final Map<Integer, Set<RI2Axiom>> mapOfRI2r = new HashMap<>();
 	private final Map<Integer, Set<RI2Axiom>> mapOfRI2s = new HashMap<>();
 	private final Map<Integer, Set<RI3Axiom>> mapOfRI3ByLeft = new HashMap<>();
@@ -138,7 +138,7 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 		map.get(classId).add(axiom);
 	}
 
-	private void addNominalAxiom(int individualId, NominalAxiomImpl axiom) {
+	private void addNominalAxiom(int individualId, NominalAxiom axiom) {
 		if (Objects.isNull(this.mapOfNominalAxiom.get(individualId))) {
 			this.mapOfNominalAxiom.put(individualId, new HashSet<>());
 		}
@@ -150,7 +150,7 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 		this.setOfAllObjectProperties.add(objectProperty);
 	}
 
-	private void addRangeAxiom(int propertyId, RangeAxiomImpl axiom) {
+	private void addRangeAxiom(int propertyId, RangeAxiom axiom) {
 		if (Objects.isNull(this.mapOfRangeAxiom.get(propertyId))) {
 			this.mapOfRangeAxiom.put(propertyId, new HashSet<>());
 		}
@@ -368,14 +368,14 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	@Override
-	public Boolean visit(NominalAxiomImpl axiom) {
+	public Boolean visit(NominalAxiom axiom) {
 		Objects.requireNonNull(axiom);
 		addNominalAxiom(axiom.getIndividual(), axiom);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(RangeAxiomImpl axiom) {
+	public Boolean visit(RangeAxiom axiom) {
 		Objects.requireNonNull(axiom);
 		addRangeAxiom(axiom.getProperty(), axiom);
 		return true;
