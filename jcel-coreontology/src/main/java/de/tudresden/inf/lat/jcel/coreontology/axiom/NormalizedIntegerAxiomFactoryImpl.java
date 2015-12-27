@@ -102,13 +102,12 @@ public class NormalizedIntegerAxiomFactoryImpl implements NormalizedIntegerAxiom
 	}
 
 	@Override
-	public RI2AxiomImpl createRI2Axiom(int leftProp, int rightProp, Set<Annotation> annotations) {
+	public RI2Axiom createRI2Axiom(int leftProp, int rightProp, Set<Annotation> annotations) {
 		return new RI2AxiomImpl(leftProp, rightProp, annotations);
 	}
 
 	@Override
-	public RI3AxiomImpl createRI3Axiom(int leftLeftProp, int leftRightProp, int rightProp,
-			Set<Annotation> annotations) {
+	public RI3Axiom createRI3Axiom(int leftLeftProp, int leftRightProp, int rightProp, Set<Annotation> annotations) {
 		return new RI3AxiomImpl(leftLeftProp, leftRightProp, rightProp, annotations);
 	}
 

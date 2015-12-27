@@ -55,9 +55,9 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomVisitor;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1AxiomImpl;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2AxiomImpl;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
@@ -192,21 +192,21 @@ class NormalizedIntegerAxiomAnalyzer implements NormalizedIntegerAxiomVisitor<Bo
 	}
 
 	@Override
-	public Boolean visit(RI1AxiomImpl axiom) {
+	public Boolean visit(RI1Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		this.hasReflexiveObjectProperty = true;
 		return true;
 	}
 
 	@Override
-	public Boolean visit(RI2AxiomImpl axiom) {
+	public Boolean visit(RI2Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		this.hasSubObjectPropertyOf = true;
 		return true;
 	}
 
 	@Override
-	public Boolean visit(RI3AxiomImpl axiom) {
+	public Boolean visit(RI3Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		if ((axiom.getSuperProperty() == axiom.getLeftSubProperty())
 				&& (axiom.getSuperProperty() == axiom.getRightSubProperty())) {

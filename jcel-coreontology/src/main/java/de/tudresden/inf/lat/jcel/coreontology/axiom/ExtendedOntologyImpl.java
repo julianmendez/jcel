@@ -68,10 +68,10 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	private final Map<Integer, Map<Integer, Set<GCI3Axiom>>> mapOfGCI3rA = new HashMap<>();
 	private final Map<Integer, Set<NominalAxiomImpl>> mapOfNominalAxiom = new HashMap<>();
 	private final Map<Integer, Set<RangeAxiomImpl>> mapOfRangeAxiom = new HashMap<>();
-	private final Map<Integer, Set<RI2AxiomImpl>> mapOfRI2r = new HashMap<>();
-	private final Map<Integer, Set<RI2AxiomImpl>> mapOfRI2s = new HashMap<>();
-	private final Map<Integer, Set<RI3AxiomImpl>> mapOfRI3ByLeft = new HashMap<>();
-	private final Map<Integer, Set<RI3AxiomImpl>> mapOfRI3ByRight = new HashMap<>();
+	private final Map<Integer, Set<RI2Axiom>> mapOfRI2r = new HashMap<>();
+	private final Map<Integer, Set<RI2Axiom>> mapOfRI2s = new HashMap<>();
+	private final Map<Integer, Set<RI3Axiom>> mapOfRI3ByLeft = new HashMap<>();
+	private final Map<Integer, Set<RI3Axiom>> mapOfRI3ByRight = new HashMap<>();
 	private final Set<Integer> setOfAllObjectProperties = new HashSet<>();
 	private final Set<Integer> setOfClasses = new HashSet<>();
 	private final Set<Integer> setOfFunctionalObjectProperties = new HashSet<>();
@@ -157,8 +157,8 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 		this.mapOfRangeAxiom.get(propertyId).add(axiom);
 	}
 
-	private void addTo(int property, RI3AxiomImpl axiom, Map<Integer, Set<RI3AxiomImpl>> map) {
-		Set<RI3AxiomImpl> axiomSet = map.get(property);
+	private void addTo(int property, RI3Axiom axiom, Map<Integer, Set<RI3Axiom>> map) {
+		Set<RI3Axiom> axiomSet = map.get(property);
 		if (Objects.isNull(axiomSet)) {
 			axiomSet = new HashSet<>();
 			map.put(property, axiomSet);
@@ -266,8 +266,8 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	@Override
-	public Set<RI2AxiomImpl> getRI2rAxioms(int elem) {
-		Set<RI2AxiomImpl> ret = this.mapOfRI2r.get(elem);
+	public Set<RI2Axiom> getRI2rAxioms(int elem) {
+		Set<RI2Axiom> ret = this.mapOfRI2r.get(elem);
 		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
@@ -275,8 +275,8 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	@Override
-	public Set<RI2AxiomImpl> getRI2sAxioms(int elem) {
-		Set<RI2AxiomImpl> ret = this.mapOfRI2s.get(elem);
+	public Set<RI2Axiom> getRI2sAxioms(int elem) {
+		Set<RI2Axiom> ret = this.mapOfRI2s.get(elem);
 		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
@@ -284,8 +284,8 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	@Override
-	public Set<RI3AxiomImpl> getRI3AxiomsByLeft(int elem) {
-		Set<RI3AxiomImpl> ret = this.mapOfRI3ByLeft.get(elem);
+	public Set<RI3Axiom> getRI3AxiomsByLeft(int elem) {
+		Set<RI3Axiom> ret = this.mapOfRI3ByLeft.get(elem);
 		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
@@ -293,8 +293,8 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	@Override
-	public Set<RI3AxiomImpl> getRI3AxiomsByRight(int elem) {
-		Set<RI3AxiomImpl> ret = this.mapOfRI3ByRight.get(elem);
+	public Set<RI3Axiom> getRI3AxiomsByRight(int elem) {
+		Set<RI3Axiom> ret = this.mapOfRI3ByRight.get(elem);
 		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
@@ -382,14 +382,14 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	@Override
-	public Boolean visit(RI1AxiomImpl axiom) {
+	public Boolean visit(RI1Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		this.setOfReflexiveObjectProperties.add(axiom.getSuperProperty());
 		return true;
 	}
 
 	@Override
-	public Boolean visit(RI2AxiomImpl axiom) {
+	public Boolean visit(RI2Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		Integer subProperty = axiom.getSubProperty();
 		if (Objects.isNull(this.mapOfRI2r.get(subProperty))) {
@@ -407,7 +407,7 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	@Override
-	public Boolean visit(RI3AxiomImpl axiom) {
+	public Boolean visit(RI3Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		Integer left = axiom.getLeftSubProperty();
 		Integer right = axiom.getRightSubProperty();

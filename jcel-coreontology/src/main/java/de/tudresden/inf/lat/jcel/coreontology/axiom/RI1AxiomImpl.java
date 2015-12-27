@@ -88,9 +88,9 @@ public class RI1AxiomImpl implements RI1Axiom {
 	@Override
 	public boolean equals(Object obj) {
 		boolean ret = (this == obj);
-		if (!ret && (obj instanceof RI1AxiomImpl)) {
-			RI1AxiomImpl other = (RI1AxiomImpl) obj;
-			ret = (this.superProperty == other.superProperty) && this.annotations.equals(other.annotations);
+		if (!ret && (obj instanceof RI1Axiom)) {
+			RI1Axiom other = (RI1Axiom) obj;
+			ret = (getSuperProperty() == other.getSuperProperty()) && getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}

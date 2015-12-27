@@ -63,10 +63,9 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomVisitor;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1AxiomImpl;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2AxiomImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3AxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiomImpl;
 
 /**
@@ -79,8 +78,8 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 
 	private final Map<Integer, Set<ExtensionEntry>> ohatOfClass = new HashMap<>();
 	private final Map<Integer, Map<Integer, Set<ExtensionEntry>>> ohatOfExistential = new HashMap<>();
-	private final Map<Integer, Set<RI3AxiomImpl>> subPropertyAxiomSetByLeft = new HashMap<>();
-	private final Map<Integer, Set<RI3AxiomImpl>> subPropertyAxiomSetByRight = new HashMap<>();
+	private final Map<Integer, Set<RI3Axiom>> subPropertyAxiomSetByLeft = new HashMap<>();
+	private final Map<Integer, Set<RI3Axiom>> subPropertyAxiomSetByRight = new HashMap<>();
 
 	/**
 	 * Constructs a new CEL extended ontology.
@@ -99,8 +98,8 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 		this.ohatOfClass.get(classId).add(entry);
 	}
 
-	private void addTo(Integer property, RI3AxiomImpl axiom, Map<Integer, Set<RI3AxiomImpl>> map) {
-		Set<RI3AxiomImpl> axiomSet = map.get(property);
+	private void addTo(Integer property, RI3Axiom axiom, Map<Integer, Set<RI3Axiom>> map) {
+		Set<RI3Axiom> axiomSet = map.get(property);
 		if (Objects.isNull(axiomSet)) {
 			axiomSet = new HashSet<>();
 			map.put(property, axiomSet);
@@ -178,9 +177,9 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	 * @return the set of sub object property axioms related where the specified
 	 *         object property occurs on the left-hand part of the composition.
 	 */
-	public Set<RI3AxiomImpl> getSubPropertyAxiomSetByLeft(Integer elem) {
+	public Set<RI3Axiom> getSubPropertyAxiomSetByLeft(Integer elem) {
 		Objects.requireNonNull(elem);
-		Set<RI3AxiomImpl> ret = this.subPropertyAxiomSetByLeft.get(elem);
+		Set<RI3Axiom> ret = this.subPropertyAxiomSetByLeft.get(elem);
 		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
@@ -196,9 +195,9 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	 * @return the set of sub object property axioms related where the specified
 	 *         object property occurs on the right-hand part of the composition.
 	 */
-	public Set<RI3AxiomImpl> getSubPropertyAxiomSetByRight(Integer elem) {
+	public Set<RI3Axiom> getSubPropertyAxiomSetByRight(Integer elem) {
 		Objects.requireNonNull(elem);
-		Set<RI3AxiomImpl> ret = this.subPropertyAxiomSetByRight.get(elem);
+		Set<RI3Axiom> ret = this.subPropertyAxiomSetByRight.get(elem);
 		if (Objects.isNull(ret)) {
 			ret = Collections.emptySet();
 		}
@@ -217,7 +216,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 		axiomSet.forEach(axiom -> {
 			axiom.accept(this);
 			if (axiom instanceof RI3Axiom) {
-				RI3AxiomImpl subPropAxiom = (RI3AxiomImpl) axiom;
+				RI3Axiom subPropAxiom = (RI3Axiom) axiom;
 				Integer left = subPropAxiom.getLeftSubProperty();
 				Integer right = subPropAxiom.getRightSubProperty();
 				addTo(left, subPropAxiom, this.subPropertyAxiomSetByLeft);
@@ -306,19 +305,19 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	}
 
 	@Override
-	public Boolean visit(RI1AxiomImpl axiom) {
+	public Boolean visit(RI1Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		return false;
 	}
 
 	@Override
-	public Boolean visit(RI2AxiomImpl axiom) {
+	public Boolean visit(RI2Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		return false;
 	}
 
 	@Override
-	public Boolean visit(RI3AxiomImpl axiom) {
+	public Boolean visit(RI3Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		return false;
 	}

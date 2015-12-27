@@ -94,10 +94,10 @@ public class RI2AxiomImpl implements RI2Axiom {
 	@Override
 	public boolean equals(Object obj) {
 		boolean ret = (this == obj);
-		if (!ret && (obj instanceof RI2AxiomImpl)) {
-			RI2AxiomImpl other = (RI2AxiomImpl) obj;
-			ret = (this.subProperty == other.subProperty) && (this.superProperty == other.superProperty)
-					&& this.annotations.equals(other.annotations);
+		if (!ret && (obj instanceof RI2Axiom)) {
+			RI2Axiom other = (RI2Axiom) obj;
+			ret = (getSubProperty() == other.getSubProperty()) && (getSuperProperty() == other.getSuperProperty())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}

@@ -174,7 +174,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new axiom RI-2
 	 */
-	RI2AxiomImpl createRI2Axiom(int leftPropertyId, int rightPropertyId, Set<Annotation> annotations);
+	RI2Axiom createRI2Axiom(int leftPropertyId, int rightPropertyId, Set<Annotation> annotations);
 
 	/**
 	 * Constructs a new RI-3 axiom.
@@ -191,7 +191,7 @@ public interface NormalizedIntegerAxiomFactory {
 	 *            annotations
 	 * @return a new RI-3 axiom
 	 */
-	RI3AxiomImpl createRI3Axiom(int leftLeftPropertyId, int leftRightPropertyId, int rightPropertyId,
+	RI3Axiom createRI3Axiom(int leftLeftPropertyId, int leftRightPropertyId, int rightPropertyId,
 			Set<Annotation> annotations);
 
 }

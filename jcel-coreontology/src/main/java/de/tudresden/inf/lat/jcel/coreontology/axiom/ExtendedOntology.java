@@ -192,7 +192,7 @@ public interface ExtendedOntology {
 	 * @return the set of all axioms RI2 in the ontology such that the given
 	 *         object property occurs in the left part of the axiom
 	 */
-	Set<RI2AxiomImpl> getRI2rAxioms(int objectPropertyId);
+	Set<RI2Axiom> getRI2rAxioms(int objectPropertyId);
 
 	/**
 	 * Returns the set of all axioms RI2 in the ontology such that the given
@@ -205,7 +205,7 @@ public interface ExtendedOntology {
 	 * @return the set of all axioms RI2 in the ontology such that the given
 	 *         object property occurs in the right part of the axiom
 	 */
-	Set<RI2AxiomImpl> getRI2sAxioms(int objectPropertyId);
+	Set<RI2Axiom> getRI2sAxioms(int objectPropertyId);
 
 	/**
 	 * Returns the set of all axioms RI3 in the ontology such that the given
@@ -220,7 +220,7 @@ public interface ExtendedOntology {
 	 *         object property occurs in the left part of the object property
 	 *         composition, in the left part of the axiom
 	 */
-	Set<RI3AxiomImpl> getRI3AxiomsByLeft(int objectPropertyId);
+	Set<RI3Axiom> getRI3AxiomsByLeft(int objectPropertyId);
 
 	/**
 	 * Returns the set of all axioms RI3 in the ontology such that the given
@@ -235,7 +235,7 @@ public interface ExtendedOntology {
 	 *         object property occurs in the right part of the object property
 	 *         composition, in the left part of the axiom
 	 */
-	Set<RI3AxiomImpl> getRI3AxiomsByRight(int objectPropertyId);
+	Set<RI3Axiom> getRI3AxiomsByRight(int objectPropertyId);
 
 	/**
 	 * Returns the set of all transitive object properties in the ontology.

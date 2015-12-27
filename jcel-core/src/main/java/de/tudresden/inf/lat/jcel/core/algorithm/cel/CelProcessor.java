@@ -68,7 +68,6 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2AxiomImpl;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 
@@ -213,7 +212,7 @@ public class CelProcessor implements Processor {
 		propertyIdSet.forEach(index -> ret.addAncestor(index, topObjectPropertyId));
 		axiomSet.forEach(axiom -> {
 			if (axiom instanceof RI2Axiom) {
-				RI2AxiomImpl current = (RI2AxiomImpl) axiom;
+				RI2Axiom current = (RI2Axiom) axiom;
 				ret.addAncestor(current.getSubProperty(), current.getSuperProperty());
 			}
 		});

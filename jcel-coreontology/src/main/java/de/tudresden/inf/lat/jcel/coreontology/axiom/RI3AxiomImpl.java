@@ -100,10 +100,12 @@ public class RI3AxiomImpl implements RI3Axiom {
 	@Override
 	public boolean equals(Object obj) {
 		boolean ret = (this == obj);
-		if (!ret && (obj instanceof RI3AxiomImpl)) {
-			RI3AxiomImpl other = (RI3AxiomImpl) obj;
-			ret = (this.leftSubProperty == other.leftSubProperty) && (this.rightSubProperty == other.rightSubProperty)
-					&& (this.superProperty == other.superProperty) && this.annotations.equals(other.annotations);
+		if (!ret && (obj instanceof RI3Axiom)) {
+			RI3Axiom other = (RI3Axiom) obj;
+			ret = (getLeftSubProperty() == other.getLeftSubProperty())
+					&& (getRightSubProperty() == other.getRightSubProperty())
+					&& (getSuperProperty() == other.getSuperProperty())
+					&& getAnnotations().equals(other.getAnnotations());
 		}
 		return ret;
 	}

@@ -125,7 +125,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	T visit(RI1AxiomImpl axiom);
+	T visit(RI1Axiom axiom);
 
 	/**
 	 * Visits an RI-2 axiom.
@@ -134,7 +134,7 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	T visit(RI2AxiomImpl axiom);
+	T visit(RI2Axiom axiom);
 
 	/**
 	 * Visits an RI-3 axiom.
@@ -143,6 +143,6 @@ public interface NormalizedIntegerAxiomVisitor<T> {
 	 *            axiom
 	 * @return the visit result
 	 */
-	T visit(RI3AxiomImpl axiom);
+	T visit(RI3Axiom axiom);
 
 }
