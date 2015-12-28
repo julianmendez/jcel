@@ -6,7 +6,7 @@
 **jcel** is a reasoner for the [description logic](http://dl.kr.org) EL+. It uses the [OWL API](http://owlcs.github.io/owlapi/) and can be used as a plug-in for [Protege](http://protege.stanford.edu/).
 
 
-## download
+## Download
 * [all-in-one ZIP file](http://sourceforge.net/projects/jcel/files/jcel/0.23.2/zip/jcel-0.23.2.zip/download)
 * [The Central Repository](https://repo1.maven.org/maven2/de/tu-dresden/inf/lat/jcel/)
 * [older releases](http://sourceforge.net/projects/jcel/files/)
@@ -20,15 +20,15 @@
 ```
 
 
-## author
+## Author
 [Julian Mendez](http://lat.inf.tu-dresden.de/~mendez/)
 
 
-## licenses
+## Licenses
 [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt), [LGPL 3.0](http://www.gnu.org/licenses/lgpl-3.0.txt)
 
 
-## main features
+## Main features
 
 * is an [OWL 2 EL](http://www.w3.org/2007/OWL/wiki/OWL_Working_Group) reasoner (albeit currently with some limitations)
 * uses the [OWL API](http://owlapi.sourceforge.net)
@@ -38,14 +38,14 @@
 * evaluated by the [SEALS Community](http://www.seals-project.eu/news/storage-and-reasoning-systems-news) having the lowest Average Reasoning Time in 2010
 
 
-## suggested technologies
+## Suggested technologies
 
 * [Java Development Kit 8](http://java.sun.com/) (or higher)
 * [Apache Maven 3.0.3](http://maven.apache.org/) (or higher)
 * [Eclipse Mars](http://www.eclipse.org/) (or higher)
 
 
-## source code
+## Source code
 
 The project is hosted on [GitHub](https://github.com/julianmendez/jcel). To checkout and compile the project with [Apache Maven](http://maven.apache.org/):
 ```
@@ -88,7 +88,7 @@ where *NEW_VERSION* is the new version.
 The file [VersionInfo.java](https://github.com/julianmendez/jcel/blob/master/jcel-reasoner/src/main/java/de/tudresden/inf/lat/jcel/reasoner/main/VersionInfo.java) is updated manually.
 
 
-## modules
+## Modules
 
 The version under development has the following modules:
 
@@ -107,7 +107,7 @@ It also has the following module used to build the release:
 * **jcel-distribution** : module to create the release, a single ZIP file
 
 
-## example
+## Example
 
 This [file](http://julianmendez.github.io/jcel/data/start-jcel.sh.txt) is an example of how to start jcel.
 
@@ -122,7 +122,7 @@ Ontologies:
 * [SNOMED CT](http://www.ihtsdo.org/our-standards/)
 
 
-## algorithm
+## Algorithm
 * translate OWL API axioms into jcel axioms, which are composed by integer numbers
 * detect the expressivity used in the axioms
 * apply normalization rules to the set of axioms, producing a set of normalized axioms and auxiliary entities if necessary
@@ -134,12 +134,12 @@ Ontologies:
 * create OWL API data structures based on the jcel's integer representation
 
 
-## package dependencies
+## Package dependencies
 
 If we consider each package as a node, and each dependency between two packages as a directed edge, the structure of package dependency should be a directed acyclic graph (DAG). The packages should only make public those classes that are or could be used by another package preserving the DAG structure.
 
 
-## references
+## References
 
 * Theoretical foundation:
  * [Master's thesis by J. A. Mendez](http://lat.inf.tu-dresden.de/research/mas/Men-Mas-11.pdf)
@@ -150,26 +150,26 @@ If we consider each package as a node, and each dependency between two packages 
 * OWL 2: [OWL Working Group](http://www.w3.org/2007/OWL/wiki/OWL_Working_Group)
 
 
-## release notes
+## Release notes
 See [release notes](http://github.com/julianmendez/jcel/blob/master/RELEASE-NOTES.md).
 
 
-## older versions
+## Older versions
 * [Git SHA](http://julianmendez.github.io/jcel/data/gitsha.txt) 
 * [old SVN revision](http://julianmendez.github.io/jcel/data/svnrev.txt)
 * [releases](http://sourceforge.net/projects/jcel/files/)
 
 
-## more information
+## More information
 * [Frequently Asked Questions](http://julianmendez.github.io/jcel/data/faq.md)
 
 
-## support
+## Support
 
 Any bug, or unexpected behavior can be reported to the e-mail addresses at this [web page](http://lat.inf.tu-dresden.de/~mendez). Questions and suggestions are also very welcome.
 
 
-## news
+## News
 [@jcelreasoner](https://twitter.com/jcelreasoner)
 
 
