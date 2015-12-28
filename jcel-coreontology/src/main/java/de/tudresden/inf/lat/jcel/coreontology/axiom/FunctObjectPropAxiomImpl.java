@@ -85,12 +85,14 @@ public class FunctObjectPropAxiomImpl implements FunctObjectPropAxiom {
 
 	@Override
 	public boolean equals(Object obj) {
-		boolean ret = false;
-		if (obj instanceof FunctObjectPropAxiom) {
+		if (this == obj) {
+			return true;
+		} else if (!(obj instanceof FunctObjectPropAxiom)) {
+			return false;
+		} else {
 			FunctObjectPropAxiom other = (FunctObjectPropAxiom) obj;
-			ret = (getProperty() == other.getProperty()) && getAnnotations().equals(other.getAnnotations());
+			return (getProperty() == other.getProperty()) && getAnnotations().equals(other.getAnnotations());
 		}
-		return ret;
 	}
 
 	@Override
