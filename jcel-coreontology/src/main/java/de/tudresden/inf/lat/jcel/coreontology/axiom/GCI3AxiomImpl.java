@@ -54,12 +54,10 @@ import java.util.Set;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
 
 /**
- * Axiom of the form:
- * <ul>
- * <li>&exist; r <i>.</i> A \u2291 B</li>
- * </ul>
+ * This is the default implementation of {@link GCI3Axiom}.
  * 
  * @author Julian Mendez
+ * 
  */
 public class GCI3AxiomImpl implements GCI3Axiom {
 
@@ -117,11 +115,6 @@ public class GCI3AxiomImpl implements GCI3Axiom {
 		return Collections.unmodifiableSet(ret);
 	}
 
-	/**
-	 * Returns the class on the left-hand part of the axiom.
-	 * 
-	 * @return the class on the left-hand part of the axiom
-	 */
 	@Override
 	public int getClassInSubClass() {
 		return this.classInSubClass;
@@ -147,21 +140,11 @@ public class GCI3AxiomImpl implements GCI3Axiom {
 		return Collections.singleton(this.propertyInSubClass);
 	}
 
-	/**
-	 * Returns the object property on the left-hand part of the axiom.
-	 * 
-	 * @return the object property on the left-hand part of the axiom
-	 */
 	@Override
 	public int getPropertyInSubClass() {
 		return this.propertyInSubClass;
 	}
 
-	/**
-	 * Returns the superclass in the axiom.
-	 * 
-	 * @return the superclass in the axiom
-	 */
 	@Override
 	public int getSuperClass() {
 		return this.superClass;

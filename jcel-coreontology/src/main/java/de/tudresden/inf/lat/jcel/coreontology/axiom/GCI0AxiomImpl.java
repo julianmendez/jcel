@@ -52,12 +52,10 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Axiom of the form:
- * <ul>
- * <li>A \u2291 B</li>
- * </ul>
+ * This is the default implementation of {@link GCI0Axiom}.
  * 
  * @author Julian Mendez
+ * 
  */
 public class GCI0AxiomImpl implements GCI0Axiom {
 
@@ -129,21 +127,11 @@ public class GCI0AxiomImpl implements GCI0Axiom {
 		return Collections.emptySet();
 	}
 
-	/**
-	 * Returns the subclass in this axiom.
-	 * 
-	 * @return the subclass in this axiom
-	 */
 	@Override
 	public int getSubClass() {
 		return this.subClass;
 	}
 
-	/**
-	 * Returns the superclass in this axiom.
-	 * 
-	 * @return the superclass in this axiom
-	 */
 	@Override
 	public int getSuperClass() {
 		return this.superClass;

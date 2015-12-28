@@ -51,12 +51,10 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Axiom of the form:
- * <ul>
- * <li>range(r) \u2291 A</li>
- * </ul>
+ * This is the default implementation of {@link RangeAxiom}.
  * 
  * @author Julian Mendez
+ * 
  */
 public class RangeAxiomImpl implements RangeAxiom {
 
@@ -125,21 +123,11 @@ public class RangeAxiomImpl implements RangeAxiom {
 		return Collections.singleton(this.property);
 	}
 
-	/**
-	 * Returns the object property in the axiom.
-	 * 
-	 * @return the object property in the axiom
-	 */
 	@Override
 	public int getProperty() {
 		return this.property;
 	}
 
-	/**
-	 * Returns the class identifier in the axiom.
-	 * 
-	 * @return the class identifier in the axiom
-	 */
 	@Override
 	public int getRange() {
 		return this.range;

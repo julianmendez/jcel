@@ -52,12 +52,10 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Axiom of the form:
- * <ul>
- * <li>r \u2291 s</li>
- * </ul>
+ * This is the default implementation of {@link RI2Axiom}.
  * 
  * @author Julian Mendez
+ * 
  */
 public class RI2AxiomImpl implements RI2Axiom {
 
@@ -130,21 +128,11 @@ public class RI2AxiomImpl implements RI2Axiom {
 		return Collections.unmodifiableSet(ret);
 	}
 
-	/**
-	 * Returns the object property on the left-hand part of the axiom
-	 * 
-	 * @return the object property on the left-hand part of the axiom
-	 */
 	@Override
 	public int getSubProperty() {
 		return this.subProperty;
 	}
 
-	/**
-	 * Returns the object property on the right-hand part of the axiom
-	 * 
-	 * @return the object property on the right-hand part of the axiom
-	 */
 	@Override
 	public int getSuperProperty() {
 		return this.superProperty;

@@ -51,9 +51,10 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Axiom stating that an object property is functional.
+ * This is the default implementation of {@link FunctObjectPropAxiom}.
  * 
  * @author Julian Mendez
+ * 
  */
 public class FunctObjectPropAxiomImpl implements FunctObjectPropAxiom {
 
@@ -117,11 +118,6 @@ public class FunctObjectPropAxiomImpl implements FunctObjectPropAxiom {
 		return Collections.singleton(getProperty());
 	}
 
-	/**
-	 * Returns the object property in this axiom.
-	 * 
-	 * @return the object property in this axiom
-	 */
 	@Override
 	public int getProperty() {
 		return this.property;
