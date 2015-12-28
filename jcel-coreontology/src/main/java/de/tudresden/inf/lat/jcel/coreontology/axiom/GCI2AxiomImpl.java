@@ -54,12 +54,10 @@ import java.util.Set;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWord;
 
 /**
- * Axiom of the form:
- * <ul>
- * <li>A \u2291 &exist; r <i>.</i> B</li>
- * </ul>
+ * This is the default implementation of {@link GCI2Axiom}.
  * 
  * @author Julian Mendez
+ * 
  */
 public class GCI2AxiomImpl implements GCI2Axiom {
 

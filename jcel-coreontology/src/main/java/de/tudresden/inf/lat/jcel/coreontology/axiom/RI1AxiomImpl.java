@@ -51,12 +51,10 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Axiom of the form:
- * <ul>
- * <li>\u03B5 \u2291 r</li>
- * </ul>
+ * This is the default implementation of {@link RI1Axiom}.
  * 
  * @author Julian Mendez
+ * 
  */
 public class RI1AxiomImpl implements RI1Axiom {
 

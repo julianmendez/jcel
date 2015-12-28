@@ -46,10 +46,29 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
+/**
+ * This interface models an axiom of the form:
+ * <ul>
+ * <li>{a} &equiv; A</li>
+ * </ul>
+ * 
+ * @author Julian Mendez
+ * 
+ */
 public interface NominalAxiom extends NormalizedIntegerAxiom {
 
+	/**
+	 * Returns the class expression.
+	 * 
+	 * @return the class expression
+	 */
 	int getClassExpression();
 
+	/**
+	 * Returns the individual.
+	 * 
+	 * @return the individual
+	 */
 	int getIndividual();
 
 }

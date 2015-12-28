@@ -46,6 +46,15 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
+/**
+ * This interface models an axiom of the form:
+ * <ul>
+ * <li>r \u2291 s</li>
+ * </ul>
+ * 
+ * @author Julian Mendez
+ * 
+ */
 public interface RI2Axiom extends NormalizedIntegerAxiom {
 
 	/**

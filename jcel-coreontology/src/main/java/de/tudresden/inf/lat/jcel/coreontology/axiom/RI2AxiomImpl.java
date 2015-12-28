@@ -52,12 +52,10 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Axiom of the form:
- * <ul>
- * <li>r \u2291 s</li>
- * </ul>
+ * This is the default implementation of {@link RI2Axiom}.
  * 
  * @author Julian Mendez
+ * 
  */
 public class RI2AxiomImpl implements RI2Axiom {
 

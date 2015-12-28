@@ -46,6 +46,11 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
+/**
+ * This interface models an axiom stating that an object property is functional.
+ * 
+ * @author Julian Mendez
+ */
 public interface FunctObjectPropAxiom extends NormalizedIntegerAxiom {
 
 	/**

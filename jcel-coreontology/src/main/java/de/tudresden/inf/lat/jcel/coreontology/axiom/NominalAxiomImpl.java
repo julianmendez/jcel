@@ -51,12 +51,10 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Axiom of the form:
- * <ul>
- * <li>{a} &equiv; A</li>
- * </ul>
+ * This is the default implementation of {@link NominalAxiom}.
  * 
  * @author Julian Mendez
+ * 
  */
 public class NominalAxiomImpl implements NominalAxiom {
 

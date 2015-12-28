@@ -46,6 +46,15 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
+/**
+ * This interface models an axiom of the form:
+ * <ul>
+ * <li>range(r) \u2291 A</li>
+ * </ul>
+ * 
+ * @author Julian Mendez
+ * 
+ */
 public interface RangeAxiom extends NormalizedIntegerAxiom {
 
 	/**

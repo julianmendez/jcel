@@ -52,12 +52,10 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Axiom of the form:
- * <ul>
- * <li>A \u2291 B</li>
- * </ul>
+ * This is the default implementation of {@link GCI0Axiom}.
  * 
  * @author Julian Mendez
+ * 
  */
 public class GCI0AxiomImpl implements GCI0Axiom {
 

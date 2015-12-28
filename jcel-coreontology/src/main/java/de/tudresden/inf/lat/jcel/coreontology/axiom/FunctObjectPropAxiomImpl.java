@@ -51,9 +51,10 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Axiom stating that an object property is functional.
+ * This is the default implementation of {@link FunctObjectPropAxiom}.
  * 
  * @author Julian Mendez
+ * 
  */
 public class FunctObjectPropAxiomImpl implements FunctObjectPropAxiom {
 

@@ -51,12 +51,10 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Axiom of the form:
- * <ul>
- * <li>range(r) \u2291 A</li>
- * </ul>
+ * This is the default implementation of {@link RangeAxiom}.
  * 
  * @author Julian Mendez
+ * 
  */
 public class RangeAxiomImpl implements RangeAxiom {
 

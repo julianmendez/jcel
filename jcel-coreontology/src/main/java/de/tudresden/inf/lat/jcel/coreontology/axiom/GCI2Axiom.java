@@ -46,6 +46,15 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
+/**
+ * This interface models an axiom of the form:
+ * <ul>
+ * <li>A \u2291 &exist; r <i>.</i> B</li>
+ * </ul>
+ * 
+ * @author Julian Mendez
+ * 
+ */
 public interface GCI2Axiom extends NormalizedIntegerAxiom {
 
 	/**
