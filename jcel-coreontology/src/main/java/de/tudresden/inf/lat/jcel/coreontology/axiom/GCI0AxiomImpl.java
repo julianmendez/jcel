@@ -90,13 +90,15 @@ public class GCI0AxiomImpl implements GCI0Axiom {
 
 	@Override
 	public boolean equals(Object obj) {
-		boolean ret = (this == obj);
-		if (!ret && (obj instanceof GCI0Axiom)) {
+		if (this == obj) {
+			return true;
+		} else if (!(obj instanceof GCI0Axiom)) {
+			return false;
+		} else {
 			GCI0Axiom other = (GCI0Axiom) obj;
-			ret = (getSubClass() == other.getSubClass()) && (getSuperClass() == other.getSuperClass())
+			return (getSubClass() == other.getSubClass()) && (getSuperClass() == other.getSuperClass())
 					&& getAnnotations().equals(other.getAnnotations());
 		}
-		return ret;
 	}
 
 	@Override

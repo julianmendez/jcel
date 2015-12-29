@@ -89,13 +89,15 @@ public class NominalAxiomImpl implements NominalAxiom {
 
 	@Override
 	public boolean equals(Object obj) {
-		boolean ret = (this == obj);
-		if (!ret && (obj instanceof NominalAxiom)) {
+		if (this == obj) {
+			return true;
+		} else if (!(obj instanceof NominalAxiom)) {
+			return false;
+		} else {
 			NominalAxiom other = (NominalAxiom) obj;
-			ret = (getClassExpression() == other.getClassExpression()) && (getIndividual() == other.getIndividual())
+			return (getClassExpression() == other.getClassExpression()) && (getIndividual() == other.getIndividual())
 					&& getAnnotations().equals(other.getAnnotations());
 		}
-		return ret;
 	}
 
 	@Override
