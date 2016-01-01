@@ -1,5 +1,5 @@
 
-## release notes
+## Release notes
 
 | version | release date | Java | OWL API       | Protégé       |
 |:--------|:-------------|:----:|:--------------|:--------------|
