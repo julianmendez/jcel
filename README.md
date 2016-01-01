@@ -88,7 +88,9 @@ where *NEW_VERSION* is the new version.
 The file [VersionInfo.java](https://github.com/julianmendez/jcel/blob/master/jcel-reasoner/src/main/java/de/tudresden/inf/lat/jcel/reasoner/main/VersionInfo.java) is updated manually.
 
 
-## Modules
+## Architecture
+
+### Modules
 
 The version under development has the following modules:
 
@@ -107,6 +109,24 @@ It also has the following module used to build the release:
 * **jcel-distribution** : module to create the release, a single ZIP file
 
 
+### Algorithm
+
+* translate OWL API axioms into jcel axioms, which are composed by integer numbers
+* detect the expressivity used in the axioms
+* apply normalization rules to the set of axioms, producing a set of normalized axioms and auxiliary entities if necessary
+* saturate the set of normalized axioms with deduced object property axioms
+* create an extended ontonlogy based on the set of normalized axioms
+* apply the completion rules while there is some change in the affected sets
+* remove the auxiliary entities
+* build a graph containing direct subsumers (parents), direct subsumees (children) and equivalents
+* create OWL API data structures based on the jcel's integer representation
+
+
+### Package dependencies
+
+If we consider each package as a node, and each dependency between two packages as a directed edge, the structure of package dependency should be a directed acyclic graph (DAG). The packages should only make public those classes that are or could be used by another package preserving the DAG structure.
+
+
 ## Example
 
 This [file](http://julianmendez.github.io/jcel/data/start-jcel.sh.txt) is an example of how to start jcel.
@@ -122,34 +142,6 @@ Ontologies:
 * [SNOMED CT](http://www.ihtsdo.org/our-standards/)
 
 
-## Algorithm
-* translate OWL API axioms into jcel axioms, which are composed by integer numbers
-* detect the expressivity used in the axioms
-* apply normalization rules to the set of axioms, producing a set of normalized axioms and auxiliary entities if necessary
-* saturate the set of normalized axioms with deduced object property axioms
-* create an extended ontonlogy based on the set of normalized axioms
-* apply the completion rules while there is some change in the affected sets
-* remove the auxiliary entities
-* build a graph containing direct subsumers (parents), direct subsumees (children) and equivalents
-* create OWL API data structures based on the jcel's integer representation
-
-
-## Package dependencies
-
-If we consider each package as a node, and each dependency between two packages as a directed edge, the structure of package dependency should be a directed acyclic graph (DAG). The packages should only make public those classes that are or could be used by another package preserving the DAG structure.
-
-
-## References
-
-* Theoretical foundation:
- * [Master's thesis by J. A. Mendez](http://lat.inf.tu-dresden.de/research/mas/Men-Mas-11.pdf)
- * [Master's thesis by Q. H. Vu](http://lat.inf.tu-dresden.de/research/mas/Vu-Mas-08.pdf)
- * [Ph.D. thesis by B. Suntisrivaraporn](http://lat.inf.tu-dresden.de/research/phd/Sun-PhD-09.pdf)
-* CEL: [main page](http://lat.inf.tu-dresden.de/systems/cel) - [source code](https://github.com/julianmendez/cel)
-* OWL API: [main page](http://owlapi.sourceforge.net/) - [examples](http://owlapi.sourceforge.net/documentation.html) — [javadoc](http://owlapi.sourceforge.net/javadoc)
-* OWL 2: [OWL Working Group](http://www.w3.org/2007/OWL/wiki/OWL_Working_Group)
-
-
 ## Release notes
 See [release notes](http://github.com/julianmendez/jcel/blob/master/RELEASE-NOTES.md).
 
@@ -162,6 +154,17 @@ See [release notes](http://github.com/julianmendez/jcel/blob/master/RELEASE-NOTE
 
 ## More information
 * [Frequently Asked Questions](http://julianmendez.github.io/jcel/data/faq.md)
+
+
+## References
+
+* Theoretical foundation:
+ * [Master's thesis by J. A. Mendez](http://lat.inf.tu-dresden.de/research/mas/Men-Mas-11.pdf)
+ * [Master's thesis by Q. H. Vu](http://lat.inf.tu-dresden.de/research/mas/Vu-Mas-08.pdf)
+ * [Ph.D. thesis by B. Suntisrivaraporn](http://lat.inf.tu-dresden.de/research/phd/Sun-PhD-09.pdf)
+* CEL: [main page](http://lat.inf.tu-dresden.de/systems/cel) - [source code](https://github.com/julianmendez/cel)
+* OWL API: [main page](http://owlapi.sourceforge.net/) - [examples](http://owlapi.sourceforge.net/documentation.html) — [javadoc](http://owlapi.sourceforge.net/javadoc)
+* OWL 2: [OWL Working Group](http://www.w3.org/2007/OWL/wiki/OWL_Working_Group)
 
 
 ## Support
