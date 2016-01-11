@@ -61,7 +61,6 @@ public interface ComplexIntegerAxiomConstant {
 
 	String ClassAssertion = "ClassAssertion";
 	String ClassDeclaration = "Class";
-	String closePar = IntegerClassExpressionWord.closePar;
 	String DataPropertyAssertion = "DataPropertyAssertion";
 	String DataPropertyDeclaration = "DataProperty";
 	String Declaration = "Declaration";
@@ -77,13 +76,14 @@ public interface ComplexIntegerAxiomConstant {
 	String ObjectPropertyAssertion = "ObjectPropertyAssertion";
 	String ObjectPropertyChain = "ObjectPropertyChain";
 	String ObjectPropertyDeclaration = "ObjectProperty";
-	String openPar = IntegerClassExpressionWord.openPar;
 	String RangeAxiom = "RangeAxiom";
 	String ReflexiveObjectProperty = "ReflexiveObjectProperty";
 	String SameIndividual = "SameIndividual";
-	String sp = IntegerClassExpressionWord.sp;
 	String SubClassOf = "SubClassOf";
 	String SubObjectPropertyOf = "SubObjectPropertyOf";
 	String TransitiveObjectProperty = "TransitiveObjectProperty";
+	String LEFT_PAR = IntegerClassExpressionWord.LEFT_PAR;
+	String RIGHT_PAR = IntegerClassExpressionWord.RIGHT_PAR;
+	String SP = IntegerClassExpressionWord.SP;
 
 }

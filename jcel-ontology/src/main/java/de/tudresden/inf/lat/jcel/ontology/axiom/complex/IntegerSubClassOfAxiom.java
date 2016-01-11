@@ -176,11 +176,11 @@ public class IntegerSubClassOfAxiom implements ComplexIntegerAxiom {
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(ComplexIntegerAxiomConstant.SubClassOf);
-		sbuf.append(ComplexIntegerAxiomConstant.openPar);
+		sbuf.append(ComplexIntegerAxiomConstant.LEFT_PAR);
 		sbuf.append(getSubClass().toString());
-		sbuf.append(ComplexIntegerAxiomConstant.sp);
+		sbuf.append(ComplexIntegerAxiomConstant.SP);
 		sbuf.append(getSuperClass().toString());
-		sbuf.append(ComplexIntegerAxiomConstant.closePar);
+		sbuf.append(ComplexIntegerAxiomConstant.RIGHT_PAR);
 		return sbuf.toString();
 	}
 

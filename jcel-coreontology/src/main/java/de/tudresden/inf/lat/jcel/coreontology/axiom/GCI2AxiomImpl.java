@@ -168,16 +168,16 @@ public class GCI2AxiomImpl implements GCI2Axiom {
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(NormalizedIntegerAxiomConstant.GCI2);
-		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
+		sbuf.append(NormalizedIntegerAxiomConstant.LEFT_PAR);
 		sbuf.append(getSubClass());
-		sbuf.append(NormalizedIntegerAxiomConstant.sp);
+		sbuf.append(NormalizedIntegerAxiomConstant.SP);
 		sbuf.append(IntegerClassExpressionWord.ObjectSomeValuesFrom);
-		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
+		sbuf.append(NormalizedIntegerAxiomConstant.LEFT_PAR);
 		sbuf.append(getPropertyInSuperClass());
-		sbuf.append(NormalizedIntegerAxiomConstant.sp);
+		sbuf.append(NormalizedIntegerAxiomConstant.SP);
 		sbuf.append(getClassInSuperClass());
-		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
-		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
+		sbuf.append(NormalizedIntegerAxiomConstant.RIGHT_PAR);
+		sbuf.append(NormalizedIntegerAxiomConstant.RIGHT_PAR);
 		return sbuf.toString();
 	}
 

@@ -145,9 +145,9 @@ public class IntegerReflexiveObjectPropertyAxiom implements ComplexIntegerAxiom 
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(ComplexIntegerAxiomConstant.ReflexiveObjectProperty);
-		sbuf.append(ComplexIntegerAxiomConstant.openPar);
+		sbuf.append(ComplexIntegerAxiomConstant.LEFT_PAR);
 		sbuf.append(getProperty());
-		sbuf.append(ComplexIntegerAxiomConstant.closePar);
+		sbuf.append(ComplexIntegerAxiomConstant.RIGHT_PAR);
 		return sbuf.toString();
 	}
 

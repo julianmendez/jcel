@@ -149,11 +149,11 @@ public class NominalAxiomImpl implements NominalAxiom {
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(NormalizedIntegerAxiomConstant.NominalAxiom);
-		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
+		sbuf.append(NormalizedIntegerAxiomConstant.LEFT_PAR);
 		sbuf.append(getClassExpression());
-		sbuf.append(NormalizedIntegerAxiomConstant.sp);
+		sbuf.append(NormalizedIntegerAxiomConstant.SP);
 		sbuf.append(getIndividual());
-		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
+		sbuf.append(NormalizedIntegerAxiomConstant.RIGHT_PAR);
 		return sbuf.toString();
 	}
 

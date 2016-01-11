@@ -144,13 +144,13 @@ public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(ComplexIntegerAxiomConstant.DifferentIndividuals);
-		sbuf.append(ComplexIntegerAxiomConstant.openPar);
+		sbuf.append(ComplexIntegerAxiomConstant.LEFT_PAR);
 		Set<Integer> individualSet = getIndividuals();
 		individualSet.forEach(individual -> {
 			sbuf.append(individual.toString());
-			sbuf.append(ComplexIntegerAxiomConstant.sp);
+			sbuf.append(ComplexIntegerAxiomConstant.SP);
 		});
-		sbuf.append(ComplexIntegerAxiomConstant.closePar);
+		sbuf.append(ComplexIntegerAxiomConstant.RIGHT_PAR);
 		return sbuf.toString();
 	}
 

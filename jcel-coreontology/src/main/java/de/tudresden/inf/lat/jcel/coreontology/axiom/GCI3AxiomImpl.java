@@ -166,16 +166,16 @@ public class GCI3AxiomImpl implements GCI3Axiom {
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(NormalizedIntegerAxiomConstant.GCI3);
-		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
+		sbuf.append(NormalizedIntegerAxiomConstant.LEFT_PAR);
 		sbuf.append(IntegerClassExpressionWord.ObjectSomeValuesFrom);
-		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
+		sbuf.append(NormalizedIntegerAxiomConstant.LEFT_PAR);
 		sbuf.append(getPropertyInSubClass());
-		sbuf.append(NormalizedIntegerAxiomConstant.sp);
+		sbuf.append(NormalizedIntegerAxiomConstant.SP);
 		sbuf.append(getClassInSubClass());
-		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
-		sbuf.append(NormalizedIntegerAxiomConstant.sp);
+		sbuf.append(NormalizedIntegerAxiomConstant.RIGHT_PAR);
+		sbuf.append(NormalizedIntegerAxiomConstant.SP);
 		sbuf.append(getSuperClass());
-		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
+		sbuf.append(NormalizedIntegerAxiomConstant.RIGHT_PAR);
 		return sbuf.toString();
 	}
 

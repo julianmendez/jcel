@@ -144,9 +144,9 @@ public class IntegerObjectInverseOf implements IntegerObjectPropertyExpression, 
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(IntegerClassExpressionWord.ObjectInverseOf);
-		sbuf.append(IntegerClassExpressionWord.openPar);
+		sbuf.append(IntegerClassExpressionWord.LEFT_PAR);
 		sbuf.append(getInverse().toString());
-		sbuf.append(IntegerClassExpressionWord.closePar);
+		sbuf.append(IntegerClassExpressionWord.RIGHT_PAR);
 		return sbuf.toString();
 	}
 
