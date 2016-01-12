@@ -49,6 +49,9 @@ package de.tudresden.inf.lat.jcel.coreontology.axiom;
 /**
  * This class models a visitor of <code>NormalizedIntegerAxiom</code>.
  * 
+ * @param <T>
+ *            result type
+ * 
  * @author Julian Mendez
  * 
  * @see NormalizedIntegerAxiom

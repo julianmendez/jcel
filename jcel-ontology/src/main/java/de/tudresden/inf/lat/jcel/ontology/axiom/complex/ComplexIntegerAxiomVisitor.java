@@ -49,6 +49,9 @@ package de.tudresden.inf.lat.jcel.ontology.axiom.complex;
 /**
  * This class models a visitor of <code>ComplexIntegerAxiom</code>.
  * 
+ * @param <T>
+ *            result type
+ * 
  * @author Julian Mendez
  * 
  * @see ComplexIntegerAxiom

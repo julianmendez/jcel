@@ -89,9 +89,7 @@ class IdentifierCollector {
 	/**
 	 * Returns the class identifiers found on the left-hand side of the given
 	 * axiom.
-	 * 
-	 * @param axiom
-	 *            axiom
+	 *
 	 * @return the class identifiers found on the left-hand side of the given
 	 *         axiom
 	 */
@@ -103,8 +101,6 @@ class IdentifierCollector {
 	 * Returns the class identifiers found on the right-hand side of the given
 	 * axiom.
 	 * 
-	 * @param axiom
-	 *            axiom
 	 * @return the class identifiers found on the right-hand side of the given
 	 *         axiom
 	 */
@@ -116,8 +112,6 @@ class IdentifierCollector {
 	 * Returns the object property identifiers found on the left-hand side of
 	 * the given axiom.
 	 * 
-	 * @param axiom
-	 *            axiom
 	 * @return the object property identifiers found on the left-hand side of
 	 *         the given axiom
 	 */
@@ -129,8 +123,6 @@ class IdentifierCollector {
 	 * Returns the object property found on the right-hand side of the given
 	 * axiom.
 	 * 
-	 * @param axiom
-	 *            axiom
 	 * @return the object property identifiers found on the right-hand side of
 	 *         the given axiom
 	 */
