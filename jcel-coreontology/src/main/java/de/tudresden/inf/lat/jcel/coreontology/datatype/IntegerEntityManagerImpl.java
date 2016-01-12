@@ -257,8 +257,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	}
 
 	@Override
-	public boolean proposeInverseObjectPropertyOf(Integer firstProperty, Integer secondProperty)
-			throws IndexOutOfBoundsException {
+	public boolean proposeInverseObjectPropertyOf(Integer firstProperty, Integer secondProperty) {
 		Objects.requireNonNull(firstProperty);
 		Objects.requireNonNull(secondProperty);
 		boolean ret = false;
