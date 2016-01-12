@@ -154,13 +154,13 @@ public class IntegerEquivalentObjectPropertiesAxiom implements ComplexIntegerAxi
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(ComplexIntegerAxiomConstant.EquivalentProperties);
-		sbuf.append(ComplexIntegerAxiomConstant.openPar);
+		sbuf.append(ComplexIntegerAxiomConstant.LEFT_PAR);
 		Set<IntegerObjectPropertyExpression> propertySet = getProperties();
 		propertySet.forEach(property -> {
 			sbuf.append(property);
-			sbuf.append(ComplexIntegerAxiomConstant.sp);
+			sbuf.append(ComplexIntegerAxiomConstant.SP);
 		});
-		sbuf.append(ComplexIntegerAxiomConstant.closePar);
+		sbuf.append(ComplexIntegerAxiomConstant.RIGHT_PAR);
 		return sbuf.toString();
 	}
 

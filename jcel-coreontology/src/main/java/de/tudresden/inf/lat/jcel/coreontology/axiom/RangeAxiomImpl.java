@@ -149,11 +149,11 @@ public class RangeAxiomImpl implements RangeAxiom {
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(NormalizedIntegerAxiomConstant.NormalizedRangeAxiom);
-		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
+		sbuf.append(NormalizedIntegerAxiomConstant.LEFT_PAR);
 		sbuf.append(getProperty());
-		sbuf.append(NormalizedIntegerAxiomConstant.sp);
+		sbuf.append(NormalizedIntegerAxiomConstant.SP);
 		sbuf.append(getRange());
-		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
+		sbuf.append(NormalizedIntegerAxiomConstant.RIGHT_PAR);
 		return sbuf.toString();
 	}
 

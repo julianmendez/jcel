@@ -55,14 +55,14 @@ package de.tudresden.inf.lat.jcel.coreontology.datatype;
  */
 public interface IntegerClassExpressionWord {
 
-	String closePar = ")";
 	String DataHasValue = "DataHasValue";
 	String DataSomeValuesFrom = "DataSomeValuesFrom";
 	String ObjectIntersectionOf = "ObjectIntersectionOf";
 	String ObjectInverseOf = "ObjectInverseOf";
 	String ObjectOneOf = "ObjectOneOf";
 	String ObjectSomeValuesFrom = "ObjectSomeValuesFrom";
-	String openPar = "(";
-	String sp = " ";
+	String LEFT_PAR = "(";
+	String RIGHT_PAR = ")";
+	String SP = " ";
 
 }

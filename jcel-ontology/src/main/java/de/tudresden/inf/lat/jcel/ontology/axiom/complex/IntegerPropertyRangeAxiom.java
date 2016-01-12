@@ -175,11 +175,11 @@ public class IntegerPropertyRangeAxiom implements ComplexIntegerAxiom {
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(ComplexIntegerAxiomConstant.RangeAxiom);
-		sbuf.append(ComplexIntegerAxiomConstant.openPar);
+		sbuf.append(ComplexIntegerAxiomConstant.LEFT_PAR);
 		sbuf.append(getProperty());
-		sbuf.append(ComplexIntegerAxiomConstant.sp);
+		sbuf.append(ComplexIntegerAxiomConstant.SP);
 		sbuf.append(getRange().toString());
-		sbuf.append(ComplexIntegerAxiomConstant.closePar);
+		sbuf.append(ComplexIntegerAxiomConstant.RIGHT_PAR);
 		return sbuf.toString();
 	}
 

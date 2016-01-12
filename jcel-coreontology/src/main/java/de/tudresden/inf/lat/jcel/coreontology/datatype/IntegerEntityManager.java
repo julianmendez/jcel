@@ -225,8 +225,7 @@ public interface IntegerEntityManager {
 	 *            an object property
 	 * @return <code>true</code> if and only if the proposal was accepted
 	 */
-	boolean proposeInverseObjectPropertyOf(Integer firstProperty, Integer secondProperty)
-			throws IndexOutOfBoundsException;
+	boolean proposeInverseObjectPropertyOf(Integer firstProperty, Integer secondProperty);
 
 	/**
 	 * Returns the number of created entities, either auxiliary or

@@ -1,15 +1,15 @@
-# [jcel](http://julianmendez.github.io/jcel/)
+# [jcel](https://julianmendez.github.io/jcel/)
 
 [![Build Status](https://travis-ci.org/julianmendez/jcel.png?branch=master)](https://travis-ci.org/julianmendez/jcel)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.tu-dresden.inf.lat.jcel/jcel-parent/badge.svg)](http://search.maven.org/#search|ga|1|g%3A%22de.tu-dresden.inf.lat.jcel%22)
 
-**jcel** is a reasoner for the [description logic](http://dl.kr.org) EL+. It uses the [OWL API](http://owlcs.github.io/owlapi/) and can be used as a plug-in for [Protege](http://protege.stanford.edu/).
+**jcel** is a reasoner for the [description logic](http://dl.kr.org) EL+. It uses the [OWL API](https://owlcs.github.io/owlapi/) and can be used as a plug-in for [Protege](http://protege.stanford.edu/).
 
 
 ## Download
-* [all-in-one ZIP file](http://sourceforge.net/projects/jcel/files/jcel/0.23.2/zip/jcel-0.23.2.zip/download)
+* [all-in-one ZIP file](https://sourceforge.net/projects/jcel/files/jcel/0.23.2/zip/jcel-0.23.2.zip/download)
 * [The Central Repository](https://repo1.maven.org/maven2/de/tu-dresden/inf/lat/jcel/)
-* [older releases](http://sourceforge.net/projects/jcel/files/)
+* [older releases](https://sourceforge.net/projects/jcel/files/)
 * as dependency:
 ```xml
 <dependency>
@@ -25,15 +25,15 @@
 
 
 ## Licenses
-[Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt), [LGPL 3.0](http://www.gnu.org/licenses/lgpl-3.0.txt)
+[Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt), [LGPL 3.0](https://www.gnu.org/licenses/lgpl-3.0.txt)
 
 
 ## Main features
 
 * is an [OWL 2 EL](http://www.w3.org/2007/OWL/wiki/OWL_Working_Group) reasoner (albeit currently with some limitations)
-* uses the [OWL API](http://owlapi.sourceforge.net)
+* uses the [OWL API](https://owlapi.sourceforge.net)
 * can be used in [Prot&eacute;g&eacute;](http://protege.stanford.edu)
-* is free software and is licensed under [GNU Lesser General Public License version 3](http://www.gnu.org/licenses/lgpl.txt) and [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
+* is free software and is licensed under [GNU Lesser General Public License version 3](https://www.gnu.org/licenses/lgpl.txt) and [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt)
 * is fully implemented in [Java](http://www.oracle.com/us/technologies/java/standard-edition/overview/index.html)
 * evaluated by the [SEALS Community](http://www.seals-project.eu/news/storage-and-reasoning-systems-news) having the lowest Average Reasoning Time in 2010
 
@@ -41,13 +41,13 @@
 ## Suggested technologies
 
 * [Java Development Kit 8](http://java.sun.com/) (or higher)
-* [Apache Maven 3.0.3](http://maven.apache.org/) (or higher)
-* [Eclipse Mars](http://www.eclipse.org/) (or higher)
+* [Apache Maven 3.0.3](https://maven.apache.org/) (or higher)
+* [Eclipse Mars](https://www.eclipse.org/) (or higher)
 
 
 ## Source code
 
-The project is hosted on [GitHub](https://github.com/julianmendez/jcel). To checkout and compile the project with [Apache Maven](http://maven.apache.org/):
+The project is hosted on [GitHub](https://github.com/julianmendez/jcel). To checkout and compile the project with [Apache Maven](https://maven.apache.org/):
 ```
 $ git clone https://github.com/julianmendez/jcel.git
 $ cd jcel
@@ -88,7 +88,9 @@ where *NEW_VERSION* is the new version.
 The file [VersionInfo.java](https://github.com/julianmendez/jcel/blob/master/jcel-reasoner/src/main/java/de/tudresden/inf/lat/jcel/reasoner/main/VersionInfo.java) is updated manually.
 
 
-## Modules
+## Architecture
+
+### Modules
 
 The version under development has the following modules:
 
@@ -107,22 +109,8 @@ It also has the following module used to build the release:
 * **jcel-distribution** : module to create the release, a single ZIP file
 
 
-## Example
+### Algorithm
 
-This [file](http://julianmendez.github.io/jcel/data/start-jcel.sh.txt) is an example of how to start jcel.
-
-This [file](http://julianmendez.github.io/jcel/data/example.owl) is an example ontology using ELHIfR+.
-
-Ontologies:
-* [Gene Ontology](http://www.geneontology.org/): input [owl](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/geneontology.owl.zip) [krss](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/go.cel.zip), output [xml](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/geneontology-inferred-0.12.0.xml.zip)
-* [NCI Thesaurus](http://ncit.nci.nih.gov/): input [owl](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/nci.owl.zip), output [xml](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/nci-inferred-0.12.0.xml.zip)
-* [CEL GALEN](http://www.opengalen.org/): input [owl](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen.owl.zip) [krss](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen.cel.zip), output [xml](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen-inferred-0.12.0.xml.zip)
-* Not GALEN: input [owl](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/notgalen.owl.zip) [krss](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/notgalen.cel.zip), output [xml](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/notgalen-inferred-0.12.0.xml.zip)
-* [Foundational Model of Anatomy](http://sig.biostr.washington.edu/projects/fm/)
-* [SNOMED CT](http://www.ihtsdo.org/our-standards/)
-
-
-## Algorithm
 * translate OWL API axioms into jcel axioms, which are composed by integer numbers
 * detect the expressivity used in the axioms
 * apply normalization rules to the set of axioms, producing a set of normalized axioms and auxiliary entities if necessary
@@ -134,9 +122,38 @@ Ontologies:
 * create OWL API data structures based on the jcel's integer representation
 
 
-## Package dependencies
+### Package dependencies
 
 If we consider each package as a node, and each dependency between two packages as a directed edge, the structure of package dependency should be a directed acyclic graph (DAG). The packages should only make public those classes that are or could be used by another package preserving the DAG structure.
+
+
+## Example
+
+This [file](https://julianmendez.github.io/jcel/data/start-jcel.sh.txt) is an example of how to start jcel.
+
+This [file](https://julianmendez.github.io/jcel/data/example.owl) is an example ontology using ELHIfR+.
+
+Ontologies:
+* [Gene Ontology](http://www.geneontology.org/): input [owl](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/geneontology.owl.zip) [krss](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/go.cel.zip), output [xml](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/geneontology-inferred-0.12.0.xml.zip)
+* [NCI Thesaurus](https://ncit.nci.nih.gov/ncitbrowser/): input [owl](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/nci.owl.zip), output [xml](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/nci-inferred-0.12.0.xml.zip)
+* [CEL GALEN](http://www.opengalen.org/): input [owl](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen.owl.zip) [krss](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen.cel.zip), output [xml](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen-inferred-0.12.0.xml.zip)
+* Not GALEN: input [owl](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/notgalen.owl.zip) [krss](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/notgalen.cel.zip), output [xml](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/notgalen-inferred-0.12.0.xml.zip)
+* [Foundational Model of Anatomy](http://sig.biostr.washington.edu/projects/fm/)
+* [SNOMED CT](http://www.ihtsdo.org/our-standards/)
+
+
+## Release notes
+See [release notes](https://github.com/julianmendez/jcel/blob/master/RELEASE-NOTES.md).
+
+
+## Older versions
+* [Git SHA](https://julianmendez.github.io/jcel/data/gitsha.txt) 
+* [old SVN revision](https://julianmendez.github.io/jcel/data/svnrev.txt)
+* [releases](https://sourceforge.net/projects/jcel/files/)
+
+
+## More information
+* [Frequently Asked Questions](https://julianmendez.github.io/jcel/data/faq.md)
 
 
 ## References
@@ -146,22 +163,8 @@ If we consider each package as a node, and each dependency between two packages 
  * [Master's thesis by Q. H. Vu](http://lat.inf.tu-dresden.de/research/mas/Vu-Mas-08.pdf)
  * [Ph.D. thesis by B. Suntisrivaraporn](http://lat.inf.tu-dresden.de/research/phd/Sun-PhD-09.pdf)
 * CEL: [main page](http://lat.inf.tu-dresden.de/systems/cel) - [source code](https://github.com/julianmendez/cel)
-* OWL API: [main page](http://owlapi.sourceforge.net/) - [examples](http://owlapi.sourceforge.net/documentation.html) — [javadoc](http://owlapi.sourceforge.net/javadoc)
+* OWL API: [main page](https://owlapi.sourceforge.net/) - [examples](https://owlapi.sourceforge.net/documentation.html) — [javadoc](https://owlapi.sourceforge.net/javadoc)
 * OWL 2: [OWL Working Group](http://www.w3.org/2007/OWL/wiki/OWL_Working_Group)
-
-
-## Release notes
-See [release notes](http://github.com/julianmendez/jcel/blob/master/RELEASE-NOTES.md).
-
-
-## Older versions
-* [Git SHA](http://julianmendez.github.io/jcel/data/gitsha.txt) 
-* [old SVN revision](http://julianmendez.github.io/jcel/data/svnrev.txt)
-* [releases](http://sourceforge.net/projects/jcel/files/)
-
-
-## More information
-* [Frequently Asked Questions](http://julianmendez.github.io/jcel/data/faq.md)
 
 
 ## Support

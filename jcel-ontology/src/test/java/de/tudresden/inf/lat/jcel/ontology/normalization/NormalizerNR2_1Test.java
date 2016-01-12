@@ -67,7 +67,6 @@ import junit.framework.TestCase;
  * 
  * @author Julian Mendez
  * 
- * @see NormalizerNR2_1
  */
 public class NormalizerNR2_1Test extends TestCase {
 

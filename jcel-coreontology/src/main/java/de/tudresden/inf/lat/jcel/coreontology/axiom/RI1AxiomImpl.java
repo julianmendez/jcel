@@ -139,11 +139,11 @@ public class RI1AxiomImpl implements RI1Axiom {
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(NormalizedIntegerAxiomConstant.RI1);
-		sbuf.append(NormalizedIntegerAxiomConstant.openPar);
+		sbuf.append(NormalizedIntegerAxiomConstant.LEFT_PAR);
 		sbuf.append(NormalizedIntegerAxiomConstant.emptyProp);
-		sbuf.append(NormalizedIntegerAxiomConstant.sp);
+		sbuf.append(NormalizedIntegerAxiomConstant.SP);
 		sbuf.append(getSuperProperty());
-		sbuf.append(NormalizedIntegerAxiomConstant.closePar);
+		sbuf.append(NormalizedIntegerAxiomConstant.RIGHT_PAR);
 		return sbuf.toString();
 	}
 

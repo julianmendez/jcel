@@ -146,9 +146,9 @@ public class IntegerObjectOneOf implements IntegerClassExpression {
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(IntegerClassExpressionWord.ObjectOneOf);
-		sbuf.append(IntegerClassExpressionWord.openPar);
+		sbuf.append(IntegerClassExpressionWord.LEFT_PAR);
 		sbuf.append(getIndividual());
-		sbuf.append(IntegerClassExpressionWord.closePar);
+		sbuf.append(IntegerClassExpressionWord.RIGHT_PAR);
 		return sbuf.toString();
 	}
 

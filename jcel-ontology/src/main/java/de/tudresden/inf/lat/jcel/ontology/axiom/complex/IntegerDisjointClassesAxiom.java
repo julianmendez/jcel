@@ -161,13 +161,13 @@ public class IntegerDisjointClassesAxiom implements ComplexIntegerAxiom {
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(ComplexIntegerAxiomConstant.DisjointClasses);
-		sbuf.append(ComplexIntegerAxiomConstant.openPar);
+		sbuf.append(ComplexIntegerAxiomConstant.LEFT_PAR);
 		Set<IntegerClassExpression> classExpressionSet = getClassExpressions();
 		classExpressionSet.forEach(classExpression -> {
 			sbuf.append(classExpression.toString());
-			sbuf.append(ComplexIntegerAxiomConstant.sp);
+			sbuf.append(ComplexIntegerAxiomConstant.SP);
 		});
-		sbuf.append(ComplexIntegerAxiomConstant.closePar);
+		sbuf.append(ComplexIntegerAxiomConstant.RIGHT_PAR);
 		return sbuf.toString();
 	}
 

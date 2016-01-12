@@ -182,13 +182,13 @@ public class IntegerNegativeObjectPropertyAssertionAxiom implements ComplexInteg
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(ComplexIntegerAxiomConstant.NegativeObjectPropertyAssertion);
-		sbuf.append(ComplexIntegerAxiomConstant.openPar);
+		sbuf.append(ComplexIntegerAxiomConstant.LEFT_PAR);
 		sbuf.append(getProperty().toString());
-		sbuf.append(ComplexIntegerAxiomConstant.sp);
+		sbuf.append(ComplexIntegerAxiomConstant.SP);
 		sbuf.append(getSubject().toString());
-		sbuf.append(ComplexIntegerAxiomConstant.sp);
+		sbuf.append(ComplexIntegerAxiomConstant.SP);
 		sbuf.append(getObject().toString());
-		sbuf.append(ComplexIntegerAxiomConstant.closePar);
+		sbuf.append(ComplexIntegerAxiomConstant.RIGHT_PAR);
 		return sbuf.toString();
 	}
 

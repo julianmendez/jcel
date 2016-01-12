@@ -170,7 +170,7 @@ public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(IntegerClassExpressionWord.ObjectIntersectionOf);
-		sbuf.append(IntegerClassExpressionWord.openPar);
+		sbuf.append(IntegerClassExpressionWord.LEFT_PAR);
 		for (Iterator<IntegerClassExpression> it = getOperands().iterator(); it.hasNext();) {
 			IntegerClassExpression classExpression = it.next();
 			sbuf.append(classExpression.toString());
@@ -178,7 +178,7 @@ public class IntegerObjectIntersectionOf implements IntegerClassExpression {
 				sbuf.append(" ");
 			}
 		}
-		sbuf.append(IntegerClassExpressionWord.closePar);
+		sbuf.append(IntegerClassExpressionWord.RIGHT_PAR);
 		return sbuf.toString();
 	}
 

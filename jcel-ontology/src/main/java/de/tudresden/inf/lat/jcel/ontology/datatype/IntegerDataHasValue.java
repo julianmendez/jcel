@@ -162,11 +162,11 @@ public class IntegerDataHasValue implements IntegerClassExpression {
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(IntegerClassExpressionWord.DataHasValue);
-		sbuf.append(IntegerClassExpressionWord.openPar);
+		sbuf.append(IntegerClassExpressionWord.LEFT_PAR);
 		sbuf.append(getProperty());
-		sbuf.append(IntegerClassExpressionWord.sp);
+		sbuf.append(IntegerClassExpressionWord.SP);
 		sbuf.append(getValue());
-		sbuf.append(IntegerClassExpressionWord.closePar);
+		sbuf.append(IntegerClassExpressionWord.RIGHT_PAR);
 		return sbuf.toString();
 	}
 

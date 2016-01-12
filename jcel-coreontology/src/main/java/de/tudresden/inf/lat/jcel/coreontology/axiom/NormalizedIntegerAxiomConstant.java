@@ -59,7 +59,6 @@ import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerClassExpressionWor
 
 public interface NormalizedIntegerAxiomConstant {
 
-	String closePar = IntegerClassExpressionWord.closePar;
 	String emptyProp = "()";
 	String FunctionalObjectProperty = "FunctionalObjectProperty*";
 	String GCI0 = "SubClassOf*";
@@ -68,10 +67,11 @@ public interface NormalizedIntegerAxiomConstant {
 	String GCI3 = "SubClassOf*";
 	String NominalAxiom = "NominalAxiom*";
 	String NormalizedRangeAxiom = "RangeAxiom*";
-	String openPar = IntegerClassExpressionWord.openPar;
 	String RI1 = "SubObjectPropertyOf*";
 	String RI2 = "SubObjectPropertyOf*";
 	String RI3 = "SubObjectPropertyOf*";
-	String sp = IntegerClassExpressionWord.sp;
+	String LEFT_PAR = IntegerClassExpressionWord.LEFT_PAR;
+	String RIGHT_PAR = IntegerClassExpressionWord.RIGHT_PAR;
+	String SP = IntegerClassExpressionWord.SP;
 
 }

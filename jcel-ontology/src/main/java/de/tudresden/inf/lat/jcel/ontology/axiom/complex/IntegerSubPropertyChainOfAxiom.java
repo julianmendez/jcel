@@ -168,18 +168,18 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append(ComplexIntegerAxiomConstant.SubObjectPropertyOf);
-		sbuf.append(ComplexIntegerAxiomConstant.openPar);
+		sbuf.append(ComplexIntegerAxiomConstant.LEFT_PAR);
 		sbuf.append(ComplexIntegerAxiomConstant.ObjectPropertyChain);
-		sbuf.append(ComplexIntegerAxiomConstant.openPar);
+		sbuf.append(ComplexIntegerAxiomConstant.LEFT_PAR);
 		List<IntegerObjectPropertyExpression> propertyList = getPropertyChain();
 		propertyList.forEach(property -> {
 			sbuf.append(property.toString());
-			sbuf.append(ComplexIntegerAxiomConstant.sp);
+			sbuf.append(ComplexIntegerAxiomConstant.SP);
 		});
-		sbuf.append(ComplexIntegerAxiomConstant.closePar);
-		sbuf.append(ComplexIntegerAxiomConstant.sp);
+		sbuf.append(ComplexIntegerAxiomConstant.RIGHT_PAR);
+		sbuf.append(ComplexIntegerAxiomConstant.SP);
 		sbuf.append(getSuperProperty());
-		sbuf.append(ComplexIntegerAxiomConstant.closePar);
+		sbuf.append(ComplexIntegerAxiomConstant.RIGHT_PAR);
 		return sbuf.toString();
 	}
 
