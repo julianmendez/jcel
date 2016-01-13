@@ -105,6 +105,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 * 
 	 * @throws OWLOntologyCreationException
+	 *             if something goes wrong with the ontology creation
 	 */
 	public void testTinyOntology0() throws OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -146,6 +147,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 * 
 	 * @throws OWLOntologyCreationException
+	 *             if something goes wrong with the ontology creation
 	 */
 	public void testTinyOntology1() throws OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -190,6 +192,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 * 
 	 * @throws OWLOntologyCreationException
+	 *             if something goes wrong with the ontology creation
 	 */
 	public void testTinyOntology2() throws OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -230,6 +233,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 * 
 	 * @throws OWLOntologyCreationException
+	 *             if something goes wrong with the ontology creation
 	 */
 	public void testTinyOntology3() throws OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -274,6 +278,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 * 
 	 * @throws OWLOntologyCreationException
+	 *             if something goes wrong with the ontology creation
 	 */
 	public void testTinyOntology4() throws OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -321,6 +326,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 * 
 	 * @throws OWLOntologyCreationException
+	 *             if something goes wrong with the ontology creation
 	 */
 	public void testTinyOntology5() throws OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -407,6 +413,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 * 
 	 * @throws OWLOntologyCreationException
+	 *             if something goes wrong with the ontology creation
 	 */
 	public void testTinyOntology6() throws OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -461,6 +468,7 @@ public class TinyOntologyTest extends TestCase {
 	 * </ul>
 	 * 
 	 * @throws OWLOntologyCreationException
+	 *             if something goes wrong with the ontology creation
 	 */
 	public void testTinyOntology7() throws OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
