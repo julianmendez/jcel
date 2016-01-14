@@ -50,6 +50,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
@@ -58,7 +61,6 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
-import junit.framework.TestCase;
 
 /**
  * Set of tests for the rule based reasoner.
@@ -67,7 +69,7 @@ import junit.framework.TestCase;
  * 
  * @author Julian Mendez
  */
-public class RuleBasedReasonerTest extends TestCase {
+public class RuleBasedReasonerTest {
 
 	/**
 	 * Constructs a new set of tests for the rule based reasoner.
@@ -77,18 +79,18 @@ public class RuleBasedReasonerTest extends TestCase {
 
 	private void assertUniqueDirectSubClass(IntegerReasoner reasoner, IntegerClass subClass, IntegerClass superClass) {
 		Set<Set<IntegerClass>> subClassesOfSecond = reasoner.getSubClasses(superClass, true);
-		assertEquals(subClassesOfSecond.size(), 1);
+		Assert.assertEquals(subClassesOfSecond.size(), 1);
 		Set<IntegerClass> subElemSet = subClassesOfSecond.iterator().next();
-		assertEquals(subElemSet.size(), 1);
+		Assert.assertEquals(subElemSet.size(), 1);
 		IntegerClass x1 = subElemSet.iterator().next();
-		assertEquals(subClass, x1);
+		Assert.assertEquals(subClass, x1);
 
 		Set<Set<IntegerClass>> superClassesOfFirst = reasoner.getSuperClasses(subClass, true);
-		assertEquals(superClassesOfFirst.size(), 1);
+		Assert.assertEquals(superClassesOfFirst.size(), 1);
 		Set<IntegerClass> superElemSet = superClassesOfFirst.iterator().next();
-		assertEquals(superElemSet.size(), 1);
+		Assert.assertEquals(superElemSet.size(), 1);
 		IntegerClass x2 = superElemSet.iterator().next();
-		assertEquals(superClass, x2);
+		Assert.assertEquals(superClass, x2);
 	}
 
 	private IntegerClass createNewClass(IntegerOntologyObjectFactory factory, String name) {
@@ -123,6 +125,7 @@ public class RuleBasedReasonerTest extends TestCase {
 	 * <li>C \u2291 J</li>
 	 * </ul>
 	 */
+	@Test
 	public void testOntology0() {
 		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
@@ -213,6 +216,7 @@ public class RuleBasedReasonerTest extends TestCase {
 	 * <li>A \u2291 D</li>
 	 * </ul>
 	 */
+	@Test
 	public void testOntology1() {
 		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
@@ -259,6 +263,7 @@ public class RuleBasedReasonerTest extends TestCase {
 	 * <li>A \u2291 E</li>
 	 * </ul>
 	 */
+	@Test
 	public void testOntology2() {
 		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
@@ -322,6 +327,7 @@ public class RuleBasedReasonerTest extends TestCase {
 	 * <li>A \u2291 E</li>
 	 * </ul>
 	 */
+	@Test
 	public void testOntology3() {
 		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
@@ -399,6 +405,7 @@ public class RuleBasedReasonerTest extends TestCase {
 	 * <li>D \u2291 E</li>
 	 * </ul>
 	 */
+	@Test
 	public void testOntology4() {
 		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();

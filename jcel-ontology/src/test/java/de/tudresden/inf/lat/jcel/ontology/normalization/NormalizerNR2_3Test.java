@@ -51,6 +51,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
@@ -61,13 +64,12 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
-import junit.framework.TestCase;
 
 /**
  * @author Julian Mendez
  * 
  */
-public class NormalizerNR2_3Test extends TestCase {
+public class NormalizerNR2_3Test {
 
 	/**
 	 * &exist; r <i>.</i> &exist; s<sub>1</sub> <i>.</i> C<sub>1</sub> \u2291
@@ -75,6 +77,7 @@ public class NormalizerNR2_3Test extends TestCase {
 	 * <i>.</i> C<sub>1</sub> \u2291 A, &exist; r <i>.</i> A \u2291 &exist; s
 	 * <sub>2</sub> <i>.</i> C<sub>2</sub>
 	 */
+	@Test
 	public void testRule() {
 		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
@@ -110,15 +113,15 @@ public class NormalizerNR2_3Test extends TestCase {
 				if (leftExpr instanceof IntegerObjectSomeValuesFrom) {
 					IntegerObjectSomeValuesFrom expr = (IntegerObjectSomeValuesFrom) leftExpr;
 					if (expr.getProperty().equals(r)) {
-						assertTrue(Objects.isNull(a));
+						Assert.assertTrue(Objects.isNull(a));
 						a = expr.getFiller();
 					}
 				}
 			}
 		}
 
-		assertTrue(!Objects.isNull(a));
-		assertTrue(a.isLiteral());
+		Assert.assertTrue(!Objects.isNull(a));
+		Assert.assertTrue(a.isLiteral());
 
 		Set<IntegerAxiom> expectedAxioms = new HashSet<>();
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(cPrime, a, annotations));
@@ -126,7 +129,7 @@ public class NormalizerNR2_3Test extends TestCase {
 		IntegerClassExpression newExpr = factory.getDataTypeFactory().createObjectSomeValuesFrom(r, a);
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(newExpr, d, annotations));
 
-		assertEquals(expectedAxioms, normalizedAxioms);
+		Assert.assertEquals(expectedAxioms, normalizedAxioms);
 	}
 
 }

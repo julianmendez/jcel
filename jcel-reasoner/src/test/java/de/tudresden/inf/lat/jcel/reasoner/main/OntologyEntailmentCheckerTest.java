@@ -50,6 +50,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
@@ -57,7 +60,6 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactoryImpl;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
-import junit.framework.TestCase;
 
 /**
  * Set of tests for the ontology entailment checker.
@@ -66,7 +68,7 @@ import junit.framework.TestCase;
  * 
  * @author Julian Mendez
  */
-public class OntologyEntailmentCheckerTest extends TestCase {
+public class OntologyEntailmentCheckerTest {
 
 	public OntologyEntailmentCheckerTest() {
 	}
@@ -95,6 +97,7 @@ public class OntologyEntailmentCheckerTest extends TestCase {
 	 * <li>A \u2291 D</li>
 	 * </ul>
 	 */
+	@Test
 	public void testOntology0() {
 		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
@@ -120,14 +123,14 @@ public class OntologyEntailmentCheckerTest extends TestCase {
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
 
-		assertTrue(reasoner.isEntailed(axiom1));
-		assertTrue(reasoner.isEntailed(axiom2));
-		assertTrue(reasoner.isEntailed(axiom3));
+		Assert.assertTrue(reasoner.isEntailed(axiom1));
+		Assert.assertTrue(reasoner.isEntailed(axiom2));
+		Assert.assertTrue(reasoner.isEntailed(axiom3));
 
 		boolean isEntailed = reasoner
 				.isEntailed(factory.getComplexAxiomFactory().createSubClassOfAxiom(b, c, annotations));
 
-		assertTrue(isEntailed);
+		Assert.assertTrue(isEntailed);
 	}
 
 }
