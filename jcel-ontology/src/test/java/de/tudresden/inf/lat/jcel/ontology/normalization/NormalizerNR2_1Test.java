@@ -52,6 +52,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
@@ -61,14 +64,13 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactoryImpl;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
-import junit.framework.TestCase;
 
 /**
  * 
  * @author Julian Mendez
  * 
  */
-public class NormalizerNR2_1Test extends TestCase {
+public class NormalizerNR2_1Test {
 
 	/**
 	 * r<sub>1</sub> \u2218 r<sub>2</sub> \u2218 r<sub>3</sub> \u2218 r
@@ -76,6 +78,7 @@ public class NormalizerNR2_1Test extends TestCase {
 	 * <sub>1</sub>, u<sub>1</sub> \u2218 r<sub>3</sub> \u2291 u<sub>2</sub>, u
 	 * <sub>2</sub> \u2218 r<sub>4</sub> \u2291 s
 	 */
+	@Test
 	public void testRule() {
 		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
@@ -111,7 +114,7 @@ public class NormalizerNR2_1Test extends TestCase {
 		IntegerObjectProperty u2 = null;
 
 		for (IntegerAxiom normAxiom : normalizedAxioms) {
-			assertTrue(normAxiom instanceof RI3Axiom);
+			Assert.assertTrue(normAxiom instanceof RI3Axiom);
 			if (normAxiom instanceof RI3Axiom) {
 				RI3Axiom axiom = (RI3Axiom) normAxiom;
 
@@ -134,7 +137,7 @@ public class NormalizerNR2_1Test extends TestCase {
 		expectedAxioms.add(
 				factory.getNormalizedAxiomFactory().createRI3Axiom(u2.getId(), r4.getId(), s.getId(), annotations));
 
-		assertEquals(expectedAxioms, normalizedAxioms);
+		Assert.assertEquals(expectedAxioms, normalizedAxioms);
 	}
 
 }

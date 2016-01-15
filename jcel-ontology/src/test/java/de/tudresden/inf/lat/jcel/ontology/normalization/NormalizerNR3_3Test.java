@@ -50,6 +50,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
@@ -59,13 +62,12 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
-import junit.framework.TestCase;
 
 /**
  * @author Julian Mendez
  * 
  */
-public class NormalizerNR3_3Test extends TestCase {
+public class NormalizerNR3_3Test {
 
 	/**
 	 * D<sub>1</sub> \u2293 &exist; r <i>.</i> (D<sub>2</sub> \u2293 D
@@ -84,6 +86,7 @@ public class NormalizerNR3_3Test extends TestCase {
 	 * <sub>3</sub>) \u2291 &exist; s<sub>2</sub> <i>.</i> D<sub>6</sub></li>
 	 * </ul>
 	 */
+	@Test
 	public void testRule() {
 		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
@@ -146,7 +149,7 @@ public class NormalizerNR3_3Test extends TestCase {
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(d, c2, annotations));
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(d, c3, annotations));
 
-		assertEquals(expectedAxioms, normalizedAxioms);
+		Assert.assertEquals(expectedAxioms, normalizedAxioms);
 	}
 
 }

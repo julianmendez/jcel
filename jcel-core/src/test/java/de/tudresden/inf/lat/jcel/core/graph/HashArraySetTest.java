@@ -52,14 +52,15 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.IntStream;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Tests for efficient arrays.
  * 
  * @author Julian Mendez
  */
-public class HashArraySetTest extends TestCase {
+public class HashArraySetTest {
 
 	public HashArraySetTest() {
 	}
@@ -67,11 +68,12 @@ public class HashArraySetTest extends TestCase {
 	private boolean assertInclusion(Collection<Integer> c1, Collection<Integer> c2) {
 		boolean ret = true;
 		c1.forEach(e -> {
-			assertTrue(c2.contains(e));
+			Assert.assertTrue(c2.contains(e));
 		});
 		return ret;
 	}
 
+	@Test
 	public void testInsertion() {
 
 		HashArraySet arraySet = new HashArraySet();
@@ -83,7 +85,7 @@ public class HashArraySetTest extends TestCase {
 			treeSet.add(element);
 			arrayList.add(element);
 			arraySet.add(element);
-			assertEquals(treeSet.size(), arraySet.size());
+			Assert.assertEquals(treeSet.size(), arraySet.size());
 		});
 
 		IntStream.range(0x1000, 0x10000).forEach(i -> {
@@ -91,11 +93,12 @@ public class HashArraySetTest extends TestCase {
 			boolean b1 = treeSet.contains(element);
 			boolean b2 = arrayList.contains(element);
 			boolean b3 = arraySet.contains(element);
-			assertEquals(b1, b3);
-			assertEquals(b2, b3);
+			Assert.assertEquals(b1, b3);
+			Assert.assertEquals(b2, b3);
 		});
 	}
 
+	@Test
 	public void testIteration() {
 		Set<Integer> treeSet = new TreeSet<>();
 		HashArraySet arraySet = new HashArraySet();
@@ -104,7 +107,7 @@ public class HashArraySetTest extends TestCase {
 			int element = i % 0xF0;
 			treeSet.add(element);
 			arraySet.add(element);
-			assertEquals(treeSet.size(), arraySet.size());
+			Assert.assertEquals(treeSet.size(), arraySet.size());
 		});
 
 		assertInclusion(treeSet, arraySet);
@@ -114,7 +117,7 @@ public class HashArraySetTest extends TestCase {
 			int element = i % 0xF08;
 			treeSet.add(element);
 			arraySet.add(element);
-			assertEquals(treeSet.size(), arraySet.size());
+			Assert.assertEquals(treeSet.size(), arraySet.size());
 		});
 
 		assertInclusion(treeSet, arraySet);
@@ -124,7 +127,7 @@ public class HashArraySetTest extends TestCase {
 			int element = i % 0xF0;
 			treeSet.add(element);
 			arraySet.add(element);
-			assertEquals(treeSet.size(), arraySet.size());
+			Assert.assertEquals(treeSet.size(), arraySet.size());
 		});
 
 		assertInclusion(treeSet, arraySet);

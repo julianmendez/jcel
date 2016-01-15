@@ -50,6 +50,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
@@ -59,18 +62,18 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
-import junit.framework.TestCase;
 
 /**
  * 
  * @author Julian Mendez
  * 
  */
-public class NormalizerNR1_5Test extends TestCase {
+public class NormalizerNR1_5Test {
 
 	/**
 	 * C &equiv; D \u219D C \u2291 D, D \u2291 C
 	 */
+	@Test
 	public void testUsingClasses() {
 		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
@@ -92,7 +95,7 @@ public class NormalizerNR1_5Test extends TestCase {
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(c, d, annotations));
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(d, c, annotations));
 
-		assertEquals(expectedAxioms, normalizedAxioms);
+		Assert.assertEquals(expectedAxioms, normalizedAxioms);
 	}
 
 	/**
@@ -101,6 +104,7 @@ public class NormalizerNR1_5Test extends TestCase {
 	 * \u2293 C<sub>3</sub>, C<sub>2</sub> \u2293 C<sub>3</sub> \u2291 &exist; r
 	 * <i>.</i> C<sub>1</sub>
 	 */
+	@Test
 	public void testUsingClassExpressions() {
 		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
@@ -132,7 +136,7 @@ public class NormalizerNR1_5Test extends TestCase {
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(c, d, annotations));
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(d, c, annotations));
 
-		assertEquals(expectedAxioms, normalizedAxioms);
+		Assert.assertEquals(expectedAxioms, normalizedAxioms);
 	}
 
 }

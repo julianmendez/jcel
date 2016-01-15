@@ -50,6 +50,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
@@ -58,7 +61,6 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectF
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactoryImpl;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
-import junit.framework.TestCase;
 
 /**
  * Test class for ontology normalizer.
@@ -67,7 +69,7 @@ import junit.framework.TestCase;
  * 
  * @author Julian Mendez
  */
-public class OntologyNormalizerTest extends TestCase {
+public class OntologyNormalizerTest {
 
 	/**
 	 * Constructs a new ontology normalizer.
@@ -85,6 +87,7 @@ public class OntologyNormalizerTest extends TestCase {
 				factory.getEntityManager().createNamedEntity(IntegerEntityType.OBJECT_PROPERTY, name, false));
 	}
 
+	@Test
 	public void testGCI3InverseObjectProperties() {
 		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
@@ -108,9 +111,10 @@ public class OntologyNormalizerTest extends TestCase {
 		expectedSet.add(
 				factory.getNormalizedAxiomFactory().createGCI3Axiom(rMinus.getId(), a.getId(), b.getId(), annotations));
 
-		assertEquals(expectedSet, normalizedSet);
+		Assert.assertEquals(expectedSet, normalizedSet);
 	}
 
+	@Test
 	public void testGCI3ObjectInverseOf() {
 		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
@@ -132,7 +136,7 @@ public class OntologyNormalizerTest extends TestCase {
 				factory.getEntityManager().createOrGetInverseObjectPropertyOf(r.getId()), a.getId(), b.getId(),
 				annotations));
 
-		assertEquals(expectedSet, normalizedSet);
+		Assert.assertEquals(expectedSet, normalizedSet);
 	}
 
 }
