@@ -69,7 +69,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
  * @author Julian Mendez
  *
  */
-class IdentifierCollector {
+public class IdentifierCollector {
 
 	private Set<Integer> classesOnTheLeft = new TreeSet<>();
 	private Set<Integer> classesOnTheRight = new TreeSet<>();
