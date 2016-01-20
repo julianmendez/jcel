@@ -101,7 +101,7 @@ public class ModuleExtractor {
 
 			for (NormalizedIntegerAxiom axiom : remainingAxioms) {
 
-				IdentifierCollector c = new IdentifierCollector(axiom);
+				ExtendedNormalizedAxiom c = new ExtendedNormalizedAxiomImpl(axiom);
 				Set<Integer> classesOnTheLeft = c.getClassesOnTheLeft();
 				Set<Integer> objectPropertiesOnTheLeft = c.getObjectPropertiesOnTheLeft();
 
@@ -130,12 +130,12 @@ public class ModuleExtractor {
 	 * @return a map that relates a class with the set of axioms where this
 	 *         class occurs on the left side of the axiom
 	 */
-	Map<Integer, Set<IdentifierCollector>> buildMapOfAxioms(Set<IdentifierCollector> normalizedAxioms) {
-		Map<Integer, Set<IdentifierCollector>> map = new HashMap<>();
+	Map<Integer, Set<ExtendedNormalizedAxiom>> buildMapOfAxioms(Set<ExtendedNormalizedAxiom> normalizedAxioms) {
+		Map<Integer, Set<ExtendedNormalizedAxiom>> map = new HashMap<>();
 		normalizedAxioms.forEach(axiom -> {
 			Set<Integer> classesOnTheLeft = axiom.getClassesOnTheLeft();
 			classesOnTheLeft.forEach(classId -> {
-				Set<IdentifierCollector> value = map.get(classId);
+				Set<ExtendedNormalizedAxiom> value = map.get(classId);
 				if (Objects.isNull(value)) {
 					value = new HashSet<>();
 					map.put(classId, value);
@@ -163,10 +163,10 @@ public class ModuleExtractor {
 		Set<Integer> classes = new HashSet<>();
 		classes.addAll(setOfClasses);
 
-		Set<IdentifierCollector> axioms = new HashSet<>();
-		setOfAxioms.forEach(axiom -> axioms.add(new IdentifierCollector(axiom)));
+		Set<ExtendedNormalizedAxiom> axioms = new HashSet<>();
+		setOfAxioms.forEach(axiom -> axioms.add(new ExtendedNormalizedAxiomImpl(axiom)));
 
-		Map<Integer, Set<IdentifierCollector>> map = buildMapOfAxioms(axioms);
+		Map<Integer, Set<ExtendedNormalizedAxiom>> map = buildMapOfAxioms(axioms);
 
 		Set<Integer> visitedClasses = new HashSet<Integer>();
 		Set<Integer> classesToVisit = new HashSet<Integer>();
@@ -175,7 +175,7 @@ public class ModuleExtractor {
 		while (ret.size() > resultSize) {
 			resultSize = ret.size();
 
-			Set<IdentifierCollector> axiomsToVisit = new HashSet<>();
+			Set<ExtendedNormalizedAxiom> axiomsToVisit = new HashSet<>();
 			classesToVisit.forEach(classId -> {
 				axiomsToVisit.addAll(map.get(classId));
 			});

@@ -70,13 +70,13 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
  * @author Julian Mendez
  *
  */
-public class IdentifierCollector {
+public class ExtendedNormalizedAxiomImpl implements ExtendedNormalizedAxiom {
 
+	private final NormalizedIntegerAxiom axiom;
 	private final Set<Integer> classesOnTheLeft = new TreeSet<>();
 	private final Set<Integer> classesOnTheRight = new TreeSet<>();
 	private final Set<Integer> objectPropertiesOnTheLeft = new TreeSet<>();
 	private final Set<Integer> objectPropertiesOnTheRight = new TreeSet<>();
-	private final NormalizedIntegerAxiom axiom;
 
 	/**
 	 * Constructs a new identifier collector.
@@ -84,61 +84,33 @@ public class IdentifierCollector {
 	 * @param axiom
 	 *            normalized axiom
 	 */
-	public IdentifierCollector(NormalizedIntegerAxiom axiom) {
+	public ExtendedNormalizedAxiomImpl(NormalizedIntegerAxiom axiom) {
 		Objects.requireNonNull(axiom);
 		this.axiom = axiom;
 		axiom.accept(new AuxIdentifierCollector());
 	}
 
-	/**
-	 * Returns the normalized axiom.
-	 * 
-	 * @return the normalized axiom
-	 */
+	@Override
 	public NormalizedIntegerAxiom getAxiom() {
 		return this.axiom;
 	}
 
-	/**
-	 * Returns the class identifiers found on the left-hand side of the given
-	 * axiom.
-	 *
-	 * @return the class identifiers found on the left-hand side of the given
-	 *         axiom
-	 */
+	@Override
 	public Set<Integer> getClassesOnTheLeft() {
 		return Collections.unmodifiableSet(this.classesOnTheLeft);
 	}
 
-	/**
-	 * Returns the class identifiers found on the right-hand side of the given
-	 * axiom.
-	 * 
-	 * @return the class identifiers found on the right-hand side of the given
-	 *         axiom
-	 */
+	@Override
 	public Set<Integer> getClassesOnTheRight() {
 		return Collections.unmodifiableSet(this.classesOnTheRight);
 	}
 
-	/**
-	 * Returns the object property identifiers found on the left-hand side of
-	 * the given axiom.
-	 * 
-	 * @return the object property identifiers found on the left-hand side of
-	 *         the given axiom
-	 */
+	@Override
 	public Set<Integer> getObjectPropertiesOnTheLeft() {
 		return Collections.unmodifiableSet(this.objectPropertiesOnTheLeft);
 	}
 
-	/**
-	 * Returns the object property found on the right-hand side of the given
-	 * axiom.
-	 * 
-	 * @return the object property identifiers found on the right-hand side of
-	 *         the given axiom
-	 */
+	@Override
 	public Set<Integer> getObjectPropertiesOnTheRight() {
 		return Collections.unmodifiableSet(this.objectPropertiesOnTheRight);
 	}
@@ -152,10 +124,10 @@ public class IdentifierCollector {
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
-		} else if (!(obj instanceof IdentifierCollector)) {
+		} else if (!(obj instanceof ExtendedNormalizedAxiomImpl)) {
 			return false;
 		} else {
-			IdentifierCollector other = (IdentifierCollector) obj;
+			ExtendedNormalizedAxiom other = (ExtendedNormalizedAxiom) obj;
 			return getAxiom().equals(other.getAxiom());
 		}
 	}
