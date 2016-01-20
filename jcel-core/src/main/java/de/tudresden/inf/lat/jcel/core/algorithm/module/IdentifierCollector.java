@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.core.algorithm.module;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -71,10 +72,11 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
  */
 public class IdentifierCollector {
 
-	private Set<Integer> classesOnTheLeft = new TreeSet<>();
-	private Set<Integer> classesOnTheRight = new TreeSet<>();
-	private Set<Integer> objectPropertiesOnTheLeft = new TreeSet<>();
-	private Set<Integer> objectPropertiesOnTheRight = new TreeSet<>();
+	private final Set<Integer> classesOnTheLeft = new TreeSet<>();
+	private final Set<Integer> classesOnTheRight = new TreeSet<>();
+	private final Set<Integer> objectPropertiesOnTheLeft = new TreeSet<>();
+	private final Set<Integer> objectPropertiesOnTheRight = new TreeSet<>();
+	private final NormalizedIntegerAxiom axiom;
 
 	/**
 	 * Constructs a new identifier collector.
@@ -83,7 +85,18 @@ public class IdentifierCollector {
 	 *            normalized axiom
 	 */
 	public IdentifierCollector(NormalizedIntegerAxiom axiom) {
+		Objects.requireNonNull(axiom);
+		this.axiom = axiom;
 		axiom.accept(new AuxIdentifierCollector());
+	}
+
+	/**
+	 * Returns the normalized axiom.
+	 * 
+	 * @return the normalized axiom
+	 */
+	public NormalizedIntegerAxiom getAxiom() {
+		return this.axiom;
 	}
 
 	/**
@@ -130,13 +143,35 @@ public class IdentifierCollector {
 		return Collections.unmodifiableSet(this.objectPropertiesOnTheRight);
 	}
 
+	@Override
+	public int hashCode() {
+		return this.axiom.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		} else if (!(obj instanceof IdentifierCollector)) {
+			return false;
+		} else {
+			IdentifierCollector other = (IdentifierCollector) obj;
+			return getAxiom().equals(other.getAxiom());
+		}
+	}
+
+	@Override
+	public String toString() {
+		return this.axiom.toString();
+	}
+
 	/**
 	 * This is an auxiliary class used to collect the identifiers.
 	 * 
 	 * @author Julian Mendez
 	 *
 	 */
-	private class AuxIdentifierCollector implements NormalizedIntegerAxiomVisitor<Boolean> {
+	class AuxIdentifierCollector implements NormalizedIntegerAxiomVisitor<Boolean> {
 
 		AuxIdentifierCollector() {
 		}
