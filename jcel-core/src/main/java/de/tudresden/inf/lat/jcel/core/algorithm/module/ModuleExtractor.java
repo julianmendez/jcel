@@ -146,6 +146,28 @@ public class ModuleExtractor {
 		return map;
 	}
 
+	Set<NormalizedIntegerAxiom> getAxiomsWithoutEntitiesOnTheLeft(Set<ExtendedNormalizedAxiom> axioms) {
+		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
+		axioms.forEach(axiom -> {
+			if (axiom.getClassesOnTheLeft().isEmpty() && axiom.getObjectPropertiesOnTheLeft().isEmpty()) {
+				ret.add(axiom.getAxiom());
+			}
+		});
+		return ret;
+	}
+
+	Set<ExtendedNormalizedAxiom> getAxiomsWithClassesOnTheLeft(Set<Integer> classesToVisit,
+			Map<Integer, Set<ExtendedNormalizedAxiom>> map) {
+		Set<ExtendedNormalizedAxiom> ret = new HashSet<>();
+		classesToVisit.forEach(classId -> {
+			Set<ExtendedNormalizedAxiom> newAxioms = map.get(classId);
+			if (newAxioms != null) {
+				ret.addAll(newAxioms);
+			}
+		});
+		return ret;
+	}
+
 	/**
 	 * Returns a module, i.e. a subset of axioms relevant to answer a query.
 	 * 
@@ -160,11 +182,10 @@ public class ModuleExtractor {
 
 		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
 
-		Set<Integer> classes = new HashSet<>();
-		classes.addAll(setOfClasses);
-
 		Set<ExtendedNormalizedAxiom> axioms = new HashSet<>();
 		setOfAxioms.forEach(axiom -> axioms.add(new ExtendedNormalizedAxiomImpl(axiom)));
+
+		ret.addAll(getAxiomsWithoutEntitiesOnTheLeft(axioms));
 
 		Map<Integer, Set<ExtendedNormalizedAxiom>> map = buildMapOfAxioms(axioms);
 
@@ -175,26 +196,15 @@ public class ModuleExtractor {
 		while (ret.size() > resultSize) {
 			resultSize = ret.size();
 
-			Set<ExtendedNormalizedAxiom> axiomsToVisit = new HashSet<>();
-			classesToVisit.forEach(classId -> {
-				axiomsToVisit.addAll(map.get(classId));
-			});
+			Set<ExtendedNormalizedAxiom> axiomsToVisit = getAxiomsWithClassesOnTheLeft(classesToVisit, map);
 			visitedClasses.addAll(classesToVisit);
 			classesToVisit.clear();
 
 			axiomsToVisit.forEach(axiom -> {
-				Set<Integer> classesOnTheLeft = axiom.getClassesOnTheLeft();
-				Set<Integer> objectPropertiesOnTheLeft = axiom.getObjectPropertiesOnTheLeft();
-
-				boolean case0 = !Collections.disjoint(classesOnTheLeft, classes);
-				boolean case1 = (classesOnTheLeft.isEmpty() && objectPropertiesOnTheLeft.isEmpty());
-
-				if (case0 || case1) {
-					classesToVisit.addAll(axiom.getClassesOnTheRight());
-					classesToVisit.removeAll(visitedClasses);
-					ret.add(axiom.getAxiom());
-				}
+				classesToVisit.addAll(axiom.getClassesOnTheRight());
+				ret.add(axiom.getAxiom());
 			});
+			classesToVisit.removeAll(visitedClasses);
 		}
 
 		return ret;
