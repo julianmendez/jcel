@@ -123,8 +123,9 @@ public class ObjectPropertyExpressionTranslator
 		return getDataTypeFactory().createObjectProperty(getTranslationRepository().getId(owlObjectProperty));
 	}
 
-	// @Override
+	@Override
 	public IntegerObjectPropertyExpression visit(OWLAnnotationProperty owlAnnotationProperty) {
+		Objects.requireNonNull(owlAnnotationProperty);
 		// TODO Auto-generated method stub
 		return null;
 	}
