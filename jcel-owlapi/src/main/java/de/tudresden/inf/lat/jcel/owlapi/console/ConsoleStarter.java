@@ -538,7 +538,7 @@ public class ConsoleStarter {
 					renderer = new OWLFunctionalSyntaxRenderer();
 				}
 
-				if (!Objects.isNull(outputFile.getParentFile())) {
+				if (Objects.nonNull(outputFile.getParentFile())) {
 					outputFile.getParentFile().mkdirs();
 				}
 

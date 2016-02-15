@@ -131,7 +131,7 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	public boolean contains(int first, int second) {
 		boolean ret = false;
 		Collection<Integer> byFirst = this.byFirstComp.get(first);
-		ret = (!Objects.isNull(byFirst)) && byFirst.contains(second);
+		ret = (Objects.nonNull(byFirst)) && byFirst.contains(second);
 		return ret;
 	}
 
@@ -151,7 +151,7 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	public Collection<Integer> getByFirst(int first) {
 		Collection<Integer> ret = Collections.emptySet();
 		Collection<Integer> set = this.byFirstComp.get(first);
-		if (!Objects.isNull(set)) {
+		if (Objects.nonNull(set)) {
 			ret = Collections.unmodifiableCollection(set);
 		}
 		return ret;
@@ -161,7 +161,7 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	public Collection<Integer> getBySecond(int second) {
 		Collection<Integer> ret = Collections.emptySet();
 		Collection<Integer> set = this.bySecondComp.get(second);
-		if (!Objects.isNull(set)) {
+		if (Objects.nonNull(set)) {
 			ret = Collections.unmodifiableCollection(set);
 		}
 		return ret;

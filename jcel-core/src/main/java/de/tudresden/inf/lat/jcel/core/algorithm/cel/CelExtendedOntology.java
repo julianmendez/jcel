@@ -158,7 +158,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 		Objects.requireNonNull(classId);
 		Set<ExtensionEntry> ret = Collections.emptySet();
 		Map<Integer, Set<ExtensionEntry>> map = this.ohatOfExistential.get(propertyId);
-		if (!Objects.isNull(map)) {
+		if (Objects.nonNull(map)) {
 			ret = map.get(classId);
 			if (Objects.isNull(ret)) {
 				ret = Collections.emptySet();

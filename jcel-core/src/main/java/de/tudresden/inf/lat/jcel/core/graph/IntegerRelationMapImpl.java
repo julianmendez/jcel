@@ -136,7 +136,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	public boolean contains(int relationId, int first, int second) {
 		boolean ret = false;
 		IntegerBinaryRelation relation = this.relationMap.get(relationId);
-		if (!Objects.isNull(relation)) {
+		if (Objects.nonNull(relation)) {
 			ret = relation.contains(first, second);
 		}
 		return ret;
@@ -163,7 +163,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	public Collection<Integer> getByFirst(int relationId, int first) {
 		Collection<Integer> ret = Collections.emptySet();
 		IntegerBinaryRelation relation = this.relationMap.get(relationId);
-		if (!Objects.isNull(relation)) {
+		if (Objects.nonNull(relation)) {
 			ret = relation.getByFirst(first);
 		}
 		return ret;
@@ -173,7 +173,7 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	public Collection<Integer> getBySecond(int relationId, int second) {
 		Collection<Integer> ret = Collections.emptySet();
 		IntegerBinaryRelation relation = this.relationMap.get(relationId);
-		if (!Objects.isNull(relation)) {
+		if (Objects.nonNull(relation)) {
 			ret = relation.getBySecond(second);
 		}
 		return ret;
