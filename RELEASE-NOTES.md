@@ -36,6 +36,7 @@
 ### v0.24.0
 *(unreleased)*
 * runs on Java 8
+* fixes module extractor
 * build commands:
 ```
 $ mvn clean install
