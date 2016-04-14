@@ -71,7 +71,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectIntersectionOf;
  * 
  * @author Julian Mendez
  */
-class NormalizerNR2_4 implements NormalizationRule {
+public class NormalizerNR2_4 implements NormalizationRule {
 
 	private final IntegerOntologyObjectFactory ontologyObjectFactory;
 

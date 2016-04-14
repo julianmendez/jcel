@@ -99,7 +99,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
  * 
  * @see OntologyNormalizer
  */
-class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> {
+public class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerAxiom>> {
 
 	private final List<NormalizationRule> norChainOfSubClass;
 	private final NormalizationRule norDisjoint;

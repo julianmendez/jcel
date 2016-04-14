@@ -66,7 +66,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
  * 
  * @author Julian Mendez
  */
-class NormalizerSubPropertyChainOf implements NormalizationRule {
+public class NormalizerSubPropertyChainOf implements NormalizationRule {
 
 	private final IntegerOntologyObjectFactory ontologyObjectFactory;
 

@@ -62,7 +62,7 @@ import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
  * 
  * @author Julian Mendez
  */
-class NormalizerNR1_6 implements NormalizationRule {
+public class NormalizerNR1_6 implements NormalizationRule {
 
 	/**
 	 * Constructs a new normalizer of rule NR-1.6.
