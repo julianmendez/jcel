@@ -207,10 +207,15 @@ public class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerA
 	 */
 	public Set<IntegerAxiom> normalize(IntegerAxiom axiom) {
 		Objects.requireNonNull(axiom);
-		Set<IntegerAxiom> ret = Collections.emptySet();
+		Set<IntegerAxiom> ret = null;
 		if (axiom instanceof ComplexIntegerAxiom) {
 			ComplexIntegerAxiom complexAxiom = (ComplexIntegerAxiom) axiom;
 			ret = complexAxiom.accept(this);
+		} else if (axiom instanceof NormalizedIntegerAxiom) {
+			ret = new HashSet<IntegerAxiom>();
+			ret.add(axiom);
+		} else {
+			throw new IllegalArgumentException("Axiom type is not recognized: '" + axiom + "'.");
 		}
 		return ret;
 	}
