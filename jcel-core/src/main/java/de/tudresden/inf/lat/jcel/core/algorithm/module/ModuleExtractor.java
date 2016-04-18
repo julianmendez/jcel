@@ -48,7 +48,10 @@ package de.tudresden.inf.lat.jcel.core.algorithm.module;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
@@ -98,7 +101,7 @@ public class ModuleExtractor {
 
 			for (NormalizedIntegerAxiom axiom : remainingAxioms) {
 
-				IdentifierCollector c = new IdentifierCollector(axiom);
+				ExtendedNormalizedAxiom c = new ExtendedNormalizedAxiomImpl(axiom);
 				Set<Integer> classesOnTheLeft = c.getClassesOnTheLeft();
 				Set<Integer> objectPropertiesOnTheLeft = c.getObjectPropertiesOnTheLeft();
 
@@ -115,6 +118,95 @@ public class ModuleExtractor {
 
 			}
 		}
+		return ret;
+	}
+
+	/**
+	 * Returns a map that relates a class with the set of axioms where this
+	 * class occurs on the left side of the axiom
+	 * 
+	 * @param normalizedAxioms
+	 *            normalized axioms
+	 * @return a map that relates a class with the set of axioms where this
+	 *         class occurs on the left side of the axiom
+	 */
+	Map<Integer, Set<ExtendedNormalizedAxiom>> buildMapOfAxioms(Set<ExtendedNormalizedAxiom> normalizedAxioms) {
+		Map<Integer, Set<ExtendedNormalizedAxiom>> map = new HashMap<>();
+		normalizedAxioms.forEach(axiom -> {
+			Set<Integer> classesOnTheLeft = axiom.getClassesOnTheLeft();
+			classesOnTheLeft.forEach(classId -> {
+				Set<ExtendedNormalizedAxiom> value = map.get(classId);
+				if (Objects.isNull(value)) {
+					value = new HashSet<>();
+					map.put(classId, value);
+				}
+				value.add(axiom);
+			});
+		});
+		return map;
+	}
+
+	Set<NormalizedIntegerAxiom> getAxiomsWithoutEntitiesOnTheLeft(Set<ExtendedNormalizedAxiom> axioms) {
+		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
+		axioms.forEach(axiom -> {
+			if (axiom.getClassesOnTheLeft().isEmpty() && axiom.getObjectPropertiesOnTheLeft().isEmpty()) {
+				ret.add(axiom.getAxiom());
+			}
+		});
+		return ret;
+	}
+
+	Set<ExtendedNormalizedAxiom> getAxiomsWithClassesOnTheLeft(Set<Integer> classesToVisit,
+			Map<Integer, Set<ExtendedNormalizedAxiom>> map) {
+		Set<ExtendedNormalizedAxiom> ret = new HashSet<>();
+		classesToVisit.forEach(classId -> {
+			Set<ExtendedNormalizedAxiom> newAxioms = map.get(classId);
+			if (newAxioms != null) {
+				ret.addAll(newAxioms);
+			}
+		});
+		return ret;
+	}
+
+	/**
+	 * Returns a module, i.e. a subset of axioms relevant to answer a query.
+	 * 
+	 * @param setOfAxioms
+	 *            set of axioms
+	 * @param setOfClasses
+	 *            set of classes
+	 * @return a module, i.e. a subset of axioms relevant to answer a query
+	 */
+	public Set<NormalizedIntegerAxiom> extractModule(Collection<NormalizedIntegerAxiom> setOfAxioms,
+			Set<Integer> setOfClasses) {
+
+		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
+
+		Set<ExtendedNormalizedAxiom> axioms = new HashSet<>();
+		setOfAxioms.forEach(axiom -> axioms.add(new ExtendedNormalizedAxiomImpl(axiom)));
+
+		ret.addAll(getAxiomsWithoutEntitiesOnTheLeft(axioms));
+
+		Map<Integer, Set<ExtendedNormalizedAxiom>> map = buildMapOfAxioms(axioms);
+
+		Set<Integer> visitedClasses = new HashSet<Integer>();
+		Set<Integer> classesToVisit = new HashSet<Integer>();
+		classesToVisit.addAll(setOfClasses);
+		int resultSize = -1;
+		while (ret.size() > resultSize) {
+			resultSize = ret.size();
+
+			Set<ExtendedNormalizedAxiom> axiomsToVisit = getAxiomsWithClassesOnTheLeft(classesToVisit, map);
+			visitedClasses.addAll(classesToVisit);
+			classesToVisit.clear();
+
+			axiomsToVisit.forEach(axiom -> {
+				classesToVisit.addAll(axiom.getClassesOnTheRight());
+				ret.add(axiom.getAxiom());
+			});
+			classesToVisit.removeAll(visitedClasses);
+		}
+
 		return ret;
 	}
 

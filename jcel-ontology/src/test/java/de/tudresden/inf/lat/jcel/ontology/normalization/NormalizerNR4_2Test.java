@@ -46,69 +46,61 @@
 
 package de.tudresden.inf.lat.jcel.ontology.normalization;
 
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 
+import org.junit.Assert;
+import org.junit.Test;
+
+import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
-import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerEquivalentClassesAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
-import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
+import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactoryImpl;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectOneOf;
 
 /**
- * 
- * <ul>
- * <li>NR-1.5 : C &equiv; D \u219D C \u2291 D, D \u2291 C</li>
- * </ul>
- * <br>
+ * {a} \u2291 B \u219D A \u2291 B, A &equiv; {a}
  * 
  * @author Julian Mendez
+ * 
  */
-public class NormalizerNR1_5 implements NormalizationRule {
+public class NormalizerNR4_2Test {
 
-	private final IntegerOntologyObjectFactory ontologyObjectFactory;
+	@Test
+	public void testRule() {
+		Set<Annotation> annotations = new TreeSet<>();
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		NormalizerNR4_2 normalizer = new NormalizerNR4_2(factory);
 
-	/**
-	 * Constructs a new normalizer of rule NR-1.5.
-	 * 
-	 * @param factory
-	 *            factory
-	 */
-	public NormalizerNR1_5(IntegerOntologyObjectFactory factory) {
-		Objects.requireNonNull(factory);
-		this.ontologyObjectFactory = factory;
-	}
+		int indivAId = factory.getEntityManager().createNamedEntity(IntegerEntityType.INDIVIDUAL, "a", false);
+		int classBId = factory.getEntityManager().createNamedEntity(IntegerEntityType.CLASS, "B", false);
 
-	@Override
-	public Set<IntegerAxiom> apply(IntegerAxiom axiom) {
-		Objects.requireNonNull(axiom);
-		Set<IntegerAxiom> ret = Collections.emptySet();
-		if (axiom instanceof IntegerEquivalentClassesAxiom) {
-			ret = applyRule((IntegerEquivalentClassesAxiom) axiom);
-		}
-		return ret;
-	}
+		// IntegerNamedIndividualDeclarationAxiom axiom0 =
+		// factory.getComplexAxiomFactory()
+		// .createNamedIndividualDeclarationAxiom(a0, annotations);
 
-	private Set<IntegerAxiom> applyRule(IntegerEquivalentClassesAxiom equivalentAxiom) {
-		Set<IntegerAxiom> ret = new HashSet<>();
-		Set<IntegerClassExpression> classExpressionSet = equivalentAxiom.getClassExpressions();
-		classExpressionSet.forEach(firstClassExpression -> {
-			classExpressionSet.forEach(secondClassExpression -> {
-				if (!firstClassExpression.equals(secondClassExpression)) {
-					IntegerSubClassOfAxiom subClassAxiom = getOntologyObjectFactory().getComplexAxiomFactory()
-							.createSubClassOfAxiom(firstClassExpression, secondClassExpression,
-									equivalentAxiom.getAnnotations());
-					ret.add(subClassAxiom);
-				}
-			});
-		});
-		return ret;
-	}
+		IntegerObjectOneOf oneOf = factory.getDataTypeFactory().createObjectOneOf(indivAId);
+		IntegerClass classB = factory.getDataTypeFactory().createClass(classBId);
 
-	private IntegerOntologyObjectFactory getOntologyObjectFactory() {
-		return this.ontologyObjectFactory;
+		IntegerSubClassOfAxiom axiom = factory.getComplexAxiomFactory().createSubClassOfAxiom(oneOf, classB,
+				annotations);
+
+		Set<IntegerAxiom> normalizedAxioms = normalizer.apply(axiom);
+
+		Set<IntegerAxiom> expectedAxioms = new HashSet<>();
+
+		Optional<Integer> optClassA = factory.getEntityManager().getAuxiliaryNominal(indivAId);
+		Assert.assertTrue(optClassA.isPresent());
+
+		int classAId = optClassA.get();
+		expectedAxioms.add(factory.getNormalizedAxiomFactory().createNominalAxiom(classAId, indivAId, annotations));
+		expectedAxioms.add(factory.getNormalizedAxiomFactory().createGCI0Axiom(classAId, classBId, annotations));
+		Assert.assertEquals(expectedAxioms, normalizedAxioms);
 	}
 
 }

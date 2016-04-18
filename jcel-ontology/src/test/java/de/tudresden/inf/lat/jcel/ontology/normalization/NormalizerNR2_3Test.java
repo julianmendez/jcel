@@ -120,7 +120,7 @@ public class NormalizerNR2_3Test {
 			}
 		}
 
-		Assert.assertTrue(!Objects.isNull(a));
+		Assert.assertTrue(Objects.nonNull(a));
 		Assert.assertTrue(a.isLiteral());
 
 		Set<IntegerAxiom> expectedAxioms = new HashSet<>();

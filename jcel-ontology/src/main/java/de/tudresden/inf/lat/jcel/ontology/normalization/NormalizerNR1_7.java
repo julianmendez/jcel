@@ -66,7 +66,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
  * 
  * @author Julian Mendez
  */
-class NormalizerNR1_7 implements NormalizationRule {
+public class NormalizerNR1_7 implements NormalizationRule {
 
 	private final IntegerOntologyObjectFactory ontologyObjectFactory;
 

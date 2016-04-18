@@ -101,7 +101,7 @@ public class CR4SExtRule implements SObserverRule {
 
 	@Override
 	public boolean equals(Object o) {
-		return (!Objects.isNull(o)) && getClass().equals(o.getClass());
+		return (Objects.nonNull(o)) && getClass().equals(o.getClass());
 	}
 
 	@Override

@@ -82,7 +82,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
  * 
  * @author Julian Mendez
  */
-class ComplexIntegerAxiomAnalyzer implements ComplexIntegerAxiomVisitor<Boolean>, OntologyExpressivity {
+public class ComplexIntegerAxiomAnalyzer implements ComplexIntegerAxiomVisitor<Boolean>, OntologyExpressivity {
 
 	private final IntegerExpressionAnalyzer expressionAnalyzer = new IntegerExpressionAnalyzer();
 	private boolean hasBottom = false;

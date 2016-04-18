@@ -137,7 +137,7 @@ class SaturationRuleHelper {
 			toVisit.remove(elem);
 			ret.add(elem);
 			Set<Integer> set = map.get(elem);
-			if (!Objects.isNull(set)) {
+			if (Objects.nonNull(set)) {
 				set.forEach(newElem -> {
 					if (!ret.contains(newElem)) {
 						toVisit.add(newElem);

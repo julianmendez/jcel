@@ -34,7 +34,7 @@
 * uses the [OWL API](https://owlapi.sourceforge.net)
 * can be used in [Prot&eacute;g&eacute;](http://protege.stanford.edu)
 * is free software and is licensed under [GNU Lesser General Public License version 3](https://www.gnu.org/licenses/lgpl.txt) and [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt)
-* is fully implemented in [Java](http://www.oracle.com/us/technologies/java/standard-edition/overview/index.html)
+* is fully implemented in [Java](https://www.oracle.com/java/technologies/java-se.html)
 * evaluated by the [SEALS Community](http://www.seals-project.eu/news/storage-and-reasoning-systems-news) having the lowest Average Reasoning Time in 2010
 
 

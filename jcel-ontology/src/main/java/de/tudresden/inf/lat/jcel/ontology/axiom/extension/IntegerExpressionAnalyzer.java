@@ -68,7 +68,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectSomeValuesFrom;
  * 
  * @author Julian Mendez
  */
-class IntegerExpressionAnalyzer implements IntegerClassExpressionVisitor<Boolean> {
+public class IntegerExpressionAnalyzer implements IntegerClassExpressionVisitor<Boolean> {
 
 	private boolean hasBottom = false;
 	private boolean hasDatatype = false;

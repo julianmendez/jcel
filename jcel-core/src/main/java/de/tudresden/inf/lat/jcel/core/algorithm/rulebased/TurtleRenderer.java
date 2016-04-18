@@ -94,7 +94,7 @@ public class TurtleRenderer {
 		String ret = uri.getFragment();
 		if (Objects.isNull(ret)) {
 			String path = uri.getPath();
-			if (!Objects.isNull(path)) {
+			if (Objects.nonNull(path)) {
 				ret = path.substring(path.lastIndexOf(slash) + slash.length());
 			}
 		}
@@ -103,11 +103,11 @@ public class TurtleRenderer {
 
 	private String getPrefix(URI uri) {
 		String ret = "";
-		if (!Objects.isNull(uri.getHost())) {
+		if (Objects.nonNull(uri.getHost())) {
 			ret = uri.getScheme() + colonSlashSlash + uri.getHost();
 			if (Objects.isNull(uri.getFragment())) {
 				String path = uri.getPath();
-				if (!Objects.isNull(path)) {
+				if (Objects.nonNull(path)) {
 					ret += path.substring(0, path.lastIndexOf(slash) + slash.length());
 				}
 			} else {
@@ -125,7 +125,7 @@ public class TurtleRenderer {
 			String prefix = getPrefix(uri);
 			if (prefix.length() > 0) {
 				String prefixId = this.mapOfPrefixes.get(prefix);
-				if (!Objects.isNull(prefixId)) {
+				if (Objects.nonNull(prefixId)) {
 					ret = prefixId + prefixSeparator + getName(uri);
 				} else {
 					ret = uriDelimiterLeft + name + uriDelimiterRight;
