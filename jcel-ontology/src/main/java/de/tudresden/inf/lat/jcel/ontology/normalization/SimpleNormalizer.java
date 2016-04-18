@@ -322,14 +322,14 @@ public class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerA
 	@Override
 	public Set<IntegerAxiom> visit(IntegerNegativeObjectPropertyAssertionAxiom axiom) {
 		Objects.requireNonNull(axiom);
-		Integer object = axiom.getObject();
 		Integer subject = axiom.getSubject();
+		Integer object = axiom.getObject();
 		IntegerObjectPropertyExpression property = axiom.getProperty();
 		Set<IntegerAxiom> ret = new HashSet<>();
+		Integer classIdForSubject = getIdGenerator().createOrGetClassIdForIndividual(subject);
+		ret.add(getNormalizedAxiomFactory().createNominalAxiom(classIdForSubject, subject, axiom.getAnnotations()));
 		Integer classIdForObject = getIdGenerator().createOrGetClassIdForIndividual(object);
 		ret.add(getNormalizedAxiomFactory().createNominalAxiom(classIdForObject, object, axiom.getAnnotations()));
-		Integer classIdForSubject = getIdGenerator().createOrGetClassIdForIndividual(subject);
-		ret.add(getNormalizedAxiomFactory().createNominalAxiom(classIdForObject, subject, axiom.getAnnotations()));
 		IntegerObjectSomeValuesFrom restriction = getOntologyObjectFactory().getDataTypeFactory()
 				.createObjectSomeValuesFrom(property,
 						getOntologyObjectFactory().getDataTypeFactory().createClass(classIdForObject));
@@ -347,14 +347,14 @@ public class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerA
 	@Override
 	public Set<IntegerAxiom> visit(IntegerObjectPropertyAssertionAxiom axiom) {
 		Objects.requireNonNull(axiom);
-		Integer object = axiom.getObject();
 		Integer subject = axiom.getSubject();
+		Integer object = axiom.getObject();
 		IntegerObjectPropertyExpression property = axiom.getProperty();
 		Set<IntegerAxiom> ret = new HashSet<>();
-		Integer classIdForObject = getIdGenerator().createOrGetClassIdForIndividual(object);
-		ret.add(getNormalizedAxiomFactory().createNominalAxiom(classIdForObject, object, axiom.getAnnotations()));
 		Integer classIdForSubject = getIdGenerator().createOrGetClassIdForIndividual(subject);
 		ret.add(getNormalizedAxiomFactory().createNominalAxiom(classIdForSubject, subject, axiom.getAnnotations()));
+		Integer classIdForObject = getIdGenerator().createOrGetClassIdForIndividual(object);
+		ret.add(getNormalizedAxiomFactory().createNominalAxiom(classIdForObject, object, axiom.getAnnotations()));
 		IntegerObjectSomeValuesFrom restriction = getOntologyObjectFactory().getDataTypeFactory()
 				.createObjectSomeValuesFrom(property,
 						getOntologyObjectFactory().getDataTypeFactory().createClass(classIdForObject));
