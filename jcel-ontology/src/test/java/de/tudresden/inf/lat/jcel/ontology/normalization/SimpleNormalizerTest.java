@@ -52,6 +52,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.junit.Assert;
+import org.junit.Test;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
@@ -73,7 +74,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectProperty;
  */
 public class SimpleNormalizerTest {
 
-	// @Test
+	@Test
 	public void testSimpleNormalizer() {
 		Set<Annotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
@@ -98,10 +99,13 @@ public class SimpleNormalizerTest {
 		IntegerObjectPropertyAssertionAxiom axiom2 = factory.getComplexAxiomFactory()
 				.createObjectPropertyAssertionAxiom(propertyR, indivI0Id, indivI1Id, annotations);
 
+		Set<IntegerAxiom> firstIterationAxioms = new HashSet<IntegerAxiom>();
+		firstIterationAxioms.addAll(normalizer.normalize(axiom0));
+		firstIterationAxioms.addAll(normalizer.normalize(axiom1));
+		firstIterationAxioms.addAll(normalizer.normalize(axiom2));
+
 		Set<IntegerAxiom> normalizedAxioms = new HashSet<IntegerAxiom>();
-		normalizedAxioms.addAll(normalizer.normalize(axiom0));
-		normalizedAxioms.addAll(normalizer.normalize(axiom1));
-		normalizedAxioms.addAll(normalizer.normalize(axiom2));
+		firstIterationAxioms.forEach(axiom -> normalizedAxioms.addAll(normalizer.normalize(axiom)));
 
 		Set<IntegerAxiom> expectedAxioms = new HashSet<>();
 
