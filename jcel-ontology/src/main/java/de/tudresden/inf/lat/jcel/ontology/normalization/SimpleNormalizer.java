@@ -354,7 +354,7 @@ public class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerA
 		Integer classIdForObject = getIdGenerator().createOrGetClassIdForIndividual(object);
 		ret.add(getNormalizedAxiomFactory().createNominalAxiom(classIdForObject, object, axiom.getAnnotations()));
 		Integer classIdForSubject = getIdGenerator().createOrGetClassIdForIndividual(subject);
-		ret.add(getNormalizedAxiomFactory().createNominalAxiom(classIdForObject, subject, axiom.getAnnotations()));
+		ret.add(getNormalizedAxiomFactory().createNominalAxiom(classIdForSubject, subject, axiom.getAnnotations()));
 		IntegerObjectSomeValuesFrom restriction = getOntologyObjectFactory().getDataTypeFactory()
 				.createObjectSomeValuesFrom(property,
 						getOntologyObjectFactory().getDataTypeFactory().createClass(classIdForObject));
