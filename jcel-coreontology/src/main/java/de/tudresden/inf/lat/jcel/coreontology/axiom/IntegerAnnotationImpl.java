@@ -46,28 +46,76 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
-import java.net.URI;
+import java.util.Objects;
 
 /**
- * This interface models an annotation.
+ * An object of this class is an annotation.
  * 
  * @author Julian Mendez
  * 
  */
-public interface Annotation {
+public class IntegerAnnotationImpl implements IntegerAnnotation, Comparable<IntegerAnnotation> {
+
+	private final int annotationProperty;
+	private final int annotationValue;
 
 	/**
-	 * Returns the annotation property.
+	 * Constructs a new default implementation of annotation.
 	 * 
-	 * @return the annotation property
+	 * @param annotationProperty
+	 *            annotation property
+	 * @param annotationValue
+	 *            annotation value
 	 */
-	URI getAnnotationProperty();
+	public IntegerAnnotationImpl(int annotationProperty, int annotationValue) {
+		Objects.requireNonNull(annotationProperty);
+		Objects.requireNonNull(annotationValue);
+		this.annotationProperty = annotationProperty;
+		this.annotationValue = annotationValue;
+	}
 
-	/**
-	 * Returns the annotation value.
-	 * 
-	 * @return the annotation value
-	 */
-	String getAnnotationValue();
+	@Override
+	public int getAnnotationProperty() {
+		return this.annotationProperty;
+	}
+
+	@Override
+	public int getAnnotationValue() {
+		return this.annotationValue;
+	}
+
+	@Override
+	public int hashCode() {
+		return this.annotationProperty + (0x1F * this.annotationValue);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		} else if (!(obj instanceof IntegerAnnotation)) {
+			return false;
+		} else {
+			IntegerAnnotation other = (IntegerAnnotation) obj;
+			return getAnnotationProperty() == other.getAnnotationProperty()
+					&& getAnnotationValue() == getAnnotationValue();
+		}
+	}
+
+	@Override
+	public String toString() {
+		return this.annotationProperty + " " + this.annotationValue;
+	}
+
+	@Override
+	public int compareTo(IntegerAnnotation other) {
+		Objects.requireNonNull(other);
+		int ret = getAnnotationProperty() - other.getAnnotationProperty();
+		if (ret == 0) {
+			return getAnnotationValue() - other.getAnnotationValue();
+		} else {
+			return ret;
+		}
+	}
 
 }

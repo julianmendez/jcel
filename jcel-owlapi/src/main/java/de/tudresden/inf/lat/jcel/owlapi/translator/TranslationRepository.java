@@ -50,6 +50,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -85,6 +87,10 @@ public class TranslationRepository {
 	private final Map<Integer, OWLLiteral> literalMap = new HashMap<>();
 	private final Map<OWLObjectProperty, Integer> objectPropertyInvMap = new HashMap<>();
 	private final Map<Integer, OWLObjectProperty> objectPropertyMap = new HashMap<>();
+	private final Map<OWLAnnotationProperty, Integer> annotationPropertyInvMap = new HashMap<>();
+	private final Map<Integer, OWLAnnotationProperty> annotationPropertyMap = new HashMap<>();
+	private final Map<OWLAnnotationValue, Integer> annotationValueInvMap = new HashMap<>();
+	private final Map<Integer, OWLAnnotationValue> annotationValueMap = new HashMap<>();
 	private final OWLClass topClass;
 	private final OWLDataProperty topDataProperty;
 	private final OWLObjectProperty topObjectProperty;
@@ -235,6 +241,46 @@ public class TranslationRepository {
 		return ret;
 	}
 
+	/**
+	 * Adds an annotation property to the repository.
+	 * 
+	 * @param annProp
+	 *            OWL annotation property
+	 * @return <code>true</code> if and only if the repository has changed
+	 */
+	public boolean addAnnotationProperty(OWLAnnotationProperty annProp) {
+		Objects.requireNonNull(annProp);
+		boolean ret = false;
+		if (!this.annotationPropertyInvMap.containsKey(annProp)) {
+			Integer id = this.entityManager.createNamedEntity(IntegerEntityType.ANNOTATION_PROPERTY,
+					annProp.toStringID(), false);
+			this.annotationPropertyMap.put(id, annProp);
+			this.annotationPropertyInvMap.put(annProp, id);
+			ret = true;
+		}
+		return ret;
+	}
+
+	/**
+	 * Adds an annotation value to the repository.
+	 * 
+	 * @param annValue
+	 *            OWL annotation value
+	 * @return <code>true</code> if and only if the repository has changed
+	 */
+	public boolean addAnnotationValue(OWLAnnotationValue annValue) {
+		Objects.requireNonNull(annValue);
+		boolean ret = false;
+		if (!this.annotationValueInvMap.containsKey(annValue)) {
+			Integer id = this.entityManager.createNamedEntity(IntegerEntityType.ANNOTATION_VALUE, annValue.toString(),
+					false);
+			this.annotationValueMap.put(id, annValue);
+			this.annotationValueInvMap.put(annValue, id);
+			ret = true;
+		}
+		return ret;
+	}
+
 	public Integer getId(OWLClass owlClass) {
 		Objects.requireNonNull(owlClass);
 		Integer ret = this.classInvMap.get(owlClass);
@@ -280,6 +326,24 @@ public class TranslationRepository {
 		return ret;
 	}
 
+	public Integer getId(OWLAnnotationProperty owlAnnotationProperty) {
+		Objects.requireNonNull(owlAnnotationProperty);
+		Integer ret = this.annotationPropertyInvMap.get(owlAnnotationProperty);
+		if (Objects.isNull(ret)) {
+			throw TranslationException.newIncompleteMapException(owlAnnotationProperty.toString());
+		}
+		return ret;
+	}
+
+	public Integer getId(OWLAnnotationValue owlAnnotationValue) {
+		Objects.requireNonNull(owlAnnotationValue);
+		Integer ret = this.annotationValueInvMap.get(owlAnnotationValue);
+		if (Objects.isNull(ret)) {
+			throw TranslationException.newIncompleteMapException(owlAnnotationValue.toString());
+		}
+		return ret;
+	}
+
 	public OWLClass getOWLClass(Integer index) {
 		Objects.requireNonNull(index);
 		OWLClass ret = this.classMap.get(index);
@@ -310,6 +374,24 @@ public class TranslationRepository {
 	public OWLObjectProperty getOWLObjectProperty(Integer index) {
 		Objects.requireNonNull(index);
 		OWLObjectProperty ret = this.objectPropertyMap.get(index);
+		if (Objects.isNull(ret)) {
+			throw TranslationException.newIncompleteMapException(index.toString());
+		}
+		return ret;
+	}
+
+	public OWLAnnotationProperty getOWLAnnotationProperty(Integer index) {
+		Objects.requireNonNull(index);
+		OWLAnnotationProperty ret = this.annotationPropertyMap.get(index);
+		if (Objects.isNull(ret)) {
+			throw TranslationException.newIncompleteMapException(index.toString());
+		}
+		return ret;
+	}
+
+	public OWLAnnotationValue getOWLAnnotationValue(Integer index) {
+		Objects.requireNonNull(index);
+		OWLAnnotationValue ret = this.annotationValueMap.get(index);
 		if (Objects.isNull(ret)) {
 			throw TranslationException.newIncompleteMapException(index.toString());
 		}
@@ -347,6 +429,10 @@ public class TranslationRepository {
 		sbuf.append(this.dataPropertyMap.toString());
 		sbuf.append("\n");
 		sbuf.append(this.literalMap.toString());
+		sbuf.append("\n");
+		sbuf.append(this.annotationPropertyMap.toString());
+		sbuf.append("\n");
+		sbuf.append(this.annotationValueMap.toString());
 		sbuf.append("\n");
 		return sbuf.toString();
 	}

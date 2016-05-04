@@ -62,7 +62,7 @@ public class RI3AxiomImpl implements RI3Axiom {
 	private final int leftSubProperty;
 	private final int rightSubProperty;
 	private final int superProperty;
-	private final Set<Annotation> annotations;
+	private final Set<IntegerAnnotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -79,7 +79,8 @@ public class RI3AxiomImpl implements RI3Axiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	RI3AxiomImpl(int leftLeftPropertyId, int leftRightPropertyId, int rightPropertyId, Set<Annotation> annotations) {
+	RI3AxiomImpl(int leftLeftPropertyId, int leftRightPropertyId, int rightPropertyId,
+			Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(annotations);
 		this.leftSubProperty = leftLeftPropertyId;
 		this.rightSubProperty = leftRightPropertyId;
@@ -155,7 +156,7 @@ public class RI3AxiomImpl implements RI3Axiom {
 	}
 
 	@Override
-	public Set<Annotation> getAnnotations() {
+	public Set<IntegerAnnotation> getAnnotations() {
 		return Collections.unmodifiableSet(this.annotations);
 	}
 

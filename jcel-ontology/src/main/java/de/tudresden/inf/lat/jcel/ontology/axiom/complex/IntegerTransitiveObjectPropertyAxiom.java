@@ -50,7 +50,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
@@ -63,7 +63,7 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpressi
 public class IntegerTransitiveObjectPropertyAxiom implements ComplexIntegerAxiom {
 
 	private final IntegerObjectPropertyExpression property;
-	private final Set<Annotation> annotations;
+	private final Set<IntegerAnnotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -74,7 +74,7 @@ public class IntegerTransitiveObjectPropertyAxiom implements ComplexIntegerAxiom
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerTransitiveObjectPropertyAxiom(IntegerObjectPropertyExpression prop, Set<Annotation> annotations) {
+	IntegerTransitiveObjectPropertyAxiom(IntegerObjectPropertyExpression prop, Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(prop);
 		Objects.requireNonNull(annotations);
 		this.property = prop;
@@ -133,7 +133,7 @@ public class IntegerTransitiveObjectPropertyAxiom implements ComplexIntegerAxiom
 	}
 
 	@Override
-	public Set<Annotation> getAnnotations() {
+	public Set<IntegerAnnotation> getAnnotations() {
 		return Collections.unmodifiableSet(this.annotations);
 	}
 

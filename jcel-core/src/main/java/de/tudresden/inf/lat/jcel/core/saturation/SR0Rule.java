@@ -51,7 +51,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
 
@@ -84,7 +84,7 @@ public class SR0Rule implements SaturationRule {
 		Set<Integer> objectPropertySet = new HashSet<>();
 		originalSet.forEach(axiom -> objectPropertySet.addAll(axiom.getObjectPropertiesInSignature()));
 
-		Set<Annotation> annotations = Collections.emptySet();
+		Set<IntegerAnnotation> annotations = Collections.emptySet();
 		objectPropertySet.forEach(
 				objectProperty -> ret.add(this.factory.createRI2Axiom(objectProperty, objectProperty, annotations)));
 

@@ -50,7 +50,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 
 /**
  * An object of this class is an axiom that declares an object property.
@@ -60,7 +60,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 public class IntegerObjectPropertyDeclarationAxiom implements IntegerDeclarationAxiom {
 
 	private final int entity;
-	private final Set<Annotation> annotations;
+	private final Set<IntegerAnnotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -71,7 +71,7 @@ public class IntegerObjectPropertyDeclarationAxiom implements IntegerDeclaration
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerObjectPropertyDeclarationAxiom(int declaredEntity, Set<Annotation> annotations) {
+	IntegerObjectPropertyDeclarationAxiom(int declaredEntity, Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(annotations);
 		this.entity = declaredEntity;
 		this.annotations = annotations;
@@ -125,7 +125,7 @@ public class IntegerObjectPropertyDeclarationAxiom implements IntegerDeclaration
 	}
 
 	@Override
-	public Set<Annotation> getAnnotations() {
+	public Set<IntegerAnnotation> getAnnotations() {
 		return Collections.unmodifiableSet(this.annotations);
 	}
 

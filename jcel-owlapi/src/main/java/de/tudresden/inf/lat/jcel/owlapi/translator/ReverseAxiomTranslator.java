@@ -52,7 +52,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
@@ -65,12 +64,12 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI0Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI1Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.GCI3Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NominalAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomVisitor;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1Axiom;
@@ -232,17 +231,18 @@ public class ReverseAxiomTranslator implements NormalizedIntegerAxiomVisitor<OWL
 		return dataFactory.getOWLSubPropertyChainOfAxiom(owlPropertyList, owlSuperProperty, owlAnnotations);
 	}
 
-	OWLAnnotation translateAnnotation(Annotation annotation) {
+	OWLAnnotation translateAnnotation(IntegerAnnotation annotation) {
 		Objects.requireNonNull(annotation);
 		OWLDataFactory factory = ontology.getOWLOntologyManager().getOWLDataFactory();
-		OWLAnnotationProperty owlAnnotationProperty = factory
-				.getOWLAnnotationProperty(IRI.create(annotation.getAnnotationProperty()));
-		OWLAnnotationValue owlAnnotationValue = factory.getOWLLiteral(annotation.getAnnotationProperty().toString());
+		OWLAnnotationProperty owlAnnotationProperty = translator.getTranslationRepository()
+				.getOWLAnnotationProperty(annotation.getAnnotationProperty());
+		OWLAnnotationValue owlAnnotationValue = translator.getTranslationRepository()
+				.getOWLAnnotationValue(annotation.getAnnotationProperty());
 		OWLAnnotation owlAnnotation = factory.getOWLAnnotation(owlAnnotationProperty, owlAnnotationValue);
 		return owlAnnotation;
 	}
 
-	Set<OWLAnnotation> translateAnnotations(Set<Annotation> annotations) {
+	Set<OWLAnnotation> translateAnnotations(Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(annotations);
 		Set<OWLAnnotation> owlAnnotations = new HashSet<>();
 		annotations.forEach(annotation -> owlAnnotations.add(translateAnnotation(annotation)));

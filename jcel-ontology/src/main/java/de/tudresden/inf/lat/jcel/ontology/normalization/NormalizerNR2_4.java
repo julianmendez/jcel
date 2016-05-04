@@ -52,7 +52,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerSubClassOfAxiom;
@@ -118,7 +118,7 @@ public class NormalizerNR2_4 implements NormalizationRule {
 	}
 
 	private Set<IntegerAxiom> applyRule(Set<IntegerClassExpression> operands, IntegerClassExpression superClass,
-			Set<Annotation> annotations) {
+			Set<IntegerAnnotation> annotations) {
 		Set<IntegerAxiom> ret = new HashSet<>();
 		Optional<IntegerClassExpression> optional = operands.stream().filter(op -> op.isLiteral()).findAny();
 

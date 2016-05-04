@@ -60,7 +60,7 @@ public class NominalAxiomImpl implements NominalAxiom {
 
 	private final int classExpression;
 	private final int individual;
-	private final Set<Annotation> annotations;
+	private final Set<IntegerAnnotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -73,7 +73,7 @@ public class NominalAxiomImpl implements NominalAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	NominalAxiomImpl(int classId, int individualId, Set<Annotation> annotations) {
+	NominalAxiomImpl(int classId, int individualId, Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(annotations);
 		this.classExpression = classId;
 		this.individual = individualId;
@@ -136,7 +136,7 @@ public class NominalAxiomImpl implements NominalAxiom {
 	}
 
 	@Override
-	public Set<Annotation> getAnnotations() {
+	public Set<IntegerAnnotation> getAnnotations() {
 		return Collections.unmodifiableSet(this.annotations);
 	}
 

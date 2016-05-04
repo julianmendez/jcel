@@ -61,7 +61,7 @@ public class RI2AxiomImpl implements RI2Axiom {
 
 	private final int subProperty;
 	private final int superProperty;
-	private final Set<Annotation> annotations;
+	private final Set<IntegerAnnotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -75,7 +75,7 @@ public class RI2AxiomImpl implements RI2Axiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	RI2AxiomImpl(int leftPropertyId, int rightPropertyId, Set<Annotation> annotations) {
+	RI2AxiomImpl(int leftPropertyId, int rightPropertyId, Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(annotations);
 		this.subProperty = leftPropertyId;
 		this.superProperty = rightPropertyId;
@@ -141,7 +141,7 @@ public class RI2AxiomImpl implements RI2Axiom {
 	}
 
 	@Override
-	public Set<Annotation> getAnnotations() {
+	public Set<IntegerAnnotation> getAnnotations() {
 		return Collections.unmodifiableSet(this.annotations);
 	}
 

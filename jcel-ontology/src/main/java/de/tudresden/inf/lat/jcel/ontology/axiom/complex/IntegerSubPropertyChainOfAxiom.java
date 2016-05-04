@@ -52,7 +52,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
@@ -68,7 +68,7 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 	private final Set<Integer> objectPropertiesInSignature;
 	private final List<IntegerObjectPropertyExpression> propertyChain;
 	private final IntegerObjectPropertyExpression superProperty;
-	private final Set<Annotation> annotations;
+	private final Set<IntegerAnnotation> annotations;
 
 	/**
 	 * Constructs a new sub object property chain axiom.
@@ -81,7 +81,7 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 	 *            annotations
 	 */
 	IntegerSubPropertyChainOfAxiom(List<IntegerObjectPropertyExpression> chain,
-			IntegerObjectPropertyExpression superProp, Set<Annotation> annotations) {
+			IntegerObjectPropertyExpression superProp, Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(chain);
 		Objects.requireNonNull(superProp);
 		Objects.requireNonNull(annotations);
@@ -155,7 +155,7 @@ public class IntegerSubPropertyChainOfAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public Set<Annotation> getAnnotations() {
+	public Set<IntegerAnnotation> getAnnotations() {
 		return Collections.unmodifiableSet(this.annotations);
 	}
 

@@ -51,7 +51,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 
 /**
@@ -66,7 +66,7 @@ public class IntegerSubObjectPropertyOfAxiom implements ComplexIntegerAxiom {
 	private final Set<Integer> objectPropertiesInSignature;
 	private final IntegerObjectPropertyExpression subObjectProperty;
 	private final IntegerObjectPropertyExpression superObjectProperty;
-	private final Set<Annotation> annotations;
+	private final Set<IntegerAnnotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -80,7 +80,7 @@ public class IntegerSubObjectPropertyOfAxiom implements ComplexIntegerAxiom {
 	 *            annotations
 	 */
 	IntegerSubObjectPropertyOfAxiom(IntegerObjectPropertyExpression subPropExpr,
-			IntegerObjectPropertyExpression superPropExpr, Set<Annotation> annotations) {
+			IntegerObjectPropertyExpression superPropExpr, Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(subPropExpr);
 		Objects.requireNonNull(superPropExpr);
 		Objects.requireNonNull(annotations);
@@ -157,7 +157,7 @@ public class IntegerSubObjectPropertyOfAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public Set<Annotation> getAnnotations() {
+	public Set<IntegerAnnotation> getAnnotations() {
 		return Collections.unmodifiableSet(this.annotations);
 	}
 

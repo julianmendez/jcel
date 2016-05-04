@@ -46,77 +46,26 @@
 
 package de.tudresden.inf.lat.jcel.coreontology.axiom;
 
-import java.net.URI;
-import java.util.Objects;
-
 /**
- * An object of this class is an annotation.
+ * This interface models an annotation.
  * 
  * @author Julian Mendez
  * 
  */
-public class AnnotationImpl implements Annotation, Comparable<Annotation> {
-
-	private final URI annotationProperty;
-	private final String annotationValue;
+public interface IntegerAnnotation {
 
 	/**
-	 * Constructs a new default implementation of annotation.
+	 * Returns the annotation property.
 	 * 
-	 * @param annotationProperty
-	 *            annotation property
-	 * @param annotationValue
-	 *            annotation value
+	 * @return the annotation property
 	 */
-	public AnnotationImpl(URI annotationProperty, String annotationValue) {
-		Objects.requireNonNull(annotationProperty);
-		Objects.requireNonNull(annotationValue);
-		this.annotationProperty = annotationProperty;
-		this.annotationValue = annotationValue;
-	}
+	int getAnnotationProperty();
 
-	@Override
-	public URI getAnnotationProperty() {
-		return this.annotationProperty;
-	}
-
-	@Override
-	public String getAnnotationValue() {
-		return this.annotationValue;
-	}
-
-	@Override
-	public int hashCode() {
-		return this.annotationProperty.hashCode() + (0x1F * this.annotationValue.hashCode());
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		} else if (!(obj instanceof Annotation)) {
-			return false;
-		} else {
-			Annotation other = (Annotation) obj;
-			return getAnnotationProperty().equals(other.getAnnotationProperty())
-					&& getAnnotationValue().equals(getAnnotationValue());
-		}
-	}
-
-	@Override
-	public String toString() {
-		return this.annotationProperty + " " + this.annotationValue;
-	}
-
-	@Override
-	public int compareTo(Annotation other) {
-		Objects.requireNonNull(other);
-		int ret = getAnnotationProperty().compareTo(other.getAnnotationProperty());
-		if (ret == 0) {
-			return getAnnotationValue().compareTo(other.getAnnotationValue());
-		} else {
-			return ret;
-		}
-	}
+	/**
+	 * Returns the annotation value.
+	 * 
+	 * @return the annotation value
+	 */
+	int getAnnotationValue();
 
 }

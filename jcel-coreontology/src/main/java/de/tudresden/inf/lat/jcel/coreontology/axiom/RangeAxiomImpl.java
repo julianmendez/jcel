@@ -60,7 +60,7 @@ public class RangeAxiomImpl implements RangeAxiom {
 
 	private final int property;
 	private final int range;
-	private final Set<Annotation> annotations;
+	private final Set<IntegerAnnotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -73,7 +73,7 @@ public class RangeAxiomImpl implements RangeAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	RangeAxiomImpl(int propertyId, int classId, Set<Annotation> annotations) {
+	RangeAxiomImpl(int propertyId, int classId, Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(annotations);
 		this.property = propertyId;
 		this.range = classId;
@@ -136,7 +136,7 @@ public class RangeAxiomImpl implements RangeAxiom {
 	}
 
 	@Override
-	public Set<Annotation> getAnnotations() {
+	public Set<IntegerAnnotation> getAnnotations() {
 		return Collections.unmodifiableSet(this.annotations);
 	}
 

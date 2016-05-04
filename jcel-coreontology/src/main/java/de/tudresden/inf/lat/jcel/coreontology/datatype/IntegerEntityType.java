@@ -52,5 +52,5 @@ package de.tudresden.inf.lat.jcel.coreontology.datatype;
  * 
  */
 public enum IntegerEntityType {
-	CLASS, DATA_PROPERTY, INDIVIDUAL, LITERAL, OBJECT_PROPERTY
+	CLASS, DATA_PROPERTY, INDIVIDUAL, LITERAL, OBJECT_PROPERTY, ANNOTATION_PROPERTY, ANNOTATION_VALUE
 }

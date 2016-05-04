@@ -64,7 +64,7 @@ public class GCI2AxiomImpl implements GCI2Axiom {
 	private final int classInSuperClass;
 	private final int propertyInSuperClass;
 	private final int subClass;
-	private final Set<Annotation> annotations;
+	private final Set<IntegerAnnotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -79,7 +79,7 @@ public class GCI2AxiomImpl implements GCI2Axiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	GCI2AxiomImpl(int leftClassId, int rightPropertyId, int rightClassId, Set<Annotation> annotations) {
+	GCI2AxiomImpl(int leftClassId, int rightPropertyId, int rightClassId, Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(annotations);
 		this.subClass = leftClassId;
 		this.propertyInSuperClass = rightPropertyId;
@@ -155,7 +155,7 @@ public class GCI2AxiomImpl implements GCI2Axiom {
 	}
 
 	@Override
-	public Set<Annotation> getAnnotations() {
+	public Set<IntegerAnnotation> getAnnotations() {
 		return Collections.unmodifiableSet(this.annotations);
 	}
 
