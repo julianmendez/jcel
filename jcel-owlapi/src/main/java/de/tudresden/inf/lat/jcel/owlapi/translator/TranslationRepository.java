@@ -272,11 +272,13 @@ public class TranslationRepository {
 		Objects.requireNonNull(annValue);
 		boolean ret = false;
 		if (!this.annotationValueInvMap.containsKey(annValue)) {
-			Integer id = this.entityManager.createNamedEntity(IntegerEntityType.ANNOTATION_VALUE, annValue.toString(),
-					false);
-			this.annotationValueMap.put(id, annValue);
-			this.annotationValueInvMap.put(annValue, id);
-			ret = true;
+			if (annValue.asLiteral().isPresent()) {
+				Integer id = this.entityManager.createNamedEntity(IntegerEntityType.ANNOTATION_VALUE,
+						annValue.asLiteral().get().getLiteral(), false);
+				this.annotationValueMap.put(id, annValue);
+				this.annotationValueInvMap.put(annValue, id);
+				ret = true;
+			}
 		}
 		return ret;
 	}
@@ -330,7 +332,7 @@ public class TranslationRepository {
 		Objects.requireNonNull(owlAnnotationProperty);
 		Integer ret = this.annotationPropertyInvMap.get(owlAnnotationProperty);
 		if (Objects.isNull(ret)) {
-			throw TranslationException.newIncompleteMapException(owlAnnotationProperty.toString());
+			throw TranslationException.newIncompleteMapException(owlAnnotationProperty.toStringID());
 		}
 		return ret;
 	}
@@ -339,7 +341,13 @@ public class TranslationRepository {
 		Objects.requireNonNull(owlAnnotationValue);
 		Integer ret = this.annotationValueInvMap.get(owlAnnotationValue);
 		if (Objects.isNull(ret)) {
-			throw TranslationException.newIncompleteMapException(owlAnnotationValue.toString());
+			String msg = null;
+			if (owlAnnotationValue.asLiteral().isPresent()) {
+				msg = owlAnnotationValue.asLiteral().get().getLiteral();
+			} else {
+				msg = owlAnnotationValue.toString();
+			}
+			throw TranslationException.newIncompleteMapException(msg);
 		}
 		return ret;
 	}
