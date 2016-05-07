@@ -50,7 +50,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 
 /**
@@ -64,7 +64,7 @@ public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 
 	private final IntegerClassExpression classExpression;
 	private final int individual;
-	private final Set<Annotation> annotations;
+	private final Set<IntegerAnnotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -77,7 +77,7 @@ public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerClassAssertionAxiom(IntegerClassExpression classExpr, int individualId, Set<Annotation> annotations) {
+	IntegerClassAssertionAxiom(IntegerClassExpression classExpr, int individualId, Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(classExpr);
 		Objects.requireNonNull(annotations);
 		this.classExpression = classExpr;
@@ -147,7 +147,7 @@ public class IntegerClassAssertionAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public Set<Annotation> getAnnotations() {
+	public Set<IntegerAnnotation> getAnnotations() {
 		return Collections.unmodifiableSet(this.annotations);
 	}
 

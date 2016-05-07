@@ -61,7 +61,7 @@ public class GCI0AxiomImpl implements GCI0Axiom {
 
 	private final int subClass;
 	private final int superClass;
-	private final Set<Annotation> annotations;
+	private final Set<IntegerAnnotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -74,7 +74,7 @@ public class GCI0AxiomImpl implements GCI0Axiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	GCI0AxiomImpl(int subClassId, int superClassId, Set<Annotation> annotations) {
+	GCI0AxiomImpl(int subClassId, int superClassId, Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(annotations);
 		this.subClass = subClassId;
 		this.superClass = superClassId;
@@ -140,7 +140,7 @@ public class GCI0AxiomImpl implements GCI0Axiom {
 	}
 
 	@Override
-	public Set<Annotation> getAnnotations() {
+	public Set<IntegerAnnotation> getAnnotations() {
 		return Collections.unmodifiableSet(this.annotations);
 	}
 

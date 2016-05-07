@@ -50,7 +50,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 
 /**
  * This class models an axiom saying that two or more individuals are pairwise
@@ -61,7 +61,7 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
 public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 
 	private final Set<Integer> individuals;
-	private final Set<Annotation> annotations;
+	private final Set<IntegerAnnotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -72,7 +72,7 @@ public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerDifferentIndividualsAxiom(Set<Integer> individualSet, Set<Annotation> annotations) {
+	IntegerDifferentIndividualsAxiom(Set<Integer> individualSet, Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(individualSet);
 		Objects.requireNonNull(annotations);
 		this.individuals = Collections.unmodifiableSet(individualSet);
@@ -131,7 +131,7 @@ public class IntegerDifferentIndividualsAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public Set<Annotation> getAnnotations() {
+	public Set<IntegerAnnotation> getAnnotations() {
 		return Collections.unmodifiableSet(this.annotations);
 	}
 

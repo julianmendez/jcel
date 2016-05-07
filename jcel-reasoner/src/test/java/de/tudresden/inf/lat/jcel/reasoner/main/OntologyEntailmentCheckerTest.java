@@ -53,7 +53,7 @@ import java.util.TreeSet;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactory;
@@ -99,7 +99,7 @@ public class OntologyEntailmentCheckerTest {
 	 */
 	@Test
 	public void testOntology0() {
-		Set<Annotation> annotations = new TreeSet<>();
+		Set<IntegerAnnotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<>();

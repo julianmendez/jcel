@@ -57,7 +57,7 @@ import java.util.logging.Logger;
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
 import de.tudresden.inf.lat.jcel.core.algorithm.rulebased.RuleBasedProcessor;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
@@ -169,7 +169,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 				argument.add(ce);
 
 				Set<ComplexIntegerAxiom> extendedOntology = new HashSet<>();
-				Set<Annotation> annotations = Collections.emptySet();
+				Set<IntegerAnnotation> annotations = Collections.emptySet();
 				extendedOntology
 						.add(this.factory.getComplexAxiomFactory().createEquivalentClassesAxiom(argument, annotations));
 

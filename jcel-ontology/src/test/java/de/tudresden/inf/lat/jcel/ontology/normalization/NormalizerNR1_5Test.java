@@ -53,7 +53,7 @@ import java.util.TreeSet;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.IntegerEquivalentClassesAxiom;
@@ -75,7 +75,7 @@ public class NormalizerNR1_5Test {
 	 */
 	@Test
 	public void testUsingClasses() {
-		Set<Annotation> annotations = new TreeSet<>();
+		Set<IntegerAnnotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR1_5 normalizer = new NormalizerNR1_5(factory);
 
@@ -106,7 +106,7 @@ public class NormalizerNR1_5Test {
 	 */
 	@Test
 	public void testUsingClassExpressions() {
-		Set<Annotation> annotations = new TreeSet<>();
+		Set<IntegerAnnotation> annotations = new TreeSet<>();
 		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
 		NormalizerNR1_5 normalizer = new NormalizerNR1_5(factory);
 

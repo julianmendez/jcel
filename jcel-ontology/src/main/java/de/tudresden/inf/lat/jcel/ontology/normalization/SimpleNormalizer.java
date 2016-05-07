@@ -54,7 +54,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
@@ -157,7 +157,7 @@ public class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerA
 			Integer secondProperty) {
 		Objects.requireNonNull(firstProperty);
 		Objects.requireNonNull(secondProperty);
-		Set<Annotation> annotations = Collections.emptySet();
+		Set<IntegerAnnotation> annotations = Collections.emptySet();
 		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
 		{
 			Integer inverseSecondProperty = getIdGenerator().createOrGetInverseObjectPropertyOf(secondProperty);

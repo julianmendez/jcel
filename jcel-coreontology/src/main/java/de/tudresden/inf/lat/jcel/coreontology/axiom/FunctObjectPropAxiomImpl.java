@@ -59,7 +59,7 @@ import java.util.Set;
 public class FunctObjectPropAxiomImpl implements FunctObjectPropAxiom {
 
 	private final int property;
-	private final Set<Annotation> annotations;
+	private final Set<IntegerAnnotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -70,7 +70,7 @@ public class FunctObjectPropAxiomImpl implements FunctObjectPropAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	FunctObjectPropAxiomImpl(int propertyId, Set<Annotation> annotations) {
+	FunctObjectPropAxiomImpl(int propertyId, Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(annotations);
 		this.property = propertyId;
 		this.annotations = annotations;
@@ -126,7 +126,7 @@ public class FunctObjectPropAxiomImpl implements FunctObjectPropAxiom {
 	}
 
 	@Override
-	public Set<Annotation> getAnnotations() {
+	public Set<IntegerAnnotation> getAnnotations() {
 		return Collections.unmodifiableSet(this.annotations);
 	}
 

@@ -64,7 +64,7 @@ public class GCI3AxiomImpl implements GCI3Axiom {
 	private final int classInSubClass;
 	private final int propertyInSubClass;
 	private final int superClass;
-	private final Set<Annotation> annotations;
+	private final Set<IntegerAnnotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -79,7 +79,7 @@ public class GCI3AxiomImpl implements GCI3Axiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	GCI3AxiomImpl(int leftPropertyId, int leftClassId, int rightClassId, Set<Annotation> annotations) {
+	GCI3AxiomImpl(int leftPropertyId, int leftClassId, int rightClassId, Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(annotations);
 		this.classInSubClass = leftClassId;
 		this.propertyInSubClass = leftPropertyId;
@@ -153,7 +153,7 @@ public class GCI3AxiomImpl implements GCI3Axiom {
 	}
 
 	@Override
-	public Set<Annotation> getAnnotations() {
+	public Set<IntegerAnnotation> getAnnotations() {
 		return Collections.unmodifiableSet(this.annotations);
 	}
 

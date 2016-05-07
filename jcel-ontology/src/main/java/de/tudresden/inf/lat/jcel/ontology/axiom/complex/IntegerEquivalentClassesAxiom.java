@@ -51,7 +51,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClassExpression;
 
 /**
@@ -67,7 +67,7 @@ public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 	private final Set<Integer> classesInSignature;
 	private final Set<IntegerClassExpression> classExpressions;
 	private final Set<Integer> objectPropertiesInSignature;
-	private final Set<Annotation> annotations;
+	private final Set<IntegerAnnotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -78,7 +78,7 @@ public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerEquivalentClassesAxiom(Set<IntegerClassExpression> descSet, Set<Annotation> annotations) {
+	IntegerEquivalentClassesAxiom(Set<IntegerClassExpression> descSet, Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(descSet);
 		Objects.requireNonNull(annotations);
 		this.classExpressions = Collections.unmodifiableSet(descSet);
@@ -147,7 +147,7 @@ public class IntegerEquivalentClassesAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public Set<Annotation> getAnnotations() {
+	public Set<IntegerAnnotation> getAnnotations() {
 		return Collections.unmodifiableSet(this.annotations);
 	}
 

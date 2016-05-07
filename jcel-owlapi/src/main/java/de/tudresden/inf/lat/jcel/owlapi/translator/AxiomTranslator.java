@@ -46,7 +46,6 @@
 
 package de.tudresden.inf.lat.jcel.owlapi.translator;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -55,7 +54,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
@@ -108,10 +106,8 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-import com.google.common.base.Optional;
-
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
-import de.tudresden.inf.lat.jcel.coreontology.axiom.AnnotationImpl;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotationImpl;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
@@ -208,24 +204,17 @@ public class AxiomTranslator implements OWLAxiomVisitorEx<Set<ComplexIntegerAxio
 		return getClassExpressionTranslator().getTranslationRepository().getId(literal);
 	}
 
-	public Annotation translateAnnotation(OWLAnnotation owlAnnotation) {
-		URI property = owlAnnotation.getProperty().getIRI().toURI();
-		Optional<IRI> optIRI = owlAnnotation.getValue().asIRI();
-		Optional<OWLLiteral> optLiteral = owlAnnotation.getValue().asLiteral();
-		String value = null;
-		if (optIRI.isPresent()) {
-			value = optIRI.get().toString();
-		} else if (optLiteral.isPresent()) {
-			value = optLiteral.get().getLiteral();
-		} else {
-			value = "";
-		}
-		Annotation ret = new AnnotationImpl(property, value);
+	public IntegerAnnotation translateAnnotation(OWLAnnotation owlAnnotation) {
+		getClassExpressionTranslator().getTranslationRepository().addAnnotationProperty(owlAnnotation.getProperty());
+		int property = getClassExpressionTranslator().getTranslationRepository().getId(owlAnnotation.getProperty());
+		getClassExpressionTranslator().getTranslationRepository().addAnnotationValue(owlAnnotation.getValue());
+		int value = getClassExpressionTranslator().getTranslationRepository().getId(owlAnnotation.getValue());
+		IntegerAnnotation ret = new IntegerAnnotationImpl(property, value);
 		return ret;
 	}
 
-	public Set<Annotation> translateAnnotations(Set<OWLAnnotation> owlAnnotations) {
-		Set<Annotation> ret = new TreeSet<>();
+	public Set<IntegerAnnotation> translateAnnotations(Set<OWLAnnotation> owlAnnotations) {
+		Set<IntegerAnnotation> ret = new TreeSet<>();
 		owlAnnotations.forEach(owlAnnotation -> ret.add(translateAnnotation(owlAnnotation)));
 		return ret;
 	}

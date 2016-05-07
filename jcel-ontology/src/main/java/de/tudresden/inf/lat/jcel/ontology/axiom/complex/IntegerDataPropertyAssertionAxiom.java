@@ -51,7 +51,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 
 /**
  * This class models an assertion that relates a data property and a pair of
@@ -66,7 +66,7 @@ public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 	private final int object;
 	private final int property;
 	private final int subject;
-	private final Set<Annotation> annotations;
+	private final Set<IntegerAnnotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -81,7 +81,8 @@ public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	IntegerDataPropertyAssertionAxiom(int objectProp, int subjectInd, int objectInd, Set<Annotation> annotations) {
+	IntegerDataPropertyAssertionAxiom(int objectProp, int subjectInd, int objectInd,
+			Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(annotations);
 		this.property = objectProp;
 		this.subject = subjectInd;
@@ -166,7 +167,7 @@ public class IntegerDataPropertyAssertionAxiom implements ComplexIntegerAxiom {
 	}
 
 	@Override
-	public Set<Annotation> getAnnotations() {
+	public Set<IntegerAnnotation> getAnnotations() {
 		return Collections.unmodifiableSet(this.annotations);
 	}
 

@@ -48,7 +48,7 @@ package de.tudresden.inf.lat.jcel.coreontology.datatype;
 
 import java.util.Set;
 
-import de.tudresden.inf.lat.jcel.coreontology.axiom.Annotation;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 
 /**
  * An <code>IntegerAxiom</code> is an axiom that is composed by integer numbers.
@@ -63,6 +63,6 @@ public interface IntegerAxiom extends IntegerDatatype {
 	 * 
 	 * @return the annotations of this axiom
 	 */
-	Set<Annotation> getAnnotations();
+	Set<IntegerAnnotation> getAnnotations();
 
 }

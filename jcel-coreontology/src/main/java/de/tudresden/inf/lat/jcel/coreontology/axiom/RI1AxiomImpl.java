@@ -59,7 +59,7 @@ import java.util.Set;
 public class RI1AxiomImpl implements RI1Axiom {
 
 	private final int superProperty;
-	private final Set<Annotation> annotations;
+	private final Set<IntegerAnnotation> annotations;
 	private final int hashCode;
 
 	/**
@@ -70,7 +70,7 @@ public class RI1AxiomImpl implements RI1Axiom {
 	 * @param annotations
 	 *            annotations
 	 */
-	RI1AxiomImpl(int propertyId, Set<Annotation> annotations) {
+	RI1AxiomImpl(int propertyId, Set<IntegerAnnotation> annotations) {
 		Objects.requireNonNull(annotations);
 		this.superProperty = propertyId;
 		this.annotations = annotations;
@@ -126,7 +126,7 @@ public class RI1AxiomImpl implements RI1Axiom {
 	}
 
 	@Override
-	public Set<Annotation> getAnnotations() {
+	public Set<IntegerAnnotation> getAnnotations() {
 		return Collections.unmodifiableSet(this.annotations);
 	}
 
