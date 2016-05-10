@@ -47,14 +47,15 @@
 package de.tudresden.inf.lat.jcel.core.algorithm.module;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
+import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
 
 /**
  * An object of this class is a module extractor, i.e. it can extract a subset
@@ -62,63 +63,12 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
  * 
  * @author Julian Mendez
  */
-public class ModuleExtractor {
+public class DefaultModuleExtractor {
 
 	/**
 	 * Constructs a new module extractor.
 	 */
-	public ModuleExtractor() {
-	}
-
-	/**
-	 * Returns a module, i.e. a subset of axioms relevant to answer a query.
-	 * 
-	 * @param setOfAxioms
-	 *            set of axioms
-	 * @param setOfClasses
-	 *            set of classes
-	 * @param setOfObjectProperties
-	 *            set of object properties
-	 * @return a module, i.e. a subset of axioms relevant to answer a query
-	 */
-	public Set<NormalizedIntegerAxiom> extractModule(Collection<NormalizedIntegerAxiom> setOfAxioms,
-			Set<Integer> setOfClasses, Set<Integer> setOfObjectProperties) {
-
-		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
-
-		Set<Integer> classes = new HashSet<>();
-		classes.addAll(setOfClasses);
-		Set<Integer> objectProperties = new HashSet<>();
-		objectProperties.addAll(setOfObjectProperties);
-
-		Set<NormalizedIntegerAxiom> remainingAxioms = new HashSet<>();
-		remainingAxioms.addAll(setOfAxioms);
-
-		boolean found = true;
-		while (found) {
-			found = false;
-			remainingAxioms.removeAll(ret);
-
-			for (NormalizedIntegerAxiom axiom : remainingAxioms) {
-
-				ExtendedNormalizedAxiom c = new ExtendedNormalizedAxiomImpl(axiom);
-				Set<Integer> classesOnTheLeft = c.getClassesOnTheLeft();
-				Set<Integer> objectPropertiesOnTheLeft = c.getObjectPropertiesOnTheLeft();
-
-				boolean case0 = !Collections.disjoint(classesOnTheLeft, classes);
-				boolean case1 = (classesOnTheLeft.isEmpty()
-						&& !Collections.disjoint(objectPropertiesOnTheLeft, objectProperties));
-				boolean case2 = (classesOnTheLeft.isEmpty() && objectPropertiesOnTheLeft.isEmpty());
-
-				if (case0 || case1 || case2) {
-					classes.addAll(c.getClassesOnTheRight());
-					objectProperties.addAll(c.getObjectPropertiesOnTheRight());
-					found = ret.add(axiom);
-				}
-
-			}
-		}
-		return ret;
+	public DefaultModuleExtractor() {
 	}
 
 	/**
@@ -130,12 +80,12 @@ public class ModuleExtractor {
 	 * @return a map that relates a class with the set of axioms where this
 	 *         class occurs on the left side of the axiom
 	 */
-	Map<Integer, Set<ExtendedNormalizedAxiom>> buildMapOfAxioms(Set<ExtendedNormalizedAxiom> normalizedAxioms) {
-		Map<Integer, Set<ExtendedNormalizedAxiom>> map = new HashMap<>();
+	Map<Integer, Set<DefaultIdentifierCollector>> buildMapOfAxioms(Set<DefaultIdentifierCollector> normalizedAxioms) {
+		Map<Integer, Set<DefaultIdentifierCollector>> map = new HashMap<>();
 		normalizedAxioms.forEach(axiom -> {
 			Set<Integer> classesOnTheLeft = axiom.getClassesOnTheLeft();
 			classesOnTheLeft.forEach(classId -> {
-				Set<ExtendedNormalizedAxiom> value = map.get(classId);
+				Set<DefaultIdentifierCollector> value = map.get(classId);
 				if (Objects.isNull(value)) {
 					value = new HashSet<>();
 					map.put(classId, value);
@@ -146,7 +96,7 @@ public class ModuleExtractor {
 		return map;
 	}
 
-	Set<NormalizedIntegerAxiom> getAxiomsWithoutEntitiesOnTheLeft(Set<ExtendedNormalizedAxiom> axioms) {
+	Set<NormalizedIntegerAxiom> getAxiomsWithoutEntitiesOnTheLeft(Set<DefaultIdentifierCollector> axioms) {
 		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
 		axioms.forEach(axiom -> {
 			if (axiom.getClassesOnTheLeft().isEmpty() && axiom.getObjectPropertiesOnTheLeft().isEmpty()) {
@@ -156,15 +106,25 @@ public class ModuleExtractor {
 		return ret;
 	}
 
-	Set<ExtendedNormalizedAxiom> getAxiomsWithClassesOnTheLeft(Set<Integer> classesToVisit,
-			Map<Integer, Set<ExtendedNormalizedAxiom>> map) {
-		Set<ExtendedNormalizedAxiom> ret = new HashSet<>();
+	Set<DefaultIdentifierCollector> getAxiomsWithClassesOnTheLeft(Set<Integer> classesToVisit,
+			Map<Integer, Set<DefaultIdentifierCollector>> map) {
+		Set<DefaultIdentifierCollector> ret = new HashSet<>();
 		classesToVisit.forEach(classId -> {
-			Set<ExtendedNormalizedAxiom> newAxioms = map.get(classId);
-			if (newAxioms != null) {
+			Set<DefaultIdentifierCollector> newAxioms = map.get(classId);
+			if (Objects.nonNull(newAxioms)) {
 				ret.addAll(newAxioms);
 			}
 		});
+		return ret;
+	}
+
+	Set<Integer> getEntities(IntegerAxiom axiom) {
+		Set<Integer> ret = new TreeSet<>();
+		ret.addAll(axiom.getClassesInSignature());
+		ret.addAll(axiom.getObjectPropertiesInSignature());
+		ret.addAll(axiom.getIndividualsInSignature());
+		ret.addAll(axiom.getDataPropertiesInSignature());
+		ret.addAll(axiom.getDatatypesInSignature());
 		return ret;
 	}
 
@@ -177,37 +137,39 @@ public class ModuleExtractor {
 	 *            set of classes
 	 * @return a module, i.e. a subset of axioms relevant to answer a query
 	 */
-	public Set<NormalizedIntegerAxiom> extractModule(Collection<NormalizedIntegerAxiom> setOfAxioms,
-			Set<Integer> setOfClasses) {
+	public Module extractModule(Collection<NormalizedIntegerAxiom> setOfAxioms, Set<Integer> setOfClasses) {
 
-		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
+		Set<NormalizedIntegerAxiom> newAxioms = new HashSet<>();
 
-		Set<ExtendedNormalizedAxiom> axioms = new HashSet<>();
-		setOfAxioms.forEach(axiom -> axioms.add(new ExtendedNormalizedAxiomImpl(axiom)));
+		Set<DefaultIdentifierCollector> axioms = new HashSet<>();
+		setOfAxioms.forEach(axiom -> axioms.add(new DefaultIdentifierCollector(axiom)));
 
-		ret.addAll(getAxiomsWithoutEntitiesOnTheLeft(axioms));
+		newAxioms.addAll(getAxiomsWithoutEntitiesOnTheLeft(axioms));
 
-		Map<Integer, Set<ExtendedNormalizedAxiom>> map = buildMapOfAxioms(axioms);
+		Map<Integer, Set<DefaultIdentifierCollector>> map = buildMapOfAxioms(axioms);
 
-		Set<Integer> visitedClasses = new HashSet<Integer>();
-		Set<Integer> classesToVisit = new HashSet<Integer>();
+		Set<Integer> visitedClasses = new TreeSet<>();
+		Set<Integer> classesToVisit = new TreeSet<>();
 		classesToVisit.addAll(setOfClasses);
 		int resultSize = -1;
-		while (ret.size() > resultSize) {
-			resultSize = ret.size();
+		while (newAxioms.size() > resultSize) {
+			resultSize = newAxioms.size();
 
-			Set<ExtendedNormalizedAxiom> axiomsToVisit = getAxiomsWithClassesOnTheLeft(classesToVisit, map);
+			Set<DefaultIdentifierCollector> axiomsToVisit = getAxiomsWithClassesOnTheLeft(classesToVisit, map);
 			visitedClasses.addAll(classesToVisit);
 			classesToVisit.clear();
 
 			axiomsToVisit.forEach(axiom -> {
 				classesToVisit.addAll(axiom.getClassesOnTheRight());
-				ret.add(axiom.getAxiom());
+				newAxioms.add(axiom.getAxiom());
 			});
 			classesToVisit.removeAll(visitedClasses);
 		}
 
-		return ret;
+		Set<Integer> entities = new TreeSet<>();
+		entities.addAll(visitedClasses);
+		newAxioms.forEach(axiom -> entities.addAll(getEntities(axiom)));
+		return new Module(entities, newAxioms);
 	}
 
 }
