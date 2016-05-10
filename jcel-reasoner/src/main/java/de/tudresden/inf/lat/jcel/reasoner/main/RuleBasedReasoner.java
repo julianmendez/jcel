@@ -333,16 +333,16 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	public Set<IntegerObjectPropertyExpression> getInverseObjectProperties(IntegerObjectPropertyExpression pe) {
 		Objects.requireNonNull(pe);
 		classify();
-		// TODO Auto-generated method stub
-		return null;
+		// TODO implement this query
+		throw new UnsupportedQueryException("Unsupported query: InverseObjectProperties of " + pe);
 	}
 
 	@Override
 	public Set<Set<IntegerClass>> getObjectPropertyDomains(IntegerObjectPropertyExpression pe, boolean direct) {
 		Objects.requireNonNull(pe);
 		classify();
-		// TODO Auto-generated method stub
-		return null;
+		// TODO implement this query
+		throw new UnsupportedQueryException("Unsupported query: ObjectPropertyDomains of " + pe + "," + direct);
 	}
 
 	private Integer getObjectPropertyExpressionId(IntegerObjectPropertyExpression propExpr) {
@@ -353,8 +353,8 @@ public class RuleBasedReasoner implements IntegerReasoner {
 	public Set<Set<IntegerClass>> getObjectPropertyRanges(IntegerObjectPropertyExpression pe, boolean direct) {
 		Objects.requireNonNull(pe);
 		classify();
-		// TODO Auto-generated method stub
-		return null;
+		// TODO implement this query
+		throw new UnsupportedQueryException("Unsupported query: ObjectPropertyRanges of " + pe + "," + direct);
 	}
 
 	@Override
@@ -363,8 +363,8 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		Objects.requireNonNull(ind);
 		Objects.requireNonNull(pe);
 		classify();
-		// TODO Auto-generated method stub
-		return null;
+		// TODO implement this query
+		throw new UnsupportedQueryException("Unsupported query: ObjectPropertyValues of " + ind + "," + pe);
 	}
 
 	public Processor getProcessor() {
