@@ -47,10 +47,12 @@
 package de.tudresden.inf.lat.jcel.core.completion.basic;
 
 import java.util.Objects;
+import java.util.function.Function;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.SObserverRule;
+import de.tudresden.inf.lat.jcel.coreontology.axiom.ExtendedOntology;
 
 /**
  * 
@@ -85,11 +87,17 @@ public class CR1SRule implements SObserverRule {
 		return applyRule(status, subClass, superClass);
 	}
 
-	private boolean applyRule(ClassifierStatus status, int x, int a) {
+	private boolean applyRule(ClassifierStatus status, int subClass, int superClass) {
+		return applyRule(status.getExtendedOntology(), (Integer x) -> (Integer b) -> status.addNewSEntry(x, b),
+				subClass, superClass);
+	}
+
+	private boolean applyRule(ExtendedOntology ontology, Function<Integer, Function<Integer, Boolean>> queue, int x,
+			int a) {
 		CompletionRuleMonitor ret = new CompletionRuleMonitor();
-		status.getExtendedOntology().getGCI0Axioms(a).forEach(axiom -> {
+		ontology.getGCI0Axioms(a).forEach(axiom -> {
 			int b = axiom.getSuperClass();
-			ret.or(status.addNewSEntry(x, b));
+			ret.or(queue.apply(x).apply(b));
 		});
 		return ret.get();
 	}
