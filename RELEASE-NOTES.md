@@ -37,7 +37,7 @@
 *(unreleased)*
 * runs on Java 8
 * fixes module extractor
-* improves annotations
+* improves annotations in normalized axioms
 * build commands:
 ```
 $ mvn clean install
