@@ -3,7 +3,7 @@
 
 | version | release date | Java | OWL API       | Protégé       |
 |:--------|:-------------|:----:|:--------------|:--------------|
-| v0.24.0 | (unreleased) | 8    | 4.1.3         | 5.0.0-beta-23 |
+| v0.24.0 | (unreleased) | 8    | 4.2.5         | 5.0.0         |
 | v0.23.2 | 2015-12-24   | 7    | 4.1.3         | 5.0.0-beta-21 |
 | v0.23.1 | 2015-12-23   | 7    | 3.5.1         | 5.0.0-beta-17 |
 | v0.23.0 | 2015-11-30   | 7    | 4.1.3         | 5.0.0-beta-21 |
@@ -36,6 +36,8 @@
 ### v0.24.0
 *(unreleased)*
 * runs on Java 8
+* uses the OWL API 4.2.5
+* can be used as a plug-in for Protégé 5.0.0
 * fixes module extractor
 * improves annotations in normalized axioms
 * build commands:
