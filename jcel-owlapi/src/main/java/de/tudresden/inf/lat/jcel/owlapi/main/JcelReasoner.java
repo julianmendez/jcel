@@ -62,7 +62,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -678,7 +677,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	}
 
 	@Override
-	public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
+	public void ontologiesChanged(List<? extends OWLOntologyChange> changes) {
 		this.pendingChanges.addAll(changes);
 		changes.forEach(change -> change.accept(this.ontologyChangeVisitor));
 	}
