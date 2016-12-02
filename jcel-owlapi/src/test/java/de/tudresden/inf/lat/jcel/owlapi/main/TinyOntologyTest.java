@@ -62,8 +62,10 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.impl.OWLClassNode;
 
 /**
  * Set of tests using tiny ontologies.
@@ -529,6 +531,35 @@ public class TinyOntologyTest {
 
 		verifyBottomAndTop(reasoner);
 
+	}
+
+	/**
+	 * @throws OWLOntologyCreationException
+	 *             if something goes wrong with the ontology creation
+	 */
+	@Test
+	public void testTinyOntology8() throws OWLOntologyCreationException {
+		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+		OWLDataFactory factory = manager.getOWLDataFactory();
+		Set<OWLAxiom> axiomSet = new HashSet<>();
+		OWLClass a = createNewClass(factory, "A");
+		OWLClass b = createNewClass(factory, "B");
+		OWLClass ab = createNewClass(factory, "AB");
+
+		Set<OWLClass> aAndBSet = new HashSet<>();
+		aAndBSet.add(a);
+		aAndBSet.add(b);
+		OWLClassExpression aAndB = factory.getOWLObjectIntersectionOf(aAndBSet);
+		axiomSet.add(factory.getOWLEquivalentClassesAxiom(ab, aAndB));
+
+		OWLOntology ontology = manager.createOntology(axiomSet);
+		JcelReasonerFactory reasonerFactory = new JcelReasonerFactory();
+		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
+		Set<OWLClass> expectedSet = new HashSet<>();
+		expectedSet.add(ab);
+		Node<OWLClass> expected = new OWLClassNode(expectedSet);
+		Assert.assertEquals(expected, reasoner.getEquivalentClasses(ab));
+		Assert.assertEquals(expected, reasoner.getEquivalentClasses(aAndB));
 	}
 
 	private void verifyBottomAndTop(OWLReasoner reasoner) {

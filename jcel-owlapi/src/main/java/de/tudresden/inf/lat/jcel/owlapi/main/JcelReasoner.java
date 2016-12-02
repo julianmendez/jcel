@@ -89,6 +89,7 @@ import org.semanticweb.owlapi.util.Version;
 
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.extension.IntegerOntologyObjectFactoryImpl;
+import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerClass;
 import de.tudresden.inf.lat.jcel.owlapi.translator.Translator;
 import de.tudresden.inf.lat.jcel.reasoner.main.IntegerReasoner;
 import de.tudresden.inf.lat.jcel.reasoner.main.RuleBasedReasoner;
@@ -270,7 +271,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(
 			OWLObjectPropertyExpression objectPropertyExpression) throws InconsistentOntologyException,
-					FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
+			FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
 		Objects.requireNonNull(objectPropertyExpression);
 		logger.finer("getDisjointDataProperties(" + objectPropertyExpression + ")");
 		NodeSet<OWLObjectPropertyExpression> ret = getTranslator().translateSSOPE(
@@ -279,12 +280,19 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		return ret;
 	}
 
+	Set<IntegerClass> getRegisteredClasses(Set<IntegerClass> set) {
+		Set<IntegerClass> ret = new HashSet<>();
+		set.stream().filter(cls -> getTranslator().getTranslationRepository().getOptOWLClass(cls.getId()).isPresent())
+				.forEach(cls -> ret.add(cls));
+		return ret;
+	}
+
 	@Override
 	public Node<OWLClass> getEquivalentClasses(OWLClassExpression classExpression) {
 		Objects.requireNonNull(classExpression);
 		logger.finer("getEquivalentClasses(" + classExpression + ")");
-		Node<OWLClass> ret = getTranslator()
-				.translateSC(getReasoner().getEquivalentClasses(getTranslator().translateCE(classExpression)));
+		Node<OWLClass> ret = getTranslator().translateSC(
+				getRegisteredClasses(getReasoner().getEquivalentClasses(getTranslator().translateCE(classExpression))));
 		logger.finer("" + ret);
 		return ret;
 	}
@@ -302,7 +310,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public Node<OWLObjectPropertyExpression> getEquivalentObjectProperties(
 			OWLObjectPropertyExpression objectPropertyExpression) throws InconsistentOntologyException,
-					FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
+			FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
 		Objects.requireNonNull(objectPropertyExpression);
 		logger.finer("getEquivalentObjectProperties(" + objectPropertyExpression + ")");
 		Node<OWLObjectPropertyExpression> ret = getTranslator().translateSOPE(
@@ -352,7 +360,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public Node<OWLObjectPropertyExpression> getInverseObjectProperties(
 			OWLObjectPropertyExpression objectPropertyExpression) throws InconsistentOntologyException,
-					FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
+			FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
 		Objects.requireNonNull(objectPropertyExpression);
 		logger.finer("getInverseObjectProperties(" + objectPropertyExpression + ")");
 		throw new UnsupportedReasonerOperationInJcelException(
@@ -362,7 +370,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression objectPropertyExpression,
 			boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException,
-					TimeOutException {
+			TimeOutException {
 		Objects.requireNonNull(objectPropertyExpression);
 		logger.finer("getObjectPropertyDomains(" + objectPropertyExpression + ", " + direct + ")");
 		throw new UnsupportedReasonerOperationInJcelException(
@@ -372,7 +380,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression objectPropertyExpression,
 			boolean direct) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException,
-					TimeOutException {
+			TimeOutException {
 		Objects.requireNonNull(objectPropertyExpression);
 		logger.finer("getObjectPropertyRanges(" + objectPropertyExpression + ", " + direct + ")");
 		throw new UnsupportedReasonerOperationInJcelException(
@@ -382,7 +390,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public NodeSet<OWLNamedIndividual> getObjectPropertyValues(OWLNamedIndividual individual,
 			OWLObjectPropertyExpression objectPropertyExpression) throws InconsistentOntologyException,
-					FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
+			FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
 		Objects.requireNonNull(individual);
 		Objects.requireNonNull(objectPropertyExpression);
 		logger.finer("getObjectPropertyValues(" + individual + ", " + objectPropertyExpression + ")");
@@ -510,7 +518,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(
 			OWLObjectPropertyExpression objectPropertyExpression, boolean direct) throws InconsistentOntologyException,
-					FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
+			FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
 		Objects.requireNonNull(objectPropertyExpression);
 		logger.finer("getSubObjectProperties(" + objectPropertyExpression + ", " + direct + ")");
 		NodeSet<OWLObjectPropertyExpression> ret = getTranslator().translateSSOPE(
@@ -544,7 +552,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	@Override
 	public NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(
 			OWLObjectPropertyExpression objectPropertyExpression, boolean direct) throws InconsistentOntologyException,
-					FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
+			FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
 		Objects.requireNonNull(objectPropertyExpression);
 		logger.finer("getSuperObjectProperties(" + objectPropertyExpression + ", " + direct + ")");
 		NodeSet<OWLObjectPropertyExpression> ret = getTranslator().translateSSOPE(
