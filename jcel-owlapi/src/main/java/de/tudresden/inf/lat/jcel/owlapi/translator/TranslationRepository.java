@@ -49,6 +49,7 @@ package de.tudresden.inf.lat.jcel.owlapi.translator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
@@ -404,6 +405,80 @@ public class TranslationRepository {
 			throw TranslationException.newIncompleteMapException(index.toString());
 		}
 		return ret;
+	}
+
+	public Optional<Integer> getOptId(OWLClass owlClass) {
+		Objects.requireNonNull(owlClass);
+		return Optional.ofNullable(this.classInvMap.get(owlClass));
+	}
+
+	public Optional<Integer> getOptId(OWLDataProperty owlDataProperty) {
+		Objects.requireNonNull(owlDataProperty);
+		return Optional.ofNullable(this.dataPropertyInvMap.get(owlDataProperty));
+	}
+
+	public Optional<Integer> getOptId(OWLIndividual individual) {
+		Objects.requireNonNull(individual);
+		return Optional.ofNullable(this.individualInvMap.get(individual));
+	}
+
+	public Optional<Integer> getOptId(OWLLiteral owlLiteral) {
+		Objects.requireNonNull(owlLiteral);
+		return Optional.ofNullable(this.literalInvMap.get(owlLiteral));
+	}
+
+	public Optional<Integer> getOptId(OWLObjectProperty owlObjectProperty) {
+		Objects.requireNonNull(owlObjectProperty);
+		return Optional.ofNullable(this.objectPropertyInvMap.get(owlObjectProperty));
+	}
+
+	public Optional<Integer> getOptId(OWLAnnotationProperty owlAnnotationProperty) {
+		Objects.requireNonNull(owlAnnotationProperty);
+		return Optional.ofNullable(this.annotationPropertyInvMap.get(owlAnnotationProperty));
+	}
+
+	public Optional<Integer> getOptId(OWLAnnotationValue owlAnnotationValue) {
+		Objects.requireNonNull(owlAnnotationValue);
+		Integer ret = this.annotationValueInvMap.get(owlAnnotationValue);
+		if (Objects.isNull(ret)) {
+			String msg = null;
+			if (owlAnnotationValue.asLiteral().isPresent()) {
+				msg = owlAnnotationValue.asLiteral().get().getLiteral();
+			} else {
+				msg = owlAnnotationValue.toString();
+			}
+		}
+		return Optional.ofNullable(ret);
+	}
+
+	public Optional<OWLClass> getOptOWLClass(Integer index) {
+		Objects.requireNonNull(index);
+		return Optional.ofNullable(this.classMap.get(index));
+	}
+
+	public Optional<OWLDataProperty> getOptOWLDataProperty(Integer index) {
+		Objects.requireNonNull(index);
+		return Optional.ofNullable(this.dataPropertyMap.get(index));
+	}
+
+	public Optional<OWLNamedIndividual> getOptOWLNamedIndividual(Integer index) {
+		Objects.requireNonNull(index);
+		return Optional.ofNullable(this.individualMap.get(index));
+	}
+
+	public Optional<OWLObjectProperty> getOptOWLObjectProperty(Integer index) {
+		Objects.requireNonNull(index);
+		return Optional.ofNullable(this.objectPropertyMap.get(index));
+	}
+
+	public Optional<OWLAnnotationProperty> getOptOWLAnnotationProperty(Integer index) {
+		Objects.requireNonNull(index);
+		return Optional.ofNullable(this.annotationPropertyMap.get(index));
+	}
+
+	public Optional<OWLAnnotationValue> getOptOWLAnnotationValue(Integer index) {
+		Objects.requireNonNull(index);
+		return Optional.ofNullable(this.annotationValueMap.get(index));
 	}
 
 	private void initializeMaps() {
