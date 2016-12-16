@@ -129,9 +129,9 @@ If we consider each package as a node, and each dependency between two packages 
 
 ## Example
 
-This [file](https://julianmendez.github.io/jcel/data/start-jcel.sh.txt) is an example of how to start jcel.
+This [file](https://github.com/julianmendez/jcel/blob/master/docs/data/start-jcel.sh.txt) is an example of how to start jcel.
 
-This [file](https://julianmendez.github.io/jcel/data/example.owl) is an example ontology using ELHIfR+.
+This [file](https://github.com/julianmendez/jcel/blob/master/docs/data/example.owl) is an example ontology using ELHIfR+.
 
 Ontologies:
 * [Gene Ontology](http://www.geneontology.org/): input [owl](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/geneontology.owl.zip) [krss](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/go.cel.zip), output [xml](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/geneontology-inferred-0.12.0.xml.zip)
@@ -147,13 +147,13 @@ See [release notes](https://github.com/julianmendez/jcel/blob/master/RELEASE-NOT
 
 
 ## Older versions
-* [Git SHA](https://julianmendez.github.io/jcel/data/gitsha.txt) 
-* [old SVN revision](https://julianmendez.github.io/jcel/data/svnrev.txt)
+* [Git SHA](https://github.com/julianmendez/jcel/blob/master/docs/data/gitsha.txt) 
+* [old SVN revision](https://github.com/julianmendez/jcel/blob/master/docs/data/svnrev.txt)
 * [releases](https://sourceforge.net/projects/jcel/files/)
 
 
 ## More information
-* [Frequently Asked Questions](https://julianmendez.github.io/jcel/data/faq.md)
+* [Frequently Asked Questions](https://github.com/julianmendez/jcel/blob/master/docs/data/faq.md)
 
 
 ## References
