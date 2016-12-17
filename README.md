@@ -82,6 +82,7 @@ $ cd target
 $ jar -cf bundle.jar jcel-*
 ```
 and on the main directory:
+
 ```
 $ cd target
 $ jar -cf bundle.jar jcel-parent-*
