@@ -64,6 +64,7 @@ To compile the project offline, first download the dependencies:
 ```
 $ mvn dependency:go-offline
 ```
+
 and once offline, use:
 
 ```
@@ -75,12 +76,14 @@ The bundles uploaded to [Sonatype](https://oss.sonatype.org/) are created with:
 ```
 $ mvn clean install -DperformRelease=true
 ```
+
 and then on each module:
 
 ```
 $ cd target
 $ jar -cf bundle.jar jcel-*
 ```
+
 and on the main directory:
 
 ```
@@ -93,6 +96,7 @@ The version number is updated with:
 ```
 $ mvn versions:set -DnewVersion=NEW_VERSION
 ```
+
 where *NEW_VERSION* is the new version.
 The file [VersionInfo.java](https://github.com/julianmendez/jcel/blob/master/jcel-reasoner/src/main/java/de/tudresden/inf/lat/jcel/reasoner/main/VersionInfo.java) is updated manually.
 
