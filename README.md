@@ -23,10 +23,12 @@
 
 
 ## Author
+
 [Julian Mendez](http://lat.inf.tu-dresden.de/~mendez/)
 
 
 ## Licenses
+
 [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt), [LGPL 3.0](https://www.gnu.org/licenses/lgpl-3.0.txt)
 
 
@@ -175,9 +177,9 @@ See [release notes](https://github.com/julianmendez/jcel/blob/master/RELEASE-NOT
 ## References
 
 * Theoretical foundation:
- * [Master's thesis by J. A. Mendez](http://lat.inf.tu-dresden.de/research/mas/Men-Mas-11.pdf)
- * [Master's thesis by Q. H. Vu](http://lat.inf.tu-dresden.de/research/mas/Vu-Mas-08.pdf)
- * [Ph.D. thesis by B. Suntisrivaraporn](http://lat.inf.tu-dresden.de/research/phd/Sun-PhD-09.pdf)
+  * [Master's thesis by J. A. Mendez](http://lat.inf.tu-dresden.de/research/mas/Men-Mas-11.pdf)
+  * [Master's thesis by Q. H. Vu](http://lat.inf.tu-dresden.de/research/mas/Vu-Mas-08.pdf)
+  * [Ph.D. thesis by B. Suntisrivaraporn](http://lat.inf.tu-dresden.de/research/phd/Sun-PhD-09.pdf)
 * CEL: [main page](http://lat.inf.tu-dresden.de/systems/cel) - [source code](https://github.com/julianmendez/cel)
 * OWL API: [main page](https://owlapi.sourceforge.net/) - [examples](https://owlapi.sourceforge.net/documentation.html) — [javadoc](https://owlapi.sourceforge.net/javadoc)
 * OWL 2: [OWL Working Group](http://www.w3.org/2007/OWL/wiki/OWL_Working_Group)
