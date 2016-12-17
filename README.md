@@ -7,10 +7,12 @@
 
 
 ## Download
+
 * [all-in-one ZIP file](https://sourceforge.net/projects/jcel/files/jcel/0.24.0/zip/jcel-0.24.0.zip/download)
 * [The Central Repository](https://repo1.maven.org/maven2/de/tu-dresden/inf/lat/jcel/)
 * [older releases](https://sourceforge.net/projects/jcel/files/)
 * as dependency:
+
 ```xml
 <dependency>
   <groupId>de.tu-dresden.inf.lat.jcel</groupId>
@@ -48,6 +50,7 @@
 ## Source code
 
 The project is hosted on [GitHub](https://github.com/julianmendez/jcel). To checkout and compile the project with [Apache Maven](https://maven.apache.org/):
+
 ```
 $ git clone https://github.com/julianmendez/jcel.git
 $ cd jcel
@@ -57,19 +60,23 @@ $ mvn clean install
 The library, its sources and its Javadoc will be in `jcel-library/target`, the plug-in will be in `jcel-plugin/target`, the standalone will be in `jcel-standalone/target`, and the release ZIP file will be in `target`.
 
 To compile the project offline, first download the dependencies:
+
 ```
 $ mvn dependency:go-offline
 ```
 and once offline, use:
+
 ```
 $ mvn --offline clean install
 ```
 
 The bundles uploaded to [Sonatype](https://oss.sonatype.org/) are created with:
+
 ```
 $ mvn clean install -DperformRelease=true
 ```
 and then on each module:
+
 ```
 $ cd target
 $ jar -cf bundle.jar jcel-*
@@ -81,6 +88,7 @@ $ jar -cf bundle.jar jcel-parent-*
 ```
 
 The version number is updated with:
+
 ```
 $ mvn versions:set -DnewVersion=NEW_VERSION
 ```
@@ -134,6 +142,7 @@ This [file](https://github.com/julianmendez/jcel/blob/master/docs/data/start-jce
 This [file](https://github.com/julianmendez/jcel/blob/master/docs/data/example.owl) is an example ontology using ELHIfR+.
 
 Ontologies:
+
 * [Gene Ontology](http://www.geneontology.org/): input [owl](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/geneontology.owl.zip) [krss](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/go.cel.zip), output [xml](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/geneontology-inferred-0.12.0.xml.zip)
 * [NCI Thesaurus](https://ncit.nci.nih.gov/ncitbrowser/): input [owl](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/nci.owl.zip), output [xml](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/nci-inferred-0.12.0.xml.zip)
 * [CEL GALEN](http://www.opengalen.org/): input [owl](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen.owl.zip) [krss](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen.cel.zip), output [xml](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen-inferred-0.12.0.xml.zip)
@@ -147,12 +156,14 @@ See [release notes](https://github.com/julianmendez/jcel/blob/master/RELEASE-NOT
 
 
 ## Older versions
+
 * [Git SHA](https://github.com/julianmendez/jcel/blob/master/docs/data/gitsha.txt) 
 * [old SVN revision](https://github.com/julianmendez/jcel/blob/master/docs/data/svnrev.txt)
 * [releases](https://sourceforge.net/projects/jcel/files/)
 
 
 ## More information
+
 * [Frequently Asked Questions](https://github.com/julianmendez/jcel/blob/master/docs/data/faq.md)
 
 
