@@ -99,12 +99,12 @@ public class SimpleNormalizerTest {
 		IntegerObjectPropertyAssertionAxiom axiom2 = factory.getComplexAxiomFactory()
 				.createObjectPropertyAssertionAxiom(propertyR, indivI0Id, indivI1Id, annotations);
 
-		Set<IntegerAxiom> firstIterationAxioms = new HashSet<IntegerAxiom>();
+		Set<IntegerAxiom> firstIterationAxioms = new HashSet<>();
 		firstIterationAxioms.addAll(normalizer.normalize(axiom0));
 		firstIterationAxioms.addAll(normalizer.normalize(axiom1));
 		firstIterationAxioms.addAll(normalizer.normalize(axiom2));
 
-		Set<IntegerAxiom> normalizedAxioms = new HashSet<IntegerAxiom>();
+		Set<IntegerAxiom> normalizedAxioms = new HashSet<>();
 		firstIterationAxioms.forEach(axiom -> normalizedAxioms.addAll(normalizer.normalize(axiom)));
 
 		Set<IntegerAxiom> expectedAxioms = new HashSet<>();

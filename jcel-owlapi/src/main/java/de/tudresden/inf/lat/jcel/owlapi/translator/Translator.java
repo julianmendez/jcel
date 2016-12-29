@@ -168,7 +168,7 @@ public class Translator {
 
 	public Set<IntegerClass> translateSC(Node<OWLClass> owlObject) {
 		Objects.requireNonNull(owlObject);
-		Set<IntegerClass> ret = new HashSet<IntegerClass>();
+		Set<IntegerClass> ret = new HashSet<>();
 		owlObject.forEach(cls -> {
 			ret.add(translateC(cls));
 		});

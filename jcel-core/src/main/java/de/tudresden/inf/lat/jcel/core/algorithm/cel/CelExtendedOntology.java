@@ -280,7 +280,7 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 		Integer classId = axiom.getClassInSubClass();
 		Map<Integer, Set<ExtensionEntry>> map = this.ohatOfExistential.get(propertyId);
 		if (Objects.isNull(map)) {
-			map = new HashMap<Integer, Set<ExtensionEntry>>();
+			map = new HashMap<>();
 			this.ohatOfExistential.put(propertyId, map);
 		}
 		Set<ExtensionEntry> set = map.get(classId);

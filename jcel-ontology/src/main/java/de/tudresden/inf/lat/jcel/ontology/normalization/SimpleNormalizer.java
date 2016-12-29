@@ -212,7 +212,7 @@ public class SimpleNormalizer implements ComplexIntegerAxiomVisitor<Set<IntegerA
 			ComplexIntegerAxiom complexAxiom = (ComplexIntegerAxiom) axiom;
 			ret = complexAxiom.accept(this);
 		} else if (axiom instanceof NormalizedIntegerAxiom) {
-			ret = new HashSet<IntegerAxiom>();
+			ret = new HashSet<>();
 			ret.add(axiom);
 		} else {
 			throw new IllegalArgumentException("Axiom type is not recognized: '" + axiom + "'.");
