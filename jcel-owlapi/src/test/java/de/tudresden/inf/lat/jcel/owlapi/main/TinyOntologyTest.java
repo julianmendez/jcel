@@ -74,7 +74,7 @@ import org.semanticweb.owlapi.reasoner.impl.OWLClassNode;
  */
 public class TinyOntologyTest {
 
-	public static final String url = "http://lat.inf.tu-dresden.de/jcel/";
+	public static final String url = "https://lat.inf.tu-dresden.de/jcel/";
 
 	/**
 	 * Constructs a new set of tests for the rule based reasoner.

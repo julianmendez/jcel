@@ -3,25 +3,25 @@
 
 <!DOCTYPE rdf:RDF [
     <!ENTITY p1 "#" >
-    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
-    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
-    <!ENTITY skos "http://www.w3.org/2004/02/skos/core#" >
-    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
-    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
-    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY owl "https://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "https://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY skos "https://www.w3.org/2004/02/skos/core#" >
+    <!ENTITY xml "https://www.w3.org/XML/1998/namespace" >
+    <!ENTITY rdfs "https://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "https://www.w3.org/1999/02/22-rdf-syntax-ns#" >
 ]>
 
 
-<rdf:RDF xmlns="http://lat.inf.tu-dresden.de/systems/jcel/example#"
-     xml:base="http://lat.inf.tu-dresden.de/systems/jcel/example"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+<rdf:RDF xmlns="https://lat.inf.tu-dresden.de/systems/jcel/example#"
+     xml:base="https://lat.inf.tu-dresden.de/systems/jcel/example"
+     xmlns:rdfs="https://www.w3.org/2000/01/rdf-schema#"
      xmlns:p1="#"
-     xmlns:owl="http://www.w3.org/2002/07/owl#"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:xml="http://www.w3.org/XML/1998/namespace"
-     xmlns:skos="http://www.w3.org/2004/02/skos/core#">
-    <owl:Ontology rdf:about="http://lat.inf.tu-dresden.de/systems/jcel/example"/>
+     xmlns:owl="https://www.w3.org/2002/07/owl#"
+     xmlns:xsd="https://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="https://www.w3.org/XML/1998/namespace"
+     xmlns:skos="https://www.w3.org/2004/02/skos/core#">
+    <owl:Ontology rdf:about="https://lat.inf.tu-dresden.de/systems/jcel/example"/>
     
 
 

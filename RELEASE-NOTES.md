@@ -86,7 +86,7 @@ $ mvn clean install
 
 ### v0.23.0
 *(2015-11-30)*
-* does not longer have [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/) build files
+* does not longer have [Apache Ant + Apache Ivy](https://ant.apache.org/ivy/) build files
 * uses the OWL API 4.1.3
 * can be used as a plug-in for Protégé 5.0.0-beta-21
 * the plug-in for Protégé can be used as a library
@@ -104,7 +104,7 @@ $ mvn clean install
 * POM files changed: the new `groupId` is `de.tu-dresden.inf.lat.jcel`
 * includes Maven POM files to be deployed in [Sonatype](https://oss.sonatype.org/)
 * is available at [The Central Repository](https://repo1.maven.org/maven2/de/tu-dresden/inf/lat/jcel/)
-* module `jcel-build` contains only [Apache Ant + Apache Ivy](http://ant.apache.org/ivy/) configuration files, and its submodules became modules:
+* module `jcel-build` contains only [Apache Ant + Apache Ivy](https://ant.apache.org/ivy/) configuration files, and its submodules became modules:
  * `jcel-library` : creates the library
  * `jcel-plugin` : creates the plug-in for Protégé
  * `jcel-standalone` : creates a standlone application
@@ -143,7 +143,7 @@ $ ant
 
 ### v0.20.0
 *(2014-05-18)*
-* uses [Apache Ivy](http://ant.apache.org/ivy/) to compile the project
+* uses [Apache Ivy](https://ant.apache.org/ivy/) to compile the project
 * build commands:
 ```
 $ cd jcel/jcel-build
@@ -167,7 +167,7 @@ $ ant
 
 ### v0.19.0
 *(2013-06-25)*
-* is dual-licensed, i.e. released under two different licenses: [GNU Lesser General Public License version 3](http://www.gnu.org/licenses/lgpl-3.0.txt) and [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
+* is dual-licensed, i.e. released under two different licenses: [GNU Lesser General Public License version 3](https://www.gnu.org/licenses/lgpl-3.0.txt) and [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt)
 * has subprojects with a different name convention: they use hyphen ("`jcel-`") instead of dot ("`jcel.`")
 * shows a progress monitor when executed in Protégé
 * includes new parameters in the console mode, including consistency, sat, classification, and entailment
@@ -306,7 +306,7 @@ $ ant -buildfile build-bundle.xml
 ### v0.14.0
 *(2011-04-01)*
 * is identical to v0.13.0 in the Java source code, but is created using a different repository structure.
-* can be compiled using [Apache Maven](http://maven.apache.org/).
+* can be compiled using [Apache Maven](https://maven.apache.org/).
 * build commands:
 ```
 $ cd jcel/protege

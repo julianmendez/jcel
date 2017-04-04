@@ -1,9 +1,9 @@
 # [jcel](https://julianmendez.github.io/jcel/)
 
 [![Build Status](https://travis-ci.org/julianmendez/jcel.png?branch=master)](https://travis-ci.org/julianmendez/jcel)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.tu-dresden.inf.lat.jcel/jcel-parent/badge.svg)](http://search.maven.org/#search|ga|1|g%3A%22de.tu-dresden.inf.lat.jcel%22)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.tu-dresden.inf.lat.jcel/jcel-parent/badge.svg)](https://search.maven.org/#search|ga|1|g%3A%22de.tu-dresden.inf.lat.jcel%22)
 
-**jcel** is a reasoner for the [description logic](http://dl.kr.org) EL+. It uses the [OWL API](https://owlcs.github.io/owlapi/) and can be used as a plug-in for [Protege](http://protege.stanford.edu/).
+**jcel** is a reasoner for the [description logic](http://dl.kr.org) EL+. It uses the [OWL API](https://owlcs.github.io/owlapi/) and can be used as a plug-in for [Protege](https://protege.stanford.edu/).
 
 
 ## Download
@@ -24,7 +24,7 @@
 
 ## Author
 
-[Julian Mendez](http://lat.inf.tu-dresden.de/~mendez/)
+[Julian Mendez](https://lat.inf.tu-dresden.de/~mendez/)
 
 
 ## Licenses
@@ -34,17 +34,17 @@
 
 ## Main features
 
-* is an [OWL 2 EL](http://www.w3.org/2007/OWL/wiki/OWL_Working_Group) reasoner (albeit currently with some limitations)
-* uses the [OWL API](https://owlapi.sourceforge.net)
-* can be used in [Prot&eacute;g&eacute;](http://protege.stanford.edu)
+* is an [OWL 2 EL](https://www.w3.org/2007/OWL/wiki/OWL_Working_Group) reasoner (albeit currently with some limitations)
+* uses the [OWL API](http://owlapi.sourceforge.net)
+* can be used in [Prot&eacute;g&eacute;](https://protege.stanford.edu)
 * is free software and is licensed under [GNU Lesser General Public License version 3](https://www.gnu.org/licenses/lgpl.txt) and [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt)
 * is fully implemented in [Java](https://www.oracle.com/java/technologies/java-se.html)
-* evaluated by the [SEALS Community](http://www.seals-project.eu/news/storage-and-reasoning-systems-news) having the lowest Average Reasoning Time in 2010
+* evaluated by the [SEALS Community](https://www.seals-project.eu/news/storage-and-reasoning-systems-news) having the lowest Average Reasoning Time in 2010
 
 
 ## Suggested technologies
 
-* [Java Development Kit 8](http://java.sun.com/) (or higher)
+* [Java Development Kit 8](https://java.sun.com/) (or higher)
 * [Apache Maven 3.0.3](https://maven.apache.org/) (or higher)
 * [Eclipse Mars](https://www.eclipse.org/) (or higher)
 
@@ -150,10 +150,10 @@ This [file](https://github.com/julianmendez/jcel/blob/master/docs/data/example.o
 
 Ontologies:
 
-* [Gene Ontology](http://www.geneontology.org/): input [owl](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/geneontology.owl.zip) [krss](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/go.cel.zip), output [xml](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/geneontology-inferred-0.12.0.xml.zip)
-* [NCI Thesaurus](https://ncit.nci.nih.gov/ncitbrowser/): input [owl](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/nci.owl.zip), output [xml](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/nci-inferred-0.12.0.xml.zip)
-* [CEL GALEN](http://www.opengalen.org/): input [owl](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen.owl.zip) [krss](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen.cel.zip), output [xml](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen-inferred-0.12.0.xml.zip)
-* Not GALEN: input [owl](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/notgalen.owl.zip) [krss](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/notgalen.cel.zip), output [xml](http://lat.inf.tu-dresden.de/systems/jcel/ontologies/notgalen-inferred-0.12.0.xml.zip)
+* [Gene Ontology](http://www.geneontology.org/): input [owl](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/geneontology.owl.zip) [krss](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/go.cel.zip), output [xml](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/geneontology-inferred-0.12.0.xml.zip)
+* [NCI Thesaurus](https://ncit.nci.nih.gov/ncitbrowser/): input [owl](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/nci.owl.zip), output [xml](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/nci-inferred-0.12.0.xml.zip)
+* [CEL GALEN](http://www.opengalen.org/): input [owl](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen.owl.zip) [krss](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen.cel.zip), output [xml](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen-inferred-0.12.0.xml.zip)
+* Not GALEN: input [owl](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/notgalen.owl.zip) [krss](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/notgalen.cel.zip), output [xml](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/notgalen-inferred-0.12.0.xml.zip)
 * [Foundational Model of Anatomy](http://sig.biostr.washington.edu/projects/fm/)
 * [SNOMED CT](http://www.ihtsdo.org/our-standards/)
 
@@ -177,17 +177,17 @@ See [release notes](https://github.com/julianmendez/jcel/blob/master/RELEASE-NOT
 ## References
 
 * Theoretical foundation:
-  * [Master's thesis by J. A. Mendez](http://lat.inf.tu-dresden.de/research/mas/Men-Mas-11.pdf)
-  * [Master's thesis by Q. H. Vu](http://lat.inf.tu-dresden.de/research/mas/Vu-Mas-08.pdf)
-  * [Ph.D. thesis by B. Suntisrivaraporn](http://lat.inf.tu-dresden.de/research/phd/Sun-PhD-09.pdf)
-* CEL: [main page](http://lat.inf.tu-dresden.de/systems/cel) - [source code](https://github.com/julianmendez/cel)
-* OWL API: [main page](https://owlapi.sourceforge.net/) - [examples](https://owlapi.sourceforge.net/documentation.html) — [javadoc](https://owlapi.sourceforge.net/javadoc)
-* OWL 2: [OWL Working Group](http://www.w3.org/2007/OWL/wiki/OWL_Working_Group)
+  * [Master's thesis by J. A. Mendez](https://lat.inf.tu-dresden.de/research/mas/Men-Mas-11.pdf)
+  * [Master's thesis by Q. H. Vu](https://lat.inf.tu-dresden.de/research/mas/Vu-Mas-08.pdf)
+  * [Ph.D. thesis by B. Suntisrivaraporn](https://lat.inf.tu-dresden.de/research/phd/Sun-PhD-09.pdf)
+* CEL: [main page](https://lat.inf.tu-dresden.de/systems/cel) - [source code](https://github.com/julianmendez/cel)
+* OWL API: [main page](http://owlapi.sourceforge.net/) - [examples](http://owlapi.sourceforge.net/documentation.html) — [javadoc](http://owlapi.sourceforge.net/javadoc)
+* OWL 2: [OWL Working Group](https://www.w3.org/2007/OWL/wiki/OWL_Working_Group)
 
 
 ## Support
 
-Any bug, or unexpected behavior can be reported to the e-mail addresses at this [web page](http://lat.inf.tu-dresden.de/~mendez). Questions and suggestions are also very welcome.
+Any bug, or unexpected behavior can be reported to the e-mail addresses at this [web page](https://lat.inf.tu-dresden.de/~mendez). Questions and suggestions are also very welcome.
 
 
 ## News

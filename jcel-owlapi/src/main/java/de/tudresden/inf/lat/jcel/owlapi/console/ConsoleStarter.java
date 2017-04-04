@@ -182,7 +182,7 @@ public class ConsoleStarter {
 			+ "FILE           ontology to be classified (or premise ontology)" + "\n   " + optOutput
 			+ "FILE             output with the inferred data" + "\n   " + optClassURI + "CLASS_URI      (only for "
 			+ cmdSat + ") URI of the class to check satisfiability" + "\n\nthe types are:"
-			+ "\n   CLASS_URI                 a class URI, e.g.: http://www.w3.org/2002/07/owl#Thing"
+			+ "\n   CLASS_URI                 a class URI, e.g.: https://www.w3.org/2002/07/owl#Thing"
 			+ "\n   FILE                      a file name, e.g.: /tmp/inputOntology.owl"
 			+ "\n   LEVEL                     a " + (Level.class).getName() + " number or string, e.g. "
 			+ Level.INFO.intValue() + " or " + " \n                             " + Level.OFF.getName() + " | "
