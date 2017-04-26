@@ -74,19 +74,25 @@
 			<dependency>
 				<groupId>net.sourceforge.owlapi</groupId>
 				<artifactId>owlapi-distribution</artifactId>
-				<version>4.2.8</version>
+				<version>${owlapi.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>net.sourceforge.owlapi</groupId>
+				<artifactId>owlapi-osgidistribution</artifactId>
+				<version>${owlapi.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>edu.stanford.protege</groupId>
 				<artifactId>protege-editor-owl</artifactId>
-				<version>5.2.0</version>
+				<version>${protege.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>edu.stanford.protege</groupId>
 				<artifactId>protege-editor-core</artifactId>
-				<version>5.2.0</version>
+				<version>${protege.version}</version>
 			</dependency>
 
 		</dependencies>
@@ -109,6 +115,9 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+
+		<owlapi.version>4.2.8</owlapi.version>
+		<protege.version>5.2.0</protege.version>
 	</properties>
 
 	<build>
