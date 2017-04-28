@@ -4,7 +4,7 @@
 | version | release date | Java | OWL API       | Protégé       |
 |:--------|:-------------|:----:|:--------------|:--------------|
 | v0.25.0 | (unreleased) | 8    | 5.0.0         | (TBD)         |
-| v0.24.1 | (unreleased) | 8    | 4.2.8         | 5.2.0         |
+| v0.24.1 | 2017-04-28   | 8    | 4.2.8         | 5.2.0         |
 | v0.24.0 | 2016-07-08   | 8    | 4.2.5         | 5.0.0         |
 | v0.23.2 | 2015-12-24   | 7    | 4.1.3         | 5.0.0-beta-21 |
 | v0.23.1 | 2015-12-23   | 7    | 3.5.1         | 5.0.0-beta-17 |
@@ -47,7 +47,7 @@ $ mvn clean install
 
 
 ### v0.24.1
-*(unreleased)*
+*2017-04-28*
 * uses the OWL API 4.2.8
 * can be used as a plug-in for Protégé 5.2.0
 * build commands:
