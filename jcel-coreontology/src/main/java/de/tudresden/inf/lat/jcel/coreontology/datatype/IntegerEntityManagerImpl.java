@@ -218,7 +218,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 		}
 
 		Optional<String> optName = this.nameMap.get(identifier);
-		if (Objects.isNull(optName)) {
+		if (!optName.isPresent()) {
 			if (this.auxEntitySet.contains(identifier)) {
 				optName = Optional.of(auxiliaryEntity + identifier);
 			} else {

@@ -124,7 +124,7 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 		}
 		this.mapOfGCI3r.get(objectPropertyId).get().add(axiom);
 
-		if (Objects.isNull(this.mapOfGCI3A.get(classId))) {
+		if (!this.mapOfGCI3A.get(classId).isPresent()) {
 			this.mapOfGCI3A.put(classId, new HashSet<>());
 		}
 		this.mapOfGCI3A.get(classId).get().add(axiom);
