@@ -49,11 +49,13 @@ package de.tudresden.inf.lat.jcel.coreontology.datatype;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
+
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMap;
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMapImpl;
 
 /**
  * An object of this class generates new identification numbers for object
@@ -66,16 +68,16 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	public static final String anonymousEntity = "AnonymousEntity";
 	public static final String auxiliaryEntity = "AuxiliaryEntity";
 
-	private final Map<IntegerEntityType, Set<Integer>> auxEntityMap = new HashMap<>();
+	private final OptMap<IntegerEntityType, Set<Integer>> auxEntityMap = new OptMapImpl<>(new HashMap<>());
 	private final Set<Integer> auxEntitySet = new HashSet<>();
 	private final Set<Integer> auxInverseObjectPropertySet = new HashSet<>();
-	private final Map<Integer, Integer> auxNominalInvMap = new HashMap<>();
-	private final Map<Integer, Integer> auxNominalMap = new HashMap<>();
+	private final OptMap<Integer, Integer> auxNominalInvMap = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, Integer> auxNominalMap = new OptMapImpl<>(new HashMap<>());
 	private int entityCounter = firstUsableIdentifier;
-	private final Map<Integer, IntegerEntityType> entityTypeMap = new HashMap<>();
-	private final Map<Integer, Integer> inverseObjectPropertyMap = new HashMap<>();
-	private final Map<Integer, String> nameMap = new HashMap<>();
-	private final Map<IntegerEntityType, Set<Integer>> nonAuxEntityMap = new HashMap<>();
+	private final OptMap<Integer, IntegerEntityType> entityTypeMap = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, Integer> inverseObjectPropertyMap = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, String> nameMap = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<IntegerEntityType, Set<Integer>> nonAuxEntityMap = new OptMapImpl<>(new HashMap<>());
 
 	/**
 	 * Constructs a new identifier generator.
@@ -111,26 +113,26 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	@Override
 	public Integer createOrGetClassIdForIndividual(Integer individual) {
 		Objects.requireNonNull(individual);
-		Integer ret = this.auxNominalMap.get(individual);
-		if (Objects.isNull(ret)) {
-			ret = createAnonymousEntity(IntegerEntityType.CLASS, true);
-			this.auxNominalInvMap.put(ret, individual);
-			this.auxNominalMap.put(individual, ret);
+		Optional<Integer> optId = this.auxNominalMap.get(individual);
+		if (!optId.isPresent()) {
+			optId = Optional.of(createAnonymousEntity(IntegerEntityType.CLASS, true));
+			this.auxNominalInvMap.put(optId.get(), individual);
+			this.auxNominalMap.put(individual, optId.get());
 		}
-		return ret;
+		return optId.get();
 	}
 
 	@Override
 	public Integer createOrGetInverseObjectPropertyOf(Integer propertyId) throws IndexOutOfBoundsException {
 		Objects.requireNonNull(propertyId);
-		Integer ret = this.inverseObjectPropertyMap.get(propertyId);
-		if (Objects.isNull(ret)) {
-			ret = createAnonymousEntity(IntegerEntityType.OBJECT_PROPERTY, true);
-			this.auxInverseObjectPropertySet.add(ret);
-			this.inverseObjectPropertyMap.put(propertyId, ret);
-			this.inverseObjectPropertyMap.put(ret, propertyId);
+		Optional<Integer> optId = this.inverseObjectPropertyMap.get(propertyId);
+		if (!optId.isPresent()) {
+			optId = Optional.of(createAnonymousEntity(IntegerEntityType.OBJECT_PROPERTY, true));
+			this.auxInverseObjectPropertySet.add(optId.get());
+			this.inverseObjectPropertyMap.put(propertyId, optId.get());
+			this.inverseObjectPropertyMap.put(optId.get(), propertyId);
 		}
-		return ret;
+		return optId.get();
 	}
 
 	@Override
@@ -158,7 +160,7 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	@Override
 	public Optional<Integer> getAuxiliaryNominal(Integer individual) {
 		Objects.requireNonNull(individual);
-		return Optional.ofNullable(this.auxNominalMap.get(individual));
+		return this.auxNominalMap.get(individual);
 	}
 
 	@Override
@@ -170,11 +172,11 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	public Set<Integer> getEntities(IntegerEntityType type) {
 		Objects.requireNonNull(type);
 		Set<Integer> ret = new TreeSet<>();
-		if (Objects.nonNull(this.nonAuxEntityMap.get(type))) {
-			ret.addAll(this.nonAuxEntityMap.get(type));
+		if (this.nonAuxEntityMap.get(type).isPresent()) {
+			ret.addAll(this.nonAuxEntityMap.get(type).get());
 		}
-		if (Objects.nonNull(this.auxEntityMap.get(type))) {
-			ret.addAll(this.auxEntityMap.get(type));
+		if (this.auxEntityMap.get(type).isPresent()) {
+			ret.addAll(this.auxEntityMap.get(type).get());
 		}
 		ret = Collections.unmodifiableSet(ret);
 		return ret;
@@ -183,24 +185,24 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	@Override
 	public Set<Integer> getEntities(IntegerEntityType type, boolean auxiliary) {
 		Objects.requireNonNull(type);
-		Set<Integer> ret;
+		Optional<Set<Integer>> optSet;
 		if (auxiliary) {
-			ret = this.auxEntityMap.get(type);
+			optSet = this.auxEntityMap.get(type);
 		} else {
-			ret = this.nonAuxEntityMap.get(type);
+			optSet = this.nonAuxEntityMap.get(type);
 		}
-		if (Objects.isNull(ret)) {
-			ret = Collections.emptySet();
+		if (!optSet.isPresent()) {
+			optSet = Optional.of(Collections.emptySet());
 		} else {
-			ret = Collections.unmodifiableSet(ret);
+			optSet = Optional.of(Collections.unmodifiableSet(optSet.get()));
 		}
-		return ret;
+		return optSet.get();
 	}
 
 	@Override
 	public Optional<Integer> getIndividual(Integer auxNominal) {
 		Objects.requireNonNull(auxNominal);
-		return Optional.ofNullable(this.auxNominalInvMap.get(auxNominal));
+		return this.auxNominalInvMap.get(auxNominal);
 	}
 
 	@Override
@@ -215,25 +217,25 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 			throw new IndexOutOfBoundsException("Invalid identifier : " + identifier);
 		}
 
-		String ret = this.nameMap.get(identifier);
-		if (Objects.isNull(ret)) {
+		Optional<String> optName = this.nameMap.get(identifier);
+		if (Objects.isNull(optName)) {
 			if (this.auxEntitySet.contains(identifier)) {
-				ret = auxiliaryEntity + identifier;
+				optName = Optional.of(auxiliaryEntity + identifier);
 			} else {
-				ret = anonymousEntity + identifier;
+				optName = Optional.of(anonymousEntity + identifier);
 			}
 		}
-		return ret;
+		return optName.get();
 	}
 
 	@Override
 	public IntegerEntityType getType(Integer identifier) {
 		Objects.requireNonNull(identifier);
-		IntegerEntityType ret = this.entityTypeMap.get(identifier);
-		if (Objects.isNull(ret)) {
+		Optional<IntegerEntityType> optType = this.entityTypeMap.get(identifier);
+		if (!optType.isPresent()) {
 			throw new IndexOutOfBoundsException("Invalid identifier : " + identifier);
 		}
-		return ret;
+		return optType.get();
 	}
 
 	@Override
@@ -261,9 +263,9 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 		Objects.requireNonNull(firstProperty);
 		Objects.requireNonNull(secondProperty);
 		boolean ret = false;
-		Integer invFirstProperty = this.inverseObjectPropertyMap.get(firstProperty);
-		Integer invSecondProperty = this.inverseObjectPropertyMap.get(secondProperty);
-		if ((Objects.isNull(invFirstProperty)) && (Objects.isNull(invSecondProperty))) {
+		Optional<Integer> optInvFirstProperty = this.inverseObjectPropertyMap.get(firstProperty);
+		Optional<Integer> optInvSecondProperty = this.inverseObjectPropertyMap.get(secondProperty);
+		if (!optInvFirstProperty.isPresent() && !optInvSecondProperty.isPresent()) {
 			this.inverseObjectPropertyMap.put(firstProperty, secondProperty);
 			this.inverseObjectPropertyMap.put(secondProperty, firstProperty);
 			ret = true;
@@ -274,19 +276,19 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	private void registerProperty(Integer identifier, IntegerEntityType type, boolean auxiliary) {
 		if (auxiliary) {
 			this.auxEntitySet.add(identifier);
-			Set<Integer> set = this.auxEntityMap.get(type);
-			if (Objects.isNull(set)) {
-				set = new HashSet<>();
-				this.auxEntityMap.put(type, set);
+			Optional<Set<Integer>> optSet = this.auxEntityMap.get(type);
+			if (!optSet.isPresent()) {
+				optSet = Optional.of(new HashSet<>());
+				this.auxEntityMap.put(type, optSet.get());
 			}
-			set.add(identifier);
+			optSet.get().add(identifier);
 		} else {
-			Set<Integer> set = this.nonAuxEntityMap.get(type);
-			if (Objects.isNull(set)) {
-				set = new HashSet<>();
-				this.nonAuxEntityMap.put(type, set);
+			Optional<Set<Integer>> optSet = this.nonAuxEntityMap.get(type);
+			if (!optSet.isPresent()) {
+				optSet = Optional.of(new HashSet<>());
+				this.nonAuxEntityMap.put(type, optSet.get());
 			}
-			set.add(identifier);
+			optSet.get().add(identifier);
 		}
 		this.entityTypeMap.put(identifier, type);
 	}

@@ -49,9 +49,12 @@ package de.tudresden.inf.lat.jcel.coreontology.axiom;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMap;
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMapImpl;
 
 /**
  * This class models an ontology with the property to look up by axiom type.
@@ -60,18 +63,18 @@ import java.util.Set;
  */
 public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedIntegerAxiomVisitor<Boolean> {
 
-	private final Map<Integer, Set<GCI0Axiom>> mapOfGCI0 = new HashMap<>();
-	private final Map<Integer, Set<GCI1Axiom>> mapOfGCI1 = new HashMap<>();
-	private final Map<Integer, Set<GCI2Axiom>> mapOfGCI2 = new HashMap<>();
-	private final Map<Integer, Set<GCI3Axiom>> mapOfGCI3A = new HashMap<>();
-	private final Map<Integer, Set<GCI3Axiom>> mapOfGCI3r = new HashMap<>();
-	private final Map<Integer, Map<Integer, Set<GCI3Axiom>>> mapOfGCI3rA = new HashMap<>();
-	private final Map<Integer, Set<NominalAxiom>> mapOfNominalAxiom = new HashMap<>();
-	private final Map<Integer, Set<RangeAxiom>> mapOfRangeAxiom = new HashMap<>();
-	private final Map<Integer, Set<RI2Axiom>> mapOfRI2r = new HashMap<>();
-	private final Map<Integer, Set<RI2Axiom>> mapOfRI2s = new HashMap<>();
-	private final Map<Integer, Set<RI3Axiom>> mapOfRI3ByLeft = new HashMap<>();
-	private final Map<Integer, Set<RI3Axiom>> mapOfRI3ByRight = new HashMap<>();
+	private final OptMap<Integer, Set<GCI0Axiom>> mapOfGCI0 = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, Set<GCI1Axiom>> mapOfGCI1 = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, Set<GCI2Axiom>> mapOfGCI2 = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, Set<GCI3Axiom>> mapOfGCI3A = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, Set<GCI3Axiom>> mapOfGCI3r = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, OptMap<Integer, Set<GCI3Axiom>>> mapOfGCI3rA = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, Set<NominalAxiom>> mapOfNominalAxiom = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, Set<RangeAxiom>> mapOfRangeAxiom = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, Set<RI2Axiom>> mapOfRI2r = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, Set<RI2Axiom>> mapOfRI2s = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, Set<RI3Axiom>> mapOfRI3ByLeft = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, Set<RI3Axiom>> mapOfRI3ByRight = new OptMapImpl<>(new HashMap<>());
 	private final Set<Integer> setOfAllObjectProperties = new HashSet<>();
 	private final Set<Integer> setOfClasses = new HashSet<>();
 	private final Set<Integer> setOfFunctionalObjectProperties = new HashSet<>();
@@ -95,54 +98,53 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	private void addGCI0Axiom(int classId, GCI0Axiom axiom) {
-		if (Objects.isNull(this.mapOfGCI0.get(classId))) {
+		if (!this.mapOfGCI0.get(classId).isPresent()) {
 			this.mapOfGCI0.put(classId, new HashSet<>());
 		}
-		this.mapOfGCI0.get(classId).add(axiom);
+		this.mapOfGCI0.get(classId).get().add(axiom);
 	}
 
 	private void addGCI1Axiom(int classId, GCI1Axiom axiom) {
-		if (Objects.isNull(this.mapOfGCI1.get(classId))) {
+		if (!this.mapOfGCI1.get(classId).isPresent()) {
 			this.mapOfGCI1.put(classId, new HashSet<>());
 		}
-		this.mapOfGCI1.get(classId).add(axiom);
+		this.mapOfGCI1.get(classId).get().add(axiom);
 	}
 
 	private void addGCI2Axiom(int classId, GCI2Axiom axiom) {
-		if (Objects.isNull(this.mapOfGCI2.get(classId))) {
+		if (!this.mapOfGCI2.get(classId).isPresent()) {
 			this.mapOfGCI2.put(classId, new HashSet<>());
 		}
-		this.mapOfGCI2.get(classId).add(axiom);
+		this.mapOfGCI2.get(classId).get().add(axiom);
 	}
 
 	private void addGCI3Axiom(GCI3Axiom axiom, int objectPropertyId, int classId) {
-
-		if (Objects.isNull(this.mapOfGCI3r.get(objectPropertyId))) {
+		if (!this.mapOfGCI3r.get(objectPropertyId).isPresent()) {
 			this.mapOfGCI3r.put(objectPropertyId, new HashSet<>());
 		}
-		this.mapOfGCI3r.get(objectPropertyId).add(axiom);
+		this.mapOfGCI3r.get(objectPropertyId).get().add(axiom);
 
 		if (Objects.isNull(this.mapOfGCI3A.get(classId))) {
 			this.mapOfGCI3A.put(classId, new HashSet<>());
 		}
-		this.mapOfGCI3A.get(classId).add(axiom);
+		this.mapOfGCI3A.get(classId).get().add(axiom);
 
-		Map<Integer, Set<GCI3Axiom>> map = this.mapOfGCI3rA.get(objectPropertyId);
-		if (Objects.isNull(map)) {
-			map = new HashMap<>();
-			this.mapOfGCI3rA.put(objectPropertyId, map);
+		Optional<OptMap<Integer, Set<GCI3Axiom>>> optMap = this.mapOfGCI3rA.get(objectPropertyId);
+		if (!optMap.isPresent()) {
+			optMap = Optional.of(new OptMapImpl<>(new HashMap<>()));
+			this.mapOfGCI3rA.put(objectPropertyId, optMap.get());
 		}
-		if (Objects.isNull(map.get(classId))) {
-			map.put(classId, new HashSet<>());
+		if (!optMap.get().get(classId).isPresent()) {
+			optMap.get().put(classId, new HashSet<>());
 		}
-		map.get(classId).add(axiom);
+		optMap.get().get(classId).get().add(axiom);
 	}
 
 	private void addNominalAxiom(int individualId, NominalAxiom axiom) {
-		if (Objects.isNull(this.mapOfNominalAxiom.get(individualId))) {
+		if (!this.mapOfNominalAxiom.get(individualId).isPresent()) {
 			this.mapOfNominalAxiom.put(individualId, new HashSet<>());
 		}
-		this.mapOfNominalAxiom.get(individualId).add(axiom);
+		this.mapOfNominalAxiom.get(individualId).get().add(axiom);
 	}
 
 	@Override
@@ -151,19 +153,19 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	}
 
 	private void addRangeAxiom(int propertyId, RangeAxiom axiom) {
-		if (Objects.isNull(this.mapOfRangeAxiom.get(propertyId))) {
+		if (!this.mapOfRangeAxiom.get(propertyId).isPresent()) {
 			this.mapOfRangeAxiom.put(propertyId, new HashSet<>());
 		}
-		this.mapOfRangeAxiom.get(propertyId).add(axiom);
+		this.mapOfRangeAxiom.get(propertyId).get().add(axiom);
 	}
 
-	private void addTo(int property, RI3Axiom axiom, Map<Integer, Set<RI3Axiom>> map) {
-		Set<RI3Axiom> axiomSet = map.get(property);
-		if (Objects.isNull(axiomSet)) {
-			axiomSet = new HashSet<>();
-			map.put(property, axiomSet);
+	private void addTo(int property, RI3Axiom axiom, OptMap<Integer, Set<RI3Axiom>> map) {
+		Optional<Set<RI3Axiom>> optAxiomSet = map.get(property);
+		if (!optAxiomSet.isPresent()) {
+			optAxiomSet = Optional.of(new HashSet<>());
+			map.put(property, optAxiomSet.get());
 		}
-		axiomSet.add(axiom);
+		optAxiomSet.get().add(axiom);
 	}
 
 	@Override
@@ -199,60 +201,60 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 
 	@Override
 	public Set<GCI0Axiom> getGCI0Axioms(int classId) {
-		Set<GCI0Axiom> ret = this.mapOfGCI0.get(classId);
-		if (Objects.isNull(ret)) {
-			ret = Collections.emptySet();
+		Optional<Set<GCI0Axiom>> optSet = this.mapOfGCI0.get(classId);
+		if (!optSet.isPresent()) {
+			optSet = Optional.of(Collections.emptySet());
 		}
-		return Collections.unmodifiableSet(ret);
+		return Collections.unmodifiableSet(optSet.get());
 	}
 
 	@Override
 	public Set<GCI1Axiom> getGCI1Axioms(int classId) {
-		Set<GCI1Axiom> ret = this.mapOfGCI1.get(classId);
-		if (Objects.isNull(ret)) {
-			ret = Collections.emptySet();
+		Optional<Set<GCI1Axiom>> optSet = this.mapOfGCI1.get(classId);
+		if (!optSet.isPresent()) {
+			optSet = Optional.of(Collections.emptySet());
 		}
-		return Collections.unmodifiableSet(ret);
+		return Collections.unmodifiableSet(optSet.get());
 	}
 
 	@Override
 	public Set<GCI2Axiom> getGCI2Axioms(int classId) {
-		Set<GCI2Axiom> ret = this.mapOfGCI2.get(classId);
-		if (Objects.isNull(ret)) {
-			ret = Collections.emptySet();
+		Optional<Set<GCI2Axiom>> optSet = this.mapOfGCI2.get(classId);
+		if (!optSet.isPresent()) {
+			optSet = Optional.of(Collections.emptySet());
 		}
-		return Collections.unmodifiableSet(ret);
+		return Collections.unmodifiableSet(optSet.get());
 	}
 
 	@Override
 	public Set<GCI3Axiom> getGCI3AAxioms(int classId) {
-		Set<GCI3Axiom> ret = this.mapOfGCI3A.get(classId);
-		if (Objects.isNull(ret)) {
-			ret = Collections.emptySet();
+		Optional<Set<GCI3Axiom>> optSet = this.mapOfGCI3A.get(classId);
+		if (!optSet.isPresent()) {
+			optSet = Optional.of(Collections.emptySet());
 		}
-		return Collections.unmodifiableSet(ret);
+		return Collections.unmodifiableSet(optSet.get());
 	}
 
 	@Override
 	public Set<GCI3Axiom> getGCI3rAAxioms(int objectPropertyId, int leftClassId) {
-		Set<GCI3Axiom> ret = null;
-		Map<Integer, Set<GCI3Axiom>> map = this.mapOfGCI3rA.get(objectPropertyId);
-		if (Objects.nonNull(map)) {
-			ret = map.get(leftClassId);
+		Optional<Set<GCI3Axiom>> optSet = null;
+		Optional<OptMap<Integer, Set<GCI3Axiom>>> optMap = this.mapOfGCI3rA.get(objectPropertyId);
+		if (optMap.isPresent()) {
+			optSet = optMap.get().get(leftClassId);
 		}
-		if (Objects.isNull(ret)) {
-			ret = Collections.emptySet();
+		if (!optSet.isPresent()) {
+			optSet = Optional.of(Collections.emptySet());
 		}
-		return Collections.unmodifiableSet(ret);
+		return Collections.unmodifiableSet(optSet.get());
 	}
 
 	@Override
 	public Set<GCI3Axiom> getGCI3rAxioms(int objectPropertyId) {
-		Set<GCI3Axiom> ret = this.mapOfGCI3r.get(objectPropertyId);
-		if (Objects.isNull(ret)) {
-			ret = Collections.emptySet();
+		Optional<Set<GCI3Axiom>> optSet = this.mapOfGCI3r.get(objectPropertyId);
+		if (!optSet.isPresent()) {
+			optSet = Optional.of(Collections.emptySet());
 		}
-		return Collections.unmodifiableSet(ret);
+		return Collections.unmodifiableSet(optSet.get());
 	}
 
 	@Override
@@ -267,38 +269,38 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 
 	@Override
 	public Set<RI2Axiom> getRI2rAxioms(int elem) {
-		Set<RI2Axiom> ret = this.mapOfRI2r.get(elem);
-		if (Objects.isNull(ret)) {
-			ret = Collections.emptySet();
+		Optional<Set<RI2Axiom>> optSet = this.mapOfRI2r.get(elem);
+		if (!optSet.isPresent()) {
+			optSet = Optional.of(Collections.emptySet());
 		}
-		return Collections.unmodifiableSet(ret);
+		return Collections.unmodifiableSet(optSet.get());
 	}
 
 	@Override
 	public Set<RI2Axiom> getRI2sAxioms(int elem) {
-		Set<RI2Axiom> ret = this.mapOfRI2s.get(elem);
-		if (Objects.isNull(ret)) {
-			ret = Collections.emptySet();
+		Optional<Set<RI2Axiom>> optSet = this.mapOfRI2s.get(elem);
+		if (!optSet.isPresent()) {
+			optSet = Optional.of(Collections.emptySet());
 		}
-		return Collections.unmodifiableSet(ret);
+		return Collections.unmodifiableSet(optSet.get());
 	}
 
 	@Override
 	public Set<RI3Axiom> getRI3AxiomsByLeft(int elem) {
-		Set<RI3Axiom> ret = this.mapOfRI3ByLeft.get(elem);
-		if (Objects.isNull(ret)) {
-			ret = Collections.emptySet();
+		Optional<Set<RI3Axiom>> optSet = this.mapOfRI3ByLeft.get(elem);
+		if (!optSet.isPresent()) {
+			optSet = Optional.of(Collections.emptySet());
 		}
-		return Collections.unmodifiableSet(ret);
+		return Collections.unmodifiableSet(optSet.get());
 	}
 
 	@Override
 	public Set<RI3Axiom> getRI3AxiomsByRight(int elem) {
-		Set<RI3Axiom> ret = this.mapOfRI3ByRight.get(elem);
-		if (Objects.isNull(ret)) {
-			ret = Collections.emptySet();
+		Optional<Set<RI3Axiom>> optSet = this.mapOfRI3ByRight.get(elem);
+		if (!optSet.isPresent()) {
+			optSet = Optional.of(Collections.emptySet());
 		}
-		return Collections.unmodifiableSet(ret);
+		return Collections.unmodifiableSet(optSet.get());
 	}
 
 	@Override
@@ -392,16 +394,16 @@ public class ExtendedOntologyImpl implements ExtendedOntology, NormalizedInteger
 	public Boolean visit(RI2Axiom axiom) {
 		Objects.requireNonNull(axiom);
 		Integer subProperty = axiom.getSubProperty();
-		if (Objects.isNull(this.mapOfRI2r.get(subProperty))) {
+		if (!this.mapOfRI2r.get(subProperty).isPresent()) {
 			this.mapOfRI2r.put(subProperty, new HashSet<>());
 		}
-		this.mapOfRI2r.get(subProperty).add(axiom);
+		this.mapOfRI2r.get(subProperty).get().add(axiom);
 
 		Integer superProperty = axiom.getSuperProperty();
-		if (Objects.isNull(this.mapOfRI2s.get(superProperty))) {
+		if (!this.mapOfRI2s.get(superProperty).isPresent()) {
 			this.mapOfRI2s.put(superProperty, new HashSet<>());
 		}
-		this.mapOfRI2s.get(superProperty).add(axiom);
+		this.mapOfRI2s.get(superProperty).get().add(axiom);
 
 		return true;
 	}
