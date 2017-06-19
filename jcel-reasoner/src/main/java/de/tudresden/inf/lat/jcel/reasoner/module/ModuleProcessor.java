@@ -61,6 +61,8 @@ import de.tudresden.inf.lat.jcel.core.algorithm.common.UnclassifiedOntologyExcep
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMap;
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMapImpl;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 
@@ -78,14 +80,14 @@ public class ModuleProcessor implements Processor {
 
 	private IntegerHierarchicalGraphImpl classHierarchy = null;
 	private IntegerHierarchicalGraphImpl dataPropertyHierarchy = null;
-	private Map<Integer, Set<Integer>> directTypes = null;
+	private OptMap<Integer, Set<Integer>> directTypes = null;
 	private boolean isReady = false;
 	private Integer moduleIndex = 0;
 	private List<Set<ComplexIntegerAxiom>> moduleList = null;
 	private IntegerHierarchicalGraphImpl objectPropertyHierarchy = null;
 	private Processor processor = null;
 	private final ModuleProcessorFactory processorFactory;
-	private Map<Integer, Set<Integer>> sameIndividualMap = null;
+	private OptMap<Integer, Set<Integer>> sameIndividualMap = null;
 
 	/**
 	 * Constructs a new module processor. It uses an auxiliary processor to
@@ -183,9 +185,9 @@ public class ModuleProcessor implements Processor {
 
 	@Override
 	public Map<Integer, Set<Integer>> getDirectTypes() {
-		Map<Integer, Set<Integer>> ret = null;
+		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		if (isReady()) {
-			ret = this.directTypes;
+			ret = this.directTypes.asMap();
 		}
 		return ret;
 	}
@@ -201,9 +203,9 @@ public class ModuleProcessor implements Processor {
 
 	@Override
 	public Map<Integer, Set<Integer>> getSameIndividualMap() {
-		Map<Integer, Set<Integer>> ret = null;
+		Map<Integer, Set<Integer>> ret = new HashMap<>();
 		if (isReady()) {
-			ret = this.sameIndividualMap;
+			ret = this.sameIndividualMap.asMap();
 		}
 		return ret;
 	}
@@ -233,8 +235,8 @@ public class ModuleProcessor implements Processor {
 				IntegerEntityManager.topClassId);
 		this.objectPropertyHierarchy = new IntegerHierarchicalGraphImpl(IntegerEntityManager.bottomObjectPropertyId,
 				IntegerEntityManager.topObjectPropertyId);
-		this.directTypes = new HashMap<>();
-		this.sameIndividualMap = new HashMap<>();
+		this.directTypes = new OptMapImpl<>(new HashMap<>());
+		this.sameIndividualMap = new OptMapImpl<>(new HashMap<>());
 
 		logger.fine("");
 		logger.fine("");

@@ -53,6 +53,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Logger;
@@ -64,6 +65,8 @@ import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraph;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerHierarchicalGraphImpl;
 import de.tudresden.inf.lat.jcel.core.graph.IntegerSubsumerGraphImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMap;
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMapImpl;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiom;
 import de.tudresden.inf.lat.jcel.ontology.axiom.complex.ComplexIntegerAxiomFactory;
@@ -93,10 +96,10 @@ public class ClassModuleProcessor implements Processor {
 	private Set<ComplexIntegerAxiom> accumulatedAxiomSet = null;
 	private final IntegerOntologyObjectFactory axiomFactory;
 	private IntegerHierarchicalGraph classHierarchy = null;
-	private final Map<Integer, Set<ComplexIntegerAxiom>> classToAxiom = new HashMap<>();
-	private final Map<Integer, Set<Integer>> classToClass = new HashMap<>();
+	private final OptMap<Integer, Set<ComplexIntegerAxiom>> classToAxiom = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, Set<Integer>> classToClass = new OptMapImpl<>(new HashMap<>());
 	private IntegerHierarchicalGraphImpl dataPropertyHierarchy = null;
-	private Map<Integer, Set<Integer>> directTypes = null;
+	private OptMap<Integer, Set<Integer>> directTypes = null;
 	private boolean finalClassification = false;
 	private boolean isReady = false;
 	private Integer moduleIndex = 0;
@@ -104,7 +107,7 @@ public class ClassModuleProcessor implements Processor {
 	private IntegerHierarchicalGraph objectPropertyHierarchy = null;
 	private Processor processor = null;
 	private final ModuleProcessorFactory processorFactory;
-	private Map<Integer, Set<Integer>> sameIndividualMap = null;
+	private OptMap<Integer, Set<Integer>> sameIndividualMap = null;
 	private final Set<ComplexIntegerAxiom> sharedAxioms = new HashSet<>();
 
 	/**
@@ -188,19 +191,19 @@ public class ClassModuleProcessor implements Processor {
 			} else {
 				classSet.forEach(classId -> {
 
-					Set<ComplexIntegerAxiom> complexAxioms = this.classToAxiom.get(classId);
-					if (Objects.isNull(complexAxioms)) {
-						complexAxioms = new HashSet<>();
-						this.classToAxiom.put(classId, complexAxioms);
+					Optional<Set<ComplexIntegerAxiom>> optComplexAxioms = this.classToAxiom.get(classId);
+					if (!optComplexAxioms.isPresent()) {
+						optComplexAxioms = Optional.of(new HashSet<>());
+						this.classToAxiom.put(classId, optComplexAxioms.get());
 					}
-					complexAxioms.add(axiom);
+					optComplexAxioms.get().add(axiom);
 
-					Set<Integer> otherClasses = this.classToClass.get(classId);
-					if (Objects.isNull(otherClasses)) {
-						otherClasses = new HashSet<>();
-						this.classToClass.put(classId, otherClasses);
+					Optional<Set<Integer>> optOtherClasses = this.classToClass.get(classId);
+					if (!optOtherClasses.isPresent()) {
+						optOtherClasses = Optional.of(new HashSet<>());
+						this.classToClass.put(classId, optOtherClasses.get());
 					}
-					otherClasses.addAll(classSet);
+					optOtherClasses.get().addAll(classSet);
 
 				});
 			}
@@ -217,9 +220,9 @@ public class ClassModuleProcessor implements Processor {
 		clustersOfClasses.forEach(classSet -> {
 			Set<ComplexIntegerAxiom> currentModule = new HashSet<>();
 			classSet.forEach(classId -> {
-				Set<ComplexIntegerAxiom> reachable = this.classToAxiom.get(classId);
-				if (Objects.nonNull(reachable)) {
-					currentModule.addAll(reachable);
+				Optional<Set<ComplexIntegerAxiom>> optReachable = this.classToAxiom.get(classId);
+				if (optReachable.isPresent()) {
+					currentModule.addAll(optReachable.get());
 				}
 			});
 			currentModule.addAll(this.sharedAxioms);
@@ -278,7 +281,7 @@ public class ClassModuleProcessor implements Processor {
 		if (!isReady()) {
 			throw new UnclassifiedOntologyException();
 		}
-		return this.directTypes;
+		return this.directTypes.asMap();
 	}
 
 	@Override
@@ -296,9 +299,9 @@ public class ClassModuleProcessor implements Processor {
 		while (!toVisit.isEmpty()) {
 			Integer classId = toVisit.iterator().next();
 			ret.add(classId);
-			Set<Integer> reachable = this.classToClass.get(classId);
-			if (Objects.nonNull(reachable)) {
-				toVisit.addAll(reachable);
+			Optional<Set<Integer>> reachable = this.classToClass.get(classId);
+			if (reachable.isPresent()) {
+				toVisit.addAll(reachable.get());
 			}
 			toVisit.removeAll(ret);
 		}
@@ -310,7 +313,7 @@ public class ClassModuleProcessor implements Processor {
 		if (!isReady()) {
 			throw new UnclassifiedOntologyException();
 		}
-		return this.sameIndividualMap;
+		return this.sameIndividualMap.asMap();
 	}
 
 	@Override
@@ -336,8 +339,8 @@ public class ClassModuleProcessor implements Processor {
 
 		this.moduleIndex = 0;
 		this.accumulatedAxiomSet = new HashSet<>();
-		this.directTypes = new HashMap<>();
-		this.sameIndividualMap = new HashMap<>();
+		this.directTypes = new OptMapImpl<>(new HashMap<>());
+		this.sameIndividualMap = new OptMapImpl<>(new HashMap<>());
 
 		logger.fine("");
 		logger.fine("");
