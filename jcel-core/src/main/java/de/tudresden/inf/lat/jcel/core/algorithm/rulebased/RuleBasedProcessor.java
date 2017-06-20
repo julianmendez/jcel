@@ -58,6 +58,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -75,6 +76,8 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.ExtendedOntology;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.ExtendedOntologyImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMap;
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMapImpl;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
@@ -128,7 +131,7 @@ public class RuleBasedProcessor implements Processor {
 	private SChain chainS = null;
 	private IntegerHierarchicalGraph classHierarchy = null;
 	private IntegerHierarchicalGraph dataPropertyHierarchy = null;
-	private Map<Integer, Set<Integer>> directTypes = null;
+	private OptMap<Integer, Set<Integer>> directTypes = null;
 	private final IntegerEntityManager entityManager;
 	private final NormalizedIntegerAxiomFactory factory;
 	private boolean isReady = false;
@@ -136,7 +139,7 @@ public class RuleBasedProcessor implements Processor {
 	private long loggingCount = loggingFrequency;
 	private final boolean multiThreadedMode = false;
 	private IntegerHierarchicalGraph objectPropertyHierarchy = null;
-	private Map<Integer, Set<Integer>> sameIndividualMap = null;
+	private OptMap<Integer, Set<Integer>> sameIndividualMap = null;
 	private ClassifierStatusImpl status = null;
 	private WorkerThreadR threadR1 = null;
 	private WorkerThreadR threadR2 = null;
@@ -192,8 +195,8 @@ public class RuleBasedProcessor implements Processor {
 	 *            graph containing direct subsumers
 	 * @return a map with all the direct types for each individual.
 	 */
-	private Map<Integer, Set<Integer>> computeDirectTypes(IntegerHierarchicalGraph hierarchicalGraph) {
-		Map<Integer, Set<Integer>> ret = new HashMap<>();
+	private OptMap<Integer, Set<Integer>> computeDirectTypes(IntegerHierarchicalGraph hierarchicalGraph) {
+		OptMap<Integer, Set<Integer>> ret = new OptMapImpl<>(new HashMap<>());
 		Set<Integer> individuals = getEntityManager().getIndividuals();
 		individuals.forEach(indiv -> {
 			Set<Integer> subsumers = hierarchicalGraph.getParents(getEntityManager().getAuxiliaryNominal(indiv).get());
@@ -235,17 +238,17 @@ public class RuleBasedProcessor implements Processor {
 		return ret;
 	}
 
-	private Set<Integer> computeReachability(Integer c, Map<Integer, Set<Integer>> reachableNodeCache) {
-		Set<Integer> reachableNodes = reachableNodeCache.get(c);
-		if (Objects.isNull(reachableNodes)) {
-			reachableNodes = computeReachability(c);
-			reachableNodeCache.put(c, reachableNodes);
+	private Set<Integer> computeReachability(Integer c, OptMap<Integer, Set<Integer>> reachableNodeCache) {
+		Optional<Set<Integer>> optReachableNodes = reachableNodeCache.get(c);
+		if (!optReachableNodes.isPresent()) {
+			optReachableNodes = Optional.of(computeReachability(c));
+			reachableNodeCache.put(c, optReachableNodes.get());
 		}
-		return reachableNodes;
+		return optReachableNodes.get();
 	}
 
-	private Map<Integer, Set<Integer>> computeSameIndividualMap(IntegerHierarchicalGraph hierarchicalGraph) {
-		Map<Integer, Set<Integer>> ret = new HashMap<>();
+	private OptMap<Integer, Set<Integer>> computeSameIndividualMap(IntegerHierarchicalGraph hierarchicalGraph) {
+		OptMap<Integer, Set<Integer>> ret = new OptMapImpl<>(new HashMap<>());
 		Set<Integer> individuals = getEntityManager().getIndividuals();
 		individuals.forEach(indiv -> {
 			Set<Integer> equivalentClasses = hierarchicalGraph
@@ -269,7 +272,7 @@ public class RuleBasedProcessor implements Processor {
 	 *            key
 	 * @param value
 	 *            value
-	 * @return a map entry created using the paramenters
+	 * @return a map entry created using the parameters
 	 */
 	private Map.Entry<String, String> createEntry(String key, String value) {
 		return new AbstractMap.SimpleEntry<String, String>(key, value);
@@ -365,7 +368,7 @@ public class RuleBasedProcessor implements Processor {
 		if (!isReady()) {
 			throw new UnclassifiedOntologyException();
 		}
-		return Collections.unmodifiableMap(this.directTypes);
+		return Collections.unmodifiableMap(this.directTypes.asMap());
 	}
 
 	protected IntegerEntityManager getEntityManager() {
@@ -421,7 +424,7 @@ public class RuleBasedProcessor implements Processor {
 		if (!isReady()) {
 			throw new UnclassifiedOntologyException();
 		}
-		return Collections.unmodifiableMap(this.sameIndividualMap);
+		return Collections.unmodifiableMap(this.sameIndividualMap.asMap());
 	}
 
 	/**
@@ -594,7 +597,7 @@ public class RuleBasedProcessor implements Processor {
 	 *            the hierarchical graph
 	 */
 	private void processNominals(IntegerHierarchicalGraph hierarchicalGraph) {
-		Map<Integer, Set<Integer>> reachabilityCache = new HashMap<>();
+		OptMap<Integer, Set<Integer>> reachabilityCache = new OptMapImpl<>(new HashMap<>());
 		Set<Integer> nominals = getEntityManager().getAuxiliaryNominals();
 		nominals.forEach(indiv -> {
 			Set<Integer> descendants = getDescendants(hierarchicalGraph, indiv);

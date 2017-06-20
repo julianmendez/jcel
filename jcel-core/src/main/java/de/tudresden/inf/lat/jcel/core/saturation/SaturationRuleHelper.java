@@ -51,10 +51,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMap;
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMapImpl;
 
 /**
  * This class contains convenience methods used by saturation rules.
@@ -80,16 +83,16 @@ class SaturationRuleHelper {
 	 */
 	public Map<Integer, Set<Integer>> getMapBySubObjectProperty(Set<RI2Axiom> axiomSet) {
 		Objects.requireNonNull(axiomSet);
-		Map<Integer, Set<Integer>> ret = new HashMap<>();
+		OptMap<Integer, Set<Integer>> ret = new OptMapImpl<>(new HashMap<>());
 		axiomSet.forEach(axiom -> {
-			Set<Integer> relatedElemSet = ret.get(axiom.getSubProperty());
-			if (Objects.isNull(relatedElemSet)) {
-				relatedElemSet = new HashSet<>();
-				ret.put(axiom.getSubProperty(), relatedElemSet);
+			Optional<Set<Integer>> optRelatedElemSet = ret.get(axiom.getSubProperty());
+			if (!optRelatedElemSet.isPresent()) {
+				optRelatedElemSet = Optional.of(new HashSet<>());
+				ret.put(axiom.getSubProperty(), optRelatedElemSet.get());
 			}
-			relatedElemSet.add(axiom.getSuperProperty());
+			optRelatedElemSet.get().add(axiom.getSuperProperty());
 		});
-		return Collections.unmodifiableMap(ret);
+		return Collections.unmodifiableMap(ret.asMap());
 	}
 
 	/**
@@ -103,16 +106,16 @@ class SaturationRuleHelper {
 	 */
 	public Map<Integer, Set<Integer>> getMapBySuperObjectProperty(Set<RI2Axiom> axiomSet) {
 		Objects.requireNonNull(axiomSet);
-		Map<Integer, Set<Integer>> ret = new HashMap<>();
+		OptMap<Integer, Set<Integer>> ret = new OptMapImpl<>(new HashMap<>());
 		axiomSet.forEach(axiom -> {
-			Set<Integer> relatedElemSet = ret.get(axiom.getSuperProperty());
-			if (Objects.isNull(relatedElemSet)) {
-				relatedElemSet = new HashSet<>();
-				ret.put(axiom.getSuperProperty(), relatedElemSet);
+			Optional<Set<Integer>> optRelatedElemSet = ret.get(axiom.getSuperProperty());
+			if (!optRelatedElemSet.isPresent()) {
+				optRelatedElemSet = Optional.of(new HashSet<>());
+				ret.put(axiom.getSuperProperty(), optRelatedElemSet.get());
 			}
-			relatedElemSet.add(axiom.getSubProperty());
+			optRelatedElemSet.get().add(axiom.getSubProperty());
 		});
-		return Collections.unmodifiableMap(ret);
+		return Collections.unmodifiableMap(ret.asMap());
 	}
 
 	/**
@@ -121,14 +124,15 @@ class SaturationRuleHelper {
 	 * 
 	 * @param first
 	 *            starting node
-	 * @param map
+	 * @param map0
 	 *            map representing a graph
 	 * @return the set of all nodes reachable from a specified starting node,
 	 *         according to the given graph
 	 */
-	public Set<Integer> getReachable(Integer first, Map<Integer, Set<Integer>> map) {
+	public Set<Integer> getReachable(Integer first, Map<Integer, Set<Integer>> map0) {
 		Objects.requireNonNull(first);
-		Objects.requireNonNull(map);
+		Objects.requireNonNull(map0);
+		OptMap<Integer, Set<Integer>> map = new OptMapImpl<>(map0);
 		Set<Integer> ret = new HashSet<>();
 		Set<Integer> toVisit = new HashSet<>();
 		toVisit.add(first);
@@ -136,9 +140,9 @@ class SaturationRuleHelper {
 			Integer elem = toVisit.iterator().next();
 			toVisit.remove(elem);
 			ret.add(elem);
-			Set<Integer> set = map.get(elem);
-			if (Objects.nonNull(set)) {
-				set.forEach(newElem -> {
+			Optional<Set<Integer>> optSet = map.get(elem);
+			if (optSet.isPresent()) {
+				optSet.get().forEach(newElem -> {
 					if (!ret.contains(newElem)) {
 						toVisit.add(newElem);
 					}

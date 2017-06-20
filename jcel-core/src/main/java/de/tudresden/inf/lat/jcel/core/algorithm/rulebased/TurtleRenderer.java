@@ -52,9 +52,12 @@ import java.io.Writer;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
-import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.TreeMap;
+
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMap;
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMapImpl;
 
 /**
  * An object of this class creates a stream in a particular case of Turtle
@@ -75,7 +78,7 @@ public class TurtleRenderer {
 	private static final String space = " ";
 	private static final String uriDelimiterLeft = "<";
 	private static final String uriDelimiterRight = ">";
-	private final Map<String, String> mapOfPrefixes = new TreeMap<>();
+	private final OptMap<String, String> mapOfPrefixes = new OptMapImpl<>(new TreeMap<>());
 
 	private final BufferedWriter output;
 
@@ -124,9 +127,9 @@ public class TurtleRenderer {
 			URI uri = new URI(name);
 			String prefix = getPrefix(uri);
 			if (prefix.length() > 0) {
-				String prefixId = this.mapOfPrefixes.get(prefix);
-				if (Objects.nonNull(prefixId)) {
-					ret = prefixId + prefixSeparator + getName(uri);
+				Optional<String> optPrefixId = this.mapOfPrefixes.get(prefix);
+				if (optPrefixId.isPresent()) {
+					ret = optPrefixId.get() + prefixSeparator + getName(uri);
 				} else {
 					ret = uriDelimiterLeft + name + uriDelimiterRight;
 				}
@@ -168,10 +171,10 @@ public class TurtleRenderer {
 	 */
 	public void renderPrefixes() throws IOException {
 		for (String prefix : this.mapOfPrefixes.keySet()) {
-			String prefixId = this.mapOfPrefixes.get(prefix);
+			Optional<String> optPrefixId = this.mapOfPrefixes.get(prefix);
 			this.output.write(prefixKeyword);
 			this.output.write(space);
-			this.output.write(prefixId);
+			this.output.write(optPrefixId.get());
 			this.output.write(prefixSeparator);
 			this.output.write(space);
 			this.output.write(uriDelimiterLeft);

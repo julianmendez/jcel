@@ -48,13 +48,14 @@ package de.tudresden.inf.lat.jcel.core.saturation;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMap;
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMapImpl;
 
 /**
  * <ul>
@@ -82,8 +83,8 @@ public class SR4Rule implements SaturationRule {
 	@Override
 	public Set<NormalizedIntegerAxiom> apply(Set<NormalizedIntegerAxiom> originalSet) {
 		Objects.requireNonNull(originalSet);
-		Map<Integer, Set<Integer>> mapBySuperProp = this.helper
-				.getMapBySuperObjectProperty(this.helper.getRI2Axioms(originalSet));
+		OptMap<Integer, Set<Integer>> mapBySuperProp = new OptMapImpl<>(
+				this.helper.getMapBySuperObjectProperty(this.helper.getRI2Axioms(originalSet)));
 		Set<NormalizedIntegerAxiom> ret = new HashSet<>();
 		ret.addAll(originalSet);
 
@@ -91,7 +92,8 @@ public class SR4Rule implements SaturationRule {
 			if (normalizedAxiom instanceof FunctObjectPropAxiom) {
 				FunctObjectPropAxiom axiom = (FunctObjectPropAxiom) normalizedAxiom;
 				Integer functionalProperty = axiom.getProperty();
-				Set<Integer> newFunctionalPropertySet = this.helper.getReachable(functionalProperty, mapBySuperProp);
+				Set<Integer> newFunctionalPropertySet = this.helper.getReachable(functionalProperty,
+						mapBySuperProp.asMap());
 				newFunctionalPropertySet.forEach(newFunctionalProperty -> ret
 						.add(this.factory.createFunctObjectPropAxiom(newFunctionalProperty, axiom.getAnnotations())));
 			}
