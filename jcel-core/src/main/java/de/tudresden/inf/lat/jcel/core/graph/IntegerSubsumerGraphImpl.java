@@ -49,10 +49,13 @@ package de.tudresden.inf.lat.jcel.core.graph;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMap;
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMapImpl;
 
 /**
  * This class implements a subsumer graph. This implementation keeps a set of
@@ -66,7 +69,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	private final int bottomElement;
 	private final Collection<Integer> emptyCollection = Collections.unmodifiableCollection(new ArraySet());
 	private final Set<Integer> equivToBottom = new HashSet<>();
-	private final Map<Integer, Collection<Integer>> setS = new ConcurrentHashMap<>();
+	private final OptMap<Integer, Collection<Integer>> setS = new OptMapImpl<>(new ConcurrentHashMap<>());
 	private final int topElement;
 
 	/**
@@ -120,9 +123,12 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 			} else {
 				ret |= add(subId);
 				ret |= add(superId);
-				Collection<Integer> set = this.setS.get(subId);
-				if (!set.contains(superId)) {
-					ret |= set.add(superId);
+				Optional<Collection<Integer>> optSet = this.setS.get(subId);
+				if (!optSet.isPresent()) {
+					throw new IllegalStateException("Element was not added: '" + subId + "'.");
+				}
+				if (!optSet.get().contains(superId)) {
+					ret |= optSet.get().add(superId);
 				}
 			}
 		}
@@ -131,7 +137,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 
 	@Override
 	public boolean containsPair(int subsumee, int subsumer) {
-		return Objects.nonNull(getSubsumers(subsumee)) && getSubsumers(subsumee).contains(subsumer);
+		return getSubsumers(subsumee).contains(subsumer);
 	}
 
 	@Override
@@ -161,7 +167,7 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 	 */
 	public long getDeepSize() {
 		return this.setS.keySet().stream() //
-				.map(key -> this.setS.get(key).size()) //
+				.map(key -> this.setS.get(key).get().size()) //
 				.reduce(0, (accum, elem) -> (accum + elem));
 	}
 
@@ -172,18 +178,18 @@ public class IntegerSubsumerGraphImpl implements IntegerSubsumerGraph {
 
 	@Override
 	public Collection<Integer> getSubsumers(int vertex) {
-		Collection<Integer> ret;
+		Optional<Collection<Integer>> optSet;
 		if (this.equivToBottom.contains(vertex)) {
-			ret = getElements();
+			optSet = Optional.of(getElements());
 		} else {
-			ret = this.setS.get(vertex);
-			if (Objects.isNull(ret)) {
-				ret = Collections.emptySet();
+			optSet = this.setS.get(vertex);
+			if (!optSet.isPresent()) {
+				optSet = Optional.of(Collections.emptySet());
 			} else {
-				ret = Collections.unmodifiableCollection(ret);
+				optSet = Optional.of(Collections.unmodifiableCollection(optSet.get()));
 			}
 		}
-		return ret;
+		return optSet.get();
 	}
 
 	@Override

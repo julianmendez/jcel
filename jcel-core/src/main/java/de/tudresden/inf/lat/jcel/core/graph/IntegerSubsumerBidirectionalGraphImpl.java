@@ -103,7 +103,7 @@ public class IntegerSubsumerBidirectionalGraphImpl implements IntegerSubsumerBid
 
 	@Override
 	public boolean containsPair(int subsumee, int subsumer) {
-		return Objects.nonNull(getSubsumers(subsumee)) && getSubsumers(subsumee).contains(subsumer);
+		return getSubsumers(subsumee).contains(subsumer);
 	}
 
 	@Override

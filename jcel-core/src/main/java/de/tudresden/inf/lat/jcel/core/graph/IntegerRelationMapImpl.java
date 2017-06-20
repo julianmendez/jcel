@@ -48,10 +48,12 @@ package de.tudresden.inf.lat.jcel.core.graph;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Map;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMap;
+import de.tudresden.inf.lat.jcel.coreontology.common.OptMapImpl;
 
 /**
  * This class implements a map of binary relations.
@@ -60,9 +62,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class IntegerRelationMapImpl implements IntegerRelationMap {
 
-	private final Map<Integer, IntegerBinaryRelationImpl> relationMap = new ConcurrentHashMap<>();
-	private final Map<Integer, Collection<Integer>> relationSetByFirst = new ConcurrentHashMap<>();
-	private final Map<Integer, Collection<Integer>> relationSetBySecond = new ConcurrentHashMap<>();
+	private final OptMap<Integer, IntegerBinaryRelationImpl> relationMap = new OptMapImpl<>(new ConcurrentHashMap<>());
+	private final OptMap<Integer, Collection<Integer>> relationSetByFirst = new OptMapImpl<>(new ConcurrentHashMap<>());
+	private final OptMap<Integer, Collection<Integer>> relationSetBySecond = new OptMapImpl<>(
+			new ConcurrentHashMap<>());
 
 	/**
 	 * Constructs an empty map of binary relations.
@@ -100,29 +103,29 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	 */
 	public boolean add(int relationId, int first, int second) {
 		boolean ret = false;
-		IntegerBinaryRelationImpl relation = this.relationMap.get(relationId);
-		if (Objects.isNull(relation)) {
-			relation = new IntegerBinaryRelationImpl();
-			this.relationMap.put(relationId, relation);
+		Optional<IntegerBinaryRelationImpl> optRelation = this.relationMap.get(relationId);
+		if (!optRelation.isPresent()) {
+			optRelation = Optional.of(new IntegerBinaryRelationImpl());
+			this.relationMap.put(relationId, optRelation.get());
 			ret = true;
 		}
-		ret |= relation.add(first, second);
+		ret |= optRelation.get().add(first, second);
 
-		Collection<Integer> byFirst = this.relationSetByFirst.get(first);
-		if (Objects.isNull(byFirst)) {
-			byFirst = new ArraySet();
-			this.relationSetByFirst.put(first, byFirst);
+		Optional<Collection<Integer>> optByFirst = this.relationSetByFirst.get(first);
+		if (!optByFirst.isPresent()) {
+			optByFirst = Optional.of(new ArraySet());
+			this.relationSetByFirst.put(first, optByFirst.get());
 			ret = true;
 		}
-		ret |= byFirst.add(relationId);
+		ret |= optByFirst.get().add(relationId);
 
-		Collection<Integer> bySecond = this.relationSetBySecond.get(second);
-		if (Objects.isNull(bySecond)) {
-			bySecond = new ArraySet();
-			this.relationSetBySecond.put(second, bySecond);
+		Optional<Collection<Integer>> optBySecond = this.relationSetBySecond.get(second);
+		if (!optBySecond.isPresent()) {
+			optBySecond = Optional.of(new ArraySet());
+			this.relationSetBySecond.put(second, optBySecond.get());
 			ret = true;
 		}
-		ret |= bySecond.add(relationId);
+		ret |= optBySecond.get().add(relationId);
 
 		return ret;
 	}
@@ -135,9 +138,9 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	@Override
 	public boolean contains(int relationId, int first, int second) {
 		boolean ret = false;
-		IntegerBinaryRelation relation = this.relationMap.get(relationId);
-		if (Objects.nonNull(relation)) {
-			ret = relation.contains(first, second);
+		Optional<IntegerBinaryRelationImpl> optRelation = this.relationMap.get(relationId);
+		if (optRelation.isPresent()) {
+			ret = optRelation.get().contains(first, second);
 		}
 		return ret;
 	}
@@ -156,15 +159,21 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 
 	@Override
 	public IntegerBinaryRelation get(int relationId) {
-		return this.relationMap.get(relationId);
+		IntegerBinaryRelation ret = null;
+		if (this.relationMap.get(relationId).isPresent()) {
+			ret = this.relationMap.get(relationId).get();
+		} else {
+			ret = new IntegerBinaryRelationImpl();
+		}
+		return ret;
 	}
 
 	@Override
 	public Collection<Integer> getByFirst(int relationId, int first) {
 		Collection<Integer> ret = Collections.emptySet();
-		IntegerBinaryRelation relation = this.relationMap.get(relationId);
-		if (Objects.nonNull(relation)) {
-			ret = relation.getByFirst(first);
+		Optional<IntegerBinaryRelationImpl> optRelation = this.relationMap.get(relationId);
+		if (optRelation.isPresent()) {
+			ret = optRelation.get().getByFirst(first);
 		}
 		return ret;
 	}
@@ -172,9 +181,9 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 	@Override
 	public Collection<Integer> getBySecond(int relationId, int second) {
 		Collection<Integer> ret = Collections.emptySet();
-		IntegerBinaryRelation relation = this.relationMap.get(relationId);
-		if (Objects.nonNull(relation)) {
-			ret = relation.getBySecond(second);
+		Optional<IntegerBinaryRelationImpl> optRelation = this.relationMap.get(relationId);
+		if (optRelation.isPresent()) {
+			ret = optRelation.get().getBySecond(second);
 		}
 		return ret;
 	}
@@ -191,15 +200,15 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 		long ret = 0;
 
 		ret += this.relationMap.keySet().stream() //
-				.map(key -> this.relationMap.get(key).getDeepSize()) //
+				.map(key -> this.relationMap.get(key).get().getDeepSize()) //
 				.reduce(0L, (accum, elem) -> (accum + elem));
 
 		ret += this.relationSetByFirst.keySet().stream() //
-				.map(key -> this.relationSetByFirst.get(key).size()) //
+				.map(key -> this.relationSetByFirst.get(key).get().size()) //
 				.reduce(0, (accum, elem) -> (accum + elem));
 
 		ret += this.relationSetBySecond.keySet().stream() //
-				.map(key -> this.relationSetBySecond.get(key).size()) //
+				.map(key -> this.relationSetBySecond.get(key).get().size()) //
 				.reduce(0, (accum, elem) -> (accum + elem));
 
 		return ret;
@@ -212,20 +221,20 @@ public class IntegerRelationMapImpl implements IntegerRelationMap {
 
 	@Override
 	public Collection<Integer> getRelationsByFirst(int first) {
-		Collection<Integer> ret = this.relationSetByFirst.get(first);
-		if (Objects.isNull(ret)) {
-			ret = Collections.emptySet();
+		Optional<Collection<Integer>> optSet = this.relationSetByFirst.get(first);
+		if (!optSet.isPresent()) {
+			optSet = Optional.of(Collections.emptySet());
 		}
-		return Collections.unmodifiableCollection(ret);
+		return Collections.unmodifiableCollection(optSet.get());
 	}
 
 	@Override
 	public Collection<Integer> getRelationsBySecond(int second) {
-		Collection<Integer> ret = this.relationSetBySecond.get(second);
-		if (Objects.isNull(ret)) {
-			ret = Collections.emptySet();
+		Optional<Collection<Integer>> optSet = this.relationSetBySecond.get(second);
+		if (!optSet.isPresent()) {
+			optSet = Optional.of(Collections.emptySet());
 		}
-		return Collections.unmodifiableCollection(ret);
+		return Collections.unmodifiableCollection(optSet.get());
 	}
 
 	@Override
