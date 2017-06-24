@@ -76,11 +76,11 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.ExtendedOntology;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.ExtendedOntologyImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactory;
-import de.tudresden.inf.lat.jcel.coreontology.common.OptMap;
-import de.tudresden.inf.lat.jcel.coreontology.common.OptMapImpl;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.OntologyExpressivity;
+import de.tudresden.inf.lat.util.map.OptMap;
+import de.tudresden.inf.lat.util.map.OptMapImpl;
 
 /**
  * An object of this class is an implementation of a classification algorithm.

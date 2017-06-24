@@ -47,11 +47,8 @@
 package de.tudresden.inf.lat.jcel.owlapi.translator;
 
 import java.util.HashMap;
-import java.util.Optional;
-import de.tudresden.inf.lat.jcel.coreontology.common.OptMap;
-import de.tudresden.inf.lat.jcel.coreontology.common.OptMapImpl;
-
 import java.util.Objects;
+import java.util.Optional;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
@@ -66,6 +63,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
+import de.tudresden.inf.lat.util.map.OptMap;
+import de.tudresden.inf.lat.util.map.OptMapImpl;
 
 /**
  * An object of this class is a repository used for the translation between OWL

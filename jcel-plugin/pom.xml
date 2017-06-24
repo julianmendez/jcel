@@ -145,6 +145,7 @@
 						<Require-Bundle>${require.bundle}</Require-Bundle>
 						<Include-Resource>
 							{maven-resources}, {maven-dependencies},
+							@util-map-${util.version}.jar,
 							@jcel-coreontology-${project.version}.jar,
 							@jcel-core-${project.version}.jar,
 							@jcel-ontology-${project.version}.jar,

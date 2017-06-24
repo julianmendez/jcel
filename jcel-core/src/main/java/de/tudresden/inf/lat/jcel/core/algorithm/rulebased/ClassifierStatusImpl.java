@@ -69,10 +69,10 @@ import de.tudresden.inf.lat.jcel.core.graph.VNode;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.ExtendedOntology;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
-import de.tudresden.inf.lat.jcel.coreontology.common.OptMap;
-import de.tudresden.inf.lat.jcel.coreontology.common.OptMapImpl;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
+import de.tudresden.inf.lat.util.map.OptMap;
+import de.tudresden.inf.lat.util.map.OptMapImpl;
 
 /**
  * An object of this class keeps the status of the classifier.

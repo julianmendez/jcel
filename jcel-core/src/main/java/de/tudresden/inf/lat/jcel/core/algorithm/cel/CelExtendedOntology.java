@@ -67,8 +67,8 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
-import de.tudresden.inf.lat.jcel.coreontology.common.OptMap;
-import de.tudresden.inf.lat.jcel.coreontology.common.OptMapImpl;
+import de.tudresden.inf.lat.util.map.OptMap;
+import de.tudresden.inf.lat.util.map.OptMapImpl;
 
 /**
  * This class models an extended ontology. This is referred in the documentation

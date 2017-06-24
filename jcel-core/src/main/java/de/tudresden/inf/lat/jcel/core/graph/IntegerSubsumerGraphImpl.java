@@ -54,8 +54,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import de.tudresden.inf.lat.jcel.coreontology.common.OptMap;
-import de.tudresden.inf.lat.jcel.coreontology.common.OptMapImpl;
+import de.tudresden.inf.lat.util.map.OptMap;
+import de.tudresden.inf.lat.util.map.OptMapImpl;
 
 /**
  * This class implements a subsumer graph. This implementation keeps a set of

@@ -49,11 +49,8 @@ package de.tudresden.inf.lat.jcel.reasoner.main;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Optional;
-import de.tudresden.inf.lat.jcel.coreontology.common.OptMap;
-import de.tudresden.inf.lat.jcel.coreontology.common.OptMapImpl;
-
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -76,6 +73,8 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerNamedIndividual;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 import de.tudresden.inf.lat.jcel.ontology.normalization.ObjectPropertyIdFinder;
 import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
+import de.tudresden.inf.lat.util.map.OptMap;
+import de.tudresden.inf.lat.util.map.OptMapImpl;
 
 /**
  * This class models a rule-based reasoner.
