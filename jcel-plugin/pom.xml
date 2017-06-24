@@ -145,13 +145,13 @@
 						<Require-Bundle>${require.bundle}</Require-Bundle>
 						<Include-Resource>
 							{maven-resources}, {maven-dependencies},
-							@util-map-${util.version}.jar,
 							@jcel-coreontology-${project.version}.jar,
 							@jcel-core-${project.version}.jar,
 							@jcel-ontology-${project.version}.jar,
 							@jcel-reasoner-${project.version}.jar,
 							@jcel-owlapi-${project.version}.jar,
 							@jcel-protege-${project.version}.jar,
+							@util-map-${util.version}.jar,
 							LICENSE.txt=../LICENSE.txt,
 							COPYING.txt=../COPYING.txt,
 							COPYING-LESSER.txt=../COPYING-LESSER.txt
