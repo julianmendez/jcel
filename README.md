@@ -190,7 +190,7 @@ See [release notes](https://julianmendez.github.io/jcel/RELEASE-NOTES.html).
 
 ## Support
 
-Any bug, or unexpected behavior can be reported to the e-mail addresses at this [web page](https://lat.inf.tu-dresden.de/~mendez). Questions and suggestions are also very welcome.
+Any bug or unexpected behavior can be directly reported by sending a message to the author. Questions and suggestions are also very welcome.
 
 
 ## News
