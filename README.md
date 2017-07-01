@@ -27,7 +27,7 @@
 
 ## Author
 
-[Julian Mendez](https://lat.inf.tu-dresden.de/~mendez/)
+[Julian Mendez](https://julianmendez.github.io)
 
 
 ## Licenses
