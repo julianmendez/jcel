@@ -174,7 +174,7 @@ See [release notes](https://julianmendez.github.io/jcel/RELEASE-NOTES.html).
 
 ## More information
 
-* [Frequently Asked Questions](https://julianmendez.github.io/jcel/docs/data/faq.html)
+* [Frequently Asked Questions](https://julianmendez.github.io/jcel/docs/faq.html)
 
 
 ## References
