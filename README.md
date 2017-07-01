@@ -162,7 +162,7 @@ Ontologies:
 
 
 ## Release notes
-See [release notes](https://github.com/julianmendez/jcel/blob/master/RELEASE-NOTES.md).
+See [release notes](https://julianmendez.github.io/jcel/RELEASE-NOTES.html).
 
 
 ## Older versions
@@ -174,7 +174,7 @@ See [release notes](https://github.com/julianmendez/jcel/blob/master/RELEASE-NOT
 
 ## More information
 
-* [Frequently Asked Questions](https://github.com/julianmendez/jcel/blob/master/docs/data/faq.md)
+* [Frequently Asked Questions](https://julianmendez.github.io/jcel/docs/data/faq.html)
 
 
 ## References
