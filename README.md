@@ -7,6 +7,7 @@
 [![download](https://img.shields.io/sourceforge/dm/jcel.svg)](http://sourceforge.net/projects/jcel/files/)
 [![follow](https://img.shields.io/twitter/follow/jcelreasoner.svg?style=social)](https://twitter.com/jcelreasoner)
 
+
 **jcel** is a reasoner for the [description logic](http://dl.kr.org) EL+. It uses the [OWL API](https://owlcs.github.io/owlapi/) and can be used as a plug-in for [Protege](https://protege.stanford.edu/).
 
 
