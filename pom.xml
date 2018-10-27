@@ -121,6 +121,18 @@
 	</properties>
 
 	<build>
+		<pluginManagement>
+			<plugins>
+
+				<plugin>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>maven-bundle-plugin</artifactId>
+					<version>4.1.0</version>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+
 		<plugins>
 
 			<plugin>
