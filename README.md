@@ -2,9 +2,9 @@
 
 [![build](https://travis-ci.org/julianmendez/jcel.png?branch=master)](https://travis-ci.org/julianmendez/jcel)
 [![maven central](https://maven-badges.herokuapp.com/maven-central/de.tu-dresden.inf.lat.jcel/jcel-parent/badge.svg)](https://search.maven.org/#search|ga|1|g%3A%22de.tu-dresden.inf.lat.jcel%22)
+[![scrutinizer](https://scrutinizer-ci.com/g/julianmendez/jcel/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/julianmendez/jcel/?branch=master)
 [![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.txt)
 [![license](https://img.shields.io/badge/license-LGPL%203.0-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0.txt)
-[![scrutinizer](https://scrutinizer-ci.com/g/julianmendez/jcel/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/julianmendez/jcel/?branch=master)
 [![download](https://img.shields.io/sourceforge/dm/jcel.svg)](http://sourceforge.net/projects/jcel/files/)
 [![follow](https://img.shields.io/twitter/follow/jcelreasoner.svg?style=social)](https://twitter.com/jcelreasoner)
 
