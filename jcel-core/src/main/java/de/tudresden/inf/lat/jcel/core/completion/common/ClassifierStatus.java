@@ -90,7 +90,7 @@ public interface ClassifierStatus {
 	 * 
 	 * @param node
 	 *            node to test membership
-	 * @return <tt>true</tt> if and only if the node belongs to the set V
+	 * @return <code>true</code> if and only if the node belongs to the set V
 	 */
 	boolean contains(VNode node);
 
