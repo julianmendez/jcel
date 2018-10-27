@@ -1,0 +1,21 @@
+
+#
+# Configuration file for Scrutinizer
+# https://scrutinizer-ci.com/
+#
+
+
+checks:
+  java: true
+
+build:
+  environment:
+    java: java-8-oracle
+
+  nodes:
+    analysis:
+      tests:
+        override:
+          - java-scrutinizer-run
+
+
