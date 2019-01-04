@@ -343,7 +343,7 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 		return ret;
 	}
 
-	private Set<ComplexIntegerAxiom> getIntegerOntology() {
+	public Set<ComplexIntegerAxiom> getIntegerOntology() {
 		Set<OWLAxiom> owlAxiomSet = new HashSet<>();
 		owlAxiomSet.addAll(this.rootOntology.getAxioms());
 		this.rootOntology.getImportsClosure().forEach(ont -> owlAxiomSet.addAll(ont.getAxioms()));
