@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.core.completion.common;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.core.graph.VNode;
@@ -145,7 +146,7 @@ public interface ClassifierStatus {
 	 *            node identifier
 	 * @return the node for the given node identifier
 	 */
-	VNode getNode(int nodeId);
+	Optional<VNode> getNode(int nodeId);
 
 	/**
 	 * Returns the set of object properties related with a certain class as a

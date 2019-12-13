@@ -55,6 +55,11 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>de.tu-dresden.inf.lat.util</groupId>
+			<artifactId>util-map</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>

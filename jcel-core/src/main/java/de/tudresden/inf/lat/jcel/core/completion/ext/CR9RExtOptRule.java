@@ -48,11 +48,13 @@ package de.tudresden.inf.lat.jcel.core.completion.ext;
 
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.CompletionRuleMonitor;
 import de.tudresden.inf.lat.jcel.core.completion.common.RObserverRule;
+import de.tudresden.inf.lat.jcel.core.graph.VNode;
 import de.tudresden.inf.lat.jcel.core.graph.VNodeImpl;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 
@@ -94,13 +96,21 @@ public class CR9RExtOptRule implements RObserverRule {
 
 	private boolean applyRule(ClassifierStatus status, int r1, int x, int y) {
 		CompletionRuleMonitor ret = new CompletionRuleMonitor();
-		if (status.getNode(y).getClassId() == IntegerEntityManager.topClassId) {
+		Optional<VNode> optPsiNode = status.getNode(y);
+		if (!optPsiNode.isPresent()) {
+			throw new IllegalStateException("Node not found in internal structure '" + y + "'.");
+		}
+		if (optPsiNode.get().getClassId() == IntegerEntityManager.topClassId) {
 
 			Set<Integer> valid = new HashSet<>();
 			valid.add(y);
 			status.getObjectPropertiesWithFunctionalAncestor(r1).forEach(r2 -> {
 				status.getSecondByFirst(r2, x).forEach(yi -> {
-					if (status.getNode(yi).getClassId() == IntegerEntityManager.topClassId) {
+					Optional<VNode> optPhiNode = status.getNode(yi);
+					if (!optPhiNode.isPresent()) {
+						throw new IllegalStateException("Node not found in internal structure '" + yi + "'.");
+					}
+					if (optPhiNode.get().getClassId() == IntegerEntityManager.topClassId) {
 						valid.add(yi);
 					}
 				});
@@ -109,7 +119,11 @@ public class CR9RExtOptRule implements RObserverRule {
 			if (valid.size() > 1) {
 				VNodeImpl newNode = new VNodeImpl(IntegerEntityManager.topClassId);
 				valid.forEach(yi -> {
-					newNode.addExistentialsOf(status.getNode(yi));
+					Optional<VNode> optPhiNode = status.getNode(yi);
+					if (!optPsiNode.isPresent()) {
+						throw new IllegalStateException("Node not found in internal structure '" + yi + "'.");
+					}
+					newNode.addExistentialsOf(optPhiNode.get());
 				});
 				int v = status.createOrGetNodeId(newNode);
 				valid.forEach(yi -> {

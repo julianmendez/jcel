@@ -48,10 +48,12 @@ package de.tudresden.inf.lat.jcel.core.graph;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Map;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
+import de.tudresden.inf.lat.util.map.OptMap;
+import de.tudresden.inf.lat.util.map.OptMapImpl;
 
 /**
  * This class implements a binary relation. Its elements are integer numbers.
@@ -60,8 +62,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 
-	private final Map<Integer, Collection<Integer>> byFirstComp = new ConcurrentHashMap<>();
-	private final Map<Integer, Collection<Integer>> bySecondComp = new ConcurrentHashMap<>();
+	private final OptMap<Integer, Collection<Integer>> byFirstComp = new OptMapImpl<>(new ConcurrentHashMap<>());
+	private final OptMap<Integer, Collection<Integer>> bySecondComp = new OptMapImpl<>(new ConcurrentHashMap<>());
 
 	/**
 	 * Constructs an empty binary relation.
@@ -100,27 +102,34 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 		ret |= add(first);
 		ret |= add(second);
 
-		Collection<Integer> byFirst = this.byFirstComp.get(first);
-		Collection<Integer> bySecond = this.bySecondComp.get(second);
+		Optional<Collection<Integer>> optByFirst = this.byFirstComp.get(first);
+		if (!optByFirst.isPresent()) {
+			throw new IllegalStateException("Element is not present in the relation: '" + first + "'.");
+		}
+
+		Optional<Collection<Integer>> optBySecond = this.bySecondComp.get(second);
+		if (!optBySecond.isPresent()) {
+			throw new IllegalStateException("Element is not present in the relation: '" + second + "'.");
+		}
 
 		boolean found = false;
-		if (byFirst.size() < bySecond.size()) {
-			found = byFirst.contains(second);
+		if (optByFirst.get().size() < optBySecond.get().size()) {
+			found = optByFirst.get().contains(second);
 		} else {
-			found = bySecond.contains(first);
+			found = optBySecond.get().contains(first);
 		}
 
 		if (!found) {
-			ret |= byFirst.add(second);
-			ret |= bySecond.add(first);
+			ret |= optByFirst.get().add(second);
+			ret |= optBySecond.get().add(first);
 		}
 
 		return ret;
 	}
 
-	private boolean addTo(int elem, Map<Integer, Collection<Integer>> map) {
+	private boolean addTo(int elem, OptMap<Integer, Collection<Integer>> map) {
 		boolean ret = false;
-		if (Objects.isNull(map.get(elem))) {
+		if (!map.get(elem).isPresent()) {
 			map.put(elem, new ArraySet());
 			ret = true;
 		}
@@ -130,8 +139,8 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	@Override
 	public boolean contains(int first, int second) {
 		boolean ret = false;
-		Collection<Integer> byFirst = this.byFirstComp.get(first);
-		ret = (Objects.nonNull(byFirst)) && byFirst.contains(second);
+		Optional<Collection<Integer>> byFirst = this.byFirstComp.get(first);
+		ret = (byFirst.isPresent()) && byFirst.get().contains(second);
 		return ret;
 	}
 
@@ -150,9 +159,9 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	@Override
 	public Collection<Integer> getByFirst(int first) {
 		Collection<Integer> ret = Collections.emptySet();
-		Collection<Integer> set = this.byFirstComp.get(first);
-		if (Objects.nonNull(set)) {
-			ret = Collections.unmodifiableCollection(set);
+		Optional<Collection<Integer>> optSet = this.byFirstComp.get(first);
+		if (optSet.isPresent()) {
+			ret = Collections.unmodifiableCollection(optSet.get());
 		}
 		return ret;
 	}
@@ -160,9 +169,9 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 	@Override
 	public Collection<Integer> getBySecond(int second) {
 		Collection<Integer> ret = Collections.emptySet();
-		Collection<Integer> set = this.bySecondComp.get(second);
-		if (Objects.nonNull(set)) {
-			ret = Collections.unmodifiableCollection(set);
+		Optional<Collection<Integer>> optSet = this.bySecondComp.get(second);
+		if (optSet.isPresent()) {
+			ret = Collections.unmodifiableCollection(optSet.get());
 		}
 		return ret;
 	}
@@ -179,11 +188,11 @@ public class IntegerBinaryRelationImpl implements IntegerBinaryRelation {
 		long ret = 0;
 
 		ret += this.byFirstComp.keySet().stream() //
-				.map(key -> this.byFirstComp.get(key).size()) //
+				.map(key -> this.byFirstComp.get(key).get().size()) //
 				.reduce(0, (accum, elem) -> (accum + elem));
 
 		ret += this.bySecondComp.keySet().stream() //
-				.map(key -> this.bySecondComp.get(key).size()) //
+				.map(key -> this.bySecondComp.get(key).get().size()) //
 				.reduce(0, (accum, elem) -> (accum + elem));
 
 		return ret;

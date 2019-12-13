@@ -151,6 +151,7 @@
 							@jcel-reasoner-${project.version}.jar,
 							@jcel-owlapi-${project.version}.jar,
 							@jcel-protege-${project.version}.jar,
+							@util-map-${util.version}.jar,
 							LICENSE.txt=../LICENSE.txt,
 							COPYING.txt=../COPYING.txt,
 							COPYING-LESSER.txt=../COPYING-LESSER.txt

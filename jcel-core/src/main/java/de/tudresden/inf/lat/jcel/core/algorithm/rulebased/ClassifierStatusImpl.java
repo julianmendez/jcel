@@ -53,9 +53,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -71,6 +71,8 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.ExtendedOntology;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
+import de.tudresden.inf.lat.util.map.OptMap;
+import de.tudresden.inf.lat.util.map.OptMapImpl;
 
 /**
  * An object of this class keeps the status of the classifier.
@@ -87,15 +89,15 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	private static final int topObjectPropertyId = IntegerEntityManager.topObjectPropertyId;
 
 	private IntegerSubsumerGraphImpl classGraph = null;
-	private final Map<Integer, Set<Integer>> cognateFunctPropMap = new HashMap<>();
+	private final OptMap<Integer, Set<Integer>> cognateFunctPropMap = new OptMapImpl<>(new HashMap<>());
 	private final ExtendedOntology extendedOntology;
 	private IntegerEntityManager entityManager = null;
-	private final Map<VNodeImpl, Integer> invNodeSet = new HashMap<>();
+	private final OptMap<VNodeImpl, Integer> invNodeSet = new OptMapImpl<>(new HashMap<>());
 	private final Object monitorClassGraph = new Object();
 	private final Object monitorRelationSet = new Object();
 	private final Object monitorSetQsubR = new Object();
 	private final Object monitorSetQsubS = new Object();
-	private final Map<Integer, VNodeImpl> nodeSet = new HashMap<>();
+	private final OptMap<Integer, VNodeImpl> nodeSet = new OptMapImpl<>(new HashMap<>());
 	private IntegerSubsumerBidirectionalGraphImpl objectPropertyGraph = null;
 	private IntegerRelationMapImpl relationSet = null;
 	private final Set<REntry> setQsubR = new TreeSet<>();
@@ -181,7 +183,11 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	@Override
 	public boolean contains(VNode node) {
 		Objects.requireNonNull(node);
-		return Objects.nonNull(this.invNodeSet.get(node));
+		boolean ret = false;
+		if (node instanceof VNodeImpl) {
+			ret = this.invNodeSet.get((VNodeImpl) node).isPresent();
+		}
+		return ret;
 	}
 
 	private void createClassGraph() {
@@ -201,12 +207,12 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 		this.extendedOntology.getFunctionalObjectProperties().forEach(s -> {
 			Collection<Integer> cognates = getSubObjectProperties(s);
 			cognates.forEach(r -> {
-				Set<Integer> currentSet = this.cognateFunctPropMap.get(r);
-				if (Objects.isNull(currentSet)) {
-					currentSet = new HashSet<>();
-					this.cognateFunctPropMap.put(r, currentSet);
+				Optional<Set<Integer>> optCurrentSet = this.cognateFunctPropMap.get(r);
+				if (!optCurrentSet.isPresent()) {
+					optCurrentSet = Optional.of(new HashSet<>());
+					this.cognateFunctPropMap.put(r, optCurrentSet.get());
 				}
-				currentSet.addAll(cognates);
+				optCurrentSet.get().addAll(cognates);
 			});
 		});
 	}
@@ -233,18 +239,21 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	@Override
 	public int createOrGetNodeId(VNode node) {
 		Objects.requireNonNull(node);
-		Integer ret = this.invNodeSet.get(node);
-		if (Objects.isNull(ret)) {
-			ret = node.getClassId();
+		Optional<Integer> optNodeId = Optional.empty();
+		if (node instanceof VNodeImpl) {
+			optNodeId = this.invNodeSet.get((VNodeImpl) node);
+		}
+		if (!optNodeId.isPresent()) {
+			optNodeId = Optional.of(node.getClassId());
 			if (!node.isEmpty()) {
-				ret = getIdGenerator().createAnonymousEntity(IntegerEntityType.CLASS, true);
+				optNodeId = Optional.of(getIdGenerator().createAnonymousEntity(IntegerEntityType.CLASS, true));
 				VNodeImpl newNode = new VNodeImpl(node.getClassId());
 				newNode.addExistentialsOf(node);
-				this.nodeSet.put(ret, newNode);
-				this.invNodeSet.put(newNode, ret);
+				this.nodeSet.put(optNodeId.get(), newNode);
+				this.invNodeSet.put(newNode, optNodeId.get());
 			}
 		}
-		return ret;
+		return optNodeId.get();
 	}
 
 	private void createRelationSet() {
@@ -321,7 +330,7 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	 * @return the number of elements in the node set
 	 */
 	public long getDeepSizeOfV() {
-		return this.nodeSet.keySet().stream().map(nodeId -> this.nodeSet.get(nodeId).getDeepSize()).reduce(0L,
+		return this.nodeSet.keySet().stream().map(nodeId -> this.nodeSet.get(nodeId).get().getDeepSize()).reduce(0L,
 				(accum, elem) -> (accum + elem));
 	}
 
@@ -354,8 +363,13 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 	}
 
 	@Override
-	public VNode getNode(int nodeId) {
-		return this.nodeSet.get(nodeId);
+	public Optional<VNode> getNode(int nodeId) {
+		Optional<VNodeImpl> node = this.nodeSet.get(nodeId);
+		Optional<VNode> ret = Optional.empty();
+		if (node.isPresent()) {
+			ret = Optional.of(node.get());
+		}
+		return ret;
 	}
 
 	/**
@@ -405,13 +419,13 @@ public class ClassifierStatusImpl implements ClassifierStatus {
 
 	@Override
 	public Set<Integer> getObjectPropertiesWithFunctionalAncestor(int objectProperty) {
-		Set<Integer> ret = this.cognateFunctPropMap.get(objectProperty);
-		if (Objects.isNull(ret)) {
-			ret = Collections.emptySet();
+		Optional<Set<Integer>> optSet = this.cognateFunctPropMap.get(objectProperty);
+		if (!optSet.isPresent()) {
+			optSet = Optional.of(Collections.emptySet());
 		} else {
-			ret = Collections.unmodifiableSet(ret);
+			optSet = Optional.of(Collections.unmodifiableSet(optSet.get()));
 		}
-		return ret;
+		return optSet.get();
 	}
 
 	/**

@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.CompletionRuleMonitor;
@@ -89,16 +90,22 @@ public class CR9RExtRule implements RObserverRule {
 
 	private boolean applyRule(ClassifierStatus status, int r1, int x, int y) {
 		CompletionRuleMonitor ret = new CompletionRuleMonitor();
-		VNode psiNode = status.getNode(y);
-		if (psiNode.getClassId() == IntegerEntityManager.topClassId) {
+		Optional<VNode> optPsiNode = status.getNode(y);
+		if (!optPsiNode.isPresent()) {
+			throw new IllegalStateException("Node not found in internal structure '" + y + "'.");
+		}
+		if (optPsiNode.get().getClassId() == IntegerEntityManager.topClassId) {
 			status.getObjectPropertiesWithFunctionalAncestor(r1).forEach(r2 -> {
 				status.getSecondByFirst(r2, x).forEach(z -> {
-					VNode phiNode = status.getNode(z);
-					if (phiNode.getClassId() == IntegerEntityManager.topClassId) {
+					Optional<VNode> optPhiNode = status.getNode(z);
+					if (!optPsiNode.isPresent()) {
+						throw new IllegalStateException("Node not found in internal structure '" + z + "'.");
+					}
+					if (optPhiNode.get().getClassId() == IntegerEntityManager.topClassId) {
 						if (y != z) {
 							VNodeImpl newNode = new VNodeImpl(IntegerEntityManager.topClassId);
-							newNode.addExistentialsOf(psiNode);
-							newNode.addExistentialsOf(phiNode);
+							newNode.addExistentialsOf(optPsiNode.get());
+							newNode.addExistentialsOf(optPhiNode.get());
 							int v = status.createOrGetNodeId(newNode);
 
 							status.getSubsumers(y).forEach(p -> {
