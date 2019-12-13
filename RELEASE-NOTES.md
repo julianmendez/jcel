@@ -1,4 +1,5 @@
 
+
 ## Release notes
 
 | version | release date | Java | OWL API       | Protégé       |
@@ -32,7 +33,6 @@
 | v0.7.0  | 2010-04-14   | 6    | 2.2.0 , 3.0.0 | 4.0.2         |
 | v0.6.0  | 2010-03-23   | 6    | 2.2.0 , 3.0.0 | 4.0.2         |
 | v0.5.0  | 2010-02-26   | 6    | 2.2.0         | 4.0.2         |
-
 
 
 ### v0.25.0
@@ -121,7 +121,7 @@ $ mvn clean install
  * `jcel-library` : creates the library
  * `jcel-plugin` : creates the plug-in for Protégé
  * `jcel-standalone` : creates a standlone application
- * `jcel-distribution` : creates the release 
+ * `jcel-distribution` : creates the release
 * uses the OWL API 3.5.1, and can be used as a plug-in for Protégé 5.0.0-beta-17
 * build commands:
 ```
@@ -314,7 +314,7 @@ $ cd jcel/jcel.protege
 $ ant -buildfile build-bundle.xml
 ```
 * release: `jcel/jcel.protege/target/de.tudresden.inf.lat.jcel.jar`
- 
+
 
 ### v0.14.0
 *(2011-04-01)*

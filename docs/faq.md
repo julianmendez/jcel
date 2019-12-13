@@ -1,4 +1,5 @@
 
+
 ## Frequently asked questions
 
 
@@ -37,14 +38,17 @@ jcel is able to classify description logics of the EL family. These are:
 * R+ : r ∘ r ⊑ r
 * role composition : r1 ∘ ... ∘ rn ⊑ s
 
+
 #### experimental
 * I : r-
 * F : r functional
 * ABox : C(a), r(a,b)
 * O : {a}
 
+
 #### planned
 * (D) : p(x1, ... , xn)
+
 
 #### not planned
 * universal : ∀r.A
@@ -52,7 +56,6 @@ jcel is able to classify description logics of the EL family. These are:
 * C : ¬C
 * N : (≤ n )
 * Q : (≤ n C)
-
 
 where
 * n : natural number,
@@ -63,14 +66,11 @@ where
 * x1, ..., xn : concrete objects
 
 
-
 ### How can I use jcel?
 jcel can be used in three different ways: as a Protégé plug-in, as a standalone application, or as a library.
 
 
 ### How can I download jcel?
 Please refer to the download page.
-
-
 
 
