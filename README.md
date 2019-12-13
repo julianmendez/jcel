@@ -8,7 +8,6 @@
 [![download](https://img.shields.io/sourceforge/dm/jcel.svg)](http://sourceforge.net/projects/jcel/files/)
 [![follow](https://img.shields.io/twitter/follow/jcelreasoner.svg?style=social)](https://twitter.com/jcelreasoner)
 
-
 **jcel** is a reasoner for the [description logic](http://dl.kr.org) EL+. It uses the [OWL API](https://owlcs.github.io/owlapi/) and can be used as a plug-in for [Protege](https://protege.stanford.edu/).
 
 
@@ -111,6 +110,7 @@ The file [VersionInfo.java](https://github.com/julianmendez/jcel/blob/master/jce
 
 ## Architecture
 
+
 ### Modules
 
 The version under development has the following modules:
@@ -170,7 +170,7 @@ See [release notes](https://julianmendez.github.io/jcel/RELEASE-NOTES.html).
 
 ## Older versions
 
-* [Git SHA](https://github.com/julianmendez/jcel/blob/master/docs/data/gitsha.txt) 
+* [Git SHA](https://github.com/julianmendez/jcel/blob/master/docs/data/gitsha.txt)
 * [old SVN revision](https://github.com/julianmendez/jcel/blob/master/docs/data/svnrev.txt)
 * [releases](https://sourceforge.net/projects/jcel/files/)
 
@@ -198,6 +198,5 @@ Any bug or unexpected behavior can be directly reported by sending a message to 
 
 ## News
 [@jcelreasoner](https://twitter.com/jcelreasoner)
-
 
 
