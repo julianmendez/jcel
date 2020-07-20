@@ -79,7 +79,7 @@
 		<mainClass>de.tudresden.inf.lat.jcel.owlapi.console.ConsoleStarter</mainClass>
 
 		<bundle.activator>org.protege.editor.core.plugin.DefaultPluginActivator</bundle.activator>
-		<import.package>javax.accessibility,javax.swing,javax.swing.border,org.osgi.framework,org.protege.editor.core.ui.workspace,org.semanticweb.*;resolution:=optional,*</import.package>
+		<import.package>javax.accessibility,javax.swing,javax.swing.border,org.osgi.framework,org.protege.editor.core.plugin,org.protege.editor.core.ui.workspace,org.semanticweb.*;resolution:=optional,*</import.package>
 		<require.bundle>org.eclipse.equinox.registry,org.eclipse.equinox.common,org.protege.editor.core.application,org.protege.editor.owl,org.semanticweb.owl.owlapi</require.bundle>
 	</properties>
 
