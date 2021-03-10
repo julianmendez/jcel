@@ -52,8 +52,8 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.IntStream;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for efficient arrays.
@@ -68,7 +68,7 @@ public class HashArraySetTest {
 	private boolean assertInclusion(Collection<Integer> c1, Collection<Integer> c2) {
 		boolean ret = true;
 		c1.forEach(e -> {
-			Assert.assertTrue(c2.contains(e));
+			Assertions.assertTrue(c2.contains(e));
 		});
 		return ret;
 	}
@@ -85,7 +85,7 @@ public class HashArraySetTest {
 			treeSet.add(element);
 			arrayList.add(element);
 			arraySet.add(element);
-			Assert.assertEquals(treeSet.size(), arraySet.size());
+			Assertions.assertEquals(treeSet.size(), arraySet.size());
 		});
 
 		IntStream.range(0x1000, 0x10000).forEach(i -> {
@@ -93,8 +93,8 @@ public class HashArraySetTest {
 			boolean b1 = treeSet.contains(element);
 			boolean b2 = arrayList.contains(element);
 			boolean b3 = arraySet.contains(element);
-			Assert.assertEquals(b1, b3);
-			Assert.assertEquals(b2, b3);
+			Assertions.assertEquals(b1, b3);
+			Assertions.assertEquals(b2, b3);
 		});
 	}
 
@@ -107,7 +107,7 @@ public class HashArraySetTest {
 			int element = i % 0xF0;
 			treeSet.add(element);
 			arraySet.add(element);
-			Assert.assertEquals(treeSet.size(), arraySet.size());
+			Assertions.assertEquals(treeSet.size(), arraySet.size());
 		});
 
 		assertInclusion(treeSet, arraySet);
@@ -117,7 +117,7 @@ public class HashArraySetTest {
 			int element = i % 0xF08;
 			treeSet.add(element);
 			arraySet.add(element);
-			Assert.assertEquals(treeSet.size(), arraySet.size());
+			Assertions.assertEquals(treeSet.size(), arraySet.size());
 		});
 
 		assertInclusion(treeSet, arraySet);
@@ -127,7 +127,7 @@ public class HashArraySetTest {
 			int element = i % 0xF0;
 			treeSet.add(element);
 			arraySet.add(element);
-			Assert.assertEquals(treeSet.size(), arraySet.size());
+			Assertions.assertEquals(treeSet.size(), arraySet.size());
 		});
 
 		assertInclusion(treeSet, arraySet);

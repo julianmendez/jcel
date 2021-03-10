@@ -51,8 +51,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
@@ -113,15 +113,15 @@ public class NormalizerNR2_3Test {
 				if (leftExpr instanceof IntegerObjectSomeValuesFrom) {
 					IntegerObjectSomeValuesFrom expr = (IntegerObjectSomeValuesFrom) leftExpr;
 					if (expr.getProperty().equals(r)) {
-						Assert.assertTrue(Objects.isNull(a));
+						Assertions.assertTrue(Objects.isNull(a));
 						a = expr.getFiller();
 					}
 				}
 			}
 		}
 
-		Assert.assertTrue(Objects.nonNull(a));
-		Assert.assertTrue(a.isLiteral());
+		Assertions.assertTrue(Objects.nonNull(a));
+		Assertions.assertTrue(a.isLiteral());
 
 		Set<IntegerAxiom> expectedAxioms = new HashSet<>();
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(cPrime, a, annotations));
@@ -129,7 +129,7 @@ public class NormalizerNR2_3Test {
 		IntegerClassExpression newExpr = factory.getDataTypeFactory().createObjectSomeValuesFrom(r, a);
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(newExpr, d, annotations));
 
-		Assert.assertEquals(expectedAxioms, normalizedAxioms);
+		Assertions.assertEquals(expectedAxioms, normalizedAxioms);
 	}
 
 }

@@ -50,8 +50,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
@@ -79,18 +79,18 @@ public class RuleBasedReasonerTest {
 
 	private void assertUniqueDirectSubClass(IntegerReasoner reasoner, IntegerClass subClass, IntegerClass superClass) {
 		Set<Set<IntegerClass>> subClassesOfSecond = reasoner.getSubClasses(superClass, true);
-		Assert.assertEquals(subClassesOfSecond.size(), 1);
+		Assertions.assertEquals(subClassesOfSecond.size(), 1);
 		Set<IntegerClass> subElemSet = subClassesOfSecond.iterator().next();
-		Assert.assertEquals(subElemSet.size(), 1);
+		Assertions.assertEquals(subElemSet.size(), 1);
 		IntegerClass x1 = subElemSet.iterator().next();
-		Assert.assertEquals(subClass, x1);
+		Assertions.assertEquals(subClass, x1);
 
 		Set<Set<IntegerClass>> superClassesOfFirst = reasoner.getSuperClasses(subClass, true);
-		Assert.assertEquals(superClassesOfFirst.size(), 1);
+		Assertions.assertEquals(superClassesOfFirst.size(), 1);
 		Set<IntegerClass> superElemSet = superClassesOfFirst.iterator().next();
-		Assert.assertEquals(superElemSet.size(), 1);
+		Assertions.assertEquals(superElemSet.size(), 1);
 		IntegerClass x2 = superElemSet.iterator().next();
-		Assert.assertEquals(superClass, x2);
+		Assertions.assertEquals(superClass, x2);
 	}
 
 	private IntegerClass createNewClass(IntegerOntologyObjectFactory factory, String name) {

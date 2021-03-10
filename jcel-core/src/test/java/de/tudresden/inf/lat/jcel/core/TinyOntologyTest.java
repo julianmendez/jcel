@@ -51,8 +51,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import de.tudresden.inf.lat.jcel.core.algorithm.common.Processor;
 import de.tudresden.inf.lat.jcel.core.algorithm.rulebased.RuleBasedProcessor;
@@ -134,10 +134,10 @@ public class TinyOntologyTest {
 		classify(processor);
 
 		Set<Integer> superClassesOfA = processor.getClassHierarchy().getAncestors(a);
-		Assert.assertTrue(superClassesOfA.contains(c));
+		Assertions.assertTrue(superClassesOfA.contains(c));
 
 		Set<Integer> subClassesOfC = processor.getClassHierarchy().getDescendants(c);
-		Assert.assertTrue(subClassesOfC.contains(a));
+		Assertions.assertTrue(subClassesOfC.contains(a));
 
 		Set<Integer> intermediateSet = new HashSet<>();
 		intermediateSet.add(a);
@@ -181,10 +181,10 @@ public class TinyOntologyTest {
 		classify(processor);
 
 		Set<Integer> superClassesOfA = processor.getClassHierarchy().getAncestors(a);
-		Assert.assertTrue(superClassesOfA.contains(c));
+		Assertions.assertTrue(superClassesOfA.contains(c));
 
 		Set<Integer> subClassesOfC = processor.getClassHierarchy().getDescendants(c);
-		Assert.assertTrue(subClassesOfC.contains(a));
+		Assertions.assertTrue(subClassesOfC.contains(a));
 
 		Set<Integer> intermediateSet = new HashSet<>();
 		intermediateSet.add(a);
@@ -222,10 +222,10 @@ public class TinyOntologyTest {
 		classify(processor);
 
 		Set<Integer> equivalentsOfA = processor.getClassHierarchy().getEquivalents(a);
-		Assert.assertTrue(equivalentsOfA.contains(b));
+		Assertions.assertTrue(equivalentsOfA.contains(b));
 
 		Set<Integer> equivalentsOfB = processor.getClassHierarchy().getEquivalents(b);
-		Assert.assertTrue(equivalentsOfB.contains(a));
+		Assertions.assertTrue(equivalentsOfB.contains(a));
 
 		Set<Integer> intermediateSet = new HashSet<>();
 		intermediateSet.add(a);
@@ -264,32 +264,32 @@ public class TinyOntologyTest {
 		classify(processor);
 
 		Set<Integer> equivalentsOfA = processor.getClassHierarchy().getEquivalents(a);
-		Assert.assertTrue(equivalentsOfA.contains(b));
+		Assertions.assertTrue(equivalentsOfA.contains(b));
 
 		Set<Integer> equivalentsOfB = processor.getClassHierarchy().getEquivalents(b);
-		Assert.assertTrue(equivalentsOfB.contains(a));
-		Assert.assertTrue(equivalentsOfB.contains(top));
+		Assertions.assertTrue(equivalentsOfB.contains(a));
+		Assertions.assertTrue(equivalentsOfB.contains(top));
 
 		Set<Integer> equivalentsOfTop = processor.getClassHierarchy().getEquivalents(top);
-		Assert.assertTrue(equivalentsOfTop.contains(b));
+		Assertions.assertTrue(equivalentsOfTop.contains(b));
 
 		Set<Integer> equivToTop = new HashSet<>();
 		equivToTop.add(processor.getClassHierarchy().getTopElement());
 		equivToTop.add(a);
 		equivToTop.add(b);
 
-		Assert.assertEquals(Collections.emptySet(),
+		Assertions.assertEquals(Collections.emptySet(),
 				processor.getClassHierarchy().getDescendants(processor.getClassHierarchy().getBottomElement()));
 
 		Set<Integer> descendantsOfTop = new HashSet<>();
 		descendantsOfTop.add(processor.getClassHierarchy().getBottomElement());
-		Assert.assertEquals(descendantsOfTop,
+		Assertions.assertEquals(descendantsOfTop,
 				processor.getClassHierarchy().getDescendants(processor.getClassHierarchy().getTopElement()));
 
-		Assert.assertEquals(equivToTop,
+		Assertions.assertEquals(equivToTop,
 				processor.getClassHierarchy().getEquivalents(processor.getClassHierarchy().getTopElement()));
 
-		Assert.assertEquals(Collections.emptySet(),
+		Assertions.assertEquals(Collections.emptySet(),
 				processor.getClassHierarchy().getAncestors(processor.getClassHierarchy().getTopElement()));
 	}
 
@@ -324,46 +324,46 @@ public class TinyOntologyTest {
 		classify(processor);
 
 		Set<Integer> equivalentsOfA = processor.getClassHierarchy().getEquivalents(a);
-		Assert.assertTrue(equivalentsOfA.contains(b));
+		Assertions.assertTrue(equivalentsOfA.contains(b));
 
 		Set<Integer> equivalentsOfB = processor.getClassHierarchy().getEquivalents(b);
-		Assert.assertTrue(equivalentsOfB.contains(a));
-		Assert.assertTrue(equivalentsOfB.contains(bottom));
+		Assertions.assertTrue(equivalentsOfB.contains(a));
+		Assertions.assertTrue(equivalentsOfB.contains(bottom));
 
 		Set<Integer> equivalentsOfBottom = processor.getClassHierarchy().getEquivalents(bottom);
-		Assert.assertTrue(equivalentsOfBottom.contains(b));
+		Assertions.assertTrue(equivalentsOfBottom.contains(b));
 
 		Set<Integer> equivToBottom = new HashSet<>();
 		equivToBottom.add(processor.getClassHierarchy().getBottomElement());
 		equivToBottom.add(a);
 		equivToBottom.add(b);
 
-		Assert.assertEquals(Collections.emptySet(),
+		Assertions.assertEquals(Collections.emptySet(),
 				processor.getClassHierarchy().getDescendants(processor.getClassHierarchy().getBottomElement()));
-		Assert.assertEquals(equivToBottom,
+		Assertions.assertEquals(equivToBottom,
 				processor.getClassHierarchy().getEquivalents(processor.getClassHierarchy().getBottomElement()));
 
 		Set<Integer> ancestorsOfBottom = new HashSet<>();
 		ancestorsOfBottom.add(processor.getClassHierarchy().getTopElement());
-		Assert.assertEquals(ancestorsOfBottom,
+		Assertions.assertEquals(ancestorsOfBottom,
 				processor.getClassHierarchy().getAncestors(processor.getClassHierarchy().getBottomElement()));
 
-		Assert.assertEquals(Collections.emptySet(),
+		Assertions.assertEquals(Collections.emptySet(),
 				processor.getClassHierarchy().getAncestors(processor.getClassHierarchy().getTopElement()));
 
 	}
 
 	private void verifyOntology(Processor processor, Set<Integer> intermediateSet) {
-		Assert.assertEquals(Collections.emptySet(),
+		Assertions.assertEquals(Collections.emptySet(),
 				processor.getClassHierarchy().getDescendants(processor.getClassHierarchy().getBottomElement()));
 
-		Assert.assertEquals(Collections.emptySet(),
+		Assertions.assertEquals(Collections.emptySet(),
 				processor.getClassHierarchy().getAncestors(processor.getClassHierarchy().getTopElement()));
 
 		{
 			Set<Integer> equivToBottom = new HashSet<>();
 			equivToBottom.add(processor.getClassHierarchy().getBottomElement());
-			Assert.assertEquals(equivToBottom,
+			Assertions.assertEquals(equivToBottom,
 					processor.getClassHierarchy().getEquivalents(processor.getClassHierarchy().getBottomElement()));
 		}
 
@@ -371,13 +371,13 @@ public class TinyOntologyTest {
 			Set<Integer> ancestorsOfBottom = new HashSet<>();
 			ancestorsOfBottom.add(processor.getClassHierarchy().getTopElement());
 			ancestorsOfBottom.addAll(intermediateSet);
-			Assert.assertEquals(ancestorsOfBottom,
+			Assertions.assertEquals(ancestorsOfBottom,
 					processor.getClassHierarchy().getAncestors(processor.getClassHierarchy().getBottomElement()));
 		}
 		{
 			Set<Integer> equivToTop = new HashSet<>();
 			equivToTop.add(processor.getClassHierarchy().getTopElement());
-			Assert.assertEquals(equivToTop,
+			Assertions.assertEquals(equivToTop,
 					processor.getClassHierarchy().getEquivalents(processor.getClassHierarchy().getTopElement()));
 
 		}
@@ -386,7 +386,7 @@ public class TinyOntologyTest {
 			Set<Integer> descendantsOfTop = new HashSet<>();
 			descendantsOfTop.add(processor.getClassHierarchy().getBottomElement());
 			descendantsOfTop.addAll(intermediateSet);
-			Assert.assertEquals(descendantsOfTop,
+			Assertions.assertEquals(descendantsOfTop,
 					processor.getClassHierarchy().getDescendants(processor.getClassHierarchy().getTopElement()));
 
 		}

@@ -50,8 +50,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -129,10 +129,10 @@ public class TinyOntologyTest {
 		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
 
 		Set<OWLClass> superClassesOfA = flatten(reasoner.getSuperClasses(a, false));
-		Assert.assertTrue(superClassesOfA.contains(c));
+		Assertions.assertTrue(superClassesOfA.contains(c));
 
 		Set<OWLClass> subClassesOfC = flatten(reasoner.getSubClasses(c, false));
-		Assert.assertTrue(subClassesOfC.contains(a));
+		Assertions.assertTrue(subClassesOfC.contains(a));
 
 		verifyBottomAndTop(reasoner);
 
@@ -176,10 +176,10 @@ public class TinyOntologyTest {
 		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
 
 		Set<OWLClass> superClassesOfA = flatten(reasoner.getSuperClasses(a, false));
-		Assert.assertTrue(superClassesOfA.contains(c));
+		Assertions.assertTrue(superClassesOfA.contains(c));
 
 		Set<OWLClass> subClassesOfC = flatten(reasoner.getSubClasses(c, false));
-		Assert.assertTrue(subClassesOfC.contains(a));
+		Assertions.assertTrue(subClassesOfC.contains(a));
 
 		verifyBottomAndTop(reasoner);
 
@@ -217,10 +217,10 @@ public class TinyOntologyTest {
 		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
 
 		Set<OWLClass> equivalentsOfA = reasoner.getEquivalentClasses(a).getEntities();
-		Assert.assertTrue(equivalentsOfA.contains(b));
+		Assertions.assertTrue(equivalentsOfA.contains(b));
 
 		Set<OWLClass> equivalentsOfB = reasoner.getEquivalentClasses(b).getEntities();
-		Assert.assertTrue(equivalentsOfB.contains(a));
+		Assertions.assertTrue(equivalentsOfB.contains(a));
 
 		verifyBottomAndTop(reasoner);
 
@@ -259,14 +259,14 @@ public class TinyOntologyTest {
 		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
 
 		Set<OWLClass> equivalentsOfA = reasoner.getEquivalentClasses(a).getEntities();
-		Assert.assertTrue(equivalentsOfA.contains(b));
+		Assertions.assertTrue(equivalentsOfA.contains(b));
 
 		Set<OWLClass> equivalentsOfB = reasoner.getEquivalentClasses(b).getEntities();
-		Assert.assertTrue(equivalentsOfB.contains(a));
-		Assert.assertTrue(equivalentsOfB.contains(factory.getOWLThing()));
+		Assertions.assertTrue(equivalentsOfB.contains(a));
+		Assertions.assertTrue(equivalentsOfB.contains(factory.getOWLThing()));
 
 		Set<OWLClass> equivalentsOfTop = reasoner.getEquivalentClasses(factory.getOWLThing()).getEntities();
-		Assert.assertTrue(equivalentsOfTop.contains(b));
+		Assertions.assertTrue(equivalentsOfTop.contains(b));
 
 		verifyBottomAndTop(reasoner);
 
@@ -305,14 +305,14 @@ public class TinyOntologyTest {
 		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
 
 		Set<OWLClass> equivalentsOfA = reasoner.getEquivalentClasses(a).getEntities();
-		Assert.assertTrue(equivalentsOfA.contains(b));
+		Assertions.assertTrue(equivalentsOfA.contains(b));
 
 		Set<OWLClass> equivalentsOfB = reasoner.getEquivalentClasses(b).getEntities();
-		Assert.assertTrue(equivalentsOfB.contains(a));
-		Assert.assertTrue(equivalentsOfB.contains(factory.getOWLNothing()));
+		Assertions.assertTrue(equivalentsOfB.contains(a));
+		Assertions.assertTrue(equivalentsOfB.contains(factory.getOWLNothing()));
 
 		Set<OWLClass> equivalentsOfBottom = reasoner.getEquivalentClasses(factory.getOWLNothing()).getEntities();
-		Assert.assertTrue(equivalentsOfBottom.contains(b));
+		Assertions.assertTrue(equivalentsOfBottom.contains(b));
 
 		verifyBottomAndTop(reasoner);
 
@@ -400,10 +400,10 @@ public class TinyOntologyTest {
 		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
 
 		Set<OWLClass> equivToC = reasoner.getEquivalentClasses(c).getEntities();
-		Assert.assertTrue(equivToC.contains(d));
+		Assertions.assertTrue(equivToC.contains(d));
 
 		Set<OWLClass> equivToD = reasoner.getEquivalentClasses(d).getEntities();
-		Assert.assertTrue(equivToD.contains(c));
+		Assertions.assertTrue(equivToD.contains(c));
 
 		verifyBottomAndTop(reasoner);
 
@@ -444,16 +444,16 @@ public class TinyOntologyTest {
 		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
 
 		Set<OWLClass> equivalentsOfA = reasoner.getEquivalentClasses(a).getEntities();
-		Assert.assertTrue(equivalentsOfA.contains(b));
-		Assert.assertTrue(equivalentsOfA.contains(factory.getOWLNothing()));
+		Assertions.assertTrue(equivalentsOfA.contains(b));
+		Assertions.assertTrue(equivalentsOfA.contains(factory.getOWLNothing()));
 
 		Set<OWLClass> equivalentsOfB = reasoner.getEquivalentClasses(b).getEntities();
-		Assert.assertTrue(equivalentsOfB.contains(a));
-		Assert.assertTrue(equivalentsOfB.contains(factory.getOWLNothing()));
+		Assertions.assertTrue(equivalentsOfB.contains(a));
+		Assertions.assertTrue(equivalentsOfB.contains(factory.getOWLNothing()));
 
 		Set<OWLClass> equivalentsOfBottom = reasoner.getEquivalentClasses(factory.getOWLNothing()).getEntities();
-		Assert.assertTrue(equivalentsOfBottom.contains(a));
-		Assert.assertTrue(equivalentsOfBottom.contains(b));
+		Assertions.assertTrue(equivalentsOfBottom.contains(a));
+		Assertions.assertTrue(equivalentsOfBottom.contains(b));
 
 		verifyBottomAndTop(reasoner);
 
@@ -521,12 +521,12 @@ public class TinyOntologyTest {
 
 		elementsToTest.forEach(element -> {
 			Set<OWLClass> equivalents = reasoner.getEquivalentClasses(element).getEntities();
-			Assert.assertTrue(equivalents.contains(a));
-			Assert.assertTrue(equivalents.contains(b));
-			Assert.assertTrue(equivalents.contains(c));
-			Assert.assertTrue(equivalents.contains(d));
-			Assert.assertTrue(equivalents.contains(e));
-			Assert.assertTrue(equivalents.contains(factory.getOWLNothing()));
+			Assertions.assertTrue(equivalents.contains(a));
+			Assertions.assertTrue(equivalents.contains(b));
+			Assertions.assertTrue(equivalents.contains(c));
+			Assertions.assertTrue(equivalents.contains(d));
+			Assertions.assertTrue(equivalents.contains(e));
+			Assertions.assertTrue(equivalents.contains(factory.getOWLNothing()));
 		});
 
 		verifyBottomAndTop(reasoner);
@@ -558,18 +558,18 @@ public class TinyOntologyTest {
 		Set<OWLClass> expectedSet = new HashSet<>();
 		expectedSet.add(ab);
 		Node<OWLClass> expected = new OWLClassNode(expectedSet);
-		Assert.assertEquals(expected, reasoner.getEquivalentClasses(ab));
-		Assert.assertEquals(expected, reasoner.getEquivalentClasses(aAndB));
+		Assertions.assertEquals(expected, reasoner.getEquivalentClasses(ab));
+		Assertions.assertEquals(expected, reasoner.getEquivalentClasses(aAndB));
 	}
 
 	private void verifyBottomAndTop(OWLReasoner reasoner) {
 		OWLClass top = reasoner.getRootOntology().getOWLOntologyManager().getOWLDataFactory().getOWLThing();
 		OWLClass bottom = reasoner.getRootOntology().getOWLOntologyManager().getOWLDataFactory().getOWLNothing();
 
-		Assert.assertTrue(reasoner.getSubClasses(bottom, true).isEmpty());
-		Assert.assertTrue(reasoner.getSubClasses(bottom, false).isEmpty());
-		Assert.assertTrue(reasoner.getSuperClasses(top, true).isEmpty());
-		Assert.assertTrue(reasoner.getSuperClasses(top, false).isEmpty());
+		Assertions.assertTrue(reasoner.getSubClasses(bottom, true).isEmpty());
+		Assertions.assertTrue(reasoner.getSubClasses(bottom, false).isEmpty());
+		Assertions.assertTrue(reasoner.getSuperClasses(top, true).isEmpty());
+		Assertions.assertTrue(reasoner.getSuperClasses(top, false).isEmpty());
 	}
 
 }
