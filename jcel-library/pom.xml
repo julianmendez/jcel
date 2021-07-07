@@ -146,9 +146,9 @@
 							@jcel-ontology-${project.version}.jar,
 							@jcel-reasoner-${project.version}.jar,
 							@jcel-owlapi-${project.version}.jar,
-							LICENSE.txt=../LICENSE.txt,
-							COPYING.txt=../COPYING.txt,
-							COPYING-LESSER.txt=../COPYING-LESSER.txt
+							LICENSE.txt=../docs/LICENSE.txt,
+							COPYING.txt=../docs/COPYING.txt,
+							COPYING-LESSER.txt=../docs/COPYING-LESSER.txt
 						</Include-Resource>
 					</instructions>
 				</configuration>
