@@ -156,10 +156,10 @@ This [file](https://github.com/julianmendez/jcel/blob/master/docs/data/example.o
 
 Ontologies:
 
-* [Gene Ontology](http://www.geneontology.org/): input [owl](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/geneontology.owl.zip) [krss](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/go.cel.zip), output [xml](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/geneontology-inferred-0.12.0.xml.zip)
-* [NCI Thesaurus](https://ncit.nci.nih.gov/ncitbrowser/): input [owl](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/nci.owl.zip), output [xml](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/nci-inferred-0.12.0.xml.zip)
-* [CEL GALEN](http://www.opengalen.org/): input [owl](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen.owl.zip) [krss](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen.cel.zip), output [xml](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/celgalen-inferred-0.12.0.xml.zip)
-* Not GALEN: input [owl](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/notgalen.owl.zip) [krss](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/notgalen.cel.zip), output [xml](https://lat.inf.tu-dresden.de/systems/jcel/ontologies/notgalen-inferred-0.12.0.xml.zip)
+* [Gene Ontology](http://www.geneontology.org/): input [owl](https://sourceforge.net/projects/jcel/files/ontologies/geneontology.owl.zip) [krss](https://sourceforge.net/projects/jcel/files/ontologies/go.cel.zip), output [xml](https://sourceforge.net/projects/jcel/files/ontologies/geneontology-inferred-0.12.0.xml.zip)
+* [NCI Thesaurus](https://ncit.nci.nih.gov/ncitbrowser/): input [owl](https://sourceforge.net/projects/jcel/files/ontologies/nci.owl.zip), output [xml](https://sourceforge.net/projects/jcel/files/ontologies/nci-inferred-0.12.0.xml.zip)
+* [CEL GALEN](http://www.opengalen.org/): input [owl](https://sourceforge.net/projects/jcel/files/ontologies/celgalen.owl.zip) [krss](https://sourceforge.net/projects/jcel/files/ontologies/celgalen.cel.zip), output [xml](https://sourceforge.net/projects/jcel/files/ontologies/celgalen-inferred-0.12.0.xml.zip)
+* Not GALEN: input [owl](https://sourceforge.net/projects/jcel/files/ontologies/notgalen.owl.zip) [krss](https://sourceforge.net/projects/jcel/files/ontologies/notgalen.cel.zip), output [xml](https://sourceforge.net/projects/jcel/files/ontologies/notgalen-inferred-0.12.0.xml.zip)
 * [Foundational Model of Anatomy](http://sig.biostr.washington.edu/projects/fm/)
 * [SNOMED CT](http://www.ihtsdo.org/our-standards/)
 
