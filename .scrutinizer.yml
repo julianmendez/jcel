@@ -10,7 +10,7 @@ checks:
 
 build:
   environment:
-    java: java-8-oracle
+    java: java-11-oracle
 
   nodes:
     analysis:
