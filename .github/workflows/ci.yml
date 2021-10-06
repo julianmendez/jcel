@@ -13,6 +13,7 @@ jobs:
     strategy:
       matrix:
         java:
+        - 11.0.3
         - 11
         - 17
     steps:
@@ -22,7 +23,7 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: ${{ matrix.java }}
-        distribution: adopt
+        distribution: zulu
     - name: Build
       run: mvn --batch-mode --update-snapshots --show-version install
 
