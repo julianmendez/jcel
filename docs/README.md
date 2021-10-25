@@ -43,7 +43,7 @@
 * can be used in [Prot&eacute;g&eacute;](https://protege.stanford.edu)
 * is free software and is licensed under [GNU Lesser General Public License version 3](https://www.gnu.org/licenses/lgpl.txt) and [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt)
 * is fully implemented in [Java](https://www.oracle.com/java/technologies/java-se.html)
-* evaluated by the [SEALS Community](https://www.seals-project.eu/news/storage-and-reasoning-systems-news) having the lowest Average Reasoning Time in 2010
+* evaluated by the [SEALS Community](https://web.archive.org/web/20130723132747/http://www.seals-project.eu/news/storage-and-reasoning-systems-news) having the lowest Average Reasoning Time in 2010
 
 
 ## Suggested technologies
