@@ -211,7 +211,7 @@ In case you need more information, please contact [julianmendez][author].
 [zip-file]: https://sourceforge.net/projects/jcel/files/jcel/0.24.1/zip/jcel-0.24.1.zip/download
 [releases]: https://sourceforge.net/projects/jcel/files/
 [release-notes]: https://julianmendez.github.io/jcel/RELEASE-NOTES.html
-[faq]: https://julianmendez.github.io/jcel/docs/faq.html
+[faq]: https://julianmendez.github.io/jcel/faq.html
 [jcel-home]: https://julianmendez.github.io/jcel
 [jcel-source]: https://github.com/julianmendez/jcel
 [twitter]: https://twitter.com/jcelreasoner
