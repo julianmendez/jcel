@@ -146,7 +146,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 
 		<util.version>0.1.0</util.version>
-		<owlapi.version>4.5.9</owlapi.version>
+		<owlapi.version>4.5.26</owlapi.version>
 		<protege.version>5.5.0</protege.version>
 	</properties>
 

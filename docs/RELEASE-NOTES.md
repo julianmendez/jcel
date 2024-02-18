@@ -1,7 +1,7 @@
 ## Release Notes
 ---
 - - summary:
-    - v0.25.0 (unreleased), Java 11, OWL API 4.5.22        , Protege 5.5.0
+    - v0.25.0 (unreleased), Java 11, OWL API 4.5.26        , Protege 5.5.0
     - v0.24.1 (2017-04-28), Java 8, OWL API 4.2.8          , Protege 5.2.0
     - v0.24.0 (2016-07-08), Java 8, OWL API 4.2.5          , Protege 5.0.0
     - v0.23.2 (2015-12-24), Java 7, OWL API 4.1.3          , Protege 5.0.0-beta-21
@@ -33,7 +33,7 @@
 - - version: v0.25.0
   - date: unreleased
   - features:
-    - uses the OWL API 5.0.0
+    - uses the OWL API 4.5.26
   - build: $ `mvn clean install`
   - release: target/jcel-0.25.0.zip
   - plug-in: jcel-plugin/target/de.tu-dresden.inf.lat.jcel-0.25.0.jar
