@@ -49,8 +49,8 @@ package de.tudresden.inf.lat.jcel.reasoner.main;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -73,6 +73,8 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerNamedIndividual;
 import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerObjectPropertyExpression;
 import de.tudresden.inf.lat.jcel.ontology.normalization.ObjectPropertyIdFinder;
 import de.tudresden.inf.lat.jcel.ontology.normalization.OntologyNormalizer;
+import de.tudresden.inf.lat.util.map.OptMap;
+import de.tudresden.inf.lat.util.map.OptMapImpl;
 
 /**
  * This class models a rule-based reasoner.
@@ -83,8 +85,8 @@ public class RuleBasedReasoner implements IntegerReasoner {
 
 	private static final Logger logger = Logger.getLogger(RuleBasedReasoner.class.getName());
 
-	private final Map<IntegerClassExpression, Integer> auxClassInvMap = new HashMap<>();
-	private final Map<Integer, IntegerClassExpression> auxClassMap = new HashMap<>();
+	private final OptMap<IntegerClassExpression, Integer> auxClassInvMap = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, IntegerClassExpression> auxClassMap = new OptMapImpl<>(new HashMap<>());
 	private boolean classified = false;
 	private final OntologyEntailmentChecker entailmentChecker = new OntologyEntailmentChecker(this);
 	private final IntegerOntologyObjectFactory factory;
@@ -157,8 +159,8 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		if (ce instanceof IntegerClass) {
 			ret = (IntegerClass) ce;
 		} else {
-			Integer classIndex = this.auxClassInvMap.get(ce);
-			if (Objects.isNull(classIndex)) {
+			Optional<Integer> optClassIndex = this.auxClassInvMap.get(ce);
+			if (!optClassIndex.isPresent()) {
 				Integer auxClassId = this.factory.getEntityManager().createAnonymousEntity(IntegerEntityType.CLASS,
 						false);
 				ret = getDataTypeFactory().createClass(auxClassId);
@@ -181,7 +183,7 @@ public class RuleBasedReasoner implements IntegerReasoner {
 
 				this.classified = false;
 			} else {
-				ret = getDataTypeFactory().createClass(classIndex);
+				ret = getDataTypeFactory().createClass(optClassIndex.get());
 			}
 		}
 
@@ -504,17 +506,17 @@ public class RuleBasedReasoner implements IntegerReasoner {
 		Objects.requireNonNull(ind);
 		classify();
 		IntegerHierarchicalGraph graph = getProcessor().getClassHierarchy();
-		Map<Integer, Set<Integer>> map = getProcessor().getDirectTypes();
-		Set<Integer> directElemSet = map.get(ind.getId());
-		if (Objects.isNull(directElemSet)) {
-			directElemSet = Collections.emptySet();
+		OptMap<Integer, Set<Integer>> map = new OptMapImpl<>(getProcessor().getDirectTypes());
+		Optional<Set<Integer>> optDirectElemSet = map.get(ind.getId());
+		if (!optDirectElemSet.isPresent()) {
+			optDirectElemSet = Optional.of(Collections.emptySet());
 		}
 		Set<Integer> set = null;
 		if (direct) {
-			set = directElemSet;
+			set = optDirectElemSet.get();
 		} else {
 			set = new HashSet<>();
-			for (Integer current : directElemSet) {
+			for (Integer current : optDirectElemSet.get()) {
 				set.addAll(graph.getAncestors(current));
 			}
 		}

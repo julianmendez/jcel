@@ -57,7 +57,7 @@
 	<parent>
 		<groupId>de.tu-dresden.inf.lat</groupId>
 		<artifactId>lat-parent</artifactId>
-		<version>0.1.3</version>
+		<version>0.1.7</version>
 		<relativePath></relativePath>
 	</parent>
 
@@ -65,31 +65,60 @@
 		<dependencies>
 
 			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>4.12</version>
-				<scope>test</scope>
+				<!--
+				util
+				[[https://julianmendez.github.io/util/]]
+				[[https://github.com/julianmendez/util]]
+				[[https://repo1.maven.org/maven2/de/tu-dresden/inf/lat/util]]
+				-->
+				<groupId>de.tu-dresden.inf.lat.util</groupId>
+				<artifactId>util-map</artifactId>
+				<version>${util.version}</version>
 			</dependency>
 
 			<dependency>
+				<!--
+				OWL API (distribution)
+				[[https://owlcs.github.io/owlapi/]]
+				[[https://github.com/owlcs/owlapi]]
+				[[https://repo1.maven.org/maven2/net/sourceforge/owlapi/owlapi-distribution/]]
+				-->
 				<groupId>net.sourceforge.owlapi</groupId>
 				<artifactId>owlapi-distribution</artifactId>
 				<version>${owlapi.version}</version>
 			</dependency>
 
 			<dependency>
+				<!--
+				OWL API (osgidistribution)
+				[[https://owlcs.github.io/owlapi/]]
+				[[https://github.com/owlcs/owlapi]]
+				[[https://repo1.maven.org/maven2/net/sourceforge/owlapi/owlapi-osgidistribution/]]
+				-->
 				<groupId>net.sourceforge.owlapi</groupId>
 				<artifactId>owlapi-osgidistribution</artifactId>
 				<version>${owlapi.version}</version>
 			</dependency>
 
 			<dependency>
+				<!--
+				Protege (editor owl)
+				[[https://protege.stanford.edu]]
+				[[https://github.com/protegeproject/protege]]
+				[[https://repo1.maven.org/maven2/edu/stanford/protege/protege-editor-owl/]]
+				-->
 				<groupId>edu.stanford.protege</groupId>
 				<artifactId>protege-editor-owl</artifactId>
 				<version>${protege.version}</version>
 			</dependency>
 
 			<dependency>
+				<!--
+				Protege (editor core)
+				[[https://protege.stanford.edu]]
+				[[https://github.com/protegeproject/protege]]
+				[[https://repo1.maven.org/maven2/edu/stanford/protege/protege-editor-core/]]
+				-->
 				<groupId>edu.stanford.protege</groupId>
 				<artifactId>protege-editor-core</artifactId>
 				<version>${protege.version}</version>
@@ -116,8 +145,9 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 
-		<owlapi.version>4.2.8</owlapi.version>
-		<protege.version>5.2.0</protege.version>
+		<util.version>0.1.0</util.version>
+		<owlapi.version>4.5.26</owlapi.version>
+		<protege.version>5.5.0</protege.version>
 	</properties>
 
 	<build>
@@ -160,7 +190,7 @@
 
 	<organization>
 		<name>Chair of Automata Theory - TU Dresden</name>
-		<url>https://lat.inf.tu-dresden.de</url>
+		<url>https://tu-dresden.de/ing/informatik/thi/lat</url>
 	</organization>
 
 	<developers>
@@ -168,7 +198,7 @@
 		<developer>
 			<id>julianmendez</id>
 			<name>Julian Mendez</name>
-			<email>julian.mendez@tu-dresden.de</email>
+			<email>julian.mendez@gmail.com</email>
 		</developer>
 
 	</developers>

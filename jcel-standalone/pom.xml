@@ -65,6 +65,12 @@
 			<artifactId>owlapi-osgidistribution</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.10</version>
+		</dependency>
+
 	</dependencies>
 
 	<parent>
@@ -113,7 +119,7 @@
 										<Bundle-Category>protege</Bundle-Category>
 										<Bundle-Description>jcel standalone</Bundle-Description>
 										<Bundle-Vendor>Chair of Automata Theory - TU Dresden</Bundle-Vendor>
-										<Bundle-DocURL>https://lat.inf.tu-dresden.de</Bundle-DocURL>
+										<Bundle-DocURL>https://tu-dresden.de/ing/informatik/thi/lat</Bundle-DocURL>
 										<Bundle-ClassPath>.</Bundle-ClassPath>
 										<Import-Package>${import.package}</Import-Package>
 										<Main-Class>${mainClass}</Main-Class>

@@ -50,8 +50,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
@@ -95,7 +95,7 @@ public class NormalizerNR1_5Test {
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(c, d, annotations));
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(d, c, annotations));
 
-		Assert.assertEquals(expectedAxioms, normalizedAxioms);
+		Assertions.assertEquals(expectedAxioms, normalizedAxioms);
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class NormalizerNR1_5Test {
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(c, d, annotations));
 		expectedAxioms.add(factory.getComplexAxiomFactory().createSubClassOfAxiom(d, c, annotations));
 
-		Assert.assertEquals(expectedAxioms, normalizedAxioms);
+		Assertions.assertEquals(expectedAxioms, normalizedAxioms);
 	}
 
 }

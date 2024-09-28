@@ -50,8 +50,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiom;
@@ -111,7 +111,7 @@ public class OntologyNormalizerTest {
 		expectedSet.add(
 				factory.getNormalizedAxiomFactory().createGCI3Axiom(rMinus.getId(), a.getId(), b.getId(), annotations));
 
-		Assert.assertEquals(expectedSet, normalizedSet);
+		Assertions.assertEquals(expectedSet, normalizedSet);
 	}
 
 	@Test
@@ -136,7 +136,7 @@ public class OntologyNormalizerTest {
 				factory.getEntityManager().createOrGetInverseObjectPropertyOf(r.getId()), a.getId(), b.getId(),
 				annotations));
 
-		Assert.assertEquals(expectedSet, normalizedSet);
+		Assertions.assertEquals(expectedSet, normalizedSet);
 	}
 
 }

@@ -52,8 +52,8 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.IntStream;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for efficient arrays.
@@ -77,7 +77,7 @@ public class ArraySetTest {
 			treeSet.add(element);
 			arrayList.add(element);
 			arraySet.add(element);
-			Assert.assertEquals(treeSet.size(), arraySet.size());
+			Assertions.assertEquals(treeSet.size(), arraySet.size());
 		});
 
 		IntStream.range(0x1000, 0x10000).forEach(i -> {
@@ -85,8 +85,8 @@ public class ArraySetTest {
 			boolean b1 = treeSet.contains(element);
 			boolean b2 = arrayList.contains(element);
 			boolean b3 = arraySet.contains(element);
-			Assert.assertEquals(b1, b3);
-			Assert.assertEquals(b2, b3);
+			Assertions.assertEquals(b1, b3);
+			Assertions.assertEquals(b2, b3);
 		});
 	}
 
@@ -99,12 +99,12 @@ public class ArraySetTest {
 			int element = i % 0xF0;
 			treeSet.add(element);
 			arraySet.add(element);
-			Assert.assertEquals(treeSet.size(), arraySet.size());
+			Assertions.assertEquals(treeSet.size(), arraySet.size());
 		});
 
 		Iterator<Integer> it = treeSet.iterator();
 		arraySet.forEach(e -> {
-			Assert.assertEquals(it.next(), e);
+			Assertions.assertEquals(it.next(), e);
 		});
 	}
 

@@ -79,7 +79,7 @@
 		<mainClass>de.tudresden.inf.lat.jcel.owlapi.console.ConsoleStarter</mainClass>
 
 		<bundle.activator>org.protege.editor.core.plugin.DefaultPluginActivator</bundle.activator>
-		<import.package>javax.accessibility,javax.swing,javax.swing.border,org.osgi.framework,org.protege.editor.core.ui.workspace,org.semanticweb.*;resolution:=optional,*</import.package>
+		<import.package>javax.accessibility,javax.swing,javax.swing.border,org.osgi.framework,org.protege.editor.core.plugin,org.protege.editor.core.ui.workspace,org.semanticweb.*;resolution:=optional,*</import.package>
 		<require.bundle>org.eclipse.equinox.registry,org.eclipse.equinox.common,org.protege.editor.core.application,org.protege.editor.owl,org.semanticweb.owl.owlapi</require.bundle>
 	</properties>
 
@@ -139,7 +139,7 @@
 						<Bundle-Category>protege</Bundle-Category>
 						<Bundle-Description>jcel plugin for Protege</Bundle-Description>
 						<Bundle-Vendor>Chair of Automata Theory - TU Dresden</Bundle-Vendor>
-						<Bundle-DocURL>https://lat.inf.tu-dresden.de</Bundle-DocURL>
+						<Bundle-DocURL>https://tu-dresden.de/ing/informatik/thi/lat</Bundle-DocURL>
 						<Bundle-ClassPath>.</Bundle-ClassPath>
 						<Import-Package>${import.package}</Import-Package>
 						<Require-Bundle>${require.bundle}</Require-Bundle>
@@ -151,9 +151,10 @@
 							@jcel-reasoner-${project.version}.jar,
 							@jcel-owlapi-${project.version}.jar,
 							@jcel-protege-${project.version}.jar,
-							LICENSE.txt=../LICENSE.txt,
-							COPYING.txt=../COPYING.txt,
-							COPYING-LESSER.txt=../COPYING-LESSER.txt
+							@util-map-${util.version}.jar,
+							LICENSE.txt=../docs/LICENSE.txt,
+							COPYING.txt=../docs/COPYING.txt,
+							COPYING-LESSER.txt=../docs/COPYING-LESSER.txt
 						</Include-Resource>
 					</instructions>
 				</configuration>

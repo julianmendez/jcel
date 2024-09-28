@@ -54,6 +54,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -70,6 +71,8 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.NormalizedIntegerAxiomFactor
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityManager;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
+import de.tudresden.inf.lat.util.map.OptMap;
+import de.tudresden.inf.lat.util.map.OptMapImpl;
 
 /**
  * Classifies an ontology using the CEL algorithm. The rules are:
@@ -107,18 +110,18 @@ public class CelProcessor implements Processor {
 	private IntegerSubsumerGraphImpl classGraph = null;
 	private IntegerHierarchicalGraph classHierarchy = null;
 	private IntegerHierarchicalGraph dataPropertyHierarchy = null;
-	private Map<Integer, Set<Integer>> directTypes = null;
+	private OptMap<Integer, Set<Integer>> directTypes = null;
 	private final IntegerEntityManager entityManager;
 	private CelExtendedOntology extendedOntology = null;
 	private boolean isReady = false;
 	private IntegerSubsumerGraphImpl objectPropertyGraph = null;
 	private IntegerHierarchicalGraph objectPropertyHierarchy = null;
-	private Map<Integer, Set<Integer>> propertyUsedByClass = null;
+	private OptMap<Integer, Set<Integer>> propertyUsedByClass = null;
 	private final Deque<ExtensionEntry> queueEntries = new ArrayDeque<ExtensionEntry>();
 	private final Deque<Integer> queueKeys = new ArrayDeque<Integer>();
 	private IntegerRelationMapImpl relationSet = null;
-	private Map<Integer, Set<Integer>> sameIndividualMap = null;
-	private Map<Integer, Set<Integer>> transitiveSubsumed = null;
+	private OptMap<Integer, Set<Integer>> sameIndividualMap = null;
+	private OptMap<Integer, Set<Integer>> transitiveSubsumed = null;
 
 	/**
 	 * Constructs a new CEL processor.
@@ -159,8 +162,8 @@ public class CelProcessor implements Processor {
 	 *            graph containing direct subsumers
 	 * @return a map with all the direct types for each individual.
 	 */
-	private Map<Integer, Set<Integer>> computeDirectTypes(IntegerHierarchicalGraph hierarchicalGraph) {
-		Map<Integer, Set<Integer>> ret = new HashMap<>();
+	private OptMap<Integer, Set<Integer>> computeDirectTypes(IntegerHierarchicalGraph hierarchicalGraph) {
+		OptMap<Integer, Set<Integer>> ret = new OptMapImpl<>(new HashMap<>());
 		Set<Integer> individuals = getEntityManager().getEntities(IntegerEntityType.INDIVIDUAL, false);
 		individuals.forEach(indiv -> {
 			Set<Integer> subsumers = hierarchicalGraph.getParents(getEntityManager().getAuxiliaryNominal(indiv).get());
@@ -174,8 +177,8 @@ public class CelProcessor implements Processor {
 		return ret;
 	}
 
-	private Map<Integer, Set<Integer>> computeSameIndividualMap(IntegerHierarchicalGraph hierarchicalGraph) {
-		Map<Integer, Set<Integer>> ret = new HashMap<>();
+	private OptMap<Integer, Set<Integer>> computeSameIndividualMap(IntegerHierarchicalGraph hierarchicalGraph) {
+		OptMap<Integer, Set<Integer>> ret = new OptMapImpl<>(new HashMap<>());
 		Set<Integer> individuals = getEntityManager().getEntities(IntegerEntityType.INDIVIDUAL, false);
 		individuals.forEach(indiv -> {
 			Set<Integer> equivalentClasses = hierarchicalGraph
@@ -220,8 +223,8 @@ public class CelProcessor implements Processor {
 		return ret;
 	}
 
-	private Map<Integer, Set<Integer>> createPropertyUseMap() {
-		Map<Integer, Set<Integer>> ret = new HashMap<>();
+	private OptMap<Integer, Set<Integer>> createPropertyUseMap() {
+		OptMap<Integer, Set<Integer>> ret = new OptMapImpl<>(new HashMap<>());
 		getClassGraph().getElements().forEach(cA -> {
 			Set<Integer> propertySet = new HashSet<>();
 			getObjectPropertyGraph().getElements().forEach(r -> {
@@ -240,8 +243,8 @@ public class CelProcessor implements Processor {
 		return ret;
 	}
 
-	private Map<Integer, Set<Integer>> createTransitiveSubsumed() {
-		Map<Integer, Set<Integer>> ret = new HashMap<>();
+	private OptMap<Integer, Set<Integer>> createTransitiveSubsumed() {
+		OptMap<Integer, Set<Integer>> ret = new OptMapImpl<>(new HashMap<>());
 		getObjectPropertyGraph().getElements().forEach(r -> {
 			Set<Integer> related = new HashSet<>();
 			getObjectPropertyGraph().getElements().forEach(s -> {
@@ -309,7 +312,7 @@ public class CelProcessor implements Processor {
 		if (!isReady()) {
 			throw new UnclassifiedOntologyException();
 		}
-		return Collections.unmodifiableMap(this.directTypes);
+		return Collections.unmodifiableMap(this.directTypes.asMap());
 	}
 
 	/**
@@ -342,7 +345,12 @@ public class CelProcessor implements Processor {
 	}
 
 	private Set<Integer> getPropertyUsedByClass(Integer cA) {
-		return this.propertyUsedByClass.get(cA);
+		Optional<Set<Integer>> optSet = this.propertyUsedByClass.get(cA);
+		if (optSet.isPresent()) {
+			return optSet.get();
+		} else {
+			return Collections.emptySet();
+		}
 	}
 
 	/**
@@ -373,7 +381,7 @@ public class CelProcessor implements Processor {
 		if (!isReady()) {
 			throw new UnclassifiedOntologyException();
 		}
-		return Collections.unmodifiableMap(this.sameIndividualMap);
+		return Collections.unmodifiableMap(this.sameIndividualMap.asMap());
 	}
 
 	/**
@@ -631,7 +639,9 @@ public class CelProcessor implements Processor {
 	}
 
 	private void processNewEdge(Integer cA, Integer r, Integer cB) {
-		this.transitiveSubsumed.get(r).forEach(s -> {
+		Optional<Set<Integer>> optSet = this.transitiveSubsumed.get(r);
+		assert optSet.isPresent();
+		optSet.get().forEach(s -> {
 
 			this.relationSet.add(s, cA, cB);
 			getPropertyUsedByClass(cB).add(s);

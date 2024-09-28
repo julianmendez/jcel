@@ -52,8 +52,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
@@ -114,7 +114,7 @@ public class NormalizerNR2_1Test {
 		IntegerObjectProperty u2 = null;
 
 		for (IntegerAxiom normAxiom : normalizedAxioms) {
-			Assert.assertTrue(normAxiom instanceof RI3Axiom);
+			Assertions.assertTrue(normAxiom instanceof RI3Axiom);
 			if (normAxiom instanceof RI3Axiom) {
 				RI3Axiom axiom = (RI3Axiom) normAxiom;
 
@@ -137,7 +137,7 @@ public class NormalizerNR2_1Test {
 		expectedAxioms.add(
 				factory.getNormalizedAxiomFactory().createRI3Axiom(u2.getId(), r4.getId(), s.getId(), annotations));
 
-		Assert.assertEquals(expectedAxioms, normalizedAxioms);
+		Assertions.assertEquals(expectedAxioms, normalizedAxioms);
 	}
 
 }

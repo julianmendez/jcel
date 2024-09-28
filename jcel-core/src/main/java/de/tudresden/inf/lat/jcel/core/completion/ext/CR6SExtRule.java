@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.CompletionRuleMonitor;
@@ -94,9 +95,12 @@ public class CR6SExtRule implements SObserverRule {
 				int b = axiom.getSuperClass();
 				status.getSecondByFirst(r, x).forEach(y -> {
 					if (!status.getSubsumers(y).contains(b)) {
-						VNode psiNode = status.getNode(y);
-						VNodeImpl newNode = new VNodeImpl(psiNode.getClassId());
-						newNode.addExistentialsOf(psiNode);
+						Optional<VNode> optPsiNode = status.getNode(y);
+						if (!optPsiNode.isPresent()) {
+							throw new IllegalStateException("Node not found in internal structure '" + y + "'.");
+						}
+						VNodeImpl newNode = new VNodeImpl(optPsiNode.get().getClassId());
+						newNode.addExistentialsOf(optPsiNode.get());
 						newNode.addExistential(rMinus, a);
 						boolean inV = status.contains(newNode);
 						int v = status.createOrGetNodeId(newNode);

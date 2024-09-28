@@ -51,8 +51,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerAxiom;
@@ -110,10 +110,10 @@ public class SimpleNormalizerTest {
 		Set<IntegerAxiom> expectedAxioms = new HashSet<>();
 
 		Optional<Integer> optClassI0 = factory.getEntityManager().getAuxiliaryNominal(indivI0Id);
-		Assert.assertTrue(optClassI0.isPresent());
+		Assertions.assertTrue(optClassI0.isPresent());
 
 		Optional<Integer> optClassI1 = factory.getEntityManager().getAuxiliaryNominal(indivI1Id);
-		Assert.assertTrue(optClassI1.isPresent());
+		Assertions.assertTrue(optClassI1.isPresent());
 
 		int classI0Id = optClassI0.get();
 		int classI1Id = optClassI1.get();
@@ -124,7 +124,7 @@ public class SimpleNormalizerTest {
 		expectedAxioms.add(
 				factory.getNormalizedAxiomFactory().createGCI2Axiom(classI0Id, propertyRId, classI1Id, annotations));
 
-		Assert.assertEquals(expectedAxioms, normalizedAxioms);
+		Assertions.assertEquals(expectedAxioms, normalizedAxioms);
 
 	}
 

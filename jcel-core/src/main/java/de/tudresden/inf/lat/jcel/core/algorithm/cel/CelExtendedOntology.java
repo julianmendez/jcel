@@ -51,8 +51,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.FunctObjectPropAxiom;
@@ -67,6 +67,8 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.RI1Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI2Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RI3Axiom;
 import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
+import de.tudresden.inf.lat.util.map.OptMap;
+import de.tudresden.inf.lat.util.map.OptMapImpl;
 
 /**
  * This class models an extended ontology. This is referred in the documentation
@@ -76,10 +78,11 @@ import de.tudresden.inf.lat.jcel.coreontology.axiom.RangeAxiom;
  */
 public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolean> {
 
-	private final Map<Integer, Set<ExtensionEntry>> ohatOfClass = new HashMap<>();
-	private final Map<Integer, Map<Integer, Set<ExtensionEntry>>> ohatOfExistential = new HashMap<>();
-	private final Map<Integer, Set<RI3Axiom>> subPropertyAxiomSetByLeft = new HashMap<>();
-	private final Map<Integer, Set<RI3Axiom>> subPropertyAxiomSetByRight = new HashMap<>();
+	private final OptMap<Integer, Set<ExtensionEntry>> ohatOfClass = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, OptMap<Integer, Set<ExtensionEntry>>> ohatOfExistential = new OptMapImpl<>(
+			new HashMap<>());
+	private final OptMap<Integer, Set<RI3Axiom>> subPropertyAxiomSetByLeft = new OptMapImpl<>(new HashMap<>());
+	private final OptMap<Integer, Set<RI3Axiom>> subPropertyAxiomSetByRight = new OptMapImpl<>(new HashMap<>());
 
 	/**
 	 * Constructs a new CEL extended ontology.
@@ -87,24 +90,20 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	public CelExtendedOntology() {
 	}
 
-	private void addClass(Integer classId) {
-		if (Objects.isNull(this.ohatOfClass.get(classId))) {
+	private void addClassEntry(Integer classId, ExtensionEntry entry) {
+		if (!this.ohatOfClass.get(classId).isPresent()) {
 			this.ohatOfClass.put(classId, new HashSet<>());
 		}
+		this.ohatOfClass.get(classId).get().add(entry);
 	}
 
-	private void addClassEntry(Integer classId, ExtensionEntry entry) {
-		addClass(classId);
-		this.ohatOfClass.get(classId).add(entry);
-	}
-
-	private void addTo(Integer property, RI3Axiom axiom, Map<Integer, Set<RI3Axiom>> map) {
-		Set<RI3Axiom> axiomSet = map.get(property);
-		if (Objects.isNull(axiomSet)) {
-			axiomSet = new HashSet<>();
-			map.put(property, axiomSet);
+	private void addTo(Integer property, RI3Axiom axiom, OptMap<Integer, Set<RI3Axiom>> map) {
+		Optional<Set<RI3Axiom>> optAxiomSet = map.get(property);
+		if (!optAxiomSet.isPresent()) {
+			optAxiomSet = Optional.of(new HashSet<>());
+			map.put(property, optAxiomSet.get());
 		}
-		axiomSet.add(axiom);
+		optAxiomSet.get().add(axiom);
 	}
 
 	/**
@@ -126,11 +125,11 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	 */
 	public Set<ExtensionEntry> getClassEntries(Integer classId) {
 		Objects.requireNonNull(classId);
-		Set<ExtensionEntry> ret = this.ohatOfClass.get(classId);
-		if (Objects.isNull(ret)) {
-			ret = Collections.emptySet();
+		Optional<Set<ExtensionEntry>> optSet = this.ohatOfClass.get(classId);
+		if (!optSet.isPresent()) {
+			optSet = Optional.of(Collections.emptySet());
 		}
-		return Collections.unmodifiableSet(ret);
+		return Collections.unmodifiableSet(optSet.get());
 	}
 
 	/**
@@ -157,10 +156,12 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 		Objects.requireNonNull(propertyId);
 		Objects.requireNonNull(classId);
 		Set<ExtensionEntry> ret = Collections.emptySet();
-		Map<Integer, Set<ExtensionEntry>> map = this.ohatOfExistential.get(propertyId);
-		if (Objects.nonNull(map)) {
-			ret = map.get(classId);
-			if (Objects.isNull(ret)) {
+		Optional<OptMap<Integer, Set<ExtensionEntry>>> optMap = this.ohatOfExistential.get(propertyId);
+		if (optMap.isPresent()) {
+			Optional<Set<ExtensionEntry>> optSet = optMap.get().get(classId);
+			if (optSet.isPresent()) {
+				ret = optSet.get();
+			} else {
 				ret = Collections.emptySet();
 			}
 		}
@@ -179,11 +180,11 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	 */
 	public Set<RI3Axiom> getSubPropertyAxiomSetByLeft(Integer elem) {
 		Objects.requireNonNull(elem);
-		Set<RI3Axiom> ret = this.subPropertyAxiomSetByLeft.get(elem);
-		if (Objects.isNull(ret)) {
-			ret = Collections.emptySet();
+		Optional<Set<RI3Axiom>> optSet = this.subPropertyAxiomSetByLeft.get(elem);
+		if (!optSet.isPresent()) {
+			optSet = Optional.of(Collections.emptySet());
 		}
-		return Collections.unmodifiableSet(ret);
+		return Collections.unmodifiableSet(optSet.get());
 	}
 
 	/**
@@ -197,11 +198,11 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 	 */
 	public Set<RI3Axiom> getSubPropertyAxiomSetByRight(Integer elem) {
 		Objects.requireNonNull(elem);
-		Set<RI3Axiom> ret = this.subPropertyAxiomSetByRight.get(elem);
-		if (Objects.isNull(ret)) {
-			ret = Collections.emptySet();
+		Optional<Set<RI3Axiom>> optSet = this.subPropertyAxiomSetByRight.get(elem);
+		if (!optSet.isPresent()) {
+			optSet = Optional.of(Collections.emptySet());
 		}
-		return Collections.unmodifiableSet(ret);
+		return Collections.unmodifiableSet(optSet.get());
 	}
 
 	/**
@@ -278,13 +279,19 @@ public class CelExtendedOntology implements NormalizedIntegerAxiomVisitor<Boolea
 		ExtensionEntry entry = new ImplicationEntry(new HashSet<>(), axiom.getSuperClass());
 		Integer propertyId = axiom.getPropertyInSubClass();
 		Integer classId = axiom.getClassInSubClass();
-		Map<Integer, Set<ExtensionEntry>> map = this.ohatOfExistential.get(propertyId);
-		if (Objects.isNull(map)) {
-			map = new HashMap<>();
+		Optional<OptMap<Integer, Set<ExtensionEntry>>> optMap = this.ohatOfExistential.get(propertyId);
+		OptMap<Integer, Set<ExtensionEntry>> map = null;
+		if (optMap.isPresent()) {
+			map = optMap.get();
+		} else {
+			map = new OptMapImpl<>(new HashMap<>());
 			this.ohatOfExistential.put(propertyId, map);
 		}
-		Set<ExtensionEntry> set = map.get(classId);
-		if (Objects.isNull(set)) {
+		Optional<Set<ExtensionEntry>> optSet = map.get(classId);
+		Set<ExtensionEntry> set = null;
+		if (optSet.isPresent()) {
+			set = optSet.get();
+		} else {
 			set = new HashSet<>();
 			map.put(classId, set);
 		}

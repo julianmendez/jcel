@@ -50,8 +50,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import de.tudresden.inf.lat.jcel.coreontology.axiom.IntegerAnnotation;
 import de.tudresden.inf.lat.jcel.coreontology.datatype.IntegerEntityType;
@@ -123,14 +123,14 @@ public class OntologyEntailmentCheckerTest {
 		IntegerReasoner reasoner = new RuleBasedReasoner(ontology, factory);
 		reasoner.classify();
 
-		Assert.assertTrue(reasoner.isEntailed(axiom1));
-		Assert.assertTrue(reasoner.isEntailed(axiom2));
-		Assert.assertTrue(reasoner.isEntailed(axiom3));
+		Assertions.assertTrue(reasoner.isEntailed(axiom1));
+		Assertions.assertTrue(reasoner.isEntailed(axiom2));
+		Assertions.assertTrue(reasoner.isEntailed(axiom3));
 
 		boolean isEntailed = reasoner
 				.isEntailed(factory.getComplexAxiomFactory().createSubClassOfAxiom(b, c, annotations));
 
-		Assert.assertTrue(isEntailed);
+		Assertions.assertTrue(isEntailed);
 	}
 
 }

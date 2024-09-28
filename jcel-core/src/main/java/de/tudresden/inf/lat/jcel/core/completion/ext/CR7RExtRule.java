@@ -47,6 +47,7 @@
 package de.tudresden.inf.lat.jcel.core.completion.ext;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import de.tudresden.inf.lat.jcel.core.completion.common.ClassifierStatus;
 import de.tudresden.inf.lat.jcel.core.completion.common.CompletionRuleMonitor;
@@ -89,8 +90,14 @@ public class CR7RExtRule implements RObserverRule {
 
 	private boolean applyRule(ClassifierStatus status, int r2, int x, int y) {
 		CompletionRuleMonitor ret = new CompletionRuleMonitor();
-		VNode phiNode = status.getNode(x);
-		VNode psiNode = status.getNode(y);
+		Optional<VNode> optPhiNode = status.getNode(x);
+		if (!optPhiNode.isPresent()) {
+			throw new IllegalStateException("Node not found in internal structure '" + x + "'.");
+		}
+		Optional<VNode> optPsiNode = status.getNode(y);
+		if (!optPsiNode.isPresent()) {
+			throw new IllegalStateException("Node not found in internal structure '" + y + "'.");
+		}
 		status.getSuperObjectProperties(r2).forEach(r -> {
 			if (status.getExtendedOntology().getTransitiveObjectProperties().contains(r)) {
 				int rMinus = status.getInverseObjectPropertyOf(r);
@@ -101,9 +108,9 @@ public class CR7RExtRule implements RObserverRule {
 						int b = axiom.getSuperClass();
 						status.getSubObjectProperties(r).forEach(r1 -> {
 							int r1Minus = status.getInverseObjectPropertyOf(r1);
-							if (phiNode.containsExistential(r1Minus, a)) {
-								VNodeImpl newNode = new VNodeImpl(psiNode.getClassId());
-								newNode.addExistentialsOf(psiNode);
+							if (optPhiNode.get().containsExistential(r1Minus, a)) {
+								VNodeImpl newNode = new VNodeImpl(optPsiNode.get().getClassId());
+								newNode.addExistentialsOf(optPsiNode.get());
 								newNode.addExistential(rMinus, a);
 								boolean inV = status.contains(newNode);
 								int v = status.createOrGetNodeId(newNode);
