@@ -212,9 +212,9 @@ public class ConsoleStarter {
 	 *             if the ontology could not be created
 	 * @return <code>true</code> if and only if the given ontology is consistent
 	 */
-	public boolean checkConsistency(File ontologyFile) throws OWLOntologyCreationException {
+	public boolean checkConsistency(File ontologyFile, int startId) throws OWLOntologyCreationException {
 		Objects.requireNonNull(ontologyFile);
-		JcelReasoner reasoner = createReasoner(ontologyFile);
+		JcelReasoner reasoner = createReasoner(ontologyFile, startId);
 		OWLDataFactory dataFactory = reasoner.getRootOntology().getOWLOntologyManager().getOWLDataFactory();
 		boolean ret = !reasoner.getEquivalentClasses(dataFactory.getOWLThing()).contains(dataFactory.getOWLNothing());
 		return ret;
@@ -237,7 +237,7 @@ public class ConsoleStarter {
 	 * @return <code>true</code> if and only if the premise ontology entails the
 	 *         conclusion ontology
 	 */
-	public boolean checkEntailment(File premiseFile, File conclusionFile)
+	public boolean checkEntailment(File premiseFile, File conclusionFile, int startId)
 			throws OWLOntologyCreationException, OWLRendererException, FileNotFoundException {
 		Objects.requireNonNull(premiseFile);
 		Objects.requireNonNull(conclusionFile);
@@ -252,7 +252,7 @@ public class ConsoleStarter {
 		OWLOntology conclusionOntology = manager.loadOntologyFromOntologyDocument(conclusionFile);
 
 		logger.fine("starting reasoner ...");
-		JcelReasoner reasoner = new JcelReasoner(premiseOntology, false);
+		JcelReasoner reasoner = new JcelReasoner(premiseOntology, false, startId);
 
 		logger.fine("precomputing inferences ...");
 		reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
@@ -275,10 +275,10 @@ public class ConsoleStarter {
 	 * @return <code>true</code> if and only if the given concept is satisfiable
 	 *         with respect to the given ontology
 	 */
-	public boolean checkSatisfiability(File ontologyFile, IRI conceptIRI) throws OWLOntologyCreationException {
+	public boolean checkSatisfiability(File ontologyFile, IRI conceptIRI, int startId) throws OWLOntologyCreationException {
 		Objects.requireNonNull(ontologyFile);
 		Objects.requireNonNull(conceptIRI);
-		JcelReasoner reasoner = createReasoner(ontologyFile);
+		JcelReasoner reasoner = createReasoner(ontologyFile, startId);
 		OWLDataFactory dataFactory = reasoner.getRootOntology().getOWLOntologyManager().getOWLDataFactory();
 		boolean ret = !reasoner.getEquivalentClasses(dataFactory.getOWLClass(conceptIRI))
 				.contains(dataFactory.getOWLNothing());
@@ -302,11 +302,11 @@ public class ConsoleStarter {
 	 * @throws OWLRendererException
 	 *             if a renderer error occurs
 	 */
-	public void computeClassification(File ontologyFile, File inferredFile, AbstractOWLRenderer renderer)
+	public void computeClassification(File ontologyFile, File inferredFile, AbstractOWLRenderer renderer, int startId)
 			throws OWLOntologyCreationException, OWLRendererException, FileNotFoundException {
 		Objects.requireNonNull(ontologyFile);
 		Objects.requireNonNull(inferredFile);
-		JcelReasoner reasoner = createReasoner(ontologyFile);
+		JcelReasoner reasoner = createReasoner(ontologyFile, startId);
 
 		logger.fine("precomputing inferences ...");
 		reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
@@ -328,7 +328,7 @@ public class ConsoleStarter {
 	 * @throws OWLOntologyCreationException
 	 *             if the ontology could not be created
 	 */
-	public JcelReasoner createReasoner(File ontologyFile) throws OWLOntologyCreationException {
+	public JcelReasoner createReasoner(File ontologyFile, int startId) throws OWLOntologyCreationException {
 		Objects.requireNonNull(ontologyFile);
 		logger.fine("starting jcel console ...");
 
@@ -341,7 +341,7 @@ public class ConsoleStarter {
 
 		long wallClockTimeBeginning = (new Date()).getTime();
 
-		JcelReasoner ret = new JcelReasoner(ontology, false);
+		JcelReasoner ret = new JcelReasoner(ontology, false, startId);
 
 		long wallClockTimeMidPoint = (new Date()).getTime();
 
@@ -488,6 +488,7 @@ public class ConsoleStarter {
 				Level logLevel = Level.OFF;
 				IRI classIRI = null;
 				AbstractOWLRenderer renderer = null;
+				int startId = 6;
 
 				for (String argument : arguments) {
 
@@ -554,16 +555,16 @@ public class ConsoleStarter {
 
 					if (operation == Mode.CLASSIFICATION) {
 
-						computeClassification(ontologyFile, outputFile, renderer);
+						computeClassification(ontologyFile, outputFile, renderer, startId);
 
 					} else if (operation == Mode.SATISFIABILITY) {
 
-						storeInFile("" + classIRI.toString() + ", " + checkSatisfiability(ontologyFile, classIRI),
+						storeInFile("" + classIRI.toString() + ", " + checkSatisfiability(ontologyFile, classIRI, startId),
 								outputFile);
 
 					} else if (operation == Mode.CONSISTENCY) {
 
-						storeInFile("" + checkConsistency(ontologyFile), outputFile);
+						storeInFile("" + checkConsistency(ontologyFile, startId), outputFile);
 
 					} else if (operation == Mode.QUERY) {
 						throw new UnsupportedOperationException("Operation is not supported yet.");
@@ -573,7 +574,7 @@ public class ConsoleStarter {
 							throw new IllegalArgumentException("No conclusion file has been defined.");
 						}
 
-						storeInFile("" + checkEntailment(ontologyFile, conclusionFile), outputFile);
+						storeInFile("" + checkEntailment(ontologyFile, conclusionFile, startId), outputFile);
 
 					}
 

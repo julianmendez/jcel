@@ -106,7 +106,7 @@ public class TinyOntologyTest {
 	@Test
 	public void testTinyOntology0() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
-		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl(6);
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a = createNewClass(factory, "A");
@@ -145,7 +145,7 @@ public class TinyOntologyTest {
 	@Test
 	public void testTinyOntology1() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
-		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl(6);
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a = createNewClass(factory, "A");
@@ -189,7 +189,7 @@ public class TinyOntologyTest {
 	@Test
 	public void testTinyOntology2() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
-		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl(6);
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a = createNewClass(factory, "A");
@@ -227,7 +227,7 @@ public class TinyOntologyTest {
 	@Test
 	public void testTinyOntology3() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
-		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl(6);
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a = createNewClass(factory, "A");
@@ -270,7 +270,7 @@ public class TinyOntologyTest {
 	@Test
 	public void testTinyOntology4() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
-		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl(6);
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a = createNewClass(factory, "A");
@@ -317,7 +317,7 @@ public class TinyOntologyTest {
 	@Test
 	public void testTinyOntology5() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
-		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl(6);
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a1 = createNewClass(factory, "A1");

@@ -100,7 +100,7 @@ public class OntologyEntailmentCheckerTest {
 	@Test
 	public void testOntology0() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
-		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl(6);
 
 		Set<ComplexIntegerAxiom> ontology = new HashSet<>();
 		IntegerClass a = createNewClass(factory, "A");

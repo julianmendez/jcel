@@ -124,12 +124,12 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	 * @param buffering
 	 *            <code>true</code> if and only if the reasoner is buffering
 	 */
-	public JcelReasoner(OWLOntology rootOntology, boolean buffering) {
+	public JcelReasoner(OWLOntology rootOntology, boolean buffering, int startId) {
 		Objects.requireNonNull(rootOntology);
 		logger.fine("configuring jcel reasoner ...");
 		this.rootOntology = rootOntology;
 		this.translator = new Translator(rootOntology.getOWLOntologyManager().getOWLDataFactory(),
-				new IntegerOntologyObjectFactoryImpl());
+				new IntegerOntologyObjectFactoryImpl(startId));
 		this.rootOntology.getOWLOntologyManager().addOntologyChangeListener(this);
 		this.supportedAxiomTypes = getSupportedTypes();
 
@@ -149,8 +149,8 @@ public class JcelReasoner implements OWLReasoner, OWLOntologyChangeListener {
 	 * @param configuration
 	 *            reasoner configuration
 	 */
-	public JcelReasoner(OWLOntology rootOntology, boolean buffering, OWLReasonerConfiguration configuration) {
-		this(rootOntology, buffering);
+	public JcelReasoner(OWLOntology rootOntology, boolean buffering, OWLReasonerConfiguration configuration, int startId) {
+		this(rootOntology, buffering, startId);
 		Objects.requireNonNull(configuration);
 		this.reasonerConfiguration = configuration;
 	}

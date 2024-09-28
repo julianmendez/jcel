@@ -62,15 +62,18 @@ import de.tudresden.inf.lat.jcel.ontology.datatype.IntegerDataTypeFactoryImpl;
  */
 public class IntegerOntologyObjectFactoryImpl implements IntegerOntologyObjectFactory {
 
+	private int startId;
 	private final ComplexIntegerAxiomFactory complexAxiomFactory = new ComplexIntegerAxiomFactoryImpl();
 	private final IntegerDataTypeFactory dataTypeFactory = new IntegerDataTypeFactoryImpl();
-	private final IntegerEntityManager idGenerator = new IntegerEntityManagerImpl();
+	private IntegerEntityManager idGenerator = new IntegerEntityManagerImpl(startId);
 	private final NormalizedIntegerAxiomFactory normalizedAxiomFactory = new NormalizedIntegerAxiomFactoryImpl();
 
 	/**
 	 * Constructs a new ontology object factory.
 	 */
-	public IntegerOntologyObjectFactoryImpl() {
+	public IntegerOntologyObjectFactoryImpl(int startId) {
+		this.startId = startId;
+		this.idGenerator = new IntegerEntityManagerImpl(this.startId);
 	}
 
 	@Override
