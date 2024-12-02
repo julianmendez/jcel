@@ -73,22 +73,24 @@ public class IntegerEntityManagerImpl implements IntegerEntityManager {
 	private final Set<Integer> auxInverseObjectPropertySet = new HashSet<>();
 	private final OptMap<Integer, Integer> auxNominalInvMap = new OptMapImpl<>(new HashMap<>());
 	private final OptMap<Integer, Integer> auxNominalMap = new OptMapImpl<>(new HashMap<>());
-	private int entityCounter = firstUsableIdentifier;
+	// private int entityCounter = firstUsableIdentifier;
 	private final OptMap<Integer, IntegerEntityType> entityTypeMap = new OptMapImpl<>(new HashMap<>());
 	private final OptMap<Integer, Integer> inverseObjectPropertyMap = new OptMapImpl<>(new HashMap<>());
 	private final OptMap<Integer, String> nameMap = new OptMapImpl<>(new HashMap<>());
 	private final OptMap<IntegerEntityType, Set<Integer>> nonAuxEntityMap = new OptMapImpl<>(new HashMap<>());
+	private int entityCounter;
 
 	/**
 	 * Constructs a new identifier generator.
 	 */
-	public IntegerEntityManagerImpl() {
+	public IntegerEntityManagerImpl(int newStartIdentifier) {
 		registerProperty(bottomClassId, IntegerEntityType.CLASS, false);
 		registerProperty(topClassId, IntegerEntityType.CLASS, false);
 		registerProperty(bottomObjectPropertyId, IntegerEntityType.OBJECT_PROPERTY, false);
 		registerProperty(topObjectPropertyId, IntegerEntityType.OBJECT_PROPERTY, false);
 		registerProperty(bottomDataPropertyId, IntegerEntityType.DATA_PROPERTY, false);
 		registerProperty(topDataPropertyId, IntegerEntityType.DATA_PROPERTY, false);
+		this.entityCounter = newStartIdentifier;
 	}
 
 	@Override

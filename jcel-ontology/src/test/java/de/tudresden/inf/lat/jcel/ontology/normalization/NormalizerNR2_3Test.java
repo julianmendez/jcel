@@ -80,7 +80,7 @@ public class NormalizerNR2_3Test {
 	@Test
 	public void testRule() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
-		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl(20);
 		NormalizerNR2_3 normalizer = new NormalizerNR2_3(factory);
 
 		IntegerObjectProperty r = factory.getDataTypeFactory().createObjectProperty(

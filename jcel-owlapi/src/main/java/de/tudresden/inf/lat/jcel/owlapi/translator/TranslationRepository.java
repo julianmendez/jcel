@@ -46,9 +46,14 @@
 
 package de.tudresden.inf.lat.jcel.owlapi.translator;
 
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Optional;
+//import java.util.HashMap;
+//import java.util.Objects;
+//import java.util.Optional;
+
+import java.util.*;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
@@ -96,6 +101,13 @@ public class TranslationRepository {
 	private final OWLClass topClass;
 	private final OWLDataProperty topDataProperty;
 	private final OWLObjectProperty topObjectProperty;
+	private final Set<String> newClasses = new HashSet<>();
+	private final Set<String> newDataProperties = new HashSet<>();
+	// private final Set<String> newLiterals = new HashSet<>();
+	private final Set<String> newNamedIndividuals = new HashSet<>();
+	private final Set<String> newObjectProperties = new HashSet<>();
+	private final Set<String> newAnnotationProperties = new HashSet<>();
+	// private final Set<String> newAnnotationValues = new HashSet<>();
 
 	/**
 	 * Constructs a new translation repository.
@@ -358,7 +370,22 @@ public class TranslationRepository {
 		Objects.requireNonNull(index);
 		Optional<OWLClass> ret = this.classMap.get(index);
 		if (!ret.isPresent()) {
-			throw TranslationException.newIncompleteMapException(index.toString());
+			// throw TranslationException.newIncompleteMapException(index.toString());
+			while (true)
+			{
+				String randomClassPostfix = RandomStringUtils.randomAlphanumeric(5);
+				String prefix = "http://";
+				String randomClassName = prefix.concat(randomClassPostfix);
+				if (!newClasses.contains(randomClassName)) {
+					newClasses.add(randomClassName);
+					OWLDataFactory dataFactory = OWLManager.getOWLDataFactory();
+					OWLClass cls = dataFactory.getOWLClass(IRI.create(randomClassName));
+					this.classMap.put(index, cls);
+					this.classInvMap.put(cls, index);
+					Optional<OWLClass> ret2 = this.classMap.get(index);
+					return ret2.get();
+				}
+			}
 		}
 		return ret.get();
 	}
@@ -367,7 +394,22 @@ public class TranslationRepository {
 		Objects.requireNonNull(index);
 		Optional<OWLDataProperty> ret = this.dataPropertyMap.get(index);
 		if (!ret.isPresent()) {
-			throw TranslationException.newIncompleteMapException(index.toString());
+			// throw TranslationException.newIncompleteMapException(index.toString());
+			while (true)
+			{
+				String randomDataPostfix = RandomStringUtils.randomAlphanumeric(6);
+				String prefix = "http://";
+				String randomDataProperty = prefix.concat(randomDataPostfix);
+				if (!newDataProperties.contains(randomDataProperty)) {
+					newDataProperties.add(randomDataProperty);
+					OWLDataFactory dataFactory = OWLManager.getOWLDataFactory();
+					OWLDataProperty dpr = dataFactory.getOWLDataProperty(IRI.create(randomDataProperty));
+					this.dataPropertyMap.put(index, dpr);
+					this.dataPropertyInvMap.put(dpr, index);
+					Optional<OWLDataProperty> ret2 = this.dataPropertyMap.get(index);
+					return ret2.get();
+				}
+			}
 		}
 		return ret.get();
 	}
@@ -376,7 +418,22 @@ public class TranslationRepository {
 		Objects.requireNonNull(index);
 		Optional<OWLNamedIndividual> ret = this.individualMap.get(index);
 		if (!ret.isPresent()) {
-			throw TranslationException.newIncompleteMapException(index.toString());
+			// throw TranslationException.newIncompleteMapException(index.toString());
+			while (true)
+			{
+				String randomNamedIndividualPostfix = RandomStringUtils.randomAlphanumeric(7);
+				String prefix = "http://";
+				String randomNamedIndividual = prefix.concat(randomNamedIndividualPostfix);
+				if (!newNamedIndividuals.contains(randomNamedIndividual)) {
+					newNamedIndividuals.add(randomNamedIndividual);
+					OWLDataFactory dataFactory = OWLManager.getOWLDataFactory();
+					OWLNamedIndividual ni = dataFactory.getOWLNamedIndividual(IRI.create(randomNamedIndividual));
+					this.individualMap.put(index, ni);
+					this.individualInvMap.put(ni, index);
+					Optional<OWLNamedIndividual> ret2 = this.individualMap.get(index);
+					return ret2.get();
+				}
+			}
 		}
 		return ret.get();
 	}
@@ -385,7 +442,22 @@ public class TranslationRepository {
 		Objects.requireNonNull(index);
 		Optional<OWLObjectProperty> ret = this.objectPropertyMap.get(index);
 		if (!ret.isPresent()) {
-			throw TranslationException.newIncompleteMapException(index.toString());
+			// throw TranslationException.newIncompleteMapException(index.toString());
+			while (true)
+			{
+				String randomObjectPropertyPostfix = RandomStringUtils.randomAlphanumeric(8);
+				String prefix = "http://";
+				String randomObjectProperty = prefix.concat(randomObjectPropertyPostfix);
+				if (!newObjectProperties.contains(randomObjectProperty)) {
+					newObjectProperties.add(randomObjectProperty);
+					OWLDataFactory dataFactory = OWLManager.getOWLDataFactory();
+					OWLObjectProperty op = dataFactory.getOWLObjectProperty(IRI.create(randomObjectProperty));
+					this.objectPropertyMap.put(index, op);
+					this.objectPropertyInvMap.put(op, index);
+					Optional<OWLObjectProperty> ret2 = this.objectPropertyMap.get(index);
+					return ret2.get();
+				}
+			}
 		}
 		return ret.get();
 	}
@@ -394,7 +466,23 @@ public class TranslationRepository {
 		Objects.requireNonNull(index);
 		Optional<OWLAnnotationProperty> ret = this.annotationPropertyMap.get(index);
 		if (!ret.isPresent()) {
-			throw TranslationException.newIncompleteMapException(index.toString());
+			// throw TranslationException.newIncompleteMapException(index.toString());
+			while (true)
+			{
+				String randomAnnotationPropertyPostfix = RandomStringUtils.randomAlphanumeric(9);
+				String prefix = "http://";
+				String randomAnnotationProperty = prefix.concat(randomAnnotationPropertyPostfix);
+				if (!newAnnotationProperties.contains(randomAnnotationProperty)) {
+					newAnnotationProperties.add(randomAnnotationProperty);
+					OWLDataFactory dataFactory = OWLManager.getOWLDataFactory();
+					OWLAnnotationProperty ap = dataFactory.getOWLAnnotationProperty(IRI
+							.create(randomAnnotationProperty));
+					this.annotationPropertyMap.put(index, ap);
+					this.annotationPropertyInvMap.put(ap, index);
+					Optional<OWLAnnotationProperty> ret2 = this.annotationPropertyMap.get(index);
+					return ret2.get();
+				}
+			}
 		}
 		return ret.get();
 	}
