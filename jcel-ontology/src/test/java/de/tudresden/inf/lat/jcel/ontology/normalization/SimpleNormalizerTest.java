@@ -77,7 +77,7 @@ public class SimpleNormalizerTest {
 	@Test
 	public void testSimpleNormalizer() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
-		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl(20);
 		SimpleNormalizer normalizer = new SimpleNormalizer(factory);
 
 		int classAId = factory.getEntityManager().createNamedEntity(IntegerEntityType.CLASS, "a", false);

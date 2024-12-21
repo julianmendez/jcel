@@ -118,7 +118,7 @@ public class TinyOntologyTest {
 	public void testTinyOntology0() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
 		NormalizedIntegerAxiomFactoryImpl factory = new NormalizedIntegerAxiomFactoryImpl();
-		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
+		IntegerEntityManager entityManager = new IntegerEntityManagerImpl(6);
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<>();
 		Integer a = createNewClass(entityManager, "A");
 		Integer b = createNewClass(entityManager, "B");
@@ -161,7 +161,7 @@ public class TinyOntologyTest {
 	public void testTinyOntology1() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
 		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
-		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
+		IntegerEntityManager entityManager = new IntegerEntityManagerImpl(6);
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<>();
 		Integer r = createNewObjectProperty(entityManager, "r");
 		Integer a = createNewClass(entityManager, "A");
@@ -207,7 +207,7 @@ public class TinyOntologyTest {
 	public void testTinyOntology2() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
 		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
-		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
+		IntegerEntityManager entityManager = new IntegerEntityManagerImpl(6);
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<>();
 		Integer a = createNewClass(entityManager, "A");
 		Integer b = createNewClass(entityManager, "B");
@@ -248,7 +248,7 @@ public class TinyOntologyTest {
 	public void testTinyOntology3() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
 		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
-		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
+		IntegerEntityManager entityManager = new IntegerEntityManagerImpl(6);
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<>();
 		Integer top = IntegerEntityManager.topClassId;
 		Integer a = createNewClass(entityManager, "A");
@@ -308,7 +308,7 @@ public class TinyOntologyTest {
 	public void testTinyOntology4() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
 		NormalizedIntegerAxiomFactory factory = new NormalizedIntegerAxiomFactoryImpl();
-		IntegerEntityManager entityManager = new IntegerEntityManagerImpl();
+		IntegerEntityManager entityManager = new IntegerEntityManagerImpl(6);
 		Set<NormalizedIntegerAxiom> ontology = new HashSet<>();
 		Integer bottom = IntegerEntityManager.bottomClassId;
 		Integer a = createNewClass(entityManager, "A");

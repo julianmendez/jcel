@@ -76,7 +76,7 @@ public class NormalizerNR1_5Test {
 	@Test
 	public void testUsingClasses() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
-		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl(20);
 		NormalizerNR1_5 normalizer = new NormalizerNR1_5(factory);
 
 		IntegerClass c = factory.getDataTypeFactory()
@@ -107,7 +107,7 @@ public class NormalizerNR1_5Test {
 	@Test
 	public void testUsingClassExpressions() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
-		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl(20);
 		NormalizerNR1_5 normalizer = new NormalizerNR1_5(factory);
 
 		IntegerObjectProperty r = factory.getDataTypeFactory().createObjectProperty(
