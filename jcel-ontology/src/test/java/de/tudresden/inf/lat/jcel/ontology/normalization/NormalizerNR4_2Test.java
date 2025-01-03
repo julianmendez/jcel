@@ -74,7 +74,7 @@ public class NormalizerNR4_2Test {
 	@Test
 	public void testRule() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
-		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl(20);
 		NormalizerNR4_2 normalizer = new NormalizerNR4_2(factory);
 
 		int indivAId = factory.getEntityManager().createNamedEntity(IntegerEntityType.INDIVIDUAL, "a", false);

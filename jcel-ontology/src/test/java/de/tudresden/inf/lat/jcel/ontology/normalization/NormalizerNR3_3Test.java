@@ -89,7 +89,7 @@ public class NormalizerNR3_3Test {
 	@Test
 	public void testRule() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
-		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl(20);
 		NormalizerNR3_3 normalizer = new NormalizerNR3_3(factory);
 
 		IntegerObjectProperty r = factory.getDataTypeFactory().createObjectProperty(
