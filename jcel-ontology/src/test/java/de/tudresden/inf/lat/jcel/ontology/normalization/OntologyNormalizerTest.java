@@ -90,7 +90,7 @@ public class OntologyNormalizerTest {
 	@Test
 	public void testGCI3InverseObjectProperties() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
-		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl(20);
 
 		IntegerClass a = createNewClass(factory, "A");
 		IntegerClass b = createNewClass(factory, "B");
@@ -117,7 +117,7 @@ public class OntologyNormalizerTest {
 	@Test
 	public void testGCI3ObjectInverseOf() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
-		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl(20);
 
 		IntegerClass a = createNewClass(factory, "A");
 		IntegerClass b = createNewClass(factory, "B");
