@@ -51,7 +51,7 @@ package de.tudresden.inf.lat.jcel.owlapi.translator;
 //import java.util.Optional;
 
 import java.util.*;
-import org.apache.commons.lang3.RandomStringUtils;
+// import org.apache.commons.lang3.RandomStringUtils;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 
@@ -373,7 +373,8 @@ public class TranslationRepository {
 			// throw TranslationException.newIncompleteMapException(index.toString());
 			while (true)
 			{
-				String randomClassPostfix = RandomStringUtils.randomAlphanumeric(5);
+				// String randomClassPostfix = RandomStringUtils.randomAlphanumeric(5);
+				String randomClassPostfix = String.valueOf(index);
 				String prefix = "http://";
 				String randomClassName = prefix.concat(randomClassPostfix);
 				if (!newClasses.contains(randomClassName)) {
@@ -397,7 +398,8 @@ public class TranslationRepository {
 			// throw TranslationException.newIncompleteMapException(index.toString());
 			while (true)
 			{
-				String randomDataPostfix = RandomStringUtils.randomAlphanumeric(6);
+				// String randomDataPostfix = RandomStringUtils.randomAlphanumeric(6);
+				String randomDataPostfix = String.valueOf(index);
 				String prefix = "http://";
 				String randomDataProperty = prefix.concat(randomDataPostfix);
 				if (!newDataProperties.contains(randomDataProperty)) {
@@ -421,7 +423,8 @@ public class TranslationRepository {
 			// throw TranslationException.newIncompleteMapException(index.toString());
 			while (true)
 			{
-				String randomNamedIndividualPostfix = RandomStringUtils.randomAlphanumeric(7);
+				// String randomNamedIndividualPostfix = RandomStringUtils.randomAlphanumeric(7);
+				String randomNamedIndividualPostfix = String.valueOf(index);
 				String prefix = "http://";
 				String randomNamedIndividual = prefix.concat(randomNamedIndividualPostfix);
 				if (!newNamedIndividuals.contains(randomNamedIndividual)) {
@@ -445,7 +448,8 @@ public class TranslationRepository {
 			// throw TranslationException.newIncompleteMapException(index.toString());
 			while (true)
 			{
-				String randomObjectPropertyPostfix = RandomStringUtils.randomAlphanumeric(8);
+				// String randomObjectPropertyPostfix = RandomStringUtils.randomAlphanumeric(8);
+				String randomObjectPropertyPostfix = String.valueOf(index);
 				String prefix = "http://";
 				String randomObjectProperty = prefix.concat(randomObjectPropertyPostfix);
 				if (!newObjectProperties.contains(randomObjectProperty)) {
@@ -469,7 +473,8 @@ public class TranslationRepository {
 			// throw TranslationException.newIncompleteMapException(index.toString());
 			while (true)
 			{
-				String randomAnnotationPropertyPostfix = RandomStringUtils.randomAlphanumeric(9);
+				// String randomAnnotationPropertyPostfix = RandomStringUtils.randomAlphanumeric(9);
+				String randomAnnotationPropertyPostfix = String.valueOf(index);
 				String prefix = "http://";
 				String randomAnnotationProperty = prefix.concat(randomAnnotationPropertyPostfix);
 				if (!newAnnotationProperties.contains(randomAnnotationProperty)) {
