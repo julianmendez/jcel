@@ -50,8 +50,11 @@ import java.util.Objects;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.reasoner.IllegalConfigurationException;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+
+import javax.annotation.Nonnull;
 
 /**
  * This factory creates an instance of a jcel reasoner based on an ontology and
@@ -64,37 +67,61 @@ public class JcelReasonerFactory implements OWLReasonerFactory {
 	// private static final Logger logger = Logger
 	// .getLogger("de.tudresden.inf.lat.jcel");
 
-	@Override
-	public JcelReasoner createNonBufferingReasoner(OWLOntology ontology) {
+	// @Override
+	public JcelReasoner createNonBufferingReasoner(OWLOntology ontology, int startId) {
 		Objects.requireNonNull(ontology);
-		return new JcelReasoner(ontology, false);
+		return new JcelReasoner(ontology, false, startId);
 	}
 
-	@Override
-	public JcelReasoner createNonBufferingReasoner(OWLOntology ontology, OWLReasonerConfiguration configuration)
+	// @Override
+	public JcelReasoner createNonBufferingReasoner(OWLOntology ontology, int startId, OWLReasonerConfiguration configuration)
 			throws IllegalConfigurationException {
 		Objects.requireNonNull(ontology);
 		Objects.requireNonNull(configuration);
-		return new JcelReasoner(ontology, false, configuration);
+		return new JcelReasoner(ontology, false, configuration, startId);
 	}
 
-	@Override
-	public JcelReasoner createReasoner(OWLOntology ontology) {
+	// @Override
+	public JcelReasoner createReasoner(OWLOntology ontology, int startId) {
 		Objects.requireNonNull(ontology);
-		return new JcelReasoner(ontology, true);
+		return new JcelReasoner(ontology, true, startId);
 	}
 
-	@Override
-	public JcelReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration configuration)
+	// @Override
+	public JcelReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration configuration, int startId)
 			throws IllegalConfigurationException {
 		Objects.requireNonNull(ontology);
 		Objects.requireNonNull(configuration);
-		return new JcelReasoner(ontology, true, configuration);
+		return new JcelReasoner(ontology, true, configuration, startId);
 	}
 
 	@Override
 	public String getReasonerName() {
 		return getClass().getPackage().getImplementationTitle();
+	}
+
+	@Nonnull
+	@Override
+	public OWLReasoner createNonBufferingReasoner(@Nonnull OWLOntology owlOntology) {
+		return null;
+	}
+
+	@Nonnull
+	@Override
+	public OWLReasoner createReasoner(@Nonnull OWLOntology owlOntology) {
+		return null;
+	}
+
+	@Nonnull
+	@Override
+	public OWLReasoner createNonBufferingReasoner(@Nonnull OWLOntology owlOntology, @Nonnull OWLReasonerConfiguration owlReasonerConfiguration) {
+		return null;
+	}
+
+	@Nonnull
+	@Override
+	public OWLReasoner createReasoner(@Nonnull OWLOntology owlOntology, @Nonnull OWLReasonerConfiguration owlReasonerConfiguration) {
+		return null;
 	}
 
 }
