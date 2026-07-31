@@ -126,7 +126,7 @@ public class TinyOntologyTest {
 
 		OWLOntology ontology = manager.createOntology(axiomSet);
 		JcelReasonerFactory reasonerFactory = new JcelReasonerFactory();
-		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
+		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology, 6);
 
 		Set<OWLClass> superClassesOfA = flatten(reasoner.getSuperClasses(a, false));
 		Assertions.assertTrue(superClassesOfA.contains(c));
@@ -173,7 +173,7 @@ public class TinyOntologyTest {
 
 		OWLOntology ontology = manager.createOntology(axiomSet);
 		JcelReasonerFactory reasonerFactory = new JcelReasonerFactory();
-		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
+		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology, 6);
 
 		Set<OWLClass> superClassesOfA = flatten(reasoner.getSuperClasses(a, false));
 		Assertions.assertTrue(superClassesOfA.contains(c));
@@ -214,7 +214,7 @@ public class TinyOntologyTest {
 
 		OWLOntology ontology = manager.createOntology(axiomSet);
 		JcelReasonerFactory reasonerFactory = new JcelReasonerFactory();
-		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
+		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology, 6);
 
 		Set<OWLClass> equivalentsOfA = reasoner.getEquivalentClasses(a).getEntities();
 		Assertions.assertTrue(equivalentsOfA.contains(b));
@@ -256,7 +256,7 @@ public class TinyOntologyTest {
 
 		OWLOntology ontology = manager.createOntology(axiomSet);
 		JcelReasonerFactory reasonerFactory = new JcelReasonerFactory();
-		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
+		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology, 6);
 
 		Set<OWLClass> equivalentsOfA = reasoner.getEquivalentClasses(a).getEntities();
 		Assertions.assertTrue(equivalentsOfA.contains(b));
@@ -302,7 +302,7 @@ public class TinyOntologyTest {
 
 		OWLOntology ontology = manager.createOntology(axiomSet);
 		JcelReasonerFactory reasonerFactory = new JcelReasonerFactory();
-		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
+		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology, 6);
 
 		Set<OWLClass> equivalentsOfA = reasoner.getEquivalentClasses(a).getEntities();
 		Assertions.assertTrue(equivalentsOfA.contains(b));
@@ -397,7 +397,7 @@ public class TinyOntologyTest {
 
 		OWLOntology ontology = manager.createOntology(axiomSet);
 		JcelReasonerFactory reasonerFactory = new JcelReasonerFactory();
-		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
+		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology, 6);
 
 		Set<OWLClass> equivToC = reasoner.getEquivalentClasses(c).getEntities();
 		Assertions.assertTrue(equivToC.contains(d));
@@ -441,7 +441,7 @@ public class TinyOntologyTest {
 
 		OWLOntology ontology = manager.createOntology(axiomSet);
 		JcelReasonerFactory reasonerFactory = new JcelReasonerFactory();
-		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
+		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology, 6);
 
 		Set<OWLClass> equivalentsOfA = reasoner.getEquivalentClasses(a).getEntities();
 		Assertions.assertTrue(equivalentsOfA.contains(b));
@@ -509,7 +509,7 @@ public class TinyOntologyTest {
 
 		OWLOntology ontology = manager.createOntology(axiomSet);
 		JcelReasonerFactory reasonerFactory = new JcelReasonerFactory();
-		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
+		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology, 6);
 
 		Set<OWLClass> elementsToTest = new TreeSet<>();
 		elementsToTest.add(a);
@@ -554,7 +554,7 @@ public class TinyOntologyTest {
 
 		OWLOntology ontology = manager.createOntology(axiomSet);
 		JcelReasonerFactory reasonerFactory = new JcelReasonerFactory();
-		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
+		OWLReasoner reasoner = reasonerFactory.createReasoner(ontology, 6);
 		Set<OWLClass> expectedSet = new HashSet<>();
 		expectedSet.add(ab);
 		Node<OWLClass> expected = new OWLClassNode(expectedSet);

@@ -81,7 +81,7 @@ public class NormalizerNR2_1Test {
 	@Test
 	public void testRule() {
 		Set<IntegerAnnotation> annotations = new TreeSet<>();
-		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl();
+		IntegerOntologyObjectFactory factory = new IntegerOntologyObjectFactoryImpl(20);
 		NormalizerNR2_1 normalizer = new NormalizerNR2_1(factory);
 
 		IntegerObjectProperty r1 = factory.getDataTypeFactory().createObjectProperty(
